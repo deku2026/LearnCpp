@@ -31,17 +31,27 @@ LEARN_TOPIC("part2/stage01/section01/main_and_program_structure", run);
 `main()` 把命令行参数转给 registry 调度，**等同于直接进入那个 topic 的 `int main(int, char**)`**。
 
 ```pwsh
-# 列出所有 topic
+# Debug build 无参 = 遍历全部 874 个 topic (F5 from IDE 用这条)
 build\windows-debug\bin\learn_cpp.exe
 
-# 跑某个 topic
+# Release/ci build 无参 = 列出全部 topic
+build\windows-ci\bin\learn_cpp.exe
+
+# 任意 build 跑某个 topic
 build\windows-debug\bin\learn_cpp.exe part2/stage01/section01/main_and_program_structure
 
 # 透传额外参数
 build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra args
 ```
 
-调试时：IDE 的 launch profile 里把 args 设成那串 topic id，F5 直接命中 `run()` 里的断点。
+「无参」行为按 `NDEBUG` 宏分支:
+
+- **Debug build** (`windows-debug`, `CMAKE_BUILD_TYPE=Debug`, 不定义 `NDEBUG`):
+  无参时 registry 遍历全 map, 顺序调用每个 `run()`. IDE 里 F5 不用配 args, 任何 topic 里下的断点都会命中.
+- **Release / RelWithDebInfo** (`*-release` / `*-ci`, 定义 `NDEBUG`):
+  无参时只列出已注册 topic — 手动 pick.
+
+调试时: IDE 的 launch profile 用 Debug build, 直接 F5; 或显式把 args 设成 topic id, F5 命中那一个 `run()` 里的断点.
 
 ## 关键路径
 
