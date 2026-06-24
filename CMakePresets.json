@@ -1,0 +1,182 @@
+{
+  "version": 9,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "LEARNCPP_BUILD_TESTS": "ON",
+        "LEARNCPP_USE_SCCACHE": "ON",
+        "LEARNCPP_WERROR": "OFF"
+      },
+      "warnings": {
+        "dev": false
+      }
+    },
+
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_MSVC_DEBUG_INFORMATION_FORMAT": "Embedded"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows x64 Debug (clang-cl + Ninja + sccache)",
+      "description": "Run from a 'vcvars64' developer prompt (or scripts/dev-shell.cmd).",
+      "inherits": ["windows-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows x64 Release",
+      "inherits": ["windows-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "windows-ci",
+      "displayName": "Windows CI (clang-cl, -Werror)",
+      "inherits": ["windows-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      }
+    },
+
+    {
+      "name": "linux-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "linux-debug",
+      "displayName": "Linux x64 Debug (clang + Ninja + sccache)",
+      "inherits": ["linux-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-release",
+      "displayName": "Linux x64 Release",
+      "inherits": ["linux-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-ci",
+      "displayName": "Linux CI (clang, -Werror, UBSan in tests)",
+      "inherits": ["linux-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON",
+        "LEARNCPP_ENABLE_UBSAN": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      }
+    },
+
+    {
+      "name": "macos-base",
+      "hidden": true,
+      "inherits": ["base"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"
+      }
+    },
+    {
+      "name": "macos-debug",
+      "displayName": "macOS Debug (clang + Ninja + sccache)",
+      "inherits": ["macos-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "macos-release",
+      "displayName": "macOS Release",
+      "inherits": ["macos-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "macos-ci",
+      "displayName": "macOS CI (clang, -Werror)",
+      "inherits": ["macos-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      }
+    }
+  ],
+
+  "buildPresets": [
+    { "name": "windows-debug",   "configurePreset": "windows-debug",   "targets": ["all"] },
+    { "name": "windows-release", "configurePreset": "windows-release", "targets": ["all"] },
+    { "name": "windows-ci",      "configurePreset": "windows-ci",      "targets": ["all"] },
+    { "name": "linux-debug",     "configurePreset": "linux-debug",     "targets": ["all"] },
+    { "name": "linux-release",   "configurePreset": "linux-release",   "targets": ["all"] },
+    { "name": "linux-ci",        "configurePreset": "linux-ci",        "targets": ["all"] },
+    { "name": "macos-debug",     "configurePreset": "macos-debug",     "targets": ["all"] },
+    { "name": "macos-release",   "configurePreset": "macos-release",   "targets": ["all"] },
+    { "name": "macos-ci",        "configurePreset": "macos-ci",        "targets": ["all"] }
+  ],
+
+  "testPresets": [
+    { "name": "windows-debug", "configurePreset": "windows-debug", "output": { "outputOnFailure": true } },
+    { "name": "windows-ci",    "configurePreset": "windows-ci",    "output": { "outputOnFailure": true } },
+    { "name": "linux-debug",   "configurePreset": "linux-debug",   "output": { "outputOnFailure": true } },
+    { "name": "linux-ci",      "configurePreset": "linux-ci",      "output": { "outputOnFailure": true } },
+    { "name": "macos-debug",   "configurePreset": "macos-debug",   "output": { "outputOnFailure": true } },
+    { "name": "macos-ci",      "configurePreset": "macos-ci",      "output": { "outputOnFailure": true } }
+  ]
+}

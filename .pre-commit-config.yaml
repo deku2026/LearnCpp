@@ -1,0 +1,50 @@
+default_language_version:
+  python: python3
+
+exclude: |
+  (?x)^(
+    artifacts/.*|
+    build/.*|
+    dist/.*|
+    out/.*|
+    \.cache/.*
+  )$
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: \.(bat|cmd|ps1)$
+      - id: check-added-large-files
+        args: [--maxkb=2048]
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: check-executables-have-shebangs
+        exclude: (?i)\.(txt|md|yaml|yml|ignore)$|^\.clang-tidy$
+      - id: check-shebang-scripts-are-executable
+        exclude: \.sh$
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.2
+    hooks:
+      - id: codespell
+        additional_dependencies: [tomli]
+        args: [-I, .codespell-ignore]
+
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v22.1.4
+    hooks:
+      - id: clang-format
+        files: \.(c|h|cpp|hpp|cc|hh|cxx|hxx|ipp|tpp|inc)$
+        types_or: [c++, c]
+
+  # clang-tidy is not wired into pre-commit: with ~880 placeholder TUs the hook
+  # takes too long to be a useful pre-push gate. Run it on demand instead via
+  # `cmake --preset windows-debug -DLEARNCPP_ENABLE_CLANG_TIDY=ON`, which makes
+  # the CMake build apply clang-tidy per-target during compilation.

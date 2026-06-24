@@ -1,0 +1,22 @@
+# https://clangd.llvm.org/config
+---
+CompileFlags:
+  CompilationDatabase: build
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+---
+If:
+  PathMatch: .*\.(h|hh|hpp|hxx|inc|ipp|tpp)
+CompileFlags:
+  Add:
+    - -Wno-unneeded-internal-declaration
+    - -Wno-unused-const-variable
+    - -Wno-unused-function
+    - -Wno-unused-variable
+---
+If:
+  PathMatch: (build|dist|out|artifacts|\.cache)/.*
+Diagnostics:
+  Suppress: "*"

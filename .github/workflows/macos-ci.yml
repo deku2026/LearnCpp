@@ -1,0 +1,97 @@
+name: macOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  SCCACHE_DIR: ${{ github.workspace }}/.sccache
+  SCCACHE_CACHE_SIZE: 2G
+  CMAKE_C_COMPILER_LAUNCHER: sccache
+  CMAKE_CXX_COMPILER_LAUNCHER: sccache
+
+jobs:
+  build:
+    name: macOS (apple-clang + ninja + sccache)
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install CMake + Ninja
+        uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: "3.31.6"
+          ninjaVersion: latest
+
+      - name: Install LLVM (clang-format, clang-tidy)
+        run: |
+          set -euo pipefail
+          brew install llvm@19
+          echo "$(brew --prefix llvm@19)/bin" >> "$GITHUB_PATH"
+
+      - name: Install sccache
+        uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Restore sccache cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.SCCACHE_DIR }}
+          key: sccache-macos-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-${{ github.sha }}
+          restore-keys: |
+            sccache-macos-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-
+            sccache-macos-
+
+      - name: Verify tools
+        run: |
+          clang --version
+          clang++ --version
+          cmake --version | head -n 1
+          ninja --version
+          sccache --version
+
+      - name: Configure
+        env:
+          CC: clang
+          CXX: clang++
+        run: cmake --preset macos-ci
+
+      - name: Build
+        run: cmake --build --preset macos-ci
+
+      - name: Test
+        run: ctest --preset macos-ci
+
+      - name: sccache stats
+        if: always()
+        run: sccache --show-stats
+
+      - name: Install pre-commit (pipx, PEP 668 safe)
+        run: |
+          set -euo pipefail
+          # macos-14 ships Python 3.13 as externally-managed; use pipx (preinstalled) so pip won't refuse.
+          if ! command -v pipx >/dev/null 2>&1; then
+            brew install pipx
+            pipx ensurepath
+          fi
+          pipx install pre-commit
+          # pipx puts shims under ~/.local/bin
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure --color=always

@@ -1,0 +1,95 @@
+name: Linux CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  SCCACHE_DIR: ${{ github.workspace }}/.sccache
+  SCCACHE_CACHE_SIZE: 2G
+  CMAKE_C_COMPILER_LAUNCHER: sccache
+  CMAKE_CXX_COMPILER_LAUNCHER: sccache
+
+jobs:
+  build:
+    name: Linux x64 (clang + ninja + sccache)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install clang 19 + ninja
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            clang-19 clang-tidy-19 clang-format-19 lld-19 ninja-build python3-pip
+          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
+          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
+          sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
+          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
+
+      - name: Install CMake 3.31
+        uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: "3.31.6"
+          ninjaVersion: latest
+
+      - name: Install sccache
+        uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Restore sccache cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.SCCACHE_DIR }}
+          key: sccache-linux-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-${{ github.sha }}
+          restore-keys: |
+            sccache-linux-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-
+            sccache-linux-
+
+      - name: Verify tools
+        run: |
+          clang --version
+          clang++ --version
+          cmake --version | head -n 1
+          ninja --version
+          sccache --version
+
+      - name: Configure
+        env:
+          CC: clang
+          CXX: clang++
+        run: cmake --preset linux-ci
+
+      - name: Build
+        run: cmake --build --preset linux-ci
+
+      - name: Test
+        run: ctest --preset linux-ci
+
+      - name: sccache stats
+        if: always()
+        run: sccache --show-stats
+
+      - name: Install pre-commit
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure --color=always
