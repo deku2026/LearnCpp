@@ -39,11 +39,20 @@ jobs:
           cmakeVersion: "3.31.6"
           ninjaVersion: latest
 
-      - name: Install LLVM (clang-format, clang-tidy)
+      - name: Install LLVM 22 (clang, clang-format, clang-tidy)
+        # Target clang 22 to match local clang-cl 22.1.3. brew's llvm@22 should exist; if not,
+        # fall back to the unversioned 'llvm' formula (which tracks latest, expected to be 22.x).
         run: |
           set -euo pipefail
-          brew install llvm@19
-          echo "$(brew --prefix llvm@19)/bin" >> "$GITHUB_PATH"
+          if brew install llvm@22 2>/dev/null; then
+            llvm_prefix=$(brew --prefix llvm@22)
+          else
+            echo "llvm@22 formula not available, falling back to default llvm"
+            brew install llvm
+            llvm_prefix=$(brew --prefix llvm)
+          fi
+          echo "${llvm_prefix}/bin" >> "$GITHUB_PATH"
+          "${llvm_prefix}/bin/clang" --version | head -1
 
       - name: Install sccache
         uses: mozilla-actions/sccache-action@v0.0.10

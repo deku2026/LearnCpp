@@ -108,8 +108,9 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 - C++ 标准: **C++23** (`set(CMAKE_CXX_STANDARD 23)`, `/std:c++latest`).
 - 编译器目标:
   - **Windows 本机**: VS2026 Dev Prompt 18.x + clang-cl 22.1.3 + MSVC STL.
-  - **Linux**: clang/clang++ (apt clang-19+).
-  - **macOS**: clang/clang++ (Homebrew llvm@19+ 或系统 Apple clang).
+  - **Linux**: clang/clang++ 22 (CI 走 apt.llvm.org 装 clang-22, 锁主版本).
+  - **macOS**: clang/clang++ 22 (CI 走 Homebrew llvm@22, 锁主版本).
+  - **Windows CI**: 用 `windows-2022` runner 自带 LLVM (~20.x, 不锁版本; 本地是 VS2026 自带 clang-cl 22.1.3, 跟 CI 不一致, 接受).
 - 构建系统: **CMake 3.28+** + **Ninja** + **sccache**.
 - CI: GitHub Actions 三套 workflow (`windows-ci.yml` / `linux-ci.yml` / `macos-ci.yml`),
   每条都 configure + build + smoke-run `learn_cpp` (列出 topic 数). **没有跑 gtest / ctest** —
