@@ -5,7 +5,6 @@ option(LEARNCPP_ENABLE_UBSAN "Enable undefined-behavior sanitizer (clang/gcc onl
 option(LEARNCPP_ENABLE_CLANG_TIDY "Run clang-tidy during the build." OFF)
 option(LEARNCPP_WERROR "Treat warnings as errors." OFF)
 option(LEARNCPP_USE_SCCACHE "Use sccache as the compiler launcher when available." ON)
-option(LEARNCPP_BUILD_TESTS "Build the GoogleTest-driven exercise harness." ON)
 
 project(LearnCpp LANGUAGES CXX)
 
@@ -13,7 +12,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 if(MSVC AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND DEFINED ENV{INCLUDE})
   set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES $ENV{INCLUDE})
@@ -30,57 +28,42 @@ include(StaticAnalysis)
 
 learncpp_enable_sccache()
 
-if(LEARNCPP_BUILD_TESTS)
-  enable_testing()
-  include(FetchGoogleTest)
-  learncpp_fetch_googletest()
-endif()
-
-# Every exercise lives under src/<stage>/<topic>/<small_item>.cpp.
-# GLOB_RECURSE + CONFIGURE_DEPENDS keeps Ninja honest about new files,
-# while still letting us add placeholders by just dropping a .cpp.
-file(GLOB_RECURSE LEARNCPP_EXERCISE_SOURCES
+# Every topic lives under src/<part>_<stage>/<section>/<item>.cpp and registers
+# itself through LEARN_TOPIC(). GLOB_RECURSE picks up new files between builds.
+file(GLOB_RECURSE LEARNCPP_SOURCES
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
   "${CMAKE_SOURCE_DIR}/src/*.cpp"
 )
-file(GLOB_RECURSE LEARNCPP_EXERCISE_HEADERS
+file(GLOB_RECURSE LEARNCPP_HEADERS
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
-  "${CMAKE_SOURCE_DIR}/src/*.h"
-  "${CMAKE_SOURCE_DIR}/src/*.hpp"
+  "${CMAKE_SOURCE_DIR}/include/*.hpp"
+  "${CMAKE_SOURCE_DIR}/include/*.h"
 )
 
-list(LENGTH LEARNCPP_EXERCISE_SOURCES LEARNCPP_EXERCISE_SOURCE_COUNT)
-message(STATUS "LearnCpp: collected ${LEARNCPP_EXERCISE_SOURCE_COUNT} exercise translation units under src/.")
+list(LENGTH LEARNCPP_SOURCES LEARNCPP_SOURCE_COUNT)
+message(STATUS "LearnCpp: collected ${LEARNCPP_SOURCE_COUNT} translation units under src/.")
 
-if(LEARNCPP_BUILD_TESTS)
-  add_executable(learn_cpp_tests
-    ${LEARNCPP_EXERCISE_SOURCES}
-    ${LEARNCPP_EXERCISE_HEADERS}
-  )
+add_executable(learn_cpp
+  ${LEARNCPP_SOURCES}
+  ${LEARNCPP_HEADERS}
+)
 
-  target_compile_features(learn_cpp_tests PRIVATE cxx_std_23)
-  target_include_directories(learn_cpp_tests PRIVATE "${CMAKE_SOURCE_DIR}/src")
-  target_link_libraries(learn_cpp_tests PRIVATE GTest::gtest GTest::gtest_main)
-  set_target_properties(learn_cpp_tests
-    PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-  )
-  learncpp_apply_warning_settings(learn_cpp_tests)
-  learncpp_enable_sanitizers(learn_cpp_tests)
-  learncpp_configure_static_analysis(learn_cpp_tests)
+target_compile_features(learn_cpp PRIVATE cxx_std_23)
+target_include_directories(learn_cpp PRIVATE "${CMAKE_SOURCE_DIR}/include")
+set_target_properties(learn_cpp PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+learncpp_apply_warning_settings(learn_cpp)
+learncpp_enable_sanitizers(learn_cpp)
+learncpp_configure_static_analysis(learn_cpp)
 
-  source_group(TREE "${CMAKE_SOURCE_DIR}/src"
-    PREFIX "Exercises"
-    FILES ${LEARNCPP_EXERCISE_SOURCES} ${LEARNCPP_EXERCISE_HEADERS})
-
-  include(GoogleTest)
-  gtest_discover_tests(learn_cpp_tests
-    PROPERTIES
-      LABELS "LearnCpp"
-      TIMEOUT 60
-  )
-endif()
+source_group(TREE "${CMAKE_SOURCE_DIR}/src"
+  PREFIX "Topics"
+  FILES ${LEARNCPP_SOURCES})
+source_group(TREE "${CMAKE_SOURCE_DIR}/include"
+  PREFIX "Headers"
+  FILES ${LEARNCPP_HEADERS})
 
 learncpp_enable_compile_commands_sync()

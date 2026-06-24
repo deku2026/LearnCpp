@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage02-type-system-value-category-deduction.md
-// Stage   : part2_stage02_type_system_value_category_deduction
-// Section : section03_const_constexpr_volatile
-// Item    : const_qualifier_pointer_reference
+// Doc      : part2-stage02-type-system-value-category-deduction.md
+// Stage    : part2_stage02_type_system_value_category_deduction
+// Section  : section03_const_constexpr_volatile
+// Item     : const_qualifier_pointer_reference
+// Topic id : part2/stage02/section03/const_qualifier_pointer_reference
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage02::section03 {
+namespace {
 
-TEST(part2_stage02_section03, const_qualifier_pointer_reference) {
-    GTEST_SKIP() << "todo: const_qualifier_pointer_reference";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage02::section03
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section03/const_qualifier_pointer_reference", run>;
+
+}  // namespace

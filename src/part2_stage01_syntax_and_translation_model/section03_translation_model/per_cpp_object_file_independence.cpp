@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage01-syntax-and-translation-model.md
-// Stage   : part2_stage01_syntax_and_translation_model
-// Section : section03_translation_model
-// Item    : per_cpp_object_file_independence
+// Doc      : part2-stage01-syntax-and-translation-model.md
+// Stage    : part2_stage01_syntax_and_translation_model
+// Section  : section03_translation_model
+// Item     : per_cpp_object_file_independence
+// Topic id : part2/stage01/section03/per_cpp_object_file_independence
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage01::section03 {
+namespace {
 
-TEST(part2_stage01_section03, per_cpp_object_file_independence) {
-    GTEST_SKIP() << "todo: per_cpp_object_file_independence";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage01::section03
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage01/section03/per_cpp_object_file_independence", run>;
+
+}  // namespace

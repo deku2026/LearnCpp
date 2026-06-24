@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section06_allocator_model
-// Item    : is_always_equal
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section06_allocator_model
+// Item     : is_always_equal
+// Topic id : part6/c/section06/is_always_equal
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section06 {
+namespace {
 
-TEST(part6_branch_c_section06, is_always_equal) {
-    GTEST_SKIP() << "todo: is_always_equal";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section06
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section06/is_always_equal", run>;
+
+}  // namespace

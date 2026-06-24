@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-d-name-lookup-overload-resolution.md
-// Stage   : part6_branch_d_name_lookup_overload_resolution
-// Section : section04_customization_points
-// Item    : cpo_customization_point_object
+// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// Stage    : part6_branch_d_name_lookup_overload_resolution
+// Section  : section04_customization_points
+// Item     : cpo_customization_point_object
+// Topic id : part6/d/section04/cpo_customization_point_object
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_d::section04 {
+namespace {
 
-TEST(part6_branch_d_section04, cpo_customization_point_object) {
-    GTEST_SKIP() << "todo: cpo_customization_point_object";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_d::section04
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section04/cpo_customization_point_object", run>;
+
+}  // namespace

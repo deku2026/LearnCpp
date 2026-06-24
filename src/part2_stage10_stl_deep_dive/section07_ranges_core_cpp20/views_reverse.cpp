@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section07_ranges_core_cpp20
-// Item    : views_reverse
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section07_ranges_core_cpp20
+// Item     : views_reverse
+// Topic id : part2/stage10/section07/views_reverse
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section07 {
+namespace {
 
-TEST(part2_stage10_section07, views_reverse) {
-    GTEST_SKIP() << "todo: views_reverse";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section07
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section07/views_reverse", run>;
+
+}  // namespace

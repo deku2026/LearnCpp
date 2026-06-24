@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section02_package_managers
-// Item    : cpm_lightweight
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section02_package_managers
+// Item     : cpm_lightweight
+// Topic id : part4/section02/cpm_lightweight
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section02 {
+namespace {
 
-TEST(part4_section02, cpm_lightweight) {
-    GTEST_SKIP() << "todo: cpm_lightweight";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section02/cpm_lightweight", run>;
+
+}  // namespace

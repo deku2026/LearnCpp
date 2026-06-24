@@ -13,7 +13,6 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "LEARNCPP_BUILD_TESTS": "ON",
         "LEARNCPP_USE_SCCACHE": "ON",
         "LEARNCPP_WERROR": "OFF"
       },
@@ -100,7 +99,7 @@
     },
     {
       "name": "linux-ci",
-      "displayName": "Linux CI (clang, -Werror, UBSan in tests)",
+      "displayName": "Linux CI (clang, -Werror, UBSan)",
       "inherits": ["linux-base"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
@@ -169,14 +168,5 @@
     { "name": "macos-debug",     "configurePreset": "macos-debug",     "targets": ["all"] },
     { "name": "macos-release",   "configurePreset": "macos-release",   "targets": ["all"] },
     { "name": "macos-ci",        "configurePreset": "macos-ci",        "targets": ["all"] }
-  ],
-
-  "testPresets": [
-    { "name": "windows-debug", "configurePreset": "windows-debug", "output": { "outputOnFailure": true } },
-    { "name": "windows-ci",    "configurePreset": "windows-ci",    "output": { "outputOnFailure": true } },
-    { "name": "linux-debug",   "configurePreset": "linux-debug",   "output": { "outputOnFailure": true } },
-    { "name": "linux-ci",      "configurePreset": "linux-ci",      "output": { "outputOnFailure": true } },
-    { "name": "macos-debug",   "configurePreset": "macos-debug",   "output": { "outputOnFailure": true } },
-    { "name": "macos-ci",      "configurePreset": "macos-ci",      "output": { "outputOnFailure": true } }
   ]
 }

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part3-standard-library-systematized.md
-// Stage   : part3_standard_library_systematized
-// Section : section01_text_and_strings
-// Item    : constexpr_to_chars_from_chars_cpp23
+// Doc      : part3-standard-library-systematized.md
+// Stage    : part3_standard_library_systematized
+// Section  : section01_text_and_strings
+// Item     : constexpr_to_chars_from_chars_cpp23
+// Topic id : part3/section01/constexpr_to_chars_from_chars_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part3::section01 {
+namespace {
 
-TEST(part3_section01, constexpr_to_chars_from_chars_cpp23) {
-    GTEST_SKIP() << "todo: constexpr_to_chars_from_chars_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part3::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section01/constexpr_to_chars_from_chars_cpp23", run>;
+
+}  // namespace

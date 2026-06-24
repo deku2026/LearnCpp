@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage06-templates-and-generics.md
-// Stage   : part2_stage06_templates_and_generics
-// Section : section05_concepts
-// Item    : requires_clause
+// Doc      : part2-stage06-templates-and-generics.md
+// Stage    : part2_stage06_templates_and_generics
+// Section  : section05_concepts
+// Item     : requires_clause
+// Topic id : part2/stage06/section05/requires_clause
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage06::section05 {
+namespace {
 
-TEST(part2_stage06_section05, requires_clause) {
-    GTEST_SKIP() << "todo: requires_clause";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage06::section05
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage06/section05/requires_clause", run>;
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage11-concurrency-and-threading.md
-// Stage   : part2_stage11_concurrency_and_threading
-// Section : section04_cancellation_and_coordination
-// Item    : graceful_shutdown
+// Doc      : part2-stage11-concurrency-and-threading.md
+// Stage    : part2_stage11_concurrency_and_threading
+// Section  : section04_cancellation_and_coordination
+// Item     : graceful_shutdown
+// Topic id : part2/stage11/section04/graceful_shutdown
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage11::section04 {
+namespace {
 
-TEST(part2_stage11_section04, graceful_shutdown) {
-    GTEST_SKIP() << "todo: graceful_shutdown";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage11::section04
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage11/section04/graceful_shutdown", run>;
+
+}  // namespace

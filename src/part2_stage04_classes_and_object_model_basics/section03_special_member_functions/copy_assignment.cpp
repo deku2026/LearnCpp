@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage04-classes-and-object-model-basics.md
-// Stage   : part2_stage04_classes_and_object_model_basics
-// Section : section03_special_member_functions
-// Item    : copy_assignment
+// Doc      : part2-stage04-classes-and-object-model-basics.md
+// Stage    : part2_stage04_classes_and_object_model_basics
+// Section  : section03_special_member_functions
+// Item     : copy_assignment
+// Topic id : part2/stage04/section03/copy_assignment
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage04::section03 {
+namespace {
 
-TEST(part2_stage04_section03, copy_assignment) {
-    GTEST_SKIP() << "todo: copy_assignment";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage04::section03
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage04/section03/copy_assignment", run>;
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-b-lifetime-and-ownership.md
-// Stage   : part6_branch_b_lifetime_and_ownership
-// Section : section02_temporary_lifetime
-// Item    : const_ref_extends_temporary
+// Doc      : part6-branch-b-lifetime-and-ownership.md
+// Stage    : part6_branch_b_lifetime_and_ownership
+// Section  : section02_temporary_lifetime
+// Item     : const_ref_extends_temporary
+// Topic id : part6/b/section02/const_ref_extends_temporary
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_b::section02 {
+namespace {
 
-TEST(part6_branch_b_section02, const_ref_extends_temporary) {
-    GTEST_SKIP() << "todo: const_ref_extends_temporary";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_b::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section02/const_ref_extends_temporary", run>;
+
+}  // namespace

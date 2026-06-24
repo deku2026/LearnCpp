@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-g-abi-compile-link-ub-performance.md
-// Stage   : part6_branch_g_abi_compile_link_ub_performance
-// Section : section02_compile_and_link_model
-// Item    : one_definition_rule_deep
+// Doc      : part6-branch-g-abi-compile-link-ub-performance.md
+// Stage    : part6_branch_g_abi_compile_link_ub_performance
+// Section  : section02_compile_and_link_model
+// Item     : one_definition_rule_deep
+// Topic id : part6/g/section02/one_definition_rule_deep
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_g::section02 {
+namespace {
 
-TEST(part6_branch_g_section02, one_definition_rule_deep) {
-    GTEST_SKIP() << "todo: one_definition_rule_deep";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_g::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section02/one_definition_rule_deep", run>;
+
+}  // namespace

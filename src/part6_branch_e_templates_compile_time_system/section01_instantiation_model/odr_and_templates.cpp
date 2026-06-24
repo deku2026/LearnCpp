@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section01_instantiation_model
-// Item    : odr_and_templates
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section01_instantiation_model
+// Item     : odr_and_templates
+// Topic id : part6/e/section01/odr_and_templates
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section01 {
+namespace {
 
-TEST(part6_branch_e_section01, odr_and_templates) {
-    GTEST_SKIP() << "todo: odr_and_templates";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/e/section01/odr_and_templates", run>;
+
+}  // namespace

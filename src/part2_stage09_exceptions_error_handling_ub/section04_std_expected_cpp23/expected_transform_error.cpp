@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage09-exceptions-error-handling-ub.md
-// Stage   : part2_stage09_exceptions_error_handling_ub
-// Section : section04_std_expected_cpp23
-// Item    : expected_transform_error
+// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Stage    : part2_stage09_exceptions_error_handling_ub
+// Section  : section04_std_expected_cpp23
+// Item     : expected_transform_error
+// Topic id : part2/stage09/section04/expected_transform_error
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage09::section04 {
+namespace {
 
-TEST(part2_stage09_section04, expected_transform_error) {
-    GTEST_SKIP() << "todo: expected_transform_error";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage09::section04
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section04/expected_transform_error", run>;
+
+}  // namespace

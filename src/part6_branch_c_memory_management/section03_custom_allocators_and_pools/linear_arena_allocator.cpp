@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section03_custom_allocators_and_pools
-// Item    : linear_arena_allocator
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section03_custom_allocators_and_pools
+// Item     : linear_arena_allocator
+// Topic id : part6/c/section03/linear_arena_allocator
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section03 {
+namespace {
 
-TEST(part6_branch_c_section03, linear_arena_allocator) {
-    GTEST_SKIP() << "todo: linear_arena_allocator";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section03
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section03/linear_arena_allocator", run>;
+
+}  // namespace

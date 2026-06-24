@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section04_testing
-// Item    : googletest_basics
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section04_testing
+// Item     : googletest_basics
+// Topic id : part4/section04/googletest_basics
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section04 {
+namespace {
 
-TEST(part4_section04, googletest_basics) {
-    GTEST_SKIP() << "todo: googletest_basics";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section04
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section04/googletest_basics", run>;
+
+}  // namespace

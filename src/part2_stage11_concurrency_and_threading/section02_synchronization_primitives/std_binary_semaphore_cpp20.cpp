@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage11-concurrency-and-threading.md
-// Stage   : part2_stage11_concurrency_and_threading
-// Section : section02_synchronization_primitives
-// Item    : std_binary_semaphore_cpp20
+// Doc      : part2-stage11-concurrency-and-threading.md
+// Stage    : part2_stage11_concurrency_and_threading
+// Section  : section02_synchronization_primitives
+// Item     : std_binary_semaphore_cpp20
+// Topic id : part2/stage11/section02/std_binary_semaphore_cpp20
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage11::section02 {
+namespace {
 
-TEST(part2_stage11_section02, std_binary_semaphore_cpp20) {
-    GTEST_SKIP() << "todo: std_binary_semaphore_cpp20";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage11::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage11/section02/std_binary_semaphore_cpp20", run>;
+
+}  // namespace

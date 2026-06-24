@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-a-object-model.md
-// Stage   : part6_branch_a_object_model
-// Section : section05_misc
-// Item    : member_pointers
+// Doc      : part6-branch-a-object-model.md
+// Stage    : part6_branch_a_object_model
+// Section  : section05_misc
+// Item     : member_pointers
+// Topic id : part6/a/section05/member_pointers
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_a::section05 {
+namespace {
 
-TEST(part6_branch_a_section05, member_pointers) {
-    GTEST_SKIP() << "todo: member_pointers";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_a::section05
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/a/section05/member_pointers", run>;
+
+}  // namespace

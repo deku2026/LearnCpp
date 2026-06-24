@@ -13,28 +13,35 @@
 ls src/part2_stage14_keywords_and_features_index
 ```
 
-子目录里的 `*.cpp` 是逐个小项的占位符 (`GTEST_SKIP()` 兜底). `module` 主体剔除,
-`import std` 例外保留在 `part4_engineering_system/section07_import_std_exception/`.
+每个 `*.cpp` 是一个独立占位 (空 `run(argc, argv)` 体), 通过 `learn::topic<id, run>` 变量模板注册到全局 registry,
+按需手填例子 — 就是 `int main(int, char**)` 的赤裸版本, 直接 `std::cout` / 抛异常 / 玩 argv, 别再让测试框架卡你.
 
 ## 一个占位的学习节奏
 
 1. 读 cppreference 对应页 (英文站第一手) + 路线图本节;
 2. 在 `godbolt.org` 看汇编, `cppinsights.io` 看编译器改写;
-3. 写最小例子, 把 `GTEST_SKIP()` 换成 `EXPECT_*` / `ASSERT_*` 断言;
-4. 跑该范围: `ctest --preset windows-debug --output-on-failure -R 'part2_stage14'`;
+3. 写最小例子, 把空 `run()` 填上真实代码 (`cout` 看输出, `assert` 卡边界, 抛异常验异常路径都可);
+4. 跑这一个 topic:
+   ```
+   build/windows-debug/bin/learn_cpp.exe part2/stage14/sectionNN/item_slug
+   ```
+   不带参数 `learn_cpp.exe` 会列出所有已注册 topic 方便挑;
 5. 留意 Qt / 旧 C++ 对照 + UB 边界, 用 ASan/UBSan/TSan 复查.
 
-## 测试命名约定
+## Topic 命名约定
 
-- `TEST(<stage_short>_<section_short>, <item>)`
-- 例如 `TEST(part2_stage01_section01, main_and_program_structure)`;
-- 在 gtest / ctest 输出里以 `partX_stageNN_sectionMM.<item>` 形式出现, 方便用 `--gtest_filter` 或 `ctest -R` 过滤.
+每个 `.cpp` 在 `learn::topic<...>` 里的 id 形如 `part2/stage14/sectionMM/<item_slug>`,
+跟文件路径一一对应, 例:
+```
+part2/stage14/section01/<item_slug>
+```
+没有重名风险 (registry 是 `std::map`, 重复会被静默丢掉, 自己留意).
 
 ## 添加新占位
 
 复制任意一份 `.cpp`, 改:
 - 文件名 -> 新的小项 slug;
-- 顶部 `Item    :` 注释;
-- `TEST(<stage_short>_<section_short>, <new_item>)` 里的 `<new_item>`.
+- 顶部 `Item    :` / `Topic id :` 注释里的 slug;
+- `learn::topic<"...", run>` 实例化里的 id 字符串.
 
-CMake `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")` 会在下次 `cmake --build` 时自动接上.
+CMake `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")` 在下次 `cmake --build` 自动接上, 不用动 CMakeLists.

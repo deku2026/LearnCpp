@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage05-copy-move-smart-pointers.md
-// Stage   : part2_stage05_copy_move_smart_pointers
-// Section : section02_perfect_forwarding
-// Item    : std_forward_usage
+// Doc      : part2-stage05-copy-move-smart-pointers.md
+// Stage    : part2_stage05_copy_move_smart_pointers
+// Section  : section02_perfect_forwarding
+// Item     : std_forward_usage
+// Topic id : part2/stage05/section02/std_forward_usage
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage05::section02 {
+namespace {
 
-TEST(part2_stage05_section02, std_forward_usage) {
-    GTEST_SKIP() << "todo: std_forward_usage";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage05::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage05/section02/std_forward_usage", run>;
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section05_algorithms
-// Item    : parallel_execution_policy_cpp17
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section05_algorithms
+// Item     : parallel_execution_policy_cpp17
+// Topic id : part2/stage10/section05/parallel_execution_policy_cpp17
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section05 {
+namespace {
 
-TEST(part2_stage10_section05, parallel_execution_policy_cpp17) {
-    GTEST_SKIP() << "todo: parallel_execution_policy_cpp17";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section05
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section05/parallel_execution_policy_cpp17", run>;
+
+}  // namespace

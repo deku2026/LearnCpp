@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage12-coroutines.md
-// Stage   : part2_stage12_coroutines
-// Section : section05_std_generator_cpp23
-// Item    : async_task_not_provided_by_std
+// Doc      : part2-stage12-coroutines.md
+// Stage    : part2_stage12_coroutines
+// Section  : section05_std_generator_cpp23
+// Item     : async_task_not_provided_by_std
+// Topic id : part2/stage12/section05/async_task_not_provided_by_std
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage12::section05 {
+namespace {
 
-TEST(part2_stage12_section05, async_task_not_provided_by_std) {
-    GTEST_SKIP() << "todo: async_task_not_provided_by_std";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage12::section05
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage12/section05/async_task_not_provided_by_std", run>;
+
+}  // namespace

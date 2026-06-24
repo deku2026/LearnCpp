@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section02_alignment
-// Item    : over_aligned_types
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section02_alignment
+// Item     : over_aligned_types
+// Topic id : part6/c/section02/over_aligned_types
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section02 {
+namespace {
 
-TEST(part6_branch_c_section02, over_aligned_types) {
-    GTEST_SKIP() << "todo: over_aligned_types";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section02
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section02/over_aligned_types", run>;
+
+}  // namespace

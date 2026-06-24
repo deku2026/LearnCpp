@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage05-copy-move-smart-pointers.md
-// Stage   : part2_stage05_copy_move_smart_pointers
-// Section : section01_copy_vs_move
-// Item    : valid_but_unspecified_state
+// Doc      : part2-stage05-copy-move-smart-pointers.md
+// Stage    : part2_stage05_copy_move_smart_pointers
+// Section  : section01_copy_vs_move
+// Item     : valid_but_unspecified_state
+// Topic id : part2/stage05/section01/valid_but_unspecified_state
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage05::section01 {
+namespace {
 
-TEST(part2_stage05_section01, valid_but_unspecified_state) {
-    GTEST_SKIP() << "todo: valid_but_unspecified_state";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage05::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage05/section01/valid_but_unspecified_state", run>;
+
+}  // namespace

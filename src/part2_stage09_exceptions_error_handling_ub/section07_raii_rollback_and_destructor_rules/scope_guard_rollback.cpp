@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage09-exceptions-error-handling-ub.md
-// Stage   : part2_stage09_exceptions_error_handling_ub
-// Section : section07_raii_rollback_and_destructor_rules
-// Item    : scope_guard_rollback
+// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Stage    : part2_stage09_exceptions_error_handling_ub
+// Section  : section07_raii_rollback_and_destructor_rules
+// Item     : scope_guard_rollback
+// Topic id : part2/stage09/section07/scope_guard_rollback
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage09::section07 {
+namespace {
 
-TEST(part2_stage09_section07, scope_guard_rollback) {
-    GTEST_SKIP() << "todo: scope_guard_rollback";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage09::section07
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section07/scope_guard_rollback", run>;
+
+}  // namespace

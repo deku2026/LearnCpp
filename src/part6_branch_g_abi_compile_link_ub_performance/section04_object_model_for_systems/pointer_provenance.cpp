@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-g-abi-compile-link-ub-performance.md
-// Stage   : part6_branch_g_abi_compile_link_ub_performance
-// Section : section04_object_model_for_systems
-// Item    : pointer_provenance
+// Doc      : part6-branch-g-abi-compile-link-ub-performance.md
+// Stage    : part6_branch_g_abi_compile_link_ub_performance
+// Section  : section04_object_model_for_systems
+// Item     : pointer_provenance
+// Topic id : part6/g/section04/pointer_provenance
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_g::section04 {
+namespace {
 
-TEST(part6_branch_g_section04, pointer_provenance) {
-    GTEST_SKIP() << "todo: pointer_provenance";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_g::section04
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section04/pointer_provenance", run>;
+
+}  // namespace

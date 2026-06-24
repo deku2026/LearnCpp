@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part3-standard-library-systematized.md
-// Stage   : part3_standard_library_systematized
-// Section : section03_utility_types_and_functional
-// Item    : std_visit_apply
+// Doc      : part3-standard-library-systematized.md
+// Stage    : part3_standard_library_systematized
+// Section  : section03_utility_types_and_functional
+// Item     : std_visit_apply
+// Topic id : part3/section03/std_visit_apply
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part3::section03 {
+namespace {
 
-TEST(part3_section03, std_visit_apply) {
-    GTEST_SKIP() << "todo: std_visit_apply";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part3::section03
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section03/std_visit_apply", run>;
+
+}  // namespace

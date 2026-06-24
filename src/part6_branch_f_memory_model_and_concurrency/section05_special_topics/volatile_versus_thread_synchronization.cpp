@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-f-memory-model-and-concurrency.md
-// Stage   : part6_branch_f_memory_model_and_concurrency
-// Section : section05_special_topics
-// Item    : volatile_versus_thread_synchronization
+// Doc      : part6-branch-f-memory-model-and-concurrency.md
+// Stage    : part6_branch_f_memory_model_and_concurrency
+// Section  : section05_special_topics
+// Item     : volatile_versus_thread_synchronization
+// Topic id : part6/f/section05/volatile_versus_thread_synchronization
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_f::section05 {
+namespace {
 
-TEST(part6_branch_f_section05, volatile_versus_thread_synchronization) {
-    GTEST_SKIP() << "todo: volatile_versus_thread_synchronization";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_f::section05
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/f/section05/volatile_versus_thread_synchronization", run>;
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage09-exceptions-error-handling-ub.md
-// Stage   : part2_stage09_exceptions_error_handling_ub
-// Section : section01_exception_mechanism
-// Item    : try_catch_throw_basics
+// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Stage    : part2_stage09_exceptions_error_handling_ub
+// Section  : section01_exception_mechanism
+// Item     : try_catch_throw_basics
+// Topic id : part2/stage09/section01/try_catch_throw_basics
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage09::section01 {
+namespace {
 
-TEST(part2_stage09_section01, try_catch_throw_basics) {
-    GTEST_SKIP() << "todo: try_catch_throw_basics";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage09::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section01/try_catch_throw_basics", run>;
+
+}  // namespace

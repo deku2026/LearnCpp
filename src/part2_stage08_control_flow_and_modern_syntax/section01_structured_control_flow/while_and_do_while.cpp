@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage08-control-flow-and-modern-syntax.md
-// Stage   : part2_stage08_control_flow_and_modern_syntax
-// Section : section01_structured_control_flow
-// Item    : while_and_do_while
+// Doc      : part2-stage08-control-flow-and-modern-syntax.md
+// Stage    : part2_stage08_control_flow_and_modern_syntax
+// Section  : section01_structured_control_flow
+// Item     : while_and_do_while
+// Topic id : part2/stage08/section01/while_and_do_while
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage08::section01 {
+namespace {
 
-TEST(part2_stage08_section01, while_and_do_while) {
-    GTEST_SKIP() << "todo: while_and_do_while";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage08::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage08/section01/while_and_do_while", run>;
+
+}  // namespace

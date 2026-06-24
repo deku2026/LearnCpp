@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-d-name-lookup-overload-resolution.md
-// Stage   : part6_branch_d_name_lookup_overload_resolution
-// Section : section01_name_lookup
-// Item    : adl_argument_dependent_lookup
+// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// Stage    : part6_branch_d_name_lookup_overload_resolution
+// Section  : section01_name_lookup
+// Item     : adl_argument_dependent_lookup
+// Topic id : part6/d/section01/adl_argument_dependent_lookup
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_d::section01 {
+namespace {
 
-TEST(part6_branch_d_section01, adl_argument_dependent_lookup) {
-    GTEST_SKIP() << "todo: adl_argument_dependent_lookup";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_d::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section01/adl_argument_dependent_lookup", run>;
+
+}  // namespace

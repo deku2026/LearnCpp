@@ -12,16 +12,14 @@ BreakAfterAttributes: Leave
 SortIncludes: true
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '^"learncpp/.*"'
+  - Regex: '^"learn/.*"'
     Priority: 0
-  - Regex: '^<gtest/.*>'
-    Priority: 1
   - Regex: '^<.*\.h>'
-    Priority: 2
+    Priority: 1
   - Regex: '^<.*>'
-    Priority: 3
+    Priority: 2
   - Regex: '.*'
-    Priority: 4
+    Priority: 3
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortLambdasOnASingleLine: All
 LambdaBodyIndentation: Signature

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage06-templates-and-generics.md
-// Stage   : part2_stage06_templates_and_generics
-// Section : section06_crtp
-// Item    : crtp_inject_behavior
+// Doc      : part2-stage06-templates-and-generics.md
+// Stage    : part2_stage06_templates_and_generics
+// Section  : section06_crtp
+// Item     : crtp_inject_behavior
+// Topic id : part2/stage06/section06/crtp_inject_behavior
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage06::section06 {
+namespace {
 
-TEST(part2_stage06_section06, crtp_inject_behavior) {
-    GTEST_SKIP() << "todo: crtp_inject_behavior";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage06::section06
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage06/section06/crtp_inject_behavior", run>;
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section01_instantiation_model
-// Item    : two_phase_lookup_recap
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section01_instantiation_model
+// Item     : two_phase_lookup_recap
+// Topic id : part6/e/section01/two_phase_lookup_recap
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section01 {
+namespace {
 
-TEST(part6_branch_e_section01, two_phase_lookup_recap) {
-    GTEST_SKIP() << "todo: two_phase_lookup_recap";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section01
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/e/section01/two_phase_lookup_recap", run>;
+
+}  // namespace
