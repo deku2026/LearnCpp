@@ -44,10 +44,16 @@ jobs:
           cmakeVersion: "3.31.6"
           ninjaVersion: latest
 
-      - name: Install LLVM (clang-cl, clang-tidy, clang-format)
+      - name: Use runner LLVM (clang-cl, clang-tidy, clang-format)
+        # windows-2022 ships LLVM (20.x at time of writing) under C:\Program Files\LLVM.
+        # Don't reinstall via choco -- pinning an older version fails when the runner already has a newer one.
         run: |
-          choco install -y llvm --version=19.1.7
-          echo "C:\Program Files\LLVM\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          $llvmBin = "C:\Program Files\LLVM\bin"
+          if (-not (Test-Path $llvmBin)) {
+            choco install -y llvm
+            $llvmBin = "C:\Program Files\LLVM\bin"
+          }
+          echo $llvmBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - name: Install sccache
         uses: mozilla-actions/sccache-action@v0.0.9

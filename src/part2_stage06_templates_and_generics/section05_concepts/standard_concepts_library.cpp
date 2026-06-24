@@ -1,0 +1,18 @@
+// LearnCpp placeholder
+// Doc     : part2-stage06-templates-and-generics.md
+// Stage   : part2_stage06_templates_and_generics
+// Section : section05_concepts
+// Item    : standard_concepts_library
+//
+// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
+//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+
+#include <gtest/gtest.h>
+
+namespace learn_cpp::part2_stage06::section05 {
+
+TEST(part2_stage06_section05, standard_concepts_library) {
+    GTEST_SKIP() << "todo: standard_concepts_library";
+}
+
+}  // namespace learn_cpp::part2_stage06::section05

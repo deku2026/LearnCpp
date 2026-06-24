@@ -44,12 +44,7 @@ repos:
         files: \.(c|h|cpp|hpp|cc|hh|cxx|hxx|ipp|tpp|inc)$
         types_or: [c++, c]
 
-  - repo: https://github.com/pocc/pre-commit-hooks
-    rev: v1.3.5
-    hooks:
-      - id: clang-tidy
-        files: \.(cpp|hpp|cc|hh|cxx|hxx)$
-        args: [--quiet, --use-color, -p=build]
-        types_or: [c++, c]
-        require_serial: false
-        additional_dependencies: [clang-tidy==22.1.0.1]
+  # clang-tidy is not wired into pre-commit: with ~880 placeholder TUs the hook
+  # takes too long to be a useful pre-push gate. Run it on demand instead via
+  # `cmake --preset windows-debug -DLEARNCPP_ENABLE_CLANG_TIDY=ON`, which makes
+  # the CMake build apply clang-tidy per-target during compilation.

@@ -81,9 +81,17 @@ jobs:
         if: always()
         run: sccache --show-stats
 
-      - name: Install pre-commit
+      - name: Install pre-commit (pipx, PEP 668 safe)
         run: |
-          python3 -m pip install --upgrade pip pre-commit
+          set -euo pipefail
+          # macos-14 ships Python 3.13 as externally-managed; use pipx (preinstalled) so pip won't refuse.
+          if ! command -v pipx >/dev/null 2>&1; then
+            brew install pipx
+            pipx ensurepath
+          fi
+          pipx install pre-commit
+          # pipx puts shims under ~/.local/bin
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Run pre-commit
         run: pre-commit run --all-files --show-diff-on-failure --color=always
