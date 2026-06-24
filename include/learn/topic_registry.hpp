@@ -24,7 +24,11 @@ void list_topics();
 #define LEARN_TOPIC_CAT(a, b) LEARN_TOPIC_CAT_(a, b)
 
 // Use once per topic translation unit; expands to a file-scope registrar.
-#define LEARN_TOPIC(id, fn)                                                         \
-    static ::learn::TopicRegistrar LEARN_TOPIC_CAT(learn_topic_reg_, __COUNTER__) { \
-        (id), (fn)                                                                  \
+// __LINE__ (standard predefined) instead of __COUNTER__ (GNU extension that
+// clang 22 flags as a C2y extension under -Wc2y-extensions / -Werror).
+// Each .cpp has exactly one LEARN_TOPIC and the registrar lives in an
+// anonymous namespace, so per-TU uniqueness is enough.
+#define LEARN_TOPIC(id, fn)                                                      \
+    static ::learn::TopicRegistrar LEARN_TOPIC_CAT(learn_topic_reg_, __LINE__) { \
+        (id), (fn)                                                               \
     }
