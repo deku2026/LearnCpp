@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-g-abi-compile-link-ub-performance.md
-// Stage   : part6_branch_g_abi_compile_link_ub_performance
-// Section : section02_compile_and_link_model
-// Item    : inline_template_versus_odr
+// Doc      : part6-branch-g-abi-compile-link-ub-performance.md
+// Stage    : part6_branch_g_abi_compile_link_ub_performance
+// Section  : section02_compile_and_link_model
+// Item     : inline_template_versus_odr
+// Topic id : part6/g/section02/inline_template_versus_odr
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_g::section02 {
+namespace {
 
-TEST(part6_branch_g_section02, inline_template_versus_odr) {
-    GTEST_SKIP() << "todo: inline_template_versus_odr";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_g::section02
+LEARN_TOPIC("part6/g/section02/inline_template_versus_odr", run);
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section03_concepts_deep
-// Item    : requires_expression_clauses
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section03_concepts_deep
+// Item     : requires_expression_clauses
+// Topic id : part6/e/section03/requires_expression_clauses
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section03 {
+namespace {
 
-TEST(part6_branch_e_section03, requires_expression_clauses) {
-    GTEST_SKIP() << "todo: requires_expression_clauses";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section03
+LEARN_TOPIC("part6/e/section03/requires_expression_clauses", run);
+
+}  // namespace

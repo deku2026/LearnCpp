@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage09-exceptions-error-handling-ub.md
-// Stage   : part2_stage09_exceptions_error_handling_ub
-// Section : section08_undefined_behavior
-// Item    : signed_integer_overflow
+// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Stage    : part2_stage09_exceptions_error_handling_ub
+// Section  : section08_undefined_behavior
+// Item     : signed_integer_overflow
+// Topic id : part2/stage09/section08/signed_integer_overflow
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage09::section08 {
+namespace {
 
-TEST(part2_stage09_section08, signed_integer_overflow) {
-    GTEST_SKIP() << "todo: signed_integer_overflow";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage09::section08
+LEARN_TOPIC("part2/stage09/section08/signed_integer_overflow", run);
+
+}  // namespace

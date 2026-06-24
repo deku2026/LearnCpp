@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section05_sanitizers_and_diagnostics
-// Item    : stacktrace_in_runtime_cpp23
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section05_sanitizers_and_diagnostics
+// Item     : stacktrace_in_runtime_cpp23
+// Topic id : part4/section05/stacktrace_in_runtime_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section05 {
+namespace {
 
-TEST(part4_section05, stacktrace_in_runtime_cpp23) {
-    GTEST_SKIP() << "todo: stacktrace_in_runtime_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section05
+LEARN_TOPIC("part4/section05/stacktrace_in_runtime_cpp23", run);
+
+}  // namespace

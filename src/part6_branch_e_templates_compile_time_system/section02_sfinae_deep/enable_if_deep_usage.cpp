@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section02_sfinae_deep
-// Item    : enable_if_deep_usage
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section02_sfinae_deep
+// Item     : enable_if_deep_usage
+// Topic id : part6/e/section02/enable_if_deep_usage
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section02 {
+namespace {
 
-TEST(part6_branch_e_section02, enable_if_deep_usage) {
-    GTEST_SKIP() << "todo: enable_if_deep_usage";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section02
+LEARN_TOPIC("part6/e/section02/enable_if_deep_usage", run);
+
+}  // namespace

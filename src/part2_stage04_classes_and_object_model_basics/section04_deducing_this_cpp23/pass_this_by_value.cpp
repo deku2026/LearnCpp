@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage04-classes-and-object-model-basics.md
-// Stage   : part2_stage04_classes_and_object_model_basics
-// Section : section04_deducing_this_cpp23
-// Item    : pass_this_by_value
+// Doc      : part2-stage04-classes-and-object-model-basics.md
+// Stage    : part2_stage04_classes_and_object_model_basics
+// Section  : section04_deducing_this_cpp23
+// Item     : pass_this_by_value
+// Topic id : part2/stage04/section04/pass_this_by_value
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage04::section04 {
+namespace {
 
-TEST(part2_stage04_section04, pass_this_by_value) {
-    GTEST_SKIP() << "todo: pass_this_by_value";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage04::section04
+LEARN_TOPIC("part2/stage04/section04/pass_this_by_value", run);
+
+}  // namespace

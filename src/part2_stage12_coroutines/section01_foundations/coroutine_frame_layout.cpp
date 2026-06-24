@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage12-coroutines.md
-// Stage   : part2_stage12_coroutines
-// Section : section01_foundations
-// Item    : coroutine_frame_layout
+// Doc      : part2-stage12-coroutines.md
+// Stage    : part2_stage12_coroutines
+// Section  : section01_foundations
+// Item     : coroutine_frame_layout
+// Topic id : part2/stage12/section01/coroutine_frame_layout
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage12::section01 {
+namespace {
 
-TEST(part2_stage12_section01, coroutine_frame_layout) {
-    GTEST_SKIP() << "todo: coroutine_frame_layout";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage12::section01
+LEARN_TOPIC("part2/stage12/section01/coroutine_frame_layout", run);
+
+}  // namespace

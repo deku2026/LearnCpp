@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section03_quality_gates
-// Item    : iwyu_intro
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section03_quality_gates
+// Item     : iwyu_intro
+// Topic id : part4/section03/iwyu_intro
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section03 {
+namespace {
 
-TEST(part4_section03, iwyu_intro) {
-    GTEST_SKIP() << "todo: iwyu_intro";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section03
+LEARN_TOPIC("part4/section03/iwyu_intro", run);
+
+}  // namespace

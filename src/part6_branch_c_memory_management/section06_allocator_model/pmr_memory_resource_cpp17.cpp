@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section06_allocator_model
-// Item    : pmr_memory_resource_cpp17
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section06_allocator_model
+// Item     : pmr_memory_resource_cpp17
+// Topic id : part6/c/section06/pmr_memory_resource_cpp17
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section06 {
+namespace {
 
-TEST(part6_branch_c_section06, pmr_memory_resource_cpp17) {
-    GTEST_SKIP() << "todo: pmr_memory_resource_cpp17";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section06
+LEARN_TOPIC("part6/c/section06/pmr_memory_resource_cpp17", run);
+
+}  // namespace

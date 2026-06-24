@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage12-coroutines.md
-// Stage   : part2_stage12_coroutines
-// Section : section01_foundations
-// Item    : what_is_a_coroutine
+// Doc      : part2-stage12-coroutines.md
+// Stage    : part2_stage12_coroutines
+// Section  : section01_foundations
+// Item     : what_is_a_coroutine
+// Topic id : part2/stage12/section01/what_is_a_coroutine
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage12::section01 {
+namespace {
 
-TEST(part2_stage12_section01, what_is_a_coroutine) {
-    GTEST_SKIP() << "todo: what_is_a_coroutine";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage12::section01
+LEARN_TOPIC("part2/stage12/section01/what_is_a_coroutine", run);
+
+}  // namespace

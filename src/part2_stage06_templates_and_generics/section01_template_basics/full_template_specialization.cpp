@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage06-templates-and-generics.md
-// Stage   : part2_stage06_templates_and_generics
-// Section : section01_template_basics
-// Item    : full_template_specialization
+// Doc      : part2-stage06-templates-and-generics.md
+// Stage    : part2_stage06_templates_and_generics
+// Section  : section01_template_basics
+// Item     : full_template_specialization
+// Topic id : part2/stage06/section01/full_template_specialization
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage06::section01 {
+namespace {
 
-TEST(part2_stage06_section01, full_template_specialization) {
-    GTEST_SKIP() << "todo: full_template_specialization";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage06::section01
+LEARN_TOPIC("part2/stage06/section01/full_template_specialization", run);
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage07-compile-time-programming.md
-// Stage   : part2_stage07_compile_time_programming
-// Section : section03_consteval_constinit
-// Item    : consteval_immediate_functions
+// Doc      : part2-stage07-compile-time-programming.md
+// Stage    : part2_stage07_compile_time_programming
+// Section  : section03_consteval_constinit
+// Item     : consteval_immediate_functions
+// Topic id : part2/stage07/section03/consteval_immediate_functions
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage07::section03 {
+namespace {
 
-TEST(part2_stage07_section03, consteval_immediate_functions) {
-    GTEST_SKIP() << "todo: consteval_immediate_functions";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage07::section03
+LEARN_TOPIC("part2/stage07/section03/consteval_immediate_functions", run);
+
+}  // namespace

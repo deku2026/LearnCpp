@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage14-keywords-and-features-index.md
-// Stage   : part2_stage14_keywords_and_features_index
-// Section : section07_keyword_table
-// Item    : keyword_taxonomy_a_to_p
+// Doc      : part2-stage14-keywords-and-features-index.md
+// Stage    : part2_stage14_keywords_and_features_index
+// Section  : section07_keyword_table
+// Item     : keyword_taxonomy_a_to_p
+// Topic id : part2/stage14/section07/keyword_taxonomy_a_to_p
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage14::section07 {
+namespace {
 
-TEST(part2_stage14_section07, keyword_taxonomy_a_to_p) {
-    GTEST_SKIP() << "todo: keyword_taxonomy_a_to_p";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage14::section07
+LEARN_TOPIC("part2/stage14/section07/keyword_taxonomy_a_to_p", run);
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section10_format_and_print_cpp23
-// Item    : vprint_unicode
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section10_format_and_print_cpp23
+// Item     : vprint_unicode
+// Topic id : part2/stage10/section10/vprint_unicode
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section10 {
+namespace {
 
-TEST(part2_stage10_section10, vprint_unicode) {
-    GTEST_SKIP() << "todo: vprint_unicode";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section10
+LEARN_TOPIC("part2/stage10/section10/vprint_unicode", run);
+
+}  // namespace

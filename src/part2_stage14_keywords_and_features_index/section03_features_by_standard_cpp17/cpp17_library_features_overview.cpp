@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage14-keywords-and-features-index.md
-// Stage   : part2_stage14_keywords_and_features_index
-// Section : section03_features_by_standard_cpp17
-// Item    : cpp17_library_features_overview
+// Doc      : part2-stage14-keywords-and-features-index.md
+// Stage    : part2_stage14_keywords_and_features_index
+// Section  : section03_features_by_standard_cpp17
+// Item     : cpp17_library_features_overview
+// Topic id : part2/stage14/section03/cpp17_library_features_overview
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage14::section03 {
+namespace {
 
-TEST(part2_stage14_section03, cpp17_library_features_overview) {
-    GTEST_SKIP() << "todo: cpp17_library_features_overview";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage14::section03
+LEARN_TOPIC("part2/stage14/section03/cpp17_library_features_overview", run);
+
+}  // namespace

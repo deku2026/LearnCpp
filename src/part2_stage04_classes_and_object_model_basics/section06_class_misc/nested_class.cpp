@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage04-classes-and-object-model-basics.md
-// Stage   : part2_stage04_classes_and_object_model_basics
-// Section : section06_class_misc
-// Item    : nested_class
+// Doc      : part2-stage04-classes-and-object-model-basics.md
+// Stage    : part2_stage04_classes_and_object_model_basics
+// Section  : section06_class_misc
+// Item     : nested_class
+// Topic id : part2/stage04/section06/nested_class
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage04::section06 {
+namespace {
 
-TEST(part2_stage04_section06, nested_class) {
-    GTEST_SKIP() << "todo: nested_class";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage04::section06
+LEARN_TOPIC("part2/stage04/section06/nested_class", run);
+
+}  // namespace

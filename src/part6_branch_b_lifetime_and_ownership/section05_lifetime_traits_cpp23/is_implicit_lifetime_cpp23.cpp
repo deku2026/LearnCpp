@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-b-lifetime-and-ownership.md
-// Stage   : part6_branch_b_lifetime_and_ownership
-// Section : section05_lifetime_traits_cpp23
-// Item    : is_implicit_lifetime_cpp23
+// Doc      : part6-branch-b-lifetime-and-ownership.md
+// Stage    : part6_branch_b_lifetime_and_ownership
+// Section  : section05_lifetime_traits_cpp23
+// Item     : is_implicit_lifetime_cpp23
+// Topic id : part6/b/section05/is_implicit_lifetime_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_b::section05 {
+namespace {
 
-TEST(part6_branch_b_section05, is_implicit_lifetime_cpp23) {
-    GTEST_SKIP() << "todo: is_implicit_lifetime_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_b::section05
+LEARN_TOPIC("part6/b/section05/is_implicit_lifetime_cpp23", run);
+
+}  // namespace

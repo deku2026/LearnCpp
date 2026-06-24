@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage15-classic-idioms.md
-// Stage   : part2_stage15_classic_idioms
-// Section : section04_value_semantics_and_tools
-// Item    : optional_and_expected_versus_magic_value
+// Doc      : part2-stage15-classic-idioms.md
+// Stage    : part2_stage15_classic_idioms
+// Section  : section04_value_semantics_and_tools
+// Item     : optional_and_expected_versus_magic_value
+// Topic id : part2/stage15/section04/optional_and_expected_versus_magic_value
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage15::section04 {
+namespace {
 
-TEST(part2_stage15_section04, optional_and_expected_versus_magic_value) {
-    GTEST_SKIP() << "todo: optional_and_expected_versus_magic_value";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage15::section04
+LEARN_TOPIC("part2/stage15/section04/optional_and_expected_versus_magic_value", run);
+
+}  // namespace

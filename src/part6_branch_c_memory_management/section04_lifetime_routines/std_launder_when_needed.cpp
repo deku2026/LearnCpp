@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section04_lifetime_routines
-// Item    : std_launder_when_needed
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section04_lifetime_routines
+// Item     : std_launder_when_needed
+// Topic id : part6/c/section04/std_launder_when_needed
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section04 {
+namespace {
 
-TEST(part6_branch_c_section04, std_launder_when_needed) {
-    GTEST_SKIP() << "todo: std_launder_when_needed";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section04
+LEARN_TOPIC("part6/c/section04/std_launder_when_needed", run);
+
+}  // namespace

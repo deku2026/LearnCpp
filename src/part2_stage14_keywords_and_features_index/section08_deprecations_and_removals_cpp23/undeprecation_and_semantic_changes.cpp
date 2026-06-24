@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage14-keywords-and-features-index.md
-// Stage   : part2_stage14_keywords_and_features_index
-// Section : section08_deprecations_and_removals_cpp23
-// Item    : undeprecation_and_semantic_changes
+// Doc      : part2-stage14-keywords-and-features-index.md
+// Stage    : part2_stage14_keywords_and_features_index
+// Section  : section08_deprecations_and_removals_cpp23
+// Item     : undeprecation_and_semantic_changes
+// Topic id : part2/stage14/section08/undeprecation_and_semantic_changes
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage14::section08 {
+namespace {
 
-TEST(part2_stage14_section08, undeprecation_and_semantic_changes) {
-    GTEST_SKIP() << "todo: undeprecation_and_semantic_changes";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage14::section08
+LEARN_TOPIC("part2/stage14/section08/undeprecation_and_semantic_changes", run);
+
+}  // namespace

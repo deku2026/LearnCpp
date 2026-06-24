@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section01_build_system_cmake
-// Item    : public_private_interface
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section01_build_system_cmake
+// Item     : public_private_interface
+// Topic id : part4/section01/public_private_interface
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section01 {
+namespace {
 
-TEST(part4_section01, public_private_interface) {
-    GTEST_SKIP() << "todo: public_private_interface";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section01
+LEARN_TOPIC("part4/section01/public_private_interface", run);
+
+}  // namespace

@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-g-abi-compile-link-ub-performance.md
-// Stage   : part6_branch_g_abi_compile_link_ub_performance
-// Section : section04_object_model_for_systems
-// Item    : trap_representation_note
+// Doc      : part6-branch-g-abi-compile-link-ub-performance.md
+// Stage    : part6_branch_g_abi_compile_link_ub_performance
+// Section  : section04_object_model_for_systems
+// Item     : trap_representation_note
+// Topic id : part6/g/section04/trap_representation_note
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_g::section04 {
+namespace {
 
-TEST(part6_branch_g_section04, trap_representation_note) {
-    GTEST_SKIP() << "todo: trap_representation_note";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_g::section04
+LEARN_TOPIC("part6/g/section04/trap_representation_note", run);
+
+}  // namespace

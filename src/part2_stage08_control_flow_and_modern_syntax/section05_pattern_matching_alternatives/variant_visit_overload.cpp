@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage08-control-flow-and-modern-syntax.md
-// Stage   : part2_stage08_control_flow_and_modern_syntax
-// Section : section05_pattern_matching_alternatives
-// Item    : variant_visit_overload
+// Doc      : part2-stage08-control-flow-and-modern-syntax.md
+// Stage    : part2_stage08_control_flow_and_modern_syntax
+// Section  : section05_pattern_matching_alternatives
+// Item     : variant_visit_overload
+// Topic id : part2/stage08/section05/variant_visit_overload
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage08::section05 {
+namespace {
 
-TEST(part2_stage08_section05, variant_visit_overload) {
-    GTEST_SKIP() << "todo: variant_visit_overload";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage08::section05
+LEARN_TOPIC("part2/stage08/section05/variant_visit_overload", run);
+
+}  // namespace

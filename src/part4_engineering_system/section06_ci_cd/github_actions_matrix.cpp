@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section06_ci_cd
-// Item    : github_actions_matrix
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section06_ci_cd
+// Item     : github_actions_matrix
+// Topic id : part4/section06/github_actions_matrix
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section06 {
+namespace {
 
-TEST(part4_section06, github_actions_matrix) {
-    GTEST_SKIP() << "todo: github_actions_matrix";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section06
+LEARN_TOPIC("part4/section06/github_actions_matrix", run);
+
+}  // namespace

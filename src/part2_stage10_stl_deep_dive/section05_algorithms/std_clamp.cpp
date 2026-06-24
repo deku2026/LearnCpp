@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section05_algorithms
-// Item    : std_clamp
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section05_algorithms
+// Item     : std_clamp
+// Topic id : part2/stage10/section05/std_clamp
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section05 {
+namespace {
 
-TEST(part2_stage10_section05, std_clamp) {
-    GTEST_SKIP() << "todo: std_clamp";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section05
+LEARN_TOPIC("part2/stage10/section05/std_clamp", run);
+
+}  // namespace

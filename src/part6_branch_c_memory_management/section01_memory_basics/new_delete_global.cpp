@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section01_memory_basics
-// Item    : new_delete_global
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section01_memory_basics
+// Item     : new_delete_global
+// Topic id : part6/c/section01/new_delete_global
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section01 {
+namespace {
 
-TEST(part6_branch_c_section01, new_delete_global) {
-    GTEST_SKIP() << "todo: new_delete_global";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section01
+LEARN_TOPIC("part6/c/section01/new_delete_global", run);
+
+}  // namespace

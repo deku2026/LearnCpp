@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage03-functions-overloading-lambdas.md
-// Stage   : part2_stage03_functions_overloading_lambdas
-// Section : section02_variadic_functions
-// Item    : initializer_list_parameter
+// Doc      : part2-stage03-functions-overloading-lambdas.md
+// Stage    : part2_stage03_functions_overloading_lambdas
+// Section  : section02_variadic_functions
+// Item     : initializer_list_parameter
+// Topic id : part2/stage03/section02/initializer_list_parameter
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage03::section02 {
+namespace {
 
-TEST(part2_stage03_section02, initializer_list_parameter) {
-    GTEST_SKIP() << "todo: initializer_list_parameter";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage03::section02
+LEARN_TOPIC("part2/stage03/section02/initializer_list_parameter", run);
+
+}  // namespace

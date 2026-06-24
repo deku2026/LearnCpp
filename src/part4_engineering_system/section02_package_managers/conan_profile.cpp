@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section02_package_managers
-// Item    : conan_profile
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section02_package_managers
+// Item     : conan_profile
+// Topic id : part4/section02/conan_profile
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section02 {
+namespace {
 
-TEST(part4_section02, conan_profile) {
-    GTEST_SKIP() << "todo: conan_profile";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section02
+LEARN_TOPIC("part4/section02/conan_profile", run);
+
+}  // namespace

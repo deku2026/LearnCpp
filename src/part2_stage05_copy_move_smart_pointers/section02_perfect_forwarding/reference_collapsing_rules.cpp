@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage05-copy-move-smart-pointers.md
-// Stage   : part2_stage05_copy_move_smart_pointers
-// Section : section02_perfect_forwarding
-// Item    : reference_collapsing_rules
+// Doc      : part2-stage05-copy-move-smart-pointers.md
+// Stage    : part2_stage05_copy_move_smart_pointers
+// Section  : section02_perfect_forwarding
+// Item     : reference_collapsing_rules
+// Topic id : part2/stage05/section02/reference_collapsing_rules
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage05::section02 {
+namespace {
 
-TEST(part2_stage05_section02, reference_collapsing_rules) {
-    GTEST_SKIP() << "todo: reference_collapsing_rules";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage05::section02
+LEARN_TOPIC("part2/stage05/section02/reference_collapsing_rules", run);
+
+}  // namespace

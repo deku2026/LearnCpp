@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section10_format_and_print_cpp23
-// Item    : std_format_thread_id_stacktrace_cpp23
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section10_format_and_print_cpp23
+// Item     : std_format_thread_id_stacktrace_cpp23
+// Topic id : part2/stage10/section10/std_format_thread_id_stacktrace_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section10 {
+namespace {
 
-TEST(part2_stage10_section10, std_format_thread_id_stacktrace_cpp23) {
-    GTEST_SKIP() << "todo: std_format_thread_id_stacktrace_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section10
+LEARN_TOPIC("part2/stage10/section10/std_format_thread_id_stacktrace_cpp23", run);
+
+}  // namespace

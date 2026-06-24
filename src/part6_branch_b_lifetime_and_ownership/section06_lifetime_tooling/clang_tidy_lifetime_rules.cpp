@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-b-lifetime-and-ownership.md
-// Stage   : part6_branch_b_lifetime_and_ownership
-// Section : section06_lifetime_tooling
-// Item    : clang_tidy_lifetime_rules
+// Doc      : part6-branch-b-lifetime-and-ownership.md
+// Stage    : part6_branch_b_lifetime_and_ownership
+// Section  : section06_lifetime_tooling
+// Item     : clang_tidy_lifetime_rules
+// Topic id : part6/b/section06/clang_tidy_lifetime_rules
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_b::section06 {
+namespace {
 
-TEST(part6_branch_b_section06, clang_tidy_lifetime_rules) {
-    GTEST_SKIP() << "todo: clang_tidy_lifetime_rules";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_b::section06
+LEARN_TOPIC("part6/b/section06/clang_tidy_lifetime_rules", run);
+
+}  // namespace

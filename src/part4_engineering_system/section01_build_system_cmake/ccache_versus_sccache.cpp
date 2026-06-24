@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section01_build_system_cmake
-// Item    : ccache_versus_sccache
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section01_build_system_cmake
+// Item     : ccache_versus_sccache
+// Topic id : part4/section01/ccache_versus_sccache
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section01 {
+namespace {
 
-TEST(part4_section01, ccache_versus_sccache) {
-    GTEST_SKIP() << "todo: ccache_versus_sccache";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section01
+LEARN_TOPIC("part4/section01/ccache_versus_sccache", run);
+
+}  // namespace

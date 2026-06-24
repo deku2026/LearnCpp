@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part3-standard-library-systematized.md
-// Stage   : part3_standard_library_systematized
-// Section : section06_memory_and_allocators
-// Item    : smart_pointers_overview
+// Doc      : part3-standard-library-systematized.md
+// Stage    : part3_standard_library_systematized
+// Section  : section06_memory_and_allocators
+// Item     : smart_pointers_overview
+// Topic id : part3/section06/smart_pointers_overview
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part3::section06 {
+namespace {
 
-TEST(part3_section06, smart_pointers_overview) {
-    GTEST_SKIP() << "todo: smart_pointers_overview";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part3::section06
+LEARN_TOPIC("part3/section06/smart_pointers_overview", run);
+
+}  // namespace

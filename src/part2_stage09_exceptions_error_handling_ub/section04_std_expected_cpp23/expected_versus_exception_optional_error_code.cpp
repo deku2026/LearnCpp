@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage09-exceptions-error-handling-ub.md
-// Stage   : part2_stage09_exceptions_error_handling_ub
-// Section : section04_std_expected_cpp23
-// Item    : expected_versus_exception_optional_error_code
+// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Stage    : part2_stage09_exceptions_error_handling_ub
+// Section  : section04_std_expected_cpp23
+// Item     : expected_versus_exception_optional_error_code
+// Topic id : part2/stage09/section04/expected_versus_exception_optional_error_code
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage09::section04 {
+namespace {
 
-TEST(part2_stage09_section04, expected_versus_exception_optional_error_code) {
-    GTEST_SKIP() << "todo: expected_versus_exception_optional_error_code";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage09::section04
+LEARN_TOPIC("part2/stage09/section04/expected_versus_exception_optional_error_code", run);
+
+}  // namespace

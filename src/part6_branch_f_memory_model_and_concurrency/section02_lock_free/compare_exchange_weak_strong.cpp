@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-f-memory-model-and-concurrency.md
-// Stage   : part6_branch_f_memory_model_and_concurrency
-// Section : section02_lock_free
-// Item    : compare_exchange_weak_strong
+// Doc      : part6-branch-f-memory-model-and-concurrency.md
+// Stage    : part6_branch_f_memory_model_and_concurrency
+// Section  : section02_lock_free
+// Item     : compare_exchange_weak_strong
+// Topic id : part6/f/section02/compare_exchange_weak_strong
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_f::section02 {
+namespace {
 
-TEST(part6_branch_f_section02, compare_exchange_weak_strong) {
-    GTEST_SKIP() << "todo: compare_exchange_weak_strong";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_f::section02
+LEARN_TOPIC("part6/f/section02/compare_exchange_weak_strong", run);
+
+}  // namespace

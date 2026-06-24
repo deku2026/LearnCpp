@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section03_container_adapters
-// Item    : std_stack
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section03_container_adapters
+// Item     : std_stack
+// Topic id : part2/stage10/section03/std_stack
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section03 {
+namespace {
 
-TEST(part2_stage10_section03, std_stack) {
-    GTEST_SKIP() << "todo: std_stack";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section03
+LEARN_TOPIC("part2/stage10/section03/std_stack", run);
+
+}  // namespace

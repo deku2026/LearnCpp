@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage06-templates-and-generics.md
-// Stage   : part2_stage06_templates_and_generics
-// Section : section04_compile_time_introspection_traditional
-// Item    : if_constexpr_cpp17
+// Doc      : part2-stage06-templates-and-generics.md
+// Stage    : part2_stage06_templates_and_generics
+// Section  : section04_compile_time_introspection_traditional
+// Item     : if_constexpr_cpp17
+// Topic id : part2/stage06/section04/if_constexpr_cpp17
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage06::section04 {
+namespace {
 
-TEST(part2_stage06_section04, if_constexpr_cpp17) {
-    GTEST_SKIP() << "todo: if_constexpr_cpp17";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage06::section04
+LEARN_TOPIC("part2/stage06/section04/if_constexpr_cpp17", run);
+
+}  // namespace

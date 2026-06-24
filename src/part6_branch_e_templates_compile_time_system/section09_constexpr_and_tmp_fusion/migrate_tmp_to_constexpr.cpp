@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section09_constexpr_and_tmp_fusion
-// Item    : migrate_tmp_to_constexpr
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section09_constexpr_and_tmp_fusion
+// Item     : migrate_tmp_to_constexpr
+// Topic id : part6/e/section09/migrate_tmp_to_constexpr
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section09 {
+namespace {
 
-TEST(part6_branch_e_section09, migrate_tmp_to_constexpr) {
-    GTEST_SKIP() << "todo: migrate_tmp_to_constexpr";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section09
+LEARN_TOPIC("part6/e/section09/migrate_tmp_to_constexpr", run);
+
+}  // namespace

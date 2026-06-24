@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-f-memory-model-and-concurrency.md
-// Stage   : part6_branch_f_memory_model_and_concurrency
-// Section : section03_atomic_helpers
-// Item    : atomic_flag
+// Doc      : part6-branch-f-memory-model-and-concurrency.md
+// Stage    : part6_branch_f_memory_model_and_concurrency
+// Section  : section03_atomic_helpers
+// Item     : atomic_flag
+// Topic id : part6/f/section03/atomic_flag
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_f::section03 {
+namespace {
 
-TEST(part6_branch_f_section03, atomic_flag) {
-    GTEST_SKIP() << "todo: atomic_flag";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_f::section03
+LEARN_TOPIC("part6/f/section03/atomic_flag", run);
+
+}  // namespace

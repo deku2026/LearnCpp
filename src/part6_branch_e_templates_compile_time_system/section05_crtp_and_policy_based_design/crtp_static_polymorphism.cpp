@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section05_crtp_and_policy_based_design
-// Item    : crtp_static_polymorphism
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section05_crtp_and_policy_based_design
+// Item     : crtp_static_polymorphism
+// Topic id : part6/e/section05/crtp_static_polymorphism
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section05 {
+namespace {
 
-TEST(part6_branch_e_section05, crtp_static_polymorphism) {
-    GTEST_SKIP() << "todo: crtp_static_polymorphism";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section05
+LEARN_TOPIC("part6/e/section05/crtp_static_polymorphism", run);
+
+}  // namespace

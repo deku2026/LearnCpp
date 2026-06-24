@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part4-engineering-system.md
-// Stage   : part4_engineering_system
-// Section : section05_sanitizers_and_diagnostics
-// Item    : tsan_overview
+// Doc      : part4-engineering-system.md
+// Stage    : part4_engineering_system
+// Section  : section05_sanitizers_and_diagnostics
+// Item     : tsan_overview
+// Topic id : part4/section05/tsan_overview
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part4::section05 {
+namespace {
 
-TEST(part4_section05, tsan_overview) {
-    GTEST_SKIP() << "todo: tsan_overview";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part4::section05
+LEARN_TOPIC("part4/section05/tsan_overview", run);
+
+}  // namespace

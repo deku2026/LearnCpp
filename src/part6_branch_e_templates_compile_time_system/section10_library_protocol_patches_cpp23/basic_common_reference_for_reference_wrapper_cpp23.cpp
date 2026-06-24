@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-e-templates-compile-time-system.md
-// Stage   : part6_branch_e_templates_compile_time_system
-// Section : section10_library_protocol_patches_cpp23
-// Item    : basic_common_reference_for_reference_wrapper_cpp23
+// Doc      : part6-branch-e-templates-compile-time-system.md
+// Stage    : part6_branch_e_templates_compile_time_system
+// Section  : section10_library_protocol_patches_cpp23
+// Item     : basic_common_reference_for_reference_wrapper_cpp23
+// Topic id : part6/e/section10/basic_common_reference_for_reference_wrapper_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_e::section10 {
+namespace {
 
-TEST(part6_branch_e_section10, basic_common_reference_for_reference_wrapper_cpp23) {
-    GTEST_SKIP() << "todo: basic_common_reference_for_reference_wrapper_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_e::section10
+LEARN_TOPIC("part6/e/section10/basic_common_reference_for_reference_wrapper_cpp23", run);
+
+}  // namespace

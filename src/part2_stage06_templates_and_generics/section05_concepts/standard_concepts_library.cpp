@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage06-templates-and-generics.md
-// Stage   : part2_stage06_templates_and_generics
-// Section : section05_concepts
-// Item    : standard_concepts_library
+// Doc      : part2-stage06-templates-and-generics.md
+// Stage    : part2_stage06_templates_and_generics
+// Section  : section05_concepts
+// Item     : standard_concepts_library
+// Topic id : part2/stage06/section05/standard_concepts_library
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage06::section05 {
+namespace {
 
-TEST(part2_stage06_section05, standard_concepts_library) {
-    GTEST_SKIP() << "todo: standard_concepts_library";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage06::section05
+LEARN_TOPIC("part2/stage06/section05/standard_concepts_library", run);
+
+}  // namespace

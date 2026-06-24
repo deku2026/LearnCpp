@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage10-stl-deep-dive.md
-// Stage   : part2_stage10_stl_deep_dive
-// Section : section06_modern_utility_types
-// Item    : variant_visit_overload_idiom
+// Doc      : part2-stage10-stl-deep-dive.md
+// Stage    : part2_stage10_stl_deep_dive
+// Section  : section06_modern_utility_types
+// Item     : variant_visit_overload_idiom
+// Topic id : part2/stage10/section06/variant_visit_overload_idiom
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage10::section06 {
+namespace {
 
-TEST(part2_stage10_section06, variant_visit_overload_idiom) {
-    GTEST_SKIP() << "todo: variant_visit_overload_idiom";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage10::section06
+LEARN_TOPIC("part2/stage10/section06/variant_visit_overload_idiom", run);
+
+}  // namespace

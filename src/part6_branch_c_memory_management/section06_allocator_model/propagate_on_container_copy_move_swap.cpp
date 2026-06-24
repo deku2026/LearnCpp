@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part6-branch-c-memory-management.md
-// Stage   : part6_branch_c_memory_management
-// Section : section06_allocator_model
-// Item    : propagate_on_container_copy_move_swap
+// Doc      : part6-branch-c-memory-management.md
+// Stage    : part6_branch_c_memory_management
+// Section  : section06_allocator_model
+// Item     : propagate_on_container_copy_move_swap
+// Topic id : part6/c/section06/propagate_on_container_copy_move_swap
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part6_branch_c::section06 {
+namespace {
 
-TEST(part6_branch_c_section06, propagate_on_container_copy_move_swap) {
-    GTEST_SKIP() << "todo: propagate_on_container_copy_move_swap";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part6_branch_c::section06
+LEARN_TOPIC("part6/c/section06/propagate_on_container_copy_move_swap", run);
+
+}  // namespace

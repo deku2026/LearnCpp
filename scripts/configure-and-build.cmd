@@ -1,5 +1,5 @@
 @echo off
-rem One-shot helper: vcvars64 -> cmake configure -> cmake build -> ctest.
+rem One-shot helper: vcvars64 -> cmake configure -> cmake build -> run learn_cpp.
 rem Useful when you don't want an interactive shell.
 
 setlocal
@@ -17,7 +17,12 @@ call "%VCVARS%" >nul || exit /b 1
 pushd "%~dp0.."
 cmake --preset %PRESET% || (popd & exit /b 1)
 cmake --build --preset %PRESET% || (popd & exit /b 1)
-ctest --preset %PRESET% --output-on-failure
+rem Smoke-run: list registered topics. Pass a topic id as the second arg to run that topic instead.
+if "%2"=="" (
+    "build\%PRESET%\bin\learn_cpp.exe"
+) else (
+    "build\%PRESET%\bin\learn_cpp.exe" %2 %3 %4 %5 %6 %7 %8 %9
+)
 set "EC=%ERRORLEVEL%"
 popd
 endlocal & exit /b %EC%

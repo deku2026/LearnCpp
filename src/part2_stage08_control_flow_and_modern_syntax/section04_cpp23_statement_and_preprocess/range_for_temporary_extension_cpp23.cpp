@@ -1,18 +1,23 @@
 // LearnCpp placeholder
-// Doc     : part2-stage08-control-flow-and-modern-syntax.md
-// Stage   : part2_stage08_control_flow_and_modern_syntax
-// Section : section04_cpp23_statement_and_preprocess
-// Item    : range_for_temporary_extension_cpp23
+// Doc      : part2-stage08-control-flow-and-modern-syntax.md
+// Stage    : part2_stage08_control_flow_and_modern_syntax
+// Section  : section04_cpp23_statement_and_preprocess
+// Item     : range_for_temporary_extension_cpp23
+// Topic id : part2/stage08/section04/range_for_temporary_extension_cpp23
 //
 // TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace GTEST_SKIP with real EXPECT_* / ASSERT_* assertions.
+//       then replace this empty run() body with real demo code.
 
-#include <gtest/gtest.h>
+#include "learn/topic_registry.hpp"
 
-namespace learn_cpp::part2_stage08::section04 {
+namespace {
 
-TEST(part2_stage08_section04, range_for_temporary_extension_cpp23) {
-    GTEST_SKIP() << "todo: range_for_temporary_extension_cpp23";
+int run(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
+    return 0;
 }
 
-}  // namespace learn_cpp::part2_stage08::section04
+LEARN_TOPIC("part2/stage08/section04/range_for_temporary_extension_cpp23", run);
+
+}  // namespace
