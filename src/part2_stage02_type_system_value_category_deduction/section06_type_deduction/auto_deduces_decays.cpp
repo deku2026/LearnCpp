@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage02/section06/auto_deduces_decays", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section06/auto_deduces_decays", run>;
 
 }  // namespace

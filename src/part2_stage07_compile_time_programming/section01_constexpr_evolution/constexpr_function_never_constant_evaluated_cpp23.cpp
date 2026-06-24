@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage07/section01/constexpr_function_never_constant_evaluated_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage07/section01/constexpr_function_never_constant_evaluated_cpp23", run>;
 
 }  // namespace

@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/c/section02/over_aligned_types", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section02/over_aligned_types", run>;
 
 }  // namespace

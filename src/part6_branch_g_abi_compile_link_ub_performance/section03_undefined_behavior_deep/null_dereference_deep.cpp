@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section03/null_dereference_deep", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section03/null_dereference_deep", run>;
 
 }  // namespace

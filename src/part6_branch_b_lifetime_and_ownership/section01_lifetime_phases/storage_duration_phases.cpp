@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section01/storage_duration_phases", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section01/storage_duration_phases", run>;
 
 }  // namespace

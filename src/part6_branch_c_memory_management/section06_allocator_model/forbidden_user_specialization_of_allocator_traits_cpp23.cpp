@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/c/section06/forbidden_user_specialization_of_allocator_traits_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part6/c/section06/forbidden_user_specialization_of_allocator_traits_cpp23", run>;
 
 }  // namespace

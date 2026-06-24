@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage15/section04/optional_and_expected_versus_magic_value", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage15/section04/optional_and_expected_versus_magic_value", run>;
 
 }  // namespace

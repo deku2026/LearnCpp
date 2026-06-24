@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part4/section06/feature_macro_probe_in_ci_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section06/feature_macro_probe_in_ci_cpp23", run>;
 
 }  // namespace

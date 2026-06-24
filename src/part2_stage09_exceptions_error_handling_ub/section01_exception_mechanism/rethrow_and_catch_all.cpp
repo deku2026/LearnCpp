@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage09/section01/rethrow_and_catch_all", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section01/rethrow_and_catch_all", run>;
 
 }  // namespace

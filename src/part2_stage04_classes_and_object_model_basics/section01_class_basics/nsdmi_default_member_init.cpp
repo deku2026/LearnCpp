@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage04/section01/nsdmi_default_member_init", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage04/section01/nsdmi_default_member_init", run>;
 
 }  // namespace

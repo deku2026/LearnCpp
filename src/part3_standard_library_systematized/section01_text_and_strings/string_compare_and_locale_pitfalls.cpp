@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part3/section01/string_compare_and_locale_pitfalls", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section01/string_compare_and_locale_pitfalls", run>;
 
 }  // namespace

@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage03/section01/pass_by_value_reference_const_ref_pointer", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage03/section01/pass_by_value_reference_const_ref_pointer", run>;
 
 }  // namespace

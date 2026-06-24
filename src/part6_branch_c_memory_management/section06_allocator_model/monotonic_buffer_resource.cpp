@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/c/section06/monotonic_buffer_resource", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section06/monotonic_buffer_resource", run>;
 
 }  // namespace

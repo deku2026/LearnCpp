@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section04/object_representation_versus_value_representation", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part6/g/section04/object_representation_versus_value_representation", run>;
 
 }  // namespace

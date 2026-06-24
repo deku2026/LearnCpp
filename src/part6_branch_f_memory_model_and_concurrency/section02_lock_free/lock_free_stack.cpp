@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/f/section02/lock_free_stack", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/f/section02/lock_free_stack", run>;
 
 }  // namespace

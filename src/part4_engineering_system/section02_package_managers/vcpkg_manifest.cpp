@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part4/section02/vcpkg_manifest", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section02/vcpkg_manifest", run>;
 
 }  // namespace

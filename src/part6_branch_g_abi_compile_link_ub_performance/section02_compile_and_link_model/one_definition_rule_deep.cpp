@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section02/one_definition_rule_deep", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section02/one_definition_rule_deep", run>;
 
 }  // namespace

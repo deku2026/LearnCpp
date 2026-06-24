@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/e/section10/reference_constructs_from_temporary_in_templates_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part6/e/section10/reference_constructs_from_temporary_in_templates_cpp23", run>;
 
 }  // namespace

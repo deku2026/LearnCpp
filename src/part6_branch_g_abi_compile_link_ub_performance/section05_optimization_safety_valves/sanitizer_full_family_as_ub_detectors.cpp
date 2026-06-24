@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section05/sanitizer_full_family_as_ub_detectors", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section05/sanitizer_full_family_as_ub_detectors", run>;
 
 }  // namespace

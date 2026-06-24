@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage08/section04/label_at_end_of_compound_statement_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage08/section04/label_at_end_of_compound_statement_cpp23", run>;
 
 }  // namespace

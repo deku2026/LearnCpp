@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part3/section06/std_allocator", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section06/std_allocator", run>;
 
 }  // namespace

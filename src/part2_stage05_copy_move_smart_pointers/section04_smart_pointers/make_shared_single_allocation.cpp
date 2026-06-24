@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage05/section04/make_shared_single_allocation", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage05/section04/make_shared_single_allocation", run>;
 
 }  // namespace

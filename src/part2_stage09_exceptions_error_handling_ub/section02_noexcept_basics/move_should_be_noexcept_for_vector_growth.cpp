@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage09/section02/move_should_be_noexcept_for_vector_growth", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage09/section02/move_should_be_noexcept_for_vector_growth", run>;
 
 }  // namespace

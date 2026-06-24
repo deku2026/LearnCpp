@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/e/section02/detection_idiom", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/e/section02/detection_idiom", run>;
 
 }  // namespace

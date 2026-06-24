@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage10/section11/std_random_engines_distributions", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section11/std_random_engines_distributions", run>;
 
 }  // namespace

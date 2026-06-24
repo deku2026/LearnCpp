@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage03/section01/overload_resolution_intro", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage03/section01/overload_resolution_intro", run>;
 
 }  // namespace

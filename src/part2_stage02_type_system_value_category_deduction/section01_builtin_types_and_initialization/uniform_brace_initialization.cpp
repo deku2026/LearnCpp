@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage02/section01/uniform_brace_initialization", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section01/uniform_brace_initialization", run>;
 
 }  // namespace

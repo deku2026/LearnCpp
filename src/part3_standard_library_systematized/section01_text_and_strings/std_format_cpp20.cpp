@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part3/section01/std_format_cpp20", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section01/std_format_cpp20", run>;
 
 }  // namespace

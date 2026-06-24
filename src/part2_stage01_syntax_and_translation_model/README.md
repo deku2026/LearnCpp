@@ -13,7 +13,7 @@
 ls src/part2_stage01_syntax_and_translation_model
 ```
 
-每个 `*.cpp` 是一个独立占位 (空 `run(argc, argv)` 体), 通过 `LEARN_TOPIC(...)` 宏注册到全局 registry,
+每个 `*.cpp` 是一个独立占位 (空 `run(argc, argv)` 体), 通过 `learn::topic<id, run>` 变量模板注册到全局 registry,
 按需手填例子 — 就是 `int main(int, char**)` 的赤裸版本, 直接 `std::cout` / 抛异常 / 玩 argv, 别再让测试框架卡你.
 
 ## 一个占位的学习节奏
@@ -30,7 +30,7 @@ ls src/part2_stage01_syntax_and_translation_model
 
 ## Topic 命名约定
 
-每个 `.cpp` 在 `LEARN_TOPIC(...)` 里的 id 形如 `part2/stage01/sectionMM/<item_slug>`,
+每个 `.cpp` 在 `learn::topic<...>` 里的 id 形如 `part2/stage01/sectionMM/<item_slug>`,
 跟文件路径一一对应, 例:
 ```
 part2/stage01/section01/<item_slug>
@@ -42,6 +42,6 @@ part2/stage01/section01/<item_slug>
 复制任意一份 `.cpp`, 改:
 - 文件名 -> 新的小项 slug;
 - 顶部 `Item    :` / `Topic id :` 注释里的 slug;
-- `LEARN_TOPIC("...", run);` 里的 id 字符串.
+- `learn::topic<"...", run>` 实例化里的 id 字符串.
 
 CMake `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")` 在下次 `cmake --build` 自动接上, 不用动 CMakeLists.

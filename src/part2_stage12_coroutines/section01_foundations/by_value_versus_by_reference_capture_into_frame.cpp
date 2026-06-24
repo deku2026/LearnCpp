@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage12/section01/by_value_versus_by_reference_capture_into_frame", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage12/section01/by_value_versus_by_reference_capture_into_frame", run>;
 
 }  // namespace

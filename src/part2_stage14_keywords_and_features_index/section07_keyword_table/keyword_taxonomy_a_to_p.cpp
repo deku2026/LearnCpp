@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage14/section07/keyword_taxonomy_a_to_p", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage14/section07/keyword_taxonomy_a_to_p", run>;
 
 }  // namespace

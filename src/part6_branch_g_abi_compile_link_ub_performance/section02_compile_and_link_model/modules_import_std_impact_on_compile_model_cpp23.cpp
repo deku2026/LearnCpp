@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section02/modules_import_std_impact_on_compile_model_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part6/g/section02/modules_import_std_impact_on_compile_model_cpp23", run>;
 
 }  // namespace

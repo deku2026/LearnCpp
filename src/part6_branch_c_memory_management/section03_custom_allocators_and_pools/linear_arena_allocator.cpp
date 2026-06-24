@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/c/section03/linear_arena_allocator", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/c/section03/linear_arena_allocator", run>;
 
 }  // namespace

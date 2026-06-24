@@ -1,34 +1,55 @@
 // LearnCpp topic registry.
 //
-// Every placeholder `.cpp` registers an `int run(int, char**)` against a
-// slash-separated id (e.g. "part2/stage01/section01/main_and_program_structure").
-// At startup the registrations populate a `std::map` and `main()` dispatches.
+// Every placeholder `.cpp` instantiates `learn::topic<"path/like/id", run>`,
+// which is an inline variable template whose constructor inserts (id, run)
+// into a global `std::map` at static-init time. `main()` then dispatches.
 #pragma once
 
+#include <cstddef>
 #include <string_view>
 
 namespace learn {
 
 using TopicFn = int (*)(int argc, char** argv);
 
-struct TopicRegistrar {
-    TopicRegistrar(std::string_view id, TopicFn fn) noexcept;
-};
+namespace detail {
+void register_topic_impl(std::string_view id, TopicFn fn) noexcept;
+}  // namespace detail
 
 int run_topic(int argc, char** argv);
 void list_topics();
 
-}  // namespace learn
+// C++20 string-literal carrier so we can pass topic ids as non-type template
+// arguments. Stores the trailing '\0', strips it in view().
+template <std::size_t N>
+struct fixed_string {
+    char data[N]{};
 
-#define LEARN_TOPIC_CAT_(a, b) a##b
-#define LEARN_TOPIC_CAT(a, b) LEARN_TOPIC_CAT_(a, b)
-
-// Use once per topic translation unit; expands to a file-scope registrar.
-// __LINE__ (standard predefined) instead of __COUNTER__ (GNU extension that
-// clang 22 flags as a C2y extension under -Wc2y-extensions / -Werror).
-// Each .cpp has exactly one LEARN_TOPIC and the registrar lives in an
-// anonymous namespace, so per-TU uniqueness is enough.
-#define LEARN_TOPIC(id, fn)                                                      \
-    static ::learn::TopicRegistrar LEARN_TOPIC_CAT(learn_topic_reg_, __LINE__) { \
-        (id), (fn)                                                               \
+    constexpr fixed_string(const char (&str)[N]) noexcept {
+        for (std::size_t i = 0; i < N; ++i) {
+            data[i] = str[i];
+        }
     }
+
+    constexpr std::string_view view() const noexcept { return std::string_view{data, N - 1}; }
+};
+
+// Self-registering type: constructor inserts (Id, Fn) into the registry.
+// One specialization per (Id, Fn) pair.
+template <fixed_string Id, TopicFn Fn>
+struct register_topic_t {
+    register_topic_t() noexcept { detail::register_topic_impl(Id.view(), Fn); }
+};
+
+// Inline variable template. ODR-use a specialization from each topic .cpp
+// (binding a reference is enough) and its constructor runs at static-init
+// time, registering the topic. Pattern:
+//
+//   namespace {
+//     int run(int, char**) { /* ... */ return 0; }
+//     [[maybe_unused]] const auto& _ = ::learn::topic<"part.../foo", run>;
+//   }
+template <fixed_string Id, TopicFn Fn>
+inline const register_topic_t<Id, Fn> topic{};
+
+}  // namespace learn

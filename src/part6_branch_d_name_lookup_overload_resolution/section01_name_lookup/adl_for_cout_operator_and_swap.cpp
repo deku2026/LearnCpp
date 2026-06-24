@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/d/section01/adl_for_cout_operator_and_swap", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section01/adl_for_cout_operator_and_swap", run>;
 
 }  // namespace

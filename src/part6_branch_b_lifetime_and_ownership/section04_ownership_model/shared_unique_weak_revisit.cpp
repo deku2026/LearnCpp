@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section04/shared_unique_weak_revisit", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section04/shared_unique_weak_revisit", run>;
 
 }  // namespace

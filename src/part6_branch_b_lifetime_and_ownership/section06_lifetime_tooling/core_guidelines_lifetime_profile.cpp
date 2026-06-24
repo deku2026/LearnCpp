@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section06/core_guidelines_lifetime_profile", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section06/core_guidelines_lifetime_profile", run>;
 
 }  // namespace

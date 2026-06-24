@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage06/section03/auto_nttp_cpp17", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage06/section03/auto_nttp_cpp17", run>;
 
 }  // namespace

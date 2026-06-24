@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/d/section03/partial_ordering_of_function_templates", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section03/partial_ordering_of_function_templates", run>;
 
 }  // namespace

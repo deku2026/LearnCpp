@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage06/section07/compile_time_type_calculation", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage06/section07/compile_time_type_calculation", run>;
 
 }  // namespace

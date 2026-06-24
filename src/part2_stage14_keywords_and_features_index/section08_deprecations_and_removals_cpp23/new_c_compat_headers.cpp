@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage14/section08/new_c_compat_headers", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage14/section08/new_c_compat_headers", run>;
 
 }  // namespace

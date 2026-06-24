@@ -22,13 +22,15 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage01/section01/main_and_program_structure", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage01/section01/main_and_program_structure", run>;
 
 }  // namespace
 ```
 
-`LEARN_TOPIC` 是个静态注册宏，在静态初始化阶段把 `(id, run)` 塞进全局 `std::map`。
-`main()` 把命令行参数转给 registry 调度，**等同于直接进入那个 topic 的 `int main(int, char**)`**。
+`learn::topic<Id, Fn>` 是个 C++20 NTTP 变量模板 (`fixed_string` 当 id 载体), 内部是 `inline const register_topic_t<Id, Fn>{}`。
+绑个引用就 ODR-use 这个 inline 变量, 它的 ctor 在静态初始化阶段跑 `(id, fn) -> std::map` 的插入。
+`main()` 再把命令行参数转给 registry 调度——**等同于直接进入那个 topic 的 `int main(int, char**)`**。
 
 ```pwsh
 # Debug build 无参 = 遍历全部 874 个 topic (F5 from IDE 用这条)
@@ -65,7 +67,7 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 ├── CMakePresets.json           # base + {windows,linux,macos} x {debug,release,ci}
 ├── cmake/                      # Sccache / CompilerWarnings / Sanitizers / StaticAnalysis
 ├── include/
-│   └── learn/topic_registry.hpp  # LEARN_TOPIC 宏 + run_topic / list_topics 声明
+│   └── learn/topic_registry.hpp  # fixed_string + register_topic_t + topic<Id,Fn> 变量模板 + run_topic / list_topics 声明
 ├── scripts/
 │   ├── dev-shell.cmd           # 进 vcvars64 x64 dev prompt
 │   └── configure-and-build.cmd # 一键 vcvars64 -> configure -> build -> 列 topic
@@ -101,7 +103,7 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 
 - 一份 `README.md` (该 stage 目标 + 学习节奏);
 - 一层 `sectionNN_xxx/` 子目录, 对应路线图里的「大项」;
-- 子目录内 N 个 `*.cpp` 占位, 每份 = 独立 TU + 一条 `LEARN_TOPIC(...)` 注册。
+- 子目录内 N 个 `*.cpp` 占位, 每份 = 独立 TU + 一条 `learn::topic<id, run>` 实例化。
 
 ## 现状
 
@@ -118,7 +120,7 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 - 钩子: `pre-commit` (`trailing-whitespace` / `end-of-file-fixer` / `mixed-line-ending`
   / `check-{json,toml,yaml}` / `codespell` / `clang-format`). clang-tidy 通过 CMake 选项开,
   不放进 pre-commit (874 文件全跑太久)。
-- 占位规模: **23 stage / 150 section / 874 个 `.cpp`**, 每个一条 `LEARN_TOPIC` 注册。
+- 占位规模: **23 stage / 150 section / 874 个 `.cpp`**, 每个一条 `learn::topic<id, run>` 实例化。
 
 ## 前置
 
@@ -182,7 +184,7 @@ pre-commit run --all-files             # 全量跑一次
 ## 加一个新占位
 
 直接 `cp` 一个现成 `.cpp` 改名, 改顶部 4 个注释字段 (Doc / Stage / Section / Item / Topic id),
-改 `LEARN_TOPIC("<新 id>", run)`。CMake 顶层 `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")`
+改 `::learn::topic<"<新 id>", run>` 里的 id 字符串。CMake 顶层 `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")`
 在下次 `cmake --build` 时自动接上。
 
 ## 工具版本备忘 (本机当前实测 2026-06)

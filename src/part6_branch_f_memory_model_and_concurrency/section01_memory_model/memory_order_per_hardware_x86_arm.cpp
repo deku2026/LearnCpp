@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/f/section01/memory_order_per_hardware_x86_arm", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/f/section01/memory_order_per_hardware_x86_arm", run>;
 
 }  // namespace

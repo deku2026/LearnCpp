@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/d/section04/range_adaptor_closure_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section04/range_adaptor_closure_cpp23", run>;
 
 }  // namespace

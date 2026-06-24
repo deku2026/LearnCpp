@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage07/section05/constexpr_std_vector_cpp20", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage07/section05/constexpr_std_vector_cpp20", run>;
 
 }  // namespace

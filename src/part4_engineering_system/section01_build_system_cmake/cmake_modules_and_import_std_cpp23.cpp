@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part4/section01/cmake_modules_and_import_std_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section01/cmake_modules_and_import_std_cpp23", run>;
 
 }  // namespace

@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part3/section03/reference_wrapper_and_forward_like_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section03/reference_wrapper_and_forward_like_cpp23", run>;
 
 }  // namespace

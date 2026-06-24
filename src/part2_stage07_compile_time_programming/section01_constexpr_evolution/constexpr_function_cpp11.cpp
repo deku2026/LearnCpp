@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage07/section01/constexpr_function_cpp11", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage07/section01/constexpr_function_cpp11", run>;
 
 }  // namespace

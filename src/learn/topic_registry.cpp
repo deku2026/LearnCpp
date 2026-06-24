@@ -16,9 +16,13 @@ std::map<std::string, TopicFn>& registry() noexcept {
 
 }  // namespace
 
-TopicRegistrar::TopicRegistrar(std::string_view id, TopicFn fn) noexcept {
+namespace detail {
+
+void register_topic_impl(std::string_view id, TopicFn fn) noexcept {
     registry().emplace(std::string{id}, fn);
 }
+
+}  // namespace detail
 
 int run_topic(int argc, char** argv) {
     if (argc < 1 || argv[0] == nullptr) {

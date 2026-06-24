@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section03/dangling_coroutine_reference_parameter", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section03/dangling_coroutine_reference_parameter", run>;
 
 }  // namespace

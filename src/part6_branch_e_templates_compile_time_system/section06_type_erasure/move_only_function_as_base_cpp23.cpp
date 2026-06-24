@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/e/section06/move_only_function_as_base_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/e/section06/move_only_function_as_base_cpp23", run>;
 
 }  // namespace

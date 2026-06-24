@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage08/section04/range_for_temporary_extension_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage08/section04/range_for_temporary_extension_cpp23", run>;
 
 }  // namespace

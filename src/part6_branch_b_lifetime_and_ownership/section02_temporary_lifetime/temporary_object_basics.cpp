@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section02/temporary_object_basics", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section02/temporary_object_basics", run>;
 
 }  // namespace

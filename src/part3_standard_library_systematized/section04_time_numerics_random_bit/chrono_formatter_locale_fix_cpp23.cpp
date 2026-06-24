@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part3/section04/chrono_formatter_locale_fix_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section04/chrono_formatter_locale_fix_cpp23", run>;
 
 }  // namespace

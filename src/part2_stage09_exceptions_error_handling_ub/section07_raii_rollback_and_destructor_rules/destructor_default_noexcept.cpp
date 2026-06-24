@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage09/section07/destructor_default_noexcept", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section07/destructor_default_noexcept", run>;
 
 }  // namespace

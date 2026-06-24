@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/a/section01/member_layout_alignment_padding", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/a/section01/member_layout_alignment_padding", run>;
 
 }  // namespace

@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/b/section06/asan_runtime_safety_net", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section06/asan_runtime_safety_net", run>;
 
 }  // namespace

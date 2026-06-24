@@ -18,6 +18,7 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage09/section05/optional_and_then_transform_or_else_cpp23", run);
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage09/section05/optional_and_then_transform_or_else_cpp23", run>;
 
 }  // namespace

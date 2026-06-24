@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage15/section04/ebo_no_unique_address", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section04/ebo_no_unique_address", run>;
 
 }  // namespace

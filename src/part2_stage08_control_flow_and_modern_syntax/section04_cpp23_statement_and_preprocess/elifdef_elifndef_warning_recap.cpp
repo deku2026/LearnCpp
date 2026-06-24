@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage08/section04/elifdef_elifndef_warning_recap", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage08/section04/elifdef_elifndef_warning_recap", run>;
 
 }  // namespace

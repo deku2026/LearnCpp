@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage12/section03/co_await_lookup_and_await_transform", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage12/section03/co_await_lookup_and_await_transform", run>;
 
 }  // namespace

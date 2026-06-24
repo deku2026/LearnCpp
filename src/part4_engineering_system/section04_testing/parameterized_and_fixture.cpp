@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part4/section04/parameterized_and_fixture", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section04/parameterized_and_fixture", run>;
 
 }  // namespace

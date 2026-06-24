@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage05/section03/never_move_return_of_local", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage05/section03/never_move_return_of_local", run>;
 
 }  // namespace

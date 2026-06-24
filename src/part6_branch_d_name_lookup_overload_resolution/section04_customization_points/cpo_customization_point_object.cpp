@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/d/section04/cpo_customization_point_object", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section04/cpo_customization_point_object", run>;
 
 }  // namespace

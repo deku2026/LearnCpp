@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part2/stage15/section03/policy_based_design_idiom", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section03/policy_based_design_idiom", run>;
 
 }  // namespace

@@ -18,6 +18,6 @@ int run(int argc, char** argv) {
     return 0;
 }
 
-LEARN_TOPIC("part6/g/section04/start_lifetime_as_in_systems_code_cpp23", run);
+[[maybe_unused]] const auto& _ = ::learn::topic<"part6/g/section04/start_lifetime_as_in_systems_code_cpp23", run>;
 
 }  // namespace
