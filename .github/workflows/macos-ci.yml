@@ -46,7 +46,7 @@ jobs:
           echo "$(brew --prefix llvm@19)/bin" >> "$GITHUB_PATH"
 
       - name: Install sccache
-        uses: mozilla-actions/sccache-action@v0.0.9
+        uses: mozilla-actions/sccache-action@v0.0.10
 
       - name: Restore sccache cache
         uses: actions/cache@v4
