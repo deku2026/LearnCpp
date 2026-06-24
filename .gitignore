@@ -1,0 +1,46 @@
+# Build & cache
+build/
+out/
+dist/
+artifacts/
+.cache/
+.sccache/
+.compiler-cache/
+.ccache/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+cmake-build-*/
+Testing/
+
+# IDE / editor
+.vs/
+.vscode/*.code-workspace
+.vscode/settings.json
+.idea/
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+
+# Test output
+TestResults/
+*.gcov
+*.gcda
+*.gcno
+
+# Worktrees
+.worktree/
+
+# Local AI assistant workspaces
+.claude/
+.cursor/
+
+# OS junk
+.DS_Store
+Thumbs.db
+

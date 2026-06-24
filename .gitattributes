@@ -1,0 +1,34 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.sln text eol=crlf
+*.vcxproj text eol=crlf
+*.filters text eol=crlf
+
+*.h linguist-language=C++
+*.hh linguist-language=C++
+*.hpp linguist-language=C++
+*.hxx linguist-language=C++
+*.inc linguist-language=C++
+*.cc linguist-language=C++
+*.cpp linguist-language=C++
+*.cxx linguist-language=C++
+*.ipp linguist-language=C++
+*.tpp linguist-language=C++
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.ttf binary
+*.otf binary
+*.a binary
+*.lib binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.obj binary
+*.o binary
