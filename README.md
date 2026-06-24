@@ -50,8 +50,9 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 ├── .clang-format / .clang-tidy / .clangd / .codespell-ignore
 ├── .editorconfig / .gitattributes / .gitignore
 ├── .pre-commit-config.yaml
+├── .github/workflows/{linux,macos,windows}-ci.yml  # configure -> build -> smoke run learn_cpp
 ├── CMakeLists.txt              # 根 build 脚本, GLOB_RECURSE src/**/*.cpp
-├── CMakePresets.json           # base + {windows,linux,macos} x {debug,release}
+├── CMakePresets.json           # base + {windows,linux,macos} x {debug,release,ci}
 ├── cmake/                      # Sccache / CompilerWarnings / Sanitizers / StaticAnalysis
 ├── include/
 │   └── learn/topic_registry.hpp  # LEARN_TOPIC 宏 + run_topic / list_topics 声明
@@ -100,7 +101,9 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
   - **Linux**: clang/clang++ (apt clang-19+).
   - **macOS**: clang/clang++ (Homebrew llvm@19+ 或系统 Apple clang).
 - 构建系统: **CMake 3.28+** + **Ninja** + **sccache**.
-- **没有 CI**, 没有 GoogleTest, 没有 ctest — 这是个人学习仓, 不是产品仓。
+- CI: GitHub Actions 三套 workflow (`windows-ci.yml` / `linux-ci.yml` / `macos-ci.yml`),
+  每条都 configure + build + smoke-run `learn_cpp` (列出 topic 数). **没有跑 gtest / ctest** —
+  代码主体是赤裸 `int run(int, char**)`, CI 守的是"874 TU 还能在三平台编出来 + registry 还能跑"。
 - 钩子: `pre-commit` (`trailing-whitespace` / `end-of-file-fixer` / `mixed-line-ending`
   / `check-{json,toml,yaml}` / `codespell` / `clang-format`). clang-tidy 通过 CMake 选项开,
   不放进 pre-commit (874 文件全跑太久)。

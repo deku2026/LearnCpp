@@ -53,6 +53,19 @@
         "CMAKE_BUILD_TYPE": "Release"
       }
     },
+    {
+      "name": "windows-ci",
+      "displayName": "Windows CI (clang-cl, -Werror)",
+      "inherits": ["windows-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      }
+    },
 
     {
       "name": "linux-base",
@@ -82,6 +95,20 @@
       "inherits": ["linux-base"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-ci",
+      "displayName": "Linux CI (clang, -Werror, UBSan)",
+      "inherits": ["linux-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON",
+        "LEARNCPP_ENABLE_UBSAN": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
       }
     },
 
@@ -115,15 +142,31 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "name": "macos-ci",
+      "displayName": "macOS CI (clang, -Werror)",
+      "inherits": ["macos-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_WERROR": "ON"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      }
     }
   ],
 
   "buildPresets": [
     { "name": "windows-debug",   "configurePreset": "windows-debug",   "targets": ["all"] },
     { "name": "windows-release", "configurePreset": "windows-release", "targets": ["all"] },
+    { "name": "windows-ci",      "configurePreset": "windows-ci",      "targets": ["all"] },
     { "name": "linux-debug",     "configurePreset": "linux-debug",     "targets": ["all"] },
     { "name": "linux-release",   "configurePreset": "linux-release",   "targets": ["all"] },
+    { "name": "linux-ci",        "configurePreset": "linux-ci",        "targets": ["all"] },
     { "name": "macos-debug",     "configurePreset": "macos-debug",     "targets": ["all"] },
-    { "name": "macos-release",   "configurePreset": "macos-release",   "targets": ["all"] }
+    { "name": "macos-release",   "configurePreset": "macos-release",   "targets": ["all"] },
+    { "name": "macos-ci",        "configurePreset": "macos-ci",        "targets": ["all"] }
   ]
 }
