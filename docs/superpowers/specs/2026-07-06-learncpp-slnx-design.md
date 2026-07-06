@@ -1,0 +1,138 @@
+# LearnCpp.slnx — independent VS2026 / clang-cl / C++23preview build
+
+- **Date:** 2026-07-06
+- **Status:** Approved
+- **Branch:** `worktree-add-learncpp-slnx`
+- **Author:** sammiller (with Claude)
+
+## Goal
+
+Add a completely **CMake-independent** Visual Studio XML solution (`.slnx`) that builds the
+`learn_cpp` executable with **VS2026's bundled clang-cl 22.1.3** at **`/std:c++23preview`**.
+It must build locally with VS2026 and be verified by a new, parallel Windows CI job that uses
+the same VS2026 environment. The solution is C++-only and has no relationship to CMake.
+
+## Context (current state)
+
+- Single `learn_cpp` executable built from **876 `.cpp`** files under `src/` plus one header
+  `include/learn/topic_registry.hpp`. Topics self-register via inline variable templates at
+  static-init time; `main()` dispatches.
+- Build system today: CMake + Ninja, `CMAKE_CXX_STANDARD 23`, clang-cl on Windows. CMake
+  currently passes `-std=c++23` (effective C++23, **not** `/std:c++latest`), so switching the
+  independent build to `/std:c++23preview` (also C++23) carries low standard-level risk.
+- Windows CI (`.github/workflows/windows-ci.yml`) already runs on `windows-2025-vs2026`,
+  sets up VS2026 via `ilammy/msvc-dev-cmd@v1` (`vsversion: 18.0`), and uses the bundled
+  clang-cl 22.x under `VC\Tools\Llvm\x64\bin` — but it builds via CMake only.
+- `.vs/` is gitignored, so the `.slnx` cannot live there; it must live at the repo root.
+- Local toolchain (verified): VS2026 Community v18.7 at
+  `C:\Program Files\Microsoft Visual Studio\18\Community`; clang-cl 22.1.3 at
+  `VC\Tools\Llvm\x64\bin`; MSBuild 18.7; ClangCl MSBuild toolset installed at
+  `...\MSBuild\Microsoft\VC\v180\Platforms\x64\PlatformToolsets\ClangCL`.
+
+## Confirmed decisions
+
+1. **Solution file name:** `LearnCpp.slnx` (repo root).
+2. **CI structure:** new **parallel** `slnx-msbuild` job; the existing CMake job is kept untouched.
+3. **No `-Werror`** on the slnx build — keeps the independent build robust to flag-set
+   differences. The CMake CI job continues to gate `-Werror` separately.
+4. **No `.vcxproj.filters`** file — keep the project minimal and self-contained.
+
+## Artifacts (all new)
+
+| Path | Purpose |
+|---|---|
+| `LearnCpp.slnx` | Minimal XML solution at repo root; references `vs/learn_cpp.vcxproj`; Debug + Release, x64. |
+| `vs/learn_cpp.vcxproj` | ClangCl toolset, C++23preview, globbed sources, self-contained. |
+| `.github/workflows/windows-ci.yml` | **Add** a new `slnx-msbuild` job (existing `build` job unchanged). |
+
+No `Directory.build.props`, no `.filters`, no `.user` files.
+
+## `.slnx` structure
+
+```xml
+<Solution Version="1.0" Description="LearnCpp — VS2026 clang-cl C++23preview (independent of CMake)">
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="vs/learn_cpp.vcxproj" DisplayName="learn_cpp" />
+</Solution>
+```
+
+## `.vcxproj` settings
+
+| Setting | Value | Rationale |
+|---|---|---|
+| `PlatformToolset` | `ClangCl` | VS2026 bundled clang-cl 22.1.3 (toolset at `...\VC\v180\Platforms\x64\PlatformToolsets\ClangCL`). |
+| `LanguageStandard` | `stdcpp23preview` | Emits `/std:c++23preview` (C++23; supported by clang-cl 20+, we have 22.1.3). |
+| `ConfigurationType` | `Application` | Executable. |
+| `SubSystem` | `Console` | Console app. |
+| `WarningLevel` | `Level4` (`/W4`) | Matches CMake. |
+| `ConformanceMode` | `true` (`/permissive-`) | Matches CMake. |
+| `ExceptionHandling` | `Sync` (`/EHsc`) | Matches CMake. |
+| `AdditionalOptions` | `-Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include %(AdditionalOptions)` | Matches CMake's clang-cl noise-taming. |
+| `AdditionalIncludeDirectories` | `$(SolutionDir)include` | Resolves `#include "learn/topic_registry.hpp"`. |
+| `PrecompiledHeader` | `NotUsing` | Project uses none. |
+| `TreatWarningAsError` | `false` | Decision #3 — independent build stays robust. |
+| Sources | `<ClCompile Include="..\src\**\*.cpp" />` + `<ClInclude Include="..\include\**\*.hpp" />` | Glob; auto-discovers new topics like CMake `GLOB_RECURSE`. |
+| `OutDir` | `$(SolutionDir)build\vs\$(Platform)\$(Configuration)\` | Keeps output out of source; `build/` is gitignored. |
+| `TargetName` | `learn_cpp` | Produces `build/vs/x64/Release/learn_cpp.exe`. |
+| `IntDir` | `$(SolutionDir)build\vs\$(Platform)\$(Configuration)\obj\` | Keep `.obj` out of the source tree. |
+| Configs | Debug (`MultiThreadedDebugDLL`, `/Od`) + Release (`MultiThreadedDLL`, `/O2`), x64 only | Standard. |
+
+All 876 `.cpp` (including `src\main.cpp` and `src\learn\topic_registry.cpp`) are compiled and
+linked into the single exe, so every topic's inline `learn::topic<...>` specialization is
+ODR-used and its static-init registers the topic — matching the CMake build's behavior.
+
+## CI: new `slnx-msbuild` job in `windows-ci.yml`
+
+- `runs-on: windows-2025-vs2026`, `timeout-minutes: 60`, `shell: pwsh`.
+- `actions/checkout@v7`.
+- `ilammy/msvc-dev-cmd@v1` with `arch: x64`, `vsversion: 18.0` (sets MSVC `INCLUDE`/`LIB`/`PATH` —
+  identical to the existing CMake job).
+- Locate VS2026 bundled clang-cl via `vswhere -latest -version "[18.0,19.0)"` →
+  `VC\Tools\Llvm\x64\bin` → prepend to `GITHUB_PATH` (same logic as the existing job) so the
+  ClangCl MSBuild toolset resolves `clang-cl.exe`.
+- Verify: `MSBuild -version`, `clang-cl --version`.
+- Build: `MSBuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64 -m`.
+- Smoke-run: `build/vs/x64/Release/learn_cpp.exe` → expect **≥800 topic lines** (same threshold
+  as the CMake job). Fail the job if fewer.
+- **No sccache** — keeps the slnx build simple and CMake-independent.
+
+The new job runs in parallel with the existing `build` (CMake) job and fails independently.
+
+## Local verification (before push)
+
+1. From a vcvars64 prompt (`scripts\dev-shell.cmd`), run
+   `msbuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64`.
+2. Confirm `build\vs\x64\Release\learn_cpp.exe` is produced.
+3. Smoke-run → ≥800 topics; also build Debug to confirm both configs link and run.
+4. Open `LearnCpp.slnx` in the VS2026 IDE to confirm it loads and builds.
+
+## Independence from CMake (explicit)
+
+The slnx/vcxproj compiles `src/**/*.cpp` + `include/**/*.hpp` directly via clang-cl. It reads
+**no** `CMakeLists.txt`, `CMakePresets.json`, or `compile_commands.json`, and writes to
+`build/vs/` (separate from CMake's `build/<preset>/`). Adding a new topic `.cpp` is picked up
+by the vcxproj glob on the next MSBuild run.
+
+## Tradeoffs / known limitations
+
+- **Build speed:** clang-cl has no `/MP`, so MSBuild compiles the 876 tiny TUs sequentially
+  (~6–12 min). Within the 60-min CI timeout. `UseMultiToolTask` can be added later if needed.
+- **No `-Werror`:** the slnx build does not treat warnings as errors (CMake CI still does).
+- **No sccache:** simpler, but cold CI builds are slower.
+- **Globbing:** new files are picked up on the next MSBuild run, but MSBuild will not
+  auto-retrigger like CMake's `CONFIGURE_DEPENDS`.
+
+## Out of scope (YAGNI)
+
+- `.vcxproj.filters` (IDE tree grouping) — decision #4.
+- `Directory.build.props` — single project; inline everything in the vcxproj.
+- sccache integration with MSBuild.
+- Linux/macOS slnx equivalents — slnx is VS-specific; other platforms keep CMake.
+
+## Open questions
+
+None — all design questions resolved during brainstorming.
