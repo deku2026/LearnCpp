@@ -114,3 +114,55 @@ jobs:
 
       - name: Run pre-commit
         run: pre-commit run --all-files --show-diff-on-failure --color=always
+
+  slnx-msbuild:
+    name: Windows x64 slnx (clang-cl + MSBuild, independent of CMake)
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup MSVC dev environment (VS2026, x64)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+          vsversion: 18.0
+
+      - name: Put VS2026 bundled clang-cl on PATH
+        # Mirrors the cmake job: the ClangCl MSBuild toolset auto-finds clang-cl
+        # via VsInstallRoot, but putting it on PATH also lets us verify it here.
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsPath = & $vswhere -latest -version "[18.0,19.0)" -property installationPath
+          if (-not $vsPath) {
+            Write-Error "VS2026 (= VS18) not found on this runner via vswhere"
+            exit 1
+          }
+          $llvmBin = Join-Path $vsPath "VC\Tools\Llvm\x64\bin"
+          if (-not (Test-Path "$llvmBin\clang-cl.exe")) {
+            Write-Error "clang-cl.exe missing under $llvmBin"
+            exit 1
+          }
+          echo $llvmBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Verify tools
+        run: |
+          (Get-Command clang-cl).Source
+          clang-cl --version
+          (Get-Command MSBuild).Source
+          MSBuild -version | Select-Object -First 1
+
+      - name: Build LearnCpp.slnx (Release, x64, clang-cl, parallel)
+        # Plain -m lets MSBuild auto-size the node count to the runner; the
+        # vcxproj's UseMultiToolTask + MsbuildProcessCounter scheduler then
+        # parallelizes the 876 TUs across cores (clang-cl has no /MP).
+        run: MSBuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64 -m -nologo
+
+      - name: Smoke-run learn_cpp (list registered topics)
+        run: |
+          $exe = "build/vs/x64/Release/learn_cpp.exe"
+          & $exe | Select-Object -First 5
+          $count = (& $exe | Measure-Object -Line).Lines
+          if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit 1 }
+          Write-Host "OK ($count lines from learn_cpp)"
