@@ -66,20 +66,22 @@ No `Directory.build.props`, no `.filters`, no `.user` files.
 |---|---|---|
 | `PlatformToolset` | `ClangCl` | VS2026 bundled clang-cl 22.1.3 (toolset at `...\VC\v180\Platforms\x64\PlatformToolsets\ClangCL`). |
 | `LanguageStandard` | `stdcpp23` | Emits `/std:c++23preview` (C++23). In VS2026 (v180) the enum value is `stdcpp23`, which maps to the `/std:c++23preview` switch (verified in `cl_clangcl_extension.xml`); `stdcpp23preview` is **not** a valid value in v180. |
-| `ConfigurationType` | `Application` | Executable. |
-| `SubSystem` | `Console` | Console app. |
+| `ConfigurationType` / `SubSystem` | `Application` / `Console` | Executable. |
 | `WarningLevel` | `Level4` (`/W4`) | Matches CMake. |
 | `ConformanceMode` | `true` (`/permissive-`) | Matches CMake. |
 | `ExceptionHandling` | `Sync` (`/EHsc`) | Matches CMake. |
 | `AdditionalOptions` | `-Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include %(AdditionalOptions)` | Matches CMake's clang-cl noise-taming. |
-| `AdditionalIncludeDirectories` | `$(SolutionDir)include` | Resolves `#include "learn/topic_registry.hpp"`. |
+| `PreprocessorDefinitions` | `_DEBUG` (Debug) / `NDEBUG` (Release) | So `main()` lists topics in Release (`NDEBUG`) and iterates in Debug — matches CMake's RelWithDebInfo. Without `NDEBUG`, `main()` took the debug branch and printed one line. |
+| `AdditionalIncludeDirectories` | `$(RepoRoot)include` | Resolves `#include "learn/topic_registry.hpp"`. `RepoRoot = $([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))`, so paths work for direct vcxproj builds too (not just via the slnx). |
 | `PrecompiledHeader` | `NotUsing` | Project uses none. |
 | `TreatWarningAsError` | `false` | Decision #3 — independent build stays robust. |
-| Sources | `<ClCompile Include="..\src\**\*.cpp" />` + `<ClInclude Include="..\include\**\*.hpp" />` | Glob; auto-discovers new topics like CMake `GLOB_RECURSE`. |
-| `OutDir` | `$(SolutionDir)build\vs\$(Platform)\$(Configuration)\` | Keeps output out of source; `build/` is gitignored. |
+| Sources | `<ClCompile Include="$(RepoRoot)src\**\*.cpp" />` + `<ClInclude Include="$(RepoRoot)include\**\*.hpp" />` | Glob; auto-discovers new topics like CMake `GLOB_RECURSE`. |
+| `ObjectFileName` | `$(IntDir)%(RecursiveDir)%(Filename).obj` | Mirrors the source tree under `IntDir` so duplicate basenames across `part*/section*` dirs get distinct `.obj`. Required: the default flat `IntDir` caused MSB8027 collisions that silently dropped topic registrations (verified — 874 topics only after this fix). |
+| Parallelism | `UseMultiToolTask=true`, `MultiProcCL=true`, `MultiProcMaxCount=$([System.Environment]::ProcessorCount)`, `UseMsbuildResourceManager=true` + `MsbuildProcessCounter` scheduler | clang-cl has no `/MP`; MSBuild's MultiToolTask parallelizes the 876 TUs across cores. `MultiProcCL` is set **directly** (not via `UseMultiToolTask` alone) to work around a v180 target-ordering gap where the ClangCl fixup target reads `$(MultiProcCL)` before `FixupCLCompileOptions` sets it. Build with `-m`. |
+| `OutDir` | `$(RepoRoot)build\vs\$(Platform)\$(Configuration)\` | Keeps output out of source; `build/` is gitignored. |
 | `TargetName` | `learn_cpp` | Produces `build/vs/x64/Release/learn_cpp.exe`. |
-| `IntDir` | `$(SolutionDir)build\vs\$(Platform)\$(Configuration)\obj\` | Keep `.obj` out of the source tree. |
-| Configs | Debug (`MultiThreadedDebugDLL`, `/Od`) + Release (`MultiThreadedDLL`, `/O2`), x64 only | Standard. |
+| `IntDir` | `$(RepoRoot)build\vs\$(Platform)\$(Configuration)\obj\` | Keep `.obj` out of the source tree. |
+| Configs | Debug (`MultiThreadedDebugDLL`, `/Od`, `/Z7`) + Release (`MultiThreadedDLL`, `/O2`), x64 only | Standard. |
 
 All 876 `.cpp` (including `src\main.cpp` and `src\learn\topic_registry.cpp`) are compiled and
 linked into the single exe, so every topic's inline `learn::topic<...>` specialization is
@@ -105,7 +107,7 @@ The new job runs in parallel with the existing `build` (CMake) job and fails ind
 ## Local verification (before push)
 
 1. From a vcvars64 prompt (`scripts\dev-shell.cmd`), run
-   `msbuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64`.
+   `MSBuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64 -m` (~62s, parallel).
 2. Confirm `build\vs\x64\Release\learn_cpp.exe` is produced.
 3. Smoke-run → ≥800 topics; also build Debug to confirm both configs link and run.
 4. Open `LearnCpp.slnx` in the VS2026 IDE to confirm it loads and builds.
@@ -119,8 +121,10 @@ by the vcxproj glob on the next MSBuild run.
 
 ## Tradeoffs / known limitations
 
-- **Build speed:** clang-cl has no `/MP`, so MSBuild compiles the 876 tiny TUs sequentially
-  (~6–12 min). Within the 60-min CI timeout. `UseMultiToolTask` can be added later if needed.
+- **Build speed:** clang-cl has no `/MP`, so parallelism comes from MSBuild's
+  `UseMultiToolTask` (MultiToolTask). Verified locally: **~62s** for 876 TUs on 18 cores
+  (vs ~5–6 min sequential). CI uses plain `-m` (auto-sizes nodes to the runner);
+  `MultiProcMaxCount=ProcessorCount` adapts the parallel width to the machine.
 - **No `-Werror`:** the slnx build does not treat warnings as errors (CMake CI still does).
 - **No sccache:** simpler, but cold CI builds are slower.
 - **Globbing:** new files are picked up on the next MSBuild run, but MSBuild will not

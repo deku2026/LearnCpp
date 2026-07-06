@@ -2,6 +2,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **STATUS: Implemented (2026-07-06).** The committed `vs/learn_cpp.vcxproj` is authoritative.
+> During build verification the vcxproj was refined beyond the Task 1 Step 1 snippet below:
+> `UseMultiToolTask` + `MultiProcCL=true` + `MultiProcMaxCount=ProcessorCount` + the
+> `MsbuildProcessCounter` scheduler were added for parallel compilation (clang-cl has no `/MP`);
+> `ObjectFileName=$(IntDir)%(RecursiveDir)%(Filename).obj` was added to fix MSB8027 duplicate-basename
+> collisions; `PreprocessorDefinitions` (`NDEBUG`/`_DEBUG`) were added; and source/output paths use
+> `$(RepoRoot)` instead of `..\` / `$(SolutionDir)`. The vcxproj snippet below is the **initial**
+> version — see the spec and the implementation commits for the final, verified content.
+
 **Goal:** Add a CMake-independent Visual Studio XML solution (`LearnCpp.slnx`) that builds the `learn_cpp` executable with VS2026's bundled clang-cl at `/std:c++23preview`, verify it locally, and add a parallel Windows CI job that builds it with the same VS2026 environment.
 
 **Architecture:** A hand-written `.vcxproj` under `vs/` uses the `ClangCl` MSBuild platform toolset (which auto-resolves VS2026's bundled `clang-cl.exe` via `VsInstallRoot`) and globs `src/**/*.cpp` + `include/**/*.hpp`, so it is fully independent of CMake yet auto-discovers new topics like CMake's `GLOB_RECURSE`. A minimal `.slnx` at the repo root references that vcxproj with Debug + Release / x64 configurations. A new `slnx-msbuild` job in `windows-ci.yml` mirrors the existing cmake job's VS2026 setup and builds the slnx with MSBuild, then smoke-runs the exe.
