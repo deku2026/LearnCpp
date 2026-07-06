@@ -65,7 +65,7 @@ No `Directory.build.props`, no `.filters`, no `.user` files.
 | Setting | Value | Rationale |
 |---|---|---|
 | `PlatformToolset` | `ClangCl` | VS2026 bundled clang-cl 22.1.3 (toolset at `...\VC\v180\Platforms\x64\PlatformToolsets\ClangCL`). |
-| `LanguageStandard` | `stdcpp23preview` | Emits `/std:c++23preview` (C++23; supported by clang-cl 20+, we have 22.1.3). |
+| `LanguageStandard` | `stdcpp23` | Emits `/std:c++23preview` (C++23). In VS2026 (v180) the enum value is `stdcpp23`, which maps to the `/std:c++23preview` switch (verified in `cl_clangcl_extension.xml`); `stdcpp23preview` is **not** a valid value in v180. |
 | `ConfigurationType` | `Application` | Executable. |
 | `SubSystem` | `Console` | Console app. |
 | `WarningLevel` | `Level4` (`/W4`) | Matches CMake. |
