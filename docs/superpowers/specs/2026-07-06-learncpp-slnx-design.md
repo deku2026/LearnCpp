@@ -35,22 +35,22 @@ the same VS2026 environment. The solution is C++-only and has no relationship to
 2. **CI structure:** new **parallel** `slnx-msbuild` job; the existing CMake job is kept untouched.
 3. **No `-Werror`** on the slnx build — keeps the independent build robust to flag-set
    differences. The CMake CI job continues to gate `-Werror` separately.
-4. **Generated `.vcxproj.filters` + read-only wildcard project.** VS2026's C++ project
-   system doesn't natively display wildcard items in Solution Explorer, so a filters
-   sidecar alone can't group files. We keep the wildcard for auto-discovery and mark
-   the project with `ReplaceWildcardsInProjectItems=true` plus `ReadOnlyProject=true`,
-   so VS expands wildcards into explicit items for display without saving them back.
+4. **Generated explicit project items + `.vcxproj.filters`.** VS2026's C++ project
+   system does not reliably bind wildcard-expanded items to `.vcxproj.filters`, so
+   `scripts/generate-vs-filters.ps1` writes every `src/` and `include/` file as an
+   explicit project item and emits matching filters metadata for Solution Explorer.
 
 ## Artifacts (all new)
 
 | Path | Purpose |
 |---|---|
 | `LearnCpp.slnx` | Minimal XML solution at repo root; references `vs/learn_cpp.vcxproj`; Debug + Release, x64. |
-| `vs/learn_cpp.vcxproj` | ClangCl toolset, C++23preview, globbed sources, self-contained. |
+| `vs/learn_cpp.vcxproj` | ClangCl toolset, C++23preview, generated explicit source/header items, self-contained. |
 | `.github/workflows/windows-ci.yml` | **Add** a new `slnx-msbuild` job (existing `build` job unchanged). |
 
-No `Directory.build.props`, no `.user` files. A generated `.vcxproj.filters` plus
-`ReplaceWildcardsInProjectItems`/`ReadOnlyProject` properties enable the IDE folder tree.
+No `Directory.build.props`, no `.user` files. A generated `.vcxproj.filters` file
+uses the same Include strings as the explicit project items, which enables the IDE
+folder tree.
 
 ## `.slnx` structure
 
@@ -80,8 +80,8 @@ No `Directory.build.props`, no `.user` files. A generated `.vcxproj.filters` plu
 | `AdditionalIncludeDirectories` | `$(RepoRoot)include` | Resolves `#include "learn/topic_registry.hpp"`. `RepoRoot = $([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))`, so paths work for direct vcxproj builds too (not just via the slnx). |
 | `PrecompiledHeader` | `NotUsing` | Project uses none. |
 | `TreatWarningAsError` | `false` | Decision #3 — independent build stays robust. |
-| Sources | `<ClCompile Include="$(RepoRoot)src\**\*.cpp" />` + `<ClInclude Include="$(RepoRoot)include\**\*.hpp" />` | Glob; auto-discovers new topics like CMake `GLOB_RECURSE`. |
-| `ObjectFileName` | `$(IntDir)%(RecursiveDir)%(Filename).obj` | Mirrors the source tree under `IntDir` so duplicate basenames across `part*/section*` dirs get distinct `.obj`. Required: the default flat `IntDir` caused MSB8027 collisions that silently dropped topic registrations (verified — 874 topics only after this fix). |
+| Sources | Generated explicit `<ClCompile Include="..\src\...\file.cpp">` and `<ClInclude Include="..\include\...\file.hpp" />` items. | VS C++ Solution Explorer expects project items to be explicit; re-run `scripts/generate-vs-filters.ps1` after add/remove. |
+| `ObjectFileName` | Per-source generated `$(IntDir)src\...\file.obj`. | Explicit items do not populate `%(RecursiveDir)`, and duplicate basenames across `part*/section*` dirs need distinct `.obj` paths. |
 | Parallelism | `UseMultiToolTask=true`, `MultiProcCL=true`, `MultiProcMaxCount=$([System.Environment]::ProcessorCount)`, `UseMsbuildResourceManager=true` + `MsbuildProcessCounter` scheduler | clang-cl has no `/MP`; MSBuild's MultiToolTask parallelizes the 876 TUs across cores. `MultiProcCL` is set **directly** (not via `UseMultiToolTask` alone) to work around a v180 target-ordering gap where the ClangCl fixup target reads `$(MultiProcCL)` before `FixupCLCompileOptions` sets it. Build with `-m`. |
 | `OutDir` | `$(RepoRoot)build\vs\$(Platform)\$(Configuration)\` | Keeps output out of source; `build/` is gitignored. |
 | `TargetName` | `learn_cpp` | Produces `build/vs/x64/Release/learn_cpp.exe`. |
@@ -119,10 +119,11 @@ The new job runs in parallel with the existing `build` (CMake) job and fails ind
 
 ## Independence from CMake (explicit)
 
-The slnx/vcxproj compiles `src/**/*.cpp` + `include/**/*.hpp` directly via clang-cl. It reads
-**no** `CMakeLists.txt`, `CMakePresets.json`, or `compile_commands.json`, and writes to
-`build/vs/` (separate from CMake's `build/<preset>/`). Adding a new topic `.cpp` is picked up
-by the vcxproj glob on the next MSBuild run.
+The slnx/vcxproj compiles the generated explicit list of `src/**/*.cpp` +
+`include/**/*.hpp` files directly via clang-cl. It reads **no** `CMakeLists.txt`,
+`CMakePresets.json`, or `compile_commands.json`, and writes to `build/vs/`
+(separate from CMake's `build/<preset>/`). After adding/removing a topic file, re-run
+`scripts/generate-vs-filters.ps1`.
 
 ## Tradeoffs / known limitations
 
@@ -132,12 +133,8 @@ by the vcxproj glob on the next MSBuild run.
   `MultiProcMaxCount=ProcessorCount` adapts the parallel width to the machine.
 - **No `-Werror`:** the slnx build does not treat warnings as errors (CMake CI still does).
 - **No sccache:** simpler, but cold CI builds are slower.
-- **Globbing:** new files are picked up on the next MSBuild run, but MSBuild will not
-  auto-retrigger like CMake's `CONFIGURE_DEPENDS`.
-- **Read-only project in the IDE:** `ReadOnlyProject=true` prevents Visual Studio from
-  saving the expanded wildcard items back into `vs/learn_cpp.vcxproj`. You can still edit
-  source files, build, and debug; only project-structure changes (add/remove files via the
-  IDE) are disabled. Re-run `scripts/generate-vs-filters.ps1` after adding/removing topics.
+- **Generated source list:** new files require re-running
+  `scripts/generate-vs-filters.ps1` so the project item list and filters stay in sync.
 
 ## Out of scope (YAGNI)
 

@@ -3,10 +3,8 @@
      Mirrors CMake source_group(TREE src PREFIX "Topics") and
      source_group(TREE include PREFIX "Headers"). Consumed by the VS IDE for
      Solution Explorer folders; MSBuild CLI ignores it. Re-run after add/remove.
-     Filter Include paths are relative (..\src\...) and match the vcxproj's
-     ..\src\**\*.cpp wildcard items exactly: MSBuild expands a relative wildcard to
-     relative item identities, so each filters entry is the same string as the project
-     item it folders. Build is unaffected (filters are VS-only; MSBuild CLI ignores them). -->
+     File Include paths exactly match the explicit items generated in learn_cpp.vcxproj.
+     Build is unaffected by filters; they are VS-only metadata. -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Headers">

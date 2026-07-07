@@ -6,14 +6,17 @@
 > During build verification the vcxproj was refined beyond the Task 1 Step 1 snippet below:
 > `UseMultiToolTask` + `MultiProcCL=true` + `MultiProcMaxCount=ProcessorCount` + the
 > `MsbuildProcessCounter` scheduler were added for parallel compilation (clang-cl has no `/MP`);
-> `ObjectFileName=$(IntDir)%(RecursiveDir)%(Filename).obj` was added to fix MSB8027 duplicate-basename
-> collisions; `PreprocessorDefinitions` (`NDEBUG`/`_DEBUG`) were added; and source/output paths use
-> `$(RepoRoot)` instead of `..\` / `$(SolutionDir)`. The vcxproj snippet below is the **initial**
-> version — see the spec and the implementation commits for the final, verified content.
+> `PreprocessorDefinitions` (`NDEBUG`/`_DEBUG`) were added; and source/output paths use
+> `$(RepoRoot)` instead of `..\` / `$(SolutionDir)`. Update (2026-07-07): VS2026 still displayed
+> wildcard-expanded files at the project root, so the final vcxproj now uses generated explicit
+> project items plus matching `.vcxproj.filters` entries. Each source gets a generated
+> `ObjectFileName=$(IntDir)src\...\file.obj` to avoid duplicate-basename collisions. The vcxproj
+> snippet below is the **initial** version — see the spec and implementation commits for the
+> final, verified content.
 
 **Goal:** Add a CMake-independent Visual Studio XML solution (`LearnCpp.slnx`) that builds the `learn_cpp` executable with VS2026's bundled clang-cl at `/std:c++23preview`, verify it locally, and add a parallel Windows CI job that builds it with the same VS2026 environment.
 
-**Architecture:** A hand-written `.vcxproj` under `vs/` uses the `ClangCl` MSBuild platform toolset (which auto-resolves VS2026's bundled `clang-cl.exe` via `VsInstallRoot`) and globs `src/**/*.cpp` + `include/**/*.hpp`, so it is fully independent of CMake yet auto-discovers new topics like CMake's `GLOB_RECURSE`. A minimal `.slnx` at the repo root references that vcxproj with Debug + Release / x64 configurations. A new `slnx-msbuild` job in `windows-ci.yml` mirrors the existing cmake job's VS2026 setup and builds the slnx with MSBuild, then smoke-runs the exe.
+**Architecture:** A hand-written `.vcxproj` under `vs/` uses the `ClangCl` MSBuild platform toolset (which auto-resolves VS2026's bundled `clang-cl.exe` via `VsInstallRoot`) and a generated explicit list of `src/**/*.cpp` + `include/**/*.hpp`, so it is fully independent of CMake while giving the VS C++ IDE stable project items for Solution Explorer filters. A minimal `.slnx` at the repo root references that vcxproj with Debug + Release / x64 configurations. A new `slnx-msbuild` job in `windows-ci.yml` mirrors the existing cmake job's VS2026 setup and builds the slnx with MSBuild, then smoke-runs the exe.
 
 **Tech Stack:** MSBuild (VS2026 v18.7), `ClangCl` platform toolset, clang-cl 22.1.3 (`/std:c++23preview` via `LanguageStandard=stdcpp23`), `.slnx` XML solution format, GitHub Actions (`windows-2025-vs2026` runner, `ilammy/msvc-dev-cmd@v1`).
 
@@ -24,10 +27,10 @@
 - **Warning flags:** `/W4 /permissive- /EHsc` plus `-Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include`. **No `/WX`** (no `-Werror`) on the slnx build — the CMake CI job continues to gate `-Werror` separately.
 - **Independence:** The vcxproj must read no `CMakeLists.txt`, `CMakePresets.json`, or `compile_commands.json`, and must write to `build/vs/` (separate from CMake's `build/<preset>/`).
 - **Line endings:** `.gitattributes` declares `*.vcxproj text eol=crlf` and everything else `eol=lf`. The pre-commit `mixed-line-ending` hook (`--fix=lf`) must exclude `.vcxproj` so it does not fight `.gitattributes` and break CI's `pre-commit run --all-files`.
-- **No `Directory.build.props`, no `.user` files** — minimal, self-contained project. A
-  generated `.vcxproj.filters` is allowed so VS2026 can mirror CMake's folder tree in
-  Solution Explorer; it requires `ReplaceWildcardsInProjectItems=true` and
-  `ReadOnlyProject=true` in the vcxproj.
+- **No `Directory.build.props`, no `.user` files** — minimal, self-contained project.
+  `scripts/generate-vs-filters.ps1` writes explicit vcxproj source/header items and
+  a matching `.vcxproj.filters` file so VS2026 can mirror CMake's folder tree in
+  Solution Explorer.
 - **Pre-commit:** Repo uses pre-commit (trailing-whitespace, end-of-file-fixer, mixed-line-ending, check-yaml, codespell, clang-format). clang-format only runs on `*.{c,h,cpp,hpp,...}` so it skips `.vcxproj`/`.slnx`. Run `pre-commit` on new files before committing to avoid the modify-restage dance.
 - **Worktree:** Work happens in the worktree at `C:\MyFile\LearnCpp\.claude\worktrees\add-learncpp-slnx` on branch `worktree-add-learncpp-slnx`. The PowerShell/Bash working directory is already there — do not `cd`.
 - **Local VS2026 path:** `C:\Program Files\Microsoft Visual Studio\18\Community`; vcvars64 at `VC\Auxiliary\Build\vcvars64.bat`; MSBuild 18.7.
@@ -36,7 +39,7 @@
 
 | Path | Status | Responsibility |
 |---|---|---|
-| `vs/learn_cpp.vcxproj` | Create | MSBuild project: ClangCl toolset, C++23preview, globbed sources, Debug+Release/x64, output to `build/vs/`. Self-contained — the entire build definition. |
+| `vs/learn_cpp.vcxproj` | Create | MSBuild project: ClangCl toolset, C++23preview, generated explicit sources, Debug+Release/x64, output to `build/vs/`. Self-contained — the entire build definition. |
 | `LearnCpp.slnx` | Create | Minimal XML solution at repo root; references `vs/learn_cpp.vcxproj`; declares Debug/Release + x64. Entry point for VS IDE and `MSBuild LearnCpp.slnx`. |
 | `.pre-commit-config.yaml` | Modify | Add `vcxproj` to `mixed-line-ending` exclude so the hook respects `.gitattributes` (`*.vcxproj eol=crlf`) and CI's `pre-commit --all-files` stays green. |
 | `.github/workflows/windows-ci.yml` | Modify | Add a new `slnx-msbuild` job (parallel to the existing `build` job). |
@@ -52,7 +55,7 @@
 - Modify: `.pre-commit-config.yaml` (the `mixed-line-ending` hook's `exclude`)
 
 **Interfaces:**
-- Consumes: all `src/**/*.cpp` (876 files) and `include/**/*.hpp` (1 file) via glob; the existing `learn::topic` self-registration mechanism.
+- Consumes: all `src/**/*.cpp` (876 files) and `include/**/*.hpp` (1 file) via generated explicit project items; the existing `learn::topic` self-registration mechanism.
 - Produces: `build/vs/x64/Release/learn_cpp.exe` (and Debug in Task 2); a loadable `LearnCpp.slnx` for VS/MSBuild.
 
 - [ ] **Step 1: Create the vcxproj**
@@ -242,7 +245,7 @@ if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit
 Write-Host "OK ($count lines from learn_cpp)"
 ```
 
-Expected: the first lines are topic ids like `part2/stage01/section01/...`; final line `OK (<N> lines from learn_cpp)` with N >= 800 (should be ~874). If N < 800, some topic .obj was not linked — confirm the glob `..\src\**\*.cpp` matched all 876 files (check the build log's `ClCompile` count).
+Expected: the first lines are topic ids like `part2/stage01/section01/...`; final line `OK (<N> lines from learn_cpp)` with N >= 800 (should be ~874). If N < 800, some topic .obj was not linked — confirm the generated `ClCompile` list contains all 876 files (check the build log's `ClCompile` count).
 
 - [ ] **Step 8: Stage and commit**
 
@@ -252,7 +255,7 @@ git commit -m "Add independent LearnCpp.slnx (VS2026 clang-cl, C++23preview)
 
 A CMake-independent XML solution + vcxproj that builds learn_cpp with VS2026's
 bundled clang-cl 22.1.3 at /std:c++23preview (LanguageStandard=stdcpp23). The
-vcxproj globs src/**/*.cpp + include/**/*.hpp, writes to build/vs/, and reads
+vcxproj lists generated explicit src/**/*.cpp + include/**/*.hpp items, writes to build/vs/, and reads
 no CMake output. Adds vcxproj to pre-commit's mixed-line-ending exclude so the
 hook respects .gitattributes (vcxproj eol=crlf) and CI pre-commit stays green.
 
@@ -409,8 +412,10 @@ parallel Windows CI job that builds it with the same VS2026 environment.
 
 - `LearnCpp.slnx` — minimal XML solution at the repo root (Debug + Release, x64).
 - `vs/learn_cpp.vcxproj` — `ClangCl` toolset, `LanguageStandard=stdcpp23`
-  (emits `/std:c++23preview`), globs `src/**/*.cpp` + `include/**/*.hpp`,
-  writes to `build/vs/`. No `.filters`, no `Directory.build.props`.
+  (emits `/std:c++23preview`), generated explicit `src/**/*.cpp` +
+  `include/**/*.hpp` items, writes to `build/vs/`.
+- `vs/learn_cpp.vcxproj.filters` — generated VS Solution Explorer tree matching
+  the explicit project item Include strings.
 - `.pre-commit-config.yaml` — add `vcxproj` to `mixed-line-ending` exclude so the
   hook respects `.gitattributes` (`*.vcxproj eol=crlf`) and CI's
   `pre-commit run --all-files` stays green.
@@ -422,7 +427,7 @@ parallel Windows CI job that builds it with the same VS2026 environment.
 The vcxproj compiles the sources directly with clang-cl. It reads no
 `CMakeLists.txt`, `CMakePresets.json`, or `compile_commands.json`, and writes to
 `build/vs/` (separate from CMake's `build/<preset>/`). New topic `.cpp` files are
-picked up by the vcxproj glob on the next MSBuild run.
+picked up after re-running `scripts/generate-vs-filters.ps1`.
 
 ## Local verification
 
@@ -451,6 +456,6 @@ Report the PR URL to the user. Note that CI (both the cmake `build` job and the 
 
 ## Self-Review (run after writing the plan)
 
-- **Spec coverage:** Goal ✓ (Task 1–2 build, Task 3 CI). All vcxproj settings from the spec table ✓ (Task 1 Step 1). `.slnx` structure ✓ (Task 1 Step 2). CI job ✓ (Task 3). Local verification ✓ (Tasks 1–2). Independence ✓ (Global Constraints + Task 1). No `-Werror` ✓ (Global Constraints + vcxproj omits `TreatWarningAsError`). No `.filters` ✓ (File Structure). Pre-commit/line-ending fix ✓ (Task 1 Step 3) — this was a gap in the spec discovered via `.gitattributes` inspection; required so the existing cmake CI job's `pre-commit --all-files` does not break on the new CRLF vcxproj.
+- **Spec coverage:** Goal ✓ (Task 1–2 build, Task 3 CI). All vcxproj settings from the spec table ✓ (Task 1 Step 1). `.slnx` structure ✓ (Task 1 Step 2). CI job ✓ (Task 3). Local verification ✓ (Tasks 1–2). Independence ✓ (Global Constraints + Task 1). No `-Werror` ✓ (Global Constraints + vcxproj omits `TreatWarningAsError`). Generated `.filters` ✓ (File Structure). Pre-commit/line-ending fix ✓ (Task 1 Step 3) — this was a gap in the spec discovered via `.gitattributes` inspection; required so the existing cmake CI job's `pre-commit --all-files` does not break on the new CRLF vcxproj.
 - **Placeholder scan:** No TBD/TODO; every code step has the actual file content; every command has expected output.
-- **Type consistency:** `LanguageStandard=stdcpp23` used consistently (corrected from the spec's `stdcpp23preview`); `RepoRoot` property used consistently for include/out/int dirs; glob `..\src\**\*.cpp` consistent with the 876-file source tree.
+- **Type consistency:** `LanguageStandard=stdcpp23` used consistently (corrected from the spec's `stdcpp23preview`); `RepoRoot` property used consistently for include/out/int dirs; generated explicit `..\src\...` items consistent with the 876-file source tree.
