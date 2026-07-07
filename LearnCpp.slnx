@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <Solution Version="1.0" Description="LearnCpp - VS2026 clang-cl C++23preview (independent of CMake)">
   <Configurations>
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="vs/learn_cpp.vcxproj" DisplayName="learn_cpp" />
+  <Project Path="vs/learn_cpp.vcxproj" Id="44b4c0d0-2a55-4a73-b803-cc04213d600b" />
 </Solution>
