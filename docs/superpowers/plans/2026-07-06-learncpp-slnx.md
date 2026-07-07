@@ -24,7 +24,10 @@
 - **Warning flags:** `/W4 /permissive- /EHsc` plus `-Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include`. **No `/WX`** (no `-Werror`) on the slnx build — the CMake CI job continues to gate `-Werror` separately.
 - **Independence:** The vcxproj must read no `CMakeLists.txt`, `CMakePresets.json`, or `compile_commands.json`, and must write to `build/vs/` (separate from CMake's `build/<preset>/`).
 - **Line endings:** `.gitattributes` declares `*.vcxproj text eol=crlf` and everything else `eol=lf`. The pre-commit `mixed-line-ending` hook (`--fix=lf`) must exclude `.vcxproj` so it does not fight `.gitattributes` and break CI's `pre-commit run --all-files`.
-- **No `.vcxproj.filters`, no `Directory.build.props`, no `.user` files** — minimal, self-contained project.
+- **No `Directory.build.props`, no `.user` files** — minimal, self-contained project. A
+  generated `.vcxproj.filters` is allowed so VS2026 can mirror CMake's folder tree in
+  Solution Explorer; it requires `ReplaceWildcardsInProjectItems=true` and
+  `ReadOnlyProject=true` in the vcxproj.
 - **Pre-commit:** Repo uses pre-commit (trailing-whitespace, end-of-file-fixer, mixed-line-ending, check-yaml, codespell, clang-format). clang-format only runs on `*.{c,h,cpp,hpp,...}` so it skips `.vcxproj`/`.slnx`. Run `pre-commit` on new files before committing to avoid the modify-restage dance.
 - **Worktree:** Work happens in the worktree at `C:\MyFile\LearnCpp\.claude\worktrees\add-learncpp-slnx` on branch `worktree-add-learncpp-slnx`. The PowerShell/Bash working directory is already there — do not `cd`.
 - **Local VS2026 path:** `C:\Program Files\Microsoft Visual Studio\18\Community`; vcvars64 at `VC\Auxiliary\Build\vcvars64.bat`; MSBuild 18.7.

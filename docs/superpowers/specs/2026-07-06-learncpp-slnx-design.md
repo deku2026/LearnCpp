@@ -35,7 +35,11 @@ the same VS2026 environment. The solution is C++-only and has no relationship to
 2. **CI structure:** new **parallel** `slnx-msbuild` job; the existing CMake job is kept untouched.
 3. **No `-Werror`** on the slnx build — keeps the independent build robust to flag-set
    differences. The CMake CI job continues to gate `-Werror` separately.
-4. **No `.vcxproj.filters`** file — keep the project minimal and self-contained.
+4. **Generated `.vcxproj.filters` + read-only wildcard project.** VS2026's C++ project
+   system doesn't natively display wildcard items in Solution Explorer, so a filters
+   sidecar alone can't group files. We keep the wildcard for auto-discovery and mark
+   the project with `ReplaceWildcardsInProjectItems=true` plus `ReadOnlyProject=true`,
+   so VS expands wildcards into explicit items for display without saving them back.
 
 ## Artifacts (all new)
 
@@ -45,7 +49,8 @@ the same VS2026 environment. The solution is C++-only and has no relationship to
 | `vs/learn_cpp.vcxproj` | ClangCl toolset, C++23preview, globbed sources, self-contained. |
 | `.github/workflows/windows-ci.yml` | **Add** a new `slnx-msbuild` job (existing `build` job unchanged). |
 
-No `Directory.build.props`, no `.filters`, no `.user` files.
+No `Directory.build.props`, no `.user` files. A generated `.vcxproj.filters` plus
+`ReplaceWildcardsInProjectItems`/`ReadOnlyProject` properties enable the IDE folder tree.
 
 ## `.slnx` structure
 
@@ -129,10 +134,13 @@ by the vcxproj glob on the next MSBuild run.
 - **No sccache:** simpler, but cold CI builds are slower.
 - **Globbing:** new files are picked up on the next MSBuild run, but MSBuild will not
   auto-retrigger like CMake's `CONFIGURE_DEPENDS`.
+- **Read-only project in the IDE:** `ReadOnlyProject=true` prevents Visual Studio from
+  saving the expanded wildcard items back into `vs/learn_cpp.vcxproj`. You can still edit
+  source files, build, and debug; only project-structure changes (add/remove files via the
+  IDE) are disabled. Re-run `scripts/generate-vs-filters.ps1` after adding/removing topics.
 
 ## Out of scope (YAGNI)
 
-- `.vcxproj.filters` (IDE tree grouping) — decision #4.
 - `Directory.build.props` — single project; inline everything in the vcxproj.
 - sccache integration with MSBuild.
 - Linux/macOS slnx equivalents — slnx is VS-specific; other platforms keep CMake.

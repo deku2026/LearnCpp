@@ -11,9 +11,18 @@
   relative strings, so VS matches each filters entry to its project item and folders
   the file. An absolute $(RepoRoot) wildcard would yield absolute items that relative
   filters cannot match, leaving the folders empty.
-  Without a .vcxproj.filters sidecar, VS2026 shows all 876 translation units flat in
-  Solution Explorer (no folder hierarchy). This script scans src/ and include/ and
-  emits a .filters file whose folder tree matches what CMake produces through
+
+  Visual Studio's C++ project system does not natively show wildcard items in
+  Solution Explorer, so a filters file alone is not enough. The vcxproj sets
+  <ReplaceWildcardsInProjectItems>true</ReplaceWildcardsInProjectItems> to tell MSBuild
+  to expand the wildcards into explicit project items (matching the relative paths
+  written here), and <ReadOnlyProject>true</ReadOnlyProject> so Visual Studio does not
+  save those expanded items back into the vcxproj file.
+
+  Without these two properties plus a .vcxproj.filters sidecar, VS2026 lists all 876
+  translation units flat in Solution Explorer (no folder hierarchy). This script scans
+  src/ and include/ and emits a .filters file whose Topics\... / Headers\... tree matches
+  what CMake produces through
 
       source_group(TREE "${CMAKE_SOURCE_DIR}/src"     PREFIX "Topics"  FILES ...)
       source_group(TREE "${CMAKE_SOURCE_DIR}/include"  PREFIX "Headers" FILES ...)

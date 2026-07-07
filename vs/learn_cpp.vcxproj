@@ -43,6 +43,16 @@
   <PropertyGroup Label="UserMacros" />
 
   <PropertyGroup>
+    <!--
+      The C++ project system normally doesn't show wildcard items in Solution Explorer,
+      so a sidecar .vcxproj.filters file can't group them into the Topics/Headers tree.
+      Setting ReplaceWildcardsInProjectItems=true tells MSBuild/VS to expand the wildcards
+      into explicit project items at load/evaluation time, which the filters can then map
+      to folders (mirroring CMake's source_group(TREE ...) layout). ReadOnlyProject keeps
+      Visual Studio from saving those expanded items back into this file.
+    -->
+    <ReplaceWildcardsInProjectItems>true</ReplaceWildcardsInProjectItems>
+    <ReadOnlyProject>true</ReadOnlyProject>
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRoot>
     <OutDir>$(RepoRoot)build\vs\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(RepoRoot)build\vs\$(Platform)\$(Configuration)\obj\</IntDir>
