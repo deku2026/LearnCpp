@@ -9,7 +9,7 @@ Placeholder Spring Boot (Java) app for future practice.
 | Package | `learn.spring.step07` |
 | Port | 8207 |
 | Spring Boot | 4.1.0 |
-| Java toolchain | 21 |
+| Java toolchain | 25 |
 
 ## Build
 

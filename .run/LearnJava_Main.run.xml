@@ -3,6 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="learnj.Main" />
     <module name="LearnKotlin.learn.main" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
