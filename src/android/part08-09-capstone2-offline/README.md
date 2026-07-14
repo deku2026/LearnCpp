@@ -1,0 +1,20 @@
+# Part 08.09 Capstone2 Offline
+
+Placeholder Android Kotlin app for future practice.
+
+| Field | Value |
+|---|---|
+| Doc | `第8部分-09-Capstone2-Android生产级离线优先App.md` |
+| Package | `learn.android.p08s09` |
+| ApplicationId | `learn.android.p08s09` |
+| Structure | Official single-module `:app` (AGP 9 + Compose) |
+| JDK toolchain | 25 |
+| JVM bytecode | 21 (hot reload / Live Edit friendly) |
+| compileSdk / targetSdk | 37 |
+| minSdk | 26 |
+
+## Build
+
+```powershell
+.\gradlew.bat assembleDebug
+```

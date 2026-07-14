@@ -138,6 +138,14 @@ jobs:
           }
           Write-Host "OK LearnJava"
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools platforms;android-36.1 build-tools;36.1.0
+
+      - name: Assemble Android labs (debug)
+        run: .\gradlew.bat assembleAndroidDebug --stacktrace --no-daemon
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:

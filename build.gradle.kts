@@ -1,68 +1,19 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    kotlin("jvm")
-    application
+    // JVM labs
+    kotlin("jvm") version "2.4.0" apply false
+    // Android labs — match working MyApplication wizard (AGP 9.0.1)
+    id("com.android.application") version "9.0.1" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" apply false
 }
 
-repositories {
-    mavenCentral()
-}
-
-// Custom source roots (parallel to src/cpp). Not src/main/{java,kotlin}.
-sourceSets {
-    main {
-        kotlin {
-            setSrcDirs(listOf("src/kotlin"))
-            exclude("**/README.md")
-            exclude("**/TOPIC_INDEX.md")
-        }
-        java {
-            setSrcDirs(listOf("src/java"))
-            exclude("**/README.md")
-            exclude("**/TOPIC_INDEX.md")
-        }
-        resources.setSrcDirs(emptyList<String>())
-    }
-    test {
-        kotlin {
-            setSrcDirs(emptyList<String>())
-        }
-        java {
-            setSrcDirs(emptyList<String>())
-        }
-    }
-}
-
-kotlin {
-    jvmToolchain(25)
-    compilerOptions {
-        jvmTarget.set(JvmTarget.fromTarget("25"))
-    }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
-    }
-}
-
-// Default Gradle `run` stays LearnKotlin (historical). LearnJava uses `runJava`.
-application {
-    mainClass.set("learn.MainKt")
-}
-
-tasks.register<JavaExec>("runJava") {
-    group = "application"
-    description = "Run LearnJava main (learnj.Main) with topic registry"
-    classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("learnj.Main")
-}
-
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
+tasks.register("assembleAndroidDebug") {
+    group = "build"
+    description = "assembleDebug for all :android:* lab modules"
+    dependsOn(
+        provider {
+            subprojects
+                .filter { it.path.startsWith(":android:") && it.path != ":android" }
+                .map { "${it.path}:assembleDebug" }
+        },
+    )
 }

@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="runJava" />
+          <option value=":learn:runJava" />
         </list>
       </option>
       <option name="vmOptions" value="" />
