@@ -146,6 +146,9 @@ jobs:
       - name: Assemble Android labs (debug)
         run: .\gradlew.bat assembleAndroidDebug --stacktrace --no-daemon
 
+      - name: Assemble Spring Boot labs (bootJar)
+        run: .\gradlew.bat assembleSpringBoot --stacktrace --no-daemon
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:

@@ -47,3 +47,23 @@ file("src/android")
         include(path)
         project(path).projectDir = dir
     }
+
+include(":spring")
+project(":spring").projectDir = file("src/spring")
+
+file("src/spring")
+    .listFiles()
+    ?.filter { dir ->
+        dir.isDirectory &&
+            dir.name != "gradle" &&
+            dir.name != "build" &&
+            dir.name != ".gradle" &&
+            file("${dir.path}/build.gradle.kts").exists() &&
+            file("${dir.path}/src/main/java").exists()
+    }
+    ?.sortedBy { it.name }
+    ?.forEach { dir ->
+        val path = ":spring:${dir.name}"
+        include(path)
+        project(path).projectDir = dir
+    }
