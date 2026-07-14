@@ -4,7 +4,7 @@
 |---|---|
 | Template | Minimal Spring Boot Web HelloWorld |
 | Spring Boot | **4.1.0** |
-| Java | **21** toolchain |
+| Java | **25** toolchain |
 | Module | `:spring:<lab>` |
 | Aggregate | `assembleSpringBoot` → all `bootJar` |
 | Run | `.run/Spring__<lab>.run.xml` → `:spring:<lab>:bootRun` |

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Placeholder Spring Boot HelloWorld for future practice of:
  * 步骤6-Spring-MVC与REST-完整实施指南.md
  *
- * Independent app scaffold (Spring Boot 4.1 + Java 21).
+ * Independent app scaffold (Spring Boot 4.1 + Java 25).
  */
 @SpringBootApplication
 public class Application {

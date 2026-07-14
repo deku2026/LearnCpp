@@ -42,6 +42,11 @@ application {
     mainClass.set("learn.MainKt")
 }
 
+// FFM (JEP 472) restricted methods need an explicit grant on the runtime JVM.
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+
 tasks.register<JavaExec>("runJava") {
     group = "application"
     description = "Run LearnJava main (learnj.Main)"

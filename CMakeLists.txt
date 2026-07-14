@@ -31,11 +31,15 @@ learncpp_enable_sccache()
 # Every C++ topic lives under src/cpp/<part>_<stage>/<section>/<item>.cpp and
 # registers itself through learn::topic<...>. GLOB_RECURSE picks up new files.
 # Kotlin lives under src/kotlin/ (Gradle sourceSets); never compiled by CMake.
+# Native FFM shared library lives under src/cpp/ffm/ and is a separate target.
 file(GLOB_RECURSE LEARNCPP_SOURCES
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
   "${CMAKE_SOURCE_DIR}/src/cpp/*.cpp"
 )
+# Exclude shared-library sources from the topic executable.
+list(FILTER LEARNCPP_SOURCES EXCLUDE REGEX "[/\\\\]ffm[/\\\\]")
+
 file(GLOB_RECURSE LEARNCPP_HEADERS
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
@@ -44,7 +48,7 @@ file(GLOB_RECURSE LEARNCPP_HEADERS
 )
 
 list(LENGTH LEARNCPP_SOURCES LEARNCPP_SOURCE_COUNT)
-message(STATUS "LearnCpp: collected ${LEARNCPP_SOURCE_COUNT} translation units under src/cpp/.")
+message(STATUS "LearnCpp: collected ${LEARNCPP_SOURCE_COUNT} translation units under src/cpp.")
 
 add_executable(learn_cpp
   ${LEARNCPP_SOURCES}
@@ -66,5 +70,29 @@ source_group(TREE "${CMAKE_SOURCE_DIR}/src/cpp"
 source_group(TREE "${CMAKE_SOURCE_DIR}/include"
   PREFIX "Headers"
   FILES ${LEARNCPP_HEADERS})
+
+# learn_ffm: C ABI shared lib for Java FFM (JEP 454). Output: build/<preset>/bin/
+add_library(learn_ffm SHARED
+  "${CMAKE_SOURCE_DIR}/src/cpp/ffm/learn_ffm.cpp"
+  "${CMAKE_SOURCE_DIR}/src/cpp/ffm/learn_ffm.h"
+)
+target_compile_features(learn_ffm PRIVATE cxx_std_23)
+target_include_directories(learn_ffm PUBLIC "${CMAKE_SOURCE_DIR}/src/cpp/ffm")
+target_compile_definitions(learn_ffm PRIVATE LEARN_FFM_BUILD)
+set_target_properties(learn_ffm PROPERTIES
+  OUTPUT_NAME "learn_ffm"
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+  PDB_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+learncpp_apply_warning_settings(learn_ffm)
+
+source_group(TREE "${CMAKE_SOURCE_DIR}/src/cpp/ffm"
+  PREFIX "FFM"
+  FILES
+    "${CMAKE_SOURCE_DIR}/src/cpp/ffm/learn_ffm.cpp"
+    "${CMAKE_SOURCE_DIR}/src/cpp/ffm/learn_ffm.h"
+)
 
 learncpp_enable_compile_commands_sync()
