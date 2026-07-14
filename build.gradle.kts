@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-// Custom source root: src/kotlin (parallel to src/cpp). Not the default src/main/kotlin.
+// Custom source roots (parallel to src/cpp). Not src/main/{java,kotlin}.
 sourceSets {
     main {
         kotlin {
@@ -17,10 +17,18 @@ sourceSets {
             exclude("**/README.md")
             exclude("**/TOPIC_INDEX.md")
         }
+        java {
+            setSrcDirs(listOf("src/java"))
+            exclude("**/README.md")
+            exclude("**/TOPIC_INDEX.md")
+        }
         resources.setSrcDirs(emptyList<String>())
     }
     test {
         kotlin {
+            setSrcDirs(emptyList<String>())
+        }
+        java {
             setSrcDirs(emptyList<String>())
         }
     }
@@ -33,8 +41,22 @@ kotlin {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
+// Default Gradle `run` stays LearnKotlin (historical). LearnJava uses `runJava`.
 application {
     mainClass.set("learn.MainKt")
+}
+
+tasks.register<JavaExec>("runJava") {
+    group = "application"
+    description = "Run LearnJava main (learnj.Main) with topic registry"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("learnj.Main")
 }
 
 dependencies {

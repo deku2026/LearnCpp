@@ -1,20 +1,30 @@
 # LearnCpp · 现代 C++23 学习占位脚手架
 
-## Kotlin (IDEA)
+## Kotlin / Java (IDEA)
 
-Gradle 在**仓库根**。IDEA 打开**仓库根**。
+Gradle 在**仓库根**。IDEA 打开**仓库根**。JDK **25**。
 
-- 配置：`.run/LearnKotlin.run.xml`（Gradle `run`）
-- 源码：`src/kotlin`
+| | Kotlin | Java |
+|---|---|---|
+| 源码 | `src/kotlin` | `src/java` |
+| 入口 | `learn.MainKt` | `learnj.Main` |
+| Gradle | `gradlew run` | `gradlew runJava` |
+| IDEA | `.run/LearnKotlin*.run.xml` | `.run/LearnJava*.run.xml` |
+
 - 不要提交 `.idea/`
+- Gradle `rootProject.name` 仍为 `LearnKotlin`（模块 `LearnKotlin.main`，两套源共用）
 
 ```bat
 gradlew.bat run
+gradlew.bat run --args="--list"
+gradlew.bat runJava
+gradlew.bat runJava --args="--list"
 ```
-## 仓库布局（C++ + Kotlin）
+## 仓库布局（C++ + Kotlin + Java）
 
 - **C++**：`src/cpp/` — CMake 与 `LearnCpp.slnx` 编译；topic 注册见 `include/learn/topic_registry.hpp`
-- **Kotlin（IDEA）**：`src/kotlin/` + 根目录 Gradle，JDK **25**。一个 main + 注册表；工具栏 **Build / Run / Debug** 三个独立按钮，配置只保留 `LearnKotlin`（Gradle 工程名 LearnKotlin，不是 CMake 名）。
+- **Kotlin（IDEA）**：`src/kotlin/` + 根目录 Gradle，JDK **25**。一个 main + 注册表；配置 `LearnKotlin` / `LearnKotlin Main`。
+- **Java（IDEA）**：`src/java/` + 同一 Gradle 工程，JDK **25**。包名 **`learnj`**（避免与 Kotlin `learn.*` 冲突）：`learnj.Main` + `TopicRegistry` + `GeneratedTopicLoader`；配置 `LearnJava`（Gradle `runJava`）/ `LearnJava Main`（Application）。按 `ArchitectureDesign/JavaStudy` 全部步骤占位（**566** 个 topic）。
 
 按 `C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/Cpp-Modern-完整学习路线图-C++23.md`
 逐阶段铺好的 **874 个空 `run()` 占位**。后续往每个 `.cpp` 里直接写真实代码 (`std::cout` /
@@ -86,14 +96,15 @@ build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra ar
 │   └── learn/topic_registry.hpp  # fixed_string + register_topic_t + topic<Id,Fn> 变量模板 + run_topic / list_topics 声明
 │   ├── dev-shell.cmd           # 进 vcvars64 x64 dev prompt
 │   └── configure-and-build.cmd # 一键 vcvars64 -> configure -> build -> 列 topic
-├── build.gradle.kts / settings.gradle.kts / gradlew*   # Kotlin/JVM（JDK 25，与 CMake 独立）
-├── .run/LearnKotlin.run.xml    # IDEA 唯一 Run/Debug 目标（Build 用锤子，不是这个文件）
+├── build.gradle.kts / settings.gradle.kts / gradlew*   # Kotlin+Java/JVM（JDK 25，与 CMake 独立）
+├── .run/LearnKotlin*.run.xml / LearnJava*.run.xml
 └── src/
     ├── cpp/
     │   ├── main.cpp            # C++ 唯一 main(), 把 argv 转给 registry
     │   ├── learn/topic_registry.cpp
     │   ├── part2_stage01_syntax_and_translation_model/           # 第2部分-阶段1
-    ├── main/kotlin/            # LearnKotlin 源码（learn/ + topics/）
+    ├── kotlin/                 # LearnKotlin 源码（learn/ + topics/）
+    ├── java/                   # LearnJava 源码（learn/ + topics/）
     ├── part2_stage02_type_system_value_category_deduction/       # 第2部分-阶段2
     ├── part2_stage03_functions_overloading_lambdas/              # 第2部分-阶段3
     ├── part2_stage04_classes_and_object_model_basics/            # 第2部分-阶段4

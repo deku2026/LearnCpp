@@ -112,8 +112,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Build LearnKotlin
-        run: .\gradlew.bat classes --stacktrace --no-daemon
+      - name: Build LearnKotlin (compileKotlin)
+        run: .\gradlew.bat compileKotlin --stacktrace --no-daemon
+
+      - name: Build LearnJava (compileJava)
+        run: .\gradlew.bat compileJava --stacktrace --no-daemon
 
       - name: Smoke-run LearnKotlin (list topics)
         run: |
@@ -124,6 +127,16 @@ jobs:
             exit 1
           }
           Write-Host "OK LearnKotlin"
+
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          $out = & .\gradlew.bat runJava --args="--list" --no-daemon 2>&1 | Out-String
+          Write-Host $out
+          if ($out -notmatch "topics registered") {
+            Write-Error "LearnJava --list did not report topics registered"
+            exit 1
+          }
+          Write-Host "OK LearnJava"
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -198,8 +211,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Build LearnKotlin
-        run: .\gradlew.bat classes --stacktrace --no-daemon
+      - name: Build LearnKotlin (compileKotlin)
+        run: .\gradlew.bat compileKotlin --stacktrace --no-daemon
+
+      - name: Build LearnJava (compileJava)
+        run: .\gradlew.bat compileJava --stacktrace --no-daemon
 
       - name: Smoke-run LearnKotlin (list topics)
         run: |
@@ -210,3 +226,13 @@ jobs:
             exit 1
           }
           Write-Host "OK LearnKotlin"
+
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          $out = & .\gradlew.bat runJava --args="--list" --no-daemon 2>&1 | Out-String
+          Write-Host $out
+          if ($out -notmatch "topics registered") {
+            Write-Error "LearnJava --list did not report topics registered"
+            exit 1
+          }
+          Write-Host "OK LearnJava"

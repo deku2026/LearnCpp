@@ -108,13 +108,23 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Build LearnKotlin
-        run: ./gradlew classes --stacktrace --no-daemon
+      - name: Build LearnKotlin (compileKotlin)
+        run: ./gradlew compileKotlin --stacktrace --no-daemon
+
+      - name: Build LearnJava (compileJava)
+        run: ./gradlew compileJava --stacktrace --no-daemon
 
       - name: Smoke-run LearnKotlin (list topics)
         run: |
           set -euo pipefail
           out=$(./gradlew run --args="--list" --no-daemon 2>&1)
+          echo "$out" | tail -30
+          echo "$out" | grep -q "topics registered"
+
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          set -euo pipefail
+          out=$(./gradlew runJava --args="--list" --no-daemon 2>&1)
           echo "$out" | tail -30
           echo "$out" | grep -q "topics registered"
 

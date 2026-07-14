@@ -1,0 +1,28 @@
+package learnj.topics.p2_s09_lambda_stream;
+
+import learnj.TopicRegistry;
+
+/**
+ * LearnJava placeholder
+ * <p>
+ * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
+ * Stage    : p2_s09_lambda_stream
+ * Step     : 步骤 4
+ * Item     : this_effectively_final
+ * Topic id : part2/stage09/s04/this_effectively_final
+ * Heading  : 捕获：effectively final 与 `this`
+ * <p>
+ * TODO: read the JavaStudy section, write a minimal runnable demo,
+ *       then replace this empty body with real practice code.
+ */
+public final class P2S09LambdaStreamS04ThisEffectivelyFinal {
+    static {
+        TopicRegistry.register("part2/stage09/s04/this_effectively_final", args -> {
+            // practice: 捕获：effectively final 与 `this`
+            return 0;
+        });
+    }
+
+    private P2S09LambdaStreamS04ThisEffectivelyFinal() {
+    }
+}
