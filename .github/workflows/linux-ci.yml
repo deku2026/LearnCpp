@@ -138,6 +138,9 @@ jobs:
       - name: Assemble Android labs (debug)
         run: ./gradlew assembleAndroidDebug --stacktrace --no-daemon
 
+      - name: Assemble Spring Boot labs (bootJar)
+        run: ./gradlew assembleSpringBoot --stacktrace --no-daemon
+
       - name: Install pre-commit
         run: |
           python3 -m pip install --upgrade pip
