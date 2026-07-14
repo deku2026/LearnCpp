@@ -39,7 +39,7 @@
     {
       "name": "windows-debug",
       "displayName": "Windows x64 Debug (clang-cl + Ninja + sccache)",
-      "description": "Run from a 'vcvars64' developer prompt (or scripts/dev-shell.cmd).",
+      "description": "Run from a 'vcvars64' developer prompt.",
       "inherits": ["windows-base"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
