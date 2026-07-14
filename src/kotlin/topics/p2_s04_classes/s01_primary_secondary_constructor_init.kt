@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes01PrimarySecondaryConstructorInitKtFacade")
+@file:JvmName("P2S04ClassesS01PrimarySecondaryConstructorInitKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s01
 // Item     : primary_secondary_constructor_init
 // Topic id : part2/stage04/s01/primary_secondary_constructor_init
-// Heading  : 步骤 1 Primary / Secondary constructor 与 init 顺序
+// Heading  : Primary / Secondary constructor 与 init 顺序
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s01/primary_secondary_constructor_init") { _ ->
-    // practice: 步骤 1 Primary / Secondary constructor 与 init 顺序
+    // practice: Primary / Secondary constructor 与 init 顺序
     0
 }

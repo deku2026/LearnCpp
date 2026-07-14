@@ -23,8 +23,8 @@ gradlew.bat runJava --args="--list"
 ## 仓库布局（C++ + Kotlin + Java）
 
 - **C++**：`src/cpp/` — CMake 与 `LearnCpp.slnx` 编译；topic 注册见 `include/learn/topic_registry.hpp`
-- **Kotlin（IDEA）**：`src/kotlin/` + 根目录 Gradle，JDK **25**。一个 main + 注册表；配置 `LearnKotlin` / `LearnKotlin Main`。
-- **Java（IDEA）**：`src/java/` + 同一 Gradle 工程，JDK **25**。包名 **`learnj`**（避免与 Kotlin `learn.*` 冲突）：`learnj.Main` + `TopicRegistry` + `GeneratedTopicLoader`；配置 `LearnJava`（Gradle `runJava`）/ `LearnJava Main`（Application）。按 `ArchitectureDesign/JavaStudy` 全部步骤占位（**566** 个 topic）。
+- **Kotlin（IDEA）**：`src/kotlin/` + 根目录 Gradle，JDK **25**。一个 main + 注册表；配置 `LearnKotlin` / `LearnKotlin Main`。按 `ArchitectureDesign/KotlinStudy` 全部练习 `##`（步骤 / 支线小节）占位（**605** topics）。
+- **Java（IDEA）**：`src/java/` + 同一 Gradle 工程，JDK **25**。包名 **`learnj`**（避免与 Kotlin `learn.*` 冲突）：`learnj.Main` + `TopicRegistry` + `GeneratedTopicLoader`；配置 `LearnJava`（Gradle `runJava`）/ `LearnJava Main`。按 `ArchitectureDesign/JavaStudy` 全部练习步骤 / § 占位（**548** topics）。
 
 按 `C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/Cpp-Modern-完整学习路线图-C++23.md`
 逐阶段铺好的 **874 个空 `run()` 占位**。后续往每个 `.cpp` 里直接写真实代码 (`std::cout` /

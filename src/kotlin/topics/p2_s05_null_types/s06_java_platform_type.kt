@@ -1,6 +1,6 @@
-@file:JvmName("P2S05NullTypes06JavaPlatformTypeKtFacade")
+@file:JvmName("P2S05NullTypesS06JavaPlatformTypeKtFacade")
 
-package learn.topics
+package learn.topics.p2_s05_null_types
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s06
 // Item     : java_platform_type
 // Topic id : part2/stage05/s06/java_platform_type
-// Heading  : 步骤 6 Java Platform type T!
+// Heading  : Java Platform type T!
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage05/s06/java_platform_type") { _ ->
-    // practice: 步骤 6 Java Platform type T!
+    // practice: Java Platform type T!
     0
 }

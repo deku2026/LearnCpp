@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes12FunInterfaceSamKtFacade")
+@file:JvmName("P2S04ClassesS12FunInterfaceSamKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s12
 // Item     : fun_interface_sam
 // Topic id : part2/stage04/s12/fun_interface_sam
-// Heading  : 步骤 12 fun interface（SAM）
+// Heading  : fun interface（SAM）
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s12/fun_interface_sam") { _ ->
-    // practice: 步骤 12 fun interface（SAM）
+    // practice: fun interface（SAM）
     0
 }

@@ -1,6 +1,6 @@
-@file:JvmName("P2S12Coroutines08TimeoutKtFacade")
+@file:JvmName("P2S12Coroutiness08TimeoutKtFacade")
 
-package learn.topics
+package learn.topics.p2_s12_coroutines
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s08
 // Item     : timeout
 // Topic id : part2/stage12/s08/timeout
-// Heading  : 步骤 8 Timeout
+// Heading  : Timeout
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage12/s08/timeout") { _ ->
-    // practice: 步骤 8 Timeout
+    // practice: Timeout
     0
 }

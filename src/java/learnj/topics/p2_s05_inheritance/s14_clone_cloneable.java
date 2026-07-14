@@ -1,0 +1,28 @@
+package learnj.topics.p2_s05_inheritance;
+
+import learnj.TopicRegistry;
+
+/**
+ * LearnJava placeholder
+ * <p>
+ * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
+ * Stage    : p2_s05_inheritance
+ * Step     : s14
+ * Item     : clone_cloneable
+ * Topic id : part2/stage05/s14/clone_cloneable
+ * Heading  : clone / Cloneable
+ * <p>
+ * TODO: read the JavaStudy section, write a minimal runnable demo,
+ *       then replace this empty body with real practice code.
+ */
+public final class s14_clone_cloneable {
+    static {
+        TopicRegistry.register("part2/stage05/s14/clone_cloneable", args -> {
+            // practice: clone / Cloneable
+            return 0;
+        });
+    }
+
+    private s14_clone_cloneable() {
+    }
+}

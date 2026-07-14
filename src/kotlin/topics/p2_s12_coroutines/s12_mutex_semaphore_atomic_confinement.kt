@@ -1,6 +1,6 @@
-@file:JvmName("P2S12Coroutines12MutexSemaphoreAtomicConfinementKtFacade")
+@file:JvmName("P2S12Coroutiness12MutexSemaphoreAtomicConfinementKtFacade")
 
-package learn.topics
+package learn.topics.p2_s12_coroutines
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s12
 // Item     : mutex_semaphore_atomic_confinement
 // Topic id : part2/stage12/s12/mutex_semaphore_atomic_confinement
-// Heading  : 步骤 12 共享可变状态：Mutex / Semaphore / atomic / confinement
+// Heading  : 共享可变状态：Mutex / Semaphore / atomic / confinement
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage12/s12/mutex_semaphore_atomic_confinement") { _ ->
-    // practice: 步骤 12 共享可变状态：Mutex / Semaphore / atomic / confinement
+    // practice: 共享可变状态：Mutex / Semaphore / atomic / confinement
     0
 }

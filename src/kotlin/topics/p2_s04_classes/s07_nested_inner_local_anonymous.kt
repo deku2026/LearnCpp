@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes07NestedInnerLocalAnonymousKtFacade")
+@file:JvmName("P2S04ClassesS07NestedInnerLocalAnonymousKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s07
 // Item     : nested_inner_local_anonymous
 // Topic id : part2/stage04/s07/nested_inner_local_anonymous
-// Heading  : 步骤 7 Nested / Inner / Local / Anonymous
+// Heading  : Nested / Inner / Local / Anonymous
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s07/nested_inner_local_anonymous") { _ ->
-    // practice: 步骤 7 Nested / Inner / Local / Anonymous
+    // practice: Nested / Inner / Local / Anonymous
     0
 }

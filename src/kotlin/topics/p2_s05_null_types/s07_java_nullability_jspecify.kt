@@ -1,6 +1,6 @@
-@file:JvmName("P2S05NullTypes07JavaNullabilityJspecifyKtFacade")
+@file:JvmName("P2S05NullTypesS07JavaNullabilityJspecifyKtFacade")
 
-package learn.topics
+package learn.topics.p2_s05_null_types
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s07
 // Item     : java_nullability_jspecify
 // Topic id : part2/stage05/s07/java_nullability_jspecify
-// Heading  : 步骤 7 Java nullability 注解与 JSpecify 边界
+// Heading  : Java nullability 注解与 JSpecify 边界
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage05/s07/java_nullability_jspecify") { _ ->
-    // practice: 步骤 7 Java nullability 注解与 JSpecify 边界
+    // practice: Java nullability 注解与 JSpecify 边界
     0
 }

@@ -1,6 +1,6 @@
-@file:JvmName("P2S09Generics05UseSiteProjectionKtFacade")
+@file:JvmName("P2S09GenericsS05UseSiteProjectionKtFacade")
 
-package learn.topics
+package learn.topics.p2_s09_generics
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s05
 // Item     : use_site_projection
 // Topic id : part2/stage09/s05/use_site_projection
-// Heading  : 步骤 5 use-site projection：调用点投影
+// Heading  : use-site projection：调用点投影
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage09/s05/use_site_projection") { _ ->
-    // practice: 步骤 5 use-site projection：调用点投影
+    // practice: use-site projection：调用点投影
     0
 }

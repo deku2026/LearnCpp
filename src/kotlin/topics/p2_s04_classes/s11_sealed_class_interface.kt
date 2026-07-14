@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes11SealedClassInterfaceKtFacade")
+@file:JvmName("P2S04ClassesS11SealedClassInterfaceKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s11
 // Item     : sealed_class_interface
 // Topic id : part2/stage04/s11/sealed_class_interface
-// Heading  : 步骤 11 Sealed class / interface
+// Heading  : Sealed class / interface
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s11/sealed_class_interface") { _ ->
-    // practice: 步骤 11 Sealed class / interface
+    // practice: Sealed class / interface
     0
 }

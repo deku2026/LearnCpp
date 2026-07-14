@@ -1,6 +1,6 @@
-@file:JvmName("P2S14Jvm08InternalManglingFriendKtFacade")
+@file:JvmName("P2S14Jvms08InternalManglingFriendKtFacade")
 
-package learn.topics
+package learn.topics.p2_s14_jvm
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s08
 // Item     : internal_mangling_friend
 // Topic id : part2/stage14/s08/internal_mangling_friend
-// Heading  : 步骤 8 可见性、internal mangling 与 friend 路径
+// Heading  : 可见性、internal mangling 与 friend 路径
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage14/s08/internal_mangling_friend") { _ ->
-    // practice: 步骤 8 可见性、internal mangling 与 friend 路径
+    // practice: 可见性、internal mangling 与 friend 路径
     0
 }

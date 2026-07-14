@@ -1,6 +1,6 @@
-@file:JvmName("P2S13Flow02ColdFlowInvariantsKtFacade")
+@file:JvmName("P2S13Flows02ColdFlowInvariantsKtFacade")
 
-package learn.topics
+package learn.topics.p2_s13_flow
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s02
 // Item     : cold_flow_invariants
 // Topic id : part2/stage13/s02/cold_flow_invariants
-// Heading  : 步骤 2 Cold Flow 核心 invariants
+// Heading  : Cold Flow 核心 invariants
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage13/s02/cold_flow_invariants") { _ ->
-    // practice: 步骤 2 Cold Flow 核心 invariants
+    // practice: Cold Flow 核心 invariants
     0
 }

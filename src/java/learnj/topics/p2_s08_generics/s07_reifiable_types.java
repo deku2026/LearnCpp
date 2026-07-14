@@ -1,0 +1,28 @@
+package learnj.topics.p2_s08_generics;
+
+import learnj.TopicRegistry;
+
+/**
+ * LearnJava placeholder
+ * <p>
+ * Doc      : 第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md
+ * Stage    : p2_s08_generics
+ * Step     : s07
+ * Item     : reifiable_types
+ * Topic id : part2/stage08/s07/reifiable_types
+ * Heading  : 可具体化类型
+ * <p>
+ * TODO: read the JavaStudy section, write a minimal runnable demo,
+ *       then replace this empty body with real practice code.
+ */
+public final class s07_reifiable_types {
+    static {
+        TopicRegistry.register("part2/stage08/s07/reifiable_types", args -> {
+            // practice: 可具体化类型
+            return 0;
+        });
+    }
+
+    private s07_reifiable_types() {
+    }
+}

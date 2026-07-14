@@ -1,6 +1,6 @@
-@file:JvmName("P2S12Coroutines02LaunchAsyncRunblockingKtFacade")
+@file:JvmName("P2S12Coroutiness02LaunchAsyncRunblockingKtFacade")
 
-package learn.topics
+package learn.topics.p2_s12_coroutines
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s02
 // Item     : launch_async_runblocking
 // Topic id : part2/stage12/s02/launch_async_runblocking
-// Heading  : 步骤 2 协程构建器：launch / async / runBlocking
+// Heading  : 协程构建器：launch / async / runBlocking
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage12/s02/launch_async_runblocking") { _ ->
-    // practice: 步骤 2 协程构建器：launch / async / runBlocking
+    // practice: 协程构建器：launch / async / runBlocking
     0
 }

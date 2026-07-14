@@ -1,6 +1,6 @@
-@file:JvmName("P2S06LambdaInline10PublicInlineAbiPublishedapiKlibKtFacade")
+@file:JvmName("P2S06LambdaInlineS10PublicInlineAbiPublishedapiKlibKtFacade")
 
-package learn.topics
+package learn.topics.p2_s06_lambda_inline
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s10
 // Item     : public_inline_abi_publishedapi_klib
 // Topic id : part2/stage06/s10/public_inline_abi_publishedapi_klib
-// Heading  : 步骤 10 public inline ABI、@PublishedApi 与 2.4 klib 内联
+// Heading  : public inline ABI、@PublishedApi 与 2.4 klib 内联
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage06/s10/public_inline_abi_publishedapi_klib") { _ ->
-    // practice: 步骤 10 public inline ABI、@PublishedApi 与 2.4 klib 内联
+    // practice: public inline ABI、@PublishedApi 与 2.4 klib 内联
     0
 }

@@ -1,6 +1,6 @@
-@file:JvmName("P2S03Functions13JvmDefaultFacadeVarargTailrecKtFacade")
+@file:JvmName("P2S03FunctionsS13JvmDefaultFacadeVarargTailrecKtFacade")
 
-package learn.topics
+package learn.topics.p2_s03_functions
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s13
 // Item     : jvm_default_facade_vararg_tailrec
 // Topic id : part2/stage03/s13/jvm_default_facade_vararg_tailrec
-// Heading  : 步骤 13 底层实证（JVM）：$default、facade、vararg、tailrec
+// Heading  : 底层实证（JVM）：$default、facade、vararg、tailrec
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage03/s13/jvm_default_facade_vararg_tailrec") { _ ->
-    // practice: 步骤 13 底层实证（JVM）：$default、facade、vararg、tailrec
+    // practice: 底层实证（JVM）：$default、facade、vararg、tailrec
     0
 }
