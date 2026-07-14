@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
  * Step     : s04
- * Item     : executor_executorservice
- * Topic id : part2/stage11/s04/executor_executorservice
- * Heading  : `Executor` / `ExecutorService`
+ * Item     : executor_executor_service
+ * Topic id : part2/stage11/s04/executor_executor_service
+ * Heading  : Executor / ExecutorService
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11ConcurrencyS04ExecutorExecutorservice {
+public final class P2S11Concurrencys04ExecutorExecutorService {
     static {
-        TopicRegistry.register("part2/stage11/s04/executor_executorservice", args -> {
-            // practice: `Executor` / `ExecutorService`
+        TopicRegistry.register("part2/stage11/s04/executor_executor_service", args -> {
+            // practice: Executor / ExecutorService
             return 0;
         });
     }
 
-    private P2S11ConcurrencyS04ExecutorExecutorservice() {
+    private P2S11Concurrencys04ExecutorExecutorService() {
     }
 }

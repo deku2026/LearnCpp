@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE08TargetTiersCiHostKtFacade")
+@file:JvmName("P4ENativee08TargetTiersCiHostKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e08
+// Section  : e08
 // Item     : target_tiers_ci_host
 // Topic id : part4/branch_e/e08/target_tiers_ci_host
 // Heading  : Target tiers 与 CI host

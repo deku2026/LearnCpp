@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段9-泛型型变与reified.md
 // Stage    : p2_s09_generics
-// Step     : s18
+// Section  : s18
 // Item     : concept_map
 // Topic id : part2/stage09/s18/concept_map
 // Heading  : 本阶段概念图（可默写）

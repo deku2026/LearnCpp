@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11ConcurrencyS25Pitfalls {
+public final class P2S11Concurrencys25Pitfalls {
     static {
         TopicRegistry.register("part2/stage11/s25/pitfalls", args -> {
             // practice: 易错清单
@@ -23,6 +23,6 @@ public final class P2S11ConcurrencyS25Pitfalls {
         });
     }
 
-    private P2S11ConcurrencyS25Pitfalls() {
+    private P2S11Concurrencys25Pitfalls() {
     }
 }

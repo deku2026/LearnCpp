@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P5EvolutionSec57AcceptancePractice {
+public final class P5Evolutionsec57AcceptancePractice {
     static {
         TopicRegistry.register("part5/evolution/sec_5_7/acceptance_practice", args -> {
             // practice: 验收与练习
@@ -23,6 +23,6 @@ public final class P5EvolutionSec57AcceptancePractice {
         });
     }
 
-    private P5EvolutionSec57AcceptancePractice() {
+    private P5Evolutionsec57AcceptancePractice() {
     }
 }

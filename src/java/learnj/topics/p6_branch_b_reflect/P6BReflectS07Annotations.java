@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6BReflectS07Annotations {
+public final class P6BReflects07Annotations {
     static {
         TopicRegistry.register("part6/branch_b/s07/annotations", args -> {
             // practice: 注解
@@ -23,6 +23,6 @@ public final class P6BReflectS07Annotations {
         });
     }
 
-    private P6BReflectS07Annotations() {
+    private P6BReflects07Annotations() {
     }
 }

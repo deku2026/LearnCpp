@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段7-集合序列与标准库.md
 // Stage    : p2_s07_collections
-// Step     : s08
+// Section  : s08
 // Item     : string_char_regex_stringbuilder
 // Topic id : part2/stage07/s08/string_char_regex_stringbuilder
 // Heading  : String / Char / Regex / StringBuilder

@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : sec_3_3_4
  * Item     : normalizer_unicode
  * Topic id : part3/stdlib/sec_3_3_4/normalizer_unicode
- * Heading  : `Normalizer`（Unicode 规范化）
+ * Heading  : Normalizer（Unicode 规范化）
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec334NormalizerUnicode {
+public final class P3Stdlibsec334NormalizerUnicode {
     static {
         TopicRegistry.register("part3/stdlib/sec_3_3_4/normalizer_unicode", args -> {
-            // practice: `Normalizer`（Unicode 规范化）
+            // practice: Normalizer（Unicode 规范化）
             return 0;
         });
     }
 
-    private P3StdlibSec334NormalizerUnicode() {
+    private P3Stdlibsec334NormalizerUnicode() {
     }
 }

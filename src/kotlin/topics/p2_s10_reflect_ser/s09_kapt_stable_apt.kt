@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段10-注解反射KSP与序列化.md
 // Stage    : p2_s10_reflect_ser
-// Step     : s09
+// Section  : s09
 // Item     : kapt_stable_apt
 // Topic id : part2/stage10/s09/kapt_stable_apt
 // Heading  : kapt：仍为 Stable 的 APT 桥

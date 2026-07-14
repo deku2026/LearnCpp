@@ -1,4 +1,4 @@
-@file:JvmName("P4DAbiD18FaqKtFacade")
+@file:JvmName("P4DAbid18FaqKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线D-JVM元数据与ABI.md
 // Stage    : p4_d_abi
-// Step     : d18
+// Section  : d18
 // Item     : faq
 // Topic id : part4/branch_d/d18/faq
 // Heading  : 常见问题

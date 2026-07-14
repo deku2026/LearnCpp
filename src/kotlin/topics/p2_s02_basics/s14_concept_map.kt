@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段2-程序结构与基础语义.md
 // Stage    : p2_s02_basics
-// Step     : s14
+// Section  : s14
 // Item     : concept_map
 // Topic id : part2/stage02/s14/concept_map
 // Heading  : 本阶段概念图（可默写）

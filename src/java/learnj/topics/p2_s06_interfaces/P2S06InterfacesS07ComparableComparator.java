@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s07
  * Item     : comparable_comparator
  * Topic id : part2/stage06/s07/comparable_comparator
- * Heading  : `Comparable` / `Comparator`
+ * Heading  : Comparable / Comparator
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S06InterfacesS07ComparableComparator {
+public final class P2S06Interfacess07ComparableComparator {
     static {
         TopicRegistry.register("part2/stage06/s07/comparable_comparator", args -> {
-            // practice: `Comparable` / `Comparator`
+            // practice: Comparable / Comparator
             return 0;
         });
     }
 
-    private P2S06InterfacesS07ComparableComparator() {
+    private P2S06Interfacess07ComparableComparator() {
     }
 }

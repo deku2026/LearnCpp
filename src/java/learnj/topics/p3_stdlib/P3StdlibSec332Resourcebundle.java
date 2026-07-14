@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
  * Step     : sec_3_3_2
- * Item     : resourcebundle
- * Topic id : part3/stdlib/sec_3_3_2/resourcebundle
- * Heading  : 资源束 `ResourceBundle`
+ * Item     : resource_bundle
+ * Topic id : part3/stdlib/sec_3_3_2/resource_bundle
+ * Heading  : 资源束 ResourceBundle
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec332Resourcebundle {
+public final class P3Stdlibsec332ResourceBundle {
     static {
-        TopicRegistry.register("part3/stdlib/sec_3_3_2/resourcebundle", args -> {
-            // practice: 资源束 `ResourceBundle`
+        TopicRegistry.register("part3/stdlib/sec_3_3_2/resource_bundle", args -> {
+            // practice: 资源束 ResourceBundle
             return 0;
         });
     }
 
-    private P3StdlibSec332Resourcebundle() {
+    private P3Stdlibsec332ResourceBundle() {
     }
 }

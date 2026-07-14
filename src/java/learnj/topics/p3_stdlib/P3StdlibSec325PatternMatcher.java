@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : sec_3_2_5
  * Item     : pattern_matcher
  * Topic id : part3/stdlib/sec_3_2_5/pattern_matcher
- * Heading  : 正则：`Pattern` / `Matcher`
+ * Heading  : 正则：Pattern / Matcher
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec325PatternMatcher {
+public final class P3Stdlibsec325PatternMatcher {
     static {
         TopicRegistry.register("part3/stdlib/sec_3_2_5/pattern_matcher", args -> {
-            // practice: 正则：`Pattern` / `Matcher`
+            // practice: 正则：Pattern / Matcher
             return 0;
         });
     }
 
-    private P3StdlibSec325PatternMatcher() {
+    private P3Stdlibsec325PatternMatcher() {
     }
 }

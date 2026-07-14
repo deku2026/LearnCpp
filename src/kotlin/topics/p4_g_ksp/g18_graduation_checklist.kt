@@ -1,4 +1,4 @@
-@file:JvmName("P4GKspG18GraduationChecklistKtFacade")
+@file:JvmName("P4GKspg18GraduationChecklistKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线G-KSP序列化与编译器插件.md
 // Stage    : p4_g_ksp
-// Step     : g18
+// Section  : g18
 // Item     : graduation_checklist
 // Topic id : part4/branch_g/g18/graduation_checklist
 // Heading  : 毕业检查表

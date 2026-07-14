@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s13
  * Item     : tostring_getclass
  * Topic id : part2/stage05/s13/tostring_getclass
- * Heading  : `toString` 与 `getClass`
+ * Heading  : toString / getClass
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05InheritanceS13TostringGetclass {
+public final class P2S05Inheritances13TostringGetclass {
     static {
         TopicRegistry.register("part2/stage05/s13/tostring_getclass", args -> {
-            // practice: `toString` 与 `getClass`
+            // practice: toString / getClass
             return 0;
         });
     }
 
-    private P2S05InheritanceS13TostringGetclass() {
+    private P2S05Inheritances13TostringGetclass() {
     }
 }

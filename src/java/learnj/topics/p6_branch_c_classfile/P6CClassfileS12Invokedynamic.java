@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s12
  * Item     : invokedynamic
  * Topic id : part6/branch_c/s12/invokedynamic
- * Heading  : `invokedynamic`
+ * Heading  : invokedynamic
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6CClassfileS12Invokedynamic {
+public final class P6CClassfiles12Invokedynamic {
     static {
         TopicRegistry.register("part6/branch_c/s12/invokedynamic", args -> {
-            // practice: `invokedynamic`
+            // practice: invokedynamic
             return 0;
         });
     }
 
-    private P6CClassfileS12Invokedynamic() {
+    private P6CClassfiles12Invokedynamic() {
     }
 }

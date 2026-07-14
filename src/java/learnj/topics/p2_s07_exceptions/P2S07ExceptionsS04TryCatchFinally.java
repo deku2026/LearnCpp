@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s04
  * Item     : try_catch_finally
  * Topic id : part2/stage07/s04/try_catch_finally
- * Heading  : `try` / `catch` / `finally`
+ * Heading  : try / catch / finally
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07ExceptionsS04TryCatchFinally {
+public final class P2S07Exceptionss04TryCatchFinally {
     static {
         TopicRegistry.register("part2/stage07/s04/try_catch_finally", args -> {
-            // practice: `try` / `catch` / `finally`
+            // practice: try / catch / finally
             return 0;
         });
     }
 
-    private P2S07ExceptionsS04TryCatchFinally() {
+    private P2S07Exceptionss04TryCatchFinally() {
     }
 }

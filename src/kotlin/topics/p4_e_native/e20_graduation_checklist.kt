@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE20GraduationChecklistKtFacade")
+@file:JvmName("P4ENativee20GraduationChecklistKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e20
+// Section  : e20
 // Item     : graduation_checklist
 // Topic id : part4/branch_e/e20/graduation_checklist
 // Heading  : 毕业检查表

@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE12StatusBoundaryKtFacade")
+@file:JvmName("P4ENativee12StatusBoundaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e12
+// Section  : e12
 // Item     : status_boundary
 // Topic id : part4/branch_e/e12/status_boundary
 // Heading  : 状态边界

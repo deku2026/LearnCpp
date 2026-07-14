@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s06
  * Item     : queue_deque
  * Topic id : part2/stage10/s06/queue_deque
- * Heading  : `Queue` / `Deque`
+ * Heading  : Queue / Deque
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10CollectionsS06QueueDeque {
+public final class P2S10Collectionss06QueueDeque {
     static {
         TopicRegistry.register("part2/stage10/s06/queue_deque", args -> {
-            // practice: `Queue` / `Deque`
+            // practice: Queue / Deque
             return 0;
         });
     }
 
-    private P2S10CollectionsS06QueueDeque() {
+    private P2S10Collectionss06QueueDeque() {
     }
 }

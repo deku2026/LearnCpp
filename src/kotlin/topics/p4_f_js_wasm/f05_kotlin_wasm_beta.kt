@@ -1,4 +1,4 @@
-@file:JvmName("P4FJsWasmF05KotlinWasmBetaKtFacade")
+@file:JvmName("P4FJsWasmf05KotlinWasmBetaKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线F-JS与Wasm后端.md
 // Stage    : p4_f_js_wasm
-// Step     : f05
+// Section  : f05
 // Item     : kotlin_wasm_beta
 // Topic id : part4/branch_f/f05/kotlin_wasm_beta
 // Heading  : Kotlin/Wasm：组件 Beta

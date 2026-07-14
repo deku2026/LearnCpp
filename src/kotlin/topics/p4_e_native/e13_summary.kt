@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE13SummaryKtFacade")
+@file:JvmName("P4ENativee13SummaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e13
+// Section  : e13
 // Item     : summary
 // Topic id : part4/branch_e/e13/summary
 // Heading  : 小结

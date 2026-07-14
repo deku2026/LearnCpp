@@ -1,4 +1,4 @@
-@file:JvmName("P4HApiH21GraduationChecklistKtFacade")
+@file:JvmName("P4HApih21GraduationChecklistKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线H-源码性能与API设计.md
 // Stage    : p4_h_api
-// Step     : h21
+// Section  : h21
 // Item     : graduation_checklist
 // Topic id : part4/branch_h/h21/graduation_checklist
 // Heading  : 毕业检查表

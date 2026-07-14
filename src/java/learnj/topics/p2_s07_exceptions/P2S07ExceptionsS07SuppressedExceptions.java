@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s07
  * Item     : suppressed_exceptions
  * Topic id : part2/stage07/s07/suppressed_exceptions
- * Heading  : 抑制异常（suppressed）
+ * Heading  : suppressed 异常
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07ExceptionsS07SuppressedExceptions {
+public final class P2S07Exceptionss07SuppressedExceptions {
     static {
         TopicRegistry.register("part2/stage07/s07/suppressed_exceptions", args -> {
-            // practice: 抑制异常（suppressed）
+            // practice: suppressed 异常
             return 0;
         });
     }
 
-    private P2S07ExceptionsS07SuppressedExceptions() {
+    private P2S07Exceptionss07SuppressedExceptions() {
     }
 }

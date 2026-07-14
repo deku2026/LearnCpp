@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : sec_4_4_4
  * Item     : jpackage
  * Topic id : part4/engineering/sec_4_4_4/jpackage
- * Heading  : `jpackage`（安装包）
+ * Heading  : jpackage（安装包）
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P4EngineeringSec444Jpackage {
+public final class P4Engineeringsec444Jpackage {
     static {
         TopicRegistry.register("part4/engineering/sec_4_4_4/jpackage", args -> {
-            // practice: `jpackage`（安装包）
+            // practice: jpackage（安装包）
             return 0;
         });
     }
 
-    private P4EngineeringSec444Jpackage() {
+    private P4Engineeringsec444Jpackage() {
     }
 }

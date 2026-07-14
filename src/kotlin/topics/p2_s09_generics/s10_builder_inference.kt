@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段9-泛型型变与reified.md
 // Stage    : p2_s09_generics
-// Step     : s10
+// Section  : s10
 // Item     : builder_inference
 // Topic id : part2/stage09/s10/builder_inference
 // Heading  : Builder inference

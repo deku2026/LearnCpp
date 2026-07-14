@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段10-注解反射KSP与序列化.md
 // Stage    : p2_s10_reflect_ser
-// Step     : s08
+// Section  : s08
 // Item     : ksp_ksp2
 // Topic id : part2/stage10/s08/ksp_ksp2
 // Heading  : KSP 与 KSP2

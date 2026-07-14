@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s07
  * Item     : map
  * Topic id : part2/stage10/s07/map
- * Heading  : `Map`
+ * Heading  : Map
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10CollectionsS07Map {
+public final class P2S10Collectionss07Map {
     static {
         TopicRegistry.register("part2/stage10/s07/map", args -> {
-            // practice: `Map`
+            // practice: Map
             return 0;
         });
     }
 
-    private P2S10CollectionsS07Map() {
+    private P2S10Collectionss07Map() {
     }
 }

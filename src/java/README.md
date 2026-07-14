@@ -1,5 +1,4 @@
-# LearnJava sources (`src/java`)
+# LearnJava (src/java)
 
-- Package `learnj` (isolated from Kotlin `learn.*`)
-- Topics: `learnj.topics.<stage_dir>` matching directory path
 - Entry: `learnj.Main` · `gradlew runJava`
+- Topics: `learnj.topics.<stage>` (names match doc steps, no hash slugs)

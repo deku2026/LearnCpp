@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段7-集合序列与标准库.md
 // Stage    : p2_s07_collections
-// Step     : s21
+// Section  : s21
 // Item     : concept_map
 // Topic id : part2/stage07/s21/concept_map
 // Heading  : 本阶段概念图（可默写）

@@ -1,4 +1,4 @@
-@file:JvmName("P4DAbiD12SummaryKtFacade")
+@file:JvmName("P4DAbid12SummaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线D-JVM元数据与ABI.md
 // Stage    : p4_d_abi
-// Step     : d12
+// Section  : d12
 // Item     : summary
 // Topic id : part4/branch_d/d12/summary
 // Heading  : 小结

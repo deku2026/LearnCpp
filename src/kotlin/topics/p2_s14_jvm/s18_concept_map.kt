@@ -1,4 +1,4 @@
-@file:JvmName("P2S14JvmS18ConceptMapKtFacade")
+@file:JvmName("P2S14Jvms18ConceptMapKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段14-JVM互操作与字节码.md
 // Stage    : p2_s14_jvm
-// Step     : s18
+// Section  : s18
 // Item     : concept_map
 // Topic id : part2/stage14/s18/concept_map
 // Heading  : 本阶段概念图（可默写）

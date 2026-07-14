@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s03
  * Item     : override
  * Topic id : part2/stage05/s03/override
- * Heading  : 方法覆盖（override）
+ * Heading  : override
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05InheritanceS03Override {
+public final class P2S05Inheritances03Override {
     static {
         TopicRegistry.register("part2/stage05/s03/override", args -> {
-            // practice: 方法覆盖（override）
+            // practice: override
             return 0;
         });
     }
 
-    private P2S05InheritanceS03Override() {
+    private P2S05Inheritances03Override() {
     }
 }

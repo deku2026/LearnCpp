@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段3-函数与参数.md
 // Stage    : p2_s03_functions
-// Step     : s06
+// Section  : s06
 // Item     : trailing_comma
 // Topic id : part2/stage03/s06/trailing_comma
 // Heading  : Trailing comma 与编码习惯

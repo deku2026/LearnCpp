@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段9-泛型型变与reified.md
 // Stage    : p2_s09_generics
-// Step     : s05
+// Section  : s05
 // Item     : use_site_projection
 // Topic id : part2/stage09/s05/use_site_projection
 // Heading  : use-site projection：调用点投影

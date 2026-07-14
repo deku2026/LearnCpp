@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s03
  * Item     : throw_throws
  * Topic id : part2/stage07/s03/throw_throws
- * Heading  : `throw` / `throws`
+ * Heading  : throw / throws
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07ExceptionsS03ThrowThrows {
+public final class P2S07Exceptionss03ThrowThrows {
     static {
         TopicRegistry.register("part2/stage07/s03/throw_throws", args -> {
-            // practice: `throw` / `throws`
+            // practice: throw / throws
             return 0;
         });
     }
 
-    private P2S07ExceptionsS03ThrowThrows() {
+    private P2S07Exceptionss03ThrowThrows() {
     }
 }

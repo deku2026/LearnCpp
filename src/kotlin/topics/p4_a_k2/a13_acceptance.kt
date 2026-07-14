@@ -1,4 +1,4 @@
-@file:JvmName("P4AK2A13AcceptanceKtFacade")
+@file:JvmName("P4AK2a13AcceptanceKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线A-K2与编译器流水线.md
 // Stage    : p4_a_k2
-// Step     : a13
+// Section  : a13
 // Item     : acceptance
 // Topic id : part4/branch_a/a13/acceptance
 // Heading  : 验收

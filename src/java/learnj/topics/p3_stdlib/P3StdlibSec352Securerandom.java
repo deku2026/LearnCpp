@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
  * Step     : sec_3_5_2
- * Item     : securerandom
- * Topic id : part3/stdlib/sec_3_5_2/securerandom
- * Heading  : `SecureRandom`
+ * Item     : secure_random
+ * Topic id : part3/stdlib/sec_3_5_2/secure_random
+ * Heading  : SecureRandom
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec352Securerandom {
+public final class P3Stdlibsec352SecureRandom {
     static {
-        TopicRegistry.register("part3/stdlib/sec_3_5_2/securerandom", args -> {
-            // practice: `SecureRandom`
+        TopicRegistry.register("part3/stdlib/sec_3_5_2/secure_random", args -> {
+            // practice: SecureRandom
             return 0;
         });
     }
 
-    private P3StdlibSec352Securerandom() {
+    private P3Stdlibsec352SecureRandom() {
     }
 }

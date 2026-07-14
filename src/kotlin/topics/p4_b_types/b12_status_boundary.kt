@@ -1,4 +1,4 @@
-@file:JvmName("P4BTypesB12StatusBoundaryKtFacade")
+@file:JvmName("P4BTypesb12StatusBoundaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线B-类型系统与重载解析.md
 // Stage    : p4_b_types
-// Step     : b12
+// Section  : b12
 // Item     : status_boundary
 // Topic id : part4/branch_b/b12/status_boundary
 // Heading  : 状态边界

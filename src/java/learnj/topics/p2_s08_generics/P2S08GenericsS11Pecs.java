@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s11
  * Item     : pecs
  * Topic id : part2/stage08/s11/pecs
- * Heading  : PECS （本阶段口诀）
+ * Heading  : PECS
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S08GenericsS11Pecs {
+public final class P2S08Genericss11Pecs {
     static {
         TopicRegistry.register("part2/stage08/s11/pecs", args -> {
-            // practice: PECS （本阶段口诀）
+            // practice: PECS
             return 0;
         });
     }
 
-    private P2S08GenericsS11Pecs() {
+    private P2S08Genericss11Pecs() {
     }
 }

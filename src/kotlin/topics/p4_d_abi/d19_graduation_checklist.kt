@@ -1,4 +1,4 @@
-@file:JvmName("P4DAbiD19GraduationChecklistKtFacade")
+@file:JvmName("P4DAbid19GraduationChecklistKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线D-JVM元数据与ABI.md
 // Stage    : p4_d_abi
-// Step     : d19
+// Section  : d19
 // Item     : graduation_checklist
 // Topic id : part4/branch_d/d19/graduation_checklist
 // Heading  : 毕业检查表

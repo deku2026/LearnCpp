@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段4-类对象接口与属性.md
 // Stage    : p2_s04_classes
-// Step     : s07
+// Section  : s07
 // Item     : nested_inner_local_anonymous
 // Topic id : part2/stage04/s07/nested_inner_local_anonymous
 // Heading  : Nested / Inner / Local / Anonymous

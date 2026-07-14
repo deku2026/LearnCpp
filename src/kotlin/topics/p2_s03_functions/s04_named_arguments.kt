@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段3-函数与参数.md
 // Stage    : p2_s03_functions
-// Step     : s04
+// Section  : s04
 // Item     : named_arguments
 // Topic id : part2/stage03/s04/named_arguments
 // Heading  : 命名参数（Named arguments）

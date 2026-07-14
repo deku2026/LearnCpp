@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s18
  * Item     : stackwalker_jep
  * Topic id : part2/stage07/s18/stackwalker_jep
- * Heading  : `StackWalker`（JEP 259）
+ * Heading  : StackWalker
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07ExceptionsS18StackwalkerJep {
+public final class P2S07Exceptionss18StackwalkerJep {
     static {
         TopicRegistry.register("part2/stage07/s18/stackwalker_jep", args -> {
-            // practice: `StackWalker`（JEP 259）
+            // practice: StackWalker
             return 0;
         });
     }
 
-    private P2S07ExceptionsS18StackwalkerJep() {
+    private P2S07Exceptionss18StackwalkerJep() {
     }
 }

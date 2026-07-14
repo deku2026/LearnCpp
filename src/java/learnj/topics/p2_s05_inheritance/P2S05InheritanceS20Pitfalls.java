@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05InheritanceS20Pitfalls {
+public final class P2S05Inheritances20Pitfalls {
     static {
         TopicRegistry.register("part2/stage05/s20/pitfalls", args -> {
             // practice: 易错清单
@@ -23,6 +23,6 @@ public final class P2S05InheritanceS20Pitfalls {
         });
     }
 
-    private P2S05InheritanceS20Pitfalls() {
+    private P2S05Inheritances20Pitfalls() {
     }
 }

@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段10-注解反射KSP与序列化.md
 // Stage    : p2_s10_reflect_ser
-// Step     : s21
+// Section  : s21
 // Item     : faq
 // Topic id : part2/stage10/s21/faq
 // Heading  : 常见问答（FAQ）

@@ -1,4 +1,4 @@
-@file:JvmName("P2S12CoroutinesS08TimeoutKtFacade")
+@file:JvmName("P2S12Coroutiness08TimeoutKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段12-协程与结构化并发.md
 // Stage    : p2_s12_coroutines
-// Step     : s08
+// Section  : s08
 // Item     : timeout
 // Topic id : part2/stage12/s08/timeout
 // Heading  : Timeout

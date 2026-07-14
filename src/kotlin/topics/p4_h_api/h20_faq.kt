@@ -1,4 +1,4 @@
-@file:JvmName("P4HApiH20FaqKtFacade")
+@file:JvmName("P4HApih20FaqKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线H-源码性能与API设计.md
 // Stage    : p4_h_api
-// Step     : h20
+// Section  : h20
 // Item     : faq
 // Topic id : part4/branch_h/h20/faq
 // Heading  : 常见问题

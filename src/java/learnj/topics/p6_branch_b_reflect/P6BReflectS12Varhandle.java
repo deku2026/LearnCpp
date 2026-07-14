@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
  * Step     : s12
- * Item     : varhandle
- * Topic id : part6/branch_b/s12/varhandle
- * Heading  : `VarHandle`
+ * Item     : var_handle
+ * Topic id : part6/branch_b/s12/var_handle
+ * Heading  : VarHandle
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6BReflectS12Varhandle {
+public final class P6BReflects12VarHandle {
     static {
-        TopicRegistry.register("part6/branch_b/s12/varhandle", args -> {
-            // practice: `VarHandle`
+        TopicRegistry.register("part6/branch_b/s12/var_handle", args -> {
+            // practice: VarHandle
             return 0;
         });
     }
 
-    private P6BReflectS12Varhandle() {
+    private P6BReflects12VarHandle() {
     }
 }

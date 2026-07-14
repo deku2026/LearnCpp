@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段6-Lambda扩展与内联.md
 // Stage    : p2_s06_lambda_inline
-// Step     : s04
+// Section  : s04
 // Item     : callable_references
 // Topic id : part2/stage06/s04/callable_references
 // Heading  : 可调用引用（callable references）

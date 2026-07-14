@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s18
  * Item     : stream_gatherers_jep
  * Topic id : part2/stage09/s18/stream_gatherers_jep
- * Heading  : Stream Gatherers（JEP 485）
+ * Heading  : Stream Gatherers
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreamS18StreamGatherersJep {
+public final class P2S09LambdaStreams18StreamGatherersJep {
     static {
         TopicRegistry.register("part2/stage09/s18/stream_gatherers_jep", args -> {
-            // practice: Stream Gatherers（JEP 485）
+            // practice: Stream Gatherers
             return 0;
         });
     }
 
-    private P2S09LambdaStreamS18StreamGatherersJep() {
+    private P2S09LambdaStreams18StreamGatherersJep() {
     }
 }

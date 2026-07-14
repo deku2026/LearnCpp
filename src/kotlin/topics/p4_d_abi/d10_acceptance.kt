@@ -1,4 +1,4 @@
-@file:JvmName("P4DAbiD10AcceptanceKtFacade")
+@file:JvmName("P4DAbid10AcceptanceKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线D-JVM元数据与ABI.md
 // Stage    : p4_d_abi
-// Step     : d10
+// Section  : d10
 // Item     : acceptance
 // Topic id : part4/branch_d/d10/acceptance
 // Heading  : 验收

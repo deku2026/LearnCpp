@@ -1,4 +1,4 @@
-@file:JvmName("P4DAbiD11StatusBoundaryKtFacade")
+@file:JvmName("P4DAbid11StatusBoundaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线D-JVM元数据与ABI.md
 // Stage    : p4_d_abi
-// Step     : d11
+// Section  : d11
 // Item     : status_boundary
 // Topic id : part4/branch_d/d11/status_boundary
 // Heading  : 状态边界

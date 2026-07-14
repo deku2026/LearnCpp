@@ -1,4 +1,4 @@
-@file:JvmName("P2S15KmpShConceptMapKtFacade")
+@file:JvmName("P2S15KmpshConceptMapKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段15-KMP与多平台.md
 // Stage    : p2_s15_kmp
-// Step     : sh
+// Section  : sh
 // Item     : concept_map
 // Topic id : part2/stage15/sh/concept_map
 // Heading  : 本阶段概念图（可默写）

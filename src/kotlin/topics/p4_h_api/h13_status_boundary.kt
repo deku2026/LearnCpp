@@ -1,4 +1,4 @@
-@file:JvmName("P4HApiH13StatusBoundaryKtFacade")
+@file:JvmName("P4HApih13StatusBoundaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线H-源码性能与API设计.md
 // Stage    : p4_h_api
-// Step     : h13
+// Section  : h13
 // Item     : status_boundary
 // Topic id : part4/branch_h/h13/status_boundary
 // Heading  : 状态边界

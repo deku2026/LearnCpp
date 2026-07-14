@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6DJvmGcS13ShenandoahGenerational {
+public final class P6DJvmGcs13ShenandoahGenerational {
     static {
         TopicRegistry.register("part6/branch_d/s13/shenandoah_generational", args -> {
             // practice: Shenandoah 与 Generational Shenandoah
@@ -23,6 +23,6 @@ public final class P6DJvmGcS13ShenandoahGenerational {
         });
     }
 
-    private P6DJvmGcS13ShenandoahGenerational() {
+    private P6DJvmGcs13ShenandoahGenerational() {
     }
 }

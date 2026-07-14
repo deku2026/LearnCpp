@@ -1,4 +1,4 @@
-@file:JvmName("P4GKspG17FaqKtFacade")
+@file:JvmName("P4GKspg17FaqKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线G-KSP序列化与编译器插件.md
 // Stage    : p4_g_ksp
-// Step     : g17
+// Section  : g17
 // Item     : faq
 // Topic id : part4/branch_g/g17/faq
 // Heading  : 常见问题

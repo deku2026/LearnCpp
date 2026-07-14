@@ -1,4 +1,4 @@
-@file:JvmName("P4CCoroFlowC16StatusBoundaryKtFacade")
+@file:JvmName("P4CCoroFlowc16StatusBoundaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线C-协程状态机与Flow实现.md
 // Stage    : p4_c_coro_flow
-// Step     : c16
+// Section  : c16
 // Item     : status_boundary
 // Topic id : part4/branch_c/c16/status_boundary
 // Heading  : 状态边界

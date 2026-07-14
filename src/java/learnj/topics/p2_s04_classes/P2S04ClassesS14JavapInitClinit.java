@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s14
  * Item     : javap_init_clinit
  * Topic id : part2/stage04/s14/javap_init_clinit
- * Heading  : `javap`：`<init>` 与 `<clinit>`
+ * Heading  : javap：init / clinit 观察
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S04ClassesS14JavapInitClinit {
+public final class P2S04Classess14JavapInitClinit {
     static {
         TopicRegistry.register("part2/stage04/s14/javap_init_clinit", args -> {
-            // practice: `javap`：`<init>` 与 `<clinit>`
+            // practice: javap：init / clinit 观察
             return 0;
         });
     }
 
-    private P2S04ClassesS14JavapInitClinit() {
+    private P2S04Classess14JavapInitClinit() {
     }
 }

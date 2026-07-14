@@ -1,5 +1,3 @@
 # p2_s16_eng
 
 Doc: `第2部分-阶段16-工程构建测试与质量.md`
-
-Prefix: `part2/stage16/…`

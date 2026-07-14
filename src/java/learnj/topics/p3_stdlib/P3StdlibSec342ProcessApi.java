@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec342ProcessApi {
+public final class P3Stdlibsec342ProcessApi {
     static {
         TopicRegistry.register("part3/stdlib/sec_3_4_2/process_api", args -> {
             // practice: Process API
@@ -23,6 +23,6 @@ public final class P3StdlibSec342ProcessApi {
         });
     }
 
-    private P3StdlibSec342ProcessApi() {
+    private P3Stdlibsec342ProcessApi() {
     }
 }

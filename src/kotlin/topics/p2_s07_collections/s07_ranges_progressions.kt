@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段7-集合序列与标准库.md
 // Stage    : p2_s07_collections
-// Step     : s07
+// Section  : s07
 // Item     : ranges_progressions
 // Topic id : part2/stage07/s07/ranges_progressions
 // Heading  : Ranges 与 Progressions

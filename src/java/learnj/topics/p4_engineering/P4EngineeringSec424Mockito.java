@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P4EngineeringSec424Mockito {
+public final class P4Engineeringsec424Mockito {
     static {
         TopicRegistry.register("part4/engineering/sec_4_2_4/mockito", args -> {
             // practice: Mockito
@@ -23,6 +23,6 @@ public final class P4EngineeringSec424Mockito {
         });
     }
 
-    private P4EngineeringSec424Mockito() {
+    private P4Engineeringsec424Mockito() {
     }
 }

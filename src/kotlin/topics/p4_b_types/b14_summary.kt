@@ -1,4 +1,4 @@
-@file:JvmName("P4BTypesB14SummaryKtFacade")
+@file:JvmName("P4BTypesb14SummaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线B-类型系统与重载解析.md
 // Stage    : p4_b_types
-// Step     : b14
+// Section  : b14
 // Item     : summary
 // Topic id : part4/branch_b/b14/summary
 // Heading  : 小结

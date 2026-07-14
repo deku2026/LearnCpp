@@ -1,4 +1,4 @@
-@file:JvmName("P4HApiH12AcceptanceKtFacade")
+@file:JvmName("P4HApih12AcceptanceKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线H-源码性能与API设计.md
 // Stage    : p4_h_api
-// Step     : h12
+// Section  : h12
 // Item     : acceptance
 // Topic id : part4/branch_h/h12/acceptance
 // Heading  : 验收

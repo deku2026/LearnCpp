@@ -1,5 +1,3 @@
 # p4_a_k2
 
 Doc: `第4部分-支线A-K2与编译器流水线.md`
-
-Prefix: `part4/branch_a/…`

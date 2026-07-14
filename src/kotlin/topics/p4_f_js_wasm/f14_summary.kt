@@ -1,4 +1,4 @@
-@file:JvmName("P4FJsWasmF14SummaryKtFacade")
+@file:JvmName("P4FJsWasmf14SummaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线F-JS与Wasm后端.md
 // Stage    : p4_f_js_wasm
-// Step     : f14
+// Section  : f14
 // Item     : summary
 // Topic id : part4/branch_f/f14/summary
 // Heading  : 小结

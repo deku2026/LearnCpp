@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
  * Step     : sec_3_3_6
- * Item     : breakiterator
- * Topic id : part3/stdlib/sec_3_3_6/breakiterator
- * Heading  : `BreakIterator`（）
+ * Item     : break_iterator
+ * Topic id : part3/stdlib/sec_3_3_6/break_iterator
+ * Heading  : BreakIterator
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec336Breakiterator {
+public final class P3Stdlibsec336BreakIterator {
     static {
-        TopicRegistry.register("part3/stdlib/sec_3_3_6/breakiterator", args -> {
-            // practice: `BreakIterator`（）
+        TopicRegistry.register("part3/stdlib/sec_3_3_6/break_iterator", args -> {
+            // practice: BreakIterator
             return 0;
         });
     }
 
-    private P3StdlibSec336Breakiterator() {
+    private P3Stdlibsec336BreakIterator() {
     }
 }

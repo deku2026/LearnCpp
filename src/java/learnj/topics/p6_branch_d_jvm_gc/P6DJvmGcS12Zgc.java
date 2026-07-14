@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6DJvmGcS12Zgc {
+public final class P6DJvmGcs12Zgc {
     static {
         TopicRegistry.register("part6/branch_d/s12/zgc", args -> {
             // practice: ZGC
@@ -23,6 +23,6 @@ public final class P6DJvmGcS12Zgc {
         });
     }
 
-    private P6DJvmGcS12Zgc() {
+    private P6DJvmGcs12Zgc() {
     }
 }

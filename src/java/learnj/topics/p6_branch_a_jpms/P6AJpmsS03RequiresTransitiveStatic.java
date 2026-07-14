@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s03
  * Item     : requires_transitive_static
  * Topic id : part6/branch_a/s03/requires_transitive_static
- * Heading  : `requires` / `transitive` / `static`
+ * Heading  : requires / transitive / static
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6AJpmsS03RequiresTransitiveStatic {
+public final class P6AJpmss03RequiresTransitiveStatic {
     static {
         TopicRegistry.register("part6/branch_a/s03/requires_transitive_static", args -> {
-            // practice: `requires` / `transitive` / `static`
+            // practice: requires / transitive / static
             return 0;
         });
     }
 
-    private P6AJpmsS03RequiresTransitiveStatic() {
+    private P6AJpmss03RequiresTransitiveStatic() {
     }
 }

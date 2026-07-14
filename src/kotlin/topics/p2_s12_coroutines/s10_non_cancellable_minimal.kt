@@ -1,0 +1,22 @@
+@file:JvmName("P2S12Coroutiness10NonCancellableMinimalKtFacade")
+
+package learn.topics
+
+import learn.registerTopic
+
+// LearnKotlin placeholder
+// Doc      : 第2部分-阶段12-协程与结构化并发.md
+// Stage    : p2_s12_coroutines
+// Section  : s10
+// Item     : non_cancellable_minimal
+// Topic id : part2/stage12/s10/non_cancellable_minimal
+// Heading  : NonCancellable：最小必要范围
+//
+// TODO: read the KotlinStudy section, write a minimal runnable demo,
+//       then replace this empty body with real practice code.
+
+@Suppress("unused")
+private val REGISTER = registerTopic("part2/stage12/s10/non_cancellable_minimal") { _ ->
+    // practice: NonCancellable：最小必要范围
+    0
+}

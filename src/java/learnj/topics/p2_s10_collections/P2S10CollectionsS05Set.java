@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s05
  * Item     : set
  * Topic id : part2/stage10/s05/set
- * Heading  : `Set`
+ * Heading  : Set
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10CollectionsS05Set {
+public final class P2S10Collectionss05Set {
     static {
         TopicRegistry.register("part2/stage10/s05/set", args -> {
-            // practice: `Set`
+            // practice: Set
             return 0;
         });
     }
 
-    private P2S10CollectionsS05Set() {
+    private P2S10Collectionss05Set() {
     }
 }

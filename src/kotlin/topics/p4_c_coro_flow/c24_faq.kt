@@ -1,4 +1,4 @@
-@file:JvmName("P4CCoroFlowC24FaqKtFacade")
+@file:JvmName("P4CCoroFlowc24FaqKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线C-协程状态机与Flow实现.md
 // Stage    : p4_c_coro_flow
-// Step     : c24
+// Section  : c24
 // Item     : faq
 // Topic id : part4/branch_c/c24/faq
 // Heading  : 常见问题

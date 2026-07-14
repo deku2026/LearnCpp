@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S12LoomS05CarrierMountUnmount {
+public final class P2S12Looms05CarrierMountUnmount {
     static {
         TopicRegistry.register("part2/stage12/s05/carrier_mount_unmount", args -> {
             // practice: 调度：carrier、mount、unmount
@@ -23,6 +23,6 @@ public final class P2S12LoomS05CarrierMountUnmount {
         });
     }
 
-    private P2S12LoomS05CarrierMountUnmount() {
+    private P2S12Looms05CarrierMountUnmount() {
     }
 }

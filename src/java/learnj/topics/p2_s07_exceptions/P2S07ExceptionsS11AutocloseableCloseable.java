@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s11
  * Item     : autocloseable_closeable
  * Topic id : part2/stage07/s11/autocloseable_closeable
- * Heading  : `AutoCloseable` vs `Closeable`
+ * Heading  : AutoCloseable / Closeable
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07ExceptionsS11AutocloseableCloseable {
+public final class P2S07Exceptionss11AutocloseableCloseable {
     static {
         TopicRegistry.register("part2/stage07/s11/autocloseable_closeable", args -> {
-            // practice: `AutoCloseable` vs `Closeable`
+            // practice: AutoCloseable / Closeable
             return 0;
         });
     }
 
-    private P2S07ExceptionsS11AutocloseableCloseable() {
+    private P2S07Exceptionss11AutocloseableCloseable() {
     }
 }

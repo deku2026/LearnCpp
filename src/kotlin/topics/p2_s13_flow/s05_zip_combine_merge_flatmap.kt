@@ -1,4 +1,4 @@
-@file:JvmName("P2S13FlowS05ZipCombineMergeFlatmapKtFacade")
+@file:JvmName("P2S13Flows05ZipCombineMergeFlatmapKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段13-Flow热流与Channel.md
 // Stage    : p2_s13_flow
-// Step     : s05
+// Section  : s05
 // Item     : zip_combine_merge_flatmap
 // Topic id : part2/stage13/s05/zip_combine_merge_flatmap
 // Heading  : 组合：zip / combine / merge / flatMap 家族

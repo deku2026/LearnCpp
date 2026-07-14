@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s06
  * Item     : future
  * Topic id : part2/stage11/s06/future
- * Heading  : `Future`
+ * Heading  : Future
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11ConcurrencyS06Future {
+public final class P2S11Concurrencys06Future {
     static {
         TopicRegistry.register("part2/stage11/s06/future", args -> {
-            // practice: `Future`
+            // practice: Future
             return 0;
         });
     }
 
-    private P2S11ConcurrencyS06Future() {
+    private P2S11Concurrencys06Future() {
     }
 }

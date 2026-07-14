@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段10-注解反射KSP与序列化.md
 // Stage    : p2_s10_reflect_ser
-// Step     : s17
+// Section  : s17
 // Item     : concept_map
 // Topic id : part2/stage10/s17/concept_map
 // Heading  : 本阶段概念图（可默写）

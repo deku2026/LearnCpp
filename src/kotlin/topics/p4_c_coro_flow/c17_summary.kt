@@ -1,4 +1,4 @@
-@file:JvmName("P4CCoroFlowC17SummaryKtFacade")
+@file:JvmName("P4CCoroFlowc17SummaryKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线C-协程状态机与Flow实现.md
 // Stage    : p4_c_coro_flow
-// Step     : c17
+// Section  : c17
 // Item     : summary
 // Topic id : part4/branch_c/c17/summary
 // Heading  : 小结

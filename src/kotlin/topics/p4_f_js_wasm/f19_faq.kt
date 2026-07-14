@@ -1,4 +1,4 @@
-@file:JvmName("P4FJsWasmF19FaqKtFacade")
+@file:JvmName("P4FJsWasmf19FaqKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线F-JS与Wasm后端.md
 // Stage    : p4_f_js_wasm
-// Step     : f19
+// Section  : f19
 // Item     : faq
 // Topic id : part4/branch_f/f19/faq
 // Heading  : 常见问题

@@ -8,21 +8,21 @@ import learnj.TopicRegistry;
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
  * Step     : s07
- * Item     : completablefuture
- * Topic id : part2/stage11/s07/completablefuture
- * Heading  : `CompletableFuture`
+ * Item     : completable_future
+ * Topic id : part2/stage11/s07/completable_future
+ * Heading  : CompletableFuture
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11ConcurrencyS07Completablefuture {
+public final class P2S11Concurrencys07CompletableFuture {
     static {
-        TopicRegistry.register("part2/stage11/s07/completablefuture", args -> {
-            // practice: `CompletableFuture`
+        TopicRegistry.register("part2/stage11/s07/completable_future", args -> {
+            // practice: CompletableFuture
             return 0;
         });
     }
 
-    private P2S11ConcurrencyS07Completablefuture() {
+    private P2S11Concurrencys07CompletableFuture() {
     }
 }

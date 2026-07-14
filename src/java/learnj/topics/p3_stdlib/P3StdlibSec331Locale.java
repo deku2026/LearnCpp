@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : sec_3_3_1
  * Item     : locale
  * Topic id : part3/stdlib/sec_3_3_1/locale
- * Heading  : `Locale`
+ * Heading  : Locale
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P3StdlibSec331Locale {
+public final class P3Stdlibsec331Locale {
     static {
         TopicRegistry.register("part3/stdlib/sec_3_3_1/locale", args -> {
-            // practice: `Locale`
+            // practice: Locale
             return 0;
         });
     }
 
-    private P3StdlibSec331Locale() {
+    private P3Stdlibsec331Locale() {
     }
 }

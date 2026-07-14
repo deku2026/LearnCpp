@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段3-函数与参数.md
 // Stage    : p2_s03_functions
-// Step     : s00
+// Section  : s00
 // Item     : run_examples
 // Topic id : part2/stage03/s00/run_examples
 // Heading  : 让例子能跑起来

@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE03KlibKtFacade")
+@file:JvmName("P4ENativee03KlibKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e03
+// Section  : e03
 // Item     : klib
 // Topic id : part4/branch_e/e03/klib
 // Heading  : KLIB

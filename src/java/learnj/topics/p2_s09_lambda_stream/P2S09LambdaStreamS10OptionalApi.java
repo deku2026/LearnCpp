@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s10
  * Item     : optional_api
  * Topic id : part2/stage09/s10/optional_api
- * Heading  : `Optional` 契约与 API
+ * Heading  : Optional API
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreamS10OptionalApi {
+public final class P2S09LambdaStreams10OptionalApi {
     static {
         TopicRegistry.register("part2/stage09/s10/optional_api", args -> {
-            // practice: `Optional` 契约与 API
+            // practice: Optional API
             return 0;
         });
     }
 
-    private P2S09LambdaStreamS10OptionalApi() {
+    private P2S09LambdaStreams10OptionalApi() {
     }
 }

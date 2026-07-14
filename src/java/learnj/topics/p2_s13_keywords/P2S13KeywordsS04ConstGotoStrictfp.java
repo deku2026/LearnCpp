@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s04
  * Item     : const_goto_strictfp
  * Topic id : part2/stage13/s04/const_goto_strictfp
- * Heading  : `const` / `goto` / `strictfp` 专条
+ * Heading  : const / goto / strictfp 专条
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S13KeywordsS04ConstGotoStrictfp {
+public final class P2S13Keywordss04ConstGotoStrictfp {
     static {
         TopicRegistry.register("part2/stage13/s04/const_goto_strictfp", args -> {
-            // practice: `const` / `goto` / `strictfp` 专条
+            // practice: const / goto / strictfp 专条
             return 0;
         });
     }
 
-    private P2S13KeywordsS04ConstGotoStrictfp() {
+    private P2S13Keywordss04ConstGotoStrictfp() {
     }
 }

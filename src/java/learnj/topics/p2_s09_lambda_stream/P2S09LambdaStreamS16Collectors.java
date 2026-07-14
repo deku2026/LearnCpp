@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s16
  * Item     : collectors
  * Topic id : part2/stage09/s16/collectors
- * Heading  : `Collectors` 常用工厂
+ * Heading  : Collectors
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreamS16Collectors {
+public final class P2S09LambdaStreams16Collectors {
     static {
         TopicRegistry.register("part2/stage09/s16/collectors", args -> {
-            // practice: `Collectors` 常用工厂
+            // practice: Collectors
             return 0;
         });
     }
 
-    private P2S09LambdaStreamS16Collectors() {
+    private P2S09LambdaStreams16Collectors() {
     }
 }

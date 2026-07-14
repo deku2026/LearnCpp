@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6EJitAotS11CdsAppcds {
+public final class P6EJitAots11CdsAppcds {
     static {
         TopicRegistry.register("part6/branch_e/s11/cds_appcds", args -> {
             // practice: CDS / AppCDS
@@ -23,6 +23,6 @@ public final class P6EJitAotS11CdsAppcds {
         });
     }
 
-    private P6EJitAotS11CdsAppcds() {
+    private P6EJitAots11CdsAppcds() {
     }
 }

@@ -10,19 +10,19 @@ import learnj.TopicRegistry;
  * Step     : s02
  * Item     : method_field_constructor_parameter
  * Topic id : part6/branch_b/s02/method_field_constructor_parameter
- * Heading  : `Method` / `Field` / `Constructor` / `Parameter`
+ * Heading  : Method / Field / Constructor / Parameter
  * <p>
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6BReflectS02MethodFieldConstructorParameter {
+public final class P6BReflects02MethodFieldConstructorParameter {
     static {
         TopicRegistry.register("part6/branch_b/s02/method_field_constructor_parameter", args -> {
-            // practice: `Method` / `Field` / `Constructor` / `Parameter`
+            // practice: Method / Field / Constructor / Parameter
             return 0;
         });
     }
 
-    private P6BReflectS02MethodFieldConstructorParameter() {
+    private P6BReflects02MethodFieldConstructorParameter() {
     }
 }

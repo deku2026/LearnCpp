@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段4-类对象接口与属性.md
 // Stage    : p2_s04_classes
-// Step     : s11
+// Section  : s11
 // Item     : sealed_class_interface
 // Topic id : part2/stage04/s11/sealed_class_interface
 // Heading  : Sealed class / interface

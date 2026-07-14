@@ -1,4 +1,4 @@
-@file:JvmName("P4ENativeE04NativeRuntimeGcKtFacade")
+@file:JvmName("P4ENativee04NativeRuntimeGcKtFacade")
 
 package learn.topics
 
@@ -7,7 +7,7 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第4部分-支线E-KMP-KLIB与Native互操作.md
 // Stage    : p4_e_native
-// Step     : e04
+// Section  : e04
 // Item     : native_runtime_gc
 // Topic id : part4/branch_e/e04/native_runtime_gc
 // Heading  : Native runtime 与 GC
