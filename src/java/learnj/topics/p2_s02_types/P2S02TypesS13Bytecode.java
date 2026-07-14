@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : bytecode
  * Topic id : part2/stage02/s13/bytecode
  * Heading  : 字节码与布局实证（本阶段该看的）

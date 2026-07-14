@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : compact_object_headers_jep
  * Topic id : part6/branch_d/s06/compact_object_headers_jep
  * Heading  : Compact Object Headers（JEP 519）

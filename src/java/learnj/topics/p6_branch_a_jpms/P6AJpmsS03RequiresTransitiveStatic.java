@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : requires_transitive_static
  * Topic id : part6/branch_a/s03/requires_transitive_static
  * Heading  : `requires` / `transitive` / `static`

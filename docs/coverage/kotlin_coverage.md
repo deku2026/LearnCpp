@@ -1,0 +1,1284 @@
+# LearnKotlin coverage audit
+
+## p2_s02_basics  [GAPS]
+- doc: `第2部分-阶段2-程序结构与基础语义.md`
+- practice H2 parsed: **16** | topics on disk: **10** | key hits: 10/16
+- **missing keys (6):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 让例子能跑起来
+  - `s11` — 状态、过时项与非主线边界（本阶段总表）
+  - `s12` — C++ 迁移卡（建议抄进学习笔记）
+  - `s13` — 验收与最小练习（对照路线图）
+  - `s14` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 让例子能跑起来
+  - 步骤 1 · 文件、package、import 与顶层声明
+  - 步骤 2 · `val` / `var` / 类型推断 / `const val` / `lateinit` / `lazy`
+  - 步骤 3 · 数值类型、转换、位运算与浮点规则
+  - 步骤 4 · 字符串、模板与 multi-dollar
+  - 步骤 5 · 基础泛型读法预备
+  - 步骤 6 · `if` / `when` 表达式与穷尽性
+  - 步骤 7 · 循环、区间、标签
+  - 步骤 8 · 异常、`try` 表达式、`Nothing`
+  - 步骤 9 · `main`、参数与最小 I/O 程序
+  - 步骤 10 · 底层实证清单（本阶段最小集）
+  - 步骤 11 · 状态、过时项与非主线边界（本阶段总表）
+  - 步骤 12 · C++ 迁移卡（建议抄进学习笔记）
+  - 步骤 13 · 验收与最小练习（对照路线图）
+  - 步骤 14 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s03_functions  [GAPS]
+- doc: `第2部分-阶段3-函数与参数.md`
+- practice H2 parsed: **20** | topics on disk: **13** | key hits: 13/20
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 让例子能跑起来
+  - `s14` — API 设计小抄：对 Kotlin 友好、不破坏 Java 意识
+  - `s15` — 状态、过时项与非主线边界（本阶段总表）
+  - `s16` — C++ 迁移卡（建议抄进学习笔记）
+  - `s17` — 验收与最小练习（对照路线图）
+  - `s18` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 让例子能跑起来
+  - 步骤 1 · 函数声明骨架：参数、作用域、调用
+  - 步骤 2 · Expression body 与 Block body、返回类型推断
+  - 步骤 3 · 默认参数
+  - 步骤 4 · 命名参数（Named arguments）
+  - 步骤 5 · `vararg` 与 spread
+  - 步骤 6 · Trailing comma 与编码习惯
+  - 步骤 7 · 局部函数
+  - 步骤 8 · `infix` 函数
+  - 步骤 9 · 重载与解析入口；2.3 普通 / suspend 函数类型
+  - 步骤 10 · `Unit`、`Nothing`、`Nothing?` 在返回类型中的角色
+  - 步骤 11 · `tailrec` 尾递归
+  - 步骤 12 · 高阶函数入口（为阶段 6 铺路）
+  - 步骤 13 · 底层实证（JVM）：`$default`、facade、vararg、tailrec
+  - 步骤 14 · API 设计小抄：对 Kotlin 友好、不破坏 Java 意识
+  - 步骤 15 · 状态、过时项与非主线边界（本阶段总表）
+  - 步骤 16 · C++ 迁移卡（建议抄进学习笔记）
+  - 步骤 17 · 验收与最小练习（对照路线图）
+  - 步骤 18 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s04_classes  [GAPS]
+- doc: `第2部分-阶段4-类对象接口与属性.md`
+- practice H2 parsed: **23** | topics on disk: **16** | key hits: 16/23
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 最小可运行类
+  - `s17` — 底层实证清单（本阶段最小集）
+  - `s18` — 状态、过时项与非主线边界（本阶段总表）
+  - `s19` — C++ 迁移卡
+  - `s20` — 验收与最小练习（对照路线图）
+  - `s21` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 最小可运行类
+  - 步骤 1 · Primary / Secondary constructor 与 `init` 顺序
+  - 步骤 2 · 继承：`open` / `final` / `abstract` / `override`
+  - 步骤 3 · 接口、默认实现与冲突消解
+  - 步骤 4 · 可见性：`public` / `internal` / `protected` / `private`
+  - 步骤 5 · Property：getter / setter / `field` / backing property
+  - 步骤 6 · Explicit backing fields（Kotlin 2.4 稳定）
+  - 步骤 7 · Nested / Inner / Local / Anonymous
+  - 步骤 8 · `object` / companion / `data object`
+  - 步骤 9 · `data class`：生成成员、`copy` 浅复制
+  - 步骤 10 · `enum class` 与 `entries`
+  - 步骤 11 · Sealed class / interface
+  - 步骤 12 · `fun interface`（SAM）
+  - 步骤 13 · `@JvmInline value class`：装箱、mangling
+  - 步骤 14 · 类委托 `by` 与属性委托入口
+  - 步骤 15 · Annotation class（入口）
+  - 步骤 16 · 选型决策表（验收核心）
+  - 步骤 17 · 底层实证清单（本阶段最小集）
+  - 步骤 18 · 状态、过时项与非主线边界（本阶段总表）
+  - 步骤 19 · C++ 迁移卡
+  - 步骤 20 · 验收与最小练习（对照路线图）
+  - 步骤 21 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s05_null_types  [GAPS]
+- doc: `第2部分-阶段5-可空性与类型系统.md`
+- practice H2 parsed: **21** | topics on disk: **14** | key hits: 14/21
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 为什么 Kotlin 把 null 放进类型系统
+  - `s15` — 底层实证清单
+  - `s16` — 状态、过时项与非主线边界（本阶段总表）
+  - `s17` — C++ 迁移卡
+  - `s18` — 验收与最小练习（对照路线图）
+  - `s19` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 为什么 Kotlin 把 null 放进类型系统
+  - 步骤 1 · 名义类型、子类型与顶/底类型
+  - 步骤 2 · `T` 与 `T?` 全景
+  - 步骤 3 · 操作符工具箱：`?.` `?:` `as?` `!!` 与 `let` / 早返回
+  - 步骤 4 · `is` / `!is` / `as` / `as?` 与 Smart cast
+  - 步骤 5 · K2 数据流分析增强
+  - 步骤 6 · Java Platform type `T!`
+  - 步骤 7 · Java nullability 注解与 JSpecify 边界
+  - 步骤 8 · 交集类型（intersection type）专节
+  - 步骤 9 · 确定非空类型 `T & Any`
+  - 步骤 10 · 类型推断入口：期望类型、公共 API
+  - 步骤 11 · `typealias` 与 2.3 nested non-capturing aliases
+  - 步骤 12 · `==` vs `===`、`equals` / `hashCode` 契约
+  - 步骤 13 · Context-sensitive resolution（Experimental in 2.4）
+  - 步骤 14 · 可空性与 API 设计清单
+  - 步骤 15 · 底层实证清单
+  - 步骤 16 · 状态、过时项与非主线边界（本阶段总表）
+  - 步骤 17 · C++ 迁移卡
+  - 步骤 18 · 验收与最小练习（对照路线图）
+  - 步骤 19 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s06_lambda_inline  [GAPS]
+- doc: `第2部分-阶段6-Lambda扩展与内联.md`
+- practice H2 parsed: **19** | topics on disk: **13** | key hits: 13/19
+- **missing keys (6):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 让例子能跑起来
+  - `s14` — 练习（路线图最小集 + 必补项）
+  - `s15` — 验收自查
+  - `s16` — 状态、过时项与非主线边界汇总
+  - `s17` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 让例子能跑起来
+  - 步骤 1 · Lambda 语法、尾随 Lambda、`it`、匿名函数
+  - 步骤 2 · 函数类型：普通、可空、扩展、suspend 入口
+  - 步骤 3 · 闭包捕获、可变状态、循环与逃逸
+  - 步骤 4 · 可调用引用（callable references）
+  - 步骤 5 · SAM 转换与 `fun interface`
+  - 步骤 6 · 函数式组合思想（map / filter / fold…）
+  - 步骤 7 · Scope functions 矩阵：`let` / `run` / `with` / `apply` / `also`
+  - 步骤 8 · 扩展：静态解析、成员优先、nullable receiver、扩展属性
+  - 步骤 9 · `inline` / `noinline` / `crossinline` / non-local return
+  - 步骤 10 · public inline ABI、`@PublishedApi` 与 2.4 klib 内联
+  - 步骤 11 · `reified` 入口（完整边界在阶段 9）
+  - 步骤 12 · 组合、pipeline 与调试纪律
+  - 步骤 13 · 底层实证清单（JVM 优先，禁跨平台武断）
+  - 步骤 14 · 练习（路线图最小集 + 必补项）
+  - 步骤 15 · 验收自查
+  - 步骤 16 · 状态、过时项与非主线边界汇总
+  - 步骤 17 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s07_collections  [GAPS]
+- doc: `第2部分-阶段7-集合序列与标准库.md`
+- practice H2 parsed: **23** | topics on disk: **16** | key hits: 16/23
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 实验约定
+  - `s17` — 底层实证清单
+  - `s18` — 练习（路线图最小集）
+  - `s19` — 验收自查
+  - `s20` — 状态与非主线边界汇总
+  - `s21` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 实验约定
+  - 步骤 1 · 集合接口族：Iterable / Collection / List / Set / Map
+  - 步骤 2 · read-only ≠ immutable（核心纠正）
+  - 步骤 3 · 数组：`Array<T>`、primitive arrays、unsigned arrays
+  - 步骤 4 · 访问、变换与拆分类操作
+  - 步骤 5 · 聚合、排序、binary search、 isSorted*
+  - 步骤 6 · Sequence：惰性管线
+  - 步骤 7 · Ranges 与 Progressions
+  - 步骤 8 · String / Char / Regex / StringBuilder
+  - 步骤 9 · Pair / Triple、Result、require/check、use
+  - 步骤 10 · 数值、math、random、编码
+  - 步骤 11 · 时间：`Duration` / `Instant` / `Clock`
+  - 步骤 12 · Uuid（2.4 主体 Stable）与 V4/V7 生成 Experimental
+  - 步骤 13 · ExperimentalAtomicApi：`kotlin.concurrent.atomics`（2.4）
+  - 步骤 14 · I/O 边界与 kotlinx 独立组件
+  - 步骤 15 · stdlib 包地图
+  - 步骤 16 · 选择决策表（验收用）
+  - 步骤 17 · 底层实证清单
+  - 步骤 18 · 练习（路线图最小集）
+  - 步骤 19 · 验收自查
+  - 步骤 20 · 状态与非主线边界汇总
+  - 步骤 21 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s08_operators  [GAPS]
+- doc: `第2部分-阶段8-操作符解构与委托.md`
+- practice H2 parsed: **16** | topics on disk: **11** | key hits: 11/16
+- **missing keys (5):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 实验约定
+  - `s12` — 验收自查
+  - `s13` — 状态与非主线边界汇总
+  - `s14` — 本阶段概念图（可默写）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 实验约定
+  - 步骤 1 · 操作符约定总览与 **operator 全表**
+  - 步骤 2 · `in` / `get` / `set` / `invoke` / `iterator`
+  - 步骤 3 · 解构声明与 `componentN`
+  - 步骤 4 · 属性委托协议：`getValue` / `setValue` / `provideDelegate`
+  - 步骤 5 · 标准委托：`lazy` 三种模式、observable / vetoable、map-backed
+  - 步骤 6 · 委托给另一个属性、迁移与初始化顺序
+  - 步骤 7 · 类委托：`class X : I by delegate`
+  - 步骤 8 · 自定义 range / progression / iterator 的职责边界
+  - 步骤 9 · 可读性与契约：什么不该重载
+  - 步骤 10 · 底层实证清单
+  - 步骤 11 · 练习（路线图最小集）
+  - 步骤 12 · 验收自查
+  - 步骤 13 · 状态与非主线边界汇总
+  - 步骤 14 · 本阶段概念图（可默写）
+  - 附录 · 一手链接总表
+
+## p2_s09_generics  [GAPS]
+- doc: `第2部分-阶段9-泛型型变与reified.md`
+- practice H2 parsed: **21** | topics on disk: **14** | key hits: 14/21
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 最小可跑环境
+  - `s15` — 底层实证实验单
+  - `s16` — 最小练习（对照路线图）
+  - `s17` — 验收自检
+  - `s18` — 本阶段概念图（可默写）
+  - `s19` — 状态、过时项与非主线边界（汇总）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 最小可跑环境
+  - 步骤 1 · 泛型声明面：类、函数、属性与作用域
+  - 步骤 2 · 上界、`where`、默认 `Any?` 与可空实参
+  - 步骤 3 · 不变性：为什么默认 invariant
+  - 步骤 4 · declaration-site variance：`out` / `in`
+  - 步骤 5 · use-site projection：调用点投影
+  - 步骤 6 · Star projection：`*` 与安全读写规则
+  - 步骤 7 · JVM 类型擦除与运行时检查
+  - 步骤 8 · `inline` + `reified`：有限的运行时类型
+  - 步骤 9 · 明确非空类型 `T & Any`
+  - 步骤 10 · Builder inference
+  - 步骤 11 · 泛型扩展、函数类型、variance 冲突与 `@UnsafeVariance`
+  - 步骤 12 · `typealias` 与泛型别名
+  - 步骤 13 · 与 Java 通配符的概念映射（为阶段 14 铺路）
+  - 步骤 14 · 设计清单：公开 generic API 怎么选型变
+  - 步骤 15 · 底层实证实验单
+  - 步骤 16 · 最小练习（对照路线图）
+  - 步骤 17 · 验收自检
+  - 步骤 18 · 本阶段概念图（可默写）
+  - 步骤 19 · 状态、过时项与非主线边界（汇总）
+  - 附录 · 一手链接总表
+
+## p2_s10_reflect_ser  [GAPS]
+- doc: `第2部分-阶段10-注解反射KSP与序列化.md`
+- practice H2 parsed: **25** | topics on disk: **13** | key hits: 13/25
+- **missing keys (12):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 依赖与插件边界（先建立，后深入）
+  - `s14` — 底层实证实验单
+  - `s15` — 最小练习（对照路线图）
+  - `s16` — 验收自检
+  - `s17` — 本阶段概念图（可默写）
+  - `s18` — 状态、过时项与非主线边界（汇总）
+  - `s19` — 综合实验课（建议 1 个工作日）
+  - `s20` — 2.4 注解与 metadata 速查卡
+  - `s21` — 常见问答（FAQ）
+  - `s22` — 与相邻阶段的衔接
+  - `s23` — 自学检查表（出门前勾选）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 依赖与插件边界（先建立，后深入）
+  - 步骤 1 · 注解声明：`annotation class`
+  - 步骤 2 · Use-site targets：属性如何对应多个 JVM 元素
+  - 步骤 3 · Opt-in：实验 API 的纪律
+  - 步骤 4 · 轻量反射：`KClass`、class literal、`typeOf`
+  - 步骤 5 · 完整反射：`kotlin-reflect` 与调用面
+  - 步骤 6 · Kotlin metadata 与 `kotlin-metadata-jvm`
+  - 步骤 7 · `@IntroducedAt`（Experimental）与 `@JvmOverloads` 冲突提示
+  - 步骤 8 · KSP 与 KSP2
+  - 步骤 9 · kapt：仍为 Stable 的 APT 桥
+  - 步骤 10 · kotlinx.serialization 分层
+  - 步骤 11 · 选择矩阵：反射 / KSP / kapt / serialization / compiler plugin
+  - 步骤 12 · Java 注解互操作要点
+  - 步骤 13 · Repeatable 与文档化
+  - 步骤 14 · 底层实证实验单
+  - 步骤 15 · 最小练习（对照路线图）
+  - 步骤 16 · 验收自检
+  - 步骤 17 · 本阶段概念图（可默写）
+  - 步骤 18 · 状态、过时项与非主线边界（汇总）
+  - 附录 · 一手链接总表
+  - 步骤 19 · 综合实验课（建议 1 个工作日）
+  - 步骤 20 · 2.4 注解与 metadata 速查卡
+  - 步骤 21 · 常见问答（FAQ）
+  - 步骤 22 · 与相邻阶段的衔接
+  - 步骤 23 · 自学检查表（出门前勾选）
+
+## p2_s11_dsl_ctx  [GAPS]
+- doc: `第2部分-阶段11-DSL上下文参数与contracts.md`
+- practice H2 parsed: **25** | topics on disk: **10** | key hits: 10/25
+- **missing keys (15):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 最小可跑例子：20 行 HTML 风 DSL
+  - `s11` — 与阶段 9/10 的衔接
+  - `s12` — 最小练习（对照路线图）
+  - `s13` — 验收自检
+  - `s14` — 本阶段概念图（可默写）
+  - `s15` — 状态、过时项与非主线边界（汇总）
+  - `s16` — 设计检查表（写库前过一遍）
+  - `s17` — 状态对照大表（2.4 一眼看清）
+  - `s18` — 完整实验课：从“穿透 bug”到“可测 DSL”
+  - `s19` — Contracts 深挖：消费清单与自定义禁区
+  - `s20` — 与 Gradle / 协程的“像 DSL 的 API”
+  - `s21` — 反模式加详（面试可用）
+  - `s22` — 验收口试题（加分卷）
+  - `s23` — 一手链接（再列，便于打印）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 附录 · 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 最小可跑例子：20 行 HTML 风 DSL
+  - 步骤 1 · 带接收者的函数类型
+  - 步骤 2 · 类型安全 Builder 的结构
+  - 步骤 3 · `@DslMarker`：挡住错误的外层调用
+  - 步骤 4 · Context parameters（Kotlin 2.4 主体 Stable）
+  - 步骤 5 · 读懂 Gradle Kotlin DSL 的 receiver 层次
+  - 步骤 6 · Contracts：先消费，后（谨慎）自定义
+  - 步骤 7 · 机制选择边界总表
+  - 步骤 8 · 完整小案例：带标记的配置 DSL + 可选 context
+  - 步骤 9 · 底层实证与观察项
+  - 步骤 10 · 反模式清单
+  - 步骤 11 · 与阶段 9/10 的衔接
+  - 步骤 12 · 最小练习（对照路线图）
+  - 步骤 13 · 验收自检
+  - 步骤 14 · 本阶段概念图（可默写）
+  - 步骤 15 · 状态、过时项与非主线边界（汇总）
+  - 步骤 16 · 设计检查表（写库前过一遍）
+  - 附录 · 一手链接总表
+  - 步骤 17 · 状态对照大表（2.4 一眼看清）
+  - 步骤 18 · 完整实验课：从“穿透 bug”到“可测 DSL”
+  - 步骤 19 · Contracts 深挖：消费清单与自定义禁区
+  - 步骤 20 · 与 Gradle / 协程的“像 DSL 的 API”
+  - 步骤 21 · 反模式加详（面试可用）
+  - 步骤 22 · 验收口试题（加分卷）
+  - 步骤 23 · 一手链接（再列，便于打印）
+
+## p2_s12_coroutines  [GAPS]
+- doc: `第2部分-阶段12-协程与结构化并发.md`
+- practice H2 parsed: **25** | topics on disk: **17** | key hits: 17/25
+- **missing keys (8):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s18` — 综合练习、底层实证与验收
+  - `s19` — 速查卡（贴墙上）
+  - `s20` — 与阶段 13 的交接
+  - `s21` — 取消 / 异常 / Mutex 全套验收练习（必做）
+  - `s22` — 状态 / 弃用速查卡（出门背）
+  - `s23` — 验收自检（加分卷）
+  - `s24` — 与阶段 11/13/支线 C 的关系
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 1 · 边界先行：语言 `suspend` vs 库 `kotlinx.coroutines`
+  - 步骤 2 · 协程构建器：`launch` / `async` / `runBlocking`
+  - 步骤 3 · Scope 构建器：`coroutineScope` / `supervisorScope` / 所有权
+  - 步骤 4 · `CoroutineContext`、`Job`、`SupervisorJob`、合并规则
+  - 步骤 5 · Dispatcher：Default / IO / Main / limitedParallelism / Unconfined
+  - 步骤 6 · 结构化并发原则（总览加固）
+  - 步骤 7 · 协作式取消
+  - 步骤 8 · Timeout
+  - 步骤 9 · 清理：`try/finally` 与可取消挂起
+  - 步骤 10 · `NonCancellable`：最小必要范围
+  - 步骤 11 · 异常模型
+  - 步骤 12 · 共享可变状态：Mutex / Semaphore / atomic / confinement
+  - 步骤 13 · Blocking / Callback 桥接
+  - 步骤 14 · 生命周期 API 设计
+  - 步骤 15 · GlobalScope、Delicate、1.11.0 向 builder 传 Job 弃用
+  - 步骤 16 · `AbstractCoroutineContextKey` 弃用与 JS/Wasm 破坏性变更
+  - 步骤 17 · 调试：名字、线程 dump、DebugProbes
+  - 步骤 18 · 综合练习、底层实证与验收
+  - 步骤 19 · 速查卡（贴墙上）
+  - 步骤 20 · 与阶段 13 的交接
+  - 步骤 21 · 取消 / 异常 / Mutex 全套验收练习（必做）
+  - 步骤 22 · 状态 / 弃用速查卡（出门背）
+  - 步骤 23 · 验收自检（加分卷）
+  - 步骤 24 · 与阶段 11/13/支线 C 的关系
+
+## p2_s13_flow  [GAPS]
+- doc: `第2部分-阶段13-Flow热流与Channel.md`
+- practice H2 parsed: **33** | topics on disk: **22** | key hits: 22/33
+- **missing keys (11):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s23` — 与阶段 12/14 的关系
+  - `s24` — 综合迷你项目（可选加固）
+  - `s25` — 常见误区速破
+  - `s26` — 术语表（中英）
+  - `s27` — Cold invariants 再钉一遍（验收会默写）
+  - `s28` — StateFlow / SharedFlow / Channel 选型验收表
+  - `s29` — `runTest` 体系验收练习（必做）
+  - `s30` — 端到端迷你验收项目（半天）
+  - `s31` — 验收口试
+  - `s32` — 一手链接总表
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 1 · Flow 定位：何时用、何时不用
+  - 步骤 2 · Cold Flow 核心 invariants
+  - 步骤 3 · Builders：`flow` / `flowOf` / `asFlow` / `channelFlow` / `callbackFlow`
+  - 步骤 4 · 变换运算符（transformation）
+  - 步骤 5 · 组合：zip / combine / merge / flatMap 家族
+  - 步骤 6 · 时间与 latest：debounce / sample / collectLatest
+  - 步骤 7 · `flowOn` / `buffer` / `conflate` 与背压
+  - 步骤 8 · 异常与完成：`catch` 范围 / retry / onCompletion
+  - 步骤 9 · `StateFlow`：状态，不是事件
+  - 步骤 10 · `SharedFlow`：可配置广播
+  - 步骤 11 · `stateIn` / `shareIn` / `SharingStarted`
+  - 步骤 12 · Channel：队列语义
+  - 步骤 13 · `BroadcastChannel` 已 ERROR deprecated
+  - 步骤 14 · 异步测试：`runTest` 体系
+  - 步骤 15 · 旧 `TestCoroutine*` 已移除 / 迁移识别
+  - 步骤 16 · Flow 测试手法；Turbine 仅第三方可选
+  - 步骤 17 · 端到端建模练习（路线图必做）
+  - 步骤 18 · 取消、资源与 callbackFlow 验收细节
+  - 步骤 19 · 实验性 API 与 1.11.0 状态表
+  - 步骤 20 · 底层实证建议
+  - 步骤 21 · 速查卡（贴墙上）
+  - 步骤 22 · 验收自查表
+  - 步骤 23 · 与阶段 12/14 的关系
+  - 步骤 24 · 综合迷你项目（可选加固）
+  - 步骤 25 · 常见误区速破
+  - 步骤 26 · 术语表（中英）
+  - 步骤 27 · Cold invariants 再钉一遍（验收会默写）
+  - 步骤 28 · StateFlow / SharedFlow / Channel 选型验收表
+  - 步骤 29 · `runTest` 体系验收练习（必做）
+  - 步骤 30 · 端到端迷你验收项目（半天）
+  - 步骤 31 · 验收口试
+  - 步骤 32 · 一手链接总表
+
+## p2_s14_jvm  [GAPS]
+- doc: `第2部分-阶段14-JVM互操作与字节码.md`
+- practice H2 parsed: **24** | topics on disk: **17** | key hits: 17/24
+- **missing keys (7):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `s00` — 工具与观察矩阵
+  - `s18` — 本阶段概念图（可默写）
+  - `s19` — 状态、过时项与非主线边界（总表）
+  - `s20` — 必会速记卡（阶段 14 压缩验收）
+  - `s21` — 双向互操作最小配方（可直接抄练）
+  - `s22` — `javap` 阅读套路（固定模板）
+- unmatched H2 (not classified as practice pattern, 2):
+  - 附录 · 一手链接总表
+  - 附录 · 与后续阶段的衔接
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 步骤 0 · 工具与观察矩阵
+  - 步骤 1 · Kotlin/JVM 编译单元与 file facade
+  - 步骤 2 · Kotlin ↔ Java 类型映射
+  - 步骤 3 · platform types、可空性注解与 JSpecify
+  - 步骤 4 · Java 调用 Kotlin：属性、默认参数、异常与函数类型
+  - 步骤 5 · Kotlin 调用 Java：属性语法、SAM、record、异常
+  - 步骤 6 · `@Jvm*` 全家桶（精确用途）
+  - 步骤 7 · jvmDefault 与接口默认方法；`@JvmExposeBoxed` 实验
+  - 步骤 8 · 可见性、`internal` mangling 与 friend 路径
+  - 步骤 9 · 泛型 Signature、擦除、桥接与 metadata
+  - 步骤 10 · 默认参数、`$default`、data/object 合成
+  - 步骤 11 · Lambda、函数引用与 invokedynamic
+  - 步骤 12 · suspend 函数的 JVM 签名与状态机
+  - 步骤 13 · JVM 性能模型（分层）
+  - 步骤 14 · JMH 纪律、诊断与错误基准
+  - 步骤 15 · 兼容性分层与升级纪律
+  - 步骤 16 · 最小练习（对照路线图）
+  - 步骤 17 · 验收自检
+  - 步骤 18 · 本阶段概念图（可默写）
+  - 步骤 19 · 状态、过时项与非主线边界（总表）
+  - 附录 · 一手链接总表
+  - 附录 · 与后续阶段的衔接
+  - 步骤 20 · 必会速记卡（阶段 14 压缩验收）
+  - 步骤 21 · 双向互操作最小配方（可直接抄练）
+  - 步骤 22 · `javap` 阅读套路（固定模板）
+
+## p2_s15_kmp  [GAPS]
+- doc: `第2部分-阶段15-KMP与多平台.md`
+- practice H2 parsed: **19** | topics on disk: **12** | key hits: 0/19
+- **missing keys (19):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `15a` — Kotlin Multiplatform 公共模型
+  - `15b` — Kotlin/Native 平台模型 ；C/Objective-C 低级互操作
+  - `15c` — Kotlin/JS 平台模型 ；动态互操作与导出
+  - `15d` — Kotlin/Wasm Beta ；Component Model 与实验互操作
+  - `se` — 跨平台设计练习（路线图最小练习展开）
+  - `sf` — 稳定性速查表（验收用）
+  - `sg` — 验收自检
+  - `sh` — 本阶段概念图（可默写）
+  - `sj` — `dependsOn` 完整语义与反例（15A 加深）
+  - `sk` — `webMain` 与 coroutines `web`（拆开记）
+  - `sl` — Native 工具链与内存（15B 加深）
+  - `sm` — JS 导出稳定性分层（15C 加深）
+  - `sn` — Wasm Beta 与陷阱（15D 加深）
+  - `so` — 平台决策练习卡（可打印）
+  - `sp` — 验收口述稿（15 满分答案骨架）
+  - `sq` — 默认 hierarchy 与 webMain 配置实证
+  - `sr` — 与 14/16/17 的接口
+  - `si` — 状态与非主线边界总表
+- unmatched H2 (not classified as practice pattern, 2):
+  - 附录 · 一手链接总表
+  - 附录 · 与前后阶段衔接
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 15A · Kotlin Multiplatform 公共模型
+  - 15B · Kotlin/Native 平台模型 ；C/Objective-C 低级互操作
+  - 15C · Kotlin/JS 平台模型 ；动态互操作与导出
+  - 15D · Kotlin/Wasm Beta ；Component Model 与实验互操作
+  - 步骤 E · 跨平台设计练习（路线图最小练习展开）
+  - 步骤 F · 稳定性速查表（验收用）
+  - 步骤 G · 验收自检
+  - 步骤 H · 本阶段概念图（可默写）
+  - 步骤 J · `dependsOn` 完整语义与反例（15A 加深）
+  - 步骤 K · `webMain` 与 coroutines `web`（拆开记）
+  - 步骤 L · Native 工具链与内存（15B 加深）
+  - 步骤 M · JS 导出稳定性分层（15C 加深）
+  - 步骤 N · Wasm Beta 与陷阱（15D 加深）
+  - 步骤 O · 平台决策练习卡（可打印）
+  - 步骤 P · 验收口述稿（15 满分答案骨架）
+  - 步骤 Q · 默认 hierarchy 与 webMain 配置实证
+  - 步骤 R · 与 14/16/17 的接口
+  - 步骤 I · 状态与非主线边界总表
+  - 附录 · 一手链接总表
+  - 附录 · 与前后阶段衔接
+
+## p2_s16_eng  [GAPS]
+- doc: `第2部分-阶段16-工程构建测试与质量.md`
+- practice H2 parsed: **17** | topics on disk: **5** | key hits: 0/17
+- **missing keys (17):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `a` — Gradle 与 Kotlin Gradle Plugin
+  - `b` — 测试体系
+  - `c` — 文档、风格、静态检查与覆盖率
+  - `d` — 性能与维护闭环
+  - `se` — 最小练习（对照路线图）
+  - `sf` — 推荐最小 `build.gradle.kts` 解剖
+  - `sg` — 故障排查速查
+  - `sh` — 验收自检
+  - `si` — 本阶段概念图（可默写）
+  - `sk` — KGP 2.4 兼容矩阵与 module name（A 加深）
+  - `sl` — Maven 工具链对齐（A 加深）
+  - `sm` — 测试体系加深：`kotlin.test` + JUnit + `runTest`
+  - `sn` — Dokka、ABI、kotlinx-benchmark（C/D 加深）
+  - `so` — 缓存、增量与可重复构建
+  - `sp` — 工程验收口述稿
+  - `sj` — 状态、过时项与非主线边界总表
+- unmatched H2 (not classified as practice pattern, 3):
+  - 附录 · 一手链接总表
+  - 附录 · 与语言主线的关系（防跑偏）
+  - 附录 · 从阶段 14/15 吸入的工程检查单
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - A · Gradle 与 Kotlin Gradle Plugin
+  - B · 测试体系
+  - C · 文档、风格、静态检查与覆盖率
+  - D · 性能与维护闭环
+  - 步骤 E · 最小练习（对照路线图）
+  - 步骤 F · 推荐最小 `build.gradle.kts` 解剖
+  - 步骤 G · 故障排查速查
+  - 步骤 H · 验收自检
+  - 步骤 I · 本阶段概念图（可默写）
+  - 步骤 K · KGP 2.4 兼容矩阵与 module name（A 加深）
+  - 步骤 L · Maven 工具链对齐（A 加深）
+  - 步骤 M · 测试体系加深：`kotlin.test` + JUnit + `runTest`
+  - 步骤 N · Dokka、ABI、kotlinx-benchmark（C/D 加深）
+  - 步骤 O · 缓存、增量与可重复构建
+  - 步骤 P · 工程验收口述稿
+  - 步骤 J · 状态、过时项与非主线边界总表
+  - 附录 · 一手链接总表
+  - 附录 · 与语言主线的关系（防跑偏）
+  - 附录 · 从阶段 14/15 吸入的工程检查单
+
+## p3_s17_evolution  [GAPS]
+- doc: `第3部分-阶段17-版本演进与废弃迁移.md`
+- practice H2 parsed: **13** | topics on disk: **8** | key hits: 0/13
+- **missing keys (13):**
+  - `n00` — 本阶段导读（先读这一节）
+  - `n01` — 如何读 Kotlin 的版本事实（先建立坐标系）
+  - `n02` — 1.0—2.4 时间线表（逐节点展开）
+  - `n03` — 17.1 当前稳定能力检查表（展开解释）
+  - `n04` — 17.2 Experimental / Beta / Alpha 观察表（展开解释）
+  - `n05` — 17.3 已弃用、撤销与移除迁移表（展开解释）
+  - `n06` — 17.4 未来观察规则（纪律，不是预言）
+  - `n07` — 旧资料时代定位工作流（实操）
+  - `n08` — 与第 4、5 部分的接口
+  - `n09` — 验收（自查方法）
+  - `n10` — 状态、过时项与非主线边界（阶段总结）
+  - `n11` — 变更卡仓库（建议你本地维护）
+  - `n12` — 小结：阶段 17 只训练一种能力
+- unmatched H2 (not classified as practice pattern, 7):
+  - 9B · 时间线逐节点“今天怎么用”（1.0—2.4 全展开）
+  - 9C · 17.1 稳定能力 → 可执行迁移/验收卡
+  - 9D · 17.2 观察项 → 可执行“只观察”卡
+  - 9E · 17.3 迁移表 → 可执行迁移卡（全部展开）
+  - 9F · 17.4 未来观察规则 → 可执行流程
+  - 9G · 假想 PR 评审练习（5 个过时点）
+  - 9H · K2 时间线口述标准答案
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读这一节）
+  - 1 · 如何读 Kotlin 的版本事实（先建立坐标系）
+  - 2 · 1.0—2.4 时间线表（逐节点展开）
+  - 3 · 17.1 当前稳定能力检查表（展开解释）
+  - 4 · 17.2 Experimental / Beta / Alpha 观察表（展开解释）
+  - 5 · 17.3 已弃用、撤销与移除迁移表（展开解释）
+  - 6 · 17.4 未来观察规则（纪律，不是预言）
+  - 7 · 旧资料时代定位工作流（实操）
+  - 8 · 与第 4、5 部分的接口
+  - 9 · 验收（自查方法）
+  - 9B · 时间线逐节点“今天怎么用”（1.0—2.4 全展开）
+  - 9C · 17.1 稳定能力 → 可执行迁移/验收卡
+  - 9D · 17.2 观察项 → 可执行“只观察”卡
+  - 9E · 17.3 迁移表 → 可执行迁移卡（全部展开）
+  - 9F · 17.4 未来观察规则 → 可执行流程
+  - 9G · 假想 PR 评审练习（5 个过时点）
+  - 9H · K2 时间线口述标准答案
+  - 10 · 状态、过时项与非主线边界（阶段总结）
+  - 11 · 变更卡仓库（建议你本地维护）
+  - 12 · 小结：阶段 17 只训练一种能力
+
+## p4_a_k2  [GAPS]
+- doc: `第4部分-支线A-K2与编译器流水线.md`
+- practice H2 parsed: **34** | topics on disk: **16** | key hits: 0/34
+- **missing keys (34):**
+  - `n00` — 本支线导读
+  - `a01` — K2 历史与 2.4 边界
+  - `a02` — 仓库与模块地图（先定位，不盲读）
+  - `a03` — 前端流水线：从字符到 FIR
+  - `a04` — 调用解析与诊断的前端视角（为支线 B 铺路）
+  - `a05` — FIR → IR
+  - `a06` — Lowerings：高级构造如何消失
+  - `a07` — 多后端：同一 IR 思路，不同终点
+  - `a08` — 诊断、testData 与黄金文件
+  - `a09` — Analysis API vs 内部 FIR vs Compiler Plugin
+  - `a10` — Compiler options、phase 与验证
+  - `a11` — 最小实验课表
+  - `a12` — 概念地图（总览）
+  - `a13` — 验收
+  - `a14` — 状态边界
+  - `a15` — 小结
+  - `a16` — 一条完整路径示例：默认参数（端到端叙事）
+  - `a17` — 诊断定位决策树（可打印）
+  - `a18` — 阅读 compiler testData 的具体方法
+  - `a19` — Analysis API 使用边界（工具作者）
+  - `a20` — 常见问题（A 支线）
+  - `a21` — 知识卡片模板与最低积累
+  - `a22` — 阶段衔接检查表
+  - `a23` — 路径示例 2：value class（前端语义 → JVM 装箱点）
+  - `a24` — 路径示例 3：inline + reified（调用点展开）
+  - `a25` — 路径示例 4：suspend 两挂起点（地图级，细节见 C）
+  - `a26` — multiplatform 在流水线中的位置
+  - `a27` — 研究命令记录簿（模板）
+  - `a28` — 与 B/C/D/G 接口卡
+  - `a29` — 常见误读官方文档
+  - `a30` — 口述毕业稿（90 秒）
+  - `a31` — 最小实验清单（总表）
+  - `a32` — 状态边界（总表）
+  - `a33` — 编排自检
+- unmatched H2 (not classified as practice pattern, 1):
+  - A15b · 验收自检表（可打勾）
+- all ## headings in doc:
+  - 0 · 本支线导读
+  - A1 · K2 历史与 2.4 边界
+  - A2 · 仓库与模块地图（先定位，不盲读）
+  - A3 · 前端流水线：从字符到 FIR
+  - A4 · 调用解析与诊断的前端视角（为支线 B 铺路）
+  - A5 · FIR → IR
+  - A6 · Lowerings：高级构造如何消失
+  - A7 · 多后端：同一 IR 思路，不同终点
+  - A8 · 诊断、testData 与黄金文件
+  - A9 · Analysis API vs 内部 FIR vs Compiler Plugin
+  - A10 · Compiler options、phase 与验证
+  - A11 · 最小实验课表
+  - A12 · 概念地图（总览）
+  - A13 · 验收
+  - A14 · 状态边界
+  - A15 · 小结
+  - A15b · 验收自检表（可打勾）
+  - A16 · 一条完整路径示例：默认参数（端到端叙事）
+  - A17 · 诊断定位决策树（可打印）
+  - A18 · 阅读 compiler testData 的具体方法
+  - A19 · Analysis API 使用边界（工具作者）
+  - A20 · 常见问题（A 支线）
+  - A21 · 知识卡片模板与最低积累
+  - A22 · 阶段衔接检查表
+  - A23 · 路径示例 2：value class（前端语义 → JVM 装箱点）
+  - A24 · 路径示例 3：inline + reified（调用点展开）
+  - A25 · 路径示例 4：suspend 两挂起点（地图级，细节见 C）
+  - A26 · multiplatform 在流水线中的位置
+  - A27 · 研究命令记录簿（模板）
+  - A28 · 与 B/C/D/G 接口卡
+  - A29 · 常见误读官方文档
+  - A30 · 口述毕业稿（90 秒）
+  - A31 · 最小实验清单（总表）
+  - A32 · 状态边界（总表）
+  - A33 · 编排自检
+
+## p4_b_types  [GAPS]
+- doc: `第4部分-支线B-类型系统与重载解析.md`
+- practice H2 parsed: **32** | topics on disk: **19** | key hits: 0/32
+- **missing keys (32):**
+  - `n00` — 导读
+  - `b01` — 类型的基本材料
+  - `b02` — 子类型、LUB、GLB 与交集
+  - `b03` — 型变、投影、捕获与确实非空
+  - `b04` — 约束系统与类型推断
+  - `b05` — 重载解析
+  - `b06` — Smart cast 与数据流
+  - `b07` — Java 边界类型
+  - `b08` — 规范、KEEP 与实现冲突时怎么处理
+  - `b09` — 最小实验课表
+  - `b10` — 概念地图
+  - `b11` — 验收
+  - `b12` — 状态边界
+  - `b13` — 与主线阶段对照
+  - `b14` — 小结
+  - `b15` — 端到端案例 1：扩展 vs 成员
+  - `b16` — 端到端案例 2：可空重载与平台类型
+  - `b17` — 端到端案例 3：builder 约束冲突
+  - `b18` — Smart cast 稳定性清单
+  - `b19` — 规范阅读法（实用主义）
+  - `b20` — context parameters 与决议（2.4）
+  - `b21` — 练习场（90 分钟）
+  - `b22` — 常见问题
+  - `b23` — 毕业检查表
+  - `b24` — 函数类型型变与 suspend 重载（示例 5）
+  - `b25` — 星投影写入实验（完整）
+  - `b26` — LUB 预测练习（5 题）
+  - `b27` — Java flexible 包装策略
+  - `b28` — 状态边界（总表）
+  - `b29` — 最小实验清单（总表）
+  - `b30` — 口述毕业稿
+  - `b31` — 编排自检
+- unmatched H2 (not classified as practice pattern, 1):
+  - B14b · 验收自检表
+- all ## headings in doc:
+  - 0 · 导读
+  - B1 · 类型的基本材料
+  - B2 · 子类型、LUB、GLB 与交集
+  - B3 · 型变、投影、捕获与确实非空
+  - B4 · 约束系统与类型推断
+  - B5 · 重载解析
+  - B6 · Smart cast 与数据流
+  - B7 · Java 边界类型
+  - B8 · 规范、KEEP 与实现冲突时怎么处理
+  - B9 · 最小实验课表
+  - B10 · 概念地图
+  - B11 · 验收
+  - B12 · 状态边界
+  - B13 · 与主线阶段对照
+  - B14 · 小结
+  - B14b · 验收自检表
+  - B15 · 端到端案例 1：扩展 vs 成员
+  - B16 · 端到端案例 2：可空重载与平台类型
+  - B17 · 端到端案例 3：builder 约束冲突
+  - B18 · Smart cast 稳定性清单
+  - B19 · 规范阅读法（实用主义）
+  - B20 · context parameters 与决议（2.4）
+  - B21 · 练习场（90 分钟）
+  - B22 · 常见问题
+  - B23 · 毕业检查表
+  - B24 · 函数类型型变与 suspend 重载（示例 5）
+  - B25 · 星投影写入实验（完整）
+  - B26 · LUB 预测练习（5 题）
+  - B27 · Java flexible 包装策略
+  - B28 · 状态边界（总表）
+  - B29 · 最小实验清单（总表）
+  - B30 · 口述毕业稿
+  - B31 · 编排自检
+
+## p4_c_coro_flow  [GAPS]
+- doc: `第4部分-支线C-协程状态机与Flow实现.md`
+- practice H2 parsed: **33** | topics on disk: **24** | key hits: 0/33
+- **missing keys (33):**
+  - `n00` — 导读
+  - `c01` — Continuation 与 CPS
+  - `c02` — 状态机：label 与 spilled locals
+  - `c03` — 分层：stdlib 原语 vs kotlinx 库
+  - `c04` — Dispatcher 与 ContinuationInterceptor
+  - `c05` — Job 状态机与结构化并发
+  - `c06` — 可取消挂起与竞态
+  - `c07` — 同步原语与 Channel
+  - `c08` — Flow 实现协议
+  - `c09` — flowOn、buffer、channelFlow、共享
+  - `c10` — 测试：虚拟时间
+  - `c11` — 调试与可观测性
+  - `c12` — 性能观察点（为支线 H 预埋）
+  - `c13` — 概念地图
+  - `c14` — 最小实验清单（验收用）
+  - `c15` — 验收
+  - `c16` — 状态边界
+  - `c17` — 小结
+  - `c18` — 状态机逐行标注示例（教学用伪代码）
+  - `c19` — `suspendCancellableCoroutine` 安全模板（概念）
+  - `c20` — Job 异常传播情景题
+  - `c21` — Flow 运算符实现阅读顺序
+  - `c22` — 背压与 buffer 选择题
+  - `c23` — 调试剧本
+  - `c24` — 常见问题
+  - `c25` — 毕业检查表
+  - `c26` — 冷 Flow 最小实现对照
+  - `c27` — `callbackFlow` 注销骨架
+  - `c28` — 错误 catch 吞取消（反例）
+  - `c29` — 状态边界（总表）
+  - `c30` — 最小实验清单（总表）
+  - `c31` — 口述毕业稿
+  - `c32` — 编排自检
+- unmatched H2 (not classified as practice pattern, 1):
+  - C17b · 验收自检表
+- all ## headings in doc:
+  - 0 · 导读
+  - C1 · Continuation 与 CPS
+  - C2 · 状态机：label 与 spilled locals
+  - C3 · 分层：stdlib 原语 vs kotlinx 库
+  - C4 · Dispatcher 与 ContinuationInterceptor
+  - C5 · Job 状态机与结构化并发
+  - C6 · 可取消挂起与竞态
+  - C7 · 同步原语与 Channel
+  - C8 · Flow 实现协议
+  - C9 · flowOn、buffer、channelFlow、共享
+  - C10 · 测试：虚拟时间
+  - C11 · 调试与可观测性
+  - C12 · 性能观察点（为支线 H 预埋）
+  - C13 · 概念地图
+  - C14 · 最小实验清单（验收用）
+  - C15 · 验收
+  - C16 · 状态边界
+  - C17 · 小结
+  - C17b · 验收自检表
+  - C18 · 状态机逐行标注示例（教学用伪代码）
+  - C19 · `suspendCancellableCoroutine` 安全模板（概念）
+  - C20 · Job 异常传播情景题
+  - C21 · Flow 运算符实现阅读顺序
+  - C22 · 背压与 buffer 选择题
+  - C23 · 调试剧本
+  - C24 · 常见问题
+  - C25 · 毕业检查表
+  - C26 · 冷 Flow 最小实现对照
+  - C27 · `callbackFlow` 注销骨架
+  - C28 · 错误 catch 吞取消（反例）
+  - C29 · 状态边界（总表）
+  - C30 · 最小实验清单（总表）
+  - C31 · 口述毕业稿
+  - C32 · 编排自检
+
+## p4_d_abi  [GAPS]
+- doc: `第4部分-支线D-JVM元数据与ABI.md`
+- practice H2 parsed: **34** | topics on disk: **19** | key hits: 0/34
+- **missing keys (34):**
+  - `n00` — 导读
+  - `d01` — Classfile 速览
+  - `d02` — Kotlin `@Metadata`
+  - `d03` — 典型 Kotlin ABI 形态
+  - `d04` — 兼容性四层模型
+  - `d05` — Java 表面 vs Kotlin 表面
+  - `d06` — JIT 与性能证据链
+  - `d07` — 库发布与验证工具
+  - `d08` — 概念地图
+  - `d09` — 最小实验清单
+  - `d10` — 验收
+  - `d11` — 状态边界
+  - `d12` — 小结
+  - `d13` — 案例：给库加参数的兼容剧场
+  - `d14` — metadata 与 Java 反射对照实验
+  - `d15` — public inline 事故复盘模板
+  - `d16` — JMH 最小纪律
+  - `d17` — 接口默认实现与 Java 实现方
+  - `d18` — 常见问题
+  - `d19` — 毕业检查表
+  - `d20` — 逐项 ABI 审查工作纸（可复制）
+  - `d21` — 合成物名录（认识但不依赖）
+  - `d22` — 与 R8 / 混淆共存
+  - `d23` — 性能假说登记簿
+  - `d24` — 扩展阅读任务（限时）
+  - `d25` — 终极验收口述稿（2 分钟）
+  - `d26` — 顶层 facade 与 `@JvmName`（示例）
+  - `d27` — suspend 的 JVM 签名直觉
+  - `d28` — value class mangling 观察
+  - `d29` — 四层兼容测试命名约定
+  - `d30` — 状态边界（总表）
+  - `d31` — 最小实验清单（总表）
+  - `d32` — 编排自检
+  - `d33` — 与阶段 14 的分工
+- unmatched H2 (not classified as practice pattern, 1):
+  - D12b · 验收自检表
+- all ## headings in doc:
+  - 0 · 导读
+  - D1 · Classfile 速览
+  - D2 · Kotlin `@Metadata`
+  - D3 · 典型 Kotlin ABI 形态
+  - D4 · 兼容性四层模型
+  - D5 · Java 表面 vs Kotlin 表面
+  - D6 · JIT 与性能证据链
+  - D7 · 库发布与验证工具
+  - D8 · 概念地图
+  - D9 · 最小实验清单
+  - D10 · 验收
+  - D11 · 状态边界
+  - D12 · 小结
+  - D12b · 验收自检表
+  - D13 · 案例：给库加参数的兼容剧场
+  - D14 · metadata 与 Java 反射对照实验
+  - D15 · public inline 事故复盘模板
+  - D16 · JMH 最小纪律
+  - D17 · 接口默认实现与 Java 实现方
+  - D18 · 常见问题
+  - D19 · 毕业检查表
+  - D20 · 逐项 ABI 审查工作纸（可复制）
+  - D21 · 合成物名录（认识但不依赖）
+  - D22 · 与 R8 / 混淆共存
+  - D23 · 性能假说登记簿
+  - D24 · 扩展阅读任务（限时）
+  - D25 · 终极验收口述稿（2 分钟）
+  - D26 · 顶层 facade 与 `@JvmName`（示例）
+  - D27 · suspend 的 JVM 签名直觉
+  - D28 · value class mangling 观察
+  - D29 · 四层兼容测试命名约定
+  - D30 · 状态边界（总表）
+  - D31 · 最小实验清单（总表）
+  - D32 · 编排自检
+  - D33 · 与阶段 14 的分工
+
+## p4_e_native  [GAPS]
+- doc: `第4部分-支线E-KMP-KLIB与Native互操作.md`
+- practice H2 parsed: **32** | topics on disk: **12** | key hits: 0/32
+- **missing keys (32):**
+  - `n00` — 导读
+  - `e01` — 源集层次与发布
+  - `e02` — expect / actual 深细节
+  - `e03` — KLIB
+  - `e04` — Native runtime 与 GC
+  - `e05` — C 互操作
+  - `e06` — Objective-C 与 ARC
+  - `e07` — Swift export 与 Swift package import（Alpha）
+  - `e08` — Target tiers 与 CI host
+  - `e09` — 概念地图
+  - `e10` — 最小实验清单
+  - `e11` — 验收
+  - `e12` — 状态边界
+  - `e13` — 小结
+  - `e14` — 发布消费者视角走查
+  - `e15` — StableRef 错误模式库
+  - `e16` — cinterop 头文件纪律
+  - `e17` — ObjC/Swift 表面选择树
+  - `e18` — 与旧资料对照表
+  - `e19` — 常见问题
+  - `e20` — 毕业检查表
+  - `e21` — expect/actual 故障诊断表
+  - `e22` — 内存与并发交叉题
+  - `e23` — 框架/XCFramework 发布检查
+  - `e24` — 最小 cinterop 成功标准
+  - `e25` — 口述毕业稿
+  - `e26` — 练习：所有权时序表
+  - `e27` — 补充验收
+  - `e28` — 状态口述卡（30 秒）
+  - `e29` — 验收自检（合并卷）
+  - `e30` — 概念地图（导读对照，可置顶复习）
+  - `e31` — 编排自检
+- all ## headings in doc:
+  - 0 · 导读
+  - E1 · 源集层次与发布
+  - E2 · expect / actual 深细节
+  - E3 · KLIB
+  - E4 · Native runtime 与 GC
+  - E5 · C 互操作
+  - E6 · Objective-C 与 ARC
+  - E7 · Swift export 与 Swift package import（Alpha）
+  - E8 · Target tiers 与 CI host
+  - E9 · 概念地图
+  - E10 · 最小实验清单
+  - E11 · 验收
+  - E12 · 状态边界
+  - E13 · 小结
+  - E14 · 发布消费者视角走查
+  - E15 · StableRef 错误模式库
+  - E16 · cinterop 头文件纪律
+  - E17 · ObjC/Swift 表面选择树
+  - E18 · 与旧资料对照表
+  - E19 · 常见问题
+  - E20 · 毕业检查表
+  - E21 · expect/actual 故障诊断表
+  - E22 · 内存与并发交叉题
+  - E23 · 框架/XCFramework 发布检查
+  - E24 · 最小 cinterop 成功标准
+  - E25 · 口述毕业稿
+  - E26 · 练习：所有权时序表
+  - E27 · 补充验收
+  - E28 · 状态口述卡（30 秒）
+  - E29 · 验收自检（合并卷）
+  - E30 · 概念地图（导读对照，可置顶复习）
+  - E31 · 编排自检
+
+## p4_f_js_wasm  [GAPS]
+- doc: `第4部分-支线F-JS与Wasm后端.md`
+- practice H2 parsed: **34** | topics on disk: **16** | key hits: 0/34
+- **missing keys (34):**
+  - `n00` — 导读
+  - `f01` — 后端流水线（JS 与 Wasm 共性）
+  - `f02` — Kotlin/JS：模块与粒度
+  - `f03` — external、dynamic 与运行时边界
+  - `f04` — `.d.ts`、`@JsExport`、`@JsNoRuntime`
+  - `f05` — Kotlin/Wasm：组件 Beta
+  - `f06` — 两套边界：JS 适配 vs 低级 Wasm import/export
+  - `f07` — wasmWasi 与 Component Model
+  - `f08` — 性能与体积纪律
+  - `f09` — kotlinx.coroutines 在 JS/Wasm 的注意点
+  - `f10` — 概念地图
+  - `f11` — 最小实验清单
+  - `f12` — 验收
+  - `f13` — 状态边界
+  - `f14` — 小结
+  - `f15` — 导出表面最小化原则
+  - `f16` — null / undefined 决策表
+  - `f17` — 异常与 Promise 剧本
+  - `f18` — 体积优化清单（后端视角）
+  - `f19` — 常见问题
+  - `f20` — 毕业检查表
+  - `f21` — 模块系统对照练习
+  - `f22` — `@JsNoRuntime` 负例集
+  - `f23` — Wasm 异常与越界实验记录表
+  - `f24` — 与前端框架边界
+  - `f25` — 口述毕业稿
+  - `f26` — 练习：导出清单
+  - `f27` — 补充验收
+  - `f28` — 部署拓扑草图作业
+  - `f29` — 最终检查
+  - `f30` — 状态口述卡（30 秒）
+  - `f31` — 验收自检（合并卷）
+  - `f32` — Promise 边界最小示例
+  - `f33` — 编排自检
+- all ## headings in doc:
+  - 0 · 导读
+  - F1 · 后端流水线（JS 与 Wasm 共性）
+  - F2 · Kotlin/JS：模块与粒度
+  - F3 · external、dynamic 与运行时边界
+  - F4 · `.d.ts`、`@JsExport`、`@JsNoRuntime`
+  - F5 · Kotlin/Wasm：组件 Beta
+  - F6 · 两套边界：JS 适配 vs 低级 Wasm import/export
+  - F7 · wasmWasi 与 Component Model
+  - F8 · 性能与体积纪律
+  - F9 · kotlinx.coroutines 在 JS/Wasm 的注意点
+  - F10 · 概念地图
+  - F11 · 最小实验清单
+  - F12 · 验收
+  - F13 · 状态边界
+  - F14 · 小结
+  - F15 · 导出表面最小化原则
+  - F16 · null / undefined 决策表
+  - F17 · 异常与 Promise 剧本
+  - F18 · 体积优化清单（后端视角）
+  - F19 · 常见问题
+  - F20 · 毕业检查表
+  - F21 · 模块系统对照练习
+  - F22 · `@JsNoRuntime` 负例集
+  - F23 · Wasm 异常与越界实验记录表
+  - F24 · 与前端框架边界
+  - F25 · 口述毕业稿
+  - F26 · 练习：导出清单
+  - F27 · 补充验收
+  - F28 · 部署拓扑草图作业
+  - F29 · 最终检查
+  - F30 · 状态口述卡（30 秒）
+  - F31 · 验收自检（合并卷）
+  - F32 · Promise 边界最小示例
+  - F33 · 编排自检
+
+## p4_g_ksp  [GAPS]
+- doc: `第4部分-支线G-KSP序列化与编译器插件.md`
+- practice H2 parsed: **31** | topics on disk: **12** | key hits: 0/31
+- **missing keys (31):**
+  - `n00` — 导读
+  - `g01` — 决策树：需求落在哪一层
+  - `g02` — KSP 模型
+  - `g03` — kapt 与迁移
+  - `g04` — kotlinx.serialization 内部层次
+  - `g05` — Compiler plugin（最后手段）
+  - `g06` — Scripting
+  - `g07` — 边界：plugin / Analysis API / KSP / IDE / linter
+  - `g08` — 概念地图
+  - `g09` — 最小实验清单
+  - `g10` — 验收
+  - `g11` — 状态边界
+  - `g12` — 小结
+  - `g13` — KSP Processor 骨架审阅清单
+  - `g14` — 错误选型故事（教学）
+  - `g15` — serialization 兼容矩阵模板
+  - `g16` — plugin 测试基建最低要求
+  - `g17` — 常见问题
+  - `g18` — 毕业检查表
+  - `g19` — KSP 多平台生成策略
+  - `g20` — 注解处理器兼容矩阵模板
+  - `g21` — serialization 多态演练
+  - `g22` — “不要写 plugin”检查表
+  - `g23` — 脚本安全最低线
+  - `g24` — 口述毕业稿
+  - `g25` — 练习：同一需求三方案评分
+  - `g26` — 补充验收
+  - `g27` — 状态口述卡（30 秒）
+  - `g28` — 验收自检（合并卷）
+  - `g29` — Analysis API vs KSP 一句话对照
+  - `g30` — 编排自检
+- all ## headings in doc:
+  - 0 · 导读
+  - G1 · 决策树：需求落在哪一层
+  - G2 · KSP 模型
+  - G3 · kapt 与迁移
+  - G4 · kotlinx.serialization 内部层次
+  - G5 · Compiler plugin（最后手段）
+  - G6 · Scripting
+  - G7 · 边界：plugin / Analysis API / KSP / IDE / linter
+  - G8 · 概念地图
+  - G9 · 最小实验清单
+  - G10 · 验收
+  - G11 · 状态边界
+  - G12 · 小结
+  - G13 · KSP Processor 骨架审阅清单
+  - G14 · 错误选型故事（教学）
+  - G15 · serialization 兼容矩阵模板
+  - G16 · plugin 测试基建最低要求
+  - G17 · 常见问题
+  - G18 · 毕业检查表
+  - G19 · KSP 多平台生成策略
+  - G20 · 注解处理器兼容矩阵模板
+  - G21 · serialization 多态演练
+  - G22 · “不要写 plugin”检查表
+  - G23 · 脚本安全最低线
+  - G24 · 口述毕业稿
+  - G25 · 练习：同一需求三方案评分
+  - G26 · 补充验收
+  - G27 · 状态口述卡（30 秒）
+  - G28 · 验收自检（合并卷）
+  - G29 · Analysis API vs KSP 一句话对照
+  - G30 · 编排自检
+
+## p4_h_api  [GAPS]
+- doc: `第4部分-支线H-源码性能与API设计.md`
+- practice H2 parsed: **31** | topics on disk: **12** | key hits: 0/31
+- **missing keys (31):**
+  - `n00` — 导读
+  - `h01` — 如何在仓库里定位一个 API
+  - `h02` — 分族阅读：stdlib
+  - `h03` — 阅读 kotlinx.coroutines
+  - `h04` — 阅读 kotlinx.serialization
+  - `h05` — 跨平台成本矩阵（思维工具）
+  - `h06` — 测量工具按 target
+  - `h07` — API 设计审查表（库作者）
+  - `h08` — 兼容发布清单
+  - `h09` — 文档-样例-测试-基准 证据包
+  - `h10` — 概念地图
+  - `h11` — 最小实验清单
+  - `h12` — 验收
+  - `h13` — 状态边界
+  - `h14` — 与其他支线的接口
+  - `h15` — 小结
+  - `h16` — 源码阅读示范：`Result`
+  - `h17` — 性能回归守护
+  - `h18` — API 演进剧本
+  - `h19` — 跨平台同一 API 的成本记录卡
+  - `h20` — 常见问题
+  - `h21` — 毕业检查表
+  - `h22` — 标准库阅读路线（8 小时）
+  - `h23` — API 评审会议记录模板
+  - `h24` — “实现偶然”识别练习
+  - `h25` — 多仓库版本对齐
+  - `h26` — 口述毕业稿
+  - `h27` — 状态与边界口述卡（30 秒）
+  - `h28` — 验收自检（合并卷）
+  - `h29` — Sequence vs List 成本卡示例
+  - `h30` — 编排自检
+- all ## headings in doc:
+  - 0 · 导读
+  - H1 · 如何在仓库里定位一个 API
+  - H2 · 分族阅读：stdlib
+  - H3 · 阅读 kotlinx.coroutines
+  - H4 · 阅读 kotlinx.serialization
+  - H5 · 跨平台成本矩阵（思维工具）
+  - H6 · 测量工具按 target
+  - H7 · API 设计审查表（库作者）
+  - H8 · 兼容发布清单
+  - H9 · 文档-样例-测试-基准 证据包
+  - H10 · 概念地图
+  - H11 · 最小实验清单
+  - H12 · 验收
+  - H13 · 状态边界
+  - H14 · 与其他支线的接口
+  - H15 · 小结
+  - H16 · 源码阅读示范：`Result`
+  - H17 · 性能回归守护
+  - H18 · API 演进剧本
+  - H19 · 跨平台同一 API 的成本记录卡
+  - H20 · 常见问题
+  - H21 · 毕业检查表
+  - H22 · 标准库阅读路线（8 小时）
+  - H23 · API 评审会议记录模板
+  - H24 · “实现偶然”识别练习
+  - H25 · 多仓库版本对齐
+  - H26 · 口述毕业稿
+  - H27 · 状态与边界口述卡（30 秒）
+  - H28 · 验收自检（合并卷）
+  - H29 · Sequence vs List 成本卡示例
+  - H30 · 编排自检
+
+## p5_ledger  [GAPS]
+- doc: `第5部分-完整语言表面与知识覆盖账本.md`
+- practice H2 parsed: **17** | topics on disk: **6** | key hits: 0/17
+- **missing keys (17):**
+  - `n00` — 导读 · 如何使用本账本
+  - `n01` — 词法、声明与修饰符账本（展开自 5.1）
+  - `n02` — 表达式、调用与运算符账本（展开自 5.2）
+  - `n03` — 对象与类型形态账本（展开自 5.3）
+  - `n04` — 标准库分类账本（展开自 5.4）
+  - `n05` — 编译产物与验证矩阵账本（展开自 5.5）
+  - `n06` — 主题 → 主线 → 深水 索引账本（展开自 5.6）
+  - `n07` — 阶段 17 三表在账本中的自检入口
+  - `n08` — 深水支线验收速查
+  - `n09` — 主线毕业总检（与大纲 7.3 对齐的可执行版）
+  - `n10` — 错误认知清零表（对齐大纲 §7.4，可打勾）
+  - `n11` — 建议的季度复审流程
+  - `n12` — 组件稳定性快查（账本随身卡）
+  - `n13` — 按角色的最小覆盖包（防漏）
+  - `n14` — 账本使用周计划（复习用）
+  - `n15` — 与主线阶段文件的交叉引用
+  - `n16` — 打勾证据模板（复制到个人笔记）
+- unmatched H2 (not classified as practice pattern, 1):
+  - 12b · 小结
+- all ## headings in doc:
+  - 0 · 导读 · 如何使用本账本
+  - 1 · 词法、声明与修饰符账本（展开自 5.1）
+  - 2 · 表达式、调用与运算符账本（展开自 5.2）
+  - 3 · 对象与类型形态账本（展开自 5.3）
+  - 4 · 标准库分类账本（展开自 5.4）
+  - 5 · 编译产物与验证矩阵账本（展开自 5.5）
+  - 6 · 主题 → 主线 → 深水 索引账本（展开自 5.6）
+  - 7 · 阶段 17 三表在账本中的自检入口
+  - 8 · 深水支线验收速查
+  - 9 · 主线毕业总检（与大纲 7.3 对齐的可执行版）
+  - 10 · 错误认知清零表（对齐大纲 §7.4，可打勾）
+  - 11 · 建议的季度复审流程
+  - 12 · 组件稳定性快查（账本随身卡）
+  - 13 · 按角色的最小覆盖包（防漏）
+  - 14 · 账本使用周计划（复习用）
+  - 15 · 与主线阶段文件的交叉引用
+  - 16 · 打勾证据模板（复制到个人笔记）
+  - 12b · 小结
+
+---
+TOTAL practice H2: 618
+TOTAL topics: 347
+Stages with gaps: ['p2_s02_basics', 'p2_s03_functions', 'p2_s04_classes', 'p2_s05_null_types', 'p2_s06_lambda_inline', 'p2_s07_collections', 'p2_s08_operators', 'p2_s09_generics', 'p2_s10_reflect_ser', 'p2_s11_dsl_ctx', 'p2_s12_coroutines', 'p2_s13_flow', 'p2_s14_jvm', 'p2_s15_kmp', 'p2_s16_eng', 'p3_s17_evolution', 'p4_a_k2', 'p4_b_types', 'p4_c_coro_flow', 'p4_d_abi', 'p4_e_native', 'p4_f_js_wasm', 'p4_g_ksp', 'p4_h_api', 'p5_ledger']
+Stages short count: ['p2_s02_basics', 'p2_s03_functions', 'p2_s04_classes', 'p2_s05_null_types', 'p2_s06_lambda_inline', 'p2_s07_collections', 'p2_s08_operators', 'p2_s09_generics', 'p2_s10_reflect_ser', 'p2_s11_dsl_ctx', 'p2_s12_coroutines', 'p2_s13_flow', 'p2_s14_jvm', 'p2_s15_kmp', 'p2_s16_eng', 'p3_s17_evolution', 'p4_a_k2', 'p4_b_types', 'p4_c_coro_flow', 'p4_d_abi', 'p4_e_native', 'p4_f_js_wasm', 'p4_g_ksp', 'p4_h_api', 'p5_ledger']

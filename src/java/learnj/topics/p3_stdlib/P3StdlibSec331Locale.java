@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.3.1
+ * Step     : sec_3_3_1
  * Item     : locale
  * Topic id : part3/stdlib/sec_3_3_1/locale
  * Heading  : `Locale`

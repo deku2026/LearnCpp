@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 12
+ * Step     : s12
  * Item     : project_leyden_aot
  * Topic id : part6/branch_e/s12/project_leyden_aot
  * Heading  : Project Leyden 与 AOT 缓存总图

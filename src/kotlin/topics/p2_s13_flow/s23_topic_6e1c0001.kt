@@ -1,0 +1,22 @@
+@file:JvmName("P2S13FlowS23Topic6e1c0001KtFacade")
+
+package learn.topics
+
+import learn.registerTopic
+
+// LearnKotlin placeholder
+// Doc      : 第2部分-阶段13-Flow热流与Channel.md
+// Stage    : p2_s13_flow
+// Step     : s23
+// Item     : topic_6e1c0001
+// Topic id : part2/stage13/s23/topic_6e1c0001
+// Heading  : 与阶段 12/14 的关系
+//
+// TODO: read the KotlinStudy section, write a minimal runnable demo,
+//       then replace this empty body with real practice code.
+
+@Suppress("unused")
+private val REGISTER = registerTopic("part2/stage13/s23/topic_6e1c0001") { _ ->
+    // practice: 与阶段 12/14 的关系
+    0
+}

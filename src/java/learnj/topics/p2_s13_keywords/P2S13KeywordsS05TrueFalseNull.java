@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段13-关键字完整表-语法特性分类总表-现代写法收口.md
  * Stage    : p2_s13_keywords
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : true_false_null
  * Topic id : part2/stage13/s05/true_false_null
  * Heading  : 字面量形态：`true` / `false` / `null`

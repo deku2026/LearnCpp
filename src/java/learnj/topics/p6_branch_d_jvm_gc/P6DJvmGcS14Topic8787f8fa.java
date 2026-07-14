@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : topic_8787f8fa
  * Topic id : part6/branch_d/s14/topic_8787f8fa
  * Heading  : 其他收集器轮廓

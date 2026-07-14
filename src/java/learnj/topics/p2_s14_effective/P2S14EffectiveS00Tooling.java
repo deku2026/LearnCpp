@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 0
+ * Step     : s00
  * Item     : tooling
  * Topic id : part2/stage14/s00/tooling
  * Heading  : 工具与重构心态

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : serialization
  * Topic id : part2/stage14/s20/serialization
  * Heading  : 序列化警告（接第 3 部分）

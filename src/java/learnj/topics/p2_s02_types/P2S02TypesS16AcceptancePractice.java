@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : acceptance_practice
  * Topic id : part2/stage02/s16/acceptance_practice
  * Heading  : 验收与练习

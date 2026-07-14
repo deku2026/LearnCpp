@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : java_util_function_interfaces
  * Topic id : part2/stage09/s06/java_util_function_interfaces
  * Heading  : `java.util.function` 核心接口

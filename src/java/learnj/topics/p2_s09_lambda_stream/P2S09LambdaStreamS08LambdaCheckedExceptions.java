@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : lambda_checked_exceptions
  * Topic id : part2/stage09/s08/lambda_checked_exceptions
  * Heading  : lambda 与 checked 异常

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 21
+ * Step     : s21
  * Item     : topic_96cf8cbb
  * Topic id : part2/stage14/s21/topic_96cf8cbb
  * Heading  : 通用编程卫生

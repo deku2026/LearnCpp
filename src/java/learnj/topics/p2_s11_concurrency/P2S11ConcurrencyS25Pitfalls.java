@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
- * Step     : 步骤 25
+ * Step     : s25
  * Item     : pitfalls
  * Topic id : part2/stage11/s25/pitfalls
  * Heading  : 易错清单

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : jmx_mxbean
  * Topic id : part6/branch_e/s20/jmx_mxbean
  * Heading  : JMX / 平台 MXBean 轮廓

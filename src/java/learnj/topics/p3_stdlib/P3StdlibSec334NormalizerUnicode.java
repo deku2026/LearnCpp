@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.3.4
+ * Step     : sec_3_3_4
  * Item     : normalizer_unicode
  * Topic id : part3/stdlib/sec_3_3_4/normalizer_unicode
  * Heading  : `Normalizer`（Unicode 规范化）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 11
+ * Step     : s11
  * Item     : cds_appcds
  * Topic id : part6/branch_e/s11/cds_appcds
  * Heading  : CDS / AppCDS

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 1
+ * Step     : s01
  * Item     : if
  * Topic id : part2/stage03/s01/if
  * Heading  : 块作用域与 `if`

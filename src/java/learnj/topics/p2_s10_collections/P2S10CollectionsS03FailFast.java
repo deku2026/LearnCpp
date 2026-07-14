@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : fail_fast
  * Topic id : part2/stage10/s03/fail_fast
  * Heading  : 迭代器、fail-fast、增强 for

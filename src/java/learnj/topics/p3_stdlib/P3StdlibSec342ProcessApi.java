@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.4.2
+ * Step     : sec_3_4_2
  * Item     : process_api
  * Topic id : part3/stdlib/sec_3_4_2/process_api
  * Heading  : Process API

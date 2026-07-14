@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : queue_deque
  * Topic id : part2/stage10/s06/queue_deque
  * Heading  : `Queue` / `Deque`

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : topic_2bbafd8f
  * Topic id : part2/stage10/s10/topic_2bbafd8f
  * Heading  : 复杂度表（必背高频）

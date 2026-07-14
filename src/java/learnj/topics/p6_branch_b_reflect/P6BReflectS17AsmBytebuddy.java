@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 17
+ * Step     : s17
  * Item     : asm_bytebuddy
  * Topic id : part6/branch_b/s17/asm_bytebuddy
  * Heading  : ASM / ByteBuddy 等定位

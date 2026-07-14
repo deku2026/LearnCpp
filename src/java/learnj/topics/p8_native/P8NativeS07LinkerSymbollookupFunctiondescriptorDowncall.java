@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §7
+ * Step     : s07
  * Item     : linker_symbollookup_functiondescriptor_downcall
  * Topic id : part8/native/s07/linker_symbollookup_functiondescriptor_downcall
  * Heading  : Linker · SymbolLookup · FunctionDescriptor · downcall

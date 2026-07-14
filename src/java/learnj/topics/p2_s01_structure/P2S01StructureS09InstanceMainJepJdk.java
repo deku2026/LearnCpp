@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md
  * Stage    : p2_s01_structure
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : instance_main_jep_jdk
  * Topic id : part2/stage01/s09/instance_main_jep_jdk
  * Heading  : 紧凑源文件与 instance main（JEP 512，JDK 25 定稿）

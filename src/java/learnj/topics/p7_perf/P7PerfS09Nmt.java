@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §9
+ * Step     : s09
  * Item     : nmt
  * Topic id : part7/perf/s09/nmt
  * Heading  : NMT 与非堆账单

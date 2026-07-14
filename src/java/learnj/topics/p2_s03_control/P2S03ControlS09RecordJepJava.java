@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : record_jep_java
  * Topic id : part2/stage03/s09/record_jep_java
  * Heading  : record 模式（JEP 440，Java 21 定稿）

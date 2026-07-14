@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md
  * Stage    : p2_s01_structure
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : topic_5afc8f07
  * Topic id : part2/stage01/s03/topic_5afc8f07
  * Heading  : 第一个标准程序：逐行拆开

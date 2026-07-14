@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.2.7
+ * Step     : sec_3_2_7
  * Item     : acceptance_2
  * Topic id : part3/stdlib/sec_3_2_7/acceptance_2
  * Heading  : 验收 3.2

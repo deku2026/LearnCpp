@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : scopedvalue_api
  * Topic id : part2/stage12/s13/scopedvalue_api
  * Heading  : ScopedValue API

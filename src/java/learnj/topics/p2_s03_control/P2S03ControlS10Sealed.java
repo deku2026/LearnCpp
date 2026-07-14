@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : sealed
  * Topic id : part2/stage03/s10/sealed
  * Heading  : sealed 与穷尽性（联阶段 6）

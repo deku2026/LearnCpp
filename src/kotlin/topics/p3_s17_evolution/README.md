@@ -2,6 +2,4 @@
 
 Doc: `第3部分-阶段17-版本演进与废弃迁移.md`
 
-```text
-./gradlew run --args="--list"
-```
+Prefix: `part3/stage17/…`

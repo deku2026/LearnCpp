@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : carrier_mount_unmount
  * Topic id : part2/stage12/s05/carrier_mount_unmount
  * Heading  : 调度：carrier、mount、unmount

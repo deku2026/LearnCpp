@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.1.2
+ * Step     : sec_4_1_2
  * Item     : maven
  * Topic id : part4/engineering/sec_4_1_2/maven
  * Heading  : Maven 主干

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 23
+ * Step     : s23
  * Item     : pitfalls
  * Topic id : part6/branch_e/s23/pitfalls
  * Heading  : 易错清单

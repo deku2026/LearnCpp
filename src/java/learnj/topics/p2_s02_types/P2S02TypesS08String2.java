@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : string_2
  * Topic id : part2/stage02/s08/string_2
  * Heading  : `String` 核心语义

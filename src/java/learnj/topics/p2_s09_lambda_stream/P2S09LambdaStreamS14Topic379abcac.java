@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : topic_379abcac
  * Topic id : part2/stage09/s14/topic_379abcac
  * Heading  : 核心中间操作

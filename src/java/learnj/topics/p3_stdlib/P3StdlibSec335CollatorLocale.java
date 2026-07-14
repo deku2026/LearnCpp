@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.3.5
+ * Step     : sec_3_3_5
  * Item     : collator_locale
  * Topic id : part3/stdlib/sec_3_3_5/collator_locale
  * Heading  : `Collator`（Locale 敏感排序）

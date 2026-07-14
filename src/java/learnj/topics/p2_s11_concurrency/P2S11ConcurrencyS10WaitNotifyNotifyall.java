@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : wait_notify_notifyall
  * Topic id : part2/stage11/s10/wait_notify_notifyall
  * Heading  : `wait` / `notify` / `notifyAll`

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : methodhandles_lookup
  * Topic id : part6/branch_b/s10/methodhandles_lookup
  * Heading  : `MethodHandles` 与 `Lookup`

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : javap
  * Topic id : part6/branch_c/s09/javap
  * Heading  : 关键属性（读 javap 会撞上）

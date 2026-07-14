@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 15
+ * Step     : s15
  * Item     : module_3
  * Topic id : part6/branch_a/s15/module_3
  * Heading  : 平台模块地图（查漏）

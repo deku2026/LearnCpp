@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段6-接口-嵌套类-enum-record-sealed.md
  * Stage    : p2_s06_interfaces
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : record
  * Topic id : part2/stage06/s16/record
  * Heading  : `record`：名义元组与自动成员

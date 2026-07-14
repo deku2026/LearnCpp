@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : open_module_open_module
  * Topic id : part6/branch_a/s05/open_module_open_module
  * Heading  : `open module`

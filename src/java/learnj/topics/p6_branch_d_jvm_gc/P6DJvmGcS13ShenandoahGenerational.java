@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : shenandoah_generational
  * Topic id : part6/branch_d/s13/shenandoah_generational
  * Heading  : Shenandoah 与 Generational Shenandoah

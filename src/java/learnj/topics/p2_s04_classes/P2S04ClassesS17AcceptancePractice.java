@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 17
+ * Step     : s17
  * Item     : acceptance_practice
  * Topic id : part2/stage04/s17/acceptance_practice
  * Heading  : 验收与练习

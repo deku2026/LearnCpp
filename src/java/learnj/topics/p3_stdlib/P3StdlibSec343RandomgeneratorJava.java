@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.4.3
+ * Step     : sec_3_4_3
  * Item     : randomgenerator_java
  * Topic id : part3/stdlib/sec_3_4_3/randomgenerator_java
  * Heading  : `RandomGenerator`（Java 17+）

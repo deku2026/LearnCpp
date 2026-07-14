@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.1.7
+ * Step     : sec_3_1_7
  * Item     : topic_fc2b4216
  * Topic id : part3/stdlib/sec_3_1_7/topic_fc2b4216
  * Heading  : C++

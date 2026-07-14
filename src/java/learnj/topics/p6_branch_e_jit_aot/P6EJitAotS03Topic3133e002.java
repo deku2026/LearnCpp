@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : topic_3133e002
  * Topic id : part6/branch_e/s03/topic_3133e002
  * Heading  : 热点与阈值直觉

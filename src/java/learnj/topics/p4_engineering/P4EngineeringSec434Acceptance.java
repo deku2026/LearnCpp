@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.3.4
+ * Step     : sec_4_3_4
  * Item     : acceptance
  * Topic id : part4/engineering/sec_4_3_4/acceptance
  * Heading  : 验收 4.3

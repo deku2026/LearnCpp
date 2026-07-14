@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 11
+ * Step     : s11
  * Item     : jep_g1_jdk
  * Topic id : part6/branch_d/s11/jep_g1_jdk
  * Heading  : JEP 522：G1 吞吐改进（JDK 26）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 7
+ * Step     : s07
  * Item     : topic_d0962b56
  * Topic id : part6/branch_e/s07/topic_d0962b56
  * Heading  : 逆优化

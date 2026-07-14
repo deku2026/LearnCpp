@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 19
+ * Step     : s19
  * Item     : serviceability_jhsdb_sa
  * Topic id : part6/branch_e/s19/serviceability_jhsdb_sa
  * Heading  : Serviceability：jhsdb / SA 轮廓

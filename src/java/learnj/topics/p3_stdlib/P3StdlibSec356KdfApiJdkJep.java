@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.5.6
+ * Step     : sec_3_5_6
  * Item     : kdf_api_jdk_jep
  * Topic id : part3/stdlib/sec_3_5_6/kdf_api_jdk_jep
  * Heading  : KDF API（JDK 25 定稿 · JEP 510）

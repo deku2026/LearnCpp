@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : structuredtaskscope_jdk_jep
  * Topic id : part2/stage12/s16/structuredtaskscope_jdk_jep
  * Heading  : StructuredTaskScope（JDK 25 · JEP 505）

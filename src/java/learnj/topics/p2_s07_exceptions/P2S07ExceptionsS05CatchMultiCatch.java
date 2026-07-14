@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : catch_multi_catch
  * Topic id : part2/stage07/s05/catch_multi_catch
  * Heading  : 多 catch、multi-catch、顺序

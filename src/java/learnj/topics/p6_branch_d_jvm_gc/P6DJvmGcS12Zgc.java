@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 12
+ * Step     : s12
  * Item     : zgc
  * Topic id : part6/branch_d/s12/zgc
  * Heading  : ZGC

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : code_cache
  * Topic id : part6/branch_e/s08/code_cache
  * Heading  : Code Cache 与编译线程

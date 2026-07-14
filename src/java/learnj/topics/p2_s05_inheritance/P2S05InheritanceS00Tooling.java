@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
  * Stage    : p2_s05_inheritance
- * Step     : 步骤 0
+ * Step     : s00
  * Item     : tooling
  * Topic id : part2/stage05/s00/tooling
  * Heading  : 工具约定

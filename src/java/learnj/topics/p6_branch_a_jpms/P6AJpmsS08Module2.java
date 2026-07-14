@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : module_2
  * Topic id : part6/branch_a/s08/module_2
  * Heading  : 无名模块 · 自动模块 · 命名模块

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md
  * Stage    : p2_s01_structure
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : release
  * Topic id : part2/stage01/s16/release
  * Heading  : `--release` 与版本

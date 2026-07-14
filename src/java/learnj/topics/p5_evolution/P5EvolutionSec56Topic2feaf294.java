@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第5部分-Java演进史.md
  * Stage    : p5_evolution
- * Step     : 5.6
+ * Step     : sec_5_6
  * Item     : topic_2feaf294
  * Topic id : part5/evolution/sec_5_6/topic_2feaf294
  * Heading  : 项目主题线（跨版本串故事）

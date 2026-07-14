@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : methodhandle_jep_reflection
  * Topic id : part6/branch_b/s13/methodhandle_jep_reflection
  * Heading  : 反射 vs MethodHandle；JEP 416

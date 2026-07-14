@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.2.4
+ * Step     : sec_3_2_4
  * Item     : charset
  * Topic id : part3/stdlib/sec_3_2_4/charset
  * Heading  : 字符集 `Charset`

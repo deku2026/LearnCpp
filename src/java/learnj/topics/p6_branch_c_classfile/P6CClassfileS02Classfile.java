@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : classfile
  * Topic id : part6/branch_c/s02/classfile
  * Heading  : `ClassFile` 顶层结构

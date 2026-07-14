@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §18
+ * Step     : s18
  * Item     : vector_jmh
  * Topic id : part8/native/s18/vector_jmh
  * Heading  : 何时 Vector vs 自动向量化 vs JMH

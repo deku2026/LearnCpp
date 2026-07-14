@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : topic_847b031b
  * Topic id : part2/stage12/s20/topic_847b031b
  * Heading  : 选型矩阵

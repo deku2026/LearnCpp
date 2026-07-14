@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.5.4
+ * Step     : sec_3_5_4
  * Item     : keystore
  * Topic id : part3/stdlib/sec_3_5_4/keystore
  * Heading  : KeyStore 与证书

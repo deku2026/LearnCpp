@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : topic_e6076652
  * Topic id : part2/stage09/s13/topic_e6076652
  * Heading  : 惰性、短路、遇终求值

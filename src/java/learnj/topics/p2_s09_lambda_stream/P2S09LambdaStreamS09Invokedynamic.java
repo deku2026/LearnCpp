@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : invokedynamic
  * Topic id : part2/stage09/s09/invokedynamic
  * Heading  : `invokedynamic` 直觉

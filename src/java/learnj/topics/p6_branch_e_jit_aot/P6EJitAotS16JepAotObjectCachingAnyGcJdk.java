@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : jep_aot_object_caching_any_gc_jdk
  * Topic id : part6/branch_e/s16/jep_aot_object_caching_any_gc_jdk
  * Heading  : JEP 516：AOT Object Caching with Any GC（JDK 26）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : method_field_constructor_parameter
  * Topic id : part6/branch_b/s02/method_field_constructor_parameter
  * Heading  : `Method` / `Field` / `Constructor` / `Parameter`

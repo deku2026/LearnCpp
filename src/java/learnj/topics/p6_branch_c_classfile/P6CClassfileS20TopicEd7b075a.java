@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : topic_ed7b075a
  * Topic id : part6/branch_c/s20/topic_ed7b075a
  * Heading  : 错误模型

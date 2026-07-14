@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : list
  * Topic id : part2/stage10/s04/list
  * Heading  : `List`

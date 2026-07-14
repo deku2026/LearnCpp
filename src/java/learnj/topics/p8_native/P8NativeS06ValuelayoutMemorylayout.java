@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §6
+ * Step     : s06
  * Item     : valuelayout_memorylayout
  * Topic id : part8/native/s06/valuelayout_memorylayout
  * Heading  : ValueLayout · MemoryLayout · 结构化访问

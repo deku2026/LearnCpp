@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : module_info_java
  * Topic id : part6/branch_a/s02/module_info_java
  * Heading  : `module-info.java` 全指令

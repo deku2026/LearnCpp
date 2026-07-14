@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §5
+ * Step     : s05
  * Item     : jfr_event
  * Topic id : part7/perf/s05/jfr_event
  * Heading  : 自定义 JFR Event

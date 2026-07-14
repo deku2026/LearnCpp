@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §19
+ * Step     : s19
  * Item     : topic_f1d9528b
  * Topic id : part8/native/s19/topic_f1d9528b
  * Heading  : 不主线清单

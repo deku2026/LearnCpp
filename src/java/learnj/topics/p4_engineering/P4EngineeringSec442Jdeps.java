@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.4.2
+ * Step     : sec_4_4_2
  * Item     : jdeps
  * Topic id : part4/engineering/sec_4_4_2/jdeps
  * Heading  : `jdeps`（依赖分析）

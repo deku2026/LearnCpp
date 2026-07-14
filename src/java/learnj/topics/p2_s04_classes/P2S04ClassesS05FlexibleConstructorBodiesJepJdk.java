@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : flexible_constructor_bodies_jep_jdk
  * Topic id : part2/stage04/s05/flexible_constructor_bodies_jep_jdk
  * Heading  : Flexible Constructor Bodies（JEP 513，JDK 25 定稿）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : topic_44f27db9
  * Topic id : part6/branch_e/s02/topic_44f27db9
  * Heading  : 编译层级 0–4

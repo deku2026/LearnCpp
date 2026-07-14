@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.3.3
+ * Step     : sec_3_3_3
  * Item     : topic_a1458df8
  * Topic id : part3/stdlib/sec_3_3_3/topic_a1458df8
  * Heading  : 数字 / 货币 / 消息格式

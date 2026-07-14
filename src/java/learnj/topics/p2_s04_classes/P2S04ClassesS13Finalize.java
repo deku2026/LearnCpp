@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : finalize
  * Topic id : part2/stage04/s13/finalize
  * Heading  : 无析构 / `finalize` 已死

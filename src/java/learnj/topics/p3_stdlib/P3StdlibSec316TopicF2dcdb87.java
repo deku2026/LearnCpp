@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.1.6
+ * Step     : sec_3_1_6
  * Item     : topic_f2dcdb87
  * Topic id : part3/stdlib/sec_3_1_6/topic_f2dcdb87
  * Heading  : 选型速查

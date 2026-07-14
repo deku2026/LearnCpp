@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 15
+ * Step     : s15
  * Item     : sequenced_collections_jep
  * Topic id : part2/stage10/s15/sequenced_collections_jep
  * Heading  : Sequenced Collections（JEP 431）

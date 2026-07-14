@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 18
+ * Step     : s18
  * Item     : acceptance_practice
  * Topic id : part6/branch_a/s18/acceptance_practice
  * Heading  : 验收与练习

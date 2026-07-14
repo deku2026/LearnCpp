@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : when_case
  * Topic id : part2/stage03/s08/when_case
  * Heading  : `when` 守卫与常量 case 混用

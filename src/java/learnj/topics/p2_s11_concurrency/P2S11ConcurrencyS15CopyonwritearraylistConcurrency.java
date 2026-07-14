@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
- * Step     : 步骤 15
+ * Step     : s15
  * Item     : copyonwritearraylist_concurrency
  * Topic id : part2/stage11/s15/copyonwritearraylist_concurrency
  * Heading  : `CopyOnWriteArrayList` 与并发队列

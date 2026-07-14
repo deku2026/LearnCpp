@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 23
+ * Step     : s23
  * Item     : acceptance_practice
  * Topic id : part6/branch_d/s23/acceptance_practice
  * Heading  : 验收与练习

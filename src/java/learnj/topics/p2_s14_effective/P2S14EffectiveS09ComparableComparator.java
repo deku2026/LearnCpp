@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : comparable_comparator
  * Topic id : part2/stage14/s09/comparable_comparator
  * Heading  : Comparable 与 Comparator

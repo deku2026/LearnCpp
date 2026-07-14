@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : jep_final_jdk
  * Topic id : part6/branch_b/s04/jep_final_jdk
  * Heading  : JEP 500：让 final 真正 final（JDK 26）

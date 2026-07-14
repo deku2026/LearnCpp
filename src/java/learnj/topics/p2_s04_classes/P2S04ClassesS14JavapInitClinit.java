@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : javap_init_clinit
  * Topic id : part2/stage04/s14/javap_init_clinit
  * Heading  : `javap`：`<init>` 与 `<clinit>`

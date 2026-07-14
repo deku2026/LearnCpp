@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.3.6
+ * Step     : sec_3_3_6
  * Item     : breakiterator
  * Topic id : part3/stdlib/sec_3_3_6/breakiterator
  * Heading  : `BreakIterator`（）

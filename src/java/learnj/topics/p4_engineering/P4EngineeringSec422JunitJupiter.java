@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.2.2
+ * Step     : sec_4_2_2
  * Item     : junit_jupiter
  * Topic id : part4/engineering/sec_4_2_2/junit_jupiter
  * Heading  : JUnit 5（Jupiter）

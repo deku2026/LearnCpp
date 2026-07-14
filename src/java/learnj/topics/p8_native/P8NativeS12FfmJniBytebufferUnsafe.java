@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §12
+ * Step     : s12
  * Item     : ffm_jni_bytebuffer_unsafe
  * Topic id : part8/native/s12/ffm_jni_bytebuffer_unsafe
  * Heading  : FFM vs JNI vs ByteBuffer vs Unsafe

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
  * Stage    : p2_s05_inheritance
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : pitfalls
  * Topic id : part2/stage05/s20/pitfalls
  * Heading  : 易错清单

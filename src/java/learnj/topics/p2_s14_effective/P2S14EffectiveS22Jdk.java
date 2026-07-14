@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 22
+ * Step     : s22
  * Item     : jdk
  * Topic id : part2/stage14/s22/jdk
  * Heading  : JDK 21–25 叠层清单

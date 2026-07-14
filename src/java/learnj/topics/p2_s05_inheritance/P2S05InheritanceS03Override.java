@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
  * Stage    : p2_s05_inheritance
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : override
  * Topic id : part2/stage05/s03/override
  * Heading  : 方法覆盖（override）

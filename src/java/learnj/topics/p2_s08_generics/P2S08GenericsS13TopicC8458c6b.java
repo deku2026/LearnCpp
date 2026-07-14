@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md
  * Stage    : p2_s08_generics
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : topic_c8458c6b
  * Topic id : part2/stage08/s13/topic_c8458c6b
  * Heading  : 菱形运算符 `<>`

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : varargs
  * Topic id : part2/stage04/s09/varargs
  * Heading  : 重载与 varargs

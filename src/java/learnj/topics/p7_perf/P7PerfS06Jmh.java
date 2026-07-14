@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §6
+ * Step     : s06
  * Item     : jmh
  * Topic id : part7/perf/s06/jmh
  * Heading  : JMH：微基准正确姿势

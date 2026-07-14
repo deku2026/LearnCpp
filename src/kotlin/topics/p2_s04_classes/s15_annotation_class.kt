@@ -1,4 +1,4 @@
-@file:JvmName("P2S04Classes15AnnotationClassKtFacade")
+@file:JvmName("P2S04ClassesS15AnnotationClassKtFacade")
 
 package learn.topics
 
@@ -7,16 +7,16 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段4-类对象接口与属性.md
 // Stage    : p2_s04_classes
-// Section  : s15
+// Step     : s15
 // Item     : annotation_class
 // Topic id : part2/stage04/s15/annotation_class
-// Heading  : 步骤 15 Annotation class（入口）
+// Heading  : Annotation class（入口）
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s15/annotation_class") { _ ->
-    // practice: 步骤 15 Annotation class（入口）
+    // practice: Annotation class（入口）
     0
 }

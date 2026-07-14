@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
  * Stage    : p2_s05_inheritance
- * Step     : 步骤 11
+ * Step     : s11
  * Item     : equals
  * Topic id : part2/stage05/s11/equals
  * Heading  : `equals` 契约 （本阶段法律）

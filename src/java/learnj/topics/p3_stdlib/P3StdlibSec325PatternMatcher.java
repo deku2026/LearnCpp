@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.2.5
+ * Step     : sec_3_2_5
  * Item     : pattern_matcher
  * Topic id : part3/stdlib/sec_3_2_5/pattern_matcher
  * Heading  : 正则：`Pattern` / `Matcher`

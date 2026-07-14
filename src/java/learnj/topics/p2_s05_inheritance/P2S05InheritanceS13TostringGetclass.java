@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段5-继承-多态-抽象类-Object契约.md
  * Stage    : p2_s05_inheritance
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : tostring_getclass
  * Topic id : part2/stage05/s13/tostring_getclass
  * Heading  : `toString` 与 `getClass`

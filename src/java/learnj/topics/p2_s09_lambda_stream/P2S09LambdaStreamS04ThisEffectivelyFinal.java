@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : this_effectively_final
  * Topic id : part2/stage09/s04/this_effectively_final
  * Heading  : 捕获：effectively final 与 `this`

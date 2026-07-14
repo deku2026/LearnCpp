@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md
  * Stage    : p2_s01_structure
- * Step     : 步骤 1
+ * Step     : s01
  * Item     : jdk_jre_jvm
  * Topic id : part2/stage01/s01/jdk_jre_jvm
  * Heading  : JDK / JRE / JVM：三个词必须拆开

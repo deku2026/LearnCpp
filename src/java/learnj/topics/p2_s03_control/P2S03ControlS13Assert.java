@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 13
+ * Step     : s13
  * Item     : assert
  * Topic id : part2/stage03/s13/assert
  * Heading  : `assert`

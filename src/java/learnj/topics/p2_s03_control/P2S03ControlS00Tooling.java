@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 0
+ * Step     : s00
  * Item     : tooling
  * Topic id : part2/stage03/s00/tooling
  * Heading  : 工具与约定

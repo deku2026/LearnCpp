@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 15
+ * Step     : s15
  * Item     : jep_aot_method_profiling_jdk
  * Topic id : part6/branch_e/s15/jep_aot_method_profiling_jdk
  * Heading  : JEP 515：AOT Method Profiling（JDK 25）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : topic_3bfc5c0b
  * Topic id : part6/branch_a/s14/topic_3bfc5c0b
  * Heading  : 迁移策略与常见错误

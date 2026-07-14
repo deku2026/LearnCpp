@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.2.5
+ * Step     : sec_4_2_5
  * Item     : testing_2
  * Topic id : part4/engineering/sec_4_2_5/testing_2
  * Heading  : 测试命名与结构

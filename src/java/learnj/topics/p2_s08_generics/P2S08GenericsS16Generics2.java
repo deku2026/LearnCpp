@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md
  * Stage    : p2_s08_generics
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : generics_2
  * Topic id : part2/stage08/s16/generics_2
  * Heading  : 泛型与重载、擦除冲突

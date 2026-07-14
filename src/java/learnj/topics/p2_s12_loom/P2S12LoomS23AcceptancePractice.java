@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 23
+ * Step     : s23
  * Item     : acceptance_practice
  * Topic id : part2/stage12/s23/acceptance_practice
  * Heading  : 验收与练习

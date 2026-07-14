@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 22
+ * Step     : s22
  * Item     : pitfalls
  * Topic id : part6/branch_d/s22/pitfalls
  * Heading  : 易错清单

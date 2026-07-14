@@ -1,0 +1,1191 @@
+# LearnJava coverage audit
+
+## p2_s01_structure  [GAPS]
+- doc: `第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md`
+- practice H2 parsed: **22** | topics on disk: **22** | key hits: 1/22
+- **missing keys (21):**
+  - `n00` — 本阶段导读（先读，建立全局）
+  - `s00` — 工具就位（先打通再学）
+  - `s02` — 执行模型全景：从源码到 `main` 被调用 （本阶段灵魂）
+  - `s03` — 第一个标准程序：逐行拆开
+  - `s04` — 入口方法 `main`：规则、变体、启动器选择
+  - `s05` — 编译单元与源文件结构规则
+  - `s06` — 包（package）：逻辑名字空间 + 物理目录
+  - `s07` — classpath：运行时「去哪找类」
+  - `s08` — 单文件源码启动（JEP 330 系）
+  - `s09` — 紧凑源文件与 instance main（JEP 512，JDK 25 定稿）
+  - `s10` — 注释与文档注释入门
+  - `s11` — 基础输出与错误流
+  - `s12` — `jshell`：REPL 入门
+  - `s13` — `javap`：第一次看见字节码
+  - `s14` — 多文件 + 包：完整验收工程
+  - `s15` — 常见错误信息速查
+  - `s16` — `--release` 与版本
+  - `s17` — 环境变量与启动器细节（够用即可）
+  - `s18` — C++ 对照小结（本阶段必重建）
+  - `s19` — 本阶段不要做的事
+  - `s20` — 验收清单与练习（每条可自查）
+- all ## headings in doc:
+  - 0 · 本阶段导读（先读，建立全局）
+  - 步骤 0 · 工具就位（先打通再学）
+  - 步骤 1 · JDK / JRE / JVM：三个词必须拆开
+  - 步骤 2 · 执行模型全景：从源码到 `main` 被调用 （本阶段灵魂）
+  - 步骤 3 · 第一个标准程序：逐行拆开
+  - 步骤 4 · 入口方法 `main`：规则、变体、启动器选择
+  - 步骤 5 · 编译单元与源文件结构规则
+  - 步骤 6 · 包（package）：逻辑名字空间 + 物理目录
+  - 步骤 7 · classpath：运行时「去哪找类」
+  - 步骤 8 · 单文件源码启动（JEP 330 系）
+  - 步骤 9 · 紧凑源文件与 instance main（JEP 512，JDK 25 定稿）
+  - 步骤 10 · 注释与文档注释入门
+  - 步骤 11 · 基础输出与错误流
+  - 步骤 12 · `jshell`：REPL 入门
+  - 步骤 13 · `javap`：第一次看见字节码
+  - 步骤 14 · 多文件 + 包：完整验收工程
+  - 步骤 15 · 常见错误信息速查
+  - 步骤 16 · `--release` 与版本
+  - 步骤 17 · 环境变量与启动器细节（够用即可）
+  - 步骤 18 · C++ 对照小结（本阶段必重建）
+  - 步骤 19 · 本阶段不要做的事
+  - 步骤 20 · 验收清单与练习（每条可自查）
+  - 步骤 21 · 一手资源索引（仅官方 / 规范 / 工具）
+  - 收尾 · 阶段 1 完成标志与去向
+
+## p2_s02_types  [GAPS]
+- doc: `第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md`
+- practice H2 parsed: **18** | topics on disk: **18** | key hits: 1/18
+- **missing keys (17):**
+  - `n00` — 本阶段导读
+  - `s00` — 本阶段实证工具
+  - `s01` — 类型宇宙总览：基本类型 vs 引用类型
+  - `s03` — 数值转换与提升
+  - `s04` — 引用类型变量、`null`、`==` 与 `equals` 预告
+  - `s05` — 包装类型与自动装箱
+  - `s06` — 数组
+  - `s07` — 运算符：无重载与 `String +` 特例
+  - `s08` — `String` 核心语义
+  - `s09` — Unicode 文本模型（C++ 转 Java 必停）
+  - `s10` — 文本块（Text Blocks，Java 15 定稿，JEP 378）
+  - `s11` — `var` 局部类型推断（Java 10，JEP 286）
+  - `s12` — `Math` / `StrictMath` 与大数入门
+  - `s13` — 字节码与布局实证（本阶段该看的）
+  - `s14` — C++ 对照总表（本阶段重头）
+  - `s15` — 易错清单（贴墙上）
+  - `s16` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 本阶段实证工具
+  - 步骤 1 · 类型宇宙总览：基本类型 vs 引用类型
+  - 步骤 2 · 八种基本类型与字面量
+  - 步骤 3 · 数值转换与提升
+  - 步骤 4 · 引用类型变量、`null`、`==` 与 `equals` 预告
+  - 步骤 5 · 包装类型与自动装箱
+  - 步骤 6 · 数组
+  - 步骤 7 · 运算符：无重载与 `String +` 特例
+  - 步骤 8 · `String` 核心语义
+  - 步骤 9 · Unicode 文本模型（C++ 转 Java 必停）
+  - 步骤 10 · 文本块（Text Blocks，Java 15 定稿，JEP 378）
+  - 步骤 11 · `var` 局部类型推断（Java 10，JEP 286）
+  - 步骤 12 · `Math` / `StrictMath` 与大数入门
+  - 步骤 13 · 字节码与布局实证（本阶段该看的）
+  - 步骤 14 · C++ 对照总表（本阶段重头）
+  - 步骤 15 · 易错清单（贴墙上）
+  - 步骤 16 · 验收与练习
+  - 步骤 17 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s03_control  [GAPS]
+- doc: `第2部分-阶段3-控制流与模式匹配.md`
+- practice H2 parsed: **19** | topics on disk: **19** | key hits: 1/19
+- **missing keys (18):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具与约定
+  - `s01` — 块作用域与 `if`
+  - `s02` — 循环
+  - `s04` — 传统 `switch` 语句
+  - `s05` — switch 表达式（JEP 361，Java 14 定稿）
+  - `s06` — `instanceof` 模式匹配（JEP 394，Java 16 定稿）
+  - `s07` — switch 上的模式匹配（JEP 441，Java 21 定稿）
+  - `s08` — `when` 守卫与常量 case 混用
+  - `s09` — record 模式（JEP 440，Java 21 定稿）
+  - `s10` — sealed 与穷尽性（联阶段 6）
+  - `s11` — 未命名变量与模式 `_`（JEP 456，Java 22 定稿）
+  - `s12` — 原始类型模式（Preview，状态写死）
+  - `s13` — `assert`
+  - `s14` — 字节码实证（感性）
+  - `s15` — C++ 对照总表
+  - `s16` — 易错清单
+  - `s17` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具与约定
+  - 步骤 1 · 块作用域与 `if`
+  - 步骤 2 · 循环
+  - 步骤 3 · `break` / `continue` / `return` / 标签
+  - 步骤 4 · 传统 `switch` 语句
+  - 步骤 5 · switch 表达式（JEP 361，Java 14 定稿）
+  - 步骤 6 · `instanceof` 模式匹配（JEP 394，Java 16 定稿）
+  - 步骤 7 · switch 上的模式匹配（JEP 441，Java 21 定稿）
+  - 步骤 8 · `when` 守卫与常量 case 混用
+  - 步骤 9 · record 模式（JEP 440，Java 21 定稿）
+  - 步骤 10 · sealed 与穷尽性（联阶段 6）
+  - 步骤 11 · 未命名变量与模式 `_`（JEP 456，Java 22 定稿）
+  - 步骤 12 · 原始类型模式（Preview，状态写死）
+  - 步骤 13 · `assert`
+  - 步骤 14 · 字节码实证（感性）
+  - 步骤 15 · C++ 对照总表
+  - 步骤 16 · 易错清单
+  - 步骤 17 · 验收与练习
+  - 步骤 18 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s04_classes  [GAPS]
+- doc: `第2部分-阶段4-类与对象模型基础.md`
+- practice H2 parsed: **19** | topics on disk: **19** | key hits: 1/19
+- **missing keys (18):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 类、字段、方法、`this`、封装
+  - `s02` — 访问控制四级
+  - `s03` — 构造器
+  - `s05` — Flexible Constructor Bodies（JEP 513，JDK 25 定稿）
+  - `s06` — `static` 与静态工厂
+  - `s07` — `final` 字段与不可变类入门
+  - `s08` — 方法参数：只有值传递 （C++ 最大坑之一）
+  - `s09` — 重载与 varargs
+  - `s10` — 包、import、静态导入（加深）
+  - `s11` — JAR：打包与可执行
+  - `s12` — Javadoc 约定
+  - `s13` — 无析构 / `finalize` 已死
+  - `s14` — `javap`：`<init>` 与 `<clinit>`
+  - `s15` — C++ 对照总表
+  - `s16` — 易错清单
+  - `s17` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 类、字段、方法、`this`、封装
+  - 步骤 2 · 访问控制四级
+  - 步骤 3 · 构造器
+  - 步骤 4 · 初始化顺序 （本阶段灵魂之一）
+  - 步骤 5 · Flexible Constructor Bodies（JEP 513，JDK 25 定稿）
+  - 步骤 6 · `static` 与静态工厂
+  - 步骤 7 · `final` 字段与不可变类入门
+  - 步骤 8 · 方法参数：只有值传递 （C++ 最大坑之一）
+  - 步骤 9 · 重载与 varargs
+  - 步骤 10 · 包、import、静态导入（加深）
+  - 步骤 11 · JAR：打包与可执行
+  - 步骤 12 · Javadoc 约定
+  - 步骤 13 · 无析构 / `finalize` 已死
+  - 步骤 14 · `javap`：`<init>` 与 `<clinit>`
+  - 步骤 15 · C++ 对照总表
+  - 步骤 16 · 易错清单
+  - 步骤 17 · 验收与练习
+  - 步骤 18 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s05_inheritance  [GAPS]
+- doc: `第2部分-阶段5-继承-多态-抽象类-Object契约.md`
+- practice H2 parsed: **23** | topics on disk: **23** | key hits: 1/23
+- **missing keys (22):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 继承基础
+  - `s02` — `super` 与构造链
+  - `s03` — 方法覆盖（override）
+  - `s04` — 多态与动态分派
+  - `s06` — 抽象类与抽象方法
+  - `s07` — 转型与模式匹配
+  - `s08` — `protected` 与包访问交叉
+  - `s09` — 隐藏（hiding）vs 覆盖
+  - `s10` — `Object` 核心 API 全景
+  - `s11` — `equals` 契约 （本阶段法律）
+  - `s12` — `hashCode` 契约
+  - `s13` — `toString` 与 `getClass`
+  - `s14` — `clone` 与 `Cloneable`
+  - `s15` — `finalize`；`wait`/`notify` 预告
+  - `s16` — 包装类型与数组的 `equals`
+  - `s17` — 继承下 `equals` 的陷阱
+  - `s18` — `invokevirtual` / `invokespecial`
+  - `s19` — C++ 对照总表
+  - `s20` — 易错清单
+  - `s21` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 继承基础
+  - 步骤 2 · `super` 与构造链
+  - 步骤 3 · 方法覆盖（override）
+  - 步骤 4 · 多态与动态分派
+  - 步骤 5 · `final` 类与 `final` 方法
+  - 步骤 6 · 抽象类与抽象方法
+  - 步骤 7 · 转型与模式匹配
+  - 步骤 8 · `protected` 与包访问交叉
+  - 步骤 9 · 隐藏（hiding）vs 覆盖
+  - 步骤 10 · `Object` 核心 API 全景
+  - 步骤 11 · `equals` 契约 （本阶段法律）
+  - 步骤 12 · `hashCode` 契约
+  - 步骤 13 · `toString` 与 `getClass`
+  - 步骤 14 · `clone` 与 `Cloneable`
+  - 步骤 15 · `finalize`；`wait`/`notify` 预告
+  - 步骤 16 · 包装类型与数组的 `equals`
+  - 步骤 17 · 继承下 `equals` 的陷阱
+  - 步骤 18 · `invokevirtual` / `invokespecial`
+  - 步骤 19 · C++ 对照总表
+  - 步骤 20 · 易错清单
+  - 步骤 21 · 验收与练习
+  - 步骤 22 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s06_interfaces  [GAPS]
+- doc: `第2部分-阶段6-接口-嵌套类-enum-record-sealed.md`
+- practice H2 parsed: **27** | topics on disk: **27** | key hits: 1/27
+- **missing keys (26):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 接口基础
+  - `s02` — 接口成员全景
+  - `s03` — 默认方法（`default`）
+  - `s04` — 接口 `static` / `private` 方法
+  - `s05` — 默认方法冲突与解析
+  - `s07` — `Comparable` / `Comparator`
+  - `s08` — 嵌套类总览与术语
+  - `s09` — 静态成员类
+  - `s10` — 内部类与 enclosing 实例
+  - `s11` — 局部类
+  - `s12` — 匿名类（lambda 前史）
+  - `s13` — `enum`：真正的类
+  - `s14` — enum 作为完整类型
+  - `s15` — Enum API；`EnumSet` / `EnumMap` 预告
+  - `s16` — `record`：名义元组与自动成员
+  - `s17` — 规范构造器、紧凑构造器与限制
+  - `s18` — `sealed` class / interface
+  - `s19` — `permits` / `final` / `sealed` / `non-sealed`
+  - `s20` — ADT：sealed + record + switch
+  - `s21` — 拷贝策略再讨论（相对 `Cloneable`）
+  - `s22` — javap 实证
+  - `s23` — C++ 对照总表
+  - `s24` — 易错清单
+  - `s25` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 接口基础
+  - 步骤 2 · 接口成员全景
+  - 步骤 3 · 默认方法（`default`）
+  - 步骤 4 · 接口 `static` / `private` 方法
+  - 步骤 5 · 默认方法冲突与解析
+  - 步骤 6 · 抽象类 vs 接口（决策）
+  - 步骤 7 · `Comparable` / `Comparator`
+  - 步骤 8 · 嵌套类总览与术语
+  - 步骤 9 · 静态成员类
+  - 步骤 10 · 内部类与 enclosing 实例
+  - 步骤 11 · 局部类
+  - 步骤 12 · 匿名类（lambda 前史）
+  - 步骤 13 · `enum`：真正的类
+  - 步骤 14 · enum 作为完整类型
+  - 步骤 15 · Enum API；`EnumSet` / `EnumMap` 预告
+  - 步骤 16 · `record`：名义元组与自动成员
+  - 步骤 17 · 规范构造器、紧凑构造器与限制
+  - 步骤 18 · `sealed` class / interface
+  - 步骤 19 · `permits` / `final` / `sealed` / `non-sealed`
+  - 步骤 20 · ADT：sealed + record + switch
+  - 步骤 21 · 拷贝策略再讨论（相对 `Cloneable`）
+  - 步骤 22 · javap 实证
+  - 步骤 23 · C++ 对照总表
+  - 步骤 24 · 易错清单
+  - 步骤 25 · 验收与练习
+  - 步骤 26 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s07_exceptions  [GAPS]
+- doc: `第2部分-阶段7-异常-断言-资源管理-try-with-resources.md`
+- practice H2 parsed: **25** | topics on disk: **25** | key hits: 1/25
+- **missing keys (24):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — `Throwable` 体系全景
+  - `s02` — checked vs unchecked
+  - `s03` — `throw` / `throws`
+  - `s04` — `try` / `catch` / `finally`
+  - `s05` — 多 catch、multi-catch、顺序
+  - `s06` — 异常链（cause）
+  - `s08` — 自定义异常
+  - `s09` — API 边界策略
+  - `s10` — try-with-resources（TWR）
+  - `s11` — `AutoCloseable` vs `Closeable`
+  - `s12` — 多资源、关闭顺序、Java 9 增强
+  - `s13` — TWR 与 catch/finally 先后
+  - `s14` — 手写资源 + 抑制演示（验收核心）
+  - `s15` — 断言 `assert`
+  - `s16` — assert vs 异常 vs 日志 vs Optional
+  - `s17` — 栈轨迹
+  - `s18` — `StackWalker`（JEP 259）
+  - `s19` — 日志门面直觉
+  - `s20` — javap 与 TWR 实证
+  - `s21` — C++ 对照总表
+  - `s22` — 易错清单
+  - `s23` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · `Throwable` 体系全景
+  - 步骤 2 · checked vs unchecked
+  - 步骤 3 · `throw` / `throws`
+  - 步骤 4 · `try` / `catch` / `finally`
+  - 步骤 5 · 多 catch、multi-catch、顺序
+  - 步骤 6 · 异常链（cause）
+  - 步骤 7 · 抑制异常（suppressed）
+  - 步骤 8 · 自定义异常
+  - 步骤 9 · API 边界策略
+  - 步骤 10 · try-with-resources（TWR）
+  - 步骤 11 · `AutoCloseable` vs `Closeable`
+  - 步骤 12 · 多资源、关闭顺序、Java 9 增强
+  - 步骤 13 · TWR 与 catch/finally 先后
+  - 步骤 14 · 手写资源 + 抑制演示（验收核心）
+  - 步骤 15 · 断言 `assert`
+  - 步骤 16 · assert vs 异常 vs 日志 vs Optional
+  - 步骤 17 · 栈轨迹
+  - 步骤 18 · `StackWalker`（JEP 259）
+  - 步骤 19 · 日志门面直觉
+  - 步骤 20 · javap 与 TWR 实证
+  - 步骤 21 · C++ 对照总表
+  - 步骤 22 · 易错清单
+  - 步骤 23 · 验收与练习
+  - 步骤 24 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s08_generics  [GAPS]
+- doc: `第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md`
+- practice H2 parsed: **24** | topics on disk: **24** | key hits: 1/24
+- **missing keys (23):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 为什么需要泛型
+  - `s02` — 泛型类 / 接口
+  - `s03` — 泛型方法与类型推断
+  - `s04` — 类型参数界限
+  - `s05` — 类型擦除 （本阶段法律）
+  - `s06` — 桥接方法 + javap
+  - `s07` — 擦除带来的限制清单
+  - `s09` — 不变性 vs 数组协变
+  - `s10` — 通配符
+  - `s11` — PECS （本阶段口诀）
+  - `s12` — 通配符捕获与辅助方法
+  - `s13` — 菱形运算符 `<>`
+  - `s14` — raw type 与未检查转换
+  - `s15` — heap pollution 与 `@SafeVarargs`
+  - `s16` — 泛型与重载、擦除冲突
+  - `s17` — 递归类型界限
+  - `s18` — 类型令牌 / 超类型令牌
+  - `s19` — 标准库形态速览
+  - `s20` — C++ 对照总表（最重要）
+  - `s21` — 易错清单
+  - `s22` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 为什么需要泛型
+  - 步骤 2 · 泛型类 / 接口
+  - 步骤 3 · 泛型方法与类型推断
+  - 步骤 4 · 类型参数界限
+  - 步骤 5 · 类型擦除 （本阶段法律）
+  - 步骤 6 · 桥接方法 + javap
+  - 步骤 7 · 擦除带来的限制清单
+  - 步骤 8 · 可具体化 vs 不可具体化
+  - 步骤 9 · 不变性 vs 数组协变
+  - 步骤 10 · 通配符
+  - 步骤 11 · PECS （本阶段口诀）
+  - 步骤 12 · 通配符捕获与辅助方法
+  - 步骤 13 · 菱形运算符 `<>`
+  - 步骤 14 · raw type 与未检查转换
+  - 步骤 15 · heap pollution 与 `@SafeVarargs`
+  - 步骤 16 · 泛型与重载、擦除冲突
+  - 步骤 17 · 递归类型界限
+  - 步骤 18 · 类型令牌 / 超类型令牌
+  - 步骤 19 · 标准库形态速览
+  - 步骤 20 · C++ 对照总表（最重要）
+  - 步骤 21 · 易错清单
+  - 步骤 22 · 验收与练习
+  - 步骤 23 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s09_lambda_stream  [GAPS]
+- doc: `第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md`
+- practice H2 parsed: **25** | topics on disk: **25** | key hits: 1/25
+- **missing keys (24):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 行为参数化：从匿名类到 lambda
+  - `s02` — 函数式接口与 `@FunctionalInterface`
+  - `s03` — lambda 语法与目标类型
+  - `s04` — 捕获：effectively final 与 `this`
+  - `s05` — 方法引用与构造器引用
+  - `s06` — `java.util.function` 核心接口
+  - `s07` — 原始类型特化与组合
+  - `s08` — lambda 与 checked 异常
+  - `s10` — `Optional` 契约与 API
+  - `s11` — Optional 反模式与纪律
+  - `s12` — Stream 是什么
+  - `s13` — 惰性、短路、遇终求值
+  - `s14` — 核心中间操作
+  - `s15` — 核心终端操作
+  - `s16` — `Collectors` 常用工厂
+  - `s17` — 自定义 `Collector`
+  - `s18` — Stream Gatherers（JEP 485）
+  - `s19` — 并行流
+  - `s20` — Stream vs 命令式循环
+  - `s21` — C++ 对照总表
+  - `s22` — 易错清单
+  - `s23` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 行为参数化：从匿名类到 lambda
+  - 步骤 2 · 函数式接口与 `@FunctionalInterface`
+  - 步骤 3 · lambda 语法与目标类型
+  - 步骤 4 · 捕获：effectively final 与 `this`
+  - 步骤 5 · 方法引用与构造器引用
+  - 步骤 6 · `java.util.function` 核心接口
+  - 步骤 7 · 原始类型特化与组合
+  - 步骤 8 · lambda 与 checked 异常
+  - 步骤 9 · `invokedynamic` 直觉
+  - 步骤 10 · `Optional` 契约与 API
+  - 步骤 11 · Optional 反模式与纪律
+  - 步骤 12 · Stream 是什么
+  - 步骤 13 · 惰性、短路、遇终求值
+  - 步骤 14 · 核心中间操作
+  - 步骤 15 · 核心终端操作
+  - 步骤 16 · `Collectors` 常用工厂
+  - 步骤 17 · 自定义 `Collector`
+  - 步骤 18 · Stream Gatherers（JEP 485）
+  - 步骤 19 · 并行流
+  - 步骤 20 · Stream vs 命令式循环
+  - 步骤 21 · C++ 对照总表
+  - 步骤 22 · 易错清单
+  - 步骤 23 · 验收与练习
+  - 步骤 24 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s10_collections  [GAPS]
+- doc: `第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md`
+- practice H2 parsed: **25** | topics on disk: **25** | key hits: 1/25
+- **missing keys (24):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 框架全景与设计原则
+  - `s02` — `Collection` 核心契约
+  - `s03` — 迭代器、fail-fast、增强 for
+  - `s04` — `List`
+  - `s05` — `Set`
+  - `s06` — `Queue` / `Deque`
+  - `s07` — `Map`
+  - `s08` — `WeakHashMap` / `IdentityHashMap`
+  - `s09` — null 与顺序速查
+  - `s11` — 排序与比较
+  - `s12` — 视图语义
+  - `s13` — 不可变集合工厂
+  - `s14` — unmodifiable 包装 vs 真正不可变
+  - `s15` — Sequenced Collections（JEP 431）
+  - `s16` — `Collections` 与 `Arrays` 工具
+  - `s17` — 选择指南
+  - `s18` — 遗留同步容器
+  - `s19` — 并发集合边界（预告）
+  - `s20` — 与 Stream 的接口
+  - `s21` — C++ 对照总表
+  - `s22` — 易错清单
+  - `s23` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 框架全景与设计原则
+  - 步骤 2 · `Collection` 核心契约
+  - 步骤 3 · 迭代器、fail-fast、增强 for
+  - 步骤 4 · `List`
+  - 步骤 5 · `Set`
+  - 步骤 6 · `Queue` / `Deque`
+  - 步骤 7 · `Map`
+  - 步骤 8 · `WeakHashMap` / `IdentityHashMap`
+  - 步骤 9 · null 与顺序速查
+  - 步骤 10 · 复杂度表（必背高频）
+  - 步骤 11 · 排序与比较
+  - 步骤 12 · 视图语义
+  - 步骤 13 · 不可变集合工厂
+  - 步骤 14 · unmodifiable 包装 vs 真正不可变
+  - 步骤 15 · Sequenced Collections（JEP 431）
+  - 步骤 16 · `Collections` 与 `Arrays` 工具
+  - 步骤 17 · 选择指南
+  - 步骤 18 · 遗留同步容器
+  - 步骤 19 · 并发集合边界（预告）
+  - 步骤 20 · 与 Stream 的接口
+  - 步骤 21 · C++ 对照总表
+  - 步骤 22 · 易错清单
+  - 步骤 23 · 验收与练习
+  - 步骤 24 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s11_concurrency  [GAPS]
+- doc: `第2部分-阶段11-并发基础与Java-Memory-Model.md`
+- practice H2 parsed: **28** | topics on disk: **28** | key hits: 1/28
+- **missing keys (27):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定
+  - `s01` — 为什么需要并发
+  - `s02` — `Thread` 与任务抽象
+  - `s03` — 中断纪律
+  - `s04` — `Executor` / `ExecutorService`
+  - `s05` — `ThreadPoolExecutor` 七参数
+  - `s06` — `Future`
+  - `s07` — `CompletableFuture`
+  - `s08` — `ForkJoinPool` 轮廓
+  - `s09` — `synchronized` 与内置监视器
+  - `s10` — `wait` / `notify` / `notifyAll`
+  - `s12` — `Lock` / `ReentrantLock` / `Condition`
+  - `s13` — `ReadWriteLock` / `StampedLock`
+  - `s14` — `ConcurrentHashMap`
+  - `s15` — `CopyOnWriteArrayList` 与并发队列
+  - `s16` — `BlockingQueue` 家族
+  - `s17` — 同步工具选型
+  - `s18` — 原子类与累加器
+  - `s19` — `ThreadLocal` 与泄漏
+  - `s20` — JMM 与 happens-before
+  - `s21` — 安全发布与 DCL
+  - `s22` — 故障模式
+  - `s23` — 诊断轮廓
+  - `s24` — C++ 对照总表
+  - `s25` — 易错清单
+  - `s26` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定
+  - 步骤 1 · 为什么需要并发
+  - 步骤 2 · `Thread` 与任务抽象
+  - 步骤 3 · 中断纪律
+  - 步骤 4 · `Executor` / `ExecutorService`
+  - 步骤 5 · `ThreadPoolExecutor` 七参数
+  - 步骤 6 · `Future`
+  - 步骤 7 · `CompletableFuture`
+  - 步骤 8 · `ForkJoinPool` 轮廓
+  - 步骤 9 · `synchronized` 与内置监视器
+  - 步骤 10 · `wait` / `notify` / `notifyAll`
+  - 步骤 11 · `volatile`
+  - 步骤 12 · `Lock` / `ReentrantLock` / `Condition`
+  - 步骤 13 · `ReadWriteLock` / `StampedLock`
+  - 步骤 14 · `ConcurrentHashMap`
+  - 步骤 15 · `CopyOnWriteArrayList` 与并发队列
+  - 步骤 16 · `BlockingQueue` 家族
+  - 步骤 17 · 同步工具选型
+  - 步骤 18 · 原子类与累加器
+  - 步骤 19 · `ThreadLocal` 与泄漏
+  - 步骤 20 · JMM 与 happens-before
+  - 步骤 21 · 安全发布与 DCL
+  - 步骤 22 · 故障模式
+  - 步骤 23 · 诊断轮廓
+  - 步骤 24 · C++ 对照总表
+  - 步骤 25 · 易错清单
+  - 步骤 26 · 验收与练习
+  - 步骤 27 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s12_loom  [GAPS]
+- doc: `第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md`
+- practice H2 parsed: **25** | topics on disk: **25** | key hits: 1/25
+- **missing keys (24):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具约定与 Preview 纪律
+  - `s01` — 为什么需要 Loom
+  - `s02` — 平台线程 vs 虚拟线程
+  - `s03` — 创建虚拟线程
+  - `s04` — 禁止池化与采用心智
+  - `s05` — 调度：carrier、mount、unmount
+  - `s06` — 阻塞与 unmount
+  - `s07` — pinning：历史、JEP 491、剩余场景
+  - `s08` — 虚拟线程 API 与行为细节
+  - `s09` — 内存、GC、ThreadLocal 足迹
+  - `s10` — 观察性
+  - `s11` — 采用指南摘要
+  - `s13` — ScopedValue API
+  - `s14` — ScopedValue 继承与结构化并发
+  - `s15` — Structured Concurrency：问题与原则
+  - `s16` — StructuredTaskScope（JDK 25 · JEP 505）
+  - `s17` — Joiner 策略
+  - `s18` — 取消、超时、配置
+  - `s19` — SC 演进时间线（状态写死）
+  - `s20` — 选型矩阵
+  - `s21` — C++ 对照
+  - `s22` — 易错清单
+  - `s23` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具约定与 Preview 纪律
+  - 步骤 1 · 为什么需要 Loom
+  - 步骤 2 · 平台线程 vs 虚拟线程
+  - 步骤 3 · 创建虚拟线程
+  - 步骤 4 · 禁止池化与采用心智
+  - 步骤 5 · 调度：carrier、mount、unmount
+  - 步骤 6 · 阻塞与 unmount
+  - 步骤 7 · pinning：历史、JEP 491、剩余场景
+  - 步骤 8 · 虚拟线程 API 与行为细节
+  - 步骤 9 · 内存、GC、ThreadLocal 足迹
+  - 步骤 10 · 观察性
+  - 步骤 11 · 采用指南摘要
+  - 步骤 12 · Scoped Values：动机
+  - 步骤 13 · ScopedValue API
+  - 步骤 14 · ScopedValue 继承与结构化并发
+  - 步骤 15 · Structured Concurrency：问题与原则
+  - 步骤 16 · StructuredTaskScope（JDK 25 · JEP 505）
+  - 步骤 17 · Joiner 策略
+  - 步骤 18 · 取消、超时、配置
+  - 步骤 19 · SC 演进时间线（状态写死）
+  - 步骤 20 · 选型矩阵
+  - 步骤 21 · C++ 对照
+  - 步骤 22 · 易错清单
+  - 步骤 23 · 验收与练习
+  - 步骤 24 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s13_keywords  [GAPS]
+- doc: `第2部分-阶段13-关键字完整表-语法特性分类总表-现代写法收口.md`
+- practice H2 parsed: **22** | topics on disk: **22** | key hits: 1/22
+- **missing keys (21):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具与对账方法
+  - `s01` — 词法三分与标识符
+  - `s02` — 保留关键字完整表（JLS SE 25）
+  - `s03` — 保留关键字逐组简述
+  - `s04` — `const` / `goto` / `strictfp` 专条
+  - `s05` — 字面量形态：`true` / `false` / `null`
+  - `s06` — 上下文关键字完整表（17）
+  - `s07` — `var` / `yield` / `record` / sealed 族
+  - `s08` — `when` 与模式守卫
+  - `s09` — 模块词与 `import module`
+  - `s10` — `_` 未命名变量与模式（JEP 456 · JDK 22 定稿）
+  - `s11` — TypeIdentifier 与 UnqualifiedMethodIdentifier
+  - `s12` — 语法特性分类总表（非关键字槽位）
+  - `s14` — 灵活构造体（JEP 513 · JDK 25）
+  - `s15` — 按版本引入时间线（语言，精选）
+  - `s16` — Preview / Final 纪律
+  - `s17` — 现代写法收口清单
+  - `s18` — C++ 对照
+  - `s19` — 易错清单
+  - `s20` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具与对账方法
+  - 步骤 1 · 词法三分与标识符
+  - 步骤 2 · 保留关键字完整表（JLS SE 25）
+  - 步骤 3 · 保留关键字逐组简述
+  - 步骤 4 · `const` / `goto` / `strictfp` 专条
+  - 步骤 5 · 字面量形态：`true` / `false` / `null`
+  - 步骤 6 · 上下文关键字完整表（17）
+  - 步骤 7 · `var` / `yield` / `record` / sealed 族
+  - 步骤 8 · `when` 与模式守卫
+  - 步骤 9 · 模块词与 `import module`
+  - 步骤 10 · `_` 未命名变量与模式（JEP 456 · JDK 22 定稿）
+  - 步骤 11 · TypeIdentifier 与 UnqualifiedMethodIdentifier
+  - 步骤 12 · 语法特性分类总表（非关键字槽位）
+  - 步骤 13 · 紧凑源文件与 instance main（JEP 512 · JDK 25）
+  - 步骤 14 · 灵活构造体（JEP 513 · JDK 25）
+  - 步骤 15 · 按版本引入时间线（语言，精选）
+  - 步骤 16 · Preview / Final 纪律
+  - 步骤 17 · 现代写法收口清单
+  - 步骤 18 · C++ 对照
+  - 步骤 19 · 易错清单
+  - 步骤 20 · 验收与练习
+  - 步骤 21 · 一手资源索引（仅官方）
+  - 收尾 · 完成标志与去向
+
+## p2_s14_effective  [GAPS]
+- doc: `第2部分-阶段14-Effective级惯用法与API设计.md`
+- practice H2 parsed: **28** | topics on disk: **28** | key hits: 1/28
+- **missing keys (27):**
+  - `n00` — 本阶段导读
+  - `s00` — 工具与重构心态
+  - `s01` — API 设计总原则
+  - `s02` — 静态工厂方法
+  - `s03` — Builder 模式
+  - `s04` — 单例、工具类、依赖注入轮廓
+  - `s05` — 清理机制与资源
+  - `s06` — 不可变性与防御性拷贝
+  - `s07` — equals / hashCode / toString
+  - `s08` — clone 与拷贝策略
+  - `s09` — Comparable 与 Comparator
+  - `s10` — 可访问性与组合优先继承
+  - `s11` — 接口与抽象类
+  - `s12` — 嵌套类选型
+  - `s13` — 泛型 API 纪律
+  - `s15` — Lambda 与 Stream 惯用法
+  - `s16` — 方法设计
+  - `s17` — null 与 Optional
+  - `s18` — 异常惯用法
+  - `s19` — 并发惯用法（接阶段 11–12）
+  - `s20` — 序列化警告（接第 3 部分）
+  - `s21` — 通用编程卫生
+  - `s22` — JDK 21–25 叠层清单
+  - `s23` — 学生作业风 → 重构清单（验收主练习）
+  - `s24` — C++ 对照
+  - `s25` — 易错总表
+  - `s26` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本阶段导读
+  - 步骤 0 · 工具与重构心态
+  - 步骤 1 · API 设计总原则
+  - 步骤 2 · 静态工厂方法
+  - 步骤 3 · Builder 模式
+  - 步骤 4 · 单例、工具类、依赖注入轮廓
+  - 步骤 5 · 清理机制与资源
+  - 步骤 6 · 不可变性与防御性拷贝
+  - 步骤 7 · equals / hashCode / toString
+  - 步骤 8 · clone 与拷贝策略
+  - 步骤 9 · Comparable 与 Comparator
+  - 步骤 10 · 可访问性与组合优先继承
+  - 步骤 11 · 接口与抽象类
+  - 步骤 12 · 嵌套类选型
+  - 步骤 13 · 泛型 API 纪律
+  - 步骤 14 · 枚举与注解
+  - 步骤 15 · Lambda 与 Stream 惯用法
+  - 步骤 16 · 方法设计
+  - 步骤 17 · null 与 Optional
+  - 步骤 18 · 异常惯用法
+  - 步骤 19 · 并发惯用法（接阶段 11–12）
+  - 步骤 20 · 序列化警告（接第 3 部分）
+  - 步骤 21 · 通用编程卫生
+  - 步骤 22 · JDK 21–25 叠层清单
+  - 步骤 23 · 学生作业风 → 重构清单（验收主练习）
+  - 步骤 24 · C++ 对照
+  - 步骤 25 · 易错总表
+  - 步骤 26 · 验收与练习
+  - 步骤 27 · 一手资源索引（优先官方）
+  - 收尾 · 完成标志与去向
+
+## p3_stdlib  [GAPS]
+- doc: `第3部分-标准库系统化.md`
+- practice H2 parsed: **42** | topics on disk: **41** | key hits: 0/42
+- **missing keys (42):**
+  - `n00` — 本部分导读
+  - `sec_3_1_1` — 类型地图
+  - `sec_3_1_2` — 最小可跑
+  - `sec_3_1_3` — `Clock` 可注入（测试）
+  - `sec_3_1_4` — 格式化与解析
+  - `sec_3_1_5` — 遗留类型（只读旧代码）
+  - `sec_3_1_6` — 选型速查
+  - `sec_3_1_7` — C++
+  - `sec_3_1_8` — 验收 3.1
+  - `sec_3_2_1` — 经典流层次（能识会替）
+  - `sec_3_2_2` — NIO.2：`Path` / `Files` / `FileSystem`
+  - `sec_3_2_3` — NIO 缓冲与通道（轮廓 ）
+  - `sec_3_2_4` — 字符集 `Charset`
+  - `sec_3_2_5` — 正则：`Pattern` / `Matcher`
+  - `sec_3_2_6` — C++
+  - `sec_3_2_7` — 验收 3.2
+  - `sec_3_3_1` — `Locale`
+  - `sec_3_3_2` — 资源束 `ResourceBundle`
+  - `sec_3_3_3` — 数字 / 货币 / 消息格式
+  - `sec_3_3_4` — `Normalizer`（Unicode 规范化）
+  - `sec_3_3_5` — `Collator`（Locale 敏感排序）
+  - `sec_3_3_6` — `BreakIterator`（）
+  - `sec_3_3_7` — 验收 3.3
+  - `sec_3_4_1` — `java.net.http.HttpClient`（Java 11+）
+  - `sec_3_4_2` — Process API
+  - `sec_3_4_3` — `RandomGenerator`（Java 17+）
+  - `sec_3_4_4` — 网络基础（本体，非 Web 框架）
+  - `sec_3_4_5` — 验收 3.4
+  - `sec_3_5_1` — 架构心智
+  - `sec_3_5_2` — `SecureRandom`
+  - `sec_3_5_3` — 摘要 · MAC · 签名 · 加解密（最小轮廓）
+  - `sec_3_5_4` — KeyStore 与证书
+  - `sec_3_5_5` — JSSE / TLS 轮廓
+  - `sec_3_5_6` — KDF API（JDK 25 定稿 · JEP 510）
+  - `sec_3_5_7` — PEM 编码（Preview 状态写死 · 实时核对）
+  - `sec_3_5_8` — Security Manager
+  - `sec_3_5_9` — 验收 3.5
+  - `sec_3_6_1` — 原生序列化是什么
+  - `sec_3_6_2` — 为何极度谨慎（阶段 14 呼应）
+  - `sec_3_6_3` — record 与序列化
+  - `sec_3_6_4` — 现代替代（本体线概念）
+  - `sec_3_6_5` — 验收 3.6
+- unmatched H2 (not classified as practice pattern, 2):
+  - 全部分验收清单
+  - C++ 总对照（简）
+- all ## headings in doc:
+  - 0 · 本部分导读
+  - 3.1.1 类型地图
+  - 3.1.2 最小可跑
+  - 3.1.3 `Clock` 可注入（测试）
+  - 3.1.4 格式化与解析
+  - 3.1.5 遗留类型（只读旧代码）
+  - 3.1.6 选型速查
+  - 3.1.7 C++
+  - 3.1.8 验收 3.1
+  - 3.2.1 经典流层次（能识会替）
+  - 3.2.2 NIO.2：`Path` / `Files` / `FileSystem`
+  - 3.2.3 NIO 缓冲与通道（轮廓 ）
+  - 3.2.4 字符集 `Charset`
+  - 3.2.5 正则：`Pattern` / `Matcher`
+  - 3.2.6 C++
+  - 3.2.7 验收 3.2
+  - 3.3.1 `Locale`
+  - 3.3.2 资源束 `ResourceBundle`
+  - 3.3.3 数字 / 货币 / 消息格式
+  - 3.3.4 `Normalizer`（Unicode 规范化）
+  - 3.3.5 `Collator`（Locale 敏感排序）
+  - 3.3.6 `BreakIterator`（）
+  - 3.3.7 验收 3.3
+  - 3.4.1 `java.net.http.HttpClient`（Java 11+）
+  - 3.4.2 Process API
+  - 3.4.3 `RandomGenerator`（Java 17+）
+  - 3.4.4 网络基础（本体，非 Web 框架）
+  - 3.4.5 验收 3.4
+  - 3.5.1 架构心智
+  - 3.5.2 `SecureRandom`
+  - 3.5.3 摘要 · MAC · 签名 · 加解密（最小轮廓）
+  - 3.5.4 KeyStore 与证书
+  - 3.5.5 JSSE / TLS 轮廓
+  - 3.5.6 KDF API（JDK 25 定稿 · JEP 510）
+  - 3.5.7 PEM 编码（Preview 状态写死 · 实时核对）
+  - 3.5.8 Security Manager
+  - 3.5.9 验收 3.5
+  - 3.6.1 原生序列化是什么
+  - 3.6.2 为何极度谨慎（阶段 14 呼应）
+  - 3.6.3 record 与序列化
+  - 3.6.4 现代替代（本体线概念）
+  - 3.6.5 验收 3.6
+  - 全部分验收清单
+  - C++ 总对照（简）
+  - 一手资源索引（官方）
+  - 收尾
+
+## p4_engineering  [GAPS]
+- doc: `第4部分-工程系统.md`
+- practice H2 parsed: **22** | topics on disk: **21** | key hits: 0/22
+- **missing keys (22):**
+  - `n00` — 本部分导读
+  - `sec_4_1_1` — 为何需要构建工具
+  - `sec_4_1_2` — Maven 主干
+  - `sec_4_1_3` — Gradle 主干
+  - `sec_4_1_4` — 构建验收 4.1
+  - `sec_4_2_1` — 测试金字塔直觉
+  - `sec_4_2_2` — JUnit 5（Jupiter）
+  - `sec_4_2_3` — AssertJ（流畅断言）
+  - `sec_4_2_4` — Mockito
+  - `sec_4_2_5` — 测试命名与结构
+  - `sec_4_2_6` — 测试验收 4.2
+  - `sec_4_3_1` — 工具选型地图（知用途即可）
+  - `sec_4_3_2` — 覆盖率纪律
+  - `sec_4_3_3` — CI 最小门禁
+  - `sec_4_3_4` — 验收 4.3
+  - `sec_4_4_1` — `jar`
+  - `sec_4_4_2` — `jdeps`（依赖分析）
+  - `sec_4_4_3` — `jlink`（定制运行时镜像）
+  - `sec_4_4_4` — `jpackage`（安装包）
+  - `sec_4_4_5` — 容器最小化思路（概念）
+  - `sec_4_4_6` — 其它 JDK 小工具
+  - `sec_4_4_7` — 验收 4.4
+- unmatched H2 (not classified as practice pattern, 1):
+  - 综合练习（第 4 部分）
+- all ## headings in doc:
+  - 0 · 本部分导读
+  - 4.1.1 为何需要构建工具
+  - 4.1.2 Maven 主干
+  - 4.1.3 Gradle 主干
+  - 4.1.4 构建验收 4.1
+  - 4.2.1 测试金字塔直觉
+  - 4.2.2 JUnit 5（Jupiter）
+  - 4.2.3 AssertJ（流畅断言）
+  - 4.2.4 Mockito
+  - 4.2.5 测试命名与结构
+  - 4.2.6 测试验收 4.2
+  - 4.3.1 工具选型地图（知用途即可）
+  - 4.3.2 覆盖率纪律
+  - 4.3.3 CI 最小门禁
+  - 4.3.4 验收 4.3
+  - 4.4.1 `jar`
+  - 4.4.2 `jdeps`（依赖分析）
+  - 4.4.3 `jlink`（定制运行时镜像）
+  - 4.4.4 `jpackage`（安装包）
+  - 4.4.5 容器最小化思路（概念）
+  - 4.4.6 其它 JDK 小工具
+  - 4.4.7 验收 4.4
+  - 综合练习（第 4 部分）
+  - 一手资源索引
+  - 收尾
+
+## p5_evolution  [GAPS]
+- doc: `第5部分-Java演进史.md`
+- practice H2 parsed: **8** | topics on disk: **7** | key hits: 0/8
+- **missing keys (8):**
+  - `n00` — 本部分导读
+  - `sec_5_1` — 版本与发布节奏
+  - `sec_5_2` — 每版头条时间轴（8 → 26；27 仅状态跟踪）
+  - `sec_5_3` — 废弃 / 移除 / 不推荐清单
+  - `sec_5_4` — Preview / Incubator / 实验纪律 🔬
+  - `sec_5_5` — 从「旧基线」迁到 25 的检查单
+  - `sec_5_6` — 项目主题线（跨版本串故事）
+  - `sec_5_7` — 验收与练习
+- all ## headings in doc:
+  - 0 · 本部分导读
+  - 5.1 · 版本与发布节奏
+  - 5.2 · 每版头条时间轴（8 → 26；27 仅状态跟踪）
+  - 5.3 · 废弃 / 移除 / 不推荐清单
+  - 5.4 · Preview / Incubator / 实验纪律 🔬
+  - 5.5 · 从「旧基线」迁到 25 的检查单
+  - 5.6 · 项目主题线（跨版本串故事）
+  - 5.7 · 验收与练习
+  - 一手资源索引
+  - 收尾
+
+## p6_branch_a_jpms  [GAPS]
+- doc: `第6部分-支线A-JPMS模块系统.md`
+- practice H2 parsed: **20** | topics on disk: **20** | key hits: 19/20
+- **missing keys (1):**
+  - `n00` — 支线导读
+- all ## headings in doc:
+  - 0 · 支线导读
+  - 步骤 0 · 动机与目标
+  - 步骤 1 · 模块是什么
+  - 步骤 2 · `module-info.java` 全指令
+  - 步骤 3 · `requires` / `transitive` / `static`
+  - 步骤 4 · `exports` 与 `opens`
+  - 步骤 5 · `open module`
+  - 步骤 6 · 服务：`uses` / `provides` + `ServiceLoader`
+  - 步骤 7 · 模块路径 vs 类路径
+  - 步骤 8 · 无名模块 · 自动模块 · 命名模块
+  - 步骤 9 · 可读性、可访问性、解析
+  - 步骤 10 · 反射与强封装
+  - 步骤 11 · Module Import Declarations（JEP 511 · JDK 25 Final）
+  - 步骤 12 · 编译与构建轮廓
+  - 步骤 13 · 工具：`jdeps` · `jlink` · `jmod` · `jar`
+  - 步骤 14 · 迁移策略与常见错误
+  - 步骤 15 · 平台模块地图（查漏）
+  - 步骤 16 · C++ modules 对照
+  - 步骤 17 · 易错清单
+  - 步骤 18 · 验收与练习
+  - 步骤 19 · 一手资源索引
+  - 收尾
+
+## p6_branch_b_reflect  [GAPS]
+- doc: `第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md`
+- practice H2 parsed: **23** | topics on disk: **23** | key hits: 22/23
+- **missing keys (1):**
+  - `n00` — 支线导读
+- all ## headings in doc:
+  - 0 · 支线导读
+  - 步骤 0 · 元编程边界与纪律
+  - 步骤 1 · `Class` 与类型令牌
+  - 步骤 2 · `Method` / `Field` / `Constructor` / `Parameter`
+  - 步骤 3 · `setAccessible` 与强封装
+  - 步骤 4 · JEP 500：让 final 真正 final（JDK 26）
+  - 步骤 5 · 数组 · 枚举 · record · sealed · 修饰符
+  - 步骤 6 · 泛型擦除下的反射与 `Type` 体系
+  - 步骤 7 · 注解
+  - 步骤 8 · 注解处理器 APT 入门
+  - 步骤 9 · 动态代理 `Proxy`
+  - 步骤 10 · `MethodHandles` 与 `Lookup`
+  - 步骤 11 · MethodHandle 调用与组合变换
+  - 步骤 12 · `VarHandle`
+  - 步骤 13 · 反射 vs MethodHandle；JEP 416
+  - 步骤 14 · SPI 与 `ServiceLoader`（完整）
+  - 步骤 15 · Class-File API（JEP 484 · JDK 24 Final）
+  - 步骤 16 · 编译器 API 轮廓
+  - 步骤 17 · ASM / ByteBuddy 等定位
+  - 步骤 18 · 性能、安全、可观测性纪律
+  - 步骤 19 · C++ 对照总表
+  - 步骤 20 · 易错清单
+  - 步骤 21 · 验收与练习
+  - 步骤 22 · 一手资源索引
+  - 收尾
+
+## p6_branch_c_classfile  [GAPS]
+- doc: `第6部分-支线C-Class文件-字节码-类加载.md`
+- practice H2 parsed: **29** | topics on disk: **29** | key hits: 28/29
+- **missing keys (1):**
+  - `n00` — 支线导读
+- all ## headings in doc:
+  - 0 · 支线导读
+  - 步骤 0 · 心智模型与纪律
+  - 步骤 1 · `javap` 工作流
+  - 步骤 2 · `ClassFile` 顶层结构
+  - 步骤 3 · magic · 版本
+  - 步骤 4 · 常量池
+  - 步骤 5 · 描述符与 `Signature`
+  - 步骤 6 · access_flags · 成员表 · 属性轮廓
+  - 步骤 7 · `Code` 属性：执行骨架
+  - 步骤 8 · 验证与 `StackMapTable`
+  - 步骤 9 · 关键属性（读 javap 会撞上）
+  - 步骤 10 · 字节码执行模型与指令分类
+  - 步骤 11 · 方法调用族
+  - 步骤 12 · `invokedynamic`
+  - 步骤 13 · lambda / 方法引用底层
+  - 步骤 14 · 字符串拼接与 indy（JEP 280）
+  - 步骤 15 · 泛型擦除 · 桥接 · synthetic
+  - 步骤 16 · 加载 · 链接 · 初始化
+  - 步骤 17 · ClassLoader 层次与双亲委派
+  - 步骤 18 · 自定义 ClassLoader 纪律
+  - 步骤 19 · `<clinit>` / `<init>` · 初始化触发 · 接口
+  - 步骤 20 · 错误模型
+  - 步骤 21 · 模块层 · 可读性 · 模块下加载
+  - 步骤 22 · nestmate · hidden class
+  - 步骤 23 · CDS / AOT 类加载轮廓 → 支线 E
+  - 步骤 24 · 与支线 B Class-File API 汇合
+  - 步骤 25 · C++ 对照总表
+  - 步骤 26 · 易错清单
+  - 步骤 27 · 验收与练习
+  - 步骤 28 · 一手资源索引
+  - 收尾
+
+## p6_branch_d_jvm_gc  [GAPS]
+- doc: `第6部分-支线D-JVM架构-GC-对象布局.md`
+- practice H2 parsed: **25** | topics on disk: **25** | key hits: 24/25
+- **missing keys (1):**
+  - `n00` — 支线导读
+- all ## headings in doc:
+  - 0 · 支线导读
+  - 步骤 0 · 心智与纪律
+  - 步骤 1 · JVMS 运行时数据区总图
+  - 步骤 2 · 堆：分代直觉 · 区域 · TLAB
+  - 步骤 3 · 栈 · PC · 本地方法栈
+  - 步骤 4 · Metaspace · 直接内存 · Code Cache
+  - 步骤 5 · 对象布局：头 · 字段 · 对齐 · CompressedOops
+  - 步骤 6 · Compact Object Headers（JEP 519）
+  - 步骤 7 · JOL 实测工作流
+  - 步骤 8 · GC 基础
+  - 步骤 9 · 收集器版图总览
+  - 步骤 10 · G1（默认主线）
+  - 步骤 11 · JEP 522：G1 吞吐改进（JDK 26）
+  - 步骤 12 · ZGC
+  - 步骤 13 · Shenandoah 与 Generational Shenandoah
+  - 步骤 14 · 其他收集器轮廓
+  - 步骤 15 · GC 日志 · 分配失败 · 停顿
+  - 步骤 16 · 引用类型与 ReferenceQueue
+  - 步骤 17 · 泄漏心智
+  - 步骤 18 · 容器 / cgroup 感知
+  - 步骤 19 · OOM 家族与诊断入口
+  - 步骤 20 · 观测工具箱
+  - 步骤 21 · C++ 对照
+  - 步骤 22 · 易错清单
+  - 步骤 23 · 验收与练习
+  - 步骤 24 · 一手资源索引
+  - 收尾
+
+## p6_branch_e_jit_aot  [GAPS]
+- doc: `第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md`
+- practice H2 parsed: **26** | topics on disk: **26** | key hits: 25/26
+- **missing keys (1):**
+  - `n00` — 支线导读
+- all ## headings in doc:
+  - 0 · 支线导读
+  - 步骤 0 · 心智与纪律
+  - 步骤 1 · 执行管线总览
+  - 步骤 2 · 编译层级 0–4
+  - 步骤 3 · 热点与阈值直觉
+  - 步骤 4 · 内联 · 去虚化 · 投机
+  - 步骤 5 · 锁粗化 / 锁消除
+  - 步骤 6 · 逃逸分析与标量替换
+  - 步骤 7 · 逆优化
+  - 步骤 8 · Code Cache 与编译线程
+  - 步骤 9 · 观测 JIT
+  - 步骤 10 · JMH 与冷/热差异
+  - 步骤 11 · CDS / AppCDS
+  - 步骤 12 · Project Leyden 与 AOT 缓存总图
+  - 步骤 13 · JEP 483：AOT Class Loading & Linking（JDK 24）
+  - 步骤 14 · JEP 514：AOT 命令行易用性（JDK 25）
+  - 步骤 15 · JEP 515：AOT Method Profiling（JDK 25）
+  - 步骤 16 · JEP 516：AOT Object Caching with Any GC（JDK 26）
+  - 步骤 17 · 训练运行纪律
+  - 步骤 18 · Native Memory Tracking（NMT）
+  - 步骤 19 · Serviceability：jhsdb / SA 轮廓
+  - 步骤 20 · JMX / 平台 MXBean 轮廓
+  - 步骤 21 · 自定义 JFR Event
+  - 步骤 22 · C++ 对照总表
+  - 步骤 23 · 易错清单
+  - 步骤 24 · 验收与练习
+  - 步骤 25 · 一手资源索引
+  - 收尾
+
+## p7_perf  [GAPS]
+- doc: `第7部分-性能工程线.md`
+- practice H2 parsed: **32** | topics on disk: **22** | key hits: 21/32
+- **missing keys (11):**
+  - `n00` — 部分导读
+  - `n01` — 现象与 SLO
+  - `n02` — 环境
+  - `n03` — 复现步骤
+  - `n04` — 基线数据（表）
+  - `n05` — 剖析证据
+  - `n06` — 假设
+  - `n07` — 改动（diff 摘要）
+  - `n08` — 对比数据（表）
+  - `n09` — 结论与风险
+  - `n10` — 附录：命令与参数全文
+- all ## headings in doc:
+  - 0 · 部分导读
+  - §1 · 方法论与实验记录
+  - §2 · 指标字典
+  - §3 · 工具箱总表
+  - §4 · JFR + JMC + jcmd 工作流
+  - §5 · 自定义 JFR Event
+  - §6 · JMH：微基准正确姿势
+  - §7 · async-profiler 与火焰图
+  - §8 · 现场诊断工具
+  - §9 · NMT 与非堆账单
+  - §10 · GC 与分配的性能视角
+  - §11 · JIT 相关的性能视角
+  - §12 · 启动与预热实验设计
+  - §13 · 容器与资源限制下的测量
+  - §14 · 常见优化主题清单（按优先级）
+  - §15 · 并发与虚拟线程场景
+  - §16 · 虚假共享与布局轮廓
+  - §17 · 日志与探针开销
+  - §18 · 完整闭环案例模板（验收主件）
+  - 1. 现象与 SLO
+  - 2. 环境
+  - 3. 复现步骤
+  - 4. 基线数据（表）
+  - 5. 剖析证据
+  - 6. 假设
+  - 7. 改动（diff 摘要）
+  - 8. 对比数据（表）
+  - 9. 结论与风险
+  - 10. 附录：命令与参数全文
+  - §19 · 启动路径对比实验模板（验收副件）
+  - §20 · 易错清单
+  - §21 · 验收与练习
+  - §22 · 一手资源索引
+  - 收尾
+
+## p8_native  [GAPS]
+- doc: `第8部分-本地互操作-JNI-FFM-Vector-API.md`
+- practice H2 parsed: **22** | topics on disk: **22** | key hits: 21/22
+- **missing keys (1):**
+  - `n00` — 部分导读
+- all ## headings in doc:
+  - 0 · 部分导读
+  - §1 · 本地互操作全景与选型
+  - §2 · JNI：为何存在、`native`、历史流程
+  - §3 · JNI 风险：崩溃安全、引用、开销
+  - §4 · FFM 总览（JEP 454 · Java 22 定稿）
+  - §5 · MemorySegment · Arena · 空间/时间安全
+  - §6 · ValueLayout · MemoryLayout · 结构化访问
+  - §7 · Linker · SymbolLookup · FunctionDescriptor · downcall
+  - §8 · Upcall：本地回调 Java
+  - §9 · 零长度段 · reinterpret · 返回指针
+  - §10 · 受限方法 · `--enable-native-access` · JEP 472
+  - §11 · jextract 轮廓
+  - §12 · FFM vs JNI vs ByteBuffer vs Unsafe
+  - §13 · NMT / 堆外账单（接支线 E）
+  - §14 · C++ / C# 对照表
+  - §15 · 验收实验：`strlen` + Arena
+  - §16 · Vector API：状态写死与动机
+  - §17 · Vector 最小例子
+  - §18 · 何时 Vector vs 自动向量化 vs JMH
+  - §19 · 不主线清单
+  - §20 · 易错清单
+  - §21 · 验收与练习
+  - §22 · 一手资源索引
+  - 收尾
+
+---
+TOTAL practice H2: 579
+TOTAL topics: 566
+Stages with gaps: ['p2_s01_structure', 'p2_s02_types', 'p2_s03_control', 'p2_s04_classes', 'p2_s05_inheritance', 'p2_s06_interfaces', 'p2_s07_exceptions', 'p2_s08_generics', 'p2_s09_lambda_stream', 'p2_s10_collections', 'p2_s11_concurrency', 'p2_s12_loom', 'p2_s13_keywords', 'p2_s14_effective', 'p3_stdlib', 'p4_engineering', 'p5_evolution', 'p6_branch_a_jpms', 'p6_branch_b_reflect', 'p6_branch_c_classfile', 'p6_branch_d_jvm_gc', 'p6_branch_e_jit_aot', 'p7_perf', 'p8_native']
+Stages short count: ['p3_stdlib', 'p4_engineering', 'p5_evolution', 'p7_perf']

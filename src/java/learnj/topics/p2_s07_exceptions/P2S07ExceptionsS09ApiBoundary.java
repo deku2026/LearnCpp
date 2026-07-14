@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : api_boundary
  * Topic id : part2/stage07/s09/api_boundary
  * Heading  : API 边界策略

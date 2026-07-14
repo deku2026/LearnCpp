@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : pitfalls
  * Topic id : part2/stage03/s16/pitfalls
  * Heading  : 易错清单

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 24
+ * Step     : s24
  * Item     : acceptance_practice
  * Topic id : part6/branch_e/s24/acceptance_practice
  * Heading  : 验收与练习

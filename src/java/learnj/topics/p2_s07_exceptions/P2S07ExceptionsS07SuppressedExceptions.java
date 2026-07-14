@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 7
+ * Step     : s07
  * Item     : suppressed_exceptions
  * Topic id : part2/stage07/s07/suppressed_exceptions
  * Heading  : 抑制异常（suppressed）

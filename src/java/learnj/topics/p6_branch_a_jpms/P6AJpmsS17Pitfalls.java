@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 17
+ * Step     : s17
  * Item     : pitfalls
  * Topic id : part6/branch_a/s17/pitfalls
  * Heading  : 易错清单

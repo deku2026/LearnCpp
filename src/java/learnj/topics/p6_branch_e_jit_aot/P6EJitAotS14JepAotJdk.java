@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : jep_aot_jdk
  * Topic id : part6/branch_e/s14/jep_aot_jdk
  * Heading  : JEP 514：AOT 命令行易用性（JDK 25）

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 12
+ * Step     : s12
  * Item     : math_strictmath
  * Topic id : part2/stage02/s12/math_strictmath
  * Heading  : `Math` / `StrictMath` 与大数入门

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : topic_bf5bfc19
  * Topic id : part2/stage14/s05/topic_bf5bfc19
  * Heading  : 清理机制与资源

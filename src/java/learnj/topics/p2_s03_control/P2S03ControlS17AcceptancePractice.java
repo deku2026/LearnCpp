@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 17
+ * Step     : s17
  * Item     : acceptance_practice
  * Topic id : part2/stage03/s17/acceptance_practice
  * Heading  : 验收与练习

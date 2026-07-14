@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : clone
  * Topic id : part2/stage14/s08/clone
  * Heading  : clone 与拷贝策略

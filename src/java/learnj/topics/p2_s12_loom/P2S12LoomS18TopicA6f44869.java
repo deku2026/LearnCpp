@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段12-Virtual-Threads-Structured-Concurrency-Scoped-Values-Loom.md
  * Stage    : p2_s12_loom
- * Step     : 步骤 18
+ * Step     : s18
  * Item     : topic_a6f44869
  * Topic id : part2/stage12/s18/topic_a6f44869
  * Heading  : 取消、超时、配置

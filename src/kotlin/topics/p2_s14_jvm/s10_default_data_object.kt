@@ -1,4 +1,4 @@
-@file:JvmName("P2S14Jvm10DefaultDataObjectKtFacade")
+@file:JvmName("P2S14JvmS10DefaultDataObjectKtFacade")
 
 package learn.topics
 
@@ -7,16 +7,16 @@ import learn.registerTopic
 // LearnKotlin placeholder
 // Doc      : 第2部分-阶段14-JVM互操作与字节码.md
 // Stage    : p2_s14_jvm
-// Section  : s10
+// Step     : s10
 // Item     : default_data_object
 // Topic id : part2/stage14/s10/default_data_object
-// Heading  : 步骤 10 默认参数、$default、data/object 合成
+// Heading  : 默认参数、`$default`、data/object 合成
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage14/s10/default_data_object") { _ ->
-    // practice: 步骤 10 默认参数、$default、data/object 合成
+    // practice: 默认参数、`$default`、data/object 合成
     0
 }

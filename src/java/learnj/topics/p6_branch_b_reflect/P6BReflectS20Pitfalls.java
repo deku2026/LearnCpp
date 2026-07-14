@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : pitfalls
  * Topic id : part6/branch_b/s20/pitfalls
  * Heading  : 易错清单

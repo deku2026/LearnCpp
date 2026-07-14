@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段6-接口-嵌套类-enum-record-sealed.md
  * Stage    : p2_s06_interfaces
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : static_private_interfaces
  * Topic id : part2/stage06/s04/static_private_interfaces
  * Heading  : 接口 `static` / `private` 方法

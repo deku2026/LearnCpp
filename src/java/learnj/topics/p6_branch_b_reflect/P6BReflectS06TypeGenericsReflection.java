@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : type_generics_reflection
  * Topic id : part6/branch_b/s06/type_generics_reflection
  * Heading  : 泛型擦除下的反射与 `Type` 体系

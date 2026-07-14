@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : switch_jep_java
  * Topic id : part2/stage03/s05/switch_jep_java
  * Heading  : switch 表达式（JEP 361，Java 14 定稿）

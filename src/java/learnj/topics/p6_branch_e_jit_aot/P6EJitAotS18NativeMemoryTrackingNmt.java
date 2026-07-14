@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 18
+ * Step     : s18
  * Item     : native_memory_tracking_nmt
  * Topic id : part6/branch_e/s18/native_memory_tracking_nmt
  * Heading  : Native Memory Tracking（NMT）

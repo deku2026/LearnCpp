@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : optional_api
  * Topic id : part2/stage09/s10/optional_api
  * Heading  : `Optional` 契约与 API

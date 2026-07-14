@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 3
+ * Step     : s03
  * Item     : topic_b2e369d8
  * Topic id : part2/stage02/s03/topic_b2e369d8
  * Heading  : 数值转换与提升

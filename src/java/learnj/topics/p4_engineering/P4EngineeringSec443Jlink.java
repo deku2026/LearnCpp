@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第4部分-工程系统.md
  * Stage    : p4_engineering
- * Step     : 4.4.3
+ * Step     : sec_4_4_3
  * Item     : jlink
  * Topic id : part4/engineering/sec_4_4_3/jlink
  * Heading  : `jlink`（定制运行时镜像）

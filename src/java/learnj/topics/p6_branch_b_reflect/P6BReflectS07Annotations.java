@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 7
+ * Step     : s07
  * Item     : annotations
  * Topic id : part6/branch_b/s07/annotations
  * Heading  : 注解

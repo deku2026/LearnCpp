@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段11-并发基础与Java-Memory-Model.md
  * Stage    : p2_s11_concurrency
- * Step     : 步骤 22
+ * Step     : s22
  * Item     : topic_e1cb9979
  * Topic id : part2/stage11/s22/topic_e1cb9979
  * Heading  : 故障模式

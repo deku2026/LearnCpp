@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : topic_6c56fd35
  * Topic id : part2/stage14/s02/topic_6c56fd35
  * Heading  : 静态工厂方法

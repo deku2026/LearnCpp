@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §11
+ * Step     : s11
  * Item     : jit_performance
  * Topic id : part7/perf/s11/jit_performance
  * Heading  : JIT 相关的性能视角

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : static
  * Topic id : part2/stage04/s06/static
  * Heading  : `static` 与静态工厂

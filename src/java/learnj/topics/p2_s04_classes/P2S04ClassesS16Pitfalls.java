@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 16
+ * Step     : s16
  * Item     : pitfalls
  * Topic id : part2/stage04/s16/pitfalls
  * Heading  : 易错清单

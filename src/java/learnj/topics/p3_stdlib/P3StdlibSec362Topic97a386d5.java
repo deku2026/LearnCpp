@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.6.2
+ * Step     : sec_3_6_2
  * Item     : topic_97a386d5
  * Topic id : part3/stdlib/sec_3_6_2/topic_97a386d5
  * Heading  : 为何极度谨慎（阶段 14 呼应）

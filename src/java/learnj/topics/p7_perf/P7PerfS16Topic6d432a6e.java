@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §16
+ * Step     : s16
  * Item     : topic_6d432a6e
  * Topic id : part7/perf/s16/topic_6d432a6e
  * Heading  : 虚假共享与布局轮廓

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : topic_6bc9a995
  * Topic id : part2/stage02/s06/topic_6bc9a995
  * Heading  : 数组

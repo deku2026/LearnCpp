@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 2
+ * Step     : s02
  * Item     : checked_unchecked
  * Topic id : part2/stage07/s02/checked_unchecked
  * Heading  : checked vs unchecked

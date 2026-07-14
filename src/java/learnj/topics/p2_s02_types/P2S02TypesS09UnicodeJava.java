@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段2-类型系统-基本类型-引用-数组-String-var-文本块.md
  * Stage    : p2_s02_types
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : unicode_java
  * Topic id : part2/stage02/s09/unicode_java
  * Heading  : Unicode 文本模型（C++ 转 Java 必停）

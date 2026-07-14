@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 5
+ * Step     : s05
  * Item     : record_sealed
  * Topic id : part6/branch_b/s05/record_sealed
  * Heading  : 数组 · 枚举 · record · sealed · 修饰符

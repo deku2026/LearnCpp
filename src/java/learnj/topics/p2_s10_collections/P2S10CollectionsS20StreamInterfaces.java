@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段10-集合框架-不可变集合与Sequenced-Collections.md
  * Stage    : p2_s10_collections
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : stream_interfaces
  * Topic id : part2/stage10/s20/stream_interfaces
  * Heading  : 与 Stream 的接口

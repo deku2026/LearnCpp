@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.2.2
+ * Step     : sec_3_2_2
  * Item     : path_files_filesystem_nio_2
  * Topic id : part3/stdlib/sec_3_2_2/path_files_filesystem_nio_2
  * Heading  : NIO.2：`Path` / `Files` / `FileSystem`

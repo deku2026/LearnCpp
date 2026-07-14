@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : stream_2
  * Topic id : part2/stage09/s20/stream_2
  * Heading  : Stream vs 命令式循环

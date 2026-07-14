@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第5部分-Java演进史.md
  * Stage    : p5_evolution
- * Step     : 5.7
+ * Step     : sec_5_7
  * Item     : acceptance_practice
  * Topic id : part5/evolution/sec_5_7/acceptance_practice
  * Heading  : 验收与练习

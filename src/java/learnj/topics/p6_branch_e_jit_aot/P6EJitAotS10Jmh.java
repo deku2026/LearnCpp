@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : jmh
  * Topic id : part6/branch_e/s10/jmh
  * Heading  : JMH 与冷/热差异

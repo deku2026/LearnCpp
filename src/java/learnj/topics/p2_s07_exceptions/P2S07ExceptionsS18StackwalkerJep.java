@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 18
+ * Step     : s18
  * Item     : stackwalker_jep
  * Topic id : part2/stage07/s18/stackwalker_jep
  * Heading  : `StackWalker`（JEP 259）

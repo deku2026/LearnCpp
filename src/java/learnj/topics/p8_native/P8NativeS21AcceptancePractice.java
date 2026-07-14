@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §21
+ * Step     : s21
  * Item     : acceptance_practice
  * Topic id : part8/native/s21/acceptance_practice
  * Heading  : 验收与练习

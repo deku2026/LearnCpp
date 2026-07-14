@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : topic_ff96309e
  * Topic id : part2/stage04/s08/topic_ff96309e
  * Heading  : 方法参数：只有值传递 （C++ 最大坑之一）

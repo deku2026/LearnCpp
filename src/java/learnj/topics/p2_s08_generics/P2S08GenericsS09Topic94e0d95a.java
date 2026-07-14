@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md
  * Stage    : p2_s08_generics
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : topic_94e0d95a
  * Topic id : part2/stage08/s09/topic_94e0d95a
  * Heading  : 不变性 vs 数组协变

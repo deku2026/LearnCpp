@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 15
+ * Step     : s15
  * Item     : class_file_api_jep_jdk_final
  * Topic id : part6/branch_b/s15/class_file_api_jep_jdk_final
  * Heading  : Class-File API（JEP 484 · JDK 24 Final）

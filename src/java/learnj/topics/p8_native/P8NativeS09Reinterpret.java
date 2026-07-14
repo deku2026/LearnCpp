@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第8部分-本地互操作-JNI-FFM-Vector-API.md
  * Stage    : p8_native
- * Step     : §9
+ * Step     : s09
  * Item     : reinterpret
  * Topic id : part8/native/s09/reinterpret
  * Heading  : 零长度段 · reinterpret · 返回指针

@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段1-程序结构-JDK-JVM心智模型与工具链.md
  * Stage    : p2_s01_structure
- * Step     : 步骤 20
+ * Step     : s20
  * Item     : acceptance_practice
  * Topic id : part2/stage01/s20/acceptance_practice
  * Heading  : 验收清单与练习（每条可自查）

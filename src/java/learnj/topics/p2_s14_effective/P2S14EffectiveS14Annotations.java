@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 14
+ * Step     : s14
  * Item     : annotations
  * Topic id : part2/stage14/s14/annotations
  * Heading  : 枚举与注解

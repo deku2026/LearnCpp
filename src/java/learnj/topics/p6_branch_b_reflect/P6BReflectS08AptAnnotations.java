@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : apt_annotations
  * Topic id : part6/branch_b/s08/apt_annotations
  * Heading  : 注解处理器 APT 入门

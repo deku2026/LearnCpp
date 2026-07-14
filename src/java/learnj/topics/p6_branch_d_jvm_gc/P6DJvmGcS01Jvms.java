@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线D-JVM架构-GC-对象布局.md
  * Stage    : p6_branch_d_jvm_gc
- * Step     : 步骤 1
+ * Step     : s01
  * Item     : jvms
  * Topic id : part6/branch_d/s01/jvms
  * Heading  : JVMS 运行时数据区总图

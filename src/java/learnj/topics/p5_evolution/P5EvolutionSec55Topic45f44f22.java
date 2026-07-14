@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第5部分-Java演进史.md
  * Stage    : p5_evolution
- * Step     : 5.5
+ * Step     : sec_5_5
  * Item     : topic_45f44f22
  * Topic id : part5/evolution/sec_5_5/topic_45f44f22
  * Heading  : 从「旧基线」迁到 25 的检查单

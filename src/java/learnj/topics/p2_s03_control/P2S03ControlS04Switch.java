@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段3-控制流与模式匹配.md
  * Stage    : p2_s03_control
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : switch
  * Topic id : part2/stage03/s04/switch
  * Heading  : 传统 `switch` 语句

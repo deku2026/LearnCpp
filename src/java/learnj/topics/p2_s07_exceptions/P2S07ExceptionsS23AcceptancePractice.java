@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段7-异常-断言-资源管理-try-with-resources.md
  * Stage    : p2_s07_exceptions
- * Step     : 步骤 23
+ * Step     : s23
  * Item     : acceptance_practice
  * Topic id : part2/stage07/s23/acceptance_practice
  * Heading  : 验收与练习

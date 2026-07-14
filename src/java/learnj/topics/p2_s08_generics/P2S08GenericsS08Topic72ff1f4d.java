@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段8-泛型-类型擦除-通配符-PECS-桥接方法.md
  * Stage    : p2_s08_generics
- * Step     : 步骤 8
+ * Step     : s08
  * Item     : topic_72ff1f4d
  * Topic id : part2/stage08/s08/topic_72ff1f4d
  * Heading  : 可具体化 vs 不可具体化

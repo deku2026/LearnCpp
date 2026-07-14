@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段4-类与对象模型基础.md
  * Stage    : p2_s04_classes
- * Step     : 步骤 0
+ * Step     : s00
  * Item     : tooling
  * Topic id : part2/stage04/s00/tooling
  * Heading  : 工具约定

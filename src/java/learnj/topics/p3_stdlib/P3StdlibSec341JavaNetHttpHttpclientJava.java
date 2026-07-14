@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.4.1
+ * Step     : sec_3_4_1
  * Item     : java_net_http_httpclient_java
  * Topic id : part3/stdlib/sec_3_4_1/java_net_http_httpclient_java
  * Heading  : `java.net.http.HttpClient`（Java 11+）

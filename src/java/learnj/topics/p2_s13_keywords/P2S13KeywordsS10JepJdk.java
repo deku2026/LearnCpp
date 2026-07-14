@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段13-关键字完整表-语法特性分类总表-现代写法收口.md
  * Stage    : p2_s13_keywords
- * Step     : 步骤 10
+ * Step     : s10
  * Item     : jep_jdk
  * Topic id : part2/stage13/s10/jep_jdk
  * Heading  : `_` 未命名变量与模式（JEP 456 · JDK 22 定稿）

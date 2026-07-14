@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段6-接口-嵌套类-enum-record-sealed.md
  * Stage    : p2_s06_interfaces
- * Step     : 步骤 19
+ * Step     : s19
  * Item     : permits_final_sealed_non_sealed
  * Topic id : part2/stage06/s19/permits_final_sealed_non_sealed
  * Heading  : `permits` / `final` / `sealed` / `non-sealed`

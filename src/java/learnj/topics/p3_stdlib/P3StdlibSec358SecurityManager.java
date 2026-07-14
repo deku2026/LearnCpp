@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.5.8
+ * Step     : sec_3_5_8
  * Item     : security_manager
  * Topic id : part3/stdlib/sec_3_5_8/security_manager
  * Heading  : Security Manager

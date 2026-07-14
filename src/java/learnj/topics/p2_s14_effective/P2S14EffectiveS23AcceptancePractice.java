@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段14-Effective级惯用法与API设计.md
  * Stage    : p2_s14_effective
- * Step     : 步骤 23
+ * Step     : s23
  * Item     : acceptance_practice
  * Topic id : part2/stage14/s23/acceptance_practice
  * Heading  : 学生作业风 → 重构清单（验收主练习）

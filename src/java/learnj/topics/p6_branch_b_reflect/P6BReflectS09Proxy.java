@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 9
+ * Step     : s09
  * Item     : proxy
  * Topic id : part6/branch_b/s09/proxy
  * Heading  : 动态代理 `Proxy`

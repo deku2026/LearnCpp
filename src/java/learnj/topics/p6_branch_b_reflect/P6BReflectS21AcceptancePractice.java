@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线B-反射注解动态代理-MethodHandle-SPI.md
  * Stage    : p6_branch_b_reflect
- * Step     : 步骤 21
+ * Step     : s21
  * Item     : acceptance_practice
  * Topic id : part6/branch_b/s21/acceptance_practice
  * Heading  : 验收与练习

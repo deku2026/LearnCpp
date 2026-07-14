@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 11
+ * Step     : s11
  * Item     : module_import_declarations_jep_jdk_final
  * Topic id : part6/branch_a/s11/module_import_declarations_jep_jdk_final
  * Heading  : Module Import Declarations（JEP 511 · JDK 25 Final）

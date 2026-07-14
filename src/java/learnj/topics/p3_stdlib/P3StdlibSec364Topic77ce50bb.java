@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第3部分-标准库系统化.md
  * Stage    : p3_stdlib
- * Step     : 3.6.4
+ * Step     : sec_3_6_4
  * Item     : topic_77ce50bb
  * Topic id : part3/stdlib/sec_3_6_4/topic_77ce50bb
  * Heading  : 现代替代（本体线概念）

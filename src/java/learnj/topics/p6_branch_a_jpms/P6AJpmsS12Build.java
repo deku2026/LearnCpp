@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 12
+ * Step     : s12
  * Item     : build
  * Topic id : part6/branch_a/s12/build
  * Heading  : 编译与构建轮廓

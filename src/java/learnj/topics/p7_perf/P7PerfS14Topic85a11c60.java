@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第7部分-性能工程线.md
  * Stage    : p7_perf
- * Step     : §14
+ * Step     : s14
  * Item     : topic_85a11c60
  * Topic id : part7/perf/s14/topic_85a11c60
  * Heading  : 常见优化主题清单（按优先级）

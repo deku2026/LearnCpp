@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线A-JPMS模块系统.md
  * Stage    : p6_branch_a_jpms
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : exports_opens
  * Topic id : part6/branch_a/s04/exports_opens
  * Heading  : `exports` 与 `opens`

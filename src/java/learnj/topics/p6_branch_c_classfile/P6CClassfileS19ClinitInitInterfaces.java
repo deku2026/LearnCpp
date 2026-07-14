@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 19
+ * Step     : s19
  * Item     : clinit_init_interfaces
  * Topic id : part6/branch_c/s19/clinit_init_interfaces
  * Heading  : `<clinit>` / `<init>` · 初始化触发 · 接口

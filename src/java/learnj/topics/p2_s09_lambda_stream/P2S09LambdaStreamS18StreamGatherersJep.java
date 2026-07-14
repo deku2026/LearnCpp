@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第2部分-阶段9-Lambda-方法引用-Optional-Stream-Collector.md
  * Stage    : p2_s09_lambda_stream
- * Step     : 步骤 18
+ * Step     : s18
  * Item     : stream_gatherers_jep
  * Topic id : part2/stage09/s18/stream_gatherers_jep
  * Heading  : Stream Gatherers（JEP 485）

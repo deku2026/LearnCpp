@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 21
+ * Step     : s21
  * Item     : jfr_event
  * Topic id : part6/branch_e/s21/jfr_event
  * Heading  : 自定义 JFR Event

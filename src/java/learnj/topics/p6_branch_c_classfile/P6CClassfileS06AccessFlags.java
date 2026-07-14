@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 6
+ * Step     : s06
  * Item     : access_flags
  * Topic id : part6/branch_c/s06/access_flags
  * Heading  : access_flags · 成员表 · 属性轮廓

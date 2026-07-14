@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
  * Stage    : p6_branch_e_jit_aot
- * Step     : 步骤 4
+ * Step     : s04
  * Item     : topic_7dc0241f
  * Topic id : part6/branch_e/s04/topic_7dc0241f
  * Heading  : 内联 · 去虚化 · 投机

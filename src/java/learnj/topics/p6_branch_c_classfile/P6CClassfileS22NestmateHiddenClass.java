@@ -7,7 +7,7 @@ import learnj.TopicRegistry;
  * <p>
  * Doc      : 第6部分-支线C-Class文件-字节码-类加载.md
  * Stage    : p6_branch_c_classfile
- * Step     : 步骤 22
+ * Step     : s22
  * Item     : nestmate_hidden_class
  * Topic id : part6/branch_c/s22/nestmate_hidden_class
  * Heading  : nestmate · hidden class
