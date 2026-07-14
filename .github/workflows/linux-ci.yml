@@ -101,6 +101,25 @@ jobs:
         if: always()
         run: sccache --show-stats
 
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build LearnKotlin
+        run: ./gradlew classes --stacktrace --no-daemon
+
+      - name: Smoke-run LearnKotlin (list topics)
+        run: |
+          set -euo pipefail
+          out=$(./gradlew run --args="--list" --no-daemon 2>&1)
+          echo "$out" | tail -30
+          echo "$out" | grep -q "topics registered"
+
       - name: Install pre-commit
         run: |
           python3 -m pip install --upgrade pip
