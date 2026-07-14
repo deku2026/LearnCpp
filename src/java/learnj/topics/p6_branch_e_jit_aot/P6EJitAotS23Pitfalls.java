@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6EJitAots23Pitfalls {
+public final class P6EJitAotS23Pitfalls {
     static {
         TopicRegistry.register("part6/branch_e/s23/pitfalls", args -> {
             // practice: 易错清单
@@ -23,6 +23,6 @@ public final class P6EJitAots23Pitfalls {
         });
     }
 
-    private P6EJitAots23Pitfalls() {
+    private P6EJitAotS23Pitfalls() {
     }
 }

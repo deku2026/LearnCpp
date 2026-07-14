@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S06Interfacess20AdtSealedRecordSwitch {
+public final class P2S06InterfacesS20AdtSealedRecordSwitch {
     static {
         TopicRegistry.register("part2/stage06/s20/adt_sealed_record_switch", args -> {
             // practice: ADT：sealed + record + switch
@@ -23,6 +23,6 @@ public final class P2S06Interfacess20AdtSealedRecordSwitch {
         });
     }
 
-    private P2S06Interfacess20AdtSealedRecordSwitch() {
+    private P2S06InterfacesS20AdtSealedRecordSwitch() {
     }
 }

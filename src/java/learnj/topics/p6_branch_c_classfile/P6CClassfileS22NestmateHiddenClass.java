@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6CClassfiles22NestmateHiddenClass {
+public final class P6CClassfileS22NestmateHiddenClass {
     static {
         TopicRegistry.register("part6/branch_c/s22/nestmate_hidden_class", args -> {
             // practice: nestmate · hidden class
@@ -23,6 +23,6 @@ public final class P6CClassfiles22NestmateHiddenClass {
         });
     }
 
-    private P6CClassfiles22NestmateHiddenClass() {
+    private P6CClassfileS22NestmateHiddenClass() {
     }
 }

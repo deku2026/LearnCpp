@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S08Genericss11Pecs {
+public final class P2S08GenericsS11Pecs {
     static {
         TopicRegistry.register("part2/stage08/s11/pecs", args -> {
             // practice: PECS
@@ -23,6 +23,6 @@ public final class P2S08Genericss11Pecs {
         });
     }
 
-    private P2S08Genericss11Pecs() {
+    private P2S08GenericsS11Pecs() {
     }
 }

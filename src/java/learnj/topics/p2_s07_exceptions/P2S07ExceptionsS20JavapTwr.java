@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss20JavapTwr {
+public final class P2S07ExceptionsS20JavapTwr {
     static {
         TopicRegistry.register("part2/stage07/s20/javap_twr", args -> {
             // practice: javap 看 TWR
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss20JavapTwr {
         });
     }
 
-    private P2S07Exceptionss20JavapTwr() {
+    private P2S07ExceptionsS20JavapTwr() {
     }
 }

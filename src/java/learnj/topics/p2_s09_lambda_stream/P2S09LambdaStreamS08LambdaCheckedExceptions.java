@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreams08LambdaCheckedExceptions {
+public final class P2S09LambdaStreamS08LambdaCheckedExceptions {
     static {
         TopicRegistry.register("part2/stage09/s08/lambda_checked_exceptions", args -> {
             // practice: lambda 与 checked 异常
@@ -23,6 +23,6 @@ public final class P2S09LambdaStreams08LambdaCheckedExceptions {
         });
     }
 
-    private P2S09LambdaStreams08LambdaCheckedExceptions() {
+    private P2S09LambdaStreamS08LambdaCheckedExceptions() {
     }
 }

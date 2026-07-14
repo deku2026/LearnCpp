@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss07SuppressedExceptions {
+public final class P2S07ExceptionsS07SuppressedExceptions {
     static {
         TopicRegistry.register("part2/stage07/s07/suppressed_exceptions", args -> {
             // practice: suppressed 异常
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss07SuppressedExceptions {
         });
     }
 
-    private P2S07Exceptionss07SuppressedExceptions() {
+    private P2S07ExceptionsS07SuppressedExceptions() {
     }
 }

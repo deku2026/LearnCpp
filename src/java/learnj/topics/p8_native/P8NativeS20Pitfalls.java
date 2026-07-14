@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P8Natives20Pitfalls {
+public final class P8NativeS20Pitfalls {
     static {
         TopicRegistry.register("part8/native/s20/pitfalls", args -> {
             // practice: 易错清单
@@ -23,6 +23,6 @@ public final class P8Natives20Pitfalls {
         });
     }
 
-    private P8Natives20Pitfalls() {
+    private P8NativeS20Pitfalls() {
     }
 }

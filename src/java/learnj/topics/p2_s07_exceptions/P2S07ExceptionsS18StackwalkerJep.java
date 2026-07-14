@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss18StackwalkerJep {
+public final class P2S07ExceptionsS18StackwalkerJep {
     static {
         TopicRegistry.register("part2/stage07/s18/stackwalker_jep", args -> {
             // practice: StackWalker
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss18StackwalkerJep {
         });
     }
 
-    private P2S07Exceptionss18StackwalkerJep() {
+    private P2S07ExceptionsS18StackwalkerJep() {
     }
 }

@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreams16Collectors {
+public final class P2S09LambdaStreamS16Collectors {
     static {
         TopicRegistry.register("part2/stage09/s16/collectors", args -> {
             // practice: Collectors
@@ -23,6 +23,6 @@ public final class P2S09LambdaStreams16Collectors {
         });
     }
 
-    private P2S09LambdaStreams16Collectors() {
+    private P2S09LambdaStreamS16Collectors() {
     }
 }

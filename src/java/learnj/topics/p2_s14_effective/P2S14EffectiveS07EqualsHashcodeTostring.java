@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S14Effectives07EqualsHashcodeTostring {
+public final class P2S14EffectiveS07EqualsHashcodeTostring {
     static {
         TopicRegistry.register("part2/stage14/s07/equals_hashcode_tostring", args -> {
             // practice: equals / hashCode / toString
@@ -23,6 +23,6 @@ public final class P2S14Effectives07EqualsHashcodeTostring {
         });
     }
 
-    private P2S14Effectives07EqualsHashcodeTostring() {
+    private P2S14EffectiveS07EqualsHashcodeTostring() {
     }
 }

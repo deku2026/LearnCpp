@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10Collectionss05Set {
+public final class P2S10CollectionsS05Set {
     static {
         TopicRegistry.register("part2/stage10/s05/set", args -> {
             // practice: Set
@@ -23,6 +23,6 @@ public final class P2S10Collectionss05Set {
         });
     }
 
-    private P2S10Collectionss05Set() {
+    private P2S10CollectionsS05Set() {
     }
 }

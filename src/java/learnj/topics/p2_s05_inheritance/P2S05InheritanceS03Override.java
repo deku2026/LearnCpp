@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05Inheritances03Override {
+public final class P2S05InheritanceS03Override {
     static {
         TopicRegistry.register("part2/stage05/s03/override", args -> {
             // practice: override
@@ -23,6 +23,6 @@ public final class P2S05Inheritances03Override {
         });
     }
 
-    private P2S05Inheritances03Override() {
+    private P2S05InheritanceS03Override() {
     }
 }

@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05Inheritances18InvokevirtualInvokespecial {
+public final class P2S05InheritanceS18InvokevirtualInvokespecial {
     static {
         TopicRegistry.register("part2/stage05/s18/invokevirtual_invokespecial", args -> {
             // practice: invokevirtual / invokespecial
@@ -23,6 +23,6 @@ public final class P2S05Inheritances18InvokevirtualInvokespecial {
         });
     }
 
-    private P2S05Inheritances18InvokevirtualInvokespecial() {
+    private P2S05InheritanceS18InvokevirtualInvokespecial() {
     }
 }

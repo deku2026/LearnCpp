@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05Inheritances14CloneCloneable {
+public final class P2S05InheritanceS14CloneCloneable {
     static {
         TopicRegistry.register("part2/stage05/s14/clone_cloneable", args -> {
             // practice: clone / Cloneable
@@ -23,6 +23,6 @@ public final class P2S05Inheritances14CloneCloneable {
         });
     }
 
-    private P2S05Inheritances14CloneCloneable() {
+    private P2S05InheritanceS14CloneCloneable() {
     }
 }

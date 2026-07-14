@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss11AutocloseableCloseable {
+public final class P2S07ExceptionsS11AutocloseableCloseable {
     static {
         TopicRegistry.register("part2/stage07/s11/autocloseable_closeable", args -> {
             // practice: AutoCloseable / Closeable
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss11AutocloseableCloseable {
         });
     }
 
-    private P2S07Exceptionss11AutocloseableCloseable() {
+    private P2S07ExceptionsS11AutocloseableCloseable() {
     }
 }

@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S01Structures01JdkJreJvm {
+public final class P2S01StructureS01JdkJreJvm {
     static {
         TopicRegistry.register("part2/stage01/s01/jdk_jre_jvm", args -> {
             // practice: JDK / JRE / JVM：三个词必须拆开
@@ -23,6 +23,6 @@ public final class P2S01Structures01JdkJreJvm {
         });
     }
 
-    private P2S01Structures01JdkJreJvm() {
+    private P2S01StructureS01JdkJreJvm() {
     }
 }

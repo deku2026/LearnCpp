@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10Collectionss06QueueDeque {
+public final class P2S10CollectionsS06QueueDeque {
     static {
         TopicRegistry.register("part2/stage10/s06/queue_deque", args -> {
             // practice: Queue / Deque
@@ -23,6 +23,6 @@ public final class P2S10Collectionss06QueueDeque {
         });
     }
 
-    private P2S10Collectionss06QueueDeque() {
+    private P2S10CollectionsS06QueueDeque() {
     }
 }

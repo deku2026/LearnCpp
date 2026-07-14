@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreams22Pitfalls {
+public final class P2S09LambdaStreamS22Pitfalls {
     static {
         TopicRegistry.register("part2/stage09/s22/pitfalls", args -> {
             // practice: 易错清单
@@ -23,6 +23,6 @@ public final class P2S09LambdaStreams22Pitfalls {
         });
     }
 
-    private P2S09LambdaStreams22Pitfalls() {
+    private P2S09LambdaStreamS22Pitfalls() {
     }
 }

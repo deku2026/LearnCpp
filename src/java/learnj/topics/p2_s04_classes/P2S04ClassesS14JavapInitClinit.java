@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S04Classess14JavapInitClinit {
+public final class P2S04ClassesS14JavapInitClinit {
     static {
         TopicRegistry.register("part2/stage04/s14/javap_init_clinit", args -> {
             // practice: javap：init / clinit 观察
@@ -23,6 +23,6 @@ public final class P2S04Classess14JavapInitClinit {
         });
     }
 
-    private P2S04Classess14JavapInitClinit() {
+    private P2S04ClassesS14JavapInitClinit() {
     }
 }

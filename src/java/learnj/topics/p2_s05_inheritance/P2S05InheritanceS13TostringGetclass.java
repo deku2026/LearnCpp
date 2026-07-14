@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S05Inheritances13TostringGetclass {
+public final class P2S05InheritanceS13TostringGetclass {
     static {
         TopicRegistry.register("part2/stage05/s13/tostring_getclass", args -> {
             // practice: toString / getClass
@@ -23,6 +23,6 @@ public final class P2S05Inheritances13TostringGetclass {
         });
     }
 
-    private P2S05Inheritances13TostringGetclass() {
+    private P2S05InheritanceS13TostringGetclass() {
     }
 }

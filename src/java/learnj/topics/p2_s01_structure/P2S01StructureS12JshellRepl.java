@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S01Structures12JshellRepl {
+public final class P2S01StructureS12JshellRepl {
     static {
         TopicRegistry.register("part2/stage01/s12/jshell_repl", args -> {
             // practice: jshell：REPL 入门
@@ -23,6 +23,6 @@ public final class P2S01Structures12JshellRepl {
         });
     }
 
-    private P2S01Structures12JshellRepl() {
+    private P2S01StructureS12JshellRepl() {
     }
 }

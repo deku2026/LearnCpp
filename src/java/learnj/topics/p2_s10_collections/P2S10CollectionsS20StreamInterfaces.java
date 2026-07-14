@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S10Collectionss20StreamInterfaces {
+public final class P2S10CollectionsS20StreamInterfaces {
     static {
         TopicRegistry.register("part2/stage10/s20/stream_interfaces", args -> {
             // practice: 与 Stream 的接口
@@ -23,6 +23,6 @@ public final class P2S10Collectionss20StreamInterfaces {
         });
     }
 
-    private P2S10Collectionss20StreamInterfaces() {
+    private P2S10CollectionsS20StreamInterfaces() {
     }
 }

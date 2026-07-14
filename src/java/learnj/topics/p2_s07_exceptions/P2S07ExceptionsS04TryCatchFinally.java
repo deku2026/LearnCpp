@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss04TryCatchFinally {
+public final class P2S07ExceptionsS04TryCatchFinally {
     static {
         TopicRegistry.register("part2/stage07/s04/try_catch_finally", args -> {
             // practice: try / catch / finally
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss04TryCatchFinally {
         });
     }
 
-    private P2S07Exceptionss04TryCatchFinally() {
+    private P2S07ExceptionsS04TryCatchFinally() {
     }
 }

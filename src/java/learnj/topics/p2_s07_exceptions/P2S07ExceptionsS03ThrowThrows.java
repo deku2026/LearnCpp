@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss03ThrowThrows {
+public final class P2S07ExceptionsS03ThrowThrows {
     static {
         TopicRegistry.register("part2/stage07/s03/throw_throws", args -> {
             // practice: throw / throws
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss03ThrowThrows {
         });
     }
 
-    private P2S07Exceptionss03ThrowThrows() {
+    private P2S07ExceptionsS03ThrowThrows() {
     }
 }

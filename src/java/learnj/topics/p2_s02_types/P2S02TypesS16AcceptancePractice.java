@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S02Typess16AcceptancePractice {
+public final class P2S02TypesS16AcceptancePractice {
     static {
         TopicRegistry.register("part2/stage02/s16/acceptance_practice", args -> {
             // practice: 验收与练习
@@ -23,6 +23,6 @@ public final class P2S02Typess16AcceptancePractice {
         });
     }
 
-    private P2S02Typess16AcceptancePractice() {
+    private P2S02TypesS16AcceptancePractice() {
     }
 }

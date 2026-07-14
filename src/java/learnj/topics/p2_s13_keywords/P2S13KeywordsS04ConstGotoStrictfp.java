@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S13Keywordss04ConstGotoStrictfp {
+public final class P2S13KeywordsS04ConstGotoStrictfp {
     static {
         TopicRegistry.register("part2/stage13/s04/const_goto_strictfp", args -> {
             // practice: const / goto / strictfp 专条
@@ -23,6 +23,6 @@ public final class P2S13Keywordss04ConstGotoStrictfp {
         });
     }
 
-    private P2S13Keywordss04ConstGotoStrictfp() {
+    private P2S13KeywordsS04ConstGotoStrictfp() {
     }
 }

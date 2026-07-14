@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6CClassfiles12Invokedynamic {
+public final class P6CClassfileS12Invokedynamic {
     static {
         TopicRegistry.register("part6/branch_c/s12/invokedynamic", args -> {
             // practice: invokedynamic
@@ -23,6 +23,6 @@ public final class P6CClassfiles12Invokedynamic {
         });
     }
 
-    private P6CClassfiles12Invokedynamic() {
+    private P6CClassfileS12Invokedynamic() {
     }
 }

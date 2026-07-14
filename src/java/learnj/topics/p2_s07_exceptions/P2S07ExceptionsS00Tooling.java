@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S07Exceptionss00Tooling {
+public final class P2S07ExceptionsS00Tooling {
     static {
         TopicRegistry.register("part2/stage07/s00/tooling", args -> {
             // practice: 工具约定
@@ -23,6 +23,6 @@ public final class P2S07Exceptionss00Tooling {
         });
     }
 
-    private P2S07Exceptionss00Tooling() {
+    private P2S07ExceptionsS00Tooling() {
     }
 }

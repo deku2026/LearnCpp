@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreams10OptionalApi {
+public final class P2S09LambdaStreamS10OptionalApi {
     static {
         TopicRegistry.register("part2/stage09/s10/optional_api", args -> {
             // practice: Optional API
@@ -23,6 +23,6 @@ public final class P2S09LambdaStreams10OptionalApi {
         });
     }
 
-    private P2S09LambdaStreams10OptionalApi() {
+    private P2S09LambdaStreamS10OptionalApi() {
     }
 }

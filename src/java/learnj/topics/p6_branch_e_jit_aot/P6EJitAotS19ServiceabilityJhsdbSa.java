@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P6EJitAots19ServiceabilityJhsdbSa {
+public final class P6EJitAotS19ServiceabilityJhsdbSa {
     static {
         TopicRegistry.register("part6/branch_e/s19/serviceability_jhsdb_sa", args -> {
             // practice: Serviceability：jhsdb / SA 轮廓
@@ -23,6 +23,6 @@ public final class P6EJitAots19ServiceabilityJhsdbSa {
         });
     }
 
-    private P6EJitAots19ServiceabilityJhsdbSa() {
+    private P6EJitAotS19ServiceabilityJhsdbSa() {
     }
 }

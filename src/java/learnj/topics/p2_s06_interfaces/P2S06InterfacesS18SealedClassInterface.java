@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S06Interfacess18SealedClassInterface {
+public final class P2S06InterfacesS18SealedClassInterface {
     static {
         TopicRegistry.register("part2/stage06/s18/sealed_class_interface", args -> {
             // practice: sealed class / interface
@@ -23,6 +23,6 @@ public final class P2S06Interfacess18SealedClassInterface {
         });
     }
 
-    private P2S06Interfacess18SealedClassInterface() {
+    private P2S06InterfacesS18SealedClassInterface() {
     }
 }

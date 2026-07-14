@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11Concurrencys06Future {
+public final class P2S11ConcurrencyS06Future {
     static {
         TopicRegistry.register("part2/stage11/s06/future", args -> {
             // practice: Future
@@ -23,6 +23,6 @@ public final class P2S11Concurrencys06Future {
         });
     }
 
-    private P2S11Concurrencys06Future() {
+    private P2S11ConcurrencyS06Future() {
     }
 }

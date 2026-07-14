@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S11Concurrencys20JmmHappensBefore {
+public final class P2S11ConcurrencyS20JmmHappensBefore {
     static {
         TopicRegistry.register("part2/stage11/s20/jmm_happens_before", args -> {
             // practice: JMM 与 happens-before
@@ -23,6 +23,6 @@ public final class P2S11Concurrencys20JmmHappensBefore {
         });
     }
 
-    private P2S11Concurrencys20JmmHappensBefore() {
+    private P2S11ConcurrencyS20JmmHappensBefore() {
     }
 }

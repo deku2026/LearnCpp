@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S09LambdaStreams04ThisEffectivelyFinal {
+public final class P2S09LambdaStreamS04ThisEffectivelyFinal {
     static {
         TopicRegistry.register("part2/stage09/s04/this_effectively_final", args -> {
             // practice: this 与 effectively final
@@ -23,6 +23,6 @@ public final class P2S09LambdaStreams04ThisEffectivelyFinal {
         });
     }
 
-    private P2S09LambdaStreams04ThisEffectivelyFinal() {
+    private P2S09LambdaStreamS04ThisEffectivelyFinal() {
     }
 }

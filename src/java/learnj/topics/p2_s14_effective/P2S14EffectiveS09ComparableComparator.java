@@ -15,7 +15,7 @@ import learnj.TopicRegistry;
  * TODO: read the JavaStudy section, write a minimal runnable demo,
  *       then replace this empty body with real practice code.
  */
-public final class P2S14Effectives09ComparableComparator {
+public final class P2S14EffectiveS09ComparableComparator {
     static {
         TopicRegistry.register("part2/stage14/s09/comparable_comparator", args -> {
             // practice: Comparable 与 Comparator
@@ -23,6 +23,6 @@ public final class P2S14Effectives09ComparableComparator {
         });
     }
 
-    private P2S14Effectives09ComparableComparator() {
+    private P2S14EffectiveS09ComparableComparator() {
     }
 }
