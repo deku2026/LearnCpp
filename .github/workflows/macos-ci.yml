@@ -117,6 +117,13 @@ jobs:
           out=$(./gradlew run --args="--list" --no-daemon 2>&1)
           echo "$out" | tail -30
           echo "$out" | grep -q "topics registered"
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          set -euo pipefail
+          out=$(./gradlew runJava --args="--list" --no-daemon 2>&1)
+          echo "$out" | tail -30
+          echo "$out" | grep -q "topics registered"
+
 
       - name: Install pre-commit (pipx, PEP 668 safe)
         run: |

@@ -124,6 +124,16 @@ jobs:
             exit 1
           }
           Write-Host "OK LearnKotlin"
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          $out = & .\gradlew.bat runJava --args="--list" --no-daemon 2>&1 | Out-String
+          Write-Host $out
+          if ($out -notmatch "topics registered") {
+            Write-Error "LearnJava --list did not report topics registered"
+            exit 1
+          }
+          Write-Host "OK LearnJava"
+
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -210,3 +220,12 @@ jobs:
             exit 1
           }
           Write-Host "OK LearnKotlin"
+      - name: Smoke-run LearnJava (list topics)
+        run: |
+          $out = & .\gradlew.bat runJava --args="--list" --no-daemon 2>&1 | Out-String
+          Write-Host $out
+          if ($out -notmatch "topics registered") {
+            Write-Error "LearnJava --list did not report topics registered"
+            exit 1
+          }
+          Write-Host "OK LearnJava"

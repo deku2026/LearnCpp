@@ -1,0 +1,28 @@
+package learnj.topics;
+
+import learnj.TopicRegistry;
+
+/**
+ * LearnJava placeholder
+ * <p>
+ * Doc      : 第6部分-支线E-JIT-逃逸分析-运行时优化-CDS-AOT.md
+ * Stage    : p6_branch_e_jit_aot
+ * Step     : 步骤 6
+ * Item     : escape_analysis
+ * Topic id : part6/branch_e/s06/escape_analysis
+ * Heading  : 逃逸分析与标量替换
+ * <p>
+ * TODO: read the JavaStudy section, write a minimal runnable demo,
+ *       then replace this empty body with real practice code.
+ */
+public final class P6EJitAotS06EscapeAnalysis {
+    static {
+        TopicRegistry.register("part6/branch_e/s06/escape_analysis", args -> {
+            // practice: 逃逸分析与标量替换
+            return 0;
+        });
+    }
+
+    private P6EJitAotS06EscapeAnalysis() {
+    }
+}

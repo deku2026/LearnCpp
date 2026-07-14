@@ -1,0 +1,28 @@
+package learnj.topics;
+
+import learnj.TopicRegistry;
+
+/**
+ * LearnJava placeholder
+ * <p>
+ * Doc      : 第2部分-阶段4-类与对象模型基础.md
+ * Stage    : p2_s04_classes
+ * Step     : 步骤 7
+ * Item     : final_immutable
+ * Topic id : part2/stage04/s07/final_immutable
+ * Heading  : `final` 字段与不可变类入门
+ * <p>
+ * TODO: read the JavaStudy section, write a minimal runnable demo,
+ *       then replace this empty body with real practice code.
+ */
+public final class P2S04ClassesS07FinalImmutable {
+    static {
+        TopicRegistry.register("part2/stage04/s07/final_immutable", args -> {
+            // practice: `final` 字段与不可变类入门
+            return 0;
+        });
+    }
+
+    private P2S04ClassesS07FinalImmutable() {
+    }
+}
