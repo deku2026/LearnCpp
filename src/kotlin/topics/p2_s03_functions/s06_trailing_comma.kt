@@ -1,6 +1,6 @@
-@file:JvmName("P2S03Functions06TrailingCommaKtFacade")
+@file:JvmName("P2S03FunctionsS06TrailingCommaKtFacade")
 
-package learn.topics
+package learn.topics.p2_s03_functions
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s06
 // Item     : trailing_comma
 // Topic id : part2/stage03/s06/trailing_comma
-// Heading  : 步骤 6 Trailing comma 与编码习惯
+// Heading  : Trailing comma 与编码习惯
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage03/s06/trailing_comma") { _ ->
-    // practice: 步骤 6 Trailing comma 与编码习惯
+    // practice: Trailing comma 与编码习惯
     0
 }

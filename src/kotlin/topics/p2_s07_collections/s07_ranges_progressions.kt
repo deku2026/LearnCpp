@@ -1,6 +1,6 @@
-@file:JvmName("P2S07Collections07RangesProgressionsKtFacade")
+@file:JvmName("P2S07CollectionsS07RangesProgressionsKtFacade")
 
-package learn.topics
+package learn.topics.p2_s07_collections
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s07
 // Item     : ranges_progressions
 // Topic id : part2/stage07/s07/ranges_progressions
-// Heading  : 步骤 7 Ranges 与 Progressions
+// Heading  : Ranges 与 Progressions
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage07/s07/ranges_progressions") { _ ->
-    // practice: 步骤 7 Ranges 与 Progressions
+    // practice: Ranges 与 Progressions
     0
 }

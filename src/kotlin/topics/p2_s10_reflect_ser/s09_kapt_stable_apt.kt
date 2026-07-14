@@ -1,6 +1,6 @@
-@file:JvmName("P2S10ReflectSer09KaptStableAptKtFacade")
+@file:JvmName("P2S10ReflectSerS09KaptStableAptKtFacade")
 
-package learn.topics
+package learn.topics.p2_s10_reflect_ser
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s09
 // Item     : kapt_stable_apt
 // Topic id : part2/stage10/s09/kapt_stable_apt
-// Heading  : 步骤 9 kapt：仍为 Stable 的 APT 桥
+// Heading  : kapt：仍为 Stable 的 APT 桥
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage10/s09/kapt_stable_apt") { _ ->
-    // practice: 步骤 9 kapt：仍为 Stable 的 APT 桥
+    // practice: kapt：仍为 Stable 的 APT 桥
     0
 }

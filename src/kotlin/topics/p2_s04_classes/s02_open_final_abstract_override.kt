@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes02OpenFinalAbstractOverrideKtFacade")
+@file:JvmName("P2S04ClassesS02OpenFinalAbstractOverrideKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s02
 // Item     : open_final_abstract_override
 // Topic id : part2/stage04/s02/open_final_abstract_override
-// Heading  : 步骤 2 继承：open / final / abstract / override
+// Heading  : 继承：open / final / abstract / override
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s02/open_final_abstract_override") { _ ->
-    // practice: 步骤 2 继承：open / final / abstract / override
+    // practice: 继承：open / final / abstract / override
     0
 }

@@ -1,6 +1,6 @@
-@file:JvmName("P2S06LambdaInline04CallableReferencesKtFacade")
+@file:JvmName("P2S06LambdaInlineS04CallableReferencesKtFacade")
 
-package learn.topics
+package learn.topics.p2_s06_lambda_inline
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s04
 // Item     : callable_references
 // Topic id : part2/stage06/s04/callable_references
-// Heading  : 步骤 4 可调用引用（callable references）
+// Heading  : 可调用引用（callable references）
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage06/s04/callable_references") { _ ->
-    // practice: 步骤 4 可调用引用（callable references）
+    // practice: 可调用引用（callable references）
     0
 }

@@ -1,6 +1,6 @@
-@file:JvmName("P2S14Jvm11LambdaInvokedynamicKtFacade")
+@file:JvmName("P2S14Jvms11LambdaInvokedynamicKtFacade")
 
-package learn.topics
+package learn.topics.p2_s14_jvm
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s11
 // Item     : lambda_invokedynamic
 // Topic id : part2/stage14/s11/lambda_invokedynamic
-// Heading  : 步骤 11 Lambda、函数引用与 invokedynamic
+// Heading  : Lambda、函数引用与 invokedynamic
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage14/s11/lambda_invokedynamic") { _ ->
-    // practice: 步骤 11 Lambda、函数引用与 invokedynamic
+    // practice: Lambda、函数引用与 invokedynamic
     0
 }

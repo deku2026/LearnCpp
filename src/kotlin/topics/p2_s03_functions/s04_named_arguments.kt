@@ -1,6 +1,6 @@
-@file:JvmName("P2S03Functions04NamedArgumentsKtFacade")
+@file:JvmName("P2S03FunctionsS04NamedArgumentsKtFacade")
 
-package learn.topics
+package learn.topics.p2_s03_functions
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s04
 // Item     : named_arguments
 // Topic id : part2/stage03/s04/named_arguments
-// Heading  : 步骤 4 命名参数（Named arguments）
+// Heading  : 命名参数（Named arguments）
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage03/s04/named_arguments") { _ ->
-    // practice: 步骤 4 命名参数（Named arguments）
+    // practice: 命名参数（Named arguments）
     0
 }

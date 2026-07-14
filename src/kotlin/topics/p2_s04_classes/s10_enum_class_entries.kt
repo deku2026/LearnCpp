@@ -1,6 +1,6 @@
-@file:JvmName("P2S04Classes10EnumClassEntriesKtFacade")
+@file:JvmName("P2S04ClassesS10EnumClassEntriesKtFacade")
 
-package learn.topics
+package learn.topics.p2_s04_classes
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s10
 // Item     : enum_class_entries
 // Topic id : part2/stage04/s10/enum_class_entries
-// Heading  : 步骤 10 enum class 与 entries
+// Heading  : enum class 与 entries
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage04/s10/enum_class_entries") { _ ->
-    // practice: 步骤 10 enum class 与 entries
+    // practice: enum class 与 entries
     0
 }

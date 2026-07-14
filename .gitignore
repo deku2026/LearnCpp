@@ -40,3 +40,6 @@ Testing/
 Thumbs.db
 local.properties
 *.class
+
+__pycache__/
+*.py[cod]

@@ -1,6 +1,6 @@
-@file:JvmName("P2S13Flow05ZipCombineMergeFlatmapKtFacade")
+@file:JvmName("P2S13Flows05ZipCombineMergeFlatmapKtFacade")
 
-package learn.topics
+package learn.topics.p2_s13_flow
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s05
 // Item     : zip_combine_merge_flatmap
 // Topic id : part2/stage13/s05/zip_combine_merge_flatmap
-// Heading  : 步骤 5 组合：zip / combine / merge / flatMap 家族
+// Heading  : 组合：zip / combine / merge / flatMap 家族
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage13/s05/zip_combine_merge_flatmap") { _ ->
-    // practice: 步骤 5 组合：zip / combine / merge / flatMap 家族
+    // practice: 组合：zip / combine / merge / flatMap 家族
     0
 }

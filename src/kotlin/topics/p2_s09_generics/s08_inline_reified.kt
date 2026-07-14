@@ -1,6 +1,6 @@
-@file:JvmName("P2S09Generics08InlineReifiedKtFacade")
+@file:JvmName("P2S09GenericsS08InlineReifiedKtFacade")
 
-package learn.topics
+package learn.topics.p2_s09_generics
 
 import learn.registerTopic
 
@@ -10,13 +10,13 @@ import learn.registerTopic
 // Section  : s08
 // Item     : inline_reified
 // Topic id : part2/stage09/s08/inline_reified
-// Heading  : 步骤 8 inline + reified：有限的运行时类型
+// Heading  : inline + reified：有限的运行时类型
 //
 // TODO: read the KotlinStudy section, write a minimal runnable demo,
 //       then replace this empty body with real practice code.
 
 @Suppress("unused")
 private val REGISTER = registerTopic("part2/stage09/s08/inline_reified") { _ ->
-    // practice: 步骤 8 inline + reified：有限的运行时类型
+    // practice: inline + reified：有限的运行时类型
     0
 }
