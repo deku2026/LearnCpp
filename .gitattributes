@@ -32,3 +32,8 @@
 *.dylib binary
 *.obj binary
 *.o binary
+
+/gradlew text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+*.jar binary

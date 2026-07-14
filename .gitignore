@@ -7,6 +7,9 @@ artifacts/
 .sccache/
 .compiler-cache/
 .ccache/
+.gradle/
+.kotlin/
+**/build/
 
 # CMake
 CMakeCache.txt
@@ -15,31 +18,25 @@ CMakeUserPresets.json
 cmake-build-*/
 Testing/
 
-# IDE / editor
+# IDE — never commit
+.idea/
+**/.idea/
 .vs/
 .vscode/*.code-workspace
 .vscode/settings.json
-.idea/
 *.user
 *.suo
-*.sdf
-*.opensdf
-*.VC.db
-*.VC.opendb
-
-# Test output
-TestResults/
-*.gcov
-*.gcda
-*.gcno
+*.iml
+*.iws
+*.ipr
 
 # Worktrees
 .worktree/
 
-# Local AI assistant workspaces
+# AI / OS
 .claude/
 .cursor/
-
-# OS junk
 .DS_Store
 Thumbs.db
+local.properties
+*.class

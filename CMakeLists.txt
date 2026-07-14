@@ -28,12 +28,13 @@ include(StaticAnalysis)
 
 learncpp_enable_sccache()
 
-# Every topic lives under src/<part>_<stage>/<section>/<item>.cpp and registers
-# itself through LEARN_TOPIC(). GLOB_RECURSE picks up new files between builds.
+# Every C++ topic lives under src/cpp/<part>_<stage>/<section>/<item>.cpp and
+# registers itself through learn::topic<...>. GLOB_RECURSE picks up new files.
+# Kotlin lives under src/kotlin/ (Gradle sourceSets); never compiled by CMake.
 file(GLOB_RECURSE LEARNCPP_SOURCES
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
-  "${CMAKE_SOURCE_DIR}/src/*.cpp"
+  "${CMAKE_SOURCE_DIR}/src/cpp/*.cpp"
 )
 file(GLOB_RECURSE LEARNCPP_HEADERS
   CONFIGURE_DEPENDS
@@ -43,7 +44,7 @@ file(GLOB_RECURSE LEARNCPP_HEADERS
 )
 
 list(LENGTH LEARNCPP_SOURCES LEARNCPP_SOURCE_COUNT)
-message(STATUS "LearnCpp: collected ${LEARNCPP_SOURCE_COUNT} translation units under src/.")
+message(STATUS "LearnCpp: collected ${LEARNCPP_SOURCE_COUNT} translation units under src/cpp/.")
 
 add_executable(learn_cpp
   ${LEARNCPP_SOURCES}
@@ -59,7 +60,7 @@ learncpp_apply_warning_settings(learn_cpp)
 learncpp_enable_sanitizers(learn_cpp)
 learncpp_configure_static_analysis(learn_cpp)
 
-source_group(TREE "${CMAKE_SOURCE_DIR}/src"
+source_group(TREE "${CMAKE_SOURCE_DIR}/src/cpp"
   PREFIX "Topics"
   FILES ${LEARNCPP_SOURCES})
 source_group(TREE "${CMAKE_SOURCE_DIR}/include"
