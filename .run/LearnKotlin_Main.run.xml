@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LearnKotlin Main" type="JetRunConfigurationType" factoryName="Kotlin">
-    <module name="LearnKotlin.main" />
+    <module name="LearnKotlin.learn.main" />
     <option name="MAIN_CLASS_NAME" value="learn.MainKt" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <method v="2">
