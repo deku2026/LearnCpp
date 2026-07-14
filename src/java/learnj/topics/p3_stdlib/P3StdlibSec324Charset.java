@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p3_stdlib;
 
 import learnj.TopicRegistry;
 

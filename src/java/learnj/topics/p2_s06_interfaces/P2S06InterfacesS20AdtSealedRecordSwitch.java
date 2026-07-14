@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p2_s06_interfaces;
 
 import learnj.TopicRegistry;
 

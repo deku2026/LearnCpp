@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p5_evolution;
 
 import learnj.TopicRegistry;
 

@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p2_s09_lambda_stream;
 
 import learnj.TopicRegistry;
 

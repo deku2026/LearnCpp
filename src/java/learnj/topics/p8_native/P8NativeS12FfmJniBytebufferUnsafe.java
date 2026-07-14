@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p8_native;
 
 import learnj.TopicRegistry;
 

@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p6_branch_c_classfile;
 
 import learnj.TopicRegistry;
 

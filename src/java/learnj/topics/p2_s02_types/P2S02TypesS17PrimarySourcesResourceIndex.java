@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p2_s02_types;
 
 import learnj.TopicRegistry;
 

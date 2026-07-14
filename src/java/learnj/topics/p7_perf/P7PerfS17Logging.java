@@ -1,4 +1,4 @@
-package learnj.topics;
+package learnj.topics.p7_perf;
 
 import learnj.TopicRegistry;
 

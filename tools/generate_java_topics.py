@@ -417,7 +417,7 @@ def parse_doc(doc_name: str, mapping: tuple[str, str, str, str]) -> list[Topic]:
 
 
 JAVA_TOPIC_TEMPLATE = """\
-package learnj.topics;
+package learnj.topics.{stage_dir};
 
 import learnj.TopicRegistry;
 
@@ -614,7 +614,8 @@ def write_loader(topics: list[Topic]) -> None:
         "        try {",
     ]
     for t in topics:
-        lines.append(f'            Class.forName("learnj.topics.{t.class_name}");')
+        fqn = f"learnj.topics.{t.stage_dir}.{t.class_name}"
+        lines.append(f'            Class.forName("{fqn}");')
     lines += [
         "        } catch (ClassNotFoundException e) {",
         "            throw new ExceptionInInitializerError(e);",
@@ -708,7 +709,7 @@ Parallel to `src/cpp/` and `src/kotlin/`. Open **repo root** in IDEA.
 - Run config: `.run/LearnJava_Main.run.xml` (direct main) or `.run/LearnJava.run.xml` (Gradle `runJava`)
 - Entry: `learnj.Main` (package `learnj` — isolated from Kotlin `learn.*`)
 - Registry: `learnj.TopicRegistry` + `learnj.GeneratedTopicLoader`
-- Topics: `topics/**` — one class per JavaStudy practice step (`learnj.topics`)
+- Topics: `learnj/topics/<stage>/**` — package matches path (`learnj.topics.<stage>`)
 
 ```bat
 gradlew.bat runJava
