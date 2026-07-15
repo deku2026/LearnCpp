@@ -27,14 +27,12 @@ struct counting_resource : std::pmr::memory_resource {
     explicit counting_resource(std::pmr::memory_resource* up = std::pmr::new_delete_resource()) : upstream{up} {}
 
 protected:
-    void* do_allocate(std::size_t bytes, std::size_t align) override {
+    void* do_allocate(std::size_t n, std::size_t align) override {
         ++allocs;
-        this->bytes += bytes;
-        return upstream->allocate(bytes, align);
+        this->bytes += n;
+        return upstream->allocate(n, align);
     }
-    void do_deallocate(void* p, std::size_t bytes, std::size_t align) override {
-        upstream->deallocate(p, bytes, align);
-    }
+    void do_deallocate(void* p, std::size_t n, std::size_t align) override { upstream->deallocate(p, n, align); }
     bool do_is_equal(const memory_resource& other) const noexcept override { return this == &other; }
 };
 

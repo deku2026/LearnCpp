@@ -17,6 +17,10 @@ namespace {
 
 int x = 1;
 
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif
 namespace ns {
 int x = 2;
 [[maybe_unused]] int probe() {
@@ -62,6 +66,10 @@ int run(int argc, char** argv) {
     std::cout << "unqualified_lookup: OK\n";
     return 0;
 }
+
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 [[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section01/unqualified_lookup", run>;
 

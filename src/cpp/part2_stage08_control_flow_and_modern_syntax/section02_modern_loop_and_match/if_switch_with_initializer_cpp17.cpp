@@ -128,11 +128,18 @@ int run(int argc, char** argv) {
     {
         // if (init; cond) 等价于 { init; if (cond) ... else ... }
         // 但 init 与 cond 声明的名字在同一作用域，覆盖 then/else。
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif
         [[maybe_unused]] int outer = 1;
-        if (int outer = 2; outer > 0) {  // 遮蔽外层 outer
+        if (int outer = 2; outer > 0) {  // 故意遮蔽：展示 if-init 作用域
             assert(outer == 2);
         }
         assert(outer == 1);
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         // 正交三分：
         // 1) if (init; cond)     — 运行期，限域临时

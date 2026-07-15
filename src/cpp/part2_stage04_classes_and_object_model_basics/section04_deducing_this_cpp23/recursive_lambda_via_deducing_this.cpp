@@ -40,20 +40,27 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：DFS / 与 std::function 对照
     // -------------------------------------------------------------------------
     // 图：0→1,0→2,1→2
+    // 注意：部分 clang + -fsanitize=undefined 对「多捕获 + this auto self」会 ICE；
+    // 教学上本地 DFS 用命名递归结构更稳，deducing this 仍见上方 fib。
     std::vector<std::vector<int>> g{{1, 2}, {2}, {}};
     std::vector<int> order;
     std::vector<char> seen(g.size(), 0);
-    auto dfs = [&](this auto self, int u) -> void {
-        if (seen[u]) {
-            return;
-        }
-        seen[u] = 1;
-        order.push_back(u);
-        for (int v : g[u]) {
-            self(v);
+    struct Dfs {
+        const std::vector<std::vector<int>>& g;
+        std::vector<int>& order;
+        std::vector<char>& seen;
+        void operator()(int u) const {
+            if (seen[u]) {
+                return;
+            }
+            seen[u] = 1;
+            order.push_back(u);
+            for (int v : g[u]) {
+                (*this)(v);
+            }
         }
     };
-    dfs(0);
+    Dfs{g, order, seen}(0);
     assert(order.size() == 3);
     assert(order[0] == 0);
 

@@ -51,20 +51,24 @@ int run(int argc, char** argv) {
     assert(fact(5) == 120);
     std::cout << "  fact(5)=" << fact(5) << '\n';
 
-    // Tree walk / DFS style local recursion
+    // Tree walk / DFS：命名局部递归（避免部分 clang 对 capture+deducing-this 的 ICE）
     std::vector<std::vector<int>> g(4);
     g[0] = {1, 2};
     g[1] = {3};
     g[2] = {};
     g[3] = {};
     std::vector<int> order;
-    auto dfs = [&](this auto&& self, int u) -> void {
-        order.push_back(u);
-        for (int v : g[u]) {
-            self(v);
+    struct Dfs {
+        const std::vector<std::vector<int>>& g;
+        std::vector<int>& order;
+        void operator()(int u) const {
+            order.push_back(u);
+            for (int v : g[u]) {
+                (*this)(v);
+            }
         }
     };
-    dfs(0);
+    Dfs{g, order}(0);
     assert((order == std::vector<int>{0, 1, 3, 2}));
     std::cout << "  dfs order:";
     for (int u : order) {

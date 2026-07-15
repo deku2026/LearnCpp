@@ -83,8 +83,8 @@ int run(int /*argc*/, char** /*argv*/) {
         v[1] = "TWO";
         assert(v[1] == "TWO");
         // 指向 v[1] 的迭代器仍有效（元素节点还在，只是值被移走）
-        [[maybe_unused]] auto it = v.begin() + 1;
-        assert(*it == "TWO");
+        [[maybe_unused]] auto it_elem = v.begin() + 1;
+        assert(*it_elem == "TWO");
         std::cout << "moving an element value != moving the container\n";
     }
 

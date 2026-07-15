@@ -34,6 +34,10 @@ struct DerivedUsing : Base {
 // 内层作用域隐藏外层
 [[maybe_unused]] int value = 1;
 
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
@@ -61,6 +65,10 @@ int run(int argc, char** argv) {
     std::cout << "name_hiding: OK\n";
     return 0;
 }
+
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 [[maybe_unused]] const auto& _ = ::learn::topic<"part6/d/section01/name_hiding", run>;
 
