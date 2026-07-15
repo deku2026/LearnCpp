@@ -72,10 +72,13 @@ int run(int argc, char** argv) {
         std::cout << "  argv[" << i << "] = \"" << argv[i] << "\"\n";
     }
 
-    // 可移植成功/失败码（比裸 0/1 更表意；EXIT_SUCCESS 通常为 0）
-    static_assert(EXIT_SUCCESS == 0 || true);  // 标准只保证成功语义，数值实现定义
+    // 可移植成功/失败码（比裸 0/1 更表意）。
+    // 标准保证：return 0 与 return EXIT_SUCCESS 都表示成功；EXIT_SUCCESS 的数值实现定义，
+    // 但在所有主流托管实现上为 0——这里用运行期断言而非「==0 || true」空壳。
     const int ok = hosted_entry_like(argc > 0 ? argc : 1, argc > 0 ? argv : nullptr);
     assert(ok == EXIT_SUCCESS);
+    assert(EXIT_FAILURE != EXIT_SUCCESS);  // 失败码必须可与成功区分
+    // 其它非 0 退出码含义实现定义（shell 的 $? / %ERRORLEVEL%）
     std::cout << "[exit] EXIT_SUCCESS=" << EXIT_SUCCESS << " EXIT_FAILURE=" << EXIT_FAILURE << '\n';
 
     // 把 argv 拷成 string_view 向量：演示"可遍历至 argc-1"，不读 argv[argc]

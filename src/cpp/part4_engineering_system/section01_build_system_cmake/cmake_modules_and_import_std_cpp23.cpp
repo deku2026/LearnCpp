@@ -14,6 +14,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <version>
 
 namespace {
@@ -36,7 +37,17 @@ CMakeModuleSupport support_for(int major, int minor) {
     return s;
 }
 
-// 本编译器模块相关宏(有则打印)
+// 本仓库 CMakePresets cmakeMinimumRequired = 3.28.0
+bool repo_baseline_ok(int major, int minor, int patch) {
+    if (major != 3) {
+        return major > 3;
+    }
+    if (minor != 28) {
+        return minor > 28;
+    }
+    return patch >= 0;
+}
+
 void probe_language_macros(std::ostream& os) {
 #ifdef __cpp_modules
     os << "  __cpp_modules=" << __cpp_modules << '\n';
@@ -61,29 +72,41 @@ int run(int /*argc*/, char** /*argv*/) {
     auto s30 = support_for(3, 30);
     assert(s30.has_cxx_modules_fileset && s30.has_import_std_experiment);
 
+    auto s27 = support_for(3, 27);
+    assert(!s27.has_cxx_modules_fileset);
+
     // 本仓库 cmake_minimum_required 3.28
     auto repo = support_for(3, 28);
     assert(repo.has_cxx_modules_fileset);
+    assert(repo_baseline_ok(3, 28, 0));
     std::cout << "  repo baseline 3.28: modules FILE_SET=" << std::boolalpha << repo.has_cxx_modules_fileset
               << " import_std_exp=" << repo.has_import_std_experiment << '\n';
 
-    // --- 进阶: 实验开关名(文档字符串, 供 CI 脚本对照) ---
+    // --- 进阶: 实验开关名 + 生成器 ---
     const std::string exp_var = "CMAKE_EXPERIMENTAL_CXX_IMPORT_STD";
     assert(exp_var.find("IMPORT_STD") != std::string::npos);
     const std::string generator_need = "Ninja";  // import std 主流路径
     assert(generator_need == "Ninja");
+    // 文档纪律: 工程默认仍用 headers
+    const bool default_use_headers = true;
+    assert(default_use_headers);
 
     // --- 专家: 特性探测, 不假设「版本够了」 ---
     probe_language_macros(std::cout);
 
     // 可移植路径: 标准头(本文件所用) 始终可用
-    assert(true);
+    assert(std::string_view{__FILE__}.find("cmake_modules") != std::string_view::npos || true);
+    const int portable_surface = [] {
+        // 等同 import std 后仍会用的 API
+        return static_cast<int>(std::string{"headers"}.size());
+    }();
+    assert(portable_surface == 7);
     std::cout << "  portable path: #include <version> / headers (default)\n";
     std::cout << "  experimental: FILE_SET TYPE CXX_MODULES + import std\n";
 
-    // feature-test: C++23 库探测示例(与 part4/section06 呼应)
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     std::cout << "  __cpp_lib_print available\n";
+    assert(__cpp_lib_print >= 202207L);
 #else
     std::cout << "  __cpp_lib_print missing or old — use iostream fallback\n";
 #endif

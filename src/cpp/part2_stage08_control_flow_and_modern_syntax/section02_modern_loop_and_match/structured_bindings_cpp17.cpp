@@ -73,6 +73,16 @@ int run(int argc, char** argv) {
         rx = 30;
         assert(pt.x == 30);
 
+        // C++20：可对「部分」绑定名标 [[maybe_unused]]（实现支持时）；
+        // 全绑定标 [[maybe_unused]] auto [...] 更通用。
+        {
+            auto tup = std::tuple{1, 2.0, std::string{"z"}};
+            [[maybe_unused]] auto [only_id, ignored_d, ignored_s] = tup;
+            assert(only_id == 1);
+            (void)ignored_d;
+            (void)ignored_s;
+        }
+
         // ⭐ 验收点：结构化绑定 + 范围 for 遍历 map
         std::map<std::string, int> ages{{"Alice", 30}, {"Bob", 25}, {"Carol", 35}};
         int age_sum = 0;

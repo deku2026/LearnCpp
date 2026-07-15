@@ -26,6 +26,12 @@ struct alignas(64) CacheLine {
     int data[4];
 };
 
+struct PackedBad {
+    char c;
+    // 下一成员按 alignof(int) 对齐 → padding
+    int i;
+};
+
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
@@ -34,7 +40,6 @@ int run(int argc, char** argv) {
 
     static_assert(alignof(char) == 1);
     assert(alignof(int) >= 4);
-    assert(alignof(double) >= 4);
     assert(alignof(Normal) == alignof(double));
     assert(alignof(CacheLine) == 64);
     assert(sizeof(CacheLine) % 64 == 0);
@@ -42,11 +47,14 @@ int run(int argc, char** argv) {
     alignas(32) int forced = 0;
     auto addr = reinterpret_cast<std::uintptr_t>(&forced);
     assert(addr % 32 == 0);
-    (void)forced;
+
+    // 结构体对齐 = 成员最大对齐；sizeof 上取整到对齐倍数
+    assert(sizeof(PackedBad) >= sizeof(char) + sizeof(int));
+    assert(alignof(PackedBad) == alignof(int));
 
     std::cout << "  alignof(int)=" << alignof(int) << " alignof(CacheLine)=" << alignof(CacheLine)
               << " max_align_t=" << alignof(std::max_align_t) << '\n';
-
+    std::cout << "  alignas requires power-of-two; over-aligned > max_align_t\n";
     std::cout << "alignas_alignof: OK\n";
     return 0;
 }

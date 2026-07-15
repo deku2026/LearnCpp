@@ -42,6 +42,7 @@ int run(int argc, char** argv) {
     // 元素 string 与 vector 共用 pool（uses-allocator 传播）
 
     std::cout << "  nested pmr containers share memory_resource via uses-allocator\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "uses_allocator_construction: OK\n";
     return 0;
 }

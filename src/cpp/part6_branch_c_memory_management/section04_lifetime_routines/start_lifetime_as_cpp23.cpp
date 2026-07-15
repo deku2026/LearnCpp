@@ -5,13 +5,13 @@
 // Item     : start_lifetime_as_cpp23
 // Topic id : part6/c/section04/start_lifetime_as_cpp23
 //
-// 要点: 只开始生命周期、不调构造、保留字节——把缓冲当隐式生命周期对象读。
+// 要点: 只开始生命周期、不调用构造、保留字节——把缓冲当隐式生命周期类型读。
+// new 三件事中的「③」独立出来。
 // 参考: https://en.cppreference.com/w/cpp/memory/start_lifetime_as
 
 #include "learn/topic_registry.hpp"
 
 #include <cassert>
-#include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <memory>
@@ -40,16 +40,17 @@ int run(int argc, char** argv) {
     assert(p->y == 2.5f);
     std::cout << "  start_lifetime_as: lifetime without ctor, bytes kept\n";
 #else
-    // 可移植回退：对隐式生命周期类型，C++20 起某些分配隐式创建对象；
-    // 教学上用 memcpy + launder 近似（实现定义边界时仅作演示）。
     auto* p = std::launder(reinterpret_cast<Point*>(bytes));
     assert(p->x == 1.5f && p->y == 2.5f);
     std::cout << "  start_lifetime_as unavailable; launder+memcpy demo\n";
 #endif
 
-    // 对比：非平凡类型必须 construct_at
-    // std::string 不能 start_lifetime_as
-
+    // 三件套对照:
+    // placement new / construct_at = 构造 + 开始生命（可非平凡）
+    // start_lifetime_as            = 仅开始生命（隐式生命周期类型）
+    // launder                      = 指针消毒，不创建对象
+    // ❌ std::string 不可 start_lifetime_as
+    std::cout << "  requires implicit-lifetime type (see is_implicit_lifetime)\n";
     std::cout << "start_lifetime_as_cpp23: OK\n";
     return 0;
 }

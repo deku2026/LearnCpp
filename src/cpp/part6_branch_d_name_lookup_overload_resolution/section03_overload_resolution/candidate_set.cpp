@@ -5,7 +5,7 @@
 // Item     : candidate_set
 // Topic id : part6/d/section03/candidate_set
 //
-// 要点: 候选 = 普通查找 + ADL 找到的同名函数（含模板、成员）。
+// 要点: 候选 = 普通查找 + ADL 找到的同名函数、函数模板、成员候选。
 // 参考: [over.match]
 
 #include "learn/topic_registry.hpp"
@@ -27,9 +27,20 @@ namespace beta {
 std::string f(int) {
     return "beta::f(int)";
 }
+std::string f(double) {
+    return "beta::f(double)";
+}
 }  // namespace beta
 
-using beta::f;
+using beta::f;  // 把 beta 的 f 引入当前作用域（普通查找候选）
+
+struct S {
+    std::string call(int) { return "S::call(int)"; }
+};
+
+std::string call(S&, double) {
+    return "free call(S&,double)";
+}
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -37,11 +48,21 @@ int run(int argc, char** argv) {
 
     std::cout << "=== D5 candidate set ===\n";
 
-    // 候选含 using 引入的 beta::f 与 ADL 的 alpha::f
-    assert(f(0) == "beta::f(int)");
-    assert((f(alpha::A{}) == "alpha::f(A)"));
+    // 普通查找: using 引入的 beta::f
+    assert(f(1) == "beta::f(int)");
+    assert(f(1.5) == "beta::f(double)");
 
-    std::cout << "  candidates from ordinary lookup + ADL\n";
+    // ADL 加入 alpha::f
+    alpha::A a;
+    assert(f(a) == "alpha::f(A)");
+
+    // 成员 vs 自由函数: 成员调用语法 .call 走成员候选
+    S s;
+    assert(s.call(1) == "S::call(int)");
+    assert(call(s, 2.0) == "free call(S&,double)");
+
+    std::cout << "  candidates from: ordinary lookup + ADL + member rules\n";
+    std::cout << "  next steps: viable filter → best viable (ICS rank)\n";
     std::cout << "candidate_set: OK\n";
     return 0;
 }

@@ -65,13 +65,22 @@ int run(int /*argc*/, char** /*argv*/) {
         threw = true;
         std::cout << "[expert] runtime exception: " << e.what() << '\n';
     }
-    // 不强制要求一定 throw(实现差异), 只演示路径存在
-    (void)threw;
+    // 非法格式串本身(缺右花括号)在多数实现上抛 format_error
+    bool bad_spec = false;
+    try {
+        const std::string bad = "{";
+        (void)std::vformat(bad, std::make_format_args(a));
+    } catch (const std::exception&) {
+        bad_spec = true;
+    }
+    assert(bad_spec || threw);  // 至少一种运行期错误路径被触发
+    assert(std::format("{:04d}", 7) == "0007");
 
     std::cout << "[expert] prefer literal format strings for safety; "
                  "use vformat when the pattern is truly dynamic\n";
 #else
     std::cout << "[intro] <format> not available\n";
+    assert(false && "format baseline expected on this course toolchain");
 #endif
 
     std::cout << "std_format_runtime_versus_compile_time_check_cpp23: all checks passed\n";

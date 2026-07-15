@@ -3,8 +3,8 @@
 // cppreference: https://en.cppreference.com/cpp/language/lambda
 //               https://en.cppreference.com/cpp/language/constexpr
 //
-// 要点: 体符合常量表达式规则时 operator() 隐式 constexpr；可 static_assert / 数组界；
-//       也可显式写 constexpr；C++20 起 consteval 更严。
+// 要点: 体符合常量表达式要求时 operator() 隐式 constexpr；可 static_assert / 数组界；
+//       也可显式写 constexpr；C++20 起 consteval 组合。
 
 #include "learn/topic_registry.hpp"
 
@@ -42,15 +42,15 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] implicit constexpr call op when body qualifies\n";
 
     // -------------------------------------------------------------------------
-    // §专家：捕获与常量性
+    // §专家：捕获与常量性；consteval
     // -------------------------------------------------------------------------
     // 编译期求值时，捕获的状态也必须是常量表达式可用的
     constexpr int k = 3;
-    // constexpr 变量在常量表达式中可直接读，不必捕获；此处显式 [k=k] 演示「带进闭包」
+    // constexpr 变量在常量表达式中可直接读；此处显式 [k=k] 强调「捕获进闭包」
     constexpr auto add_k = [k = k](int n) { return n + k; };
     static_assert(add_k(4) == 7);
 
-    // 运行期捕获则只能运行期调用（不能 static_assert 该次调用）
+    // 捕获运行期值时只能运行期调用（不能 static_assert 这次调用）
     int runtime = 10;
     auto add_rt = [runtime](int n) { return n + runtime; };
     assert(add_rt(5) == 15);
@@ -58,8 +58,14 @@ int run(int /*argc*/, char** /*argv*/) {
     // C++20 consteval lambda：只允许编译期
     auto only_ce = [](int n) consteval { return n * 2; };
     static_assert(only_ce(3) == 6);
+    // int y = 1; auto z = only_ce(y); // ❌ 非常量实参
 
-    std::cout << "[expert] captures must be usable at compile time for constexpr eval\n";
+    // 泛型 + constexpr
+    auto abs_ce = [](auto v) constexpr { return v < 0 ? -v : v; };
+    static_assert(abs_ce(-3) == 3);
+    static_assert(abs_ce(4) == 4);
+
+    std::cout << "[expert] captures must be usable at compile time for constexpr eval; consteval is stricter\n";
     std::cout << "=== constexpr_lambda_cpp17: OK ===\n";
     return 0;
 }

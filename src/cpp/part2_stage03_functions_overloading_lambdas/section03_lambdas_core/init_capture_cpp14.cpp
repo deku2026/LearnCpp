@@ -1,9 +1,9 @@
 // Topic     : 初始化捕获 init-capture（C++14）
-// Doc       : 第2部分-阶段3 · 步骤 5.3
+// Doc       : 第2部分-阶段3 · 步骤 5.3 / 验收「初始化捕获 move unique_ptr」
 // cppreference: https://en.cppreference.com/cpp/language/lambda
 //
-// 要点: [x = expr] 在闭包里新建成员；可 std::move 不可拷贝对象；可计算新值；
-//       是 move-only lambda 的关键拼图。
+// 要点: [x = expr] 在闭包内新建成员，可 std::move 进不可拷贝对象；可计算新值；
+//       是 move-only lambda 的关键拼图（再装进 move_only_function）。
 
 #include "learn/topic_registry.hpp"
 
@@ -12,6 +12,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace {
 
@@ -38,23 +39,42 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::string s = "payload";
     auto took = [buf = std::move(s)] { return buf.size(); };
-    assert(s.empty());  // 被移走（合法 moved-from 状态）
+    assert(s.empty());  // 合法 moved-from 状态
     assert(took() == 7);
-    std::cout << "[advanced] move unique_ptr/string into closure via init-capture\n";
+
+    // 只抓字段，避免拷贝整个大对象
+    struct Blob {
+        int id = 1;
+        std::string name = "blob";
+        std::vector<int> data{1, 2, 3, 4, 5};
+    };
+    Blob b;
+    auto thin = [id = b.id, name = b.name] { return name + "#" + std::to_string(id); };
+    assert(thin() == "blob#1");
+    std::cout << "[advanced] move unique_ptr/string into closure; thin field capture\n";
 
     // -------------------------------------------------------------------------
-    // §专家：命名、泛型 init-capture（C++14）、与 [=] 区别
+    // §专家：成员名可与外部不同；mutable；不能 [p] 拷贝 unique_ptr
     // -------------------------------------------------------------------------
-    // 成员名可以与外部不同：[val = std::move(s)]
-    // C++14 起也可用 auto 推导：但左侧名字是成员标识符，右侧是表达式。
-    // 广义捕获不能写 [p] 当 p 不可拷贝——必须 [p = std::move(p)]。
-    // 打包捕获见 capture_pack_cpp20。
+    // 成员名可不同于外部：[val = std::move(s)]
+    // 不能指望写 [p] 当 p 不可拷贝——必须 [p = std::move(p)]。
     int n = 1;
     auto counter = [k = n]() mutable { return ++k; };
     assert(counter() == 2);
     assert(counter() == 3);
     assert(n == 1);
 
+    // 广义捕获 + 再 move 进另一个包装（预习 move_only_function）
+    auto q = std::make_unique<std::string>("task");
+    auto work = [msg = std::move(q)]() mutable {
+        assert(msg);
+        auto out = *msg;
+        msg.reset();
+        return out;
+    };
+    assert(work() == "task");
+
+    // C++20 包捕获见 capture_pack_cpp20；C++17 [*this] 见 capture_star_this_cpp17
     std::cout << "[expert] init-capture enables move-only state inside lambdas\n";
     std::cout << "=== init_capture_cpp14: OK ===\n";
     return 0;

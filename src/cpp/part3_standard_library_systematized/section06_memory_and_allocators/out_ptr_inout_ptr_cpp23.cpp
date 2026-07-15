@@ -1,9 +1,9 @@
-// Topic    : std::out_ptr / io_ptr（C++23 对接 C 的 T**）
+// Topic    : std::out_ptr / inout_ptr（C++23 对接 C 的 T**）
 // Doc      : 第3部分-标准库系统化.md · 库 6.1
 // Stage    : part3_standard_library_systematized
 // Section  : section06_memory_and_allocators
-// Item     : out_ptr_io_ptr_cpp23
-// Topic id : part3/section06/out_ptr_io_ptr_cpp23
+// Item     : out_ptr_inout_ptr_cpp23
+// Topic id : part3/section06/out_ptr_inout_ptr_cpp23
 // Refs     : https://en.cppreference.com/w/cpp/memory/out_ptr_t
 //            P1132；__cpp_lib_out_ptr
 
@@ -52,7 +52,7 @@ struct FooDeleter {
 };
 
 int run(int /*argc*/, char** /*argv*/) {
-    std::cout << "=== [out_ptr_io_ptr_cpp23] ===\n";
+    std::cout << "=== [out_ptr_inout_ptr_cpp23] ===\n";
 
 #if defined(__cpp_lib_out_ptr) && __cpp_lib_out_ptr >= 202106L
     std::cout << "__cpp_lib_out_ptr=" << __cpp_lib_out_ptr << '\n';
@@ -64,9 +64,9 @@ int run(int /*argc*/, char** /*argv*/) {
 
     {
         std::unique_ptr<Foo, FooDeleter> q(new Foo{1});
-        rc = c_replace(std::io_ptr(q));
+        rc = c_replace(std::inout_ptr(q));
         assert(rc == 0 && q && q->id == 99);
-        std::cout << "io_ptr replace id=" << q->id << '\n';
+        std::cout << "inout_ptr replace id=" << q->id << '\n';
     }
 
     {
@@ -81,7 +81,7 @@ int run(int /*argc*/, char** /*argv*/) {
     }
 
     std::cout << "out_ptr: overwrite smart pointer from C T** output\n";
-    std::cout << "io_ptr: hand current pointer to C (realloc-style)\n";
+    std::cout << "inout_ptr: hand current pointer to C (realloc-style)\n";
 #else
     std::cout << "out_ptr feature missing; manual adopt path\n";
     std::unique_ptr<Foo, FooDeleter> p;
@@ -93,10 +93,10 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "manual adopt id=" << p->id << '\n';
 #endif
 
-    std::cout << "[out_ptr_io_ptr_cpp23] all checks passed\n";
+    std::cout << "[out_ptr_inout_ptr_cpp23] all checks passed\n";
     return 0;
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section06/out_ptr_io_ptr_cpp23", run>;
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section06/out_ptr_inout_ptr_cpp23", run>;
 
 }  // namespace

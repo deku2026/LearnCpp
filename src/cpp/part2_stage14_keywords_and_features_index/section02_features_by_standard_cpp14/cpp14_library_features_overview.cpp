@@ -12,14 +12,17 @@
 
 #include <cassert>
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <memory>
 #include <shared_mutex>
+#include <sstream>
 #include <string>
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <version>
 
 namespace {
 
@@ -86,7 +89,23 @@ int run(int argc, char** argv) {
     std::cout << "[transparent less<>] find(beta)=" << (it != m.end() ? it->second : -1) << '\n';
     assert(it != m.end() && it->second == 2);
 
-    // 6) quoted IO is C++14 iostream; keep light
+    // 6) std::quoted (C++14 <iomanip>) — round-trip friendly string IO
+    {
+        std::ostringstream oss;
+        const std::string raw = R"(he said "hi")";
+        oss << std::quoted(raw);
+        std::istringstream iss(oss.str());
+        std::string back;
+        iss >> std::quoted(back);
+        assert(back == raw);
+        std::cout << "[quoted] round-trip OK: " << oss.str() << '\n';
+    }
+
+    // 7) feature-test anchor (language already has generic lambdas etc.)
+#if defined(__cpp_lib_make_unique)
+    std::cout << "[feature-test] __cpp_lib_make_unique=" << __cpp_lib_make_unique << '\n';
+#endif
+
     std::cout << "C++14 library matrix OK\n";
     return 0;
 }

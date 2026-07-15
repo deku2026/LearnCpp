@@ -110,8 +110,9 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     {
         std::lock_guard<std::mutex> lk(g_mtx);
-        // 临界区
-        assert(true);
+        // 临界区：标准 lock_guard 与手写 Guard 同构——离开作用域自动 unlock
+        assert(LockCounter::depth() == 0);  // 自定义计数器未参与此路径
+        (void)lk;
     }  // unlock
 
     std::string log;

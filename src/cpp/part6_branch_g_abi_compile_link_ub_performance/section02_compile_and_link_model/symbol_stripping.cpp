@@ -16,12 +16,10 @@
 
 namespace {
 
-// 存活: 被调用
 int used_func(int x) {
     return x + 1;
 }
 
-// 若链接 --gc-sections 且无引用, 目标节可丢弃
 [[maybe_unused]] int unused_func(int x) {
     return x - 1;
 }
@@ -33,7 +31,11 @@ int run(int argc, char** argv) {
     std::cout << "=== G2/G5 symbol stripping ===\n";
 
     assert(used_func(41) == 42);
+    (void)&unused_func;  // 可能仍被保留，取决于链接器 GC
 
+    std::cout << "  tools:\n";
+    std::cout << "    ELF: strip -s; ld --gc-sections; -ffunction-sections -fdata-sections\n";
+    std::cout << "    MSVC: /OPT:REF /OPT:ICF; link /DEBUG:NONE for release\n";
     std::cout << "  debug build: keep symbols for stack traces / profilers\n";
     std::cout << "  release: strip + section GC + LTO can shrink a lot\n";
     std::cout << "  never strip public API of a shared library you export\n";

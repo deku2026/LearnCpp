@@ -66,9 +66,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     int* px = &x;
     int** pp = &px;
-    assert(**pp == x || true);
+    assert(**pp == x);
+    assert(*pp == px);
     **pp = 11;
     assert(x == 11);
+    assert(**pp == 11);
 
     auto add1 = [](int n) { return n + 1; };
     // 函数指针（非捕获 lambda 可转）

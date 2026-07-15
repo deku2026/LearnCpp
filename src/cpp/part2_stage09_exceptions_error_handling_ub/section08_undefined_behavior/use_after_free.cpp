@@ -39,10 +39,25 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "re-seat iterator after potential reallocation\n";
     }
 
+    std::cout << "=== 进阶：shared_ptr 延长寿命；weak_ptr 观察 ===\n";
+    {
+        std::shared_ptr<int> owner = std::make_shared<int>(99);
+        std::weak_ptr<int> observer = owner;
+        assert(!observer.expired());
+        {
+            auto locked = observer.lock();
+            assert(locked && *locked == 99);
+        }
+        owner.reset();
+        assert(observer.expired());  // 不再持有 → 不能当裸指针继续用
+        std::cout << "weak_ptr.lock() fails after last owner dies\n";
+    }
+
     std::cout << "=== 专节：UB 形态（不触发）===\n";
     // 危险（勿运行）：
     //   int* p = new int(1); delete p; int x = *p;  // use-after-free
     //   delete p; delete p;                         // double-free
+    //   捕获引用/指针到局部后函数返回再解引用
     // 护栏：ASan；纪律：RAII/智能指针，裸 new/delete 最小化。
     std::cout << "RAII + smart pointers; ASan for UAF in tests\n";
 

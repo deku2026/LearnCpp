@@ -52,9 +52,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：contextual bool
     // -------------------------------------------------------------------------
+    bool half_truthy = false;
     if (half) {
-        assert(true);
+        half_truthy = true;  // contextual conversion to bool（explicit operator bool 允许）
     }
+    assert(half_truthy);
     Fraction zero{0, 1};
     assert(!zero);
 

@@ -15,15 +15,18 @@
 
 namespace {
 
-// 本 TU 提供定义
 int resolved_value() {
     return 100;
 }
 
-// 通过函数指针模拟"解析到具体定义"
 using Fn = int (*)();
 Fn pick() {
     return &resolved_value;
+}
+
+// ODR: 同一实体一个定义（本演示单 TU）
+inline int inline_helper() {
+    return 1;
 }
 
 int run(int argc, char** argv) {
@@ -34,11 +37,13 @@ int run(int argc, char** argv) {
 
     Fn f = pick();
     assert(f() == 100);
+    assert(inline_helper() == 1);
 
     std::cout << "  undefined ref must find exactly one strong definition\n";
-    std::cout << "  static libs: pulled only if needed (order matters on ld)\n";
+    std::cout << "  static libs: archive members pulled only if needed (ld order)\n";
     std::cout << "  --start-group / whole-archive for circular static deps\n";
     std::cout << "  weak symbols: overridable defaults (ELF)\n";
+    std::cout << "  duplicate strong symbols: link error (or ODR UB if silent)\n";
     std::cout << "symbol_resolution: OK\n";
     return 0;
 }

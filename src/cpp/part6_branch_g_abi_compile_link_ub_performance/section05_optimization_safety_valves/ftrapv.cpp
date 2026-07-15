@@ -18,9 +18,7 @@
 namespace {
 
 int safe_inc(int x) {
-    if (x == std::numeric_limits<int>::max()) {
-        return x;  // 避免溢出
-    }
+    if (x == std::numeric_limits<int>::max()) return x;
     return x + 1;
 }
 
@@ -34,8 +32,9 @@ int run(int argc, char** argv) {
     assert(safe_inc(std::numeric_limits<int>::max()) == std::numeric_limits<int>::max());
 
     std::cout << "  -ftrapv inserts overflow checks (GCC; incomplete historically)\n";
-    std::cout << "  prefer: -fsanitize=signed-integer-overflow (UBSan)\n";
-    std::cout << "  production: checked arithmetic helpers, not traps\n";
+    std::cout << "  prefer: -fsanitize=signed-integer-overflow / integer (UBSan)\n";
+    std::cout << "  production: checked arithmetic helpers, not process traps\n";
+    std::cout << "  signed overflow is UB in ISO C++; flags change the dialect\n";
     std::cout << "ftrapv: OK\n";
     return 0;
 }

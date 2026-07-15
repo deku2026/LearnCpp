@@ -51,6 +51,16 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(only_map && *only_map == 4);
     std::cout << "prefer transform for pure maps; and_then for fallible steps\n";
 
+    std::cout << "=== 专家：链式类型演化（int → string）===\n";
+    {
+        auto r = parse("10")
+                     .transform([](int v) { return v + 2; })               // expected<int,E>
+                     .transform([](int v) { return std::to_string(v); });  // expected<string,E>
+        assert(r && *r == "12");
+        // 错误侧类型 E 在 transform 链上保持；改 E 用 transform_error
+        std::cout << "type evolves on value side; E stable under transform\n";
+    }
+
     std::cout << "[expected_transform] all checks passed\n";
     return 0;
 }

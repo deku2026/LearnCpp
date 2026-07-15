@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] brace or extra parens fix Timer() MVP\n";
 
     // -------------------------------------------------------------------------
-    // 专家：在类型系统中的痕迹
+    // 专家：在类型系统中的痕迹；与 initializer_list 劫持分工
     // -------------------------------------------------------------------------
     // 若真的写出函数声明，其类型是函数类型
     using Fn = Widget();
@@ -68,7 +68,19 @@ int run(int /*argc*/, char** /*argv*/) {
     Widget (*fp)() = nullptr;
     assert(fp == nullptr);
 
+    // 语法层面：T name(); 在块作用域仍是函数声明（C 继承的「最歧义解析」）
+    // 对比：T name{}; 绝不可能是函数声明 → 这是「优先 {}」的第二大理由（第一是窄化检查）
+    using Obj = decltype(w);
+    static_assert(std::is_same_v<Obj, Widget>);
+    static_assert(!std::is_function_v<Obj>);
+
+    // 与 braces_vs_parens_initializer_list_hijack 分工：
+    // · MVP：解析成「函数声明」而非对象
+    // · list 劫持：解析成对象，但选了 initializer_list 构造
+    // 两者都是 {} vs () 心智的一部分；vector 要 (count,value) 时必须用 ()。
+
     // 现代默认：局部对象一律 T obj{}; 或 T obj{args}; 需要 (count,value) 时再对 vector 用 ()
+    assert(w.foo() == 1 && w2.foo() == 100 && w3.foo() == 100 && w4.foo() == 105);
     std::cout << "[expert] grammar prefers function declaration — braces cannot declare fns\n";
     std::cout << "=== most_vexing_parse_and_brace_fix: OK ===\n";
     return 0;

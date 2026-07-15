@@ -6,6 +6,7 @@
 // Topic id : part6/d/section02/two_phase_lookup
 //
 // 要点: 非依赖名定义期查找；依赖名实例化期查找（含 ADL）。
+// 经典「GCC 过 Clang 不过」多与此相关。
 // 参考: [temp.res] [temp.dep]
 
 #include "learn/topic_registry.hpp"
@@ -25,19 +26,17 @@ std::string g(const Item& it) {
 }
 }  // namespace client
 
-// 非依赖：helper 必须在定义前可见
 std::string helper() {
     return "helper";
 }
 
 template <typename T>
 std::string f(T t) {
-    auto a = helper();  // 非依赖 → 阶段1
-    auto b = g(t);      // 依赖调用 → 阶段2 ADL
+    auto a = helper();  // 非依赖 → 阶段1（定义点）
+    auto b = g(t);      // 依赖调用 → 阶段2 + ADL
     return a + "|" + b;
 }
 
-// 依赖基类成员需 this-> 或限定
 template <typename T>
 struct Base {
     int value = 11;
@@ -46,7 +45,7 @@ struct Base {
 template <typename T>
 struct Derived : Base<T> {
     int get() const {
-        // return value; // 可能找不到（依赖基类）
+        // return value; // 依赖基类成员：未限定可能找不到
         return this->value;
     }
 };
@@ -62,7 +61,9 @@ int run(int argc, char** argv) {
     Derived<int> d;
     assert(d.get() == 11);
 
-    std::cout << "  phase1: non-dependent; phase2: dependent + ADL\n";
+    std::cout << "  phase1: non-dependent names at template definition\n";
+    std::cout << "  phase2: dependent names at instantiation (+ ADL)\n";
+    std::cout << "  dependent base members: use this-> or Base<T>::\n";
     std::cout << "two_phase_lookup: OK\n";
     return 0;
 }

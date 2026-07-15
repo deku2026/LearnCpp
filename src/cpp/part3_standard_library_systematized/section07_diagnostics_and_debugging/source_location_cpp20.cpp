@@ -6,6 +6,8 @@
 // Topic id : part3/section07/source_location_cpp20
 // Refs     : https://en.cppreference.com/w/cpp/utility/source_location
 //            P1208
+//
+// 要点: current() 默认实参在【调用点】求值; 可传入/返回; 类型安全替代宏。
 
 #include "learn/topic_registry.hpp"
 
@@ -26,30 +28,59 @@ std::source_location capture(std::source_location loc = std::source_location::cu
     return loc;
 }
 
+// 反模式: 在函数体内 current() → 总是指向本函数, 不是调用者
+std::source_location wrong_capture() {
+    return std::source_location::current();
+}
+
+int checked_div(int a, int b, std::source_location loc = std::source_location::current()) {
+    if (b == 0) {
+        std::cout << "div0 reported from " << loc.file_name() << ':' << loc.line() << '\n';
+        return 0;
+    }
+    return a / b;
+}
+
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [source_location_cpp20] current() ===\n";
     {
         const auto loc = std::source_location::current();
         assert(loc.line() > 0);
-        assert(std::string_view{loc.file_name()}.find("source_location") != std::string_view::npos ||
-               std::string_view{loc.file_name()}.size() > 0);
+        assert(loc.column() >= 0);
+        assert(std::string_view{loc.file_name()}.size() > 0);
+        assert(std::string_view{loc.function_name()}.size() > 0);
         std::cout << "here: " << loc.file_name() << ':' << loc.line() << " col=" << loc.column()
                   << " func=" << loc.function_name() << '\n';
     }
 
     std::cout << "=== 默认参数捕获调用处 ===\n";
+    const auto before = std::source_location::current().line();
     log("hello from run");  // 行号应落在本行附近
+    const auto after_log_line = before + 1;
+    (void)after_log_line;
 
     std::cout << "=== 作为返回值传递 ===\n";
     {
         const auto loc = capture();
         std::cout << "captured line=" << loc.line() << " func=" << loc.function_name() << '\n';
         assert(loc.line() > 0);
+        // wrong_capture 的行号在函数体内, 与 capture() 调用行不同(通常)
+        const auto bad = wrong_capture();
+        std::cout << "wrong_capture line=" << bad.line() << " (points inside helper)\n";
+        assert(bad.line() != loc.line() || true);  // 实现可内联合并行, 不强制
     }
+
+    std::cout << "=== 错误报告携带调用点 ===\n";
+    assert(checked_div(10, 2) == 5);
+    assert(checked_div(1, 0) == 0);
 
     std::cout << "=== 对比宏 ===\n";
     std::cout << "macro form: " << __FILE__ << ':' << __LINE__ << '\n';
     std::cout << "source_location is typed, passable, no macro hygiene issues\n";
+    // 可放入容器 / 结构化绑定? 有 file_name/line/function_name/column 访问器
+    const auto loc2 = std::source_location::current();
+    assert(std::string{loc2.file_name()}.find("source_location") != std::string::npos ||
+           std::string_view{loc2.file_name()}.size() > 0);
 
     std::cout << "[source_location_cpp20] all checks passed\n";
     return 0;

@@ -1,9 +1,14 @@
 // LearnCpp topic
-// Doc      : part2-stage12-coroutines.md
+// Doc      : 第2部分-阶段12-协程.md · 步骤 9 / 10（手写 Task + 对称转移）
 // Stage    : part2_stage12_coroutines
 // Section  : section06_hand_rolled_examples
 // Item     : handwritten_task_with_symmetric_transfer
 // Topic id : part2/stage12/section06/handwritten_task_with_symmetric_transfer
+//
+// 对照（教学注释，不强制链接）:
+//   Boost.Asio asio::awaitable + symmetric transfer 思路同类;
+//   真正异步还需 executor（io_context），本文件只演示语言层 Task 骨架。
+//   Boost.Coroutine2 是 stackful，与这里 stackless promise 模型不同。
 //
 // 要点: 完整最小 Task<T> — continuation + final_suspend/operator co_await
 //       均用 await_suspend 返回 handle 做对称转移。

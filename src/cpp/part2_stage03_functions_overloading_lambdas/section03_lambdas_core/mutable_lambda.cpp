@@ -4,11 +4,14 @@
 //
 // 要点: 默认 operator() 为 const，值捕获成员不可改；mutable 去掉 const；
 //       改的是闭包内副本，不是外部变量（外部要用 & 捕获）。
+//       const 限定的 lambda 对象不能调用 mutable 的非 const operator()。
 
 #include "learn/topic_registry.hpp"
 
 #include <cassert>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 namespace {
 
@@ -29,7 +32,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[intro] mutable allows modifying by-value captures inside call op\n";
 
     // -------------------------------------------------------------------------
-    // §进阶：对比引用捕获
+    // §进阶：对比引用捕获；生成序列
     // -------------------------------------------------------------------------
     int m = 0;
     auto outer = [&m] {
@@ -42,10 +45,16 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 无 mutable 时，值捕获只读：
     // auto bad = [n] { return ++n; }; // ❌
-    std::cout << "[advanced] ref capture mutates outer without mutable\n";
+
+    // 有状态生成器：值捕获 + mutable 是常见写法
+    auto gen = [k = 0]() mutable { return k++; };
+    assert(gen() == 0);
+    assert(gen() == 1);
+    assert(gen() == 2);
+    std::cout << "[advanced] ref capture mutates outer without mutable; gen is independent state\n";
 
     // -------------------------------------------------------------------------
-    // §专家：const 对象与拷贝
+    // §专家：const 对象与拷贝；与 init-capture 组合
     // -------------------------------------------------------------------------
     int seed = 5;
     auto c1 = [seed]() mutable { return ++seed; };
@@ -58,7 +67,22 @@ int run(int /*argc*/, char** /*argv*/) {
     // frozen(); // ❌ 若取消注释：const 对象调非 const 成员
     (void)frozen;
 
-    std::cout << "[expert] each closure copy has its own captured state; const lambda object blocks mutable call\n";
+    // init-capture + mutable：闭包拥有可改动的独立状态（含 move-only 资源时见 init_capture）
+    auto acc = [sum = 0](int x) mutable {
+        sum += x;
+        return sum;
+    };
+    assert(acc(3) == 3);
+    assert(acc(4) == 7);
+
+    // C++23 可写 [] mutable { ... }（省略空 ()）——见 optional_parameter_list_cpp23
+    std::vector<int> out;
+    auto push_id = [id = 0, &out]() mutable { out.push_back(id++); };
+    push_id();
+    push_id();
+    assert(out.size() == 2 && out[0] == 0 && out[1] == 1);
+
+    std::cout << "[expert] each closure copy has its own state; const lambda object blocks mutable call\n";
     std::cout << "=== mutable_lambda: OK ===\n";
     return 0;
 }

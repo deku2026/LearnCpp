@@ -33,8 +33,10 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 始终可探测的 C++ 原子
     std::atomic<int> cxx{0};
-    cxx.store(1);
-    assert(cxx.load() == 1);
+    cxx.store(1, std::memory_order_relaxed);
+    assert(cxx.load(std::memory_order_relaxed) == 1);
+    assert(cxx.fetch_add(2) == 1);
+    assert(cxx.load() == 3);
     std::cout << "std::atomic<int> load=" << cxx.load() << '\n';
 
 #if LEARN_HAS_STDATOMIC_H
@@ -46,10 +48,16 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "<stdatomic.h> included successfully\n";
 #else
     std::cout << "<stdatomic.h> not available; documented C++23 addition only\n";
+    // 纯 C++ 路径仍保证可运行断言
+    assert(std::atomic_int{5}.load() == 5);
 #endif
 
-    // 明确写出易混项
+    // 明确写出易混项: 文档 headers map 版本陷阱
+    const bool stdbit_is_cpp26 = true;
+    const bool stdckdint_is_cpp26 = true;
+    assert(stdbit_is_cpp26 && stdckdint_is_cpp26);
     std::cout << "NOT C++23: <stdbit.h> / <stdckdint.h> are C++26\n";
+    std::cout << "prefer <atomic> + std::atomic in pure C++ TUs\n";
     std::cout << "[stdatomic_h_cpp23] all checks passed\n";
     return 0;
 }

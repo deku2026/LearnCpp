@@ -5,8 +5,8 @@
 // Item     : msvc_core_check
 // Topic id : part6/b/section06/msvc_core_check
 //
-// 要点: MSVC /analyze + Core Check 生命周期相关警告（C26800 等）；
-//       展示不会触发的安全代码与启用方式说明。
+// 要点: MSVC /analyze + Core Check 报生命周期相关警告（C26800 等）。
+// 展示不触发的安全路径与启用方式。
 // 参考: learn.microsoft.com Code Analysis C26800 C26815 C26816
 
 #include "learn/topic_registry.hpp"
@@ -25,7 +25,10 @@ int run(int argc, char** argv) {
 
     std::cout << "=== B9 MSVC Core Check (/analyze) ===\n";
     std::cout << "  enable: cl /analyze /std:c++latest  or VS Code Analysis\n";
-    std::cout << "  examples: C26800 use-after-move; C26815/16 dangling\n";
+    std::cout << "  examples:\n";
+    std::cout << "    C26800 use-after-move\n";
+    std::cout << "    C26815/C26816 dangling gsl::span / string_view style\n";
+    std::cout << "    C264xx lifetime / ownership family (with GSL annotations)\n";
 
     // 避免 use-after-move
     std::string a = "msvc";
@@ -34,18 +37,17 @@ int run(int argc, char** argv) {
     a.assign("again");
     assert(a == "again");
 
-    // 避免悬垂：不返回局部地址
     auto make = []() { return std::make_unique<int>(5); };
     auto p = make();
     assert(p && *p == 5);
 
-    // GSL 标注友好风格（Core Check 与 GSL 规则协同）
     int x = 1;
     int* borrow = &x;
     assert(*borrow == 1);
     borrow = nullptr;
 
-    std::cout << "  pair with ASan for runtime; Core Check is static\n";
+    std::cout << "  pair with ASan for runtime; Core Check is static (MSVC)\n";
+    std::cout << "  B12: open Core Check / tidy and catch one issue\n";
     std::cout << "msvc_core_check: OK\n";
     return 0;
 }

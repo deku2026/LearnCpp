@@ -44,6 +44,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：or_else 也可传播/改写错误 ===\n";
     {
+        // or_else 的 F 必须返回 expected 特化（不能只 return unexpected）
         auto r = load_config("user").or_else(
             [](const std::string& e) { return std::unexpected<std::string>("fatal:" + e); });
         assert(!r && r.error() == "fatal:missing:user");

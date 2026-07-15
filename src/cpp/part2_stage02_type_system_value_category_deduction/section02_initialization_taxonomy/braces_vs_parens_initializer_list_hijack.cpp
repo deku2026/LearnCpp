@@ -64,21 +64,31 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(one_count.size() == 5 && one_count[0] == 0);
 
     // -------------------------------------------------------------------------
-    // 专家：实战建议与“不回退”
+    // 专家：实战建议与“不回退”（list-initialization 两阶段）
     // -------------------------------------------------------------------------
+    // cppreference List-initialization：
+    //   ① 若存在 initializer_list 构造且元素可（非窄化）转换 → **优先且固执**选它
+    //   ② 仅当 ① 不匹配时，才让其它构造参与重载（且仍禁窄化）
     // 想要 N 个值 / 特定构造 → 用 ()
     // 想要元素列表 → 用 {}
     // 无 initializer_list 的类型：{} 与 () 通常同义（差在窄化与 MVP）
 
-    // 空括号 vs 空花括号
+    // 空 {}：值初始化空 vector；T x; 对 vector 也是默认构造空容器
     std::vector<int> e1{};
     std::vector<int> e2;
     assert(e1.empty() && e2.empty());
 
-    // 浮点窄化也不会让决议“改选”count 构造：{3.0, 2.0} 仍走 list（元素 double→int 窄化则整体失败）
+    // 单参数：{n} vs (n) 对 vector 仍不同
+    assert(one_elem.size() == 1);
+    assert(one_count.size() == 5);
+
+    // 浮点窄化也不会让决议“改选”count 构造：{3.0, 2.0} 仍走 list 通道，
+    // 元素 double→int 窄化 → 整体 ill-formed（不会回退到 (count,value)）
     // std::vector<int> bad{3.0, 2.0}; // ill-formed narrowing
 
-    std::cout << "[expert] remember: same numbers, different objects — check C++ Insights\n";
+    // 验收自查：打印两者 size/元素后能口述「为何 {} 优先 list」
+    assert(v1.size() + v2.size() == 5);
+    std::cout << "[expert] same numbers, different objects; list ctor wins and does not fall back\n";
     std::cout << "=== braces_vs_parens_initializer_list_hijack: OK ===\n";
     return 0;
 }

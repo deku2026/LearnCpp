@@ -47,6 +47,7 @@ int run(int argc, char** argv) {
     std::allocator_traits<MinimalAlloc<int>>::deallocate(a, p, 4);
 
     std::cout << "  optional: construct/destroy/rebind/propagate traits\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "allocator_requirements: OK\n";
     return 0;
 }

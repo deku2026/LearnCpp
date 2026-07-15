@@ -57,6 +57,7 @@ int run(int argc, char** argv) {
     assert(!(a == c));
 
     std::cout << "  always_equal => any instance may free any other allocation\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "is_always_equal: OK\n";
     return 0;
 }

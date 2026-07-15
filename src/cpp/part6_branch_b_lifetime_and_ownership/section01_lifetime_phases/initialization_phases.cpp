@@ -5,13 +5,14 @@
 // Item     : initialization_phases
 // Topic id : part6/b/section01/initialization_phases
 //
-// 要点: 分配 → 构造(生命开始) → 使用 → 析构(生命结束) → 释放；
-//       生命周期外访问 = UB。用 placement new / destroy_at 分阶段实证。
+// 要点: 分配 → 构造(生命周期开始) → 使用 → 析构(生命周期结束) → 释放；
+//       在生命周期外访问 = UB。用 placement / construct_at / destroy_at 分阶段实证。
 // 参考: [basic.life]
 
 #include "learn/topic_registry.hpp"
 
 #include <cassert>
+#include <cstddef>
 #include <iostream>
 #include <memory>
 #include <new>
@@ -27,7 +28,7 @@ struct Phase {
     }
     ~Phase() {
         std::cout << "  destroy " << name << " id=" << id << '\n';
-        id = -1;  // 析构开始后状态失效（仅教学标记）
+        id = -1;  // 析构后状态无效（教学标记，勿在外部读）
     }
 };
 
@@ -37,6 +38,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== B1 initialization / lifetime phases ===\n";
 
+    // --- 入门: 手动五阶段 ---
     // 1) 分配原始存储（尚无对象生命周期）
     alignas(Phase) unsigned char storage[sizeof(Phase)];
 
@@ -45,30 +47,36 @@ int run(int argc, char** argv) {
     assert(p->id == 42);
     assert(p->name == "widget");
 
-    // 3) 使用（对象活着）
+    // 3) 使用（生命周期内）
     p->id = 7;
     assert(p->id == 7);
 
-    // 4) 析构 → 生命周期结束（此后不得访问成员）
+    // 4) 析构 → 生命周期结束；此后不得访问成员
     std::destroy_at(p);
-    // p->id;  // ❌ UB：生命周期外访问——禁止
+    // p->id;  // ❌ UB（生命周期外）；故意省略
 
     // 5) 存储可复用：再次构造新对象
     p = std::construct_at(reinterpret_cast<Phase*>(storage), "reuse", 99);
     assert(p->id == 99);
+    assert(p->name == "reuse");
     std::destroy_at(p);
 
-    // 自动存储：编译器自动完成 1–5
+    // --- 进阶: 自动 / 动态 存储把阶段绑在一起 ---
     {
-        Phase local{"auto", 1};
+        Phase local{"auto", 1};  // 分配+构造；离开作用域析构+释放
         assert(local.id == 1);
     }
 
-    // 动态存储：new = 分配+构造；delete = 析构+释放
-    Phase* heap = new Phase{"heap", 2};
+    Phase* heap = new Phase{"heap", 2};  // 分配+构造
     assert(heap->id == 2);
-    delete heap;
+    delete heap;  // 析构+释放
 
+    // --- 专家: 与 start_lifetime_as / launder 分界（支线 C/G）---
+    // placement/construct_at: 真正运行构造函数，开始生命周期
+    // start_lifetime_as: 对隐式生命周期类型「只开始生命周期」，不跑构造
+    // launder: 指针消毒，不创建对象
+    std::cout << "  outside lifetime access = UB (before ctor / after dtor start)\n";
+    std::cout << "  construct_at = begin life; destroy_at = end life\n";
     std::cout << "initialization_phases: OK\n";
     return 0;
 }

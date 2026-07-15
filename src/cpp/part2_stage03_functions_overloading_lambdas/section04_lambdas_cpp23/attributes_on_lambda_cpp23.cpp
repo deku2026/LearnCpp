@@ -4,7 +4,8 @@
 //               https://en.cppreference.com/cpp/language/attributes
 //
 // 要点: 可对 lambda 的 operator() 施加 [[nodiscard]] / [[deprecated]] 等；
-//       属性位置在参数列表之后、说明符附近（见标准语法）。
+//       属性位置在参数列表之后说明符区域（与标准语法一致）；
+//       与 mutable / constexpr / noexcept / static 可组合。
 
 #include "learn/topic_registry.hpp"
 
@@ -22,11 +23,11 @@ int run(int /*argc*/, char** /*argv*/) {
     auto make_id = [] [[nodiscard]] () -> int { return 42; };
     const int id = make_id();  // 使用返回值
     assert(id == 42);
-    // (void)make_id(); 若直接丢弃，优质编译器可告警
+    // (void)make_id(); 或直接丢弃返回值时，编译器可能告警
     std::cout << "[intro] [[nodiscard]] on lambda call operator\n";
 
     // -------------------------------------------------------------------------
-    // §进阶：与其它说明符组合
+    // §进阶：与其他说明符组合
     // -------------------------------------------------------------------------
     auto sq = [] [[nodiscard]] (int x) constexpr noexcept { return x * x; };
     static_assert(sq(4) == 16);
@@ -35,19 +36,35 @@ int run(int /*argc*/, char** /*argv*/) {
     int n = 1;
     auto bump = [n] [[nodiscard]] () mutable { return ++n; };
     assert(bump() == 2);
-    std::cout << "[advanced] attributes + constexpr/noexcept/mutable\n";
+    assert(bump() == 3);
+
+    // C++23：无参时可省 ()，属性仍贴在说明符区
+    auto one = [] [[nodiscard]] constexpr { return 1; };
+    static_assert(one() == 1);
+
+    // static + 属性（无捕获）
+    auto twice = [] [[nodiscard]] (int x) static { return x * 2; };
+    assert(twice(21) == 42);
+    std::cout << "[advanced] attributes + constexpr/noexcept/mutable/static\n";
 
     // -------------------------------------------------------------------------
-    // §专家：deprecated 与属性语法位置
+    // §专家：deprecated、语法位置、类型擦除边界
     // -------------------------------------------------------------------------
     auto legacy = [] [[deprecated("use new_api")]] () { return 0; };
-    // 调用可能产生弃用警告——这里调用一次以保持可运行，警告可接受
+    // 调用可能产生弃用警告——本文件刻意调用一次以保留可运行路径
     assert(legacy() == 0);
 
-    // 属性写在 lambda 声明符上，作用于调用运算符，而非闭包类型本身的一切用途。
-    // 无标准属性「强制报错」——[[nodiscard]] 是提示，实现可警告。
-    // 若工具链对 lambda 属性支持不完整，用包装函数表达同样意图。
-    std::cout << "[expert] lambda attributes annotate the call operator (P1102 era syntax)\n";
+    // 属性写在 lambda 声明符上，作用于生成的调用运算符（不是捕获列表本身）
+    // 无标准属性「强制内联」；[[nodiscard]] 与函数上同语义，实现可忽略未知属性。
+    // 经 std::function 类型擦除后，nodiscard 通常不会穿透包装边界。
+    auto raw = [] [[nodiscard]] (int x) { return x + 1; };
+    assert(raw(1) == 2);
+
+    // 与尾置返回并用
+    auto unit = [] [[nodiscard]] () -> int { return 1; };
+    assert(unit() == 1);
+
+    std::cout << "[expert] lambda attributes annotate the call operator (P1102-era syntax)\n";
     std::cout << "=== attributes_on_lambda_cpp23: OK ===\n";
     return 0;
 }

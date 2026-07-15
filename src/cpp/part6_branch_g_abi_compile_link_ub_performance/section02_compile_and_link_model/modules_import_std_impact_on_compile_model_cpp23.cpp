@@ -18,24 +18,20 @@
 
 namespace {
 
-// 经典头文件模型问题: 每个 TU 重新解析大量头
-// 模块: export module m; export int f();
-// 消费者: import m;  —— 语义导入, 非文本包含
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
 
     std::cout << "=== G modules / import std impact (C++23) ===\n";
 
-    // 本仓库主构建仍以 #include 为主, 这里只验证标准库可用
     std::vector<std::string> v{"a", "b"};
     assert(v.size() == 2);
 
     std::cout << "  header model: textual inclusion, macros leak, ODR risk\n";
     std::cout << "  modules: named ownership, faster rebuilds, fewer macros\n";
     std::cout << "  import std; // C++23 — one import for the standard library\n";
-    std::cout << "  build systems must track BMI deps (CMake/MSVC/Clang)\n";
+    std::cout << "  build systems must track BMI/IFC deps (CMake/MSVC/Clang)\n";
+    std::cout << "  ABI: module interface change still breaks dependents\n";
     std::cout << "  this example stays on includes for portable CI\n";
     std::cout << "modules_import_std_impact_on_compile_model_cpp23: OK\n";
     return 0;

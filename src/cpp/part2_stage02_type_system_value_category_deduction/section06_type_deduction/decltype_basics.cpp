@@ -84,6 +84,15 @@ int run(int argc, char** argv) {
         static_assert(std::is_same_v<decltype(by_lref()), int&>);
         static_assert(std::is_same_v<decltype(by_rref()), int&&>);
 
+        // 文档步骤 0 手段 B：故意触发编译错误让编译器「说出」类型（Scott Meyers 条款 4）
+        //   template<class T> struct TypeDisplayer; // 只声明不定义
+        //   TypeDisplayer<decltype(expr)> _;  // 报错信息里带完整类型
+        // 手段 A（本文件主力）: static_assert(is_same_v<...>)
+        // 手段 C 慎用: typeid 会剥顶层 const/引用，不能用来判「有没有 &」
+        using Guess = decltype((i));
+        static_assert(std::is_same_v<Guess, int&>);
+        // 若写成 TypeDisplayer<Guess> 未定义实例，clang/msvc 会打印 int& —— 自学时可用
+
         // 验收点一句话：括号把「名字」变成「表达式」，落入值类别规则
         std::cout << "[expert] unparenthesized id → declared type; "
                      "any other expr → value-category rule\n";

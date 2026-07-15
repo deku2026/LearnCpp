@@ -64,10 +64,23 @@ int run(int argc, char** argv) {
         std::cout << "  a and b are separate; no cross-metric ordering needed\n";
     }
 
+    std::cout << "=== expert: what relaxed does NOT give you ===\n";
+    // relaxed RMW is atomic (no torn read/write, no lost updates on that location),
+    // but it does NOT:
+    //   - create synchronizes-with with any other thread
+    //   - order surrounding non-atomic loads/stores around this RMW
+    //   - publish a data payload written before a "ready" flag
+    // Mental model: "this integer is a concurrent counter" vs
+    //               "this flag opens a happens-before window for other data".
+    std::cout << "  relaxed = atomicity only; no happens-before edge\n";
+    std::cout << "  use for: stats, approximate progress, independent counters\n";
+
     std::cout << "=== when relaxed is NOT enough ===\n";
     std::cout << "  Publishing non-atomic data behind a flag needs\n"
                  "  release store + acquire load (see memory_order_acquire_release).\n"
-                 "  relaxed flag can make a consumer see ready=true with stale data.\n";
+                 "  relaxed flag can make a consumer see ready=true with stale data.\n"
+                 "  Default for unknown cases: seq_cst (see memory_order_seq_cst);\n"
+                 "  optimize to acq/rel only when the publish relation is clear.\n";
 
     std::cout << "[memory_order_relaxed] all checks passed\n";
     return 0;

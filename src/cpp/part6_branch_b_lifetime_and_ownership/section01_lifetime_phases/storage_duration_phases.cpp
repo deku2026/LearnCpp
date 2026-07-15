@@ -6,7 +6,7 @@
 // Topic id : part6/b/section01/storage_duration_phases
 //
 // 要点: 四种存储期决定分配/释放时机——automatic / static / thread / dynamic。
-// 参考: [basic.stc] https://en.cppreference.com/w/cpp/language/storage_duration
+// 参考: [basic.stc]
 
 #include "learn/topic_registry.hpp"
 
@@ -18,9 +18,9 @@
 
 namespace {
 
-int g_static = 100;  // 静态存储期：程序启动前初始化，结束时销毁
+int g_static = 100;
 
-thread_local int tls_counter = 0;  // 线程存储期：每线程一份
+thread_local int tls_counter = 0;
 
 struct Tracker {
     const char* tag;
@@ -34,46 +34,46 @@ int run(int argc, char** argv) {
 
     std::cout << "=== B1 storage duration phases ===\n";
 
-    // --- automatic：进入作用域分配，离开释放 ---
+    // automatic
     {
         Tracker auto_obj{"automatic"};
         assert(auto_obj.tag[0] == 'a');
-    }  // 此处析构
+    }
 
-    // --- static：全局 / 函数局部 static ---
+    // static
     assert(g_static == 100);
     {
-        static Tracker once{"static-local"};  // 首次进入时构造，程序结束析构
+        static Tracker once{"static-local"};
         assert(once.tag[0] == 's');
     }
     {
+        // 再次进入：不重复构造
         static Tracker& again = []() -> Tracker& {
             static Tracker once{"static-local"};
             return once;
         }();
-        // 同一函数局部 static 只构造一次（上面块已构造）
         (void)again;
     }
 
-    // --- thread：每线程独立 ---
+    // thread
     tls_counter = 7;
     int other = 0;
     std::thread t([&] {
-        assert(tls_counter == 0);  // 新线程从 0 开始
+        assert(tls_counter == 0);
         tls_counter = 99;
         other = tls_counter;
     });
     t.join();
-    assert(tls_counter == 7);  // 主线程未变
+    assert(tls_counter == 7);
     assert(other == 99);
 
-    // --- dynamic：new/delete 或智能指针显式控制 ---
+    // dynamic
     {
         auto p = std::make_unique<Tracker>("dynamic");
         assert(p->tag[0] == 'd');
-    }  // unique_ptr 析构 → delete
+    }
 
-    // 同一类型可放在任意存储期——由声明方式决定，不是类型本身
+    // 同一类型可放在任意存储期——由声明方式决定
     std::string stack_s = "stack";
     auto heap_s = std::make_unique<std::string>("heap");
     static std::string static_s = "static";
@@ -81,6 +81,8 @@ int run(int argc, char** argv) {
     assert(*heap_s == "heap");
     assert(static_s == "static");
 
+    std::cout << "  automatic: scope / static: program / thread: thread / dynamic: new\n";
+    std::cout << "  storage duration ≠ type; creation context decides\n";
     std::cout << "storage_duration_phases: OK\n";
     return 0;
 }

@@ -5,7 +5,8 @@
 // Item     : adl_argument_dependent_lookup
 // Topic id : part6/d/section01/adl_argument_dependent_lookup
 //
-// 要点: 非限定函数调用还在实参关联命名空间查找。
+// 要点: 非限定函数调用还会在实参关联命名空间里找。
+// 这是 cout<<x / swap / begin 能工作的根因。
 // 参考: [basic.lookup.argdep]
 
 #include "learn/topic_registry.hpp"
@@ -13,6 +14,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <utility>
 
 namespace {
 
@@ -26,6 +28,9 @@ std::string describe(const Widget& w) {
 int tag(const Widget&) {
     return 1;
 }
+void touch(Widget& w) {
+    ++w.v;
+}
 }  // namespace lib
 
 namespace other {
@@ -34,6 +39,17 @@ int tag(int) {
 }
 }  // namespace other
 
+// 进阶: 关联集含基类/模板实参的命名空间
+namespace base_ns {
+struct Base {};
+void mark(const Base&) {}
+}  // namespace base_ns
+
+namespace der_ns {
+struct Der : base_ns::Base {};
+// mark 可通过 Base 关联到 base_ns
+}  // namespace der_ns
+
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
@@ -41,16 +57,24 @@ int run(int argc, char** argv) {
     std::cout << "=== D2 ADL (argument-dependent lookup) ===\n";
 
     lib::Widget w{42};
-    // 非限定 describe(w)：ADL 在 lib 找到
-    assert(describe(w) == "Widget(42)");
-
-    // 实参 Widget → 关联 lib
+    assert(describe(w) == "Widget(42)");  // 非限定 + ADL → lib
     assert(tag(w) == 1);
 
-    // 仅 int 时不会找到 lib::tag
     using other::tag;
     assert(tag(0) == 2);
 
+    touch(w);
+    assert(w.v == 43);
+
+    der_ns::Der d;
+    mark(d);  // ADL via base class namespace
+
+    // 专家: 限定调用 lib::describe(w) 不做 ADL 扩展候选集规则不同
+    assert(lib::describe(w) == "Widget(43)");
+    // 函数指针赋值通常不做 ADL: auto *fp = describe; // 需可见声明
+
+    std::cout << "  ADL associated namespaces: args' classes/enums/templates\n";
+    std::cout << "  enables operator<<, swap, begin without using-directives\n";
     std::cout << "adl_argument_dependent_lookup: OK\n";
     return 0;
 }

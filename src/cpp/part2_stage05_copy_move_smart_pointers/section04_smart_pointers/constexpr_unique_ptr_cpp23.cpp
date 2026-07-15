@@ -64,10 +64,24 @@ int run(int /*argc*/, char** /*argv*/) {
     auto p = std::make_unique<int>(100);
     assert(*p == 100);
 
-    std::cout << "=== 进阶：为何重要 ===\n";
+    std::cout << "=== 进阶：为何重要 + 瞬态分配边界 ===\n";
     // · 编译期算法可用 RAII 指针风格，少写裸 new/delete
-    // · 与阶段 7 constexpr 容器/算法衔接
+    // · 与阶段 7 constexpr 容器/算法衔接（P2273）
     // · default_delete::operator() 亦为 constexpr
+    // · ⚠️ 与 constexpr vector 相同：分配必须在常量求值内完成析构（transient）
+    //   不能 constexpr 持久化 unique_ptr 到运行期可见的静态存储
+    constexpr int moved = move_and_read();
+    assert(moved == 7);
+    std::cout << "move_and_read()=" << moved << " (ownership transfer is constexpr)\n";
+
+    std::cout << "=== 专家：feature-test / 与 shared_ptr 对照 ===\n";
+    // · __cpp_lib_constexpr_memory >= 202202 检测库支持
+    // · shared_ptr 的 constexpr 面更窄/更晚，别默认两者能力对称
+    // · 运行期与编译期同一套所有权语义：移动后源为空
+
+    auto rt = std::make_unique<int>(11);
+    auto rt2 = std::move(rt);
+    assert(!rt && rt2 && *rt2 == 11);
 
     std::cout << "=== constexpr_unique_ptr_cpp23: OK ===\n";
     return 0;

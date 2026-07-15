@@ -69,18 +69,34 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] named rvalue refs are lvalues; move again to cast\n";
 
     // -------------------------------------------------------------------------
-    // 专家：移动构造钩子；转发引用不是普通 T&&
+    // 专家：移动钩子；与 Qt 隐式共享对照；转发引用不是普通 T&&
     // -------------------------------------------------------------------------
     std::vector<int> v{1, 2, 3, 4, 5};
-    auto* data_before = v.data();
-    std::vector<int> w = std::move(v);  // 移动：偷缓冲
-    assert(w.size() == 5);
-    assert(w.data() == data_before || w[0] == 1);  // 实现可偷指针
-    // v 处于有效但未指定状态；常见为空
-    assert(v.empty() || v.size() == 0 || true);
+    const auto* data_before = v.data();
+    const std::size_t n_before = v.size();
+    std::vector<int> w = std::move(v);  // 移动：转移缓冲所有权
+    assert(w.size() == n_before);
+    assert(w[0] == 1 && w[4] == 5);
+    // 实现通常偷指针（SSO 小字符串等另议）；至少内容正确转移到 w
+    assert(w.data() == data_before || (w.size() == 5 && w[2] == 3));
+    // 移动后源对象「有效但未指定」：对 vector 的可移植检查是仍可安全调用 empty/size/clear
+    // 多数实现置空，但不保证 size()==0 是标准硬性要求——只断言可观察且不崩溃
+    (void)v.size();
+    v.clear();  // 合法：移后状态仍可赋值/clear
+    assert(v.empty());
 
-    // 转发引用：template<class T> void f(T&&); 或 auto&& —— 见阶段 6
-    // 这里的 std::string&& 类型已固定，是纯右值引用。
+    // 🔶 Qt 对照（阶段 2 验收点）：隐式共享(COW) vs 移动语义
+    // · Qt QString b = a; → 共享底层数据 + 引用计数，写时才复制（多对象可同时只读共享）
+    // · 标准 std::string b = std::move(a); → 所有权转移，a 被掏空，不共享
+    // 一句话：Qt 用「共享」回避拷贝；标准 C++ 用「转移」回避拷贝。
+    std::string shared_story = "Qt: share+refcount+COW";
+    std::string move_story = "std: transfer ownership, source emptied";
+    assert(shared_story.find("share") != std::string::npos);
+    assert(move_story.find("transfer") != std::string::npos);
+    std::cout << "[expert] Qt COW=share; C++ move=transfer — different models\n";
+
+    // 转发引用：template<class T> void f(T&&); 或 auto&& —— 见阶段 6 / reference_collapsing
+    // 这里的 std::string&& 类型已固定，是纯右值引用（只收右值）。
 
     int n = 1;
     int&& rrn = static_cast<int&&>(n);  // 等价于 move 的手工写法

@@ -14,6 +14,7 @@
 
 #include <atomic>
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -82,7 +83,7 @@ int run(int argc, char** argv) {
         std::cout << "  atomic_flag clear/test_and_set ok\n";
     }
 
-    std::cout << "=== wait / notify (C++20) ===\n";
+    std::cout << "=== wait / notify (C++20) — step 7.4 ===\n";
     {
         std::atomic<int> gate{0};
         std::jthread waiter([&] {
@@ -91,6 +92,19 @@ int run(int argc, char** argv) {
         });
         gate.store(1);
         gate.notify_one();
+        // notify_all wakes all waiters; pair with a predicate loop when
+        // spurious wakeups / multi-phase protocols matter (like condition_variable).
+    }
+
+    std::cout << "=== is_lock_free vs always_lock_free ===\n";
+    {
+        std::atomic<int> ai{0};
+        std::atomic<std::uint64_t> a64{0};
+        std::cout << "  atomic<int> lock_free=" << std::boolalpha << ai.is_lock_free()
+                  << " always=" << std::atomic<int>::is_always_lock_free << '\n';
+        std::cout << "  atomic<uint64_t> lock_free=" << a64.is_lock_free()
+                  << " always=" << std::atomic<std::uint64_t>::is_always_lock_free << '\n';
+        // If !is_lock_free, ops may use an internal mutex — still correct, not "lock-free DS".
     }
 
     std::cout << "[std_atomic] all checks passed\n";

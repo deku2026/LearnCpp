@@ -43,16 +43,34 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         int arr[] = {1, 2, 3, 4};
         assert(sum_span(arr) == 10);
-        std::cout << "span sum=" << sum_span(arr) << '\n';
+        // 子 span 收窄边界，比“裸指针 + 长度”更难越界
+        std::span<const int> all = arr;
+        std::span<const int> mid = all.subspan(1, 2);
+        assert(sum_span(mid) == 5);
+        std::cout << "span sum=" << sum_span(arr) << " mid=" << sum_span(mid) << '\n';
+    }
+
+    std::cout << "=== 进阶：operator[] vs at，以及 size 守卫 ===\n";
+    {
+        std::vector<int> v{7, 8, 9};
+        const std::size_t i = 1;
+        // 热路径常用 []，但调用方必须先证成 i < size()
+        assert(i < v.size());
+        assert(v[i] == 8);
+        // 边界未知/用户输入：用 at（抛 out_of_range，不是 UB）
+        assert(v.at(i) == 8);
+        std::cout << "[] after size-check; at() for untrusted indices\n";
     }
 
     std::cout << "=== 专节：UB 形态与 Sanitizer（不触发）===\n";
     // 危险（勿运行）：
     //   int a[3]{}; int x = a[3];      // 越界读 UB
     //   std::vector<int> v(3); v[3]=1; // operator[] 不检查 → UB
+    //   迭代器失效后再 *it（见 use_after_free / 容器失效专题）
     // 护栏：
     //   clang++ -fsanitize=address -g ...
     //   clang-cl /fsanitize=address ...
+    // 纪律：契约（size 守卫）/ at / span / range-for；调试构建开 ASan。
     std::cout << "prefer at()/span/range-for; ASan catches OOB in tests\n";
     std::cout << "this topic never executes OOB on purpose\n";
 

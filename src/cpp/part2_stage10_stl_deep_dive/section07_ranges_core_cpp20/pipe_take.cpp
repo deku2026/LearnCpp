@@ -1,11 +1,14 @@
 // Topic     : views::take —— 取前 n 个
-// Doc       : 第2部分-阶段10 · 步骤 11.2
-// cppreference: https://en.cppreference.com/cpp/ranges/take_view
-//
-// 要点: n 可大于 size; 与无限范围组合; 惰性截断。
+// Doc       : 第2部分-阶段10-STL深潜.md · 步骤 11.1 / 11.2
+// Stage     : part2_stage10_stl_deep_dive
+// Section   : section07_ranges_core_cpp20
+// Item      : pipe_take
+// Topic id  : part2/stage10/section07/pipe_take
+// Refs      : https://en.cppreference.com/w/cpp/ranges/take_view
 
 #include "learn/topic_registry.hpp"
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <ranges>
@@ -14,28 +17,53 @@
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
-    std::cout << "=== [pipe_take] ===\n";
+    std::cout << "=== [pipe_take] 入门：取前 n 个（惰性）===\n";
+    {
+        std::vector<int> v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        std::vector<int> got;
+        for (int x : v | std::views::take(3)) got.push_back(x);
+        assert((got == std::vector<int>{1, 2, 3}));
+        assert(std::ranges::empty(v | std::views::take(0)));
+        std::cout << "take(3)/take(0) OK\n";
+    }
 
-    std::vector<int> v{10, 20, 30, 40, 50};
-    auto first3 = v | std::views::take(3);
-    assert(std::ranges::size(first3) == 3);
-    std::vector<int> got(first3.begin(), first3.end());
-    assert((got == std::vector<int>{10, 20, 30}));
+    std::cout << "=== 进阶：n≥size 全取 + 与 filter/transform 组合 ===\n";
+    {
+        std::vector<int> v{1, 2, 3, 4, 5};
+        assert(std::ranges::equal(v | std::views::take(100), v));
 
-    // n > size → 全部
-    auto all = v | std::views::take(100);
-    assert(std::ranges::size(all) == 5);
+        // 文档主线：filter → transform → take（惰性：够 3 个就停）
+        std::vector<int> result;
+        for (int x : v | std::views::filter([](int x) { return x % 2 == 0; }) |
+                         std::views::transform([](int x) { return x * x; }) | std::views::take(2)) {
+            result.push_back(x);
+        }
+        // 偶数 2,4 → 平方 4,16；take(2) 得到这两
+        assert((result == std::vector<int>{4, 16}));
+        std::cout << "cap + filter|transform|take pipeline OK\n";
+    }
 
-    // take(0) → 空
-    assert(std::ranges::empty(v | std::views::take(0)));
+    std::cout << "=== 专家：截断无限范围 + sized 语义 ===\n";
+    {
+        // take 让无限 iota 变成有限
+        std::vector<int> finite;
+        for (int x : std::views::iota(1) | std::views::take(5)) finite.push_back(x);
+        assert((finite == std::vector<int>{1, 2, 3, 4, 5}));
 
-    // 无限 + take
-    std::vector<int> from_inf;
-    for (int x : std::views::iota(1) | std::views::take(4)) from_inf.push_back(x);
-    assert((from_inf == std::vector<int>{1, 2, 3, 4}));
+        std::vector<int> v{10, 20, 30, 40};
+        auto t = v | std::views::take(2);
+        static_assert(std::ranges::sized_range<decltype(t)>);
+        assert(std::ranges::size(t) == 2);
+        assert(t[0] == 10 && t[1] == 20);
 
-    std::cout << "[take] finite/clamp/infinite OK\n";
-    std::cout << "pipe_take: all checks passed\n";
+        // take 后再 drop：先取再丢
+        std::vector<int> mid;
+        for (int x : v | std::views::take(3) | std::views::drop(1)) mid.push_back(x);
+        assert((mid == std::vector<int>{20, 30}));
+        std::cout << "infinite cap + sized OK\n";
+    }
+
+    std::cout << "[pipe_take] all checks passed\n";
     return 0;
 }
 

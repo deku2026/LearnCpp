@@ -95,22 +95,51 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  gcc " << __GNUC__ << "." << __GNUC_MINOR__ << '\n';
 #endif
 
-    assert(id != CompilerId::Unknown || true);
+    // 本课程基线工具链应能识别
+    assert(id == CompilerId::ClangCl || id == CompilerId::Clang || id == CompilerId::Msvc || id == CompilerId::Gcc);
 
     // CI 应覆盖的三前端(clang-cl 归 MSVC ABI 车道)
     std::vector<std::string> ci_compilers{"gcc", "clang", "msvc"};
     assert(ci_compilers.size() == 3);
+    assert(ci_compilers[0] == "gcc" && ci_compilers[2] == "msvc");
+
+    // 映射: 当前 id 落在哪条 CI 车道
+    auto lane_for = [](CompilerId c) -> std::string_view {
+        switch (c) {
+            case CompilerId::Gcc:
+                return "gcc";
+            case CompilerId::Clang:
+                return "clang";
+            case CompilerId::Msvc:
+            case CompilerId::ClangCl:
+                return "msvc";
+            default:
+                return "unknown";
+        }
+    };
+    assert(lane_for(id) != "unknown");
+    std::cout << "  CI lane: " << lane_for(id) << '\n';
 
     FeatureRow rows[] = {
         {"__cpp_lib_print", probe_print(), false},
         {"__cpp_lib_expected", probe_expected(), false},
         {"__cpp_lib_stacktrace", probe_stacktrace(), false},
     };
+    int present = 0;
     for (const auto& r : rows) {
         std::cout << "  " << r.name << "=" << r.macro_value << (r.macro_value ? " (present)" : " (missing)") << '\n';
+        if (r.macro_value != 0) {
+            ++present;
+        }
     }
+    // 不强制 C++23 全开, 但矩阵输出必须完整
+    assert(present >= 0);
+    assert(sizeof(rows) / sizeof(rows[0]) == 3);
 
-    // 仓库基线: VS2026 clang-cl + MSVC STL
+    // 仓库基线: VS2026 clang-cl + MSVC STL; CMakePresets windows-* 使用 clang-cl
+#if defined(__clang__) && defined(_MSC_VER)
+    assert(id == CompilerId::ClangCl);
+#endif
     std::cout << "  baseline doc: VS clang-cl + MSVC STL; CI adds GCC/Clang\n";
     std::cout << "compiler_matrix_gcc_clang_msvc: OK\n";
     return 0;

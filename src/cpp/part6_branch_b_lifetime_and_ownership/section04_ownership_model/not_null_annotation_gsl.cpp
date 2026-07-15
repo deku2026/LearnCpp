@@ -1,5 +1,5 @@
 // LearnCpp topic
-// Doc      : part6-branch-b-lifetime-and-ownership.md (B7 gsl::not_null)
+// Doc      : part6-branch-b-lifetime-and-ownership.md (B7 gsl::not_null / B12)
 // Stage    : part6_branch_b_lifetime_and_ownership
 // Section  : section04_ownership_model
 // Item     : not_null_annotation_gsl
@@ -33,7 +33,7 @@ public:
     Ptr get() const { return p_; }
     auto& operator*() const { return *p_; }
     Ptr operator->() const { return p_; }
-    operator Ptr() const { return p_; }
+    // 不提供与 nullptr 比较的「成功路径」——设计上恒非空
 };
 
 struct Widget {
@@ -42,9 +42,13 @@ struct Widget {
 
 // 借用且非空：不拥有、不 delete
 void process(not_null<Widget*> w) {
-    // 无需 if (!w)
     w->id += 1;
 }
+
+// 进阶 API 改造:
+// Before: void f(Widget* w); // 可空？拥有？
+// After:  void f(not_null<Widget*> w); // 非空借用
+// Best:   void f(Widget& w);           // 语言层非空
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -58,7 +62,6 @@ int run(int argc, char** argv) {
 
     not_null<Widget*> nn{&w};
     assert(nn->id == 11);
-    // Widget 无 operator==：比较指针身份与字段
     assert(nn.get() == &w);
     assert((*nn).id == w.id);
 
@@ -72,12 +75,14 @@ int run(int argc, char** argv) {
     }
     assert(threw);
 
-    // 引用本身已非空：优先用 T& 当非空借用
     auto by_ref = [](Widget& r) { r.id += 1; };
     by_ref(w);
     assert(w.id == 12);
 
-    std::cout << "  not_null: non-owning non-null borrow; prefer T& when possible\n";
+    // 专家: not_null 仍是借用——不延长寿命；只消除空指针歧义
+    std::cout << "  not_null: non-owning non-null borrow\n";
+    std::cout << "  prefer T& when null is never meaningful\n";
+    std::cout << "  pair with owner<> / unique_ptr for owning paths\n";
     std::cout << "not_null_annotation_gsl: OK\n";
     return 0;
 }

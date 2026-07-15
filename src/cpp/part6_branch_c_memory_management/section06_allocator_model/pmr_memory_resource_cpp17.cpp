@@ -5,7 +5,7 @@
 // Item     : pmr_memory_resource_cpp17
 // Topic id : part6/c/section06/pmr_memory_resource_cpp17
 //
-// 要点: memory_resource 运行期多态；polymorphic_allocator 接资源；类型不随资源变。
+// 要点: memory_resource 运行时多态；polymorphic_allocator 把资源从类型参数里拿掉。
 // 参考: https://en.cppreference.com/w/cpp/memory/memory_resource
 
 #include "learn/topic_registry.hpp"
@@ -26,22 +26,23 @@ int run(int argc, char** argv) {
 
     std::pmr::memory_resource* nd = std::pmr::new_delete_resource();
     std::pmr::memory_resource* null_r = std::pmr::null_memory_resource();
-    assert(nd != nullptr);
-    assert(null_r != nullptr);
+    assert(nd != nullptr && null_r != nullptr);
+
+    // 默认资源可替换（进程级策略）
+    auto* prev = std::pmr::get_default_resource();
+    assert(prev != nullptr);
 
     std::pmr::vector<int> a{nd};
     a.push_back(1);
     a.push_back(2);
     assert(a.size() == 2);
 
-    // 不同 resource，同一容器类型
     std::array<std::byte, 512> buf{};
     std::pmr::monotonic_buffer_resource mono{buf.data(), buf.size(), nd};
     std::pmr::vector<int> b{&mono};
     b.push_back(3);
     assert(b.front() == 3);
 
-    // null resource：分配即失败
     bool threw = false;
     try {
         std::pmr::vector<int> c{null_r};
@@ -51,6 +52,7 @@ int run(int argc, char** argv) {
     }
     assert(threw);
 
+    std::cout << "  classic allocator embeds strategy in type; pmr picks at runtime\n";
     std::cout << "pmr_memory_resource_cpp17: OK\n";
     return 0;
 }

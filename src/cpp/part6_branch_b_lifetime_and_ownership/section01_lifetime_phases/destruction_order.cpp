@@ -5,7 +5,7 @@
 // Item     : destruction_order
 // Topic id : part6/b/section01/destruction_order
 //
-// 要点: 销毁与构造相反（LIFO）：局部逆声明序、成员逆声明序、派生→基类。
+// 要点: 销毁与构造相反（LIFO）：局部、成员、派生→基类。
 // 参考: [class.dtor] [stmt.jump]
 
 #include "learn/topic_registry.hpp"
@@ -38,6 +38,13 @@ struct Derived : Base {
     Track d{"Derived"};
 };
 
+// 多个成员：声明序构造，逆序析构
+struct Multi {
+    Track a{"M.a"};
+    Track b{"M.b"};
+    Track c{"M.c"};
+};
+
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
@@ -45,7 +52,6 @@ int run(int argc, char** argv) {
     std::cout << "=== B1 destruction order ===\n";
     g_log.clear();
 
-    // 同作用域：后构造的先析构
     {
         Track a{"A"};
         Track b{"B"};
@@ -55,19 +61,15 @@ int run(int argc, char** argv) {
     std::cout << "  locals LIFO: OK\n";
 
     g_log.clear();
-    // 成员：构造基类 → 成员声明序 → 派生体；析构相反
     {
         Derived obj;
-        // 构造: Base(b) → Member(m) → Derived(d)
+        (void)obj;
     }
-    // 析构: Derived(d) → Member(m) → Base(b)
     assert(g_log.front() == "c:Base");
     assert(g_log.back() == "d:Base");
-    // 找 d:Derived 在 d:Member 之前、d:Member 在 d:Base 之前
     auto find = [](const std::string& s) {
-        for (std::size_t i = 0; i < g_log.size(); ++i) {
+        for (std::size_t i = 0; i < g_log.size(); ++i)
             if (g_log[i] == s) return i;
-        }
         return g_log.size();
     };
     assert(find("d:Derived") < find("d:Member"));
@@ -76,10 +78,17 @@ int run(int argc, char** argv) {
     assert(find("c:Member") < find("c:Derived"));
     std::cout << "  members/bases reverse of construction: OK\n";
 
-    for (const auto& e : g_log) {
-        std::cout << "    " << e << '\n';
+    g_log.clear();
+    {
+        Multi m;
+        (void)m;
     }
+    assert(find("d:M.c") < find("d:M.b"));
+    assert(find("d:M.b") < find("d:M.a"));
 
+    for (const auto& e : g_log) std::cout << "    " << e << '\n';
+
+    std::cout << "  static objects: reverse of completion order at exit (per TU)\n";
     std::cout << "destruction_order: OK\n";
     return 0;
 }

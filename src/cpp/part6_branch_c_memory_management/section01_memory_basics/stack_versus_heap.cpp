@@ -27,24 +27,24 @@ int run(int argc, char** argv) {
 
     std::cout << "=== C1 stack versus heap ===\n";
 
-    Widget a;  // 自动存储 → 通常栈
+    // --- 入门: 同一类型三种存储 ---
+    Widget a;  // automatic → 通常栈
     assert(a.x == 0);
 
-    auto b = std::make_unique<Widget>();  // 动态 → 堆
+    auto b = std::make_unique<Widget>();  // dynamic → 堆
     b->x = 1;
     assert(b->x == 1);
 
-    static Widget c;  // 静态存储期
+    static Widget c;  // static → 静态区
     c.x = 2;
     assert(c.x == 2);
 
-    // vector 对象可在栈，元素在堆
+    // --- 进阶: 容器把手在栈，元素在堆 ---
     std::vector<Widget> v(3);
     v[0].x = 7;
-    assert(v.size() == 3);
-    assert(v[0].x == 7);
+    assert(v.size() == 3 && v[0].x == 7);
 
-    // 数组成员跟随外层对象存储
+    // 数组成员跟随外层对象的存储期
     struct Big {
         Widget members[4];
     };
@@ -55,7 +55,10 @@ int run(int argc, char** argv) {
     assert(stack_big.members[0].x == 3);
     assert(heap_big->members[0].x == 4);
 
+    // 专家: 栈快（加减 sp）、有限；堆灵活、可能锁/碎片
+    // 「引用类型在堆」是托管语言心智，C++ 没有
     std::cout << "  same type Widget can live on stack/heap/static\n";
+    std::cout << "  storage = how you create it, not the type itself\n";
     std::cout << "stack_versus_heap: OK\n";
     return 0;
 }

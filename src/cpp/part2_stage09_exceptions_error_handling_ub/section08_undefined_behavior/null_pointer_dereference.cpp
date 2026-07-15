@@ -47,12 +47,25 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "optional from pointer\n";
     }
 
+    std::cout << "=== 进阶：引用 = 非空契约；指针 = 可空 API ===\n";
+    {
+        // 引用在语言层面不能是“空”——必须绑定到对象
+        int live = 11;
+        const int& r = live;
+        assert(r == 11);
+        // API 设计：内部用引用（调用方已保证有效）；边界用 pointer/optional
+        auto by_ref = [](const int& v) { return v * 2; };
+        assert(by_ref(live) == 22);
+        std::cout << "references encode non-null at the type level\n";
+    }
+
     std::cout << "=== 专节：UB 形态（不触发）===\n";
     // 危险（勿运行）：
     //   int* p = nullptr; int v = *p;  // UB
     //   p->member;                     // UB
-    // 引用必须绑定有效对象；不要“空引用”。
-    // 护栏：-fsanitize=undefined 可抓部分空解引用。
+    //   delete p; 之后再 *p（use-after-free，见相邻 topic）
+    // 引用必须绑定有效对象；不要“空引用”/重绑悬空。
+    // 护栏：-fsanitize=undefined 可抓部分空解引用；ASan 抓 UAF。
     std::cout << "never dereference null; prefer references/optional\n";
 
     std::cout << "[null_pointer_dereference] all checks passed\n";

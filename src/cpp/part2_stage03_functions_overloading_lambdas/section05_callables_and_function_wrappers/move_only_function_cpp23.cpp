@@ -1,9 +1,11 @@
 // Topic     : std::move_only_function（C++23）
-// Doc       : 第2部分-阶段3 · 步骤 7.4
+// Doc       : 第2部分-阶段3 · 步骤 7.4 / 验收「move_only_function」
 // cppreference: https://en.cppreference.com/cpp/utility/functional/move_only_function
+// 提案      : P0288
 //
 // 要点: 可存只移动可调用（捕获 unique_ptr 的 lambda）；不可拷贝；
-//       支持 const/&&/noexcept 限定；空调用是 UB（不像 function 抛异常）。
+//       支持 const/&&/noexcept 限定；空调用是 UB（不像 function 抛异常）；
+//       无 target()/target_type()，比 function 更瘦。
 
 #include "learn/topic_registry.hpp"
 
@@ -12,6 +14,7 @@
 #include <iostream>
 #include <memory>
 #include <utility>
+#include <vector>
 
 namespace {
 
@@ -27,7 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[intro] move_only_function holds move-only lambda\n";
 
     // -------------------------------------------------------------------------
-    // §进阶：只移动语义
+    // §进阶：只移动语义；function 做不到
     // -------------------------------------------------------------------------
     auto task2 = std::move(task);
     assert(task2() == 42);
@@ -39,7 +42,14 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::move_only_function<int(int)> add = [](int x) { return x + 1; };
     assert(add(5) == 6);
-    std::cout << "[advanced] move-only; cannot copy; function rejects move-only targets\n";
+
+    // 回调列表（扩展练习 2 的只移动版本）
+    std::vector<std::move_only_function<int(int)>> handlers;
+    handlers.push_back([](int x) { return x * 2; });
+    handlers.push_back([q = std::make_unique<int>(100)](int x) { return x + *q; });
+    assert(handlers[0](5) == 10);
+    assert(handlers[1](5) == 105);
+    std::cout << "[advanced] move-only; vector of move_only_function callbacks ok\n";
 
     // -------------------------------------------------------------------------
     // §专家：限定符与空调用
@@ -58,6 +68,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(static_cast<bool>(maybe));
     maybe();  // 非空，OK
 
+    // 对照：空 std::function 抛 bad_function_call（见 std_function topic）
     std::cout << "[expert] cv/ref/noexcept on signature; empty call is UB — check first\n";
     std::cout << "=== move_only_function_cpp23: OK ===\n";
     return 0;

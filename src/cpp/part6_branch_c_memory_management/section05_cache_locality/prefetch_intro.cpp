@@ -5,9 +5,9 @@
 // Item     : prefetch_intro
 // Topic id : part6/c/section05/prefetch_intro
 //
-// 要点: 预取是提示；标准 C++ 无 portable prefetch 内建——用访问模式/软件流水演示思想。
-//       不用 __builtin_prefetch（支线铁律：标准 C++）。
-// 参考: cache-friendly loops, software pipelining
+// 要点: 软件预取是提示；可移植代码优先靠访问模式/布局，而非内建。
+// 本支线铁律：不用编译器扩展；用「提前触摸」模拟预取意图。
+// 参考: data locality best practices
 
 #include "learn/topic_registry.hpp"
 
@@ -18,44 +18,38 @@
 
 namespace {
 
-// 「软件预取」思想：提前读下一个节点，降低链表指针追逐延迟
-struct Node {
-    int value;
-    Node* next;
-};
+// 可移植「预热」：顺序读使硬件预取器工作
+long long touch_sum(const std::vector<int>& v) {
+    long long s = 0;
+    for (int x : v) s += x;
+    return s;
+}
 
-int sum_list_lookahead(Node* head) {
-    int sum = 0;
-    Node* cur = head;
-    while (cur) {
-        Node* next = cur->next;  // 尽早加载下一指针
-        sum += cur->value;
-        cur = next;
-    }
-    return sum;
+// 间接访问（指针追逐）对缓存不友好——对照
+long long gather_sum(const std::vector<int>& data, const std::vector<int>& idx) {
+    long long s = 0;
+    for (int i : idx) s += data[static_cast<std::size_t>(i)];
+    return s;
 }
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
 
-    std::cout << "=== C9 prefetch intro (portable patterns) ===\n";
+    std::cout << "=== C9 prefetch intro (portable locality) ===\n";
 
-    // 连续数组：硬件预取器通常已足够
-    std::vector<int> v(1024);
-    std::iota(v.begin(), v.end(), 1);
-    long long s = 0;
-    for (int x : v) s += x;
-    assert(s == 1024LL * 1025 / 2);
+    std::vector<int> data(4096);
+    std::iota(data.begin(), data.end(), 0);
+    assert(touch_sum(data) == (4095LL * 4096) / 2);
 
-    // 链表：手动提前读 next
-    Node n3{3, nullptr};
-    Node n2{2, &n3};
-    Node n1{1, &n2};
-    assert(sum_list_lookahead(&n1) == 6);
+    std::vector<int> idx;
+    for (int i = 0; i < 4096; i += 64) idx.push_back(i);
+    long long g = gather_sum(data, idx);
+    assert(g > 0);
 
-    std::cout << "  prefer contiguous layout; lookahead next pointer on lists\n";
-    std::cout << "  (no compiler builtins — standard C++ only)\n";
+    std::cout << "  hardware prefetcher loves sequential access\n";
+    std::cout << "  software prefetch = non-portable hint; prefer layout/SoA\n";
+    std::cout << "  branch C rule: no __builtin_prefetch in examples\n";
     std::cout << "prefetch_intro: OK\n";
     return 0;
 }

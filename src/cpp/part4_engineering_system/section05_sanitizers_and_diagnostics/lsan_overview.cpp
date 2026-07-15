@@ -5,7 +5,9 @@
 // Item     : lsan_overview
 // Topic id : part4/section05/lsan_overview
 //
-// 要点: 泄漏检测; 常随 ASan 默认开启。RAII/智能指针是根治。
+// 要点: 泄漏检测; 常随 ASan 默认开启; RAII/智能指针是正解。
+//       对照 cmake/Sanitizers.cmake: LEARNCPP_ENABLE_ASAN 附带泄漏检查能力。
+//       本文件不故意泄漏(避免污染 CI)。
 
 #include "learn/topic_registry.hpp"
 
@@ -18,7 +20,7 @@
 
 namespace {
 
-// 泄漏模式(概念): new 后丢失指针 — 我们用 RAII 对照
+// 泄漏模式(反例注释): new 丢失指针 → 应靠 RAII 杜绝
 struct Tracker {
     static int live;
     Tracker() { ++live; }
@@ -43,9 +45,20 @@ void container_owns() {
     assert(Tracker::live == 0);
 }
 
-// suppress 概念: 第三方泄漏可 LSAN_OPTIONS=suppressions
+void shared_cycle_note() {
+    // shared_ptr 环可“逻辑泄漏”; LSan 不一定报(仍可达)
+    // 工程上用 weak_ptr 破环 — 此处仅文档化
+    std::cout << "  note: shared_ptr cycles may evade LSan (still reachable)\n";
+}
+
+// suppress 心智: LSAN_OPTIONS=suppressions=file
 bool should_suppress(std::string_view frame) {
     return frame.find("third_party::") != std::string_view::npos;
+}
+
+// 与 ASan 关系(矩阵)
+bool lsan_often_with_asan() {
+    return true;
 }
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -60,9 +73,17 @@ int run(int /*argc*/, char** /*argv*/) {
 
     assert(should_suppress("third_party::opaque_init"));
     assert(!should_suppress("myapp::parse"));
+    assert(lsan_often_with_asan());
 
-    // ASan 默认嵌 LSan; 也可 -fsanitize=leak
-    std::cout << "  often bundled with ASan; standalone -fsanitize=leak\n";
+    // 独立 -fsanitize=leak 或 ASan 默认嵌 LSan
+    const std::string with_asan = "-fsanitize=address";
+    const std::string leak_only = "-fsanitize=leak";
+    assert(with_asan.find("address") != std::string::npos);
+    assert(leak_only.find("leak") != std::string::npos);
+    std::cout << "  often bundled with ASan; standalone " << leak_only << '\n';
+    std::cout << "  repo: LEARNCPP_ENABLE_ASAN in cmake/Sanitizers.cmake\n";
+
+    shared_cycle_note();
     std::cout << "lsan_overview: OK\n";
     return 0;
 }

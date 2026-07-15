@@ -64,6 +64,12 @@ int run(int argc, char** argv) {
                  "next locker (mutex = release-acquire pair). "
                  "Data race is UB; mutex establishes happens-before.\n";
 
+    std::cout << "=== expert notes ===\n";
+    // - Non-recursive: same thread must not lock() again → deadlock/UB depending on impl.
+    // - Prefer lock_guard (simple), unique_lock (defer/adopt/transfer), scoped_lock (multi).
+    // - Never unlock a mutex you do not own; never forget unlock on early return (RAII).
+    std::cout << "  non-recursive; use RAII guards; see recursive_mutex / scoped_lock topics\n";
+
     std::cout << "[std_mutex] all checks passed\n";
     return 0;
 }

@@ -59,6 +59,7 @@ int run(int argc, char** argv) {
     AT::deallocate(a, p, 1);
 
     std::cout << "  customize via allocator members; traits detects them\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "forbidden_user_specialization_of_allocator_traits_cpp23: OK\n";
     return 0;
 }

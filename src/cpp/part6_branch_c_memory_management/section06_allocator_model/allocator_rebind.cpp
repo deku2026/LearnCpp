@@ -56,6 +56,7 @@ int run(int argc, char** argv) {
     assert(L.front() == 42);
     std::cout << "  node alloc bytes=" << g_last_alloc_bytes << " ( > sizeof(int) )\n";
 
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "allocator_rebind: OK\n";
     return 0;
 }

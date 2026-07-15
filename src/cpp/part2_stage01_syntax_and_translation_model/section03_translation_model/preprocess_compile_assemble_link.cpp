@@ -50,13 +50,15 @@ const char* stage_name(EngStage s) {
     return "?";
 }
 
-// 标准 9 阶段的压缩记忆（运行时打印，便于背诵）
+// 标准 9 阶段的压缩记忆（运行时打印，便于背诵；C++23 [lex.phases] 口径）
 std::string_view phase_blurb(int phase) {
     switch (phase) {
         case 1:
+            // C++23(P2314 等): translation character set；通用字符名处理简化
             return "map source bytes → translation character set; normalize newlines";
         case 2:
-            return "line splicing via trailing backslash";
+            // C++23(P2223): 行尾反斜杠后的尾随空白先修剪再拼接——旧坑 `\ ` 不再断裂
+            return "line splicing via trailing backslash (C++23 trims whitespace after \\)";
         case 3:
             return "preprocessing tokens; comments → one space; maximal munch";
         case 4:
@@ -101,19 +103,23 @@ int run(int /*argc*/, char** /*argv*/) {
     for (int p = 1; p <= 9; ++p) {
         assert(!phase_blurb(p).empty());
     }
+    // 记忆抓手：1–4 文本层（预处理器不懂 C++）；5–8 编译；9 链接
+    assert(phase_blurb(2).find("backslash") != std::string_view::npos);
+    assert(phase_blurb(4).find("preprocessor") != std::string_view::npos);
     std::cout << "[advanced] phases 1-4 text; 5-8 compile; 9 link (see phase_blurb)\n";
+    std::cout << "  e.g. phase2 (C++23 P2223): " << phase_blurb(2) << '\n';
     std::cout << "  e.g. phase4: " << phase_blurb(4) << '\n';
     std::cout << "  e.g. phase9: " << phase_blurb(9) << '\n';
 
     // -------------------------------------------------------------------------
-    // §专家：本地拆解命令（MSVC / GCC / Clang）
+    // §专家：本地拆解命令 + 产物里看什么
     // -------------------------------------------------------------------------
     // GCC/Clang:
-    //   g++ -std=c++23 -E hello.cpp -o hello.i
-    //   g++ -std=c++23 -S hello.cpp -o hello.s
+    //   g++ -std=c++23 -E hello.cpp -o hello.i   # .i: 无 # 指令；#include 已粘完
+    //   g++ -std=c++23 -S hello.cpp -o hello.s   # .s: main: / call …（≈ godbolt）
     //   g++ -std=c++23 -c hello.cpp -o hello.o
     //   g++ hello.o -o hello
-    //   nm -C hello.o    # U = undefined, T = defined text
+    //   nm -C hello.o    # U = undefined (cout 等), T = defined text (main)
     // MSVC:
     //   cl /std:c++latest /P /C hello.cpp      # preprocess → .i
     //   cl /std:c++latest /FA /c hello.cpp     # assembly listing
@@ -121,12 +127,19 @@ int run(int /*argc*/, char** /*argv*/) {
     //   link hello.obj
     // clang-cl: 类似 MSVC 驱动，也可用 -E / -S / -c
     //
-    // godbolt.org 右侧汇编 ≈ 替你做 -S。
-    // 本 learn_cpp 二进制已是链接完成后的产物；本 topic 只固化心智与命令清单。
+    // 符号表把"分离编译"变肌肉记忆：本 TU 的 main 是 T；库符号是 U，链接才补上。
+    // 本 learn_cpp 二进制已是链接完成后的产物；本 topic 固化心智与命令清单。
+
+    // 阶段与工程四步的映射断言（教学探针，非运行期真跑 -E）
+    assert(k_pipeline[0].stage == EngStage::Preprocess);
+    assert(k_pipeline[3].stage == EngStage::Link);
+    assert(k_pipeline[0].typical_name.find(".i") != std::string_view::npos);
+    assert(k_pipeline[2].contains.find("symbol") != std::string_view::npos);
 
     const std::string_view key =
         "separate compilation => headers carry declarations; one definition for non-inline entities";
     assert(key.find("separate compilation") != std::string_view::npos);
+    assert(key.find("one definition") != std::string_view::npos);
 
     // 迷你健全性：流水线顺序编号
     assert(static_cast<int>(EngStage::Preprocess) < static_cast<int>(EngStage::Link));

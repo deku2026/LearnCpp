@@ -49,9 +49,20 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(line == "[404] router");
     std::cout << "format check: " << line << '\n';
 
+    std::cout << "=== 进阶：结构化诊断行（错误码 + 上下文）===\n";
+    {
+        const auto diag = std::format("ERR code={} where={} hint={}", code, where, "check route table");
+        assert(diag.find("404") != std::string::npos);
+        assert(diag.find("router") != std::string::npos);
+        std::cout << diag << '\n';
+        // 与 stacktrace 组合见 format_thread_id_stacktrace_cpp23
+        // 多线程输出交错见 stage11 osyncstream / print 线程安全 topic
+    }
+
     std::cout << "=== 专节：诊断场景 ===\n";
     // 类型安全格式化；配合 stacktrace / thread::id（见下一 topic）
     // 比 iostream 拼装更清晰，比 printf 类型安全
+    // 失败路径：print + expected.error() / exception.what() 统一成可读行
     std::cout << "prefer print/format for structured diagnostics\n";
 
     std::cout << "[std_print_for_diagnostics_cpp23] all checks passed\n";

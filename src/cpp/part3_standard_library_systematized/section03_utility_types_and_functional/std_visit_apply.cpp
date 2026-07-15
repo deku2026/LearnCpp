@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <tuple>
+#include <type_traits>
 #include <variant>
 
 namespace {
@@ -55,8 +56,27 @@ int run(int /*argc*/, char** /*argv*/) {
         [](int a, double b, const std::string& c) { return a + static_cast<int>(b) + static_cast<int>(c.size()); }, t);
     assert(sum_lens == 1 + 2 + 2);
 
+    // 多 variant 笛卡尔 visit
+    std::variant<int, char> a = 3;
+    std::variant<int, char> b = 'x';
+    int combo = 0;
+    std::visit(
+        [&](auto x, auto y) {
+            if constexpr (std::is_same_v<decltype(x), int> && std::is_same_v<decltype(y), char>) {
+                combo = x + static_cast<int>(y);
+            }
+        },
+        a, b);
+    assert(combo == 3 + static_cast<int>('x'));
+
+    // holds_alternative / get_if 对照
+    assert(std::holds_alternative<int>(std::variant<int, std::string>{1}));
+    const auto* pi = std::get_if<int>(&v);
+    assert(pi == nullptr);  // v 当前是 string
+    assert(std::get_if<std::string>(&v) != nullptr);
+
     std::cout << "[advanced] overloaded visitor + apply ok\n";
-    std::cout << "[expert] visit can take multiple variants (cartesian)\n";
+    std::cout << "[expert] visit multi-variant is cartesian product of alternatives\n";
     std::cout << "std_visit_apply: all checks passed\n";
     return 0;
 }

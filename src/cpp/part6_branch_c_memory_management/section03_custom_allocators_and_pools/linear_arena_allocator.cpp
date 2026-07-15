@@ -78,6 +78,7 @@ int run(int argc, char** argv) {
     assert(arena.used() == 0);
 
     std::cout << "  bump alloc; reset frees all at once\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "linear_arena_allocator: OK\n";
     return 0;
 }

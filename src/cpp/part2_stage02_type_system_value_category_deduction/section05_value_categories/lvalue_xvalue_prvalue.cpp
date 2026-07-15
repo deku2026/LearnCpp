@@ -31,6 +31,22 @@ int classify_str(std::string&&) {
     return 2;
 }
 
+// 文档扩展练习：用转发引用在编译期报告「传入的是左值还是右值实参」
+// T&& 折叠后：左值 → T 为 U&；右值 → T 为 U
+template <class T>
+constexpr const char* arg_value_kind() {
+    if constexpr (std::is_lvalue_reference_v<T>) {
+        return "lvalue-arg";
+    } else {
+        return "rvalue-arg";
+    }
+}
+
+template <class T>
+const char* category_probe(T&&) {
+    return arg_value_kind<T>();
+}
+
 std::string get_string() {
     return "prvalue";
 }
@@ -90,17 +106,28 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] move/cast → xvalue; named && variable is still lvalue\n";
 
     // -------------------------------------------------------------------------
-    // 专家：反直觉清单
+    // 专家：反直觉清单 + 值类别判定探针
     // -------------------------------------------------------------------------
     // 1) "abc" 是 lvalue；42 是 prvalue
     // 2) std::move 不移动，只改值类别
     // 3) 返回值优化 / 物化见 prvalue_materialization_cpp17
     // 4) decltype((x)) 对 lvalue 得 T& —— 与值类别挂钩
+    // 5) 两问模型：有身份? + 可移动? → 唯一定位 lvalue/xvalue/prvalue
 
     int n = 0;
     static_assert(std::is_same_v<decltype((n)), int&>);  // (n) 是 lvalue 表达式
     static_assert(std::is_same_v<decltype(std::move(n)), int&&>);
     static_assert(std::is_same_v<decltype(1 + 2), int>);  // prvalue → T
+
+    // 验收：至少 6 类表达式能说清类别（运行期探针验证左右值实参）
+    assert(std::string{category_probe(n)} == "lvalue-arg");
+    assert(std::string{category_probe(42)} == "rvalue-arg");
+    assert(std::string{category_probe(n + 1)} == "rvalue-arg");
+    assert(std::string{category_probe(std::move(n))} == "rvalue-arg");
+    assert(std::string{category_probe(get_string())} == "rvalue-arg");
+    assert(std::string{category_probe(s)} == "lvalue-arg");
+    std::cout << "[expert] probe: var=" << category_probe(s) << " move=" << category_probe(std::move(s))
+              << " lit=" << category_probe(0) << '\n';
 
     std::cout << "[expert] value category is independent of the type of the expression\n";
     std::cout << "=== lvalue_xvalue_prvalue: OK ===\n";

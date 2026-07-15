@@ -58,6 +58,7 @@ int run(int argc, char** argv) {
 
     std::cout << "  default false: keep own alloc; swap unequal allocators = UB\n";
     std::cout << "  true: allocator travels with assignment/swap\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "propagate_on_container_copy_move_swap: OK\n";
     return 0;
 }

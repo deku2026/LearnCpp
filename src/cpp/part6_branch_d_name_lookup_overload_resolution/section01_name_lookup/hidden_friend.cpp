@@ -5,7 +5,7 @@
 // Item     : hidden_friend
 // Topic id : part6/d/section01/hidden_friend
 //
-// 要点: 类内定义的友元只对 ADL 可见，普通/限定查找找不到。
+// 要点: 类内定义的友元只被 ADL 找到；普通/限定查找找不到。
 // 参考: [class.friend] [basic.lookup.argdep]
 
 #include "learn/topic_registry.hpp"
@@ -23,8 +23,9 @@ struct Point {
     friend Point operator+(const Point& a, const Point& b) { return {a.x + b.x, a.y + b.y}; }
     friend bool operator==(const Point& a, const Point& b) { return a.x == b.x && a.y == b.y; }
     friend std::ostream& operator<<(std::ostream& os, const Point& p) { return os << "(" << p.x << "," << p.y << ")"; }
+    friend int magnitude2(const Point& p) { return p.x * p.x + p.y * p.y; }
 };
-// 注意：operator+ 未在 lib 命名空间层声明
+// operator+ 未注入 lib 命名空间普通成员表
 }  // namespace lib
 
 int run(int argc, char** argv) {
@@ -37,16 +38,17 @@ int run(int argc, char** argv) {
     lib::Point c = a + b;  // 仅 ADL
     assert(c.x == 4 && c.y == 6);
     assert((c == lib::Point{4, 6}));
+    assert(magnitude2(c) == 16 + 36);
 
     std::ostringstream oss;
     oss << c;
     assert(oss.str() == "(4,6)");
 
-    // lib::operator+ 限定查找不可用（未注入命名空间普通成员）
-    // 若取消注释通常无法编译：
-    // auto d = lib::operator+(a, b);
+    // 限定 lib::operator+ 通常找不到（未作为命名空间成员声明）
+    // auto d = lib::operator+(a, b); // ill-formed（典型实现）
 
     std::cout << "  hidden friend: ADL-only, less namespace pollution\n";
+    std::cout << "  ideal for operators associated with one class\n";
     std::cout << "hidden_friend: OK\n";
     return 0;
 }

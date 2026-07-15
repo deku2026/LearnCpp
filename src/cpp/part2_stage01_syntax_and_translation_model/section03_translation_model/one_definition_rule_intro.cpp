@@ -83,8 +83,12 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(Tiny{}.plus1(41) == 42);
 
     // -------------------------------------------------------------------------
-    // §专家：违规形态与防御
+    // §专家：odr-use、违规形态与防御
     // -------------------------------------------------------------------------
+    // 「odr-use」粗义：以需要定义/地址/真身的方式使用实体（调用函数、取地址、
+    //  绑定引用到对象等）。仅出现在不求值语境（如某些 decltype/sizeof 形态）
+    //  可能不算 odr-use——完整规则见 [basic.def.odr]；教学先记「用到了真身」。
+    //
     // A) 头文件放非 inline 函数定义，被两个 .cpp include → multiple definition
     //    （链接器常能诊断）。
     // B) 两个 TU 手写同名 class，布局/成员不一致 → ODR 违规，**不要求诊断 (NDR)**，
@@ -99,9 +103,19 @@ int run(int /*argc*/, char** /*argv*/) {
     // 实证（独立小工程）:
     //   utils.hpp 定义非 inline add；a.cpp/b.cpp 都 include 并调用；链接看 multiple definition。
     //   给 add 加 inline 后链接通过——肌肉记忆：inline 放宽 ODR。
+    //   nm -C a.o b.o：非 inline 时两边都有 T add；加 inline 后链接器合并。
+
+    // 本 TU 内：非 inline origin_distance 被调用 → 典型 odr-use，本文件必须提供定义
+    assert(origin_distance(Point{0, 0}) == 0);
+    // inline 实体可多 TU 各一份相同定义；此处共享 static 局部演示「同一实体」
+    assert(shared_ticket() == 3);
 
     const std::string rule2 = "non-inline odr-used entities: exactly one definition in the program";
     assert(rule2.find("exactly one") != std::string::npos);
+    assert(rule2.find("odr-used") != std::string::npos);
+
+    const std::string rule3 = "class/inline/template: multi-TU OK iff definitions are token-identical";
+    assert(rule3.find("token-identical") != std::string::npos);
 
     std::cout << "[expert] ODR violation can be NDR UB — keep one identical definition source\n";
     std::cout << "=== one_definition_rule_intro: OK ===\n";

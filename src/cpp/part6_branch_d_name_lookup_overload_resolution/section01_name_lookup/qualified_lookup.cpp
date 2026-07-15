@@ -5,7 +5,7 @@
 // Item     : qualified_lookup
 // Topic id : part6/d/section01/qualified_lookup
 //
-// 要点: A::b / ::b 只在指定作用域查找。
+// 要点: A::b / ::b 只在指定作用域里找。
 // 参考: [basic.lookup.qual]
 
 #include "learn/topic_registry.hpp"
@@ -21,9 +21,19 @@ namespace lib {
 struct Widget {
     static constexpr int id = 7;
     int value = 0;
+    int get() const { return value; }
 };
 int tag = 42;
+namespace nested {
+int deep = 9;
+}
 }  // namespace lib
+
+struct Outer {
+    struct Inner {
+        static constexpr int k = 3;
+    };
+};
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -33,18 +43,20 @@ int run(int argc, char** argv) {
 
     assert(lib::tag == 42);
     assert(lib::Widget::id == 7);
+    assert(lib::nested::deep == 9);
 
     lib::Widget w;
     w.value = 3;
-    assert(w.value == 3);
-
-    // 全局限定
+    assert(w.get() == 3);
     assert(::lib::tag == 42);
 
-    // 标准库限定名
+    assert(Outer::Inner::k == 3);
+
     std::vector<int> v{1, 2};
     assert(v.size() == 2);
 
+    // 限定查找不做 ADL；也跳过内层同名隐藏问题（直接点名）
+    std::cout << "  qualified: look only in named scope; no outer walk\n";
     std::cout << "qualified_lookup: OK\n";
     return 0;
 }

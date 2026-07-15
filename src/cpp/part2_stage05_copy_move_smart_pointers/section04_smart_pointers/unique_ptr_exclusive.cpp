@@ -33,6 +33,34 @@ void observe(const Widget* p) {
     std::cout << "  observe id=" << p->id << '\n';
 }
 
+// pImpl (doc 9.5): unique_ptr to incomplete type; dtor must be defined where Impl is complete.
+class Facade {
+public:
+    Facade();
+    ~Facade();
+    Facade(Facade&&) noexcept;
+    Facade& operator=(Facade&&) noexcept;
+    Facade(const Facade&) = delete;
+    Facade& operator=(const Facade&) = delete;
+    int value() const;
+
+private:
+    struct Impl;
+    std::unique_ptr<Impl> impl_;
+};
+
+struct Facade::Impl {
+    int secret = 99;
+};
+
+Facade::Facade() : impl_(std::make_unique<Impl>()) {}
+Facade::~Facade() = default;
+Facade::Facade(Facade&&) noexcept = default;
+Facade& Facade::operator=(Facade&&) noexcept = default;
+int Facade::value() const {
+    return impl_->secret;
+}
+
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [unique_ptr_exclusive] 入门：独占 + 自动释放 ===\n";
 
@@ -68,11 +96,10 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "vector holds " << vec.size() << " exclusive Widgets\n";
     }
 
-    std::cout << "=== 专家：零开销与接口约定 ===\n";
-    // · 默认删除器时 sizeof(unique_ptr<T>) == sizeof(T*)
-    // · 函数要拿走所有权：按值收 unique_ptr
-    // · 只借用：T* / T& / const T*
-    // · 派生 → 基类：Base 需虚析构（见文档 9.4）
+    std::cout << "=== expert: zero-overhead / virtual dtor / pImpl (doc 9.4-9.5) ===\n";
+    // default deleter: sizeof(unique_ptr<T>) == sizeof(T*)
+    // take ownership by value; borrow via T* / T& / const T*
+    // Derived -> Base needs virtual ~Base, else delete Base* is UB
     static_assert(sizeof(std::unique_ptr<int>) == sizeof(int*));
 
     struct Base {
@@ -84,6 +111,16 @@ int run(int /*argc*/, char** /*argv*/) {
     };
     std::unique_ptr<Base> pb = std::make_unique<Derived>();
     assert(pb->who() == 1);
+
+    // pImpl: Impl may be incomplete at the class definition site; define
+    // special members after Impl is complete so default_delete sees a complete type.
+    {
+        Facade f;
+        assert(f.value() == 99);
+        Facade g = std::move(f);
+        assert(g.value() == 99);
+        std::cout << "pImpl Facade value=" << g.value() << " (incomplete type + out-of-line dtor)\n";
+    }
 
     std::cout << "=== unique_ptr_exclusive: OK ===\n";
     return 0;

@@ -5,8 +5,8 @@
 // Item     : volatile_versus_thread_synchronization
 // Topic id : part6/f/section05/volatile_versus_thread_synchronization
 //
-// 要点: volatile ≠ 原子/互斥; 只抑制编译器对"内存映射/信号"场景的优化。
-//       线程同步请用 std::atomic / mutex。
+// 要点: volatile ≠ 原子/互斥; 只抑制编译器对 MMIO/信号场景的优化。
+// 线程同步请用 std::atomic / mutex。不演示 data race。
 // 参考: [dcl.type.cv] Sutter "volatile vs volatile"
 
 #include "learn/topic_registry.hpp"
@@ -24,7 +24,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== F10 volatile vs thread synchronization ===\n";
 
-    // 正确: atomic
+    // 正确: atomic 同步
     std::atomic<bool> go{false};
     int data = 0;
     std::jthread t([&] {
@@ -37,20 +37,17 @@ int run(int argc, char** argv) {
     go.store(true, std::memory_order_release);
     t = std::jthread{};
 
-    // volatile 的合法用途示意: 模拟 MMIO 寄存器 (单线程可见性对编译器)
+    // volatile 合法: 模拟 MMIO（对编译器强制真实访问）
     volatile int device_reg = 0;
     device_reg = 1;
     device_reg = 2;
     assert(device_reg == 2);
-    // 每次访问都生成真实 load/store (相对非 volatile), 但仍无跨线程 happens-before
+    // 仍无跨线程 happens-before
 
-    std::cout << "  volatile: compiler must not elide/reorder vs other volatiles\n";
+    std::cout << "  volatile: must not elide/reorder vs other volatiles (compiler)\n";
     std::cout << "  NOT: atomicity, mutual exclusion, acquire/release\n";
-    std::cout << "  Java/C# volatile ≈ 更接近原子可见性 — 与 C++ 不同!\n";
-
-    // 错误模式 (不运行): volatile bool flag; thread writes data+flag; other reads
-    // 在 C++ 中仍是数据竞争 UB。
-
+    std::cout << "  Java/C# volatile ≈ atomic visibility — NOT the same as C++\n";
+    std::cout << "  wrong: volatile bool flag for thread handoff → still data race\n";
     std::cout << "volatile_versus_thread_synchronization: OK\n";
     return 0;
 }

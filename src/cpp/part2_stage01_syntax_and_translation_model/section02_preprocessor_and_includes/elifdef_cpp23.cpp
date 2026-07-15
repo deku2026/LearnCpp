@@ -78,8 +78,8 @@ int run(int /*argc*/, char** /*argv*/) {
 #if defined(LEARN_BACKEND_GPU)
     static_assert(false, "GPU not defined in this demo");
 #elifdef LEARN_BACKEND_CPU
-    // 我们在这里
-    static_assert(true);
+    // 我们在这里：用有意义的编译期断言代替空洞 static_assert(true)
+    static_assert(sizeof(int) >= 2, "CPU backend branch is active in this TU");
 #endif
 
     // -------------------------------------------------------------------------

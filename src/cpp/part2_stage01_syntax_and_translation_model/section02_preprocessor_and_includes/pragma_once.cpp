@@ -95,9 +95,16 @@ int run(int /*argc*/, char** /*argv*/) {
     // 与模块对比（预告）: C++20 modules 从模型上减少"文本粘贴头"，但大量代码仍依赖
     // include 世界，guard/once 仍是日常技能。
 
+    // 取舍断言（有真实语义，非空洞 assert(true)）:
+    // 库/可移植代码优先 ISO include guard；应用内常用 #pragma once；也可 both。
     const GuardStyle recommended_for_libs = GuardStyle::IncludeGuard;
     const GuardStyle app_ok = GuardStyle::PragmaOnce;
-    assert(recommended_for_libs != app_ok || true);
+    const GuardStyle belt_and_suspenders = GuardStyle::Both;
+    assert(recommended_for_libs != app_ok);
+    assert(std::string{stage01_pragma_demo::style_name(belt_and_suspenders)} == "both");
+    assert(std::string{stage01_pragma_demo::style_name(recommended_for_libs)} == "include_guard");
+    // once 防的是「同一物理文件在一个 TU 内被多次粘贴」——与 ODR 跨 TU 问题正交
+    // （跨 TU 靠声明/定义分离 + inline，见 ODR / header_source topics）。
     std::cout << "[expert] libraries: prefer portable guards; apps often use #pragma once\n";
     std::cout << "=== pragma_once: OK ===\n";
     return 0;

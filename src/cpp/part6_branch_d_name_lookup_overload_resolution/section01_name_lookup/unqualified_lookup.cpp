@@ -5,7 +5,7 @@
 // Item     : unqualified_lookup
 // Topic id : part6/d/section01/unqualified_lookup
 //
-// 要点: 无 :: 的名字从内层作用域向外找，命中即停。
+// 要点: 无 :: 的名字从内层作用域向外找，找到即停。
 // 参考: [basic.lookup.unqual]
 
 #include "learn/topic_registry.hpp"
@@ -25,9 +25,18 @@ int probe() {
     return x;  // 局部
 }
 int outer() {
-    return x;  // ns::x
+    return x;
+}  // ns::x
+void show() {
+    // 类作用域示例见 name_hiding / injected_class_name
 }
 }  // namespace ns
+
+struct S {
+    int x = 10;
+    int get() const { return x; }  // 成员
+    int get_global() const { return ::x; }
+};
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -45,6 +54,12 @@ int run(int argc, char** argv) {
     }
     assert(::x == 1);
 
+    S s;
+    assert(s.get() == 10);
+    assert(s.get_global() == 1);
+
+    std::cout << "  order: block → function → class → namespace → global\n";
+    std::cout << "  stops at first match (no merge of outer overloads)\n";
     std::cout << "unqualified_lookup: OK\n";
     return 0;
 }

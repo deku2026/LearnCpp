@@ -1,12 +1,13 @@
 // LearnCpp topic
-// Doc      : 第6部分-支线F · F2.3 / F4 acquire-release
+// Doc      : 第6部分-支线F · F2/F4 acquire-release（验收：何时够用）
 // Stage    : part6_branch_f_memory_model_and_concurrency
 // Section  : section01_memory_model
 // Item     : acquire_release_semantics
 // Topic id : part6/f/section01/acquire_release_semantics
 //
-// 要点: release 之前的写在 acquire 读到该值后可见; 成对同步, 无全局总序。
-// 参考: [atomics.order] Preshing blogs
+// 要点: release 发布之前的写；acquire 读到后看到它们。
+// 多数「一手写一手读」场景够用且比 seq_cst 便宜。
+// 参考: [atomics.order]
 
 #include "learn/topic_registry.hpp"
 
@@ -14,7 +15,6 @@
 #include <cassert>
 #include <iostream>
 #include <thread>
-#include <vector>
 
 namespace {
 
@@ -22,49 +22,37 @@ int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
 
-    std::cout << "=== F2 acquire / release semantics ===\n";
+    std::cout << "=== F2/F4 acquire-release semantics ===\n";
 
-    // 发布指针/数据
-    std::vector<int> buffer;
-    std::atomic<bool> published{false};
+    int data = 0;
+    int more = 0;
+    std::atomic<bool> ready{false};
 
-    std::jthread writer([&] {
-        buffer = {1, 2, 3, 4};  // 非原子写
-        published.store(true, std::memory_order_release);
+    std::jthread producer([&] {
+        data = 42;  // 非原子
+        more = 7;
+        ready.store(true, std::memory_order_release);  // 发布 data/more
     });
-    std::jthread reader([&] {
-        while (!published.load(std::memory_order_acquire)) {
+
+    std::jthread consumer([&] {
+        while (!ready.load(std::memory_order_acquire)) {
             std::this_thread::yield();
         }
-        assert(buffer.size() == 4);
-        assert(buffer[0] == 1 && buffer[3] == 4);
+        assert(data == 42);
+        assert(more == 7);
     });
-    writer = std::jthread{};
-    reader = std::jthread{};
+    producer = std::jthread{};
+    consumer = std::jthread{};
 
-    // RMW 用 acq_rel
-    std::atomic<int> gate{0};
-    int shared = 0;
-    std::jthread t1([&] {
-        shared = 123;
-        gate.fetch_add(1, std::memory_order_release);
-    });
-    std::jthread t2([&] {
-        int expected = 0;
-        // 自旋直到看到 1
-        while (gate.load(std::memory_order_acquire) == 0) {
-            std::this_thread::yield();
-        }
-        assert(shared == 123);
-        gate.fetch_add(1, std::memory_order_acq_rel);
-    });
-    t1 = std::jthread{};
-    t2 = std::jthread{};
-    assert(gate.load() == 2);
+    // RMW 可用 acq_rel
+    std::atomic<int> ticket{0};
+    int mine = ticket.fetch_add(1, std::memory_order_acq_rel);
+    assert(mine == 0);
+    assert(ticket.load(std::memory_order_acquire) == 1);
 
-    // 错误配对示意 (不运行错误路径): acquire 必须读到 release 写入的值
-    std::cout << "  loads: acquire or relaxed; stores: release or relaxed\n";
-    std::cout << "  RMW that syncs both ways: acq_rel\n";
+    std::cout << "  release-store pairs with acquire-load on SAME atomic\n";
+    std::cout << "  sufficient for one-way publish; cheaper than seq_cst often\n";
+    std::cout << "  acq_rel for RMW that both load and store\n";
     std::cout << "acquire_release_semantics: OK\n";
     return 0;
 }

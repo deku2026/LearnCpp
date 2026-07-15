@@ -5,7 +5,7 @@
 // Item     : start_lifetime_as_array_cpp23
 // Topic id : part6/c/section04/start_lifetime_as_array_cpp23
 //
-// 要点: start_lifetime_as_array 在连续字节上开始 T[n] 生命周期。
+// 要点: start_lifetime_as_array 在原始字节上开始 T[n] 生命周期。
 // 参考: std::start_lifetime_as_array
 
 #include "learn/topic_registry.hpp"
@@ -42,6 +42,7 @@ int run(int argc, char** argv) {
     std::cout << "  start_lifetime_as_array unavailable; launder demo\n";
 #endif
 
+    std::cout << "  use case: deserialize POD arrays from network/mmap buffers\n";
     std::cout << "start_lifetime_as_array_cpp23: OK\n";
     return 0;
 }

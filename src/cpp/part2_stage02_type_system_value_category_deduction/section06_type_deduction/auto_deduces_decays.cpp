@@ -80,7 +80,7 @@ int run(int argc, char** argv) {
         std::cout << "[advanced] low-level const kept; auto={...} is initializer_list\n";
     }
 
-    std::cout << "=== 专家：为何按值丢信息；与模板 T 同源 ===\n";
+    std::cout << "=== 专家：为何按值丢信息；与模板 T 同源；推导全家福 ===\n";
     {
         // auto x = expr 规则 ≈ template<class T> void f(T param); f(expr);
         // 目标是「新的独立对象」，源的顶层 const/引用对副本无意义 → 剥掉
@@ -90,10 +90,23 @@ int run(int argc, char** argv) {
         copy = 7;  // OK：副本可改
         assert(src == 42 && copy == 7);
 
-        // 对照：保留身份
-        const auto& alias = src;
-        static_assert(std::is_same_v<decltype(alias), const int&>);
-        assert(&alias == &src);
+        // 文档扩展练习 2：对同一 const int& 源的推导全家福（验收用 static_assert）
+        auto a0 = src;               // int
+        auto& a1 = src;              // const int&（底层 const 保留）
+        const auto& a2 = src;        // const int&
+        auto&& a3 = src;             // const int&（转发引用绑左值）
+        using D0 = decltype(src);    // const int&
+        using D1 = decltype((src));  // const int&（(src) 是 lvalue 表达式）
+        decltype(auto) a4 = src;     // const int&
+
+        static_assert(std::is_same_v<decltype(a0), int>);
+        static_assert(std::is_same_v<decltype(a1), const int&>);
+        static_assert(std::is_same_v<decltype(a2), const int&>);
+        static_assert(std::is_same_v<decltype(a3), const int&>);
+        static_assert(std::is_same_v<D0, const int&>);
+        static_assert(std::is_same_v<D1, const int&>);
+        static_assert(std::is_same_v<decltype(a4), const int&>);
+        assert(&a1 == &src && &a4 == &src);
 
         std::cout << "[expert] auto is template-arg deduction by value; "
                      "use Insights/static_assert, not typeid\n";

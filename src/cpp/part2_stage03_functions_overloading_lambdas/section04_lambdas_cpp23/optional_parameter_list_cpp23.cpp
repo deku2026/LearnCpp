@@ -1,6 +1,7 @@
 // Topic     : C++23 省略空参数列表 ()（P1102）
 // Doc       : 第2部分-阶段3 · 步骤 6.2
 // cppreference: https://en.cppreference.com/cpp/language/lambda
+// 提案      : P1102R2
 //
 // 要点: 无参数时，即使有 mutable/constexpr/noexcept/属性，也可省略 ()；
 //       C++23 前带说明符时必须写 ()。
@@ -36,27 +37,35 @@ int run(int /*argc*/, char** /*argv*/) {
 
     auto nx = [] noexcept { return 4; };
     assert(nx() == 4);
-    std::cout << "[advanced] [] mutable / constexpr / noexcept without ()\n";
+
+    auto nd = [] [[nodiscard]] { return 5; };
+    assert(nd() == 5);
+    std::cout << "[advanced] [] mutable / constexpr / noexcept / attribute without ()\n";
 
     // -------------------------------------------------------------------------
-    // §专家：何时仍必须写 ()
+    // §专家：何时仍要写 ()；与 static 组合
     // -------------------------------------------------------------------------
     // 有参数列表时必须写：(int x)
     auto add1 = [](int x) { return x + 1; };
     assert(add1(41) == 42);
 
-    // 有意写成 () 仍完全合法，团队可统一风格
+    // 继续写 () 完全合法——风格上可统一保留
     auto old_style = []() mutable {
         static int k = 0;
         return ++k;
     };
     assert(old_style() == 1);
 
-    // 与 static 组合（无捕获）
+    // 与 static 组合：无参数
     auto five = [] static { return 5; };
     assert(five() == 5);
 
-    std::cout << "[expert] omit () only when parameter list is empty; style is optional\n";
+    // 有尾置返回时：无参可 [] -> int { ... }（() 仍可省）
+    auto six = [] -> int { return 6; };
+    assert(six() == 6);
+
+    // 对照：C++20 及更早，[] mutable { } / [] constexpr { } 为 ill-formed，必须 []() mutable
+    std::cout << "[expert] omit () only when parameter list is empty; style is optional (P1102)\n";
     std::cout << "=== optional_parameter_list_cpp23: OK ===\n";
     return 0;
 }

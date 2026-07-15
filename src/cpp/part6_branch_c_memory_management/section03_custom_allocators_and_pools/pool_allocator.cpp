@@ -74,6 +74,7 @@ int run(int argc, char** argv) {
     pool.deallocate(again);
 
     std::cout << "  freelist O(1) for fixed-size objects\n";
+    std::cout << "  [layer] traits/pmr/pools: see branch C doc C6-C8 acceptance\n";
     std::cout << "pool_allocator: OK\n";
     return 0;
 }

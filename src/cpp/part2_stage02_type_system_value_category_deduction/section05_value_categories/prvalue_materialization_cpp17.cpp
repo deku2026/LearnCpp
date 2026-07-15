@@ -70,24 +70,32 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] materialization when a real object identity is required\n";
 
     // -------------------------------------------------------------------------
-    // 专家：与 string 等日常类型
+    // 专家：日常类型 + 「保证消除」的更精确说法
     // -------------------------------------------------------------------------
-    std::string s = std::string{"hello"};  // 无中间临时 + 移动（C++17 模型）
+    // cppreference / MS 博文：C++17 与其说是“强制 elide 一次已存在的拷贝”，
+    // 不如说是 **deferred temporary materialization**：
+    // prvalue 在需要 glvalue 身份之前根本不对应独立临时对象，因此无拷/移可 elide。
+    std::string s = std::string{"hello"};  // 直接在 s 存储构造
     assert(s == "hello");
 
     auto factory = [](const char* p) { return std::string{p}; };
     std::string t = factory("world");
     assert(t == "world");
 
-    // 对比：必须物化的场景 — 绑定到 && 并命名
+    // 必须物化：绑引用 / 成员访问 → 先有临时对象（xvalue），const& 可延长寿命
     std::string&& rr = factory("xvalue path");
     assert(rr == "xvalue path");
+    const std::string& crext = factory("extend");
+    assert(crext == "extend");
 
     // make_with_local 与 make_ncm 在“返回 prvalue 构造表达式”时等价安全
     NoCopyMove w = make_with_local(6);
     assert(w.n == 6);
 
-    std::cout << "[expert] think of prvalues as 'initializing recipes' since C++17\n";
+    // 对照：若只有具名局部再 return，则依赖 NRVO/隐式移动（移动已 delete 时不可移植）
+    // 本文件刻意用 prvalue 返回路径保证 C++17 下可编译。
+
+    std::cout << "[expert] C++17: prvalue = initializing recipe; materialize only when needed\n";
     std::cout << "=== prvalue_materialization_cpp17: OK ===\n";
     return 0;
 }

@@ -12,6 +12,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <map>
 #include <type_traits>
 #include <vector>
 
@@ -33,6 +34,14 @@ typename Holder<T>::nested make_one(T x) {
     return x;
 }
 
+// 进阶: 嵌套依赖类型
+template <typename Map>
+typename Map::mapped_type get_zero(const Map& m) {
+    typename Map::const_iterator it = m.find(0);
+    assert(it != m.end());
+    return it->second;
+}
+
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
@@ -45,7 +54,11 @@ int run(int argc, char** argv) {
 
     static_assert(std::is_same_v<typename Holder<int>::nested, int>);
 
+    std::map<int, std::string> m{{0, "ok"}, {1, "x"}};
+    assert(get_zero(m) == "ok");
+
     std::cout << "  without typename: T::type * p may parse as multiply\n";
+    std::cout << "  C++20 often allows omitting typename in more contexts\n";
     std::cout << "typename_disambiguation: OK\n";
     return 0;
 }

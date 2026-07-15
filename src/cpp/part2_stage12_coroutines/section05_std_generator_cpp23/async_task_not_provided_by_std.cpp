@@ -125,8 +125,21 @@ int run(int argc, char** argv) {
     std::cout << "    - general co_await Task type\n";
     std::cout << "  C++23 = generator standardized; async Task still library/C++26.\n";
 
-    // 🔶 Boost.Asio: asio::awaitable<T> + co_spawn 填补“异步 Task+executor”空缺
-    // 🔶 Boost.Coroutine2: stackful 纤程模型, 与 C++20 stackless 协程不同代际
+    std::cout << "=== 教学对照（不链接库，只建立心智）===\n";
+    // 🔶 Boost.Asio (C++20 协程集成):
+    //   - asio::awaitable<T> ≈ 带 executor 的异步 Task
+    //   - co_spawn(executor, awaitable, token) 把协程投递到 io_context/thread_pool
+    //   - async_read/async_write 返回 awaitable，co_await 挂起直到完成
+    //   - 与本文件 DiyTask 同属 stackless + promise/awaiter；Asio 多了调度与 IO
+    // 🔶 Boost.Coroutine2 / fiber:
+    //   - stackful：每协程独立栈，可在任意调用深度挂起
+    //   - 与 C++20 语言协程（stackless，帧在堆/HALO）不是同一机制
+    //   - 适合“像线程一样写控制流但不想抢占”的旧代码路径
+    // 🔶 C++26 方向: std::execution (P2300 sender/receiver) 标准化异步执行模型
+    // 本仓库: 手写 Task 见 section06/handwritten_task_with_symmetric_transfer
+    std::cout << "  Asio: awaitable+co_spawn = Task+executor (external)\n";
+    std::cout << "  Coroutine2: stackful fibers ≠ C++20 stackless frames\n";
+    std::cout << "  Future std: std::execution / senders (C++26 track)\n";
 
     std::cout << "async_task_not_provided_by_std: OK\n";
     return 0;

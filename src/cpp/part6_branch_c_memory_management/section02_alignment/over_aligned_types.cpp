@@ -27,7 +27,8 @@ int run(int argc, char** argv) {
 
     std::cout << "=== C4 over-aligned types ===\n";
 
-    assert(alignof(LineBuf) > alignof(std::max_align_t) || alignof(LineBuf) >= 64);
+    std::cout << "  alignof(LineBuf)=" << alignof(LineBuf) << " max_align_t=" << alignof(std::max_align_t) << '\n';
+    assert(alignof(LineBuf) >= 64);
 
     auto* p = new LineBuf{};
     auto addr = reinterpret_cast<std::uintptr_t>(p);
@@ -36,12 +37,12 @@ int run(int argc, char** argv) {
     assert(p->bytes[0] == 'A');
     delete p;
 
-    // 对齐版分配 API
     void* raw = ::operator new(128, std::align_val_t{64});
-    auto raw_addr = reinterpret_cast<std::uintptr_t>(raw);
-    assert(raw_addr % 64 == 0);
+    assert(reinterpret_cast<std::uintptr_t>(raw) % 64 == 0);
     ::operator delete(raw, std::align_val_t{64});
 
+    // 专家: SIMD/缓存行/DMA 常需 over-alignment；
+    // C++17 前 new 可能不保证 > max_align_t（依赖实现）
     std::cout << "  C++17+: new OverAligned uses aligned operator new\n";
     std::cout << "over_aligned_types: OK\n";
     return 0;

@@ -10,6 +10,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <type_traits>
 #include <utility>
 
 namespace {
@@ -48,6 +49,7 @@ int run(int /*argc*/, char** /*argv*/) {
     int& lr = i;  // 非 const 左值引用 ← 仅 lvalue
     // int& bad1 = 42;
     // int& bad2 = std::move(i);
+    assert(&lr == &i);
 
     const int& cr1 = i;             // const& ← lvalue
     const int& cr2 = 42;            // const& ← prvalue（延长寿命）

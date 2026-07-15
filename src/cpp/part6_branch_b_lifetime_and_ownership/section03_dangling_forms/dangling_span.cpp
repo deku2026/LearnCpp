@@ -20,7 +20,6 @@
 namespace {
 
 // ❌ std::span<int> bad() { std::vector<int> v{1,2}; return v; }
-// ✅ 按值返回容器，或由调用方提供缓冲
 
 int sum(std::span<const int> s) {
     return std::accumulate(s.begin(), s.end(), 0);
@@ -32,6 +31,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== B3 dangling span (safe contrasts) ===\n";
 
+    // --- 入门 ---
     std::vector<int> v{1, 2, 3, 4};
     std::span<int> sp = v;
     assert(sp.size() == 4);
@@ -39,14 +39,13 @@ int run(int argc, char** argv) {
     sp[0] = 10;
     assert(v[0] == 10);
 
-    // 扩容会使 span 失效——之后重建 span
+    // --- 进阶: 扩容失效后重建 ---
     v.reserve(v.capacity() + 16);
     v.push_back(5);
-    sp = v;  // 重新绑定
+    sp = v;
     assert(sp.size() == 5);
     assert(sum(sp) == 24);
 
-    // 栈数组：span 与数组同寿
     {
         int buf[] = {7, 8, 9};
         std::span<int> local{buf};
@@ -56,12 +55,20 @@ int run(int argc, char** argv) {
     std::array<int, 3> a{1, 1, 1};
     assert(sum(a) == 3);
 
-    // 子 span 仍依赖底层
     std::span<int> mid = std::span<int>{v}.subspan(1, 2);
     assert(mid.size() == 2);
     assert(mid[0] == v[1]);
 
+    // 动态 extent / 静态 extent
+    std::span<int, 3> fixed = std::span<int, 3>{a.data(), 3};
+    assert(fixed.size() == 3);
+    assert(sum(fixed) == 3);
+
+    // --- 专家: API 现代化 ---
+    // 旧: void f(int* p, std::size_t n);
+    // 新: void f(std::span<int> s);  —— 长度绑定，仍是借用
     std::cout << "  span does not extend underlying container lifetime\n";
+    std::cout << "  same unified dangling model as string_view/iterator\n";
     std::cout << "dangling_span: OK\n";
     return 0;
 }

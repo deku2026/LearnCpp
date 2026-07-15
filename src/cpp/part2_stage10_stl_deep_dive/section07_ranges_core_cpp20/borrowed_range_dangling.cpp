@@ -1,12 +1,15 @@
 // Topic     : borrowed_range 与 ranges::dangling —— 编译期拦悬垂
-// Doc       : 第2部分-阶段10 · 步骤 10.2 / 14.2
-// cppreference: https://en.cppreference.com/cpp/ranges/borrowed_range
-//               https://en.cppreference.com/cpp/ranges/dangling
-//
-// 要点: 临时拥有型 range 算法返回 dangling; string_view/span 是 borrowed。
+// Doc       : 第2部分-阶段10-STL深潜.md · 步骤 10.2 / 14.2
+// Stage     : part2_stage10_stl_deep_dive
+// Section   : section07_ranges_core_cpp20
+// Item      : borrowed_range_dangling
+// Topic id  : part2/stage10/section07/borrowed_range_dangling
+// Refs      : https://en.cppreference.com/w/cpp/ranges/borrowed_range
+//             https://en.cppreference.com/w/cpp/ranges/dangling
 
 #include "learn/topic_registry.hpp"
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <ranges>
@@ -18,32 +21,53 @@
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
-    std::cout << "=== [borrowed_range_dangling] ===\n";
+    std::cout << "=== [borrowed_range_dangling] 入门：lvalue 可借 / rvalue 容器否 ===\n";
+    {
+        std::vector<int> v{1, 2, 3, 4};
+        static_assert(std::ranges::borrowed_range<std::vector<int>&>);
+        static_assert(!std::ranges::borrowed_range<std::vector<int>>);  // rvalue 否
 
-    // lvalue 容器: 迭代器可借出
-    std::vector<int> v{1, 2, 3, 4};
-    static_assert(std::ranges::borrowed_range<std::vector<int>&>);
-    static_assert(!std::ranges::borrowed_range<std::vector<int>>);  // rvalue 否
+        auto it = std::ranges::find(v, 3);
+        assert(it != v.end() && *it == 3);
+        std::cout << "lvalue vector find OK\n";
+    }
 
-    auto it = std::ranges::find(v, 3);
-    assert(it != v.end() && *it == 3);
+    std::cout << "=== 进阶：临时拥有范围 → dangling（编译期救你）===\n";
+    {
+        auto dangle = std::ranges::find(std::vector<int>{1, 2, 3}, 2);
+        static_assert(std::is_same_v<decltype(dangle), std::ranges::dangling>);
+        // *dangle; // ❌ 编译错误 —— 不能解引用
 
-    // 临时 vector → dangling(不能解引用)
-    auto dangle = std::ranges::find(std::vector<int>{1, 2, 3}, 2);
-    static_assert(std::is_same_v<decltype(dangle), std::ranges::dangling>);
-    // *dangle; // ❌ 编译错误 —— 救了你
+        // 安全：先具名
+        auto tmp = std::vector{1, 2, 3};
+        auto it = std::ranges::find(tmp, 2);
+        assert(*it == 2);
+        std::cout << "temporary → dangling type OK\n";
+    }
 
-    // string_view / span / 有界 iota 是 borrowed_range(不拥有)
-    static_assert(std::ranges::borrowed_range<std::string_view>);
-    static_assert(std::ranges::borrowed_range<std::span<int>>);
-    auto it2 = std::ranges::find(std::string_view{"abc"}, 'b');
-    assert(*it2 == 'b');  // OK: view 不拥有, 字面量静态存储
+    std::cout << "=== 专家：string_view/span/iota 是 borrowed + enable 语义 ===\n";
+    {
+        // 不拥有元素的 view：即使「临时」传算法也返回真迭代器
+        static_assert(std::ranges::borrowed_range<std::string_view>);
+        static_assert(std::ranges::borrowed_range<std::span<int>>);
+        auto it2 = std::ranges::find(std::string_view{"abc"}, 'b');
+        assert(*it2 == 'b');  // 字面量静态存储
 
-    auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
-    assert(*it3 == 3);
+        auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
+        assert(*it3 == 3);
 
-    std::cout << "[borrowed/dangling] temp vector → dangling; sv OK\n";
-    std::cout << "borrowed_range_dangling: all checks passed\n";
+        // 自定义不拥有视图可特化 enable_borrowed_range<T> = true
+        // （教学注释：见 cppreference borrowed_range）
+
+        // 对比：管道夹临时容器仍是运行期悬垂（dangling 管不到 pipe 存 view）
+        // auto bad = std::vector{1,2,3} | views::filter(...); // 悬垂 view
+        std::vector<int> owned{1, 2, 3, 4, 5};
+        auto good = owned | std::views::filter([](int x) { return x > 2; });
+        assert(std::ranges::distance(good) == 3);
+        std::cout << "borrowed views + named pipe OK\n";
+    }
+
+    std::cout << "[borrowed_range_dangling] all checks passed\n";
     return 0;
 }
 

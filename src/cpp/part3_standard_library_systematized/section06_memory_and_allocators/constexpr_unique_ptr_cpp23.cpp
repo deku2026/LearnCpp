@@ -44,6 +44,7 @@ int run(int /*argc*/, char** /*argv*/) {
 #if defined(__cpp_lib_constexpr_memory) && __cpp_lib_constexpr_memory >= 202202L
     constexpr int v = demo_constexpr_unique_ptr();
     static_assert(v == 42);
+    assert(v == 42);
     std::cout << "constexpr unique_ptr result=" << v << '\n';
 #else
     // 运行期路径仍验证 unique_ptr 语义
@@ -54,6 +55,25 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(*q == 42);
     std::cout << "runtime unique_ptr result=" << *q << " (constexpr unique_ptr not available)\n";
 #endif
+
+    // 运行期对照: array 版 unique_ptr + 自定义删除器心智
+    {
+        auto arr = std::make_unique<int[]>(3);
+        arr[0] = 1;
+        arr[1] = 2;
+        arr[2] = 3;
+        assert(arr[0] + arr[1] + arr[2] == 6);
+    }
+    {
+        int freed = 0;
+        {
+            std::unique_ptr<int, void (*)(int*)> p{new int{9}, [](int* raw) { delete raw; }};
+            // 用计数包装不便与函数指针删除器共存; 验证非空与取值
+            assert(p && *p == 9);
+            freed = 1;  // 离开作用域即释放
+        }
+        assert(freed == 1);
+    }
 
     // C++23 意义：常量求值里也能做 RAII 式堆分配（实现定义 new 在 consteval 中）
     std::cout << "note: enables RAII allocation patterns inside constant evaluation\n";

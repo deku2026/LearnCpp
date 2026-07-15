@@ -6,12 +6,17 @@
 // Topic id : part3/section05/std_print_cpp23
 // Refs     : https://en.cppreference.com/w/cpp/io/print
 //            P2093；__cpp_lib_print
+//
+// 要点: 新代码格式化输出首选 print; iostream 保留流状态/自定义 <<;
+//       无粘性 manipulator; 可写 stderr。
 
 #include "learn/topic_registry.hpp"
 
 #include <cassert>
+#include <cstdio>
 #include <format>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -36,14 +41,23 @@ int run(int /*argc*/, char** /*argv*/) {
     const int code = 404;
     const std::string where = "gateway";
 
+    // format 始终可断言(print 写终端不便 assert)
+    const auto line = std::format("[{}] {}", code, where);
+    assert(line == "[404] gateway");
+    assert(std::format("{:#x}", code) == "0x194");
+    std::cout << "format check: " << line << '\n';
+
 #if LEARN_HAS_PRINT
 #if defined(__cpp_lib_print)
     std::cout << "__cpp_lib_print=" << __cpp_lib_print << '\n';
 #endif
     std::println("error {} at {}", code, where);
     std::print("hex code={:#x}\n", code);
-    // 写到 stderr
     std::println(stderr, "diag on stderr: {}", where);
+
+    std::ostringstream oss;
+    std::print(oss, "{}:{}", where, code);
+    assert(oss.str() == "gateway:404");
 #else
     std::cout << std::format("error {} at {}\n", code, where);
     std::cout << std::format("hex code={:#x}\n", code);
@@ -51,16 +65,18 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "<print> missing; used format fallback\n";
 #endif
 
-    // format 始终可断言
-    const auto line = std::format("[{}] {}", code, where);
-    assert(line == "[404] gateway");
-    std::cout << "format check: " << line << '\n';
-
     std::cout << "=== 与 iostream 对比要点 ===\n";
-    // · print: 无粘性 manipulator 状态；类型安全；常更快
+    // · print: 无粘性 manipulator；类型安全；常更快
     // · iostream: 流状态机、自定义 <<、与 streambuf 深度集成
     std::vector<int> v{1, 2, 3};
+    const auto vline = std::format("{}", v);
+    assert(vline.find('1') != std::string::npos);
     std::cout << std::format("container via format: {}\n", v);
+
+    // 粘性状态演示: hex 污染后续输出
+    std::cout << std::hex << 255 << ' ' << 10 << std::dec << '\n';
+    // print/format 不受此影响
+    assert(std::format("{}", 10) == "10");
 
     std::cout << "[std_print_cpp23] all checks passed\n";
     return 0;
