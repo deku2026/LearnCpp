@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory_resource>
 #include <vector>
 
@@ -21,13 +20,13 @@ void demo_basics() {
     std::pmr::vector<int> a{&mr};
     a.push_back(1);
     std::pmr::vector<int> b = a;
-    assert(b[0] == 1);
+    LEARN_CHECK(b[0] == 1);
 }
 
 void demo_intermediate() {
     std::pmr::vector<int> a{1, 2, 3};
     std::pmr::vector<int> b = std::move(a);
-    assert(b.size() == 3);
+    LEARN_CHECK(b.size() == 3);
 }
 
 void demo_expert() {
@@ -38,7 +37,7 @@ void demo_expert() {
     a.push_back(9);
     std::pmr::vector<int> b{&mr2};
     b = a;  // may allocate in mr2
-    assert(b[0] == 9);
+    LEARN_CHECK(b[0] == 9);
 }
 
 int run(int argc, char** argv) {

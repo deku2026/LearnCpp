@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -23,49 +22,49 @@ void demo_basics() {
     static_assert(std::is_same_v<R, int&&>);
 
     int&& rr = std::move(x);
-    assert(rr == 10);
+    LEARN_CHECK(rr == 10);
     // x still holds 10; move only changes value category of the expression
-    assert(x == 10);
+    LEARN_CHECK(x == 10);
 }
 
 void demo_intermediate() {
     std::string a = "payload";
     std::string b = std::move(a);  // move constructor selected because of xvalue
-    assert(b == "payload");
+    LEARN_CHECK(b == "payload");
     // a is valid but unspecified; safe operations:
     a.assign("new");
-    assert(a == "new");
+    LEARN_CHECK(a == "new");
 
     // Equivalent cast form
     std::string c = "xyz";
     std::string d = static_cast<std::string&&>(c);
-    assert(d == "xyz");
+    LEARN_CHECK(d == "xyz");
 }
 
 void demo_expert() {
     // move of const yields const T&& — often falls back to copy
     const std::string cs = "const";
     std::string copy = std::move(cs);  // copy ctor (no move from const)
-    assert(copy == "const");
-    assert(cs == "const");
+    LEARN_CHECK(copy == "const");
+    LEARN_CHECK(cs == "const");
 
     // Containers
     std::vector<int> v{1, 2, 3, 4};
     std::vector<int> w = std::move(v);
-    assert(w.size() == 4);
-    assert(w[0] == 1);
+    LEARN_CHECK(w.size() == 4);
+    LEARN_CHECK(w[0] == 1);
     // v valid unspecified; clear is safe
     v.clear();
-    assert(v.empty());
+    LEARN_CHECK(v.empty());
 
     // Naming a moved-from object is still an lvalue
     std::string s = "a";
     std::string&& r = std::move(s);
     // r is a named rvalue ref => lvalue expressions of type string
     std::string t = r;  // copy, not move
-    assert(t == "a");
+    LEARN_CHECK(t == "a");
     std::string u = std::move(r);  // move
-    assert(u == "a");
+    LEARN_CHECK(u == "a");
 }
 
 int run(int argc, char** argv) {

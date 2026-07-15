@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <utility>
 #include <vector>
@@ -44,8 +43,8 @@ namespace {
 
 void demo_basics() {
     mine::Box b;
-    assert(std::ranges::size(b) == 3);
-    assert(*std::ranges::begin(b) == 1);
+    LEARN_CHECK(std::ranges::size(b) == 3);
+    LEARN_CHECK(*std::ranges::begin(b) == 1);
 }
 
 void demo_intermediate() {
@@ -53,7 +52,7 @@ void demo_intermediate() {
     int b = 2;
     using std::swap;
     swap(a, b);  // two-step: ADL + std fallback
-    assert(a == 2 && b == 1);
+    LEARN_CHECK(a == 2 && b == 1);
 }
 
 void demo_expert() {
@@ -62,10 +61,10 @@ void demo_expert() {
     y.data = {9, 9};
     using std::swap;
     swap(x, y);  // finds mine::swap via ADL
-    assert(x.data[0] == 9);
-    assert(y.data[0] == 1);
+    LEARN_CHECK(x.data[0] == 9);
+    LEARN_CHECK(y.data[0] == 1);
     // ranges::begin is a CPO: prefers member, then ADL
-    assert(std::ranges::begin(x) != std::ranges::end(x));
+    LEARN_CHECK(std::ranges::begin(x) != std::ranges::end(x));
 }
 
 }  // namespace

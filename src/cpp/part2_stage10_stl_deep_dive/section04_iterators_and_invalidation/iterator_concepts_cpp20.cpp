@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <iterator>
 #include <list>
@@ -21,15 +20,15 @@ void demo_basics() {
     static_assert(std::random_access_iterator<std::vector<int>::iterator>);
     static_assert(std::bidirectional_iterator<std::list<int>::iterator>);
     static_assert(std::contiguous_iterator<std::vector<int>::iterator>);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
     std::vector<int> v{10, 20, 30};
     static_assert(std::contiguous_iterator<decltype(v.begin())>);
     int* p = std::to_address(v.begin());
-    assert(*p == 10);
-    assert(p[2] == 30);
+    LEARN_CHECK(*p == 10);
+    LEARN_CHECK(p[2] == 30);
 }
 
 void demo_expert() {
@@ -38,7 +37,7 @@ void demo_expert() {
     static_assert(!std::contiguous_iterator<std::list<int>::iterator>);
     std::vector<int> v{1};
     auto d = std::distance(v.begin(), v.end());
-    assert(d == 1);
+    LEARN_CHECK(d == 1);
 }
 
 }  // namespace

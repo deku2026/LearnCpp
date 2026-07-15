@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -123,10 +122,10 @@ Resumable await_once(int* n) {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = yield_one();
-    assert(g.next());
-    assert(g.value() == 7);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 7);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -135,22 +134,22 @@ void demo_intermediate() {
     int n = 0;
     auto r = await_once(&n);
     r.resume();
-    assert(n == 0);
+    LEARN_CHECK(n == 0);
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = yield_one();
-    assert(g.next());
-    assert(g.value() == 7);
-    assert(!g.next());
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 7);
+    LEARN_CHECK(!g.next());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

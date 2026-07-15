@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <set>
 #include <string>
@@ -18,10 +17,10 @@ namespace {
 
 void demo_basics() {
     std::multiset<int> ms{1, 2, 2, 3};
-    assert(ms.size() == 4);
-    assert(ms.count(2) == 2);
+    LEARN_CHECK(ms.size() == 4);
+    LEARN_CHECK(ms.count(2) == 2);
     std::multimap<std::string, int> mm{{"a", 1}, {"a", 2}};
-    assert(mm.count("a") == 2);
+    LEARN_CHECK(mm.count("a") == 2);
 }
 
 void demo_intermediate() {
@@ -31,16 +30,16 @@ void demo_intermediate() {
     for (auto it = range.first; it != range.second; ++it) {
         ++n;
     }
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 }
 
 void demo_expert() {
     std::multiset<int> ms{5, 1, 3, 1, 4};
     auto it = ms.find(1);
-    assert(it != ms.end());
+    LEARN_CHECK(it != ms.end());
     ms.erase(it);  // erase one of the 1s
-    assert(ms.count(1) == 1);
-    assert(ms.size() == 4);
+    LEARN_CHECK(ms.count(1) == 1);
+    LEARN_CHECK(ms.size() == 4);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -35,26 +34,26 @@ int sink_glvalue_like(const std::string&) {
 void demo_basics() {
     int x = 1;      // x: lvalue, hence glvalue
     int y = x + 2;  // x+2: prvalue, hence rvalue
-    assert(y == 3);
+    LEARN_CHECK(y == 3);
 
     int&& xr = std::move(x);  // std::move(x): xvalue (both glvalue and rvalue)
-    assert(xr == 1);
+    LEARN_CHECK(xr == 1);
 }
 
 void demo_intermediate() {
     std::string s = "data";
 
     // const lvalue ref can bind all glvalues and also materialize prvalues
-    assert(sink_glvalue_like(s) == 2);
-    assert(sink_glvalue_like(std::string("pr")) == 2);
+    LEARN_CHECK(sink_glvalue_like(s) == 2);
+    LEARN_CHECK(sink_glvalue_like(std::string("pr")) == 2);
 
     // rvalue ref prefers rvalues (xvalue/prvalue)
-    assert(sink_rvalue(std::move(s)) == 1);
-    assert(sink_rvalue(std::string("tmp")) == 1);
+    LEARN_CHECK(sink_rvalue(std::move(s)) == 1);
+    LEARN_CHECK(sink_rvalue(std::string("tmp")) == 1);
 
     // After move, s is valid but unspecified
     s = "reset";
-    assert(s == "reset");
+    LEARN_CHECK(s == "reset");
 }
 
 void demo_expert() {
@@ -66,13 +65,13 @@ void demo_expert() {
 
     // Address-of requires glvalue with identity (lvalue or xvalue of object)
     int* p = &a;
-    assert(p == &a);
+    LEARN_CHECK(p == &a);
 
     // Comma and conditional preserve categories carefully
     int b = 2;
     int& chosen = (a > b) ? a : b;  // result is lvalue
     chosen = 99;
-    assert(a == 99 || b == 99);
+    LEARN_CHECK(a == 99 || b == 99);
 }
 
 int run(int argc, char** argv) {

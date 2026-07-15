@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <version>
 
@@ -19,12 +18,12 @@ void demo_basics() {
 #if defined(__cpp_lib_chrono) && __cpp_lib_chrono >= 201907L
     using namespace std::chrono;
     const year_month_day ymd{2024y / March / 15d};
-    assert(ymd.ok());
-    assert(static_cast<int>(ymd.year()) == 2024);
-    assert(unsigned{ymd.month()} == 3);
-    assert(unsigned{ymd.day()} == 15);
+    LEARN_CHECK(ymd.ok());
+    LEARN_CHECK(static_cast<int>(ymd.year()) == 2024);
+    LEARN_CHECK(unsigned{ymd.month()} == 3);
+    LEARN_CHECK(unsigned{ymd.day()} == 15);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -32,11 +31,11 @@ void demo_intermediate() {
 #if defined(__cpp_lib_chrono) && __cpp_lib_chrono >= 201907L
     using namespace std::chrono;
     const auto ymd = 2024y / 2 / 29;
-    assert(ymd.ok());
+    LEARN_CHECK(ymd.ok());
     const auto bad = 2023y / 2 / 29;
-    assert(!bad.ok());
+    LEARN_CHECK(!bad.ok());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -45,16 +44,16 @@ void demo_expert() {
     using namespace std::chrono;
     try {
         const auto* tz = current_zone();
-        assert(tz != nullptr);
+        LEARN_CHECK(tz != nullptr);
         const auto now = system_clock::now();
         const auto local = tz->to_local(now);
         (void)local;
     } catch (...) {
         // timezone db may be unavailable on some systems
-        assert(true);
+        LEARN_CHECK(true);
     }
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

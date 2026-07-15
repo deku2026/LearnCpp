@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -26,7 +25,7 @@ void demo_basics() {
     std::vector<AoS> particles{{1, 0, 0}, {2, 0, 0}};
     float sum = 0;
     for (const auto& p : particles) sum += p.x;
-    assert(sum == 3.f);
+    LEARN_CHECK(sum == 3.f);
 }
 
 void demo_intermediate() {
@@ -36,7 +35,7 @@ void demo_intermediate() {
     s.z = {0, 0, 0};
     float sum = 0;
     for (float v : s.x) sum += v;
-    assert(sum == 6.f);
+    LEARN_CHECK(sum == 6.f);
 }
 
 void demo_expert() {
@@ -45,7 +44,7 @@ void demo_expert() {
     s.x.assign(100, 1.f);
     float sum = 0;
     for (float v : s.x) sum += v;
-    assert(sum == 100.f);
+    LEARN_CHECK(sum == 100.f);
 }
 
 int run(int argc, char** argv) {

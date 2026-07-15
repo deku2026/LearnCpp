@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -29,21 +28,21 @@ struct Without {};
 void demo_basics() {
     static_assert(has_size<With>::value);
     static_assert(!has_size<Without>::value);
-    assert(has_size<With>::value);
+    LEARN_CHECK(has_size<With>::value);
 }
 
 void demo_intermediate() {
     With w;
     if constexpr (has_size<With>::value) {
-        assert(w.size() == 3);
+        LEARN_CHECK(w.size() == 3);
     }
 }
 
 void demo_expert() {
 #if defined(__cpp_concepts)
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
     static_assert(std::is_same_v<std::void_t<int>, void>);
 }

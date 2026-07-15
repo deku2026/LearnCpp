@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -51,7 +50,7 @@ void demo_basics() {
     static_assert(Strip<int>::kind == 0);
     static_assert(Strip<int*>::kind == 1);
     static_assert(std::is_same_v<Strip<int*>::type, int>);
-    assert(Strip<int*>::kind == 1);
+    LEARN_CHECK(Strip<int*>::kind == 1);
 }
 
 void demo_intermediate() {

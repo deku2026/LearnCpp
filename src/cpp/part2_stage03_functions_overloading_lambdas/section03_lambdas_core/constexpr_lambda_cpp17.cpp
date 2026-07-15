@@ -10,14 +10,13 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 
 namespace {
 
 void demo_basics() {
     auto square = [](int n) constexpr { return n * n; };
     static_assert(square(5) == 25);
-    assert(square(6) == 36);
+    LEARN_CHECK(square(6) == 36);
 }
 
 void demo_intermediate() {
@@ -25,14 +24,14 @@ void demo_intermediate() {
     auto add = [](int a, int b) { return a + b; };
     static_assert(add(2, 3) == 5);
     constexpr int s = add(4, 5);
-    assert(s == 9);
+    LEARN_CHECK(s == 9);
 }
 
 void demo_expert() {
     constexpr auto make = [](int n) { return n * 2; };
     std::array<int, make(3)> arr{};
     static_assert(arr.size() == 6);
-    assert(arr.size() == 6);
+    LEARN_CHECK(arr.size() == 6);
 }
 
 int run(int argc, char** argv) {

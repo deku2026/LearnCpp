@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <functional>
 #include <numeric>
 #include <optional>
@@ -24,14 +23,14 @@ void demo_basics() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{1, 2, 3};
     auto o = std::ranges::fold_right_last(v, std::plus<>{});
-    assert(o && *o == 6);
+    LEARN_CHECK(o && *o == 6);
 #else
     std::vector<int> v{1, 2, 3};
     std::optional<int> o;
     if (!v.empty()) {
         o = std::accumulate(v.rbegin() + 1, v.rend(), v.back());
     }
-    assert(o && *o == 6);
+    LEARN_CHECK(o && *o == 6);
 #endif
 }
 
@@ -39,11 +38,11 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> empty;
     auto o = std::ranges::fold_right_last(empty, std::plus<>{});
-    assert(!o);
+    LEARN_CHECK(!o);
 #else
     std::vector<int> empty;
     std::optional<int> o;
-    assert(!o && empty.empty());
+    LEARN_CHECK(!o && empty.empty());
 #endif
 }
 
@@ -51,11 +50,11 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{4};
     auto o = std::ranges::fold_right_last(v, std::multiplies<>{});
-    assert(o && *o == 4);
+    LEARN_CHECK(o && *o == 4);
 #else
     std::vector<int> v{4};
     std::optional<int> o = v.back();
-    assert(o && *o == 4);
+    LEARN_CHECK(o && *o == 4);
 #endif
 }
 

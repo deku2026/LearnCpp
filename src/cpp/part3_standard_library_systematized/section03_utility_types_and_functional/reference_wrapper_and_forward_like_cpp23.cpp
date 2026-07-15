@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <utility>
 #include <vector>
@@ -21,7 +20,7 @@ void demo_basics() {
     int x = 10;
     std::reference_wrapper<int> r = x;
     r.get() = 20;
-    assert(x == 20);
+    LEARN_CHECK(x == 20);
 }
 
 void demo_intermediate() {
@@ -29,7 +28,7 @@ void demo_intermediate() {
     int b = 2;
     std::vector<std::reference_wrapper<int>> v{a, b};
     v[0].get() = 9;
-    assert(a == 9);
+    LEARN_CHECK(a == 9);
 }
 
 void demo_expert() {
@@ -37,12 +36,12 @@ void demo_expert() {
     int x = 1;
     auto&& y = std::forward_like<int&>(x);
     y = 5;
-    assert(x == 5);
+    LEARN_CHECK(x == 5);
 #else
     int x = 1;
     int& y = x;
     y = 5;
-    assert(x == 5);
+    LEARN_CHECK(x == 5);
 #endif
 }
 

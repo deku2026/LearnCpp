@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -26,19 +25,19 @@ struct Table {
 
 void demo_basics() {
     Hash h;
-    assert(h(2) != 0);
-    assert(Hash{}(3) == Hash::operator()(3));
+    LEARN_CHECK(h(2) != 0);
+    LEARN_CHECK(Hash{}(3) == Hash::operator()(3));
 }
 
 void demo_intermediate() {
-    assert(Table{}[4] == 16);
-    assert(Table::operator[](5) == 25);
+    LEARN_CHECK(Table{}[4] == 16);
+    LEARN_CHECK(Table::operator[](5) == 25);
 }
 
 void demo_expert() {
     // Stateless callables can drop the implicit object parameter.
     auto apply = [](auto f, int x) { return f(x); };
-    assert(apply(Hash{}, 1) == Hash{}(1));
+    LEARN_CHECK(apply(Hash{}, 1) == Hash{}(1));
 }
 
 #else
@@ -49,15 +48,15 @@ struct Hash {
 
 void demo_basics() {
     Hash h;
-    assert(h(2) != 0);
+    LEARN_CHECK(h(2) != 0);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

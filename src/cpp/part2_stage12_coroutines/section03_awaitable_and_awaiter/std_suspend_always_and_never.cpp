@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -117,11 +116,11 @@ void demo_basics() {
         *p = 2;
     }(&n);
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
     r.resume();
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -135,21 +134,21 @@ void demo_intermediate() {
         *p = 6;
     }(&n);
     r.resume();
-    assert(n == 5);
+    LEARN_CHECK(n == 5);
     r.resume();
-    assert(n == 6);
+    LEARN_CHECK(n == 6);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // suspend_always::await_ready == false; suspend_never == true.
-    assert(!std::suspend_always{}.await_ready());
-    assert(std::suspend_never{}.await_ready());
+    LEARN_CHECK(!std::suspend_always{}.await_ready());
+    LEARN_CHECK(std::suspend_never{}.await_ready());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

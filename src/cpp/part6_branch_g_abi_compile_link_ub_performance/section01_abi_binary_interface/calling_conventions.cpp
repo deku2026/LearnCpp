@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int sum4(int a, int b, int c, int d) {
@@ -27,16 +25,16 @@ Small make_small(int x, int y) {
 }
 
 void demo_basics() {
-    assert(sum4(1, 2, 3, 4) == 10);
+    LEARN_CHECK(sum4(1, 2, 3, 4) == 10);
 }
 
 void demo_intermediate() {
     Small s = make_small(2, 5);
-    assert(s.x + s.y == 7);
+    LEARN_CHECK(s.x + s.y == 7);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

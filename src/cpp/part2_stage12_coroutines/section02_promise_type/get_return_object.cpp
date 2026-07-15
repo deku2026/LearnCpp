@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -111,10 +110,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = []() -> Gen<int> { co_yield 1; }();
-    assert(g.next());
-    assert(g.value() == 1);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -125,10 +124,10 @@ void demo_intermediate() {
         co_yield 2;
         co_yield 3;
     }();
-    assert(g.next() && g.value() == 2);
-    assert(g.next() && g.value() == 3);
+    LEARN_CHECK(g.next() && g.value() == 2);
+    LEARN_CHECK(g.next() && g.value() == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -136,11 +135,11 @@ void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto make = []() -> Gen<int> { co_yield 9; };
     auto g = make();
-    assert(static_cast<bool>(g.h));
-    assert(g.next());
-    assert(g.value() == 9);
+    LEARN_CHECK(static_cast<bool>(g.h));
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 9);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

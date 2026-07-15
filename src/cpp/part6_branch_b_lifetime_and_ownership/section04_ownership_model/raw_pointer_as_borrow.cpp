@@ -9,34 +9,33 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
 
 void use(const int* borrowed) {
-    assert(borrowed != nullptr);
-    assert(*borrowed == 42);
+    LEARN_CHECK(borrowed != nullptr);
+    LEARN_CHECK(*borrowed == 42);
 }
 
 void demo_basics() {
     auto owner = std::make_unique<int>(42);
     use(owner.get());
-    assert(*owner == 42);
+    LEARN_CHECK(*owner == 42);
 }
 
 void demo_intermediate() {
     int stack = 7;
     const int* borrow = &stack;
-    assert(*borrow == 7);
+    LEARN_CHECK(*borrow == 7);
 }
 
 void demo_expert() {
     // Document ownership in API: raw* means non-owning; unique_ptr transfers ownership.
     std::unique_ptr<int> owner = std::make_unique<int>(1);
     int* borrow = owner.get();
-    assert(borrow == owner.get());
-    assert(*borrow == 1);
+    LEARN_CHECK(borrow == owner.get());
+    LEARN_CHECK(*borrow == 1);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <source_location>
 #include <stdexcept>
 #include <system_error>
@@ -18,7 +17,7 @@
 namespace {
 
 void demo_basics() {
-    assert(true);
+    LEARN_CHECK(true);
     try {
         throw std::runtime_error("x");
     } catch (const std::exception&) {
@@ -27,12 +26,12 @@ void demo_basics() {
 
 void demo_intermediate() {
     std::error_code ec = std::make_error_code(std::errc::timed_out);
-    assert(ec);
+    LEARN_CHECK(ec);
 }
 
 void demo_expert() {
     const auto loc = std::source_location::current();
-    assert(loc.line() > 0);
+    LEARN_CHECK(loc.line() > 0);
 }
 
 int run(int argc, char** argv) {

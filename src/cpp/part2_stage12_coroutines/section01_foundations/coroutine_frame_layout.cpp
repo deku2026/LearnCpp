@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -122,11 +121,11 @@ void demo_basics() {
     int out = 0;
     auto r = with_local(&out);
     r.resume();
-    assert(out == 0);
+    LEARN_CHECK(out == 0);
     r.resume();
-    assert(out == 15);
+    LEARN_CHECK(out == 15);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -137,9 +136,9 @@ void demo_intermediate() {
     auto r = with_local(&out);
     r.resume();
     r.resume();
-    assert(out == 15);
+    LEARN_CHECK(out == 15);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -153,9 +152,9 @@ void demo_expert() {
     b.resume();
     a.resume();
     b.resume();
-    assert(o1 == 15 && o2 == 15);
+    LEARN_CHECK(o1 == 15 && o2 == 15);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

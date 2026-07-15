@@ -5,11 +5,10 @@
 // Item     : backslash_continuation_trailing_whitespace_cpp23
 // Topic id : part2/stage08/section04/backslash_continuation_trailing_whitespace_cpp23
 //
-// Covers: line splicing with \; C++23 clarifies trailing whitespace after \
+// Covers: line splicing with backslash; C++23 clarifies trailing whitespace after backslash
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -22,8 +21,8 @@ namespace {
 #define ADD(a, b) ((a) + (b))
 
 void demo_basics() {
-    assert(std::string{JOIN_TEXT} == "hello world");
-    assert((ADD(2, 3) == 5));
+    LEARN_CHECK(std::string{JOIN_TEXT} == "hello world");
+    LEARN_CHECK((ADD(2, 3) == 5));
 }
 
 void demo_intermediate() {
@@ -31,15 +30,15 @@ void demo_intermediate() {
     const char* s =
         "ab"
         "cd";
-    assert(std::string{s} == "abcd");
+    LEARN_CHECK(std::string{s} == "abcd");
 }
 
 void demo_expert() {
     // Teaching: trailing whitespace after \ was a portability hazard;
     // C++23 makes the intent clearer — keep \ as last non-ws character.
     int x = 1 + 2 + 3;
-    assert(x == 6);
-    assert((ADD(10, ADD(1, 1)) == 12));
+    LEARN_CHECK(x == 6);
+    LEARN_CHECK((ADD(10, ADD(1, 1)) == 12));
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <thread>
 
@@ -34,7 +33,7 @@ void demo_intermediate() {
         }
     };
     rec(rec, 3);
-    assert(depth == 4);
+    LEARN_CHECK(depth == 4);
 }
 
 void demo_expert() {
@@ -53,7 +52,7 @@ void demo_expert() {
     std::thread t2(outer);
     t1.join();
     t2.join();
-    assert(v == 4);
+    LEARN_CHECK(v == 4);
 }
 
 int run(int argc, char** argv) {

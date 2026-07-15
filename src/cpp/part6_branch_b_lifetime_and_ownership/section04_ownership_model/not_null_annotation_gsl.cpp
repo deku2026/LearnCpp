@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 
 namespace {
@@ -30,14 +29,14 @@ public:
 void demo_basics() {
     int x = 5;
     not_null<int*> p{&x};
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
 }
 
 void demo_intermediate() {
     try {
         not_null<int*> p{nullptr};
         (void)p;
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::invalid_argument&) {
     }
 }
@@ -46,9 +45,9 @@ void demo_expert() {
     int a = 1;
     int b = 2;
     not_null<int*> p{&a};
-    assert(p.get() == &a);
+    LEARN_CHECK(p.get() == &a);
     p = not_null<int*>{&b};
-    assert(*p == 2);
+    LEARN_CHECK(*p == 2);
 }
 
 int run(int argc, char** argv) {

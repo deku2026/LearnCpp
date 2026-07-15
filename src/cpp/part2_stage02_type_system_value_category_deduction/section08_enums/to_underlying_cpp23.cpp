@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <type_traits>
 #include <utility>
@@ -28,7 +27,7 @@ void demo_basics() {
     auto u = static_cast<std::underlying_type_t<Status>>(s);
 #endif
     static_assert(std::is_same_v<decltype(u), std::uint16_t>);
-    assert(u == 2);
+    LEARN_CHECK(u == 2);
 }
 
 void demo_intermediate() {
@@ -38,11 +37,11 @@ void demo_intermediate() {
 #else
     auto u = static_cast<std::underlying_type_t<SignedCode>>(c);
 #endif
-    assert(u == -1);
+    LEARN_CHECK(u == -1);
 
     // Round-trip
     auto back = static_cast<SignedCode>(u);
-    assert(back == SignedCode::Neg);
+    LEARN_CHECK(back == SignedCode::Neg);
 }
 
 void demo_expert() {
@@ -55,13 +54,13 @@ void demo_expert() {
 #endif
     };
 
-    assert(as_underlying(Status::Ok) == 0);
-    assert(as_underlying(Status::Warn) == 1);
-    assert(as_underlying(SignedCode::Pos) == 1);
+    LEARN_CHECK(as_underlying(Status::Ok) == 0);
+    LEARN_CHECK(as_underlying(Status::Warn) == 1);
+    LEARN_CHECK(as_underlying(SignedCode::Pos) == 1);
 
     // Handy for serialization buffers
     std::uint16_t wire = static_cast<std::uint16_t>(as_underlying(Status::Error));
-    assert(wire == 2);
+    LEARN_CHECK(wire == 2);
 }
 
 int run(int argc, char** argv) {

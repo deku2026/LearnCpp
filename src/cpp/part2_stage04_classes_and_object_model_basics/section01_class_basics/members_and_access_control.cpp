@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Account {
@@ -41,19 +39,19 @@ public:
 void demo_basics() {
     Account a{100.0};
     a.deposit(25.0);
-    assert(a.balance() == 125.0);
+    LEARN_CHECK(a.balance() == 125.0);
 
     const Account c{10.0};
-    assert(c.balance() == 10.0);
+    LEARN_CHECK(c.balance() == 10.0);
 }
 
 void demo_intermediate() {
     Point p{3, 4};
-    assert(p.x == 3 && p.y == 4);
+    LEARN_CHECK(p.x == 3 && p.y == 4);
 
     Derived d{50.0};
-    assert(d.balance() == 50.0);
-    assert(d.peek() == 50.0);
+    LEARN_CHECK(d.balance() == 50.0);
+    LEARN_CHECK(d.peek() == 50.0);
 }
 
 void demo_expert() {
@@ -61,7 +59,7 @@ void demo_expert() {
     // const member functions are callable on const objects.
     Account a{1.0};
     const Account& r = a;
-    assert(r.balance() == 1.0);
+    LEARN_CHECK(r.balance() == 1.0);
 }
 
 int run(int argc, char** argv) {

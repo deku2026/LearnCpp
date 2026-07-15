@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -32,12 +31,12 @@ struct NotAgg {
 
 void demo_basics() {
     Agg x{1, 2, 3};
-    assert(x.a == 1 && x.b == 2 && x.c == 3);
+    LEARN_CHECK(x.a == 1 && x.b == 2 && x.c == 3);
 
     Agg y{10, 2, 0};  // explicit full init (defaults also apply when omitted carefully)
-    assert(y.a == 10);
-    assert(y.b == 2);
-    assert(y.c == 0);
+    LEARN_CHECK(y.a == 10);
+    LEARN_CHECK(y.b == 2);
+    LEARN_CHECK(y.c == 0);
 
     static_assert(std::is_aggregate_v<Agg>);
     static_assert(!std::is_aggregate_v<NotAgg>);
@@ -45,14 +44,14 @@ void demo_basics() {
 
 void demo_intermediate() {
     Nested n{{1, 2, 3}, 9};
-    assert(n.inner.a == 1 && n.inner.c == 3);
-    assert(n.tag == 9);
+    LEARN_CHECK(n.inner.a == 1 && n.inner.c == 3);
+    LEARN_CHECK(n.tag == 9);
 
     Nested n3{{7, 8, 9}, 1};
-    assert(n3.inner.a == 7 && n3.tag == 1);
+    LEARN_CHECK(n3.inner.a == 7 && n3.tag == 1);
 
     int arr[3]{1, 2};  // aggregate array
-    assert(arr[0] == 1 && arr[1] == 2 && arr[2] == 0);
+    LEARN_CHECK(arr[0] == 1 && arr[1] == 2 && arr[2] == 0);
 }
 
 void demo_expert() {
@@ -65,15 +64,15 @@ void demo_expert() {
     };
     static_assert(std::is_aggregate_v<Derived>);
     Derived der{{5}, 6};
-    assert(der.b == 5 && der.d == 6);
+    LEARN_CHECK(der.b == 5 && der.d == 6);
 
     // NotAgg requires constructor call
     NotAgg na{42};
-    assert(na.a == 42);
+    LEARN_CHECK(na.a == 42);
 
     // Empty braces value-init all members
     Agg z{};
-    assert(z.a == 0 && z.b == 2 && z.c == 0);
+    LEARN_CHECK(z.a == 0 && z.b == 2 && z.c == 0);
 }
 
 int run(int argc, char** argv) {

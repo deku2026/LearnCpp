@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 #include <cstring>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     float f = 1.0f;
     std::uint32_t bits = 0;
     std::memcpy(&bits, &f, sizeof(bits));
-    assert(bits != 0);
+    LEARN_CHECK(bits != 0);
 }
 
 void demo_intermediate() {
@@ -28,14 +27,14 @@ void demo_intermediate() {
     float f = 2.0f;
     auto bits = std::bit_cast<std::uint32_t>(f);
     auto back = std::bit_cast<float>(bits);
-    assert(back == f);
+    LEARN_CHECK(back == f);
 #else
     float f = 2.0f;
     std::uint32_t bits = 0;
     std::memcpy(&bits, &f, sizeof(bits));
     float back = 0;
     std::memcpy(&back, &bits, sizeof(back));
-    assert(back == f);
+    LEARN_CHECK(back == f);
 #endif
 }
 
@@ -43,7 +42,7 @@ void demo_expert() {
     // Not executed: int* ip = (int*)&f; *ip; // classic strict-aliasing violation
     int x = 7;
     int* p = &x;
-    assert(*p == 7);
+    LEARN_CHECK(*p == 7);
 }
 
 int run(int argc, char** argv) {

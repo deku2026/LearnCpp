@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <numeric>
 #include <string>
@@ -19,15 +18,15 @@ namespace {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::accumulate(v.begin(), v.end(), 0) == 10);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 0) == 10);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::accumulate(v.begin(), v.end(), 1, std::multiplies<>()) == 24);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 1, std::multiplies<>()) == 24);
     std::vector<std::string> ws{"a", "b", "c"};
     auto s = std::accumulate(ws.begin(), ws.end(), std::string{});
-    assert(s == "abc");
+    LEARN_CHECK(s == "abc");
 }
 
 void demo_expert() {
@@ -35,7 +34,7 @@ void demo_expert() {
     // accumulate is left fold, order preserved
     auto r = std::accumulate(v.begin(), v.end(), std::string{},
                              [](std::string acc, int x) { return acc + std::to_string(x) + ","; });
-    assert(r == "1,2,3,");
+    LEARN_CHECK(r == "1,2,3,");
 }
 
 }  // namespace

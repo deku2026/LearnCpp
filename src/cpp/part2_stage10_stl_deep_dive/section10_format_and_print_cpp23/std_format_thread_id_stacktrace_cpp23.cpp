@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <thread>
 #include <version>
@@ -27,10 +26,10 @@ void demo_basics() {
     const auto id = std::this_thread::get_id();
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const auto s = std::format("{}", id);
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 #else
     (void)id;
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -38,22 +37,22 @@ void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     std::thread::id id{};
     const auto s = std::format("tid={}", id);
-    assert(s.rfind("tid=", 0) == 0);
+    LEARN_CHECK(s.rfind("tid=", 0) == 0);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && defined(__cpp_lib_formatters) /* may vary */
     auto st = std::stacktrace::current();
-    assert(!st.empty() || st.empty());
+    LEARN_CHECK(!st.empty() || st.empty());
 #elif defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
     auto st = std::stacktrace::current();
     (void)st;
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

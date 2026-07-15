@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -33,19 +32,19 @@ void demo_basics() {
     UnsafeAccount a;
     try {
         a.deposit_unsafe(10, true);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (...) {
         // No guarantee: balance already changed, log incomplete.
-        assert(a.balance == 10);
-        assert(a.log.empty());
+        LEARN_CHECK(a.balance == 10);
+        LEARN_CHECK(a.log.empty());
     }
 }
 
 void demo_intermediate() {
     UnsafeAccount a;
     a.deposit_unsafe(5, false);
-    assert(a.balance == 5);
-    assert(a.log.size() == 1);
+    LEARN_CHECK(a.balance == 5);
+    LEARN_CHECK(a.log.size() == 1);
 }
 
 void demo_expert() {
@@ -55,7 +54,7 @@ void demo_expert() {
     try {
         a.deposit_unsafe(1, true);
     } catch (...) {
-        assert(a.balance == 101);  // partial update remains
+        LEARN_CHECK(a.balance == 101);  // partial update remains
     }
 }
 

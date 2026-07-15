@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -17,17 +16,17 @@ namespace {
 void demo_basics() {
     // headers: ubiquitous; modules: faster rebuilds potential; import std: std as module
     const char* styles[] = {"header", "module", "import_std"};
-    assert(std::string_view{styles[0]} == "header");
+    LEARN_CHECK(std::string_view{styles[0]} == "header");
 }
 
 void demo_intermediate() {
     // Migration path: headers -> modules for project code; std modules last
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // This repository remains header-based for maximum runnable coverage
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -70,10 +69,10 @@ int exported_sum(int x) {
 
 void demo_basics() {
     // Independent object files start with independent static storage.
-    assert(tu_alpha::hit_count() == 0);
-    assert(tu_beta::hit_count() == 0);
-    assert(tu_alpha::name() == "alpha");
-    assert(tu_beta::name() == "beta");
+    LEARN_CHECK(tu_alpha::hit_count() == 0);
+    LEARN_CHECK(tu_beta::hit_count() == 0);
+    LEARN_CHECK(tu_alpha::name() == "alpha");
+    LEARN_CHECK(tu_beta::name() == "beta");
 }
 
 void demo_intermediate() {
@@ -82,12 +81,12 @@ void demo_intermediate() {
     tu_alpha::touch();
     tu_beta::touch();
 
-    assert(tu_alpha::hit_count() == 2);
-    assert(tu_beta::hit_count() == 1);
+    LEARN_CHECK(tu_alpha::hit_count() == 2);
+    LEARN_CHECK(tu_beta::hit_count() == 1);
 
     // Exported functions can still be called across the link boundary.
-    assert(tu_alpha::exported_sum(10) == 12);
-    assert(tu_beta::exported_sum(10) == 11);
+    LEARN_CHECK(tu_alpha::exported_sum(10) == 12);
+    LEARN_CHECK(tu_beta::exported_sum(10) == 11);
 }
 
 void demo_expert() {
@@ -105,17 +104,17 @@ void demo_expert() {
         tu_beta::touch();
     }
 
-    assert(tu_alpha::hit_count() == a_before);
-    assert(tu_beta::hit_count() == b_before + 3);
+    LEARN_CHECK(tu_alpha::hit_count() == a_before);
+    LEARN_CHECK(tu_beta::hit_count() == b_before + 3);
 
     // Distinct function identities for the two TUs' touch helpers.
-    assert(static_cast<void (*)()>(tu_alpha::touch) != static_cast<void (*)()>(tu_beta::touch));
+    LEARN_CHECK(static_cast<void (*)()>(tu_alpha::touch) != static_cast<void (*)()>(tu_beta::touch));
 
     // Pair of object-file "products" after independent compilation.
     const auto objects = std::pair<std::string, std::string>{"alpha.o", "beta.o"};
-    assert(objects.first != objects.second);
-    assert(objects.first.ends_with(".o"));
-    assert(objects.second.ends_with(".o"));
+    LEARN_CHECK(objects.first != objects.second);
+    LEARN_CHECK(objects.first.ends_with(".o"));
+    LEARN_CHECK(objects.second.ends_with(".o"));
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Commercial static analyzer; free tiers for open source/students
     std::string tool = "PVS-Studio";
-    assert(!tool.empty());
+    LEARN_CHECK(!tool.empty());
 }
 
 void demo_intermediate() {
     // Complements clang-tidy/cppcheck
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Integrate incremental analysis in CI when licensed
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

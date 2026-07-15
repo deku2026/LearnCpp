@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -25,15 +23,15 @@ struct ApiType {
 
 void demo_basics() {
     ApiType a;
-    assert(a.v == 1);
+    LEARN_CHECK(a.v == 1);
 }
 
 void demo_intermediate() {
-    assert(sizeof(ApiType) >= sizeof(int));
+    LEARN_CHECK(sizeof(ApiType) >= sizeof(int));
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -44,20 +43,20 @@ void demo_basics() {
     Buffer a(2, 1);
     Buffer b(2, 9);
     a = b;
-    assert(a.at(0) == 9 && a.at(1) == 9);
+    LEARN_CHECK(a.at(0) == 9 && a.at(1) == 9);
 }
 
 void demo_intermediate() {
     Buffer a(3, 2);
     Buffer b = a;
-    assert(b.size() == 3 && b.at(2) == 2);
+    LEARN_CHECK(b.size() == 3 && b.at(2) == 2);
 }
 
 void demo_expert() {
     Buffer a(1, 5);
     Buffer b(1, 7);
     a = std::move(b);
-    assert(a.at(0) == 7);
+    LEARN_CHECK(a.at(0) == 7);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -24,7 +23,7 @@ void by_ref(std::string& s) {
 }
 
 void by_const_ref(const std::string& s) {
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 }
 
 void by_ptr(std::string* s) {
@@ -41,28 +40,28 @@ struct Widget {
 void demo_basics() {
     std::string a = "alpha";
     by_value(a);
-    assert(a == "alpha");
+    LEARN_CHECK(a == "alpha");
 
     by_ref(a);
-    assert(a == "alpha!");
+    LEARN_CHECK(a == "alpha!");
 
     by_const_ref(a);
     by_const_ref(std::string{"temp"});
 
     by_ptr(&a);
-    assert(a == "alpha!?");
+    LEARN_CHECK(a == "alpha!?");
     by_ptr(nullptr);
 }
 
 void demo_intermediate() {
     int n = 7;
     auto bump = [](int x) { return x + 1; };
-    assert(bump(n) == 8);
-    assert(n == 7);
+    LEARN_CHECK(bump(n) == 8);
+    LEARN_CHECK(n == 7);
 
     auto bump_ref = [](int& x) { ++x; };
     bump_ref(n);
-    assert(n == 8);
+    LEARN_CHECK(n == 8);
 
     const std::string big = "read-only payload";
     by_const_ref(big);
@@ -72,11 +71,11 @@ void demo_expert() {
     Widget w;
     std::string local = "owned";
     w.set_name(local);
-    assert(w.name_ == "owned");
-    assert(local == "owned");
+    LEARN_CHECK(w.name_ == "owned");
+    LEARN_CHECK(local == "owned");
 
     w.set_name(std::string{"rvalue"});
-    assert(w.name_ == "rvalue");
+    LEARN_CHECK(w.name_ == "rvalue");
 }
 
 int run(int argc, char** argv) {

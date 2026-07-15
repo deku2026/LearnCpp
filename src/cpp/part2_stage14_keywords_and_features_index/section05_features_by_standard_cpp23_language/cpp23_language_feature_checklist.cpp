@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -23,13 +22,13 @@ void demo_basics() {
         int n = 1;
         int get(this const S& self) { return self.n; }
     };
-    assert(S{}.get() == 1);
+    LEARN_CHECK(S{}.get() == 1);
 #else
     struct S {
         int n = 1;
         int get() const { return n; }
     };
-    assert(S{}.get() == 1);
+    LEARN_CHECK(S{}.get() == 1);
 #endif
 }
 
@@ -42,19 +41,19 @@ void demo_intermediate() {
             return 2;
         }
     };
-    assert(f() == 2);
+    LEARN_CHECK(f() == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_size_t_suffix)
     auto n = 10uz;
-    assert(n == 10);
+    LEARN_CHECK(n == 10);
 #else
     std::size_t n = 10;
-    assert(n == 10);
+    LEARN_CHECK(n == 10);
 #endif
     static_assert(std::is_same_v<std::size_t, decltype(sizeof(0))>);
 }

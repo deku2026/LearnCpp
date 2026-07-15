@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -38,11 +37,11 @@ Noisy makeNRVO() {
 void demo_basics() {
     Noisy::ctors = Noisy::copies = Noisy::moves = 0;
     Noisy b = makeNRVO();
-    assert(b.value == 99);
+    LEARN_CHECK(b.value == 99);
     // Prefer: only construct. Fallback: construct + move. Never need a copy.
-    assert(Noisy::ctors >= 1);
-    assert(Noisy::copies == 0);
-    assert(Noisy::moves <= 1);
+    LEARN_CHECK(Noisy::ctors >= 1);
+    LEARN_CHECK(Noisy::copies == 0);
+    LEARN_CHECK(Noisy::moves <= 1);
 }
 
 void demo_intermediate() {
@@ -51,7 +50,7 @@ void demo_intermediate() {
         local += "-ret";
         return local;
     };
-    assert(make() == "named-ret");
+    LEARN_CHECK(make() == "named-ret");
 }
 
 void demo_expert() {
@@ -67,10 +66,10 @@ void demo_expert() {
 
     Noisy::ctors = Noisy::copies = Noisy::moves = 0;
     Noisy x = maybe(true);
-    assert(x.value == 1);
-    assert(Noisy::copies == 0);
+    LEARN_CHECK(x.value == 1);
+    LEARN_CHECK(Noisy::copies == 0);
     // At least construction of both locals; moves may occur when NRVO is off.
-    assert(Noisy::ctors >= 2);
+    LEARN_CHECK(Noisy::ctors >= 2);
 }
 
 int run(int argc, char** argv) {

@@ -9,19 +9,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
+
+// clang-cl / MSVC: standard [[no_unique_address]] is ignored; use msvc spelling.
+#if defined(_MSC_VER)
+#define LEARN_NO_UNIQUE_ADDRESS [[msvc::no_unique_address]]
+#else
+#define LEARN_NO_UNIQUE_ADDRESS [[no_unique_address]]
+#endif
 
 namespace {
 
 struct Empty {};
 
 struct WithNua {
-#if defined(_MSC_VER) && !defined(__clang__)
-    [[msvc::no_unique_address]] Empty e;
-#else
-    [[no_unique_address]] Empty e;
-#endif
+    LEARN_NO_UNIQUE_ADDRESS Empty e;
     int x = 0;
 };
 
@@ -33,35 +35,30 @@ struct WithoutNua {
 void demo_basics() {
     WithNua w;
     w.x = 5;
-    assert(w.x == 5);
+    LEARN_CHECK(w.x == 5);
     static_assert(sizeof(Empty) >= 1);
 }
 
 void demo_intermediate() {
     // Optimization is permitted, not required; size should not exceed non-NUA.
-    assert(sizeof(WithNua) <= sizeof(WithoutNua));
+    LEARN_CHECK(sizeof(WithNua) <= sizeof(WithoutNua));
     // Common outcome: sizeof(WithNua) == sizeof(int).
-    assert(sizeof(WithNua) == sizeof(int) || sizeof(WithNua) > sizeof(int));
+    LEARN_CHECK(sizeof(WithNua) == sizeof(int) || sizeof(WithNua) > sizeof(int));
 }
 
 void demo_expert() {
     WithNua a{};
     WithNua b{};
     // Distinct complete objects still have unique addresses.
-    assert(&a != &b);
+    LEARN_CHECK(&a != &b);
     // Two empty members of the same type still need distinct addresses if both present.
     struct TwoEmpty {
-#if defined(_MSC_VER) && !defined(__clang__)
-        [[msvc::no_unique_address]] Empty e1;
-        [[msvc::no_unique_address]] Empty e2;
-#else
-        [[no_unique_address]] Empty e1;
-        [[no_unique_address]] Empty e2;
-#endif
+        LEARN_NO_UNIQUE_ADDRESS Empty e1;
+        LEARN_NO_UNIQUE_ADDRESS Empty e2;
         char c = 0;
     };
     TwoEmpty t{};
-    assert(static_cast<const void*>(&t.e1) != static_cast<const void*>(&t.e2) || sizeof(TwoEmpty) >= 2);
+    LEARN_CHECK(static_cast<const void*>(&t.e1) != static_cast<const void*>(&t.e2) || sizeof(TwoEmpty) >= 2);
     (void)t.c;
 }
 

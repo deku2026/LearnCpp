@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int h(int) {
@@ -24,18 +22,18 @@ int h(double) {
 }
 
 void demo_basics() {
-    assert(h(1) == 1);  // exact match int
+    LEARN_CHECK(h(1) == 1);  // exact match int
 }
 
 void demo_intermediate() {
-    assert(h(1L) == 2);
-    assert(h(1.0) == 3);
+    LEARN_CHECK(h(1L) == 2);
+    LEARN_CHECK(h(1.0) == 3);
 }
 
 void demo_expert() {
     // Ambiguous cases are ill-formed; exact match beats conversion.
     short s = 1;
-    assert(h(s) == 1);  // promotion/conversion to int preferred path
+    LEARN_CHECK(h(s) == 1);  // promotion/conversion to int preferred path
 }
 
 int run(int argc, char** argv) {

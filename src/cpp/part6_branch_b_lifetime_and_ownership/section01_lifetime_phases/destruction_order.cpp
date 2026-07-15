@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -35,9 +34,9 @@ void demo_basics() {
     }
     g_log = nullptr;
     // construction 1,2 then destruction 2,1
-    assert(log.size() == 4);
-    assert(log[0] == 1 && log[1] == 2);
-    assert(log[2] == -2 && log[3] == -1);
+    LEARN_CHECK(log.size() == 4);
+    LEARN_CHECK(log[0] == 1 && log[1] == 2);
+    LEARN_CHECK(log[2] == -2 && log[3] == -1);
 }
 
 void demo_intermediate() {
@@ -48,10 +47,10 @@ void demo_intermediate() {
         {
             Trace inner{20};
         }
-        assert(log.size() == 3);  // 10,20,-20
+        LEARN_CHECK(log.size() == 3);  // 10,20,-20
     }
     g_log = nullptr;
-    assert(log.back() == -10);
+    LEARN_CHECK(log.back() == -10);
 }
 
 void demo_expert() {
@@ -63,8 +62,8 @@ void demo_expert() {
         (void)arr;
     }
     g_log = nullptr;
-    assert(log[0] == 1 && log[1] == 2);
-    assert(log[2] == -2 && log[3] == -1);
+    LEARN_CHECK(log[0] == 1 && log[1] == 2);
+    LEARN_CHECK(log[2] == -2 && log[3] == -1);
 }
 
 int run(int argc, char** argv) {

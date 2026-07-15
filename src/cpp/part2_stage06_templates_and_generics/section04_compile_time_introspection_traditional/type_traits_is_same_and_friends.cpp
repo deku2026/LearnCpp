@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -26,9 +25,9 @@ void demo_basics() {
     static_assert(!std::is_same_v<int, unsigned>);
     static_assert(std::is_integral_v<int>);
     static_assert(std::is_floating_point_v<double>);
-    assert(is_number_like_v<int>);
-    assert(is_number_like_v<float>);
-    assert(!is_number_like_v<std::string>);
+    LEARN_CHECK(is_number_like_v<int>);
+    LEARN_CHECK(is_number_like_v<float>);
+    LEARN_CHECK(!is_number_like_v<std::string>);
 }
 
 void demo_intermediate() {

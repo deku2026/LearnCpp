@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <new>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     void* p = ::operator new(sizeof(int));
     std::memset(p, 0, sizeof(int));
     int* i = new (p) int(0);
-    assert(*i == 0);
+    LEARN_CHECK(*i == 0);
     ::operator delete(p);
 }
 
@@ -29,11 +28,11 @@ void demo_intermediate() {
     std::memcpy(buf, "\x01\x00\x00\x00", sizeof(int) > 4 ? 4 : sizeof(int));
     int v = 0;
     std::memcpy(&v, buf, sizeof(int));
-    assert(v == 1 || v != 0 || v == 0);
+    LEARN_CHECK(v == 1 || v != 0 || v == 0);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

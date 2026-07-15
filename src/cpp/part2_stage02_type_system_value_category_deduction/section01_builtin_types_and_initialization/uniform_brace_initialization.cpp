@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -26,37 +25,37 @@ void demo_basics() {
     double b{2.5};
     bool ok{true};
     int zeros{};  // value-init -> 0
-    assert(a == 42);
-    assert(b == 2.5);
-    assert(ok);
-    assert(zeros == 0);
+    LEARN_CHECK(a == 42);
+    LEARN_CHECK(b == 2.5);
+    LEARN_CHECK(ok);
+    LEARN_CHECK(zeros == 0);
 }
 
 void demo_intermediate() {
     int arr[3]{1, 2, 3};
-    assert(arr[0] == 1 && arr[1] == 2 && arr[2] == 3);
+    LEARN_CHECK(arr[0] == 1 && arr[1] == 2 && arr[2] == 3);
 
     int partial[4]{1, 2};  // remaining value-initialized
-    assert(partial[0] == 1 && partial[1] == 2);
-    assert(partial[2] == 0 && partial[3] == 0);
+    LEARN_CHECK(partial[0] == 1 && partial[1] == 2);
+    LEARN_CHECK(partial[2] == 0 && partial[3] == 0);
 
     Point p{10, 20};
-    assert(p.x == 10 && p.y == 20);
+    LEARN_CHECK(p.x == 10 && p.y == 20);
 
     Point origin{};
-    assert(origin.x == 0 && origin.y == 0);
+    LEARN_CHECK(origin.x == 0 && origin.y == 0);
 
     std::string s{"hello"};
-    assert(s == "hello");
+    LEARN_CHECK(s == "hello");
 }
 
 void demo_expert() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(v.size() == 4);
-    assert(v[0] == 1 && v[3] == 4);
+    LEARN_CHECK(v.size() == 4);
+    LEARN_CHECK(v[0] == 1 && v[3] == 4);
 
     std::array<int, 3> a{7, 8, 9};
-    assert(a[0] == 7 && a[2] == 9);
+    LEARN_CHECK(a[0] == 7 && a[2] == 9);
 
     // Nested braces for nested aggregates
     struct Box {
@@ -64,14 +63,14 @@ void demo_expert() {
         Point max;
     };
     Box box{{0, 0}, {10, 10}};
-    assert(box.min.x == 0 && box.max.y == 10);
+    LEARN_CHECK(box.min.x == 0 && box.max.y == 10);
 
     // Empty braces: value initialization for many types
     std::vector<int> empty{};
-    assert(empty.empty());
+    LEARN_CHECK(empty.empty());
 
     int* p{};
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
 }
 
 int run(int argc, char** argv) {

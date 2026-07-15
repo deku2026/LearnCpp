@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -17,18 +16,18 @@ namespace {
 void demo_basics() {
     // Prefer modern replacements over deprecated facilities.
     std::string s = "use string not codecvt for new code";
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 }
 
 void demo_intermediate() {
     // std::aligned_storage / aligned_union are deprecated — use alignas + array.
     alignas(16) unsigned char buf[16]{};
-    assert(buf[0] == 0);
+    LEARN_CHECK(buf[0] == 0);
 }
 
 void demo_expert() {
     // Keep builds clean: avoid deprecated headers/APIs in new topics.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

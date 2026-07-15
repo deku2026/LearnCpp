@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <iterator>
 #include <ranges>
@@ -19,12 +18,12 @@ namespace {
 void demo_basics() {
     auto v = std::views::iota(0);
     auto it = v.begin();
-    assert(*it == 0);
+    LEARN_CHECK(*it == 0);
     ++it;
-    assert(*it == 1);
+    LEARN_CHECK(*it == 1);
     // infinite iota has unreachable sentinel; take bounds it
     auto t = v | std::views::take(3);
-    assert(std::ranges::distance(t) == 3);
+    LEARN_CHECK(std::ranges::distance(t) == 3);
 }
 
 void demo_intermediate() {
@@ -35,7 +34,7 @@ void demo_intermediate() {
     for (auto i = b; i != e; ++i) {
         ++n;
     }
-    assert(n == 5);
+    LEARN_CHECK(n == 5);
 }
 
 void demo_expert() {
@@ -44,7 +43,7 @@ void demo_expert() {
     using I = decltype(r.begin());
     using S = decltype(r.end());
     // equality i == s is supported even if types differ
-    assert(r.begin() != r.end());
+    LEARN_CHECK(r.begin() != r.end());
     static_assert(std::sentinel_for<S, I> || std::same_as<I, S>);
 }
 

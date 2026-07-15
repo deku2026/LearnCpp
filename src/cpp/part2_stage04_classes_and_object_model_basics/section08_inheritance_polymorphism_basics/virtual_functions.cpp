@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 
@@ -43,21 +42,21 @@ public:
 void demo_basics() {
     Circle c{2.0};
     Shape& s = c;
-    assert(s.name() == "Circle");
-    assert(s.area() > 12.0 && s.area() < 13.0);
+    LEARN_CHECK(s.name() == "Circle");
+    LEARN_CHECK(s.area() > 12.0 && s.area() < 13.0);
 }
 
 void demo_intermediate() {
     Square q{3.0};
     Shape* p = &q;
-    assert(p->name() == "Square");
-    assert(p->area() == 9.0);
+    LEARN_CHECK(p->name() == "Square");
+    LEARN_CHECK(p->area() == 9.0);
 }
 
 void demo_expert() {
     std::unique_ptr<Shape> p = std::make_unique<Circle>(1.0);
-    assert(p->name() == "Circle");
-    assert(p->area() > 3.0 && p->area() < 4.0);
+    LEARN_CHECK(p->name() == "Circle");
+    LEARN_CHECK(p->area() > 3.0 && p->area() < 4.0);
 }
 
 int run(int argc, char** argv) {

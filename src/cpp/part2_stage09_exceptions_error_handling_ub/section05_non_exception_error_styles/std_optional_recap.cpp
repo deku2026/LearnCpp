@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 
@@ -24,26 +23,26 @@ std::optional<int> find_even(int x) {
 
 void demo_basics() {
     auto a = find_even(4);
-    assert(a.has_value());
-    assert(*a == 4);
-    assert(!find_even(3).has_value());
+    LEARN_CHECK(a.has_value());
+    LEARN_CHECK(*a == 4);
+    LEARN_CHECK(!find_even(3).has_value());
 }
 
 void demo_intermediate() {
     std::optional<std::string> s;
-    assert(!s);
+    LEARN_CHECK(!s);
     s = "hi";
-    assert(s.value() == "hi");
+    LEARN_CHECK(s.value() == "hi");
     s.reset();
-    assert(s.value_or("def") == "def");
+    LEARN_CHECK(s.value_or("def") == "def");
 }
 
 void demo_expert() {
     std::optional<int> o = 10;
     o = std::nullopt;
-    assert(!o);
+    LEARN_CHECK(!o);
     o.emplace(7);
-    assert(o.value() == 7);
+    LEARN_CHECK(o.value() == 7);
 }
 
 int run(int argc, char** argv) {

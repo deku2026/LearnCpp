@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 
 namespace {
 
@@ -44,13 +43,13 @@ done:
 
 void demo_basics() {
     std::array<std::array<int, 3>, 3> m{{{{1, 2, 3}}, {{4, 5, 6}}, {{7, 8, 9}}}};
-    assert(find_in_matrix(m, 5) == 11);
-    assert(find_in_matrix(m, 9) == 22);
+    LEARN_CHECK(find_in_matrix(m, 5) == 11);
+    LEARN_CHECK(find_in_matrix(m, 9) == 22);
 }
 
 void demo_intermediate() {
-    assert((find_in_matrix({{{{0, 0, 0}}, {{0, 0, 0}}, {{0, 0, 0}}}}, 1) == -1));
-    assert(skip_with_goto(5) == 10);
+    LEARN_CHECK((find_in_matrix({{{{0, 0, 0}}, {{0, 0, 0}}, {{0, 0, 0}}}}, 1) == -1));
+    LEARN_CHECK(skip_with_goto(5) == 10);
 }
 
 void demo_expert() {
@@ -65,7 +64,7 @@ void demo_expert() {
         }
     }
 out:
-    assert(hits == 4);
+    LEARN_CHECK(hits == 4);
 }
 
 int run(int argc, char** argv) {

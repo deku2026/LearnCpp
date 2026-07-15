@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <format>
 #include <string>
 #include <version>
@@ -20,9 +19,9 @@ void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     // literal format strings are checked at compile time
     std::string s = std::format("value={}", 10);
-    assert(s == "value=10");
+    LEARN_CHECK(s == "value=10");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -30,9 +29,9 @@ void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const int n = 3;
     std::string s = std::format("n={:d}", n);
-    assert(s == "n=3");
+    LEARN_CHECK(s == "n=3");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -41,9 +40,9 @@ void demo_expert() {
     std::string fmt = "{}";
     int value = 99;
     std::string s = std::vformat(fmt, std::make_format_args(value));
-    assert(s == "99");
+    LEARN_CHECK(s == "99");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

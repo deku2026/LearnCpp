@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 
@@ -18,7 +17,7 @@ namespace {
 void demo_basics() {
     std::ostringstream os;
     os << "x=" << 1;
-    assert(os.str() == "x=1");
+    LEARN_CHECK(os.str() == "x=1");
 }
 
 void demo_intermediate() {
@@ -26,7 +25,7 @@ void demo_intermediate() {
     int a = 0;
     int b = 0;
     is >> a >> b;
-    assert(a == 10 && b == 20);
+    LEARN_CHECK(a == 10 && b == 20);
 }
 
 void demo_expert() {
@@ -34,7 +33,7 @@ void demo_expert() {
     ss << 3.5;
     double d = 0;
     ss >> d;
-    assert(d > 3.4 && d < 3.6);
+    LEARN_CHECK(d > 3.4 && d < 3.6);
 }
 
 int run(int argc, char** argv) {

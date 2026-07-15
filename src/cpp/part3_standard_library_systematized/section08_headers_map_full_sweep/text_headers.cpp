@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cctype>
 #include <charconv>
 #include <regex>
@@ -22,18 +21,18 @@ namespace {
 void demo_basics() {
     std::string s = "ab";
     std::string_view sv = s;
-    assert(sv.size() == 2);
+    LEARN_CHECK(sv.size() == 2);
 }
 
 void demo_intermediate() {
-    assert(std::isdigit(static_cast<unsigned char>('9')));
+    LEARN_CHECK(std::isdigit(static_cast<unsigned char>('9')));
     char buf[8]{};
     auto r = std::to_chars(buf, buf + 8, 5);
-    assert(r.ec == std::errc{});
+    LEARN_CHECK(r.ec == std::errc{});
 }
 
 void demo_expert() {
-    assert(std::regex_match("12", std::regex{"[0-9]+"}));
+    LEARN_CHECK(std::regex_match("12", std::regex{"[0-9]+"}));
 }
 
 int run(int argc, char** argv) {

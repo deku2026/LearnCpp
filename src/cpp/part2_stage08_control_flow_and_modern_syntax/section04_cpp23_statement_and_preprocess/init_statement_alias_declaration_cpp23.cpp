@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -22,14 +21,14 @@ void demo_basics() {
     for (int x : v) {
         s += x;
     }
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
 }
 
 void demo_intermediate() {
     // Portable: alias + if with initializer (C++17 if-init).
     using Str = std::string;
     if (Str s = "hello"; !s.empty()) {
-        assert(s.size() == 5);
+        LEARN_CHECK(s.size() == 5);
     }
 }
 
@@ -41,12 +40,12 @@ void demo_expert() {
     for (IVec tmp{10, 20}; int x : tmp) {
         seen += x;
     }
-    assert(seen == 30);
+    LEARN_CHECK(seen == 30);
 
     using T = int;
     T a = 21;
     T b = 21;
-    assert(a + b == 42);
+    LEARN_CHECK(a + b == 42);
 }
 
 int run(int argc, char** argv) {

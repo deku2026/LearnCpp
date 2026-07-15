@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -30,24 +29,24 @@ void demo_basics() {
     Box::live = 0;
     {
         const Box& r = make_box();  // temporary lifetime extended to r's scope
-        assert(r.s == "payload");
-        assert(Box::live == 1);
+        LEARN_CHECK(r.s == "payload");
+        LEARN_CHECK(Box::live == 1);
     }
-    assert(Box::live == 0);
+    LEARN_CHECK(Box::live == 0);
 }
 
 void demo_intermediate() {
     Box::live = 0;
     {
         const std::string& r = std::string("hello");
-        assert(r == "hello");
-        assert(r.size() == 5);
+        LEARN_CHECK(r == "hello");
+        LEARN_CHECK(r.size() == 5);
     }
 
     // Non-const lvalue ref cannot bind temporary (would not compile):
     // std::string& bad = std::string("x");
     const std::string& ok = std::string("x");
-    assert(ok == "x");
+    LEARN_CHECK(ok == "x");
 }
 
 void demo_expert() {
@@ -57,15 +56,15 @@ void demo_expert() {
     {
         const Box& box = make_box();
         const std::string& s = box.s;  // s refers into still-alive box
-        assert(s == "payload");
-        assert(Box::live == 1);
+        LEARN_CHECK(s == "payload");
+        LEARN_CHECK(Box::live == 1);
     }
-    assert(Box::live == 0);
+    LEARN_CHECK(Box::live == 0);
 
     // Safe alternative to dangling member bind: copy the value.
     std::string copy = make_box().s;
-    assert(copy == "payload");
-    assert(Box::live == 0);
+    LEARN_CHECK(copy == "payload");
+    LEARN_CHECK(Box::live == 0);
 }
 
 int run(int argc, char** argv) {

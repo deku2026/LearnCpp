@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -32,7 +31,7 @@ void demo_intermediate() {
         int a;
         int b;
     };
-    assert(can_start_in_bytes<Agg>());
+    LEARN_CHECK(can_start_in_bytes<Agg>());
 }
 
 void demo_expert() {
@@ -41,7 +40,7 @@ void demo_expert() {
         int x = 0;
         ~Non() { x = -1; }
     };
-    assert(!can_start_in_bytes<Non>());
+    LEARN_CHECK(!can_start_in_bytes<Non>());
 }
 
 int run(int argc, char** argv) {

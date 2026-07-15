@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cmath>
 #include <complex>
 #include <numbers>
@@ -21,19 +20,19 @@
 namespace {
 
 void demo_basics() {
-    assert(std::abs(-1) == 1);
-    assert(std::numbers::pi > 3.0);
+    LEARN_CHECK(std::abs(-1) == 1);
+    LEARN_CHECK(std::numbers::pi > 3.0);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3};
-    assert(std::accumulate(v.begin(), v.end(), 0) == 6);
-    assert(std::popcount(0b101u) == 2);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 0) == 6);
+    LEARN_CHECK(std::popcount(0b101u) == 2);
 }
 
 void demo_expert() {
     std::complex<double> c{0, 1};
-    assert(c.imag() == 1.0);
+    LEARN_CHECK(c.imag() == 1.0);
     std::mt19937 eng{1};
     (void)eng();
 }

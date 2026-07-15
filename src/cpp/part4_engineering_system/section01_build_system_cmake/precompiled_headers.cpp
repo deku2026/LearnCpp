@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // target_precompile_headers(tgt PRIVATE <vector> <string>)
     std::string pch = "vector";
-    assert(!pch.empty());
+    LEARN_CHECK(!pch.empty());
 }
 
 void demo_intermediate() {
     // PCH speeds cold builds; can hurt incremental if headers churn
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Prefer stable, widely included headers only
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

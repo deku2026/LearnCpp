@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -26,18 +25,18 @@ constexpr bool safe_const_ref_param() {
 void demo_basics() {
     int x = 1;
     const int& r = x;
-    assert(r == 1);
+    LEARN_CHECK(r == 1);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L
     static_assert(!std::reference_constructs_from_temporary_v<const int&, int&>);
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(safe_const_ref_param<int&>() || !safe_const_ref_param<int&>());
+    LEARN_CHECK(safe_const_ref_param<int&>() || !safe_const_ref_param<int&>());
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <type_traits>
@@ -37,17 +36,17 @@ void demo_basics() {
     Person p{"Ada"};
     p.add_score(10);
     p.set_data(7);
-    assert(p.name() == "Ada");
-    assert(p.score_count() == 1);
-    assert(p.data() == 7);
+    LEARN_CHECK(p.name() == "Ada");
+    LEARN_CHECK(p.score_count() == 1);
+    LEARN_CHECK(p.data() == 7);
 }
 
 void demo_intermediate() {
     Person a{"A"};
     a.add_score(1);
     Person b = std::move(a);
-    assert(b.name() == "A");
-    assert(b.score_count() == 1);
+    LEARN_CHECK(b.name() == "A");
+    LEARN_CHECK(b.score_count() == 1);
     // unique_ptr member => Person is not copyable
     static_assert(!std::is_copy_constructible_v<Person>);
     static_assert(std::is_move_constructible_v<Person>);
@@ -59,7 +58,7 @@ void demo_expert() {
     Person p{"Z"};
     p.set_data(3);
     Person q = std::move(p);
-    assert(q.data() == 3);
+    LEARN_CHECK(q.data() == 3);
 }
 
 int run(int argc, char** argv) {

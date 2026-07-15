@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Vec2 {
@@ -36,21 +34,21 @@ void demo_basics() {
     Vec2 a{1, 2};
     Vec2 b{3, 4};
     Vec2 c = a + b;
-    assert(c.x() == 4 && c.y() == 6);
+    LEARN_CHECK(c.x() == 4 && c.y() == 6);
 }
 
 void demo_intermediate() {
     Vec2 a{1, 1};
     a += Vec2{2, 3};
-    assert(a.x() == 3 && a.y() == 4);
+    LEARN_CHECK(a.x() == 3 && a.y() == 4);
 }
 
 void demo_expert() {
     Vec2 a{1, 0};
     Vec2 b = a + a + a;
-    assert(b.x() == 3 && b.y() == 0);
+    LEARN_CHECK(b.x() == 3 && b.y() == 0);
     (a += Vec2{1, 1}) += Vec2{1, 1};
-    assert(a.x() == 3 && a.y() == 2);
+    LEARN_CHECK(a.x() == 3 && a.y() == 2);
 }
 
 int run(int argc, char** argv) {

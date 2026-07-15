@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <version>
@@ -19,9 +18,9 @@ namespace {
 void demo_basics() {
     std::string s = "abcd";
     s.resize(2);
-    assert(s == "ab");
+    LEARN_CHECK(s == "ab");
     s.resize(5, 'x');
-    assert(s == "abxxx");
+    LEARN_CHECK(s == "abxxx");
 }
 
 void demo_intermediate() {
@@ -33,10 +32,10 @@ void demo_intermediate() {
         }
         return n;
     });
-    assert(buf == "ABCDE");
+    LEARN_CHECK(buf == "ABCDE");
 #else
     std::string buf = "ABCDE";
-    assert(buf.size() == 5);
+    LEARN_CHECK(buf.size() == 5);
 #endif
 }
 
@@ -49,11 +48,11 @@ void demo_expert() {
         }
         return std::size_t{3};
     });
-    assert(buf == "000");
-    assert(buf.size() == 3);
+    LEARN_CHECK(buf == "000");
+    LEARN_CHECK(buf.size() == 3);
 #else
     std::string buf(3, '0');
-    assert(buf == "000");
+    LEARN_CHECK(buf == "000");
 #endif
 }
 

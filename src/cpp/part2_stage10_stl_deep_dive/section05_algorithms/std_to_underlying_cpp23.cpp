@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <version>
 
@@ -23,19 +22,19 @@ enum class Color : int { Red = 1, Green = 2, Blue = 3 };
 
 void demo_basics() {
 #if defined(__cpp_lib_to_underlying) && __cpp_lib_to_underlying >= 202102L
-    assert(std::to_underlying(Color::Green) == 2);
+    LEARN_CHECK(std::to_underlying(Color::Green) == 2);
 #else
-    assert(static_cast<std::underlying_type_t<Color>>(Color::Green) == 2);
+    LEARN_CHECK(static_cast<std::underlying_type_t<Color>>(Color::Green) == 2);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_to_underlying) && __cpp_lib_to_underlying >= 202102L
     static_assert(std::is_same_v<decltype(std::to_underlying(Color::Red)), int>);
-    assert(std::to_underlying(Color::Blue) == 3);
+    LEARN_CHECK(std::to_underlying(Color::Blue) == 3);
 #else
     static_assert(std::is_same_v<std::underlying_type_t<Color>, int>);
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -43,10 +42,10 @@ void demo_expert() {
     enum class Flags : unsigned { None = 0, A = 1, B = 2 };
 #if defined(__cpp_lib_to_underlying) && __cpp_lib_to_underlying >= 202102L
     auto v = std::to_underlying(Flags::A) | std::to_underlying(Flags::B);
-    assert(v == 3u);
+    LEARN_CHECK(v == 3u);
 #else
     auto v = static_cast<unsigned>(Flags::A) | static_cast<unsigned>(Flags::B);
-    assert(v == 3u);
+    LEARN_CHECK(v == 3u);
 #endif
 }
 

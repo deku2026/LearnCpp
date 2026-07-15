@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <tuple>
 #include <utility>
 
@@ -31,7 +30,7 @@ void demo_basics() {
 
 void demo_intermediate() {
     auto t = std::make_tuple(1, 2, 3);
-    assert(sum_tuple(t) == 6);
+    LEARN_CHECK(sum_tuple(t) == 6);
 }
 
 void demo_expert() {

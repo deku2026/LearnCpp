@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iterator>
 #include <vector>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     std::vector<int> src{1, 2, 3};
     std::vector<int> dst;
     std::copy(src.begin(), src.end(), std::back_inserter(dst));
-    assert((dst == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((dst == std::vector<int>{1, 2, 3}));
 }
 
 void demo_intermediate() {
@@ -32,16 +31,16 @@ void demo_intermediate() {
             ++it;
         }
     }
-    assert((v == std::vector<int>{1, 3, 5}));
+    LEARN_CHECK((v == std::vector<int>{1, 3, 5}));
 }
 
 void demo_expert() {
     std::vector<int> v{1, 2, 3, 4, 5, 6};
     std::erase_if(v, [](int x) { return x % 2 == 0; });
-    assert((v == std::vector<int>{1, 3, 5}));
+    LEARN_CHECK((v == std::vector<int>{1, 3, 5}));
     std::vector<int> w{1, 2, 2, 3};
     std::erase(w, 2);
-    assert((w == std::vector<int>{1, 3}));
+    LEARN_CHECK((w == std::vector<int>{1, 3}));
 }
 
 }  // namespace

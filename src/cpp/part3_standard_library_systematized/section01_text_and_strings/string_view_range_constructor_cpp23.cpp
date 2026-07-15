@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -21,24 +20,24 @@ namespace {
 void demo_basics() {
     std::string s = "from-string";
     std::string_view sv{s};
-    assert(sv == "from-string");
+    LEARN_CHECK(sv == "from-string");
 }
 
 void demo_intermediate() {
     std::array<char, 4> a{{'a', 'b', 'c', 'd'}};
     std::string_view sv{a.data(), a.size()};
-    assert(sv == "abcd");
+    LEARN_CHECK(sv == "abcd");
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_ranges_to_container) || defined(__cpp_lib_string_view)
     std::vector<char> v{'x', 'y', 'z'};
     std::string_view sv{v.data(), v.size()};
-    assert(sv == "xyz");
+    LEARN_CHECK(sv == "xyz");
 #else
     const char buf[] = "xyz";
     std::string_view sv{buf, 3};
-    assert(sv == "xyz");
+    LEARN_CHECK(sv == "xyz");
 #endif
 }
 

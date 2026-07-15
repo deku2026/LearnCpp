@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -29,19 +28,19 @@ int tag(double) {  // non-template overload
 }
 
 void demo_basics() {
-    assert(tag(1) == 1);    // specialization
-    assert(tag(1.0) == 2);  // overload
-    assert(tag(std::string{}) == 0);
+    LEARN_CHECK(tag(1) == 1);    // specialization
+    LEARN_CHECK(tag(1.0) == 2);  // overload
+    LEARN_CHECK(tag(std::string{}) == 0);
 }
 
 void demo_intermediate() {
     // Overloads are preferred via overload resolution; specializations only
     // apply after a primary template is selected.
-    assert(tag(2.0f) == 0 || tag(2.0f) == 2);
+    LEARN_CHECK(tag(2.0f) == 0 || tag(2.0f) == 2);
 }
 
 void demo_expert() {
-    assert(tag(0) == 1);
+    LEARN_CHECK(tag(0) == 1);
 }
 
 int run(int argc, char** argv) {

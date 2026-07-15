@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -17,12 +16,12 @@ namespace {
 void demo_basics() {
     // ASan detects heap-buffer-overflow, use-after-free, etc. when enabled (-fsanitize=address).
     std::vector<int> v{1, 2, 3};
-    assert(v.at(0) == 1);
+    LEARN_CHECK(v.at(0) == 1);
 }
 
 void demo_intermediate() {
     int* p = new int[4]{1, 2, 3, 4};
-    assert(p[3] == 4);
+    LEARN_CHECK(p[3] == 4);
     delete[] p;
 }
 
@@ -31,7 +30,7 @@ void demo_expert() {
     std::vector<int> v(2);
     v[0] = 1;
     v[1] = 2;
-    assert(v.size() == 2);
+    LEARN_CHECK(v.size() == 2);
 }
 
 int run(int argc, char** argv) {

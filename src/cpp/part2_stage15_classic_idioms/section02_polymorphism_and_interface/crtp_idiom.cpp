@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -31,15 +30,15 @@ struct Logger : Counter<Logger> {
 void demo_basics() {
     Logger l;
     l.hit();
-    assert(l.ticks == 1);
-    assert(l.last == 1);
+    LEARN_CHECK(l.ticks == 1);
+    LEARN_CHECK(l.last == 1);
 }
 
 void demo_intermediate() {
     Logger l;
     l.hit();
     l.hit();
-    assert(l.ticks == 2);
+    LEARN_CHECK(l.ticks == 2);
 }
 
 void demo_expert() {
@@ -51,12 +50,12 @@ void demo_expert() {
     };
     Modern m;
     m.set(3);
-    assert(m.get() == 3);
+    LEARN_CHECK(m.get() == 3);
 #else
     // Classic CRTP still works without deducing this.
     Logger l;
     l.hit();
-    assert(l.last == 1);
+    LEARN_CHECK(l.last == 1);
 #endif
 }
 

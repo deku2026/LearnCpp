@@ -9,25 +9,24 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <numeric>
 
 namespace {
 
 void demo_basics() {
-    assert(std::gcd(12, 18) == 6);
-    assert(std::gcd(7, 3) == 1);
+    LEARN_CHECK(std::gcd(12, 18) == 6);
+    LEARN_CHECK(std::gcd(7, 3) == 1);
 }
 
 void demo_intermediate() {
-    assert(std::lcm(4, 6) == 12);
-    assert(std::lcm(3, 5) == 15);
+    LEARN_CHECK(std::lcm(4, 6) == 12);
+    LEARN_CHECK(std::lcm(3, 5) == 15);
 }
 
 void demo_expert() {
-    assert(std::gcd(0, 5) == 5);
-    assert(std::lcm(0, 5) == 0);
-    assert(std::gcd(54, 24) * std::lcm(54, 24) == 54 * 24);
+    LEARN_CHECK(std::gcd(0, 5) == 5);
+    LEARN_CHECK(std::lcm(0, 5) == 0);
+    LEARN_CHECK(std::gcd(54, 24) * std::lcm(54, 24) == 54 * 24);
 }
 
 }  // namespace

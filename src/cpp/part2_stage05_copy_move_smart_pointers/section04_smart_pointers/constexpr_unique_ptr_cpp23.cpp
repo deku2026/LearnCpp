@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <type_traits>
 #include <version>
@@ -25,22 +24,22 @@ constexpr int compute_with_unique_ptr() {
 
 void demo_basics() {
     auto p = std::make_unique<int>(42);
-    assert(p != nullptr);
-    assert(*p == 42);
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(*p == 42);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_constexpr_memory) && __cpp_lib_constexpr_memory >= 202202L
     constexpr int v = compute_with_unique_ptr();
     static_assert(v == 42);
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 #else
     // Portable fallback when constexpr unique_ptr is unavailable.
     const int v = [] {
         auto p = std::make_unique<int>(42);
         return *p;
     }();
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 #endif
 }
 
@@ -52,11 +51,11 @@ void demo_expert() {
         return *a + *b;
     }();
     static_assert(sum == 7);
-    assert(sum == 7);
+    LEARN_CHECK(sum == 7);
 #else
     auto a = std::make_unique<int>(3);
     auto b = std::make_unique<int>(4);
-    assert(*a + *b == 7);
+    LEARN_CHECK(*a + *b == 7);
 #endif
 
 #if defined(__cpp_lib_constexpr_memory)

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <stdexcept>
 #include <vector>
@@ -22,39 +21,39 @@ int free_inc(int x) {
 
 void demo_basics() {
     std::function<int(int)> f = [](int x) { return x + 1; };
-    assert(f(10) == 11);
+    LEARN_CHECK(f(10) == 11);
 
     f = free_inc;
-    assert(f(10) == 11);
+    LEARN_CHECK(f(10) == 11);
 }
 
 void demo_intermediate() {
     int base = 100;
     std::function<int(int)> f = [base](int x) { return x + base; };
-    assert(f(10) == 110);
+    LEARN_CHECK(f(10) == 110);
 
     std::vector<std::function<int(int)>> handlers;
     handlers.push_back([](int x) { return x * 2; });
     handlers.push_back([](int x) { return x - 1; });
-    assert(handlers[0](5) == 10);
-    assert(handlers[1](5) == 4);
+    LEARN_CHECK(handlers[0](5) == 10);
+    LEARN_CHECK(handlers[1](5) == 4);
 }
 
 void demo_expert() {
     std::function<int(int)> empty;
-    assert(!empty);
+    LEARN_CHECK(!empty);
     bool threw = false;
     try {
         (void)empty(1);
     } catch (const std::bad_function_call&) {
         threw = true;
     }
-    assert(threw);
+    LEARN_CHECK(threw);
 
     // Requires copyable target; move-only lambdas need move_only_function.
     std::function<int()> ok = [] { return 1; };
     auto copy = ok;
-    assert(copy() == 1);
+    LEARN_CHECK(copy() == 1);
 }
 
 int run(int argc, char** argv) {

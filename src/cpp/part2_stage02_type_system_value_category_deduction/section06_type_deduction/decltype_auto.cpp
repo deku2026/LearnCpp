@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -38,18 +37,18 @@ void demo_basics() {
     static_assert(std::is_same_v<decltype(a), int>);
     static_assert(std::is_same_v<decltype(b), int&>);
     b = 11;
-    assert(x == 11);
+    LEARN_CHECK(x == 11);
 }
 
 void demo_intermediate() {
     decltype(auto) r = get_ref();
     static_assert(std::is_same_v<decltype(r), int&>);
     r = 5;
-    assert(g == 5);
+    LEARN_CHECK(g == 5);
 
     decltype(auto) v = get_val();
     static_assert(std::is_same_v<decltype(v), int>);
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 
     int n = 3;
     auto plain = forward_ref(n);  // if returned int&, auto drops to int...
@@ -57,13 +56,13 @@ void demo_intermediate() {
     decltype(auto) kept = forward_ref(n);
     static_assert(std::is_same_v<decltype(kept), int&>);
     kept = 4;
-    assert(n == 4);
-    assert(plain == 3 || plain == 4);  // plain is a copy of the value at call time... wait
+    LEARN_CHECK(n == 4);
+    LEARN_CHECK(plain == 3 || plain == 4);  // plain is a copy of the value at call time... wait
 
     // Actually: auto plain = forward_ref(n); deduces int from int& initializer (copy).
     // After kept=4, plain still holds old value if it was copy-initialized before.
     // Order: plain was initialized when n was 3, so plain==3.
-    assert(plain == 3);
+    LEARN_CHECK(plain == 3);
 }
 
 void demo_expert() {
@@ -74,18 +73,18 @@ void demo_expert() {
     static_assert(std::is_same_v<decltype(r1), std::string>);
     static_assert(std::is_same_v<decltype(r2), std::string&>);
     static_assert(std::is_same_v<decltype(r3), std::string&&>);
-    assert(r2 == "text");
+    LEARN_CHECK(r2 == "text");
 
     // Useful for perfect return type of wrappers
     auto call_val = []() -> decltype(auto) { return get_val(); };
     auto call_ref = []() -> decltype(auto) { return get_ref(); };
     static_assert(std::is_same_v<decltype(call_val()), int>);
     static_assert(std::is_same_v<decltype(call_ref()), int&>);
-    assert(call_val() == 42);
+    LEARN_CHECK(call_val() == 42);
     call_ref() = 8;
-    assert(g == 8);
+    LEARN_CHECK(g == 8);
 
-    assert(forward_val() == 42);
+    LEARN_CHECK(forward_val() == 42);
 }
 
 int run(int argc, char** argv) {

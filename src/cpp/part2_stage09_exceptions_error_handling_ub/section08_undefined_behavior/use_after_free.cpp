@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 
@@ -18,29 +17,29 @@ namespace {
 void demo_basics() {
     // SAFE: unique_ptr owns; no manual delete + use.
     auto p = std::make_unique<int>(42);
-    assert(*p == 42);
+    LEARN_CHECK(*p == 42);
     p.reset();
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
     // Comment only: use of deleted memory is UB — we don't do it.
 }
 
 void demo_intermediate() {
     std::shared_ptr<std::string> a = std::make_shared<std::string>("hi");
     std::shared_ptr<std::string> b = a;
-    assert(a.use_count() == 2);
+    LEARN_CHECK(a.use_count() == 2);
     a.reset();
-    assert(*b == "hi");  // still alive
+    LEARN_CHECK(*b == "hi");  // still alive
 }
 
 void demo_expert() {
     // Dangling raw pointer risk: keep owner alive while observing.
     auto owner = std::make_unique<int>(7);
     int* observe = owner.get();
-    assert(observe != nullptr);
-    assert(*observe == 7);
+    LEARN_CHECK(observe != nullptr);
+    LEARN_CHECK(*observe == 7);
     owner.reset();
     observe = nullptr;  // scrub; never dereference after free
-    assert(observe == nullptr);
+    LEARN_CHECK(observe == nullptr);
 }
 
 int run(int argc, char** argv) {

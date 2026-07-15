@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -17,17 +16,17 @@ namespace {
 void demo_basics() {
     // Mixing import std and #include <vector> rules are implementation-sensitive
     std::string mode = "header-only-demo";
-    assert(mode.find("header") != std::string::npos);
+    LEARN_CHECK(mode.find("header") != std::string::npos);
 }
 
 void demo_intermediate() {
     // Prefer all-module or all-header per TU during transition
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Standard library modules still maturing across GCC/Clang/MSVC
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

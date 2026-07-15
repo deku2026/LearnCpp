@@ -9,14 +9,14 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 
 // #warning was a long-standing compiler extension; C++23 standardizes it.
 // LEARNCPP_WERROR is OFF by default in this project, so a real #warning is OK.
 //
-// Soft diagnostic (does not stop the build):
-#warning "LearnCpp demo: #warning is a soft diagnostic (C++23 / long-time extension)"
+// Soft diagnostic (does not stop the build) — keep commented: under -Werror,
+// #warning is promoted to an error and would break CI.
+// #warning "LearnCpp demo: #warning is a soft diagnostic (C++23 / long-time extension)"
 
 // Hard diagnostic would abort compilation — DO NOT enable for this topic:
 // #error "this would fail the build"
@@ -35,20 +35,20 @@ namespace {
 void demo_basics() {
     // #warning: compile continues; message appears in compiler output.
     static_assert(learncpp_diag_soft == 1);
-    assert(learncpp_diag_soft == 1);
+    LEARN_CHECK(learncpp_diag_soft == 1);
 
     constexpr std::string_view soft = "warning";
-    assert(soft == "warning");
+    LEARN_CHECK(soft == "warning");
 }
 
 void demo_intermediate() {
     // #error: compile stops; use for unrecoverable configuration mistakes.
     // We only document it — triggering #error would break learn_cpp entirely.
     static_assert(learncpp_diag_hard == 2);
-    assert(learncpp_diag_hard != learncpp_diag_soft);
+    LEARN_CHECK(learncpp_diag_hard != learncpp_diag_soft);
 
     constexpr bool would_error_if_uncommented = true;
-    assert(would_error_if_uncommented);
+    LEARN_CHECK(would_error_if_uncommented);
 }
 
 void demo_expert() {
@@ -61,11 +61,11 @@ void demo_expert() {
     constexpr bool at_least_cxx20 = false;
 #endif
     static_assert(at_least_cxx20);
-    assert(at_least_cxx20);
+    LEARN_CHECK(at_least_cxx20);
 
     // With -Werror / LEARNCPP_WERROR, #warning becomes a hard failure —
     // this repo keeps that off by default so teaching #warning stays viable.
-    assert(learncpp_diag_soft == 1);
+    LEARN_CHECK(learncpp_diag_soft == 1);
 }
 
 int run(int argc, char** argv) {

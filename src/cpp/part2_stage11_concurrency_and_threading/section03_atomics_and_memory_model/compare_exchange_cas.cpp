@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -19,12 +18,12 @@ void demo_basics() {
     std::atomic<int> x{1};
     int expected = 1;
     bool ok = x.compare_exchange_strong(expected, 2);
-    assert(ok);
-    assert(x.load() == 2);
+    LEARN_CHECK(ok);
+    LEARN_CHECK(x.load() == 2);
     expected = 1;
     ok = x.compare_exchange_strong(expected, 3);
-    assert(!ok);
-    assert(expected == 2);
+    LEARN_CHECK(!ok);
+    LEARN_CHECK(expected == 2);
 }
 
 void demo_intermediate() {
@@ -46,18 +45,18 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(x.load() == 400);
+    LEARN_CHECK(x.load() == 400);
 }
 
 void demo_expert() {
     std::atomic<int> flag{0};
     int expected = 0;
     bool first = flag.compare_exchange_strong(expected, 1);
-    assert(first);
+    LEARN_CHECK(first);
     expected = 0;
     bool second = flag.compare_exchange_strong(expected, 1);
-    assert(!second);
-    assert(expected == 1);
+    LEARN_CHECK(!second);
+    LEARN_CHECK(expected == 1);
 }
 
 int run(int argc, char** argv) {

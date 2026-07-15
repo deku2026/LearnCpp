@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
@@ -36,8 +35,8 @@ void demo_basics() {
     try {
         throw std::invalid_argument("bad");
     } catch (const std::exception& e) {
-        assert(std::string{e.what()} == "bad");
-        assert(std::string{kind(e)} == "invalid_argument");
+        LEARN_CHECK(std::string{e.what()} == "bad");
+        LEARN_CHECK(std::string{kind(e)} == "invalid_argument");
     }
 }
 
@@ -46,13 +45,13 @@ void demo_intermediate() {
         throw std::out_of_range("oor");
     } catch (const std::logic_error& e) {
         // out_of_range IS-A logic_error
-        assert(std::string{kind(e)} == "out_of_range");
+        LEARN_CHECK(std::string{kind(e)} == "out_of_range");
     }
 
     try {
         throw std::overflow_error("ovf");
     } catch (const std::runtime_error& e) {
-        assert(std::string{e.what()} == "ovf");
+        LEARN_CHECK(std::string{e.what()} == "ovf");
     }
 }
 
@@ -63,8 +62,8 @@ void demo_expert() {
     try {
         throw AppError("app");
     } catch (const std::exception& e) {
-        assert(std::string{e.what()} == "app");
-        assert(dynamic_cast<const AppError*>(&e) != nullptr);
+        LEARN_CHECK(std::string{e.what()} == "app");
+        LEARN_CHECK(dynamic_cast<const AppError*>(&e) != nullptr);
     }
 }
 

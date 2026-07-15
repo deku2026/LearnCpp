@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <string>
@@ -20,14 +19,14 @@ void demo_basics() {
     const auto path = std::filesystem::temp_directory_path() / "learncpp_fstream_demo.txt";
     {
         std::ofstream out(path);
-        assert(out);
+        LEARN_CHECK(out);
         out << "hello";
     }
     {
         std::ifstream in(path);
         std::string s;
         in >> s;
-        assert(s == "hello");
+        LEARN_CHECK(s == "hello");
     }
     std::filesystem::remove(path);
 }
@@ -43,7 +42,7 @@ void demo_intermediate() {
         std::ifstream in(path, std::ios::binary);
         char buf[3]{};
         in.read(buf, 3);
-        assert(buf[0] == 'A' && buf[2] == 'C');
+        LEARN_CHECK(buf[0] == 'A' && buf[2] == 'C');
     }
     std::filesystem::remove(path);
 }
@@ -62,7 +61,7 @@ void demo_expert() {
         std::ifstream in(path);
         std::string s;
         std::getline(in, s);
-        assert(s == "ab");
+        LEARN_CHECK(s == "ab");
     }
     std::filesystem::remove(path);
 }

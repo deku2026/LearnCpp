@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
@@ -30,7 +29,7 @@ void demo_basics() {
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
     stop.store(true, std::memory_order_release);
     worker.join();
-    assert(work.load() >= 1);
+    LEARN_CHECK(work.load() >= 1);
 }
 
 void demo_intermediate() {
@@ -49,7 +48,7 @@ void demo_intermediate() {
     }
     cv.notify_one();
     worker.join();
-    assert(processed == 1);
+    LEARN_CHECK(processed == 1);
 }
 
 void demo_expert() {
@@ -64,7 +63,7 @@ void demo_expert() {
         });
         std::this_thread::sleep_for(std::chrono::milliseconds(3));
     }
-    assert(n.load() >= 1);
+    LEARN_CHECK(n.load() >= 1);
 #else
     std::atomic<bool> stop{false};
     std::atomic<int> n{0};
@@ -77,7 +76,7 @@ void demo_expert() {
     std::this_thread::sleep_for(std::chrono::milliseconds(3));
     stop.store(true);
     worker.join();
-    assert(n.load() >= 1);
+    LEARN_CHECK(n.load() >= 1);
 #endif
 }
 

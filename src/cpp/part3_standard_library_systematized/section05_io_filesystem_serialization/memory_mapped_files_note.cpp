@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <filesystem>
 #include <fstream>
@@ -28,19 +27,19 @@ void demo_basics() {
         std::ifstream in(path, std::ios::binary);
         std::vector<char> bytes(3);
         in.read(bytes.data(), 3);
-        assert(bytes[0] == 'A');
+        LEARN_CHECK(bytes[0] == 'A');
     }
     std::filesystem::remove(path);
 }
 
 void demo_intermediate() {
     // mmap benefits: random access without full copy; needs OS mapping
-    assert(sizeof(void*) >= 4);
+    LEARN_CHECK(sizeof(void*) >= 4);
 }
 
 void demo_expert() {
     // Prefer RAII wrappers around CreateFileMapping/mmap; unmap on destruction
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

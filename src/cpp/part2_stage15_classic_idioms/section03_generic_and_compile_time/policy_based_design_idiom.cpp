@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -28,19 +27,19 @@ struct Calculator {
 
 void demo_basics() {
     Calculator<AddPolicy> c;
-    assert(c.apply(2, 3) == 5);
+    LEARN_CHECK(c.apply(2, 3) == 5);
 }
 
 void demo_intermediate() {
     Calculator<MulPolicy> c;
-    assert(c.apply(2, 3) == 6);
+    LEARN_CHECK(c.apply(2, 3) == 6);
 }
 
 void demo_expert() {
     // Compose orthogonal policies instead of deep inheritance.
     Calculator<AddPolicy> a;
     Calculator<MulPolicy> m;
-    assert(a.apply(1, 1) + m.apply(2, 2) == 6);
+    LEARN_CHECK(a.apply(1, 1) + m.apply(2, 2) == 6);
 }
 
 int run(int argc, char** argv) {

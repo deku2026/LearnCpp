@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -36,19 +35,19 @@ consteval int fib(int n) {
 void demo_basics() {
     constexpr int a = imm_square(9);
     static_assert(a == 81);
-    assert(a == 81);
+    LEARN_CHECK(a == 81);
 }
 
 void demo_intermediate() {
     static_assert(strlen_c("hello") == 5);
-    assert(strlen_c("hi") == 2);
+    LEARN_CHECK(strlen_c("hi") == 2);
 }
 
 void demo_expert() {
     static_assert(fib(10) == 55);
     // Cannot pass runtime int to consteval — only constant expressions.
     constexpr int x = 4;
-    assert(imm_square(x) == 16);
+    LEARN_CHECK(imm_square(x) == 16);
 }
 
 int run(int argc, char** argv) {

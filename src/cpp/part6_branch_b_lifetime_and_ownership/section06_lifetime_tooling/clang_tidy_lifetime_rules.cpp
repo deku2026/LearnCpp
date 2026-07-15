@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -21,20 +20,20 @@ std::string own(std::string s) {
 
 void demo_basics() {
     std::string s = own("ok");
-    assert(s == "ok");
+    LEARN_CHECK(s == "ok");
 }
 
 void demo_intermediate() {
     // Prefer returning string by value over string_view into locals.
     std::string s = "data";
     std::string_view sv = s;
-    assert(sv == "data");
+    LEARN_CHECK(sv == "data");
 }
 
 void demo_expert() {
     // clang-tidy bugprone-dangling-handle / cppcoreguidelines can flag risky views.
     const std::string& ext = std::string("x");
-    assert(ext == "x");
+    LEARN_CHECK(ext == "x");
 }
 
 int run(int argc, char** argv) {

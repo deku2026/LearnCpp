@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -18,13 +17,13 @@ namespace {
 void demo_basics() {
     auto v = std::views::iota(1, 5);
     std::vector<int> out(v.begin(), v.end());
-    assert((out == std::vector<int>{1, 2, 3, 4}));
+    LEARN_CHECK((out == std::vector<int>{1, 2, 3, 4}));
 }
 
 void demo_intermediate() {
     auto v = std::views::iota(10) | std::views::take(3) | std::views::common;
     std::vector<int> out(v.begin(), v.end());
-    assert((out == std::vector<int>{10, 11, 12}));
+    LEARN_CHECK((out == std::vector<int>{10, 11, 12}));
 }
 
 void demo_expert() {
@@ -32,7 +31,7 @@ void demo_expert() {
     for (int x : std::views::iota(0, 100) | std::views::filter([](int x) { return x % 10 == 0; })) {
         sum += x;
     }
-    assert(sum == 450);
+    LEARN_CHECK(sum == 450);
 }
 
 }  // namespace

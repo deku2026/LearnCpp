@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -21,20 +20,20 @@ int read(const int* p) {
 
 void demo_basics() {
     int x = 3;
-    assert(read(&x) == 3);
-    assert(read(nullptr) == -1);
+    LEARN_CHECK(read(&x) == 3);
+    LEARN_CHECK(read(nullptr) == -1);
 }
 
 void demo_intermediate() {
     auto p = std::make_unique<int>(9);
-    assert(read(p.get()) == 9);
+    LEARN_CHECK(read(p.get()) == 9);
 }
 
 void demo_expert() {
     // Not executed: *static_cast<int*>(nullptr);
     auto owner = std::make_unique<int>(1);
     const int& ok = *owner;
-    assert(ok == 1);
+    LEARN_CHECK(ok == 1);
 }
 
 int run(int argc, char** argv) {

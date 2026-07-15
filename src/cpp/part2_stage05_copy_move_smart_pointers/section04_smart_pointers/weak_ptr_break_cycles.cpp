@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -30,11 +29,11 @@ void demo_basics() {
         auto b = std::make_shared<Node>();
         a->next = b;
         b->prev = a;  // weak: does not bump a's strong count
-        assert(a.use_count() == 1);
-        assert(b.use_count() == 2);  // a->next + b
-        assert(Node::live == 2);
+        LEARN_CHECK(a.use_count() == 1);
+        LEARN_CHECK(b.use_count() == 2);  // a->next + b
+        LEARN_CHECK(Node::live == 2);
     }
-    assert(Node::live == 0);  // no leak
+    LEARN_CHECK(Node::live == 0);  // no leak
 }
 
 void demo_intermediate() {
@@ -45,18 +44,18 @@ void demo_intermediate() {
     b->prev = a;
 
     if (auto sp = b->prev.lock()) {
-        assert(sp.get() == a.get());
-        assert(sp.use_count() >= 2);
+        LEARN_CHECK(sp.get() == a.get());
+        LEARN_CHECK(sp.use_count() >= 2);
     } else {
-        assert(false);
+        LEARN_CHECK(false);
     }
 
     a.reset();
     // a destroyed: b->prev expired, b still held by local
-    assert(b->prev.expired());
-    assert(b.use_count() == 1);
+    LEARN_CHECK(b->prev.expired());
+    LEARN_CHECK(b.use_count() == 1);
     b.reset();
-    assert(Node::live == 0);
+    LEARN_CHECK(Node::live == 0);
 }
 
 void demo_expert() {
@@ -71,18 +70,18 @@ void demo_expert() {
         auto mid = std::make_shared<Node>();
         tail->next = mid;
         mid->prev = tail;
-        assert(Node::live == 3);
+        LEARN_CHECK(Node::live == 3);
     }
-    assert(Node::live == 0);
+    LEARN_CHECK(Node::live == 0);
 
     std::weak_ptr<int> w;
     {
         auto p = std::make_shared<int>(5);
         w = p;
-        assert(!w.expired());
+        LEARN_CHECK(!w.expired());
     }
-    assert(w.expired());
-    assert(w.lock() == nullptr);
+    LEARN_CHECK(w.expired());
+    LEARN_CHECK(w.lock() == nullptr);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <type_traits>
 
@@ -25,7 +24,7 @@ void demo_basics() {
     Point a{1, 2};
     Point b{};
     std::memcpy(&b, &a, sizeof(Point));
-    assert(b.x == 1 && b.y == 2);
+    LEARN_CHECK(b.x == 1 && b.y == 2);
 }
 
 void demo_intermediate() {
@@ -36,8 +35,8 @@ void demo_intermediate() {
     for (std::size_t i = 0; i < sizeof(int); ++i) {
         sum = static_cast<unsigned char>(sum + bytes[i]);
     }
-    assert(sum != 0 || p.x == 0);
-    assert(sizeof(Point) == 2 * sizeof(int));
+    LEARN_CHECK(sum != 0 || p.x == 0);
+    LEARN_CHECK(sizeof(Point) == 2 * sizeof(int));
 }
 
 void demo_expert() {
@@ -51,7 +50,7 @@ void demo_expert() {
     WithPad a{'Z', 7};
     WithPad b{};
     std::memcpy(&b, &a, sizeof(WithPad));
-    assert(b.c == 'Z' && b.i == 7);
+    LEARN_CHECK(b.c == 'Z' && b.i == 7);
 }
 
 }  // namespace

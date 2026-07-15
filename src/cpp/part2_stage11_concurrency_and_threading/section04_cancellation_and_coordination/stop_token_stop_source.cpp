@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <chrono>
 #include <stop_token>
 #include <thread>
@@ -21,12 +20,12 @@ void demo_basics() {
 #if defined(__cpp_lib_jthread) && __cpp_lib_jthread >= 201911L
     std::stop_source src;
     std::stop_token tok = src.get_token();
-    assert(tok.stop_possible());
-    assert(!tok.stop_requested());
+    LEARN_CHECK(tok.stop_possible());
+    LEARN_CHECK(!tok.stop_requested());
     src.request_stop();
-    assert(tok.stop_requested());
+    LEARN_CHECK(tok.stop_requested());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -36,9 +35,9 @@ void demo_intermediate() {
     std::atomic<int> hits{0};
     std::stop_callback cb(src.get_token(), [&] { hits.fetch_add(1); });
     src.request_stop();
-    assert(hits.load() == 1);
+    LEARN_CHECK(hits.load() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -54,7 +53,7 @@ void demo_expert() {
     });
     src.request_stop();
     t.join();
-    assert(exited.load());
+    LEARN_CHECK(exited.load());
 #else
     std::atomic<bool> stop{false};
     std::atomic<bool> exited{false};
@@ -66,7 +65,7 @@ void demo_expert() {
     });
     stop.store(true);
     t.join();
-    assert(exited.load());
+    LEARN_CHECK(exited.load());
 #endif
 }
 

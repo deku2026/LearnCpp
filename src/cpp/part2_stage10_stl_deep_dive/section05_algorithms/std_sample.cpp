@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <random>
 #include <vector>
 
@@ -20,9 +19,9 @@ void demo_basics() {
     std::vector<int> src{1, 2, 3, 4, 5, 6, 7, 8};
     std::vector<int> out;
     std::sample(src.begin(), src.end(), std::back_inserter(out), 3, std::mt19937{42});
-    assert(out.size() == 3);
+    LEARN_CHECK(out.size() == 3);
     for (int x : out) {
-        assert(std::find(src.begin(), src.end(), x) != src.end());
+        LEARN_CHECK(std::find(src.begin(), src.end(), x) != src.end());
     }
 }
 
@@ -30,7 +29,7 @@ void demo_intermediate() {
     std::vector<int> src{10, 20, 30};
     std::vector<int> out(2);
     std::sample(src.begin(), src.end(), out.begin(), 2, std::mt19937{1});
-    assert(out[0] != out[1] || src.size() < 2);
+    LEARN_CHECK(out[0] != out[1] || src.size() < 2);
 }
 
 void demo_expert() {
@@ -40,7 +39,7 @@ void demo_expert() {
     std::mt19937 g2{7};
     std::sample(src.begin(), src.end(), std::back_inserter(a), 3, g1);
     std::sample(src.begin(), src.end(), std::back_inserter(b), 3, g2);
-    assert(a == b);  // same seed -> same sample
+    LEARN_CHECK(a == b);  // same seed -> same sample
 }
 
 }  // namespace

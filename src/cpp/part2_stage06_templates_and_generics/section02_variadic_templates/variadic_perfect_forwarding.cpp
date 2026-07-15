@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <utility>
@@ -34,18 +33,18 @@ decltype(auto) invoke_forward(F&& f, Args&&... args) {
 
 void demo_basics() {
     auto p = my_make_unique<Widget>(7, std::string{"hi"});
-    assert(p != nullptr);
-    assert(p->a == 7);
-    assert(p->b == "hi");
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(p->a == 7);
+    LEARN_CHECK(p->b == "hi");
 }
 
 void demo_intermediate() {
     std::string s = "owned";
     auto p = my_make_unique<Widget>(1, std::move(s));
-    assert(p->b == "owned");
+    LEARN_CHECK(p->b == "owned");
     // s is valid but unspecified after move; safe to assign.
     s = "reset";
-    assert(s == "reset");
+    LEARN_CHECK(s == "reset");
 }
 
 void demo_expert() {
@@ -54,11 +53,11 @@ void demo_expert() {
         ++calls;
         return x + y;
     };
-    assert(invoke_forward(f, 2, 3) == 5);
-    assert(calls == 1);
+    LEARN_CHECK(invoke_forward(f, 2, 3) == 5);
+    LEARN_CHECK(calls == 1);
 
     auto g = [](std::string&& s) { return s.size(); };
-    assert(invoke_forward(g, std::string{"abcd"}) == 4);
+    LEARN_CHECK(invoke_forward(g, std::string{"abcd"}) == 4);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <memory>
 #include <string>
@@ -38,11 +37,11 @@ using MyVec = std::vector<T, Alloc>;
 
 void demo_basics() {
     Vec<int> v{1, 2, 3};
-    assert(v.size() == 3);
-    assert(v[1] == 2);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v[1] == 2);
 
     Dict<std::string, int> ages{{"ann", 30}, {"bob", 25}};
-    assert(ages["ann"] == 30);
+    LEARN_CHECK(ages["ann"] == 30);
 }
 
 void demo_intermediate() {
@@ -52,10 +51,10 @@ void demo_intermediate() {
 
     using CI = AddConst<int>;
     CI x = 5;
-    assert(x == 5);
+    LEARN_CHECK(x == 5);
 
     Vec<std::string> names{"a", "b"};
-    assert(names[0] == "a");
+    LEARN_CHECK(names[0] == "a");
 }
 
 void demo_expert() {
@@ -64,12 +63,12 @@ void demo_expert() {
 
     using Matrix = Vec<Vec<int>>;
     Matrix m{{1, 2}, {3, 4}};
-    assert(m[0][1] == 2);
-    assert(m[1][0] == 3);
+    LEARN_CHECK(m[0][1] == 2);
+    LEARN_CHECK(m[1][0] == 3);
 
     MyVec<int> mv{9, 8, 7};
-    assert(mv.size() == 3);
-    assert(mv[0] == 9);
+    LEARN_CHECK(mv.size() == 3);
+    LEARN_CHECK(mv[0] == 9);
 }
 
 int run(int argc, char** argv) {

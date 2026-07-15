@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int non_dep() {
@@ -30,17 +28,17 @@ int compute(T) {
 }
 
 void demo_basics() {
-    assert(compute(0) == 3);
+    LEARN_CHECK(compute(0) == 3);
 }
 
 void demo_intermediate() {
-    assert(compute(1.0) == 3);
+    LEARN_CHECK(compute(1.0) == 3);
 }
 
 void demo_expert() {
     // Dependent names are looked up again at instantiation in the template definition context
     // plus ADL for function calls with dependent args.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

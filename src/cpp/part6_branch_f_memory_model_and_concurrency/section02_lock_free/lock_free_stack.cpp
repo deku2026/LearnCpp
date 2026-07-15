@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -50,8 +49,8 @@ void demo_basics() {
     LockFreeStack s;
     s.push(1);
     int v = 0;
-    assert(s.pop(v));
-    assert(v == 1);
+    LEARN_CHECK(s.pop(v));
+    LEARN_CHECK(v == 1);
 }
 
 void demo_intermediate() {
@@ -59,8 +58,8 @@ void demo_intermediate() {
     s.push(1);
     s.push(2);
     int a = 0, b = 0;
-    assert(s.pop(a) && s.pop(b));
-    assert(a == 2 && b == 1);
+    LEARN_CHECK(s.pop(a) && s.pop(b));
+    LEARN_CHECK(a == 2 && b == 1);
 }
 
 void demo_expert() {
@@ -68,8 +67,8 @@ void demo_expert() {
     s.push(5);
     s.push(6);
     int v = 0;
-    assert(s.pop(v));
-    assert(v == 6);
+    LEARN_CHECK(s.pop(v));
+    LEARN_CHECK(v == 6);
 }
 
 int run(int argc, char** argv) {

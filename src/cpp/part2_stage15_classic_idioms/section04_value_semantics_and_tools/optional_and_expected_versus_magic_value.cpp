@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 #include <version>
@@ -29,31 +28,31 @@ std::optional<int> parse_positive(int x) {
 
 void demo_basics() {
     auto a = parse_positive(3);
-    assert(a.has_value() && *a == 3);
+    LEARN_CHECK(a.has_value() && *a == 3);
     auto b = parse_positive(-1);
-    assert(!b.has_value());
+    LEARN_CHECK(!b.has_value());
 }
 
 void demo_intermediate() {
     // Magic value -1 is ambiguous; optional makes empty explicit.
     int magic = -1;
-    assert(magic == -1);
+    LEARN_CHECK(magic == -1);
     std::optional<int> clear;
-    assert(!clear);
+    LEARN_CHECK(!clear);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     std::expected<int, std::string> ok = 42;
-    assert(ok.has_value());
-    assert(*ok == 42);
+    LEARN_CHECK(ok.has_value());
+    LEARN_CHECK(*ok == 42);
     std::expected<int, std::string> err = std::unexpected<std::string>{"bad"};
-    assert(!err.has_value());
-    assert(err.error() == "bad");
+    LEARN_CHECK(!err.has_value());
+    LEARN_CHECK(err.error() == "bad");
 #else
     std::optional<std::string> e = std::string{"ok"};
-    assert(e.has_value());
-    assert(*e == "ok");
+    LEARN_CHECK(e.has_value());
+    LEARN_CHECK(*e == "ok");
 #endif
 }
 

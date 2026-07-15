@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -30,7 +29,7 @@ void demo_basics() {
     int a = 1;
     int b = 2;
     swap_ints(a, b);
-    assert(a == 2 && b == 1);
+    LEARN_CHECK(a == 2 && b == 1);
     static_assert(noexcept(swap_ints(a, b)));
 }
 
@@ -39,8 +38,8 @@ void demo_intermediate() {
     std::vector<int> v1{1, 2};
     std::vector<int> v2{3};
     v1.swap(v2);
-    assert(v1.size() == 1);
-    assert(v2.size() == 2);
+    LEARN_CHECK(v1.size() == 1);
+    LEARN_CHECK(v2.size() == 2);
     static_assert(noexcept(v1.swap(v2)));
 }
 
@@ -49,7 +48,7 @@ void demo_expert() {
     Pod b{2};
     // Trivial types: moves/copies don't throw.
     a = std::move(b);
-    assert(a.x == 2);
+    LEARN_CHECK(a.x == 2);
     static_assert(std::is_nothrow_move_assignable_v<Pod>);
 }
 

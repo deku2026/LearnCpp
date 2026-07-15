@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -116,9 +115,9 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto hand = []() -> Gen<int> { co_yield 1; }();
-    assert(hand.next() && hand.value() == 1);
+    LEARN_CHECK(hand.next() && hand.value() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -141,9 +140,9 @@ void demo_intermediate() {
     while (hand.next()) {
         b.push_back(hand.value());
     }
-    assert(a == b);
+    LEARN_CHECK(a == b);
 #else
-    assert((a == std::vector<int>{1, 2}));
+    LEARN_CHECK((a == std::vector<int>{1, 2}));
 #endif
 #else
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -155,9 +154,9 @@ void demo_intermediate() {
     while (hand.next()) {
         b.push_back(hand.value());
     }
-    assert((b == std::vector<int>{1, 2}));
+    LEARN_CHECK((b == std::vector<int>{1, 2}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
 }
@@ -165,7 +164,7 @@ void demo_intermediate() {
 void demo_expert() {
     // Standard generator: ranges-friendly, recursive elements_of, allocator support.
     // Handwritten: minimal teaching model for promise/yield_value.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -43,31 +42,31 @@ public:
 
 void demo_basics() {
     Config c;
-    assert(c.timeout() == 30);
-    assert(!c.verbose());
-    assert(c.path() == "/tmp");
+    LEARN_CHECK(c.timeout() == 30);
+    LEARN_CHECK(!c.verbose());
+    LEARN_CHECK(c.path() == "/tmp");
 }
 
 void demo_intermediate() {
     Config c{5};
-    assert(c.timeout() == 5);
-    assert(c.path() == "/tmp");
+    LEARN_CHECK(c.timeout() == 5);
+    LEARN_CHECK(c.path() == "/tmp");
 
     Config d{9, "/var"};
-    assert(d.timeout() == 9);
-    assert(d.path() == "/var");
+    LEARN_CHECK(d.timeout() == 9);
+    LEARN_CHECK(d.path() == "/var");
 }
 
 void demo_expert() {
     // Members initialize in declaration order; NSDMI applies when not listed.
     Ordered o;
-    assert(o.a() == 1);
-    assert(o.b() == 11);
+    LEARN_CHECK(o.a() == 1);
+    LEARN_CHECK(o.b() == 11);
 
     Ordered p{7};
-    assert(p.a() == 7);
+    LEARN_CHECK(p.a() == 7);
     // Declaration order: a_ first (from list), then b_ NSDMI sees a_ == 7.
-    assert(p.b() == 17);
+    LEARN_CHECK(p.b() == 17);
 }
 
 int run(int argc, char** argv) {

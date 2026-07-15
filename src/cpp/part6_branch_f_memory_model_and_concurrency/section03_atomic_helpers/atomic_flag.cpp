@@ -10,17 +10,16 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
 
 void demo_basics() {
     std::atomic_flag f = ATOMIC_FLAG_INIT;
-    assert(!f.test_and_set());
-    assert(f.test_and_set());
+    LEARN_CHECK(!f.test_and_set());
+    LEARN_CHECK(f.test_and_set());
     f.clear();
-    assert(!f.test_and_set());
+    LEARN_CHECK(!f.test_and_set());
     f.clear();
 }
 
@@ -36,13 +35,13 @@ void demo_intermediate() {
     std::thread t1(critical), t2(critical);
     t1.join();
     t2.join();
-    assert(counter == 2);
+    LEARN_CHECK(counter == 2);
 }
 
 void demo_expert() {
     std::atomic_flag f = ATOMIC_FLAG_INIT;
     f.clear(std::memory_order_release);
-    assert(!f.test_and_set(std::memory_order_acquire));
+    LEARN_CHECK(!f.test_and_set(std::memory_order_acquire));
     f.clear();
 }
 

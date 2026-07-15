@@ -9,14 +9,13 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
 
 int clamp_documented(int x, int lo, int hi) {
     // Contract: lo <= hi. Enforce with assert, not assume.
-    assert(lo <= hi);
+    LEARN_CHECK(lo <= hi);
     if (x < lo) {
         return lo;
     }
@@ -39,14 +38,14 @@ const char* channel_name(int ch) {
 }
 
 void demo_basics() {
-    assert(clamp_documented(5, 0, 10) == 5);
-    assert(clamp_documented(-1, 0, 10) == 0);
-    assert(clamp_documented(99, 0, 10) == 10);
+    LEARN_CHECK(clamp_documented(5, 0, 10) == 5);
+    LEARN_CHECK(clamp_documented(-1, 0, 10) == 0);
+    LEARN_CHECK(clamp_documented(99, 0, 10) == 10);
 }
 
 void demo_intermediate() {
-    assert(std::string{channel_name(0)} == "L");
-    assert(std::string{channel_name(2)} == "?");
+    LEARN_CHECK(std::string{channel_name(0)} == "L");
+    LEARN_CHECK(std::string{channel_name(2)} == "?");
 }
 
 void demo_expert() {
@@ -54,8 +53,8 @@ void demo_expert() {
     // std::unreachable() on a reachable path is UB.
     // Prefer: validate, return error, or assert in debug.
     int x = 3;
-    assert(x > 0);
-    assert(clamp_documented(x, 1, 5) == 3);
+    LEARN_CHECK(x > 0);
+    LEARN_CHECK(clamp_documented(x, 1, 5) == 3);
 }
 
 int run(int argc, char** argv) {

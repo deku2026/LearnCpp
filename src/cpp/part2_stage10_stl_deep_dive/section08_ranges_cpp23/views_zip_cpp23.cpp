@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <tuple>
 #include <vector>
@@ -23,11 +22,11 @@ void demo_basics() {
     std::vector<char> b{'a', 'b', 'c'};
     auto z = std::views::zip(a, b);
     auto it = z.begin();
-    assert(std::get<0>(*it) == 1);
-    assert(std::get<1>(*it) == 'a');
+    LEARN_CHECK(std::get<0>(*it) == 1);
+    LEARN_CHECK(std::get<1>(*it) == 'a');
 #else
     std::vector<int> a{1, 2, 3};
-    assert(a.size() == 3);
+    LEARN_CHECK(a.size() == 3);
 #endif
 }
 
@@ -36,9 +35,9 @@ void demo_intermediate() {
     std::vector<int> a{1, 2};
     std::vector<int> b{10, 20, 30};
     auto z = std::views::zip(a, b);
-    assert(std::ranges::distance(z) == 2);  // min length
+    LEARN_CHECK(std::ranges::distance(z) == 2);  // min length
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -50,9 +49,9 @@ void demo_expert() {
     for (auto [x, y] : std::views::zip(a, b)) {
         sum += x + y;
     }
-    assert(sum == 21);
+    LEARN_CHECK(sum == 21);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

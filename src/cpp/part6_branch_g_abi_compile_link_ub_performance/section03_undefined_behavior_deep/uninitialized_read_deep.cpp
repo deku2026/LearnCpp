@@ -9,27 +9,26 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 
 namespace {
 
 void demo_basics() {
     int x = 0;  // initialize
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 void demo_intermediate() {
     std::optional<int> o;
-    assert(!o.has_value());
+    LEARN_CHECK(!o.has_value());
     o = 5;
-    assert(*o == 5);
+    LEARN_CHECK(*o == 5);
 }
 
 void demo_expert() {
     // Not executed: int x; int y = x;
     int x{};
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 int run(int argc, char** argv) {

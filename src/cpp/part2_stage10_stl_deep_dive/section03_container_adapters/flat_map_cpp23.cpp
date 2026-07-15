@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -25,12 +24,12 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_map<std::string, int> fm{{"banana", 2}, {"apple", 1}};
-    assert(fm.begin()->first == "apple");
-    assert(fm["banana"] == 2);
-    assert(fm.size() == 2);
+    LEARN_CHECK(fm.begin()->first == "apple");
+    LEARN_CHECK(fm["banana"] == 2);
+    LEARN_CHECK(fm.size() == 2);
 #else
     // Fallback: ordered map semantics
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -40,12 +39,12 @@ void demo_intermediate() {
     fm[3] = 30;
     fm[1] = 10;
     fm[2] = 20;
-    assert(fm.find(2)->second == 20);
-    assert(fm.contains(1));
+    LEARN_CHECK(fm.find(2)->second == 20);
+    LEARN_CHECK(fm.contains(1));
     fm.erase(1);
-    assert(!fm.contains(1));
+    LEARN_CHECK(!fm.contains(1));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -53,12 +52,12 @@ void demo_expert() {
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_map<int, int> fm{{1, 1}, {2, 2}, {3, 3}};
     // Contiguous keys/values: cache-friendly ordered container
-    assert(fm.keys().size() == 3);
-    assert(fm.values()[0] == 1);
+    LEARN_CHECK(fm.keys().size() == 3);
+    LEARN_CHECK(fm.values()[0] == 1);
     auto it = fm.lower_bound(2);
-    assert(it->first == 2);
+    LEARN_CHECK(it->first == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

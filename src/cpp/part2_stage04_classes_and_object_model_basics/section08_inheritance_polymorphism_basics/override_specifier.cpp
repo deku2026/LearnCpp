@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -30,15 +29,15 @@ public:
 
 void demo_basics() {
     Derived d;
-    assert(d.f() == 2);
-    assert(d.g() == "derived");
+    LEARN_CHECK(d.f() == 2);
+    LEARN_CHECK(d.g() == "derived");
 }
 
 void demo_intermediate() {
     Derived d;
     Base& b = d;
-    assert(b.f() == 2);
-    assert(b.g() == "derived");
+    LEARN_CHECK(b.f() == 2);
+    LEARN_CHECK(b.g() == "derived");
 }
 
 void demo_expert() {
@@ -46,7 +45,7 @@ void demo_expert() {
     // With override, the compiler rejects the mismatch.
     Derived d;
     const Base& b = d;
-    assert(b.f() == 2);
+    LEARN_CHECK(b.f() == 2);
 }
 
 int run(int argc, char** argv) {

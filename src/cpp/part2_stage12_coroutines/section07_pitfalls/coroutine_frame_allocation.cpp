@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdlib>
 #include <new>
 #include <utility>
@@ -150,11 +149,11 @@ void demo_basics() {
     Tracked::promise_type::allocs = 0;
     {
         auto t = make_tracked();
-        assert(Tracked::promise_type::allocs == 1);
+        LEARN_CHECK(Tracked::promise_type::allocs == 1);
     }
-    assert(Tracked::promise_type::allocs == 0);
+    LEARN_CHECK(Tracked::promise_type::allocs == 0);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -162,9 +161,9 @@ void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     Tracked::promise_type::allocs = 0;
     auto t = make_tracked();
-    assert(Tracked::promise_type::allocs == 1);
+    LEARN_CHECK(Tracked::promise_type::allocs == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -174,9 +173,9 @@ void demo_expert() {
     Tracked::promise_type::allocs = 0;
     auto t1 = make_tracked();
     auto t2 = make_tracked();
-    assert(Tracked::promise_type::allocs == 2);
+    LEARN_CHECK(Tracked::promise_type::allocs == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

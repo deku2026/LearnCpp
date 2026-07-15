@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <type_traits>
@@ -34,21 +33,21 @@ public:
 
 void demo_basics() {
     Circle c{1.0};
-    assert(c.name() == "Circle");
-    assert(c.area() > 3.0);
+    LEARN_CHECK(c.name() == "Circle");
+    LEARN_CHECK(c.area() > 3.0);
 }
 
 void demo_intermediate() {
     static_assert(std::is_abstract_v<AbstractShape>);
     static_assert(!std::is_abstract_v<Circle>);
     std::unique_ptr<AbstractShape> p = std::make_unique<Circle>(2.0);
-    assert(p->name() == "Circle");
+    LEARN_CHECK(p->name() == "Circle");
 }
 
 void demo_expert() {
     // Abstract types cannot be instantiated; only pointers/references to them.
     const AbstractShape& s = Circle{3.0};
-    assert(s.area() > 28.0);
+    LEARN_CHECK(s.area() > 28.0);
 }
 
 int run(int argc, char** argv) {

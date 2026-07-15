@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iterator>
 #include <ranges>
 #include <string>
@@ -27,15 +26,15 @@ void demo_basics() {
     for (auto&& s : v | std::views::as_rvalue) {
         out.push_back(std::move(s));
     }
-    assert(out.size() == 2);
-    assert(out[0] == "a");
+    LEARN_CHECK(out.size() == 2);
+    LEARN_CHECK(out[0] == "a");
 #else
     std::vector<std::string> v{"a", "b"};
     std::vector<std::string> out;
     for (auto& s : v) {
         out.push_back(std::move(s));
     }
-    assert(out[0] == "a");
+    LEARN_CHECK(out[0] == "a");
 #endif
 }
 
@@ -44,9 +43,9 @@ void demo_intermediate() {
     std::vector<std::string> v{"x", "y", "z"};
     auto r = v | std::views::as_rvalue;
     static_assert(std::ranges::view<decltype(r)>);
-    assert(std::ranges::distance(r) == 3);
+    LEARN_CHECK(std::ranges::distance(r) == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -55,9 +54,9 @@ void demo_expert() {
     std::vector<std::string> v{"p", "q"};
     std::vector<std::string> dst;
     std::ranges::copy(v | std::views::as_rvalue, std::back_inserter(dst));
-    assert(dst.size() == 2);
+    LEARN_CHECK(dst.size() == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

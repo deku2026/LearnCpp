@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -144,20 +143,20 @@ void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     int n = 0;
     auto t = delay_set(&n);
-    assert(n == 0);
+    LEARN_CHECK(n == 0);
     t.start();
-    assert(n == 0);
+    LEARN_CHECK(n == 0);
     t.start();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
     // C++23 provides std::generator, not a general async Task.
     // Async execution model trends toward C++26 std::execution.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
@@ -167,9 +166,9 @@ void demo_expert() {
     while (!t.done()) {
         t.start();
     }
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

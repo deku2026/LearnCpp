@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <deque>
 
 namespace {
@@ -18,19 +17,19 @@ void demo_basics() {
     std::deque<int> d;
     d.push_back(2);
     d.push_front(1);
-    assert(d.front() == 1);
-    assert(d.back() == 2);
-    assert(d.size() == 2);
+    LEARN_CHECK(d.front() == 1);
+    LEARN_CHECK(d.back() == 2);
+    LEARN_CHECK(d.size() == 2);
 }
 
 void demo_intermediate() {
     std::deque<int> d{1, 2, 3};
     d.insert(d.begin() + 1, 9);
-    assert(d[1] == 9);
+    LEARN_CHECK(d[1] == 9);
     d.pop_front();
     d.pop_back();
-    assert(d.front() == 9);
-    assert(d.back() == 2);
+    LEARN_CHECK(d.front() == 9);
+    LEARN_CHECK(d.back() == 2);
 }
 
 void demo_expert() {
@@ -39,11 +38,11 @@ void demo_expert() {
         d.push_front(i);
         d.push_back(-i);
     }
-    assert(d.size() == 200);
-    assert(d.front() == 99);
-    assert(d.back() == -99);
+    LEARN_CHECK(d.size() == 200);
+    LEARN_CHECK(d.front() == 99);
+    LEARN_CHECK(d.back() == -99);
     // random access is supported
-    assert(d[0] == 99);
+    LEARN_CHECK(d[0] == 99);
 }
 
 }  // namespace

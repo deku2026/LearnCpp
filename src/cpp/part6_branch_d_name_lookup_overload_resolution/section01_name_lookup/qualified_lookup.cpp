@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 namespace lib {
@@ -24,19 +22,21 @@ int x = 5;
 }  // namespace lib
 
 void demo_basics() {
-    assert(lib::detail::x == 5);
-    assert(lib::Tool::id() == 7);
+    LEARN_CHECK(lib::detail::x == 5);
+    LEARN_CHECK(lib::Tool::id() == 7);
 }
 
 void demo_intermediate() {
     lib::Tool t;
-    assert(t.n == 3);
-    assert((&lib::Tool::n) != nullptr);
+    LEARN_CHECK(t.n == 3);
+    // Pointer-to-member is well-formed; apply it via .* (not a null-pointer check).
+    int lib::Tool::* pm = &lib::Tool::n;
+    LEARN_CHECK(t.*pm == 3);
 }
 
 void demo_expert() {
     // Qualified lookup does not do ADL.
-    assert(::lib::Tool::id() == 7);
+    LEARN_CHECK(::lib::Tool::id() == 7);
 }
 
 int run(int argc, char** argv) {

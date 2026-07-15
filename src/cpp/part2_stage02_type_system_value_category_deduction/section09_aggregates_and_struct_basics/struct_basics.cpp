@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -28,28 +27,28 @@ struct Person {
 
 void demo_basics() {
     Point p;
-    assert(p.x == 0 && p.y == 0);
+    LEARN_CHECK(p.x == 0 && p.y == 0);
 
     p.x = 3;
     p.y = 4;
-    assert(p.x == 3 && p.y == 4);
+    LEARN_CHECK(p.x == 3 && p.y == 4);
 
     Point q{10, 20};
-    assert(q.x == 10 && q.y == 20);
+    LEARN_CHECK(q.x == 10 && q.y == 20);
 }
 
 void demo_intermediate() {
     Person a{"Ann", 20};
     Person b{"Bob", 15};
-    assert(a.adult());
-    assert(!b.adult());
-    assert(a.name == "Ann");
+    LEARN_CHECK(a.adult());
+    LEARN_CHECK(!b.adult());
+    LEARN_CHECK(a.name == "Ann");
 
     // Memberwise copy
     Person c = a;
-    assert(c.name == "Ann" && c.age == 20);
+    LEARN_CHECK(c.name == "Ann" && c.age == 20);
     c.age = 21;
-    assert(a.age == 20);
+    LEARN_CHECK(a.age == 20);
 }
 
 void demo_expert() {
@@ -62,19 +61,19 @@ void demo_expert() {
     };
 
     Rect r{Point{1, 2}, 30, 40};
-    assert(r.origin.x == 1 && r.origin.y == 2);
-    assert(r.w == 30 && r.h == 40);
-    assert(r.area() == 1200);  // 30 * 40
+    LEARN_CHECK(r.origin.x == 1 && r.origin.y == 2);
+    LEARN_CHECK(r.w == 30 && r.h == 40);
+    LEARN_CHECK(r.area() == 1200);  // 30 * 40
 
     // Pointer to member access
     Point pt{5, 6};
     Point* pp = &pt;
-    assert(pp->x == 5);
-    assert((*pp).y == 6);
+    LEARN_CHECK(pp->x == 5);
+    LEARN_CHECK((*pp).y == 6);
 
     // Aggregate-ish nested defaulting
     Rect empty{};
-    assert(empty.origin.x == 0 && empty.w == 0);
+    LEARN_CHECK(empty.origin.x == 0 && empty.w == 0);
 }
 
 int run(int argc, char** argv) {

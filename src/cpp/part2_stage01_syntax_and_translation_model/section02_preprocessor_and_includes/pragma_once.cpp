@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 // Real headers often start with:
 //   #pragma once
 // which asks the implementation to include this file at most once per TU.
@@ -52,8 +50,8 @@ namespace {
 void demo_basics() {
     // After first inclusion, payload is fixed; second paste did not run.
     static_assert(learncpp_sim_once_payload == 0xC0FFEEu);
-    assert(learncpp_sim_once_payload == 0xC0FFEEu);
-    assert(learncpp_sim_once_hits == 1);
+    LEARN_CHECK(learncpp_sim_once_payload == 0xC0FFEEu);
+    LEARN_CHECK(learncpp_sim_once_hits == 1);
 }
 
 void demo_intermediate() {
@@ -61,14 +59,14 @@ void demo_intermediate() {
     // - include guard: portable standard #ifndef/#define/#endif
     // - #pragma once: shorter; compiler tracks file identity (path/inode quirks rare)
     static_assert(learncpp_sim_belt == 1);
-    assert(learncpp_sim_belt == 1);
+    LEARN_CHECK(learncpp_sim_belt == 1);
 
 #if defined(LEARNCPP_SIM_ONCE_SEEN)
     constexpr bool once_model_active = true;
 #else
     constexpr bool once_model_active = false;
 #endif
-    assert(once_model_active);
+    LEARN_CHECK(once_model_active);
 }
 
 void demo_expert() {
@@ -76,11 +74,11 @@ void demo_expert() {
     // Multiple TUs each still paste the header once — need inline/ODR rules for defs.
     constexpr unsigned id = learncpp_sim_once_payload;
     static_assert(id == LEARNCPP_SIM_ONCE_FILE_ID);
-    assert(id == LEARNCPP_SIM_ONCE_FILE_ID);
+    LEARN_CHECK(id == LEARNCPP_SIM_ONCE_FILE_ID);
 
     // Prefer include guards for maximum portability in public headers;
     // #pragma once is fine for app code when the toolchain is known.
-    assert(learncpp_sim_once_hits == 1);
+    LEARN_CHECK(learncpp_sim_once_hits == 1);
 }
 
 int run(int argc, char** argv) {

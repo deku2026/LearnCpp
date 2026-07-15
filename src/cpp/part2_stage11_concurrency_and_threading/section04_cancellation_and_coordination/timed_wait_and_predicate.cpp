@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
@@ -32,8 +31,8 @@ void demo_basics() {
     {
         std::unique_lock<std::mutex> lk(m);
         const bool ok = cv.wait_for(lk, std::chrono::milliseconds(200), [&] { return ready; });
-        assert(ok);
-        assert(ready);
+        LEARN_CHECK(ok);
+        LEARN_CHECK(ready);
     }
     t.join();
 }
@@ -45,7 +44,7 @@ void demo_intermediate() {
     {
         std::unique_lock<std::mutex> lk(m);
         const bool ok = cv.wait_for(lk, std::chrono::milliseconds(10), [&] { return ready; });
-        assert(!ok);
+        LEARN_CHECK(!ok);
     }
 }
 
@@ -66,7 +65,7 @@ void demo_expert() {
         while (state == 0) {
             (void)cv.wait_for(lk, std::chrono::milliseconds(50));
         }
-        assert(state == 1);
+        LEARN_CHECK(state == 1);
     }
     t.join();
 }

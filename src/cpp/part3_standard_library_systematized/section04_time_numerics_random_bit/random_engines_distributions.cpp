@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <random>
 
 namespace {
@@ -18,14 +17,14 @@ void demo_basics() {
     std::mt19937 eng{42};
     std::uniform_int_distribution<int> dist{1, 6};
     int x = dist(eng);
-    assert(x >= 1 && x <= 6);
+    LEARN_CHECK(x >= 1 && x <= 6);
 }
 
 void demo_intermediate() {
     std::mt19937 eng{1};
     std::uniform_real_distribution<double> dist{0.0, 1.0};
     double x = dist(eng);
-    assert(x >= 0.0 && x < 1.0);
+    LEARN_CHECK(x >= 0.0 && x < 1.0);
 }
 
 void demo_expert() {
@@ -33,7 +32,7 @@ void demo_expert() {
     std::mt19937 eng{seed};
     std::normal_distribution<double> nd{0.0, 1.0};
     double z = nd(eng);
-    assert(z == z);  // not NaN
+    LEARN_CHECK(z == z);  // not NaN
 }
 
 int run(int argc, char** argv) {

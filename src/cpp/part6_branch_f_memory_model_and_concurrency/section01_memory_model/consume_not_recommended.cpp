@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -26,7 +25,7 @@ void demo_basics() {
     std::thread t2([&] {
         while (ready.load(std::memory_order_acquire) == 0) {
         }
-        assert(data == 5);
+        LEARN_CHECK(data == 5);
     });
     t1.join();
     t2.join();
@@ -34,13 +33,13 @@ void demo_basics() {
 
 void demo_intermediate() {
     // Document: consume intended for dependency-ordered reads; hard to use correctly.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     std::atomic<int> x{0};
     x.store(1, std::memory_order_release);
-    assert(x.load(std::memory_order_acquire) == 1);
+    LEARN_CHECK(x.load(std::memory_order_acquire) == 1);
 }
 
 int run(int argc, char** argv) {

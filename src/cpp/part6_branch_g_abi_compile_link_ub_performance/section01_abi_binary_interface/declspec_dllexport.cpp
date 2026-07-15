@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 #if defined(_WIN32)
 #define DEMO_EXPORT __declspec(dllexport)
 #else
@@ -25,17 +23,17 @@ DEMO_EXPORT int dll_style_answer() {
 namespace {
 
 void demo_basics() {
-    assert(dll_style_answer() == 42);
+    LEARN_CHECK(dll_style_answer() == 42);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     using Fn = int (*)();
     Fn f = &dll_style_answer;
-    assert(f() == 42);
+    LEARN_CHECK(f() == 42);
 }
 
 int run(int argc, char** argv) {

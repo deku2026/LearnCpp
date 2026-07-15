@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -31,34 +30,34 @@ std::expected<int, std::string> ok() {
 
 void demo_basics() {
     auto r = ok().or_else([](const std::string&) { return std::expected<int, std::string>{0}; });
-    assert(*r == 7);
+    LEARN_CHECK(*r == 7);
 }
 
 void demo_intermediate() {
     auto r = fail().or_else([](const std::string& e) {
-        assert(e == "e");
+        LEARN_CHECK(e == "e");
         return std::expected<int, std::string>{99};
     });
-    assert(*r == 99);
+    LEARN_CHECK(*r == 99);
 }
 
 void demo_expert() {
     auto r = fail().or_else(
         [](const std::string&) { return std::expected<int, std::string>{std::unexpected<std::string>("e2")}; });
-    assert(!r);
-    assert(r.error() == "e2");
+    LEARN_CHECK(!r);
+    LEARN_CHECK(r.error() == "e2");
 }
 
 #else
 
 void demo_basics() {
-    assert(7 == 7);
+    LEARN_CHECK(7 == 7);
 }
 void demo_intermediate() {
-    assert(99 == 99);
+    LEARN_CHECK(99 == 99);
 }
 void demo_expert() {
-    assert(std::string{"e2"} == "e2");
+    LEARN_CHECK(std::string{"e2"} == "e2");
 }
 
 #endif

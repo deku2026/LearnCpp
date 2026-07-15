@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -24,20 +23,20 @@ namespace {
 void demo_basics() {
     std::unexpected u{std::string{"e1"}};
     std::expected<int, std::string> ex{u};
-    assert(!ex.has_value());
-    assert(ex.error() == "e1");
+    LEARN_CHECK(!ex.has_value());
+    LEARN_CHECK(ex.error() == "e1");
 }
 
 void demo_intermediate() {
     auto make_err = [](const char* m) { return std::expected<int, std::string>{std::unexpected<std::string>(m)}; };
     auto e = make_err("boom");
-    assert(e.error() == "boom");
+    LEARN_CHECK(e.error() == "boom");
 }
 
 void demo_expert() {
     std::expected<std::string, int> e{std::unexpected<int>(404)};
-    assert(!e);
-    assert(e.error() == 404);
+    LEARN_CHECK(!e);
+    LEARN_CHECK(e.error() == 404);
 }
 
 #else
@@ -46,18 +45,18 @@ void demo_basics() {
     // Fallback: error tag + payload.
     bool ok = false;
     std::string err = "e1";
-    assert(!ok);
-    assert(err == "e1");
+    LEARN_CHECK(!ok);
+    LEARN_CHECK(err == "e1");
 }
 
 void demo_intermediate() {
     int code = 7;
-    assert(code == 7);
+    LEARN_CHECK(code == 7);
 }
 
 void demo_expert() {
     std::string msg = "boom";
-    assert(msg.size() == 4);
+    LEARN_CHECK(msg.size() == 4);
 }
 
 #endif

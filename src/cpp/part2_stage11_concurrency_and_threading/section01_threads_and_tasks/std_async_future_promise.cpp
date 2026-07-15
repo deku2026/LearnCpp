@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <future>
 #include <stdexcept>
 #include <thread>
@@ -19,14 +18,14 @@ namespace {
 
 void demo_basics() {
     std::future<int> f = std::async(std::launch::async, [] { return 21 * 2; });
-    assert(f.get() == 42);
+    LEARN_CHECK(f.get() == 42);
 }
 
 void demo_intermediate() {
     std::promise<int> p;
     std::future<int> f = p.get_future();
     std::thread t([&p] { p.set_value(99); });
-    assert(f.get() == 99);
+    LEARN_CHECK(f.get() == 99);
     t.join();
 }
 
@@ -41,12 +40,12 @@ void demo_expert() {
         result.set_value(7);
     });
     ready.set_value();
-    assert(result_f.get() == 7);
+    LEARN_CHECK(result_f.get() == 7);
     producer.join();
 
     auto f1 = std::async(std::launch::async, [] { return 1; });
     auto f2 = std::async(std::launch::async, [] { return 2; });
-    assert(f1.get() + f2.get() == 3);
+    LEARN_CHECK(f1.get() + f2.get() == 3);
 }
 
 int run(int argc, char** argv) {

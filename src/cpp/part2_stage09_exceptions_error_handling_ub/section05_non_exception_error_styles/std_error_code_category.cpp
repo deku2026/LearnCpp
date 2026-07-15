@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <system_error>
 
@@ -43,25 +42,25 @@ std::error_code make_app_error(AppErr e) {
 
 void demo_basics() {
     std::error_code ec = make_app_error(AppErr::NotFound);
-    assert(ec);
-    assert(ec.value() == 1);
-    assert(std::string{ec.category().name()} == "app");
+    LEARN_CHECK(ec);
+    LEARN_CHECK(ec.value() == 1);
+    LEARN_CHECK(std::string{ec.category().name()} == "app");
 }
 
 void demo_intermediate() {
     auto ec = make_app_error(AppErr::Ok);
-    assert(!ec);  // value 0 => success in boolean context for error_code
-    assert(ec.message() == "ok");
+    LEARN_CHECK(!ec);  // value 0 => success in boolean context for error_code
+    LEARN_CHECK(ec.message() == "ok");
 }
 
 void demo_expert() {
     auto a = make_app_error(AppErr::Busy);
     auto b = make_app_error(AppErr::Busy);
-    assert(a == b);
-    assert(a.message() == "busy");
+    LEARN_CHECK(a == b);
+    LEARN_CHECK(a.message() == "busy");
 
     std::error_code generic = std::make_error_code(std::errc::invalid_argument);
-    assert(generic == std::errc::invalid_argument);
+    LEARN_CHECK(generic == std::errc::invalid_argument);
 }
 
 int run(int argc, char** argv) {

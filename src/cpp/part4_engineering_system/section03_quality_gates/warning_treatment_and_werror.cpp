@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,18 +17,18 @@ namespace {
 void demo_basics() {
     // -Wall -Wextra -Wpedantic /W4
     const int warning_level = 4;
-    assert(warning_level >= 3);
+    LEARN_CHECK(warning_level >= 3);
 }
 
 void demo_intermediate() {
     // Enable -Werror in CI after codebase is clean
     const bool werror_in_ci = true;
-    assert(werror_in_ci);
+    LEARN_CHECK(werror_in_ci);
 }
 
 void demo_expert() {
     // Do not blanket-disable; fix or narrow pragma
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

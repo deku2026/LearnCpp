@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 
@@ -31,9 +30,9 @@ void layer_middle() {
 void demo_basics() {
     try {
         layer_middle();
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::logic_error& e) {
-        assert(std::string{e.what()} == "inner");
+        LEARN_CHECK(std::string{e.what()} == "inner");
     }
 }
 
@@ -48,9 +47,9 @@ void demo_intermediate() {
         }
     } catch (int v) {
         ++hits;
-        assert(v == 7);
+        LEARN_CHECK(v == 7);
     }
-    assert(hits == 2);
+    LEARN_CHECK(hits == 2);
 }
 
 void demo_expert() {
@@ -62,9 +61,9 @@ void demo_expert() {
             throw;
         }
     } catch (const std::runtime_error& e) {
-        assert(std::string{e.what()} == "x");
+        LEARN_CHECK(std::string{e.what()} == "x");
     } catch (...) {
-        assert(false);
+        LEARN_CHECK(false);
     }
 }
 

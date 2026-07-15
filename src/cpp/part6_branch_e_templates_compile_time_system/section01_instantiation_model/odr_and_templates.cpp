@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 template <class T>
@@ -19,18 +17,18 @@ T add_one(T x) {
 }
 
 void demo_basics() {
-    assert(add_one(1) == 2);
-    assert(add_one(1.5) == 2.5);
+    LEARN_CHECK(add_one(1) == 2);
+    LEARN_CHECK(add_one(1.5) == 2.5);
 }
 
 void demo_intermediate() {
     // Each specialization is a separate entity; definitions must match across TUs.
-    assert(add_one(2) == 3);
+    LEARN_CHECK(add_one(2) == 3);
 }
 
 void demo_expert() {
     // Inline/header-only templates are OK if token-identical in every TU.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

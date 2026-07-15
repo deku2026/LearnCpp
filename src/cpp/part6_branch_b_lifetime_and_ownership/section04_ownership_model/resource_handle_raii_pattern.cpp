@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Handle {
@@ -33,23 +31,23 @@ struct Handle {
 
 void demo_basics() {
     Handle h{5};
-    assert(h.get() == 5);
+    LEARN_CHECK(h.get() == 5);
 }
 
 void demo_intermediate() {
     Handle a{1};
     Handle b{std::move(a)};
-    assert(b.get() == 1);
-    assert(a.get() == -1);
+    LEARN_CHECK(b.get() == 1);
+    LEARN_CHECK(a.get() == -1);
 }
 
 void demo_expert() {
     {
         Handle h{9};
-        assert(h.get() == 9);
+        LEARN_CHECK(h.get() == 9);
     }
     // resource released at scope end
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

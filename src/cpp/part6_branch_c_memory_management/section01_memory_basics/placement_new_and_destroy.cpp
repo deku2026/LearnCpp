@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <new>
 #include <type_traits>
@@ -25,14 +24,14 @@ struct Widget {
 void demo_basics() {
     alignas(Widget) unsigned char buf[sizeof(Widget)];
     Widget* w = new (buf) Widget(7);
-    assert(w->x == 7);
+    LEARN_CHECK(w->x == 7);
     w->~Widget();
 }
 
 void demo_intermediate() {
     alignas(Widget) unsigned char buf[sizeof(Widget)];
     auto* w = new (buf) Widget(3);
-    assert(w->x == 3);
+    LEARN_CHECK(w->x == 3);
     std::destroy_at(w);
 }
 
@@ -40,7 +39,7 @@ void demo_expert() {
     static_assert(std::is_trivially_destructible_v<int>);
     alignas(int) unsigned char buf[sizeof(int)];
     int* p = new (buf) int(11);
-    assert(*p == 11);
+    LEARN_CHECK(*p == 11);
     // trivial dtor: destroy_at is a no-op side-effect-wise
     std::destroy_at(p);
 }

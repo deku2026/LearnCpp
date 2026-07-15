@@ -10,29 +10,28 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <numeric>
 
 namespace {
 
 void demo_basics() {
     std::array<int, 4> a{1, 2, 3, 4};
-    assert(a.size() == 4);
-    assert(a[0] == 1);
-    assert(a.front() == 1);
-    assert(a.back() == 4);
-    assert(a.data() != nullptr);
+    LEARN_CHECK(a.size() == 4);
+    LEARN_CHECK(a[0] == 1);
+    LEARN_CHECK(a.front() == 1);
+    LEARN_CHECK(a.back() == 4);
+    LEARN_CHECK(a.data() != nullptr);
 }
 
 void demo_intermediate() {
     std::array<int, 3> a{};
-    assert(a[0] == 0 && a[1] == 0 && a[2] == 0);
+    LEARN_CHECK(a[0] == 0 && a[1] == 0 && a[2] == 0);
     a.fill(7);
-    assert(a[0] == 7 && a[2] == 7);
+    LEARN_CHECK(a[0] == 7 && a[2] == 7);
     std::array<int, 3> b{1, 2, 3};
     a.swap(b);
-    assert(a[0] == 1);
-    assert(b[0] == 7);
+    LEARN_CHECK(a[0] == 1);
+    LEARN_CHECK(b[0] == 7);
 }
 
 void demo_expert() {
@@ -40,9 +39,9 @@ void demo_expert() {
     static_assert(a.size() == 5);
     static_assert(a[2] == 3);
     const int sum = std::accumulate(a.begin(), a.end(), 0);
-    assert(sum == 15);
-    assert(std::get<0>(a) == 1);
-    assert(std::get<4>(a) == 5);
+    LEARN_CHECK(sum == 15);
+    LEARN_CHECK(std::get<0>(a) == 1);
+    LEARN_CHECK(std::get<4>(a) == 5);
 }
 
 }  // namespace

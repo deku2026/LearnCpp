@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 constinit int g_flag = 0;
@@ -18,22 +16,22 @@ constexpr int k = 42;
 constinit const int* g_ptr = &k;
 
 void demo_basics() {
-    assert(g_flag == 0);
+    LEARN_CHECK(g_flag == 0);
     g_flag = 1;
-    assert(g_flag == 1);
+    LEARN_CHECK(g_flag == 1);
 }
 
 void demo_intermediate() {
-    assert(g_ptr != nullptr);
-    assert(*g_ptr == 42);
+    LEARN_CHECK(g_ptr != nullptr);
+    LEARN_CHECK(*g_ptr == 42);
 }
 
 void demo_expert() {
     // constinit does not mean const; it means init is constant-initialization.
     constinit static int local = 5;
-    assert(local == 5);
+    LEARN_CHECK(local == 5);
     local = 6;
-    assert(local == 6);
+    LEARN_CHECK(local == 6);
 }
 
 int run(int argc, char** argv) {

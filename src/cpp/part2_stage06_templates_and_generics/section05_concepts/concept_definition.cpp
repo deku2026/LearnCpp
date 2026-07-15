@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <string>
 #include <type_traits>
@@ -39,20 +38,20 @@ std::size_t size_of(const T& t) {
 void demo_basics() {
     static_assert(Addable<int>);
     static_assert(Addable<std::string>);
-    assert(add_two(2, 3) == 5);
-    assert(add_two(std::string{"a"}, std::string{"b"}) == "ab");
+    LEARN_CHECK(add_two(2, 3) == 5);
+    LEARN_CHECK(add_two(std::string{"a"}, std::string{"b"}) == "ab");
 }
 
 void demo_intermediate() {
     static_assert(HasSize<std::string>);
-    assert(size_of(std::string{"xyz"}) == 3);
+    LEARN_CHECK(size_of(std::string{"xyz"}) == 3);
     static_assert(!HasSize<int>);
 }
 
 void demo_expert() {
     static_assert(std::integral<int>);
     static_assert(!std::integral<double>);
-    assert(add_two(1.5, 2.5) == 4.0);
+    LEARN_CHECK(add_two(1.5, 2.5) == 4.0);
     static_assert(Addable<double>);
 }
 

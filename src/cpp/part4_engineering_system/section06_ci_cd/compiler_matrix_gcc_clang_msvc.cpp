@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Catch non-portable code early
     const char* compilers[] = {"gcc", "clang", "msvc"};
-    assert(std::string_view{compilers[0]} == "gcc");
+    LEARN_CHECK(std::string_view{compilers[0]} == "gcc");
 }
 
 void demo_intermediate() {
     // Same standard flag: -std=c++23 /std:c++latest
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Treat warnings consistently per toolchain
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

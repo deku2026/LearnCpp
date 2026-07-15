@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -50,16 +49,16 @@ int bucket(int x) {
 }
 
 void demo_basics() {
-    assert(std::string{day_name(1)} == "mon");
-    assert(std::string{day_name(7)} == "sun");
-    assert(std::string{day_name(0)} == "unknown");
+    LEARN_CHECK(std::string{day_name(1)} == "mon");
+    LEARN_CHECK(std::string{day_name(7)} == "sun");
+    LEARN_CHECK(std::string{day_name(0)} == "unknown");
 }
 
 void demo_intermediate() {
-    assert(bucket(0) == 0);
-    assert(bucket(2) == 0);
-    assert(bucket(3) == 1);
-    assert(bucket(9) == 2);
+    LEARN_CHECK(bucket(0) == 0);
+    LEARN_CHECK(bucket(2) == 0);
+    LEARN_CHECK(bucket(3) == 1);
+    LEARN_CHECK(bucket(9) == 2);
 }
 
 void demo_expert() {
@@ -75,7 +74,7 @@ void demo_expert() {
         }
         return "?";
     };
-    assert(std::string{name(Color::Green)} == "g");
+    LEARN_CHECK(std::string{name(Color::Green)} == "g");
 }
 
 int run(int argc, char** argv) {

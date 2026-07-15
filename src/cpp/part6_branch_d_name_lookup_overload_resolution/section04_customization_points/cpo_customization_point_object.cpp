@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -39,17 +38,17 @@ inline constexpr size_fn size{};
 }  // namespace cpo
 
 void demo_basics() {
-    assert(cpo::size("hi") == 2);
+    LEARN_CHECK(cpo::size("hi") == 2);
 }
 
 void demo_intermediate() {
     user::Box b{5};
-    assert(cpo::size(b) == 5);
+    LEARN_CHECK(cpo::size(b) == 5);
 }
 
 void demo_expert() {
     // CPOs are function objects in an inline namespace; users customize via ADL.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

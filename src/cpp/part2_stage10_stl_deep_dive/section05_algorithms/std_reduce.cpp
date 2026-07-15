@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <numeric>
 #include <vector>
 
@@ -17,20 +16,20 @@ namespace {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::reduce(v.begin(), v.end()) == 10);
-    assert(std::reduce(v.begin(), v.end(), 0) == 10);
+    LEARN_CHECK(std::reduce(v.begin(), v.end()) == 10);
+    LEARN_CHECK(std::reduce(v.begin(), v.end(), 0) == 10);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::reduce(v.begin(), v.end(), 1, std::multiplies<>()) == 24);
+    LEARN_CHECK(std::reduce(v.begin(), v.end(), 1, std::multiplies<>()) == 24);
 }
 
 void demo_expert() {
     std::vector<int> v{1, 2, 3, 4};
     // transform_reduce: map then fold
     auto r = std::transform_reduce(v.begin(), v.end(), 0, std::plus<>(), [](int x) { return x * x; });
-    assert(r == 30);
+    LEARN_CHECK(r == 30);
 }
 
 }  // namespace

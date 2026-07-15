@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdarg>
 #include <string>
 
@@ -34,25 +33,25 @@ int sum_fold(Args... args) {
 }
 
 void demo_basics() {
-    assert(sum_n(3, 1, 2, 3) == 6);
-    assert(sum_n(0) == 0);
+    LEARN_CHECK(sum_n(3, 1, 2, 3) == 6);
+    LEARN_CHECK(sum_n(0) == 0);
 }
 
 void demo_intermediate() {
-    assert(sum_n(4, 10, 20, 30, 40) == 100);
+    LEARN_CHECK(sum_n(4, 10, 20, 30, 40) == 100);
     // float promotes to double in C varargs — never va_arg as float.
     // Here we only pass ints: safe and portable.
-    assert(sum_n(2, -1, 1) == 0);
+    LEARN_CHECK(sum_n(2, -1, 1) == 0);
 }
 
 void demo_expert() {
     // Modern replacement: fold expression — type-checked at compile time.
-    assert(sum_fold(1, 2, 3, 4) == 10);
-    assert(sum_fold() == 0);
+    LEARN_CHECK(sum_fold(1, 2, 3, 4) == 10);
+    LEARN_CHECK(sum_fold() == 0);
 
     // C varargs: wrong va_arg type is UB. Do not use for new APIs.
     const std::string note = "use packs, not va_list";
-    assert(!note.empty());
+    LEARN_CHECK(!note.empty());
 }
 
 int run(int argc, char** argv) {

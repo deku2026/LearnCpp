@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <compare>
 #include <string>
 
@@ -30,27 +29,27 @@ void demo_basics() {
     Person a{"Ada", 1};
     Person b{"Ada", 2};
     Person c{"Bob", 1};
-    assert(a < b);
-    assert(a != b);
-    assert(a < c);
+    LEARN_CHECK(a < b);
+    LEARN_CHECK(a != b);
+    LEARN_CHECK(a < c);
 }
 
 void demo_intermediate() {
     OnlyEq a{1};
     OnlyEq b{1};
     OnlyEq c{2};
-    assert(a == b);
-    assert(a != c);
+    LEARN_CHECK(a == b);
+    LEARN_CHECK(a != c);
 }
 
 void demo_expert() {
     Person a{"Z", 9};
     Person b = a;
-    assert(a == b);
-    assert((a <=> b) == 0);
+    LEARN_CHECK(a == b);
+    LEARN_CHECK((a <=> b) == 0);
     // Lexicographic: base then members in declaration order.
     Person c{"Z", 10};
-    assert(a < c);
+    LEARN_CHECK(a < c);
 }
 
 int run(int argc, char** argv) {

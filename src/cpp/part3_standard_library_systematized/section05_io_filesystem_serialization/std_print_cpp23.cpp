@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -17,20 +16,20 @@ namespace {
 
 void demo_basics() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
-    assert(__cpp_lib_print >= 202207L);
+    LEARN_CHECK(__cpp_lib_print >= 202207L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
     // print is format + write; keep tests silent
     std::string s = "silent";
-    assert(s.size() == 6);
+    LEARN_CHECK(s.size() == 6);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

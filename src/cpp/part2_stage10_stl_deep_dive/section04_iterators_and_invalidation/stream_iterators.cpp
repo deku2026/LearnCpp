@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iterator>
 #include <sstream>
 #include <vector>
@@ -21,14 +20,14 @@ void demo_basics() {
     std::ostringstream oss;
     std::vector<int> v{1, 2, 3};
     std::copy(v.begin(), v.end(), std::ostream_iterator<int>(oss, " "));
-    assert(oss.str() == "1 2 3 ");
+    LEARN_CHECK(oss.str() == "1 2 3 ");
 }
 
 void demo_intermediate() {
     std::istringstream iss("10 20 30");
     std::vector<int> v;
     std::copy(std::istream_iterator<int>(iss), std::istream_iterator<int>(), std::back_inserter(v));
-    assert((v == std::vector<int>{10, 20, 30}));
+    LEARN_CHECK((v == std::vector<int>{10, 20, 30}));
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     std::ostringstream oss;
     std::copy_if(std::istream_iterator<int>(iss), std::istream_iterator<int>(), std::ostream_iterator<int>(oss, ","),
                  [](int x) { return x % 2 == 0; });
-    assert(oss.str() == "2,4,");
+    LEARN_CHECK(oss.str() == "2,4,");
 }
 
 }  // namespace

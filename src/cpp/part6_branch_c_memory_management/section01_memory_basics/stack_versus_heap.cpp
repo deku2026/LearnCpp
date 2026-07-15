@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <memory>
 
@@ -17,17 +16,17 @@ namespace {
 
 void demo_basics() {
     int stack = 42;
-    assert(stack == 42);
+    LEARN_CHECK(stack == 42);
     int* heap = new int(42);
-    assert(*heap == 42);
+    LEARN_CHECK(*heap == 42);
     delete heap;
 }
 
 void demo_intermediate() {
     auto up = std::make_unique<int>(7);
-    assert(*up == 7);
+    LEARN_CHECK(*up == 7);
     int arr[4] = {1, 2, 3, 4};
-    assert(arr[3] == 4);
+    LEARN_CHECK(arr[3] == 4);
 }
 
 void demo_expert() {
@@ -35,7 +34,7 @@ void demo_expert() {
     constexpr int n = 8;
     auto buf = std::make_unique<int[]>(n);
     for (int i = 0; i < n; ++i) buf[static_cast<std::size_t>(i)] = i;
-    assert(buf[7] == 7);
+    LEARN_CHECK(buf[7] == 7);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <version>
 
@@ -38,12 +37,12 @@ void demo_basics() {
 void demo_intermediate() {
     Unscoped u = U1;
     Scoped s = Scoped::S1;
-    assert(static_cast<int>(u) == 1);
-    assert(static_cast<int>(s) == 1);
+    LEARN_CHECK(static_cast<int>(u) == 1);
+    LEARN_CHECK(static_cast<int>(s) == 1);
 
     // Unscoped converts; scoped needs cast (shown above)
     int from_u = u;
-    assert(from_u == 1);
+    LEARN_CHECK(from_u == 1);
 }
 
 void demo_expert() {
@@ -65,13 +64,13 @@ void demo_expert() {
     };
 
 #if defined(__cpp_lib_is_scoped_enum) && __cpp_lib_is_scoped_enum >= 202011L
-    assert(describe(U0) == 1);
-    assert(describe(Scoped::S0) == 2);
+    LEARN_CHECK(describe(U0) == 1);
+    LEARN_CHECK(describe(Scoped::S0) == 2);
 #else
-    assert(describe(U0) == 1);
-    assert(describe(Scoped::S0) == 1);
+    LEARN_CHECK(describe(U0) == 1);
+    LEARN_CHECK(describe(Scoped::S0) == 1);
 #endif
-    assert(describe(0) == 0);
+    LEARN_CHECK(describe(0) == 0);
 
     static_assert(std::is_same_v<std::underlying_type_t<ScopedFixed>, int>);
 }

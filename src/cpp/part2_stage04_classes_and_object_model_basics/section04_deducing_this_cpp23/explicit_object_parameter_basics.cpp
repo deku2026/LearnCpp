@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 #if defined(__cpp_explicit_this_parameter)
@@ -26,12 +24,12 @@ void demo_basics() {
     Counter c;
     c.inc();
     c.inc();
-    assert(c.get() == 2);
+    LEARN_CHECK(c.get() == 2);
 }
 
 void demo_intermediate() {
     const Counter c{5};
-    assert(c.get() == 5);
+    LEARN_CHECK(c.get() == 5);
     // c.inc(); // would not bind non-const explicit object param
 }
 
@@ -39,18 +37,18 @@ void demo_expert() {
     // Call syntax stays obj.method(); object is the explicit first parameter.
     Counter c;
     c.inc();
-    assert((&c)->get() == 1);
+    LEARN_CHECK((&c)->get() == 1);
 }
 
 #else
 
 void demo_basics() {
     // Feature unavailable: safe no-op path.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
@@ -59,7 +57,7 @@ void demo_expert() {
 #else
     constexpr bool available = true;
 #endif
-    assert(!available);
+    LEARN_CHECK(!available);
 }
 
 #endif

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -19,17 +18,17 @@ void demo_basics() {
     // Common: ASan+UBSan; TSan alone; MSan alone
     std::string lane_a = "asan+ubsan";
     std::string lane_t = "tsan";
-    assert(lane_a != lane_t);
+    LEARN_CHECK(lane_a != lane_t);
 }
 
 void demo_intermediate() {
     // Do not mix ASan with TSan/MSan
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Document matrix in CI README
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -24,7 +23,7 @@ namespace {
 void demo_basics() {
     std::ostringstream out;
     out << "Hello" << ' ' << 42 << '\n';
-    assert(out.str() == "Hello 42\n");
+    LEARN_CHECK(out.str() == "Hello 42\n");
 
     std::cerr << "[iostream_basic_io] demo_basics ok\n";
 }
@@ -33,11 +32,11 @@ void demo_intermediate() {
     // '\\n' inserts a newline; endl inserts newline and flushes.
     std::ostringstream a;
     a << "line\n";
-    assert(a.str() == "line\n");
+    LEARN_CHECK(a.str() == "line\n");
 
     std::ostringstream b;
     b << "line" << std::endl;
-    assert(b.str() == "line\n");
+    LEARN_CHECK(b.str() == "line\n");
 
     // Prefer '\\n' when flush is not required; use endl / flush when needed.
     std::cout << "[iostream_basic_io] prefer \\n over endl when flush is unnecessary\n";
@@ -47,15 +46,15 @@ void demo_intermediate() {
     int n = 0;
     std::string word;
     in >> n >> word;
-    assert(n == 7);
-    assert(word == "widgets");
-    assert(static_cast<bool>(in));
+    LEARN_CHECK(n == 7);
+    LEARN_CHECK(word == "widgets");
+    LEARN_CHECK(static_cast<bool>(in));
 }
 
 void demo_expert() {
     std::ostringstream oss;
     oss << std::boolalpha << true << ' ' << std::noboolalpha << false;
-    assert(oss.str() == "true 0");
+    LEARN_CHECK(oss.str() == "true 0");
 
     // Unitbuf / flush: cerr is typically unitbuf; cout is not.
     std::cerr << "[iostream_basic_io] cerr path\n";
@@ -68,7 +67,7 @@ void demo_expert() {
 #endif
 
     // Tied streams: cin is tied to cout by default so prompts flush before input.
-    assert(std::cin.tie() == &std::cout);
+    LEARN_CHECK(std::cin.tie() == &std::cout);
 }
 
 int run(int argc, char** argv) {

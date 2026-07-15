@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <vector>
 
@@ -30,7 +29,7 @@ int sum_checked(const std::vector<int>& v) {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3};
-    assert(sum_checked(v) == 6);
+    LEARN_CHECK(sum_checked(v) == 6);
 }
 
 void demo_intermediate() {
@@ -38,7 +37,7 @@ void demo_intermediate() {
     for (int i = 0; i < 4; ++i) {
         p[static_cast<std::size_t>(i)] = i;
     }
-    assert(p[0] == 0 && p[3] == 3);
+    LEARN_CHECK(p[0] == 0 && p[3] == 3);
     // Comment: p[4] would be ASan heap-buffer-overflow — not done.
 }
 
@@ -48,13 +47,13 @@ void demo_expert() {
     int b = 200;
     // SAFE add with wider type if needed
     long long s = static_cast<long long>(a) + b;
-    assert(s == 300);
+    LEARN_CHECK(s == 300);
 
     int* p = nullptr;
     if (p != nullptr) {
-        assert(*p == 0);
+        LEARN_CHECK(*p == 0);
     }
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
 }
 
 int run(int argc, char** argv) {

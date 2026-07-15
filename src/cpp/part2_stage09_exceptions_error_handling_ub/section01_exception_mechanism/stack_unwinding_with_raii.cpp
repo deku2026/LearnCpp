@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 
@@ -33,12 +32,12 @@ void demo_basics() {
     int live = 0;
     try {
         Guard g(live);
-        assert(live == 1);
+        LEARN_CHECK(live == 1);
         may_throw(true);
     } catch (const std::runtime_error&) {
-        assert(live == 0);  // destructor ran during unwind
+        LEARN_CHECK(live == 0);  // destructor ran during unwind
     }
-    assert(live == 0);
+    LEARN_CHECK(live == 0);
 }
 
 void demo_intermediate() {
@@ -46,10 +45,10 @@ void demo_intermediate() {
     try {
         Guard a(live);
         Guard b(live);
-        assert(live == 2);
+        LEARN_CHECK(live == 2);
         may_throw(true);
     } catch (...) {
-        assert(live == 0);
+        LEARN_CHECK(live == 0);
     }
 }
 
@@ -57,10 +56,10 @@ void demo_expert() {
     int live = 0;
     {
         Guard g(live);
-        assert(live == 1);
+        LEARN_CHECK(live == 1);
         may_throw(false);
     }
-    assert(live == 0);
+    LEARN_CHECK(live == 0);
 
     // Nested scopes still unwind innermost first.
     int order = 0;
@@ -75,7 +74,7 @@ void demo_expert() {
         throw 1;
     } catch (...) {
         // b then a: order becomes 2 then 21
-        assert(order == 21);
+        LEARN_CHECK(order == 21);
     }
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <type_traits>
 #include <utility>
@@ -18,8 +17,8 @@ namespace {
 
 void demo_basics() {
     auto add = [](auto a, auto b) { return a + b; };
-    assert(add(1, 2) == 3);
-    assert(add(1.5, 2.5) == 4.0);
+    LEARN_CHECK(add(1, 2) == 3);
+    LEARN_CHECK(add(1.5, 2.5) == 4.0);
 }
 
 void demo_intermediate() {
@@ -27,16 +26,16 @@ void demo_intermediate() {
         auto g = [x] { return x * 2; };
         return g;
     };
-    assert(f(5)() == 10);
+    LEARN_CHECK(f(5)() == 10);
     int binary = 0b1010;
-    assert(binary == 10);
+    LEARN_CHECK(binary == 10);
 }
 
 void demo_expert() {
     constexpr auto square = [](int x) { return x * x; };
     static_assert(square(4) == 16);
     auto p = std::make_unique<int>(9);
-    assert(*p == 9);
+    LEARN_CHECK(*p == 9);
 }
 
 int run(int argc, char** argv) {

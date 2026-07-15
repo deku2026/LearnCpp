@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -34,20 +33,20 @@ void generic_swap(T& a, T& b) {
 void demo_basics() {
     ns::Token a{1}, b{2};
     generic_swap(a, b);
-    assert(a.id == 2 && b.id == 1);
+    LEARN_CHECK(a.id == 2 && b.id == 1);
 }
 
 void demo_intermediate() {
     int x = 3, y = 4;
     generic_swap(x, y);
-    assert(x == 4 && y == 3);
+    LEARN_CHECK(x == 4 && y == 3);
 }
 
 void demo_expert() {
     ns::Token a{9}, b{8};
     using std::swap;
     swap(a, b);
-    assert(a.id == 8 && b.id == 9);
+    LEARN_CHECK(a.id == 8 && b.id == 9);
 }
 
 int run(int argc, char** argv) {

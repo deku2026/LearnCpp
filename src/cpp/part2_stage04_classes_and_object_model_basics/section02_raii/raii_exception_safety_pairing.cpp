@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <stdexcept>
 
@@ -43,7 +42,7 @@ void good_path(bool ok) {
     if (!everything_ok(ok)) {
         return;
     }
-    assert(g_locked == 1);
+    LEARN_CHECK(g_locked == 1);
 }
 
 void good_throw() {
@@ -54,9 +53,9 @@ void good_throw() {
 void demo_basics() {
     g_locked = 0;
     good_path(true);
-    assert(g_locked == 0);
+    LEARN_CHECK(g_locked == 0);
     good_path(false);
-    assert(g_locked == 0);
+    LEARN_CHECK(g_locked == 0);
 }
 
 void demo_intermediate() {
@@ -66,29 +65,29 @@ void demo_intermediate() {
     } catch (const std::runtime_error&) {
         // resource released on unwind
     }
-    assert(g_locked == 0);
+    LEARN_CHECK(g_locked == 0);
 }
 
 void demo_expert() {
     g_locked = 0;
     {
         std::lock_guard<std::mutex> lk(g_mtx);
-        assert(g_locked == 0);  // lock_guard does not use our counter
+        LEARN_CHECK(g_locked == 0);  // lock_guard does not use our counter
         // still exception-safe pairing for the mutex itself
     }
     // Nested RAII: outer + inner both release on scope exit.
     {
         CountingLock outer(g_mtx);
-        assert(g_locked == 1);
+        LEARN_CHECK(g_locked == 1);
         {
             // Cannot re-lock same non-recursive mutex; use a second mutex.
             static std::mutex other;
             CountingLock inner(other);
-            assert(g_locked == 2);
+            LEARN_CHECK(g_locked == 2);
         }
-        assert(g_locked == 1);
+        LEARN_CHECK(g_locked == 1);
     }
-    assert(g_locked == 0);
+    LEARN_CHECK(g_locked == 0);
 }
 
 int run(int argc, char** argv) {

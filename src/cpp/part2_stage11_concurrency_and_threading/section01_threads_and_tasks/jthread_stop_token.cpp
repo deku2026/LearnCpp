@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <chrono>
 #include <thread>
 
@@ -28,7 +27,7 @@ void demo_basics() {
         });
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
-    assert(ticks.load() >= 1);
+    LEARN_CHECK(ticks.load() >= 1);
 #else
     std::atomic<bool> stop{false};
     std::atomic<int> ticks{0};
@@ -41,7 +40,7 @@ void demo_basics() {
     std::this_thread::sleep_for(std::chrono::milliseconds(5));
     stop.store(true);
     worker.join();
-    assert(ticks.load() >= 1);
+    LEARN_CHECK(ticks.load() >= 1);
 #endif
 }
 
@@ -57,7 +56,7 @@ void demo_intermediate() {
         });
         worker.request_stop();
     }
-    assert(saw_stop.load());
+    LEARN_CHECK(saw_stop.load());
 #else
     std::atomic<bool> stop{false};
     std::atomic<bool> saw_stop{false};
@@ -69,7 +68,7 @@ void demo_intermediate() {
     });
     stop.store(true);
     worker.join();
-    assert(saw_stop.load());
+    LEARN_CHECK(saw_stop.load());
 #endif
 }
 
@@ -85,7 +84,7 @@ void demo_expert() {
         });
         std::this_thread::sleep_for(std::chrono::milliseconds(2));
     }
-    assert(cleaned.load() == 1);
+    LEARN_CHECK(cleaned.load() == 1);
 #else
     std::atomic<int> cleaned{0};
     std::atomic<bool> stop{false};
@@ -97,7 +96,7 @@ void demo_expert() {
     });
     stop.store(true);
     worker.join();
-    assert(cleaned.load() == 1);
+    LEARN_CHECK(cleaned.load() == 1);
 #endif
 }
 

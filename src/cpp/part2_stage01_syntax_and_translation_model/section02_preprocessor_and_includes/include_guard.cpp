@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 // Simulate a header body protected by the classic include-guard pattern.
 // Real headers wrap their entire content this way so a second #include is a no-op.
 
@@ -53,15 +51,15 @@ namespace {
 void demo_basics() {
     // Guard lets the first inclusion provide declarations/definitions.
     static_assert(learncpp_demo_k == 7);
-    assert(learncpp_demo_add(2, 3) == 5);
-    assert(learncpp_demo_guard_enter_count == 1);
+    LEARN_CHECK(learncpp_demo_add(2, 3) == 5);
+    LEARN_CHECK(learncpp_demo_guard_enter_count == 1);
 }
 
 void demo_intermediate() {
     // Second inclusion was skipped: values did not flip to the "unguarded" alternatives.
     static_assert(learncpp_demo_k != 999);
-    assert(learncpp_demo_k == 7);
-    assert(learncpp_demo_guard_enter_count == 1);
+    LEARN_CHECK(learncpp_demo_k == 7);
+    LEARN_CHECK(learncpp_demo_guard_enter_count == 1);
 
     // After first include, the guard macro is defined for the rest of this TU.
 #if defined(LEARNCPP_DEMO_MATH_UTILS_HPP_INCLUDED)
@@ -70,7 +68,7 @@ void demo_intermediate() {
     constexpr bool guard_active = false;
 #endif
     static_assert(guard_active);
-    assert(guard_active);
+    LEARN_CHECK(guard_active);
 }
 
 void demo_expert() {
@@ -78,7 +76,7 @@ void demo_expert() {
     // They do NOT stop the same header from appearing in many TUs (that's ODR/inline).
     constexpr int x = learncpp_demo_add(learncpp_demo_k, 1);
     static_assert(x == 8);
-    assert(x == 8);
+    LEARN_CHECK(x == 8);
 
     // Unique guard names matter: PROJECT_PATH_FILE_HPP style avoids macro collisions.
 #if defined(LEARNCPP_DEMO_UNGUARDED_TICK)
@@ -86,7 +84,7 @@ void demo_expert() {
 #else
     constexpr int unguarded_tick = 0;
 #endif
-    assert(unguarded_tick == 1);
+    LEARN_CHECK(unguarded_tick == 1);
 }
 
 int run(int argc, char** argv) {

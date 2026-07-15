@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
@@ -21,10 +20,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
     std::flat_multiset<int> fms{1, 2, 2, 3};
-    assert(fms.size() == 4);
-    assert(fms.count(2) == 2);
+    LEARN_CHECK(fms.size() == 4);
+    LEARN_CHECK(fms.count(2) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,10 +33,10 @@ void demo_intermediate() {
     fms.insert(5);
     fms.insert(1);
     fms.insert(5);
-    assert(fms.size() == 3);
-    assert(*fms.begin() == 1);
+    LEARN_CHECK(fms.size() == 3);
+    LEARN_CHECK(*fms.begin() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -45,11 +44,11 @@ void demo_expert() {
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
     std::flat_multiset<int> fms{3, 1, 2, 1};
     auto it = fms.find(1);
-    assert(it != fms.end());
+    LEARN_CHECK(it != fms.end());
     fms.erase(it);
-    assert(fms.count(1) == 1);
+    LEARN_CHECK(fms.count(1) == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

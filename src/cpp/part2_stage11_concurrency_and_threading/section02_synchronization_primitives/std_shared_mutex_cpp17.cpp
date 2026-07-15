@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <shared_mutex>
 #include <thread>
@@ -26,7 +25,7 @@ void demo_basics() {
     }
     {
         std::shared_lock<std::shared_mutex> r(sm);
-        assert(data == 10);
+        LEARN_CHECK(data == 10);
     }
 }
 
@@ -45,8 +44,8 @@ void demo_intermediate() {
     std::thread t2(reader);
     t1.join();
     t2.join();
-    assert(reads.size() == 2);
-    assert(reads[0] == 1 && reads[1] == 1);
+    LEARN_CHECK(reads.size() == 2);
+    LEARN_CHECK(reads[0] == 1 && reads[1] == 1);
 }
 
 void demo_expert() {
@@ -63,7 +62,7 @@ void demo_expert() {
         seen = data;
     });
     reader.join();
-    assert(seen == 42);
+    LEARN_CHECK(seen == 42);
 }
 
 int run(int argc, char** argv) {

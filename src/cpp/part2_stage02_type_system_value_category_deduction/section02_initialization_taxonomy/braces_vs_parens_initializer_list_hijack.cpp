@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -35,9 +34,9 @@ void demo_basics() {
     // Classic vector pitfall
     std::vector<int> by_size(3);  // 3 default elements
     std::vector<int> by_list{3};  // one element: 3
-    assert(by_size.size() == 3);
-    assert(by_list.size() == 1);
-    assert(by_list[0] == 3);
+    LEARN_CHECK(by_size.size() == 3);
+    LEARN_CHECK(by_list.size() == 1);
+    LEARN_CHECK(by_list[0] == 3);
 }
 
 void demo_intermediate() {
@@ -46,40 +45,40 @@ void demo_intermediate() {
     Tracker t3(1, 2);  // two-arg ctor
     Tracker t4{1, 2};  // initializer_list of two ints
 
-    assert(t1.kind == Tracker::FromSize);
-    assert(t1.a == 5);
+    LEARN_CHECK(t1.kind == Tracker::FromSize);
+    LEARN_CHECK(t1.a == 5);
 
-    assert(t2.kind == Tracker::FromList);
-    assert(t2.a == 1);
-    assert(t2.b == 5);
+    LEARN_CHECK(t2.kind == Tracker::FromList);
+    LEARN_CHECK(t2.a == 1);
+    LEARN_CHECK(t2.b == 5);
 
-    assert(t3.kind == Tracker::FromTwo);
-    assert(t3.a == 1 && t3.b == 2);
+    LEARN_CHECK(t3.kind == Tracker::FromTwo);
+    LEARN_CHECK(t3.a == 1 && t3.b == 2);
 
-    assert(t4.kind == Tracker::FromList);
-    assert(t4.a == 2);
-    assert(t4.b == 1);
+    LEARN_CHECK(t4.kind == Tracker::FromList);
+    LEARN_CHECK(t4.a == 2);
+    LEARN_CHECK(t4.b == 1);
 }
 
 void demo_expert() {
     // string: count+char vs initializer_list-like list of chars via string
     std::string repeated(3, 'x');
-    assert(repeated == "xxx");
+    LEARN_CHECK(repeated == "xxx");
 
     std::string listed{'a', 'b', 'c'};
-    assert(listed == "abc");
+    LEARN_CHECK(listed == "abc");
 
     // vector of strings: braces create list of strings, not size
     std::vector<std::string> names{"ann", "bob"};
-    assert(names.size() == 2);
+    LEARN_CHECK(names.size() == 2);
 
     // When you want size with braces-friendly types, construct explicitly.
     std::vector<int> sized = std::vector<int>(4);
-    assert(sized.size() == 4);
+    LEARN_CHECK(sized.size() == 4);
 
     // Empty braces value-init / default container
     std::vector<int> empty{};
-    assert(empty.empty());
+    LEARN_CHECK(empty.empty());
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -17,19 +16,19 @@ namespace {
 
 void demo_basics() {
     // CMake 3.28+ experimental/module support evolving
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
     // import std requires toolchain BMI/module map setup
     // This repo demos stay header-based for portability
     const bool header_based_demo = true;
-    assert(header_based_demo);
+    LEARN_CHECK(header_based_demo);
 }
 
 void demo_expert() {
     // Do not mix import std with conflicting header inclusion carelessly
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -21,17 +20,17 @@ void demo_basics() {
         int total;
     };
     Order o{10};
-    assert(o.total == 10);
+    LEARN_CHECK(o.total == 10);
 }
 
 void demo_intermediate() {
     // Test Order without QApplication
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Hexagonal/clean architecture boundaries
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

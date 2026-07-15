@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -20,7 +19,7 @@ void demo_basics() {
     int* p = AT::allocate(a, 2);
     AT::construct(a, p, 1);
     AT::construct(a, p + 1, 2);
-    assert(p[0] == 1 && p[1] == 2);
+    LEARN_CHECK(p[0] == 1 && p[1] == 2);
     AT::destroy(a, p + 1);
     AT::destroy(a, p);
     AT::deallocate(a, p, 2);
@@ -38,7 +37,7 @@ void demo_expert() {
     Other od;
     double* p = std::allocator_traits<Other>::allocate(od, 1);
     std::allocator_traits<Other>::construct(od, p, 1.5);
-    assert(*p == 1.5);
+    LEARN_CHECK(*p == 1.5);
     std::allocator_traits<Other>::destroy(od, p);
     std::allocator_traits<Other>::deallocate(od, p, 1);
 }

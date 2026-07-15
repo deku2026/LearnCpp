@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <vector>
 
@@ -41,13 +40,13 @@ void demo_basics() {
     CountingAllocator<int>::allocs = 0;
     std::vector<int, CountingAllocator<int>> v;
     v.push_back(1);
-    assert(v[0] == 1);
-    assert(CountingAllocator<int>::allocs >= 1);
+    LEARN_CHECK(v[0] == 1);
+    LEARN_CHECK(CountingAllocator<int>::allocs >= 1);
 }
 
 void demo_intermediate() {
     std::vector<int, CountingAllocator<int>> v{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
 }
 
 void demo_expert() {
@@ -55,7 +54,7 @@ void demo_expert() {
     {
         std::vector<int, CountingAllocator<int>> v;
         v.reserve(32);
-        assert(CountingAllocator<int>::allocs == 1);
+        LEARN_CHECK(CountingAllocator<int>::allocs == 1);
     }
 }
 

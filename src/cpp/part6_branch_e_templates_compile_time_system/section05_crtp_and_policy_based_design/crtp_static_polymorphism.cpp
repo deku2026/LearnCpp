@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 template <class D>
@@ -25,18 +23,18 @@ struct Vec : Counter<Vec> {
 
 void demo_basics() {
     Vec v;
-    assert(v.count() == 3);
+    LEARN_CHECK(v.count() == 3);
 }
 
 void demo_intermediate() {
     Vec v;
     v.n = 10;
-    assert(v.count() == 10);
+    LEARN_CHECK(v.count() == 10);
 }
 
 void demo_expert() {
     const Counter<Vec>& c = Vec{};
-    assert(c.count() == 3);
+    LEARN_CHECK(c.count() == 3);
 }
 
 int run(int argc, char** argv) {

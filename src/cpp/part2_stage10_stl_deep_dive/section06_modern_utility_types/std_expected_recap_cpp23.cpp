@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -31,32 +30,32 @@ std::expected<int, std::string> parse(int x) {
 void demo_basics() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     auto e = parse(5);
-    assert(e.has_value());
-    assert(*e == 5);
+    LEARN_CHECK(e.has_value());
+    LEARN_CHECK(*e == 5);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     auto e = parse(-1);
-    assert(!e);
-    assert(e.error() == "negative");
-    assert(e.value_or(0) == 0);
+    LEARN_CHECK(!e);
+    LEARN_CHECK(e.error() == "negative");
+    LEARN_CHECK(e.value_or(0) == 0);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     auto e = parse(2).transform([](int x) { return x * 3; });
-    assert(e == 6);
+    LEARN_CHECK(e == 6);
     auto f = parse(-2).transform_error([](const std::string& s) { return s + "!"; });
-    assert(!f && f.error() == "negative!");
+    LEARN_CHECK(!f && f.error() == "negative!");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

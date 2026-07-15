@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <expected>
 #include <optional>
 #include <string>
@@ -20,35 +19,35 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     std::expected<int, int> e = 10;
-    assert(e.has_value());
-    assert(*e == 10);
+    LEARN_CHECK(e.has_value());
+    LEARN_CHECK(*e == 10);
 #else
     std::optional<int> e = 10;
-    assert(e.has_value());
-    assert(*e == 10);
+    LEARN_CHECK(e.has_value());
+    LEARN_CHECK(*e == 10);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
     std::string s = "hello";
-    assert(s.contains("ell"));
+    LEARN_CHECK(s.contains("ell"));
 #else
     std::string s = "hello";
-    assert(s.find("ell") != std::string::npos);
+    LEARN_CHECK(s.find("ell") != std::string::npos);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
-    assert(__cpp_lib_print >= 202207L);
+    LEARN_CHECK(__cpp_lib_print >= 202207L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
-    assert(__cpp_lib_generator >= 202207L);
+    LEARN_CHECK(__cpp_lib_generator >= 202207L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

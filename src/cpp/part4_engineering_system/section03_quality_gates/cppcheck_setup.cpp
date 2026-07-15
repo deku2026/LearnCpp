@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // cppcheck --enable=all --std=c++23
     std::string tool = "cppcheck";
-    assert(tool == "cppcheck");
+    LEARN_CHECK(tool == "cppcheck");
 }
 
 void demo_intermediate() {
     // Complements clang-tidy; different false-positive profile
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Suppress carefully; prefer fixing root causes
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

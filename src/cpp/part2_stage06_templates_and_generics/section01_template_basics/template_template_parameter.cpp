@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <deque>
 #include <list>
 #include <vector>
@@ -23,11 +22,11 @@ class StackAdapter {
 public:
     void push(const T& v) { data_.push_back(v); }
     void pop() {
-        assert(!data_.empty());
+        LEARN_CHECK(!data_.empty());
         data_.pop_back();
     }
     T& top() {
-        assert(!data_.empty());
+        LEARN_CHECK(!data_.empty());
         return data_.back();
     }
     std::size_t size() const { return data_.size(); }
@@ -51,19 +50,19 @@ void demo_basics() {
     StackAdapter<int, std::vector> sv;
     sv.push(10);
     sv.push(20);
-    assert(sv.top() == 20);
+    LEARN_CHECK(sv.top() == 20);
     sv.pop();
-    assert(sv.top() == 10);
+    LEARN_CHECK(sv.top() == 10);
 }
 
 void demo_intermediate() {
     StackAdapter<int, std::deque> sd;
     sd.push(1);
     sd.push(2);
-    assert(sd.size() == 2);
+    LEARN_CHECK(sd.size() == 2);
 
-    assert(sum_first_three<std::vector>() == 6);
-    assert(sum_first_three<std::list>() == 6);
+    LEARN_CHECK(sum_first_three<std::vector>() == 6);
+    LEARN_CHECK(sum_first_three<std::list>() == 6);
 }
 
 void demo_expert() {
@@ -71,8 +70,8 @@ void demo_expert() {
     StackAdapter<char, std::vector> sc;
     sc.push('a');
     sc.push('b');
-    assert(sc.top() == 'b');
-    assert(sc.size() == 2);
+    LEARN_CHECK(sc.top() == 'b');
+    LEARN_CHECK(sc.size() == 2);
 }
 
 int run(int argc, char** argv) {

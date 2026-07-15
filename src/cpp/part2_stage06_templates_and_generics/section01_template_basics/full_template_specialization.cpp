@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <string>
 #include <type_traits>
@@ -47,15 +46,15 @@ constexpr int rank_of<std::string>() {
 }
 
 void demo_basics() {
-    assert(std::strcmp(TypeName<int>::get(), "int") == 0);
-    assert(std::strcmp(TypeName<double>::get(), "double") == 0);
-    assert(std::strcmp(TypeName<char>::get(), "generic") == 0);
+    LEARN_CHECK(std::strcmp(TypeName<int>::get(), "int") == 0);
+    LEARN_CHECK(std::strcmp(TypeName<double>::get(), "double") == 0);
+    LEARN_CHECK(std::strcmp(TypeName<char>::get(), "generic") == 0);
 }
 
 void demo_intermediate() {
     static_assert(rank_of<int>() == 0);
     static_assert(rank_of<void>() == -1);
-    assert(rank_of<std::string>() == 1);
+    LEARN_CHECK(rank_of<std::string>() == 1);
 }
 
 void demo_expert() {
@@ -63,8 +62,8 @@ void demo_expert() {
     static_assert(std::is_same_v<decltype(TypeName<int>::get()), const char*>);
 
     struct Custom {};
-    assert(std::strcmp(TypeName<Custom>::get(), "generic") == 0);
-    assert(rank_of<Custom>() == 0);
+    LEARN_CHECK(std::strcmp(TypeName<Custom>::get(), "generic") == 0);
+    LEARN_CHECK(rank_of<Custom>() == 0);
 }
 
 int run(int argc, char** argv) {

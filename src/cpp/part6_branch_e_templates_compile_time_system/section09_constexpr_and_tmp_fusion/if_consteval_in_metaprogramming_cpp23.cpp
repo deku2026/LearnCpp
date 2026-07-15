@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 constexpr int answer() {
@@ -27,12 +25,12 @@ constexpr int answer() {
 
 void demo_basics() {
     constexpr int c = answer();
-    assert(c == 42 || c == 24);
+    LEARN_CHECK(c == 42 || c == 24);
 }
 
 void demo_intermediate() {
     int r = answer();
-    assert(r == 42 || r == 24);
+    LEARN_CHECK(r == 42 || r == 24);
 }
 
 void demo_expert() {

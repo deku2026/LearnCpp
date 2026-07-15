@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -30,13 +29,13 @@ struct NoDefault {
 
 void demo_basics() {
     Implicit a;
-    assert(a.x == 0);
+    LEARN_CHECK(a.x == 0);
 
     ExplicitDefault b;
-    assert(b.x == 1);
+    LEARN_CHECK(b.x == 1);
 
     NoDefault c{5};
-    assert(c.x == 5);
+    LEARN_CHECK(c.x == 5);
 }
 
 void demo_intermediate() {
@@ -55,7 +54,7 @@ void demo_expert() {
     };
     Both d;
     Both e{9};
-    assert(d.x == 0 && e.x == 9);
+    LEARN_CHECK(d.x == 0 && e.x == 9);
 }
 
 int run(int argc, char** argv) {

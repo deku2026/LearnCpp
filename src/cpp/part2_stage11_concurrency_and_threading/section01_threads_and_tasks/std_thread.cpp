@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <numeric>
 #include <thread>
 #include <vector>
@@ -20,8 +19,8 @@ void demo_basics() {
     int result = 0;
     std::thread t([&result] { result = 42; });
     t.join();
-    assert(result == 42);
-    assert(!t.joinable());
+    LEARN_CHECK(result == 42);
+    LEARN_CHECK(!t.joinable());
 }
 
 void demo_intermediate() {
@@ -31,12 +30,12 @@ void demo_intermediate() {
     std::thread t2([&] { b = 2; });
     t1.join();
     t2.join();
-    assert(a == 1 && b == 2);
+    LEARN_CHECK(a == 1 && b == 2);
 
     int sum = 0;
     std::thread t3([](int x, int y, int* out) { *out = x + y; }, 3, 4, &sum);
     t3.join();
-    assert(sum == 7);
+    LEARN_CHECK(sum == 7);
 }
 
 void demo_expert() {
@@ -51,7 +50,7 @@ void demo_expert() {
         w.join();
     }
     const int total = std::accumulate(partial.begin(), partial.end(), 0);
-    assert(total == 10);
+    LEARN_CHECK(total == 10);
 }
 
 int run(int argc, char** argv) {

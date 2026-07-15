@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <functional>
 #include <optional>
 #include <tuple>
@@ -21,21 +20,21 @@ namespace {
 
 void demo_basics() {
     auto p = std::make_pair(1, 2);
-    assert(p.first == 1);
+    LEARN_CHECK(p.first == 1);
 }
 
 void demo_intermediate() {
     std::optional<int> o = 3;
-    assert(*o == 3);
+    LEARN_CHECK(*o == 3);
     std::variant<int, double> v = 1.5;
-    assert(std::holds_alternative<double>(v));
+    LEARN_CHECK(std::holds_alternative<double>(v));
 }
 
 void demo_expert() {
     std::function<int()> f = [] { return 1; };
-    assert(f() == 1);
+    LEARN_CHECK(f() == 1);
     std::any a = 9;
-    assert(std::any_cast<int>(a) == 9);
+    LEARN_CHECK(std::any_cast<int>(a) == 9);
 }
 
 int run(int argc, char** argv) {

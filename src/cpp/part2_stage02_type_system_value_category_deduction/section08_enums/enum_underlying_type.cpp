@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <type_traits>
 
@@ -21,11 +20,11 @@ enum Legacy { LegacyZero, LegacyOne };  // underlying implementation-defined
 
 void demo_basics() {
     Tiny t = Tiny::C;
-    assert(static_cast<std::uint8_t>(t) == 255);
+    LEARN_CHECK(static_cast<std::uint8_t>(t) == 255);
     static_assert(sizeof(Tiny) == 1);
 
     Wide w = Wide::Max;
-    assert(static_cast<std::int64_t>(w) == 1'000'000'000'000LL);
+    LEARN_CHECK(static_cast<std::int64_t>(w) == 1'000'000'000'000LL);
     static_assert(sizeof(Wide) == 8);
 }
 
@@ -36,7 +35,7 @@ void demo_intermediate() {
     static_assert(std::is_same_v<UWide, std::int64_t>);
 
     UTiny raw = static_cast<UTiny>(Tiny::B);
-    assert(raw == 1);
+    LEARN_CHECK(raw == 1);
 
     // Fixed underlying type enables forward declaration of enum class in other TUs.
     static_assert(std::is_same_v<std::underlying_type_t<Tiny>, unsigned char> ||
@@ -47,16 +46,16 @@ void demo_expert() {
     // Legacy unscoped enum still has some underlying type
     using UL = std::underlying_type_t<Legacy>;
     static_assert(std::is_integral_v<UL>);
-    assert(static_cast<UL>(LegacyOne) == 1);
+    LEARN_CHECK(static_cast<UL>(LegacyOne) == 1);
 
     // Arithmetic on underlying values after cast
     auto sum = static_cast<int>(Tiny::A) + static_cast<int>(Tiny::B);
-    assert(sum == 1);
+    LEARN_CHECK(sum == 1);
 
     // Choose width deliberately for ABI / serialization
     enum class WireCode : std::uint16_t { Ok = 200, NotFound = 404 };
     static_assert(sizeof(WireCode) == 2);
-    assert(static_cast<std::uint16_t>(WireCode::NotFound) == 404);
+    LEARN_CHECK(static_cast<std::uint16_t>(WireCode::NotFound) == 404);
 }
 
 int run(int argc, char** argv) {

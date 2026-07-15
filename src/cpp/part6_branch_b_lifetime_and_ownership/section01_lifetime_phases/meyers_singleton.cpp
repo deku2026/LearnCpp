@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -29,21 +28,21 @@ private:
 
 void demo_basics() {
     Config::instance().value = 7;
-    assert(Config::instance().value == 7);
+    LEARN_CHECK(Config::instance().value == 7);
 }
 
 void demo_intermediate() {
     Config& a = Config::instance();
     Config& b = Config::instance();
-    assert(&a == &b);
+    LEARN_CHECK(&a == &b);
     a.name = "app";
-    assert(b.name == "app");
+    LEARN_CHECK(b.name == "app");
 }
 
 void demo_expert() {
     // C++11: concurrent first entry is synchronized; later access is just a reference.
     Config::instance().value = 1;
-    assert(Config::instance().value == 1);
+    LEARN_CHECK(Config::instance().value == 1);
 }
 
 int run(int argc, char** argv) {

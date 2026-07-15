@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -132,9 +131,9 @@ void demo_basics() {
     int out = 0;
     auto r = use_ready(&out);
     r.resume();
-    assert(out == 11);
+    LEARN_CHECK(out == 11);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -143,22 +142,22 @@ void demo_intermediate() {
     int out = 0;
     auto r = use_ready(&out);
     r.resume();
-    assert(out == 11);
+    LEARN_CHECK(out == 11);
     r.resume();  // past suspend_always into ReadyFalse (suspends again)
     r.resume();  // complete ReadyFalse await_resume
-    assert(out == 22);
+    LEARN_CHECK(out == 22);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // If await_ready is true, await_suspend is skipped.
-    assert(ReadyTrue{}.await_ready());
-    assert(!ReadyFalse{}.await_ready());
+    LEARN_CHECK(ReadyTrue{}.await_ready());
+    LEARN_CHECK(!ReadyFalse{}.await_ready());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

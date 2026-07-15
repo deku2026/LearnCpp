@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -19,17 +18,17 @@ void demo_basics() {
     // -fsanitize=address /fsanitize=address
     // Demo safe code only — do not intentionally overflow
     int a[3] = {1, 2, 3};
-    assert(a[0] == 1 && a[2] == 3);
+    LEARN_CHECK(a[0] == 1 && a[2] == 3);
 }
 
 void demo_intermediate() {
     // Detects use-after-free, OOB, some leaks (with LSan)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Not compatible with TSan in same build typically
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

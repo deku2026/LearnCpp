@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 #if defined(__cpp_explicit_this_parameter)
@@ -30,19 +28,19 @@ struct Point {
 
 void demo_basics() {
     Point p{3, 4};
-    assert(p.sum() == 7);
+    LEARN_CHECK(p.sum() == 7);
 }
 
 void demo_intermediate() {
     Point p{1, 2};
     Point q = p.shifted(3, 5);
-    assert(q.x == 4 && q.y == 7);
+    LEARN_CHECK(q.x == 4 && q.y == 7);
     // by-value self: original unchanged
-    assert(p.x == 1 && p.y == 2);
+    LEARN_CHECK(p.x == 1 && p.y == 2);
 }
 
 void demo_expert() {
-    assert((Point{10, -3}.sum() == 7));
+    LEARN_CHECK((Point{10, -3}.sum() == 7));
 }
 
 #else
@@ -54,15 +52,15 @@ struct Point {
 };
 
 void demo_basics() {
-    assert(Point{3, 4}.sum() == 7);
+    LEARN_CHECK(Point{3, 4}.sum() == 7);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -21,9 +20,9 @@ void demo_basics() {
     std::vector<int> v{0, 1, 2, 3, 4, 5};
     auto s = v | std::views::stride(2);
     std::vector<int> out(s.begin(), s.end());
-    assert((out == std::vector<int>{0, 2, 4}));
+    LEARN_CHECK((out == std::vector<int>{0, 2, 4}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -31,9 +30,9 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_stride) && __cpp_lib_ranges_stride >= 202207L
     auto s = std::views::iota(0, 10) | std::views::stride(3);
     std::vector<int> out(s.begin(), s.end());
-    assert((out == std::vector<int>{0, 3, 6, 9}));
+    LEARN_CHECK((out == std::vector<int>{0, 3, 6, 9}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -41,9 +40,9 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_stride) && __cpp_lib_ranges_stride >= 202207L
     std::vector<int> v{1, 2, 3, 4, 5};
     auto s = v | std::views::stride(1);
-    assert(std::ranges::distance(s) == 5);
+    LEARN_CHECK(std::ranges::distance(s) == 5);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

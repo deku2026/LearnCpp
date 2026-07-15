@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -55,7 +54,7 @@ void demo_intermediate() {
     static_assert(std::is_same_v<Promote_t<int>, long>);
     static_assert(std::is_same_v<Promote_t<double>, double>);
     Promote_t<int> x = 1L;
-    assert(x == 1L);
+    LEARN_CHECK(x == 1L);
 }
 
 void demo_expert() {

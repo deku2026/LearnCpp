@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -20,33 +19,32 @@ namespace {
 
 void demo_basics() {
     auto x = 42;
-    assert(x == 42);
+    LEARN_CHECK(x == 42);
     std::nullptr_t np = nullptr;
     int* p = np;
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
     std::string s = R"(raw\n)";
-    assert(s == "raw\\n");
+    LEARN_CHECK(s == "raw\\n");
 }
 
 void demo_intermediate() {
     enum class Color : int { Red = 1, Blue = 2 };
-    assert(static_cast<int>(Color::Red) == 1);
+    LEARN_CHECK(static_cast<int>(Color::Red) == 1);
     std::vector<int> v{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
     auto lam = [](int a, int b) { return a + b; };
-    assert(lam(2, 3) == 5);
+    LEARN_CHECK(lam(2, 3) == 5);
 }
 
 void demo_expert() {
     static_assert(alignof(int) >= 1, "align");
     alignas(16) int buf[4]{};
-    assert(reinterpret_cast<std::uintptr_t>(buf) % 16 == 0 || true);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(buf) % 16 == 0 || true);
     int&& r = 1;
-    assert(r == 1);
-    using std::move;
+    LEARN_CHECK(r == 1);
     int a = 3;
-    int b = move(a);
-    assert(b == 3);
+    int b = std::move(a);
+    LEARN_CHECK(b == 3);
 }
 
 int run(int argc, char** argv) {

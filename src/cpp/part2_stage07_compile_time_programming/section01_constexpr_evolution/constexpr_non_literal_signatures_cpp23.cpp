@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -36,18 +35,18 @@ int twice_string_size(const std::string& s) {
 
 void demo_basics() {
     static_assert(twice_int(21) == 42);
-    assert(twice_int(21) == 42);
+    LEARN_CHECK(twice_int(21) == 42);
 }
 
 void demo_intermediate() {
     static_assert(len_of_array("hello", 16) == 5);
-    assert(len_of_array("ab", 8) == 2);
+    LEARN_CHECK(len_of_array("ab", 8) == 2);
 }
 
 void demo_expert() {
     // Non-literal std::string used at runtime only (safe portable teaching).
     std::string s = "abcd";
-    assert(twice_string_size(s) == 8);
+    LEARN_CHECK(twice_string_size(s) == 8);
 
 #if defined(__cpp_lib_constexpr_string) && __cpp_lib_constexpr_string >= 201907L
     // When available, string itself can participate in constexpr contexts elsewhere.

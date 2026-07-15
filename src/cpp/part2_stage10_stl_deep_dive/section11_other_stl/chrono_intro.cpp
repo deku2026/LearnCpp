@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <thread>
 
@@ -18,24 +17,24 @@ namespace {
 void demo_basics() {
     using namespace std::chrono_literals;
     auto d = 100ms;
-    assert(d == std::chrono::milliseconds(100));
-    assert(std::chrono::duration_cast<std::chrono::seconds>(1500ms).count() == 1);
+    LEARN_CHECK(d == std::chrono::milliseconds(100));
+    LEARN_CHECK(std::chrono::duration_cast<std::chrono::seconds>(1500ms).count() == 1);
 }
 
 void demo_intermediate() {
     const auto t0 = std::chrono::steady_clock::now();
     const auto t1 = t0 + std::chrono::milliseconds(50);
-    assert(t1 > t0);
-    assert(std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() == 50);
+    LEARN_CHECK(t1 > t0);
+    LEARN_CHECK(std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() == 50);
 }
 
 void demo_expert() {
     using clock = std::chrono::system_clock;
     const clock::time_point tp = clock::now();
     const std::time_t tt = clock::to_time_t(tp);
-    assert(tt != 0 || tt == 0);
+    LEARN_CHECK(tt != 0 || tt == 0);
     auto sec = std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch());
-    assert(sec.count() > 0);
+    LEARN_CHECK(sec.count() > 0);
 }
 
 }  // namespace

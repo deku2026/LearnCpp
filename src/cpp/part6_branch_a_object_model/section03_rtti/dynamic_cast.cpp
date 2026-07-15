@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
@@ -34,19 +33,19 @@ void demo_basics() {
     Derived d;
     Base* p = &d;
     Derived* ok = dynamic_cast<Derived*>(p);
-    assert(ok != nullptr);
-    assert(ok->extra() == 99);
+    LEARN_CHECK(ok != nullptr);
+    LEARN_CHECK(ok->extra() == 99);
 }
 
 void demo_intermediate() {
     Other o;
     Base* p = &o;
     Derived* fail = dynamic_cast<Derived*>(p);
-    assert(fail == nullptr);
+    LEARN_CHECK(fail == nullptr);
     try {
         Base& r = o;
         (void)dynamic_cast<Derived&>(r);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::bad_cast&) {
         // expected
     }
@@ -56,8 +55,8 @@ void demo_expert() {
     Derived d;
     Base* p = &d;
     void* complete = dynamic_cast<void*>(p);
-    assert(complete == static_cast<void*>(&d));
-    assert(dynamic_cast<Base*>(p)->tag() == 1);
+    LEARN_CHECK(complete == static_cast<void*>(&d));
+    LEARN_CHECK(dynamic_cast<Base*>(p)->tag() == 1);
 }
 
 }  // namespace

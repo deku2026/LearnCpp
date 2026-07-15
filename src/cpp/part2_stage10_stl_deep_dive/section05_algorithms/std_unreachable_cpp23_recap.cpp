@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 #if defined(__cpp_lib_unreachable) && __cpp_lib_unreachable >= 202202L
@@ -43,14 +42,14 @@ int only_positive(int x) {
 }
 
 void demo_basics() {
-    assert(classify(5) == 1);
-    assert(classify(-3) == -1);
-    assert(classify(0) == 0);
+    LEARN_CHECK(classify(5) == 1);
+    LEARN_CHECK(classify(-3) == -1);
+    LEARN_CHECK(classify(0) == 0);
 }
 
 void demo_intermediate() {
-    assert(only_positive(4) == 8);
-    assert(only_positive(-1) == -1);
+    LEARN_CHECK(only_positive(4) == 8);
+    LEARN_CHECK(only_positive(-1) == -1);
 }
 
 void demo_expert() {
@@ -61,8 +60,8 @@ void demo_expert() {
 #else
     constexpr bool has_unreachable = false;
 #endif
-    assert(has_unreachable || !has_unreachable);
-    assert(classify(1) != classify(-1));
+    LEARN_CHECK(has_unreachable || !has_unreachable);
+    LEARN_CHECK(classify(1) != classify(-1));
 }
 
 }  // namespace

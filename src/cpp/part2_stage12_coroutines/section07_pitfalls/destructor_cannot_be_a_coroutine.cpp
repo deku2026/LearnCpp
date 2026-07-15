@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -120,9 +119,9 @@ void demo_basics() {
     int n = 0;
     {
         S s(&n);
-        assert(n == 1);
+        LEARN_CHECK(n == 1);
     }
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 }
 
 void demo_intermediate() {
@@ -138,16 +137,16 @@ void demo_intermediate() {
     Holder h;
     auto r = h.go(&n);
     r.resume();
-    assert(n == 3);
+    LEARN_CHECK(n == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     static_assert(std::is_trivially_destructible_v<int>);
     // Keep cleanup in normal destructors; start coroutines from ordinary functions.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

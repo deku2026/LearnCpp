@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 extern "C" int c_api_square(int x) {
@@ -24,17 +22,17 @@ int c_api_neg(int x) {
 }
 
 void demo_basics() {
-    assert(c_api_square(4) == 16);
+    LEARN_CHECK(c_api_square(4) == 16);
 }
 
 void demo_intermediate() {
-    assert(c_api_neg(5) == -5);
+    LEARN_CHECK(c_api_neg(5) == -5);
 }
 
 void demo_expert() {
     using Fn = int (*)(int);
     Fn f = &c_api_square;
-    assert(f(3) == 9);
+    LEARN_CHECK(f(3) == 9);
 }
 
 int run(int argc, char** argv) {

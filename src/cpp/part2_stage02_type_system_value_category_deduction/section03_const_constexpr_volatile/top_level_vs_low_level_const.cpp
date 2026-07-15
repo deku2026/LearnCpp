@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -19,9 +18,9 @@ void demo_basics() {
     const int top = 1;
     int value = 2;
     int* const top_ptr = &value;  // top-level const on pointer
-    assert(top == 1);
+    LEARN_CHECK(top == 1);
     *top_ptr = 3;
-    assert(value == 3);
+    LEARN_CHECK(value == 3);
 }
 
 void demo_intermediate() {
@@ -30,18 +29,18 @@ void demo_intermediate() {
 
     // Low-level const: const applies to the object pointed/referred to.
     const int* low = &a;
-    assert(*low == 10);
+    LEARN_CHECK(*low == 10);
     low = &b;  // OK: pointer not top-level const
-    assert(*low == 20);
+    LEARN_CHECK(*low == 20);
 
     // Copying drops top-level const, keeps low-level const.
     const int c = 5;
     int copy = c;  // top-level const of c is ignored in copy
-    assert(copy == 5);
+    LEARN_CHECK(copy == 5);
 
     const int* p = &c;
     const int* q = p;  // low-level const preserved
-    assert(*q == 5);
+    LEARN_CHECK(*q == 5);
 }
 
 void demo_expert() {
@@ -61,15 +60,15 @@ void demo_expert() {
     LowPtr lp = &x;
     Both bp = &x;
     *tp = 2;
-    assert(x == 2);
-    assert(*lp == 2);
-    assert(*bp == 2);
+    LEARN_CHECK(x == 2);
+    LEARN_CHECK(*lp == 2);
+    LEARN_CHECK(*bp == 2);
 
     // auto drops top-level const
     const int n = 9;
     auto a = n;
     static_assert(std::is_same_v<decltype(a), int>);
-    assert(a == 9);
+    LEARN_CHECK(a == 9);
 }
 
 int run(int argc, char** argv) {

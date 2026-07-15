@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -34,12 +33,12 @@ int use_buffer(Buffer b) {
 
 void demo_basics() {
     Buffer b{10};
-    assert(b.size == 10);
-    assert(use_buffer(Buffer{7}) == 7);
+    LEARN_CHECK(b.size == 10);
+    LEARN_CHECK(use_buffer(Buffer{7}) == 7);
 
     Loose l = 5;
-    assert(l.size == 5);
-    assert(use_loose(3) == 3);
+    LEARN_CHECK(l.size == 5);
+    LEARN_CHECK(use_loose(3) == 3);
 }
 
 void demo_intermediate() {
@@ -52,10 +51,10 @@ void demo_intermediate() {
 void demo_expert() {
     // Prefer explicit on single-arg ctors unless conversion is intentional.
     Buffer b = Buffer{42};
-    assert(use_buffer(b) == 42);
+    LEARN_CHECK(use_buffer(b) == 42);
 
     Loose loose = 9;
-    assert(use_loose(loose) == 9);
+    LEARN_CHECK(use_loose(loose) == 9);
 }
 
 int run(int argc, char** argv) {

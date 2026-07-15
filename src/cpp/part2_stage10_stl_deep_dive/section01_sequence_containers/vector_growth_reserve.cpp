@@ -9,21 +9,20 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
 
 void demo_basics() {
     std::vector<int> v;
-    assert(v.size() == 0);
-    assert(v.capacity() == 0);
+    LEARN_CHECK(v.size() == 0);
+    LEARN_CHECK(v.capacity() == 0);
     v.push_back(1);
-    assert(v.size() == 1);
-    assert(v.capacity() >= 1);
+    LEARN_CHECK(v.size() == 1);
+    LEARN_CHECK(v.capacity() >= 1);
     v.reserve(32);
-    assert(v.capacity() >= 32);
-    assert(v.size() == 1);
+    LEARN_CHECK(v.capacity() >= 32);
+    LEARN_CHECK(v.size() == 1);
 }
 
 void demo_intermediate() {
@@ -33,13 +32,13 @@ void demo_intermediate() {
     for (int i = 0; i < 100; ++i) {
         v.push_back(i);
     }
-    assert(v.size() == 100);
-    assert(v.capacity() == cap);
+    LEARN_CHECK(v.size() == 100);
+    LEARN_CHECK(v.capacity() == cap);
     v.resize(50);
-    assert(v.size() == 50);
-    assert(v.capacity() >= 100);
+    LEARN_CHECK(v.size() == 50);
+    LEARN_CHECK(v.capacity() >= 100);
     v.shrink_to_fit();
-    assert(v.size() == 50);
+    LEARN_CHECK(v.size() == 50);
 }
 
 void demo_expert() {
@@ -53,12 +52,12 @@ void demo_expert() {
             prev = v.capacity();
         }
     }
-    assert(growths >= 1);
-    assert(v.capacity() >= v.size());
+    LEARN_CHECK(growths >= 1);
+    LEARN_CHECK(v.capacity() >= v.size());
     // reserve only grows capacity, never shrinks
     const auto c = v.capacity();
     v.reserve(10);
-    assert(v.capacity() == c);
+    LEARN_CHECK(v.capacity() == c);
 }
 
 }  // namespace

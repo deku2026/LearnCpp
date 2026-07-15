@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -33,28 +32,28 @@ int with_side_effect(int x, int y = next_default()) {
 }
 
 void demo_basics() {
-    assert(greet("Ada") == "Hi, Ada");
-    assert(greet("Bob", "Yo") == "Yo, Bob");
-    assert(scale(5) == 10);
-    assert(scale(5, 3) == 15);
-    assert(scale(5, 3, 1) == 16);
+    LEARN_CHECK(greet("Ada") == "Hi, Ada");
+    LEARN_CHECK(greet("Bob", "Yo") == "Yo, Bob");
+    LEARN_CHECK(scale(5) == 10);
+    LEARN_CHECK(scale(5, 3) == 15);
+    LEARN_CHECK(scale(5, 3, 1) == 16);
 }
 
 void demo_intermediate() {
     // Defaults must be right-contiguous; cannot skip middle args.
-    assert(scale(4, 1, 0) == 4);
+    LEARN_CHECK(scale(4, 1, 0) == 4);
     // Default expressions are not part of the function type/signature.
     using Fn = int (*)(int, int, int);
     Fn fp = scale;
-    assert(fp(2, 5, 1) == 11);
+    LEARN_CHECK(fp(2, 5, 1) == 11);
 }
 
 void demo_expert() {
     eval_count = 0;
-    assert(with_side_effect(10) == 11);
-    assert(eval_count == 1);
-    assert(with_side_effect(10, 100) == 110);
-    assert(eval_count == 1);  // default not evaluated when arg provided
+    LEARN_CHECK(with_side_effect(10) == 11);
+    LEARN_CHECK(eval_count == 1);
+    LEARN_CHECK(with_side_effect(10, 100) == 110);
+    LEARN_CHECK(eval_count == 1);  // default not evaluated when arg provided
 }
 
 int run(int argc, char** argv) {

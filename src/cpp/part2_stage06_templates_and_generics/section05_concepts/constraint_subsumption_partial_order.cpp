@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <type_traits>
 
@@ -47,22 +46,22 @@ int rank(T) {
 }
 
 void demo_basics() {
-    assert(score(3.5) == 1);
-    assert(score(3) == 2);
+    LEARN_CHECK(score(3.5) == 1);
+    LEARN_CHECK(score(3) == 2);
 }
 
 void demo_intermediate() {
-    assert(rank(3.0) == 0);
-    assert(rank(3u) == 1);
-    assert(rank(3) == 2);
+    LEARN_CHECK(rank(3.0) == 0);
+    LEARN_CHECK(rank(3u) == 1);
+    LEARN_CHECK(rank(3) == 2);
 }
 
 void demo_expert() {
     // signed_integral subsumes integral for signed types.
     static_assert(std::signed_integral<int>);
     static_assert(std::integral<int>);
-    assert(rank(static_cast<short>(-1)) == 2);
-    assert(rank(static_cast<unsigned short>(1)) == 1);
+    LEARN_CHECK(rank(static_cast<short>(-1)) == 2);
+    LEARN_CHECK(rank(static_cast<unsigned short>(1)) == 1);
 }
 
 int run(int argc, char** argv) {

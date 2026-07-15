@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <tuple>
 #include <type_traits>
 
@@ -34,14 +33,14 @@ void demo_basics() {
     static_assert(TypeList<int, double, char>::size == 3);
     static_assert(TypeList<>::size == 0);
     static_assert(IntList<1, 2, 3, 4>::size == 4);
-    assert(TypeList<int>::size == 1);
+    LEARN_CHECK(TypeList<int>::size == 1);
 }
 
 void demo_intermediate() {
     auto t = make_tuple_copy(1, 2.5, 'x');
-    assert(std::get<0>(t) == 1);
-    assert(std::get<1>(t) == 2.5);
-    assert(std::get<2>(t) == 'x');
+    LEARN_CHECK(std::get<0>(t) == 1);
+    LEARN_CHECK(std::get<1>(t) == 2.5);
+    LEARN_CHECK(std::get<2>(t) == 'x');
     static_assert(std::tuple_size_v<decltype(t)> == 3);
 }
 

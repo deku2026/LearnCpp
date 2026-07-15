@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -43,7 +42,7 @@ int& identity_ref(int& x) {
 }
 
 void demo_basics() {
-    assert(add(4, 5) == 9);
+    LEARN_CHECK(add(4, 5) == 9);
     static_assert(std::is_same_v<decltype(add(1, 2)), int>);
 }
 
@@ -51,22 +50,22 @@ void demo_intermediate() {
     int a = 1;
     int b = 2;
     pick_ref(a, b, true) = 9;
-    assert(a == 9);
+    LEARN_CHECK(a == 9);
     static_assert(std::is_same_v<decltype(pick_ref(a, b, true)), int&>);
 }
 
 void demo_expert() {
     g = 10;
     forward_g() = 20;
-    assert(g == 20);
+    LEARN_CHECK(g == 20);
     static_assert(std::is_same_v<decltype(forward_g()), int&>);
     static_assert(std::is_same_v<decltype(copy_g()), int>);
-    assert(copy_g() == 20);
+    LEARN_CHECK(copy_g() == 20);
 
     int x = 3;
     int& r = invoke_and_forward(identity_ref, x);
     r = 8;
-    assert(x == 8);
+    LEARN_CHECK(x == 8);
 }
 
 int run(int argc, char** argv) {

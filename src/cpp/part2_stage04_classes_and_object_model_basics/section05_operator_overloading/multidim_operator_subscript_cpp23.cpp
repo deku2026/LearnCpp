@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -32,8 +31,8 @@ void demo_basics() {
     Matrix<int, 2, 3> m;
     m[0, 0] = 1;
     m[1, 2] = 9;
-    assert((m[0, 0] == 1));
-    assert((m[1, 2] == 9));
+    LEARN_CHECK((m[0, 0] == 1));
+    LEARN_CHECK((m[1, 2] == 9));
 }
 
 void demo_intermediate() {
@@ -43,8 +42,8 @@ void demo_intermediate() {
             m[i, j] = static_cast<int>(i * m.cols() + j);
         }
     }
-    assert((m[0, 1] == 1));
-    assert((m[1, 0] == 3));
+    LEARN_CHECK((m[0, 1] == 1));
+    LEARN_CHECK((m[1, 0] == 3));
 }
 
 void demo_expert() {
@@ -54,7 +53,7 @@ void demo_expert() {
         t[0, 1] = 5;
         return t;
     }();
-    assert((m[0, 1] == 5));
+    LEARN_CHECK((m[0, 1] == 5));
 }
 
 #else
@@ -71,15 +70,15 @@ public:
 void demo_basics() {
     Matrix<int, 2, 3> m;
     m.at(0, 0) = 1;
-    assert(m.at(0, 0) == 1);
+    LEARN_CHECK(m.at(0, 0) == 1);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

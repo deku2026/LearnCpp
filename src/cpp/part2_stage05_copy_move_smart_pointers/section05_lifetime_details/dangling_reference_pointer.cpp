@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <vector>
@@ -30,8 +29,8 @@ const std::string& good_ref_to_static() {
 }
 
 void demo_basics() {
-    assert(good_by_value() == "ok");
-    assert(good_ref_to_static() == "static");
+    LEARN_CHECK(good_by_value() == "ok");
+    LEARN_CHECK(good_ref_to_static() == "static");
 }
 
 void demo_intermediate() {
@@ -40,13 +39,13 @@ void demo_intermediate() {
     const int first = v[0];  // copy value, not a long-lived reference
     v.push_back(4);
     v.push_back(5);
-    assert(first == 1);
-    assert(v[0] == 1);
+    LEARN_CHECK(first == 1);
+    LEARN_CHECK(v[0] == 1);
 
     // After potential reallocation, re-acquire references.
     int& ref = v[0];
     ref = 10;
-    assert(v[0] == 10);
+    LEARN_CHECK(v[0] == 10);
 }
 
 void demo_expert() {
@@ -55,7 +54,7 @@ void demo_expert() {
     {
         auto p = std::make_unique<int>(5);
         raw_observer = p.get();  // borrow only while p lives
-        assert(*raw_observer == 5);
+        LEARN_CHECK(*raw_observer == 5);
     }
     // raw_observer is dangling here — do not dereference.
     raw_observer = nullptr;  // sanitize after owner death
@@ -63,14 +62,14 @@ void demo_expert() {
     // Prefer returning smart pointers or values over raw owning pointers.
     auto factory = []() { return std::make_unique<std::string>("heap"); };
     auto s = factory();
-    assert(*s == "heap");
+    LEARN_CHECK(*s == "heap");
 
     // Reference into a still-alive object is fine.
     std::string owner = "alive";
     const std::string& r = owner;
-    assert(r == "alive");
+    LEARN_CHECK(r == "alive");
     owner += "!";
-    assert(r == "alive!");
+    LEARN_CHECK(r == "alive!");
 }
 
 int run(int argc, char** argv) {

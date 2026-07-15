@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <mutex>
 #include <thread>
 #include <vector>
@@ -21,14 +20,14 @@ thread_local int tls_counter = 0;
 
 void demo_basics() {
     tls_counter = 5;
-    assert(tls_counter == 5);
+    LEARN_CHECK(tls_counter == 5);
     std::thread t([] {
-        assert(tls_counter == 0);
+        LEARN_CHECK(tls_counter == 0);
         tls_counter = 9;
-        assert(tls_counter == 9);
+        LEARN_CHECK(tls_counter == 9);
     });
     t.join();
-    assert(tls_counter == 5);
+    LEARN_CHECK(tls_counter == 5);
 }
 
 void demo_intermediate() {
@@ -45,25 +44,25 @@ void demo_intermediate() {
     std::thread t2(work);
     t1.join();
     t2.join();
-    assert(seen.size() == 2);
-    assert(seen[0] == 2 && seen[1] == 2);
+    LEARN_CHECK(seen.size() == 2);
+    LEARN_CHECK(seen[0] == 2 && seen[1] == 2);
 }
 
 void demo_expert() {
     thread_local int* p = nullptr;
     int local = 1;
     p = &local;
-    assert(*p == 1);
+    LEARN_CHECK(*p == 1);
     std::atomic<int> other{0};
     std::thread t([&] {
-        assert(p == nullptr);
+        LEARN_CHECK(p == nullptr);
         int x = 7;
         p = &x;
         other.store(*p);
     });
     t.join();
-    assert(other.load() == 7);
-    assert(*p == 1);
+    LEARN_CHECK(other.load() == 7);
+    LEARN_CHECK(*p == 1);
 }
 
 int run(int argc, char** argv) {

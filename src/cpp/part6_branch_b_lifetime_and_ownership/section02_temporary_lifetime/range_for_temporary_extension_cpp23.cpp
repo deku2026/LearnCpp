@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -23,7 +22,7 @@ void demo_basics() {
     for (int x : make_vec()) {
         sum += x;
     }
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_intermediate() {
     for (int x : make_vec()) {
         product *= x;
     }
-    assert(product == 6);
+    LEARN_CHECK(product == 6);
 }
 
 void demo_expert() {
@@ -40,8 +39,8 @@ void demo_expert() {
     // Teaching: C++23 addresses some lifetime gaps for range-for initializers;
     // still avoid returning references into temporaries from helpers.
     const auto& range = make_vec();
-    assert(range.size() == 3);
-    assert(range[0] == 1);
+    LEARN_CHECK(range.size() == 3);
+    LEARN_CHECK(range[0] == 1);
 #endif
 }
 

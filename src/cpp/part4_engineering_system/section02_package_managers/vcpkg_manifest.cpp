@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // { "dependencies": ["fmt", "gtest"] }
     std::string manifest = "vcpkg.json";
-    assert(manifest.ends_with(".json"));
+    LEARN_CHECK(manifest.ends_with(".json"));
 }
 
 void demo_intermediate() {
     // cmake -DCMAKE_TOOLCHAIN_FILE=[vcpkg]/scripts/buildsystems/vcpkg.cmake
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // baseline/builtin-baseline pins registry for reproducibility
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

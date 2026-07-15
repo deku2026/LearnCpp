@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -21,12 +20,12 @@ void demo_basics() {
     {
         std::jthread t([&] { v.store(1); });
     }
-    assert(v.load() == 1);
+    LEARN_CHECK(v.load() == 1);
 #else
     std::atomic<int> v{0};
     std::thread t([&] { v.store(1); });
     t.join();
-    assert(v.load() == 1);
+    LEARN_CHECK(v.load() == 1);
 #endif
 }
 
@@ -37,14 +36,14 @@ void demo_intermediate() {
         std::jthread t1([&] { sum.fetch_add(3); });
         std::jthread t2([&] { sum.fetch_add(4); });
     }
-    assert(sum.load() == 7);
+    LEARN_CHECK(sum.load() == 7);
 #else
     std::atomic<int> sum{0};
     std::thread t1([&] { sum.fetch_add(3); });
     std::thread t2([&] { sum.fetch_add(4); });
     t1.join();
     t2.join();
-    assert(sum.load() == 7);
+    LEARN_CHECK(sum.load() == 7);
 #endif
 }
 
@@ -53,14 +52,14 @@ void demo_expert() {
     std::atomic<bool> ran{false};
     {
         std::jthread t([&](std::stop_token) { ran.store(true); });
-        assert(t.joinable());
+        LEARN_CHECK(t.joinable());
     }
-    assert(ran.load());
+    LEARN_CHECK(ran.load());
 #else
     std::atomic<bool> ran{false};
     std::thread t([&] { ran.store(true); });
     t.join();
-    assert(ran.load());
+    LEARN_CHECK(ran.load());
 #endif
 }
 

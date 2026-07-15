@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <type_traits>
@@ -41,29 +40,29 @@ void demo_basics() {
     SimpleVec<int> v;  // Allocator defaults to std::allocator<int>
     v.push(1);
     v.push(2);
-    assert(v.size() == 2);
+    LEARN_CHECK(v.size() == 2);
     static_assert(std::is_same_v<SimpleVec<int>::allocator_type, std::allocator<int>>);
 }
 
 void demo_intermediate() {
     ArrayLike<> a;  // T=int, N=4
     a.values[0] = 7;
-    assert(a.values[0] == 7);
+    LEARN_CHECK(a.values[0] == 7);
     static_assert(ArrayLike<>::size() == 4);
 
     ArrayLike<double, 2> d;
     d.values[1] = 1.5;
-    assert(d.values[1] == 1.5);
+    LEARN_CHECK(d.values[1] == 1.5);
     static_assert(ArrayLike<double, 2>::size() == 2);
 }
 
 void demo_expert() {
-    assert(convert_or_same(3) == 3);
-    assert((convert_or_same<int, double>(3) == 3.0));
+    LEARN_CHECK(convert_or_same(3) == 3);
+    LEARN_CHECK((convert_or_same<int, double>(3) == 3.0));
 
     SimpleVec<std::string> ss;
     ss.push("x");
-    assert(ss.data[0] == "x");
+    LEARN_CHECK(ss.data[0] == "x");
 }
 
 int run(int argc, char** argv) {

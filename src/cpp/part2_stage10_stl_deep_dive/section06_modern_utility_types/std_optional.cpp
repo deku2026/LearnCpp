@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 #include <version>
@@ -25,36 +24,36 @@ std::optional<int> parse_positive(int x) {
 
 void demo_basics() {
     std::optional<int> o;
-    assert(!o.has_value());
+    LEARN_CHECK(!o.has_value());
     o = 42;
-    assert(o.has_value());
-    assert(*o == 42);
-    assert(o.value() == 42);
+    LEARN_CHECK(o.has_value());
+    LEARN_CHECK(*o == 42);
+    LEARN_CHECK(o.value() == 42);
 }
 
 void demo_intermediate() {
     auto a = parse_positive(5);
     auto b = parse_positive(-1);
-    assert(a.value_or(0) == 5);
-    assert(b.value_or(0) == 0);
+    LEARN_CHECK(a.value_or(0) == 5);
+    LEARN_CHECK(b.value_or(0) == 0);
     std::optional<std::string> s = "hi";
     s.reset();
-    assert(!s);
+    LEARN_CHECK(!s);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     std::optional<int> o = 10;
     o = o.transform([](int x) { return x + 1; });
-    assert(o == 11);
+    LEARN_CHECK(o == 11);
     auto z = std::optional<int>{}.or_else([] { return std::optional<int>{7}; });
-    assert(z == 7);
+    LEARN_CHECK(z == 7);
 #else
     std::optional<int> o = 10;
     o = *o + 1;
-    assert(o == 11);
+    LEARN_CHECK(o == 11);
     std::optional<int> z = 7;
-    assert(z == 7);
+    LEARN_CHECK(z == 7);
 #endif
 }
 

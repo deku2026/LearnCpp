@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -47,26 +46,26 @@ public:
 void demo_basics() {
     Box a{1};
     Box b = a;
-    assert(b.get() == 1);
+    LEARN_CHECK(b.get() == 1);
     a = Box{2};
-    assert(a.get() == 2);
+    LEARN_CHECK(a.get() == 2);
 }
 
 void demo_intermediate() {
     Box a{5};
     Box b = std::move(a);
-    assert(a.empty());
-    assert(b.get() == 5);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(b.get() == 5);
 }
 
 void demo_expert() {
     Box a{3};
     Box b{4};
     b = std::move(a);
-    assert(a.empty());
-    assert(b.get() == 3);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(b.get() == 3);
     Box c = b;
-    assert(c.get() == 3);
+    LEARN_CHECK(c.get() == 3);
 }
 
 int run(int argc, char** argv) {

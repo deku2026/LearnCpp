@@ -11,7 +11,6 @@
 
 #include <atomic>
 #include <barrier>
-#include <cassert>
 #include <thread>
 #include <vector>
 
@@ -28,13 +27,13 @@ void demo_basics() {
     bar.arrive_and_wait();
     phase.fetch_add(1);
     t.join();
-    assert(phase.load() == 2);
+    LEARN_CHECK(phase.load() == 2);
 #else
     std::atomic<int> phase{0};
     std::thread t([&] { phase.fetch_add(1); });
     t.join();
     phase.fetch_add(1);
-    assert(phase.load() == 2);
+    LEARN_CHECK(phase.load() == 2);
 #endif
 }
 
@@ -55,7 +54,7 @@ void demo_intermediate() {
     for (auto& t : ts) {
         t.join();
     }
-    assert(hits.load() == 33);
+    LEARN_CHECK(hits.load() == 33);
 #else
     std::atomic<int> hits{0};
     std::vector<std::thread> ts;
@@ -68,7 +67,7 @@ void demo_intermediate() {
     for (auto& t : ts) {
         t.join();
     }
-    assert(hits.load() == 33);
+    LEARN_CHECK(hits.load() == 33);
 #endif
 }
 
@@ -79,11 +78,11 @@ void demo_expert() {
     std::thread t([&] { bar.arrive_and_wait(); });
     bar.arrive_and_wait();
     t.join();
-    assert(completions.load() == 1);
+    LEARN_CHECK(completions.load() == 1);
 #else
     std::atomic<int> completions{0};
     completions.fetch_add(1);
-    assert(completions.load() == 1);
+    LEARN_CHECK(completions.load() == 1);
 #endif
 }
 

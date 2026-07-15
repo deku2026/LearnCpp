@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <regex>
 #include <string>
 
@@ -17,16 +16,16 @@ namespace {
 
 void demo_basics() {
     std::regex re{R"(\d+)"};
-    assert(std::regex_match("123", re));
-    assert(!std::regex_match("12a", re));
+    LEARN_CHECK(std::regex_match("123", re));
+    LEARN_CHECK(!std::regex_match("12a", re));
 }
 
 void demo_intermediate() {
     std::string s = "id=42;name=bob";
     std::regex re{R"(id=(\d+))"};
     std::smatch m;
-    assert(std::regex_search(s, m, re));
-    assert(m[1] == "42");
+    LEARN_CHECK(std::regex_search(s, m, re));
+    LEARN_CHECK(m[1] == "42");
 }
 
 void demo_expert() {
@@ -40,8 +39,8 @@ void demo_expert() {
         ++n;
         sum += std::stoi(it->str());
     }
-    assert(n == 3);
-    assert(sum == 1 + 22 + 333);
+    LEARN_CHECK(n == 3);
+    LEARN_CHECK(sum == 1 + 22 + 333);
 }
 
 }  // namespace

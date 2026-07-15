@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iterator>
 #include <type_traits>
 #include <vector>
@@ -38,12 +37,12 @@ int my_distance(It first, It last) {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(my_distance(v.begin(), v.end()) == 4);
+    LEARN_CHECK(my_distance(v.begin(), v.end()) == 4);
 }
 
 void demo_intermediate() {
     int a[] = {1, 2, 3};
-    assert(my_distance(a, a + 3) == 3);
+    LEARN_CHECK(my_distance(a, a + 3) == 3);
 }
 
 void demo_expert() {
@@ -62,7 +61,7 @@ void demo_expert() {
         bool operator!=(InIt o) const { return p != o.p; }
     };
     int a[] = {1, 2};
-    assert(my_distance(InIt{a}, InIt{a + 2}) == 2);
+    LEARN_CHECK(my_distance(InIt{a}, InIt{a + 2}) == 2);
 }
 
 int run(int argc, char** argv) {

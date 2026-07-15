@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 
 // Object-like and function-like macros (text substitution only — no scope/types).
@@ -30,11 +29,11 @@ void demo_basics() {
     // #include pastes another file's text into this TU before the compiler parses C++.
     // We model that with a compile-time constant that would live in a header body.
     static_assert(k_pasted_from_header == 42);
-    assert(LEARN_PI == 3);
+    LEARN_CHECK(LEARN_PI == 3);
 
     constexpr int n = SQUARE_OK(5);
     static_assert(n == 25);
-    assert(n == 25);
+    LEARN_CHECK(n == 25);
 }
 
 void demo_intermediate() {
@@ -42,11 +41,11 @@ void demo_intermediate() {
     // SQUARE_BAD(1 + 2) becomes 1 + 2 * 1 + 2 == 5, not 9.
     constexpr int bad = SQUARE_BAD(1 + 2);
     static_assert(bad == 5);
-    assert(bad == 5);
+    LEARN_CHECK(bad == 5);
 
     constexpr int good = SQUARE_OK(1 + 2);
     static_assert(good == 9);
-    assert(good == 9);
+    LEARN_CHECK(good == 9);
 
     // Even with parens, macros still re-expand arguments (side-effect risk).
     // Safe demo: pure values only — never i++ inside a macro argument.
@@ -54,19 +53,19 @@ void demo_intermediate() {
     constexpr int b = 4;
     constexpr int product = SQUARE_OK(a) + SQUARE_OK(b);
     static_assert(product == 25);
-    assert(product == 25);
+    LEARN_CHECK(product == 25);
 }
 
 void demo_expert() {
     // Modern replacement: constexpr function — typed, scoped, single evaluation.
     static_assert(square_fn(1 + 2) == 9);
-    assert(square_fn(1 + 2) == 9);
-    assert(square_fn(5) == SQUARE_OK(5));
+    LEARN_CHECK(square_fn(1 + 2) == 9);
+    LEARN_CHECK(square_fn(5) == SQUARE_OK(5));
 
     // Angle-bracket vs quote includes differ only in search path; both are paste.
     // This TU already used #include "learn/topic_registry.hpp" (quote form).
     constexpr std::string_view note = "include = recursive text paste, not a module import";
-    assert(!note.empty());
+    LEARN_CHECK(!note.empty());
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -115,10 +114,10 @@ void demo_basics() {
         co_yield 1;
         co_yield 2;
     }();
-    assert(g.next() && g.value() == 1);
-    assert(g.next() && g.value() == 2);
+    LEARN_CHECK(g.next() && g.value() == 1);
+    LEARN_CHECK(g.next() && g.value() == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -133,9 +132,9 @@ void demo_intermediate() {
     while (g.next()) {
         out.push_back(g.value());
     }
-    assert((out == std::vector<int>{0, 1, 4}));
+    LEARN_CHECK((out == std::vector<int>{0, 1, 4}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -143,10 +142,10 @@ void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // co_yield expr => promise.yield_value(expr) then suspend.
     auto g = []() -> Gen<int> { co_yield 99; }();
-    assert(g.next());
-    assert(g.value() == 99);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 99);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

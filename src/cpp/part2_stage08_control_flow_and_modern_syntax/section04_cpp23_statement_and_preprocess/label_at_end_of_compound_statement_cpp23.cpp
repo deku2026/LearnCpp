@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int with_end_label(int x) {
@@ -42,13 +40,13 @@ int loop_end_label(int n) {
 }
 
 void demo_basics() {
-    assert(with_end_label(5) == 10);
-    assert(with_end_label(-3) == 3);
+    LEARN_CHECK(with_end_label(5) == 10);
+    LEARN_CHECK(with_end_label(-3) == 3);
 }
 
 void demo_intermediate() {
-    assert(loop_end_label(5) == 10);
-    assert(loop_end_label(0) == 0);
+    LEARN_CHECK(loop_end_label(5) == 10);
+    LEARN_CHECK(loop_end_label(0) == 0);
 }
 
 void demo_expert() {
@@ -58,7 +56,7 @@ void demo_expert() {
     goto end;
     x = 0;
 end:;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 }
 
 int run(int argc, char** argv) {

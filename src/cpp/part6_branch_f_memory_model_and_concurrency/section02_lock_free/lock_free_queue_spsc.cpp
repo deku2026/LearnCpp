@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 #include <vector>
 
@@ -42,9 +41,9 @@ public:
 
 void demo_basics() {
     SpscQueue q(4);
-    assert(q.push(1));
+    LEARN_CHECK(q.push(1));
     int v = 0;
-    assert(q.pop(v) && v == 1);
+    LEARN_CHECK(q.pop(v) && v == 1);
 }
 
 void demo_intermediate() {
@@ -60,7 +59,7 @@ void demo_intermediate() {
         int v = 0;
         while (got < 5) {
             if (q.pop(v)) {
-                assert(v == got);
+                LEARN_CHECK(v == got);
                 ++got;
             }
         }
@@ -71,10 +70,10 @@ void demo_intermediate() {
 
 void demo_expert() {
     SpscQueue q(2);
-    assert(q.push(9));
-    assert(!q.push(8));  // full (one slot reserved)
+    LEARN_CHECK(q.push(9));
+    LEARN_CHECK(!q.push(8));  // full (one slot reserved)
     int v = 0;
-    assert(q.pop(v) && v == 9);
+    LEARN_CHECK(q.pop(v) && v == 9);
 }
 
 int run(int argc, char** argv) {

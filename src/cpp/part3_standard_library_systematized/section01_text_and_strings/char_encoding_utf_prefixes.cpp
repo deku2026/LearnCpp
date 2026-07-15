@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -20,15 +19,15 @@ void demo_basics() {
     const char16_t* u = u"abc";
     const char32_t* U = U"abc";
     const wchar_t* w = L"abc";
-    assert(a[0] == 'a');
-    assert(u[0] == u'a');
-    assert(U[0] == U'a');
-    assert(w[0] == L'a');
+    LEARN_CHECK(a[0] == 'a');
+    LEARN_CHECK(u[0] == u'a');
+    LEARN_CHECK(U[0] == U'a');
+    LEARN_CHECK(w[0] == L'a');
 }
 
 void demo_intermediate() {
     const char8_t* u8 = u8"UTF-8";
-    assert(u8[0] == u8'U');
+    LEARN_CHECK(u8[0] == u8'U');
     static_assert(sizeof(char16_t) == 2);
     static_assert(sizeof(char32_t) == 4);
 }
@@ -36,7 +35,7 @@ void demo_intermediate() {
 void demo_expert() {
     // bytes != code points for multi-byte UTF-8
     std::string s = "A";
-    assert(s.size() == 1);
+    LEARN_CHECK(s.size() == 1);
     static_assert(std::is_same_v<decltype(u8"x"), const char8_t (&)[2]> ||
                   std::is_array_v<std::remove_reference_t<decltype(u8"x")>>);
 }

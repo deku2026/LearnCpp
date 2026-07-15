@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 #include <type_traits>
 
@@ -41,22 +40,22 @@ namespace {
 
 void demo_basics() {
     // Members of inline namespace are found via the enclosing namespace.
-    assert(api::version == 2);
-    assert(api::v2::version == 2);
-    assert(api::v1::version == 1);
-    assert(api::name() == "v2");
-    assert(api::v1::name() == "v1");
+    LEARN_CHECK(api::version == 2);
+    LEARN_CHECK(api::v2::version == 2);
+    LEARN_CHECK(api::v1::version == 1);
+    LEARN_CHECK(api::name() == "v2");
+    LEARN_CHECK(api::v1::name() == "v1");
 }
 
 void demo_intermediate() {
     api::Config c{};
-    assert(c.flags == 2);
+    LEARN_CHECK(c.flags == 2);
 
     api::v1::Config old{};
-    assert(old.flags == 1);
+    LEARN_CHECK(old.flags == 1);
 
     // Explicit nested name always works regardless of which is inline.
-    assert(api::v2::Config{}.flags == 2);
+    LEARN_CHECK(api::v2::Config{}.flags == 2);
     static_assert(api::v2::version == 2);
     static_assert(api::v1::version == 1);
 }
@@ -69,12 +68,12 @@ void demo_expert() {
     // Versioning pattern: clients use api::X; library can switch inline vN
     // without changing call sites (ABI still needs care for layout changes).
     const auto take = [](const api::Config& cfg) { return cfg.flags; };
-    assert(take(api::Config{}) == 2);
-    assert(take(api::v2::Config{}) == 2);
+    LEARN_CHECK(take(api::Config{}) == 2);
+    LEARN_CHECK(take(api::v2::Config{}) == 2);
 
     // Nested access remains available for pin-to-version call sites.
-    assert(api::v1::name() == "v1");
-    assert(api::v2::name() == "v2");
+    LEARN_CHECK(api::v1::name() == "v1");
+    LEARN_CHECK(api::v2::name() == "v2");
 }
 
 int run(int argc, char** argv) {

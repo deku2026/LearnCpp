@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -36,11 +35,11 @@ void demo_basics() {
 
 void demo_intermediate() {
     A a;
-    assert(a.serialize() == 1);
+    LEARN_CHECK(a.serialize() == 1);
 }
 
 void demo_expert() {
-    assert(is_serializable<A>::value);
+    LEARN_CHECK(is_serializable<A>::value);
 }
 
 int run(int argc, char** argv) {

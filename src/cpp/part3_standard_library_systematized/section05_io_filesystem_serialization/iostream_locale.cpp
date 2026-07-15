@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <locale>
 #include <sstream>
 #include <string>
@@ -18,14 +17,14 @@ namespace {
 
 void demo_basics() {
     std::locale classic = std::locale::classic();
-    assert(classic.name() == "C" || !classic.name().empty() || classic.name().empty());
+    LEARN_CHECK(classic.name() == "C" || !classic.name().empty() || classic.name().empty());
 }
 
 void demo_intermediate() {
     std::ostringstream os;
     os.imbue(std::locale::classic());
     os << 1234;
-    assert(os.str() == "1234");
+    LEARN_CHECK(os.str() == "1234");
 }
 
 void demo_expert() {
@@ -34,7 +33,7 @@ void demo_expert() {
     is.imbue(std::locale::classic());
     double d = 0;
     is >> d;
-    assert(d > 3.13 && d < 3.15);
+    LEARN_CHECK(d > 3.13 && d < 3.15);
 }
 
 int run(int argc, char** argv) {

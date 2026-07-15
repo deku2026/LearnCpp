@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 #include <ranges>
 #include <vector>
@@ -19,23 +18,23 @@ namespace {
 void demo_basics() {
     static_assert(std::ranges::sized_range<std::vector<int>>);
     std::vector<int> v{1, 2, 3};
-    assert(std::ranges::size(v) == 3);
+    LEARN_CHECK(std::ranges::size(v) == 3);
 }
 
 void demo_intermediate() {
     auto v = std::views::iota(0, 100);
     static_assert(std::ranges::sized_range<decltype(v)>);
-    assert(std::ranges::size(v) == 100);
+    LEARN_CHECK(std::ranges::size(v) == 100);
 }
 
 void demo_expert() {
     std::list<int> L{1, 2, 3};
     static_assert(std::ranges::sized_range<std::list<int>>);
-    assert(std::ranges::size(L) == 3);
+    LEARN_CHECK(std::ranges::size(L) == 3);
     auto f = L | std::views::filter([](int x) { return x > 0; });
     // filter_view is not sized_range
     static_assert(!std::ranges::sized_range<decltype(f)>);
-    assert(std::ranges::distance(f) == 3);
+    LEARN_CHECK(std::ranges::distance(f) == 3);
 }
 
 }  // namespace

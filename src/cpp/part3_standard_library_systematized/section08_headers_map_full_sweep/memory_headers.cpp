@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <memory_resource>
 #include <new>
@@ -19,12 +18,12 @@ namespace {
 
 void demo_basics() {
     auto p = std::make_unique<int>(1);
-    assert(*p == 1);
+    LEARN_CHECK(*p == 1);
 }
 
 void demo_intermediate() {
     std::pmr::vector<int> v{1, 2};
-    assert(v.size() == 2);
+    LEARN_CHECK(v.size() == 2);
 }
 
 void demo_expert() {

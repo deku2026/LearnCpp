@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <utility>
 
@@ -29,37 +28,37 @@ int observe_ref(const int& r) {
 }
 
 void take_unique(std::unique_ptr<int> p) {
-    assert(p != nullptr);
-    assert(*p == 42);
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(*p == 42);
 }
 
 void share(std::shared_ptr<int> p) {
-    assert(p.use_count() >= 1);
-    assert(*p == 7);
+    LEARN_CHECK(p.use_count() >= 1);
+    LEARN_CHECK(*p == 7);
 }
 
 void demo_basics() {
     auto owner = std::make_unique<int>(42);
-    assert(observe(owner.get()) == 42);
-    assert(owner != nullptr);  // still owns after borrow
-    assert(observe(nullptr) == -1);
+    LEARN_CHECK(observe(owner.get()) == 42);
+    LEARN_CHECK(owner != nullptr);  // still owns after borrow
+    LEARN_CHECK(observe(nullptr) == -1);
 }
 
 void demo_intermediate() {
     auto owner = std::make_unique<int>(42);
     take_unique(std::move(owner));  // ownership transfer
-    assert(owner == nullptr);
+    LEARN_CHECK(owner == nullptr);
 
     auto shared = std::make_shared<int>(7);
     share(shared);  // shared ownership copy
-    assert(shared.use_count() == 1);
-    assert(*shared == 7);
+    LEARN_CHECK(shared.use_count() == 1);
+    LEARN_CHECK(*shared == 7);
 }
 
 void demo_expert() {
     int stack = 11;
-    assert(observe(&stack) == 11);
-    assert(observe_ref(stack) == 11);
+    LEARN_CHECK(observe(&stack) == 11);
+    LEARN_CHECK(observe_ref(stack) == 11);
 
     // API design sketch:
     //  - take ownership: unique_ptr by value
@@ -68,8 +67,8 @@ void demo_expert() {
     auto factory = []() { return std::make_unique<int>(99); };
     auto p = factory();
     const int* borrowed = p.get();
-    assert(observe(borrowed) == 99);
-    assert(p != nullptr);
+    LEARN_CHECK(observe(borrowed) == 99);
+    LEARN_CHECK(p != nullptr);
 }
 
 int run(int argc, char** argv) {

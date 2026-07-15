@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <thread>
 
@@ -18,20 +17,20 @@ namespace {
 void demo_basics() {
     std::mutex m;
     std::unique_lock<std::mutex> lk(m);
-    assert(lk.owns_lock());
+    LEARN_CHECK(lk.owns_lock());
     lk.unlock();
-    assert(!lk.owns_lock());
+    LEARN_CHECK(!lk.owns_lock());
 }
 
 void demo_intermediate() {
     std::mutex m;
     int v = 0;
     std::unique_lock<std::mutex> lk(m, std::defer_lock);
-    assert(!lk.owns_lock());
+    LEARN_CHECK(!lk.owns_lock());
     lk.lock();
     v = 5;
     lk.unlock();
-    assert(v == 5);
+    LEARN_CHECK(v == 5);
 }
 
 void demo_expert() {
@@ -48,7 +47,7 @@ void demo_expert() {
     std::thread t2(work);
     t1.join();
     t2.join();
-    assert(shared == 22);
+    LEARN_CHECK(shared == 22);
 }
 
 int run(int argc, char** argv) {

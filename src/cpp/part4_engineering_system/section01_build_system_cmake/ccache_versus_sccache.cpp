@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // CMAKE_CXX_COMPILER_LAUNCHER=ccache
     std::string launcher = "ccache";
-    assert(launcher == "ccache" || launcher == "sccache");
+    LEARN_CHECK(launcher == "ccache" || launcher == "sccache");
 }
 
 void demo_intermediate() {
     // sccache: cloud-friendly; ccache: local classic
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Cache keys include flags, compiler, content hashes
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

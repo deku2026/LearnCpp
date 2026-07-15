@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -20,10 +19,10 @@ void demo_basics() {
 #if defined(__cpp_lib_ranges_chunk) && __cpp_lib_ranges_chunk >= 202202L
     std::vector<int> v{1, 2, 3, 4, 5};
     auto c = v | std::views::chunk(2);
-    assert(std::ranges::distance(c) == 3);
-    assert(std::ranges::distance(*c.begin()) == 2);
+    LEARN_CHECK(std::ranges::distance(c) == 3);
+    LEARN_CHECK(std::ranges::distance(*c.begin()) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,9 +33,9 @@ void demo_intermediate() {
     auto it = c.begin();
     ++it;
     ++it;
-    assert(std::ranges::distance(*it) == 1);  // last chunk remainder
+    LEARN_CHECK(std::ranges::distance(*it) == 1);  // last chunk remainder
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -47,9 +46,9 @@ void demo_expert() {
     for (auto chunk : c) {
         n += static_cast<int>(std::ranges::distance(chunk));
     }
-    assert(n == 6);
+    LEARN_CHECK(n == 6);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <semaphore>
 #include <thread>
 #include <vector>
@@ -21,12 +20,12 @@ void demo_basics() {
 #if defined(__cpp_lib_semaphore) && __cpp_lib_semaphore >= 201907L
     std::counting_semaphore<2> sem{1};
     sem.acquire();
-    assert(!sem.try_acquire());
+    LEARN_CHECK(!sem.try_acquire());
     sem.release();
-    assert(sem.try_acquire());
+    LEARN_CHECK(sem.try_acquire());
     sem.release();
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -40,12 +39,12 @@ void demo_intermediate() {
     });
     sem.release();
     t.join();
-    assert(got.load() == 1);
+    LEARN_CHECK(got.load() == 1);
 #else
     std::atomic<int> got{0};
     std::thread t([&] { got.store(1); });
     t.join();
-    assert(got.load() == 1);
+    LEARN_CHECK(got.load() == 1);
 #endif
 }
 
@@ -69,9 +68,9 @@ void demo_expert() {
     for (auto& t : ts) {
         t.join();
     }
-    assert(max_seen.load() <= 3);
+    LEARN_CHECK(max_seen.load() <= 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

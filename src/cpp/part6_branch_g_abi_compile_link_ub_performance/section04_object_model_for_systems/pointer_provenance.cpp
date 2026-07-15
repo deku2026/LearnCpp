@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -19,16 +18,16 @@ void demo_basics() {
     int b = 2;
     int* pa = &a;
     int* pb = &b;
-    assert(pa != pb);
-    assert(*pa == 1 && *pb == 2);
+    LEARN_CHECK(pa != pb);
+    LEARN_CHECK(*pa == 1 && *pb == 2);
 }
 
 void demo_intermediate() {
     int arr[2] = {1, 2};
     int* p0 = &arr[0];
     int* p1 = p0 + 1;
-    assert(*p1 == 2);
-    assert(p1 - p0 == 1);
+    LEARN_CHECK(*p1 == 2);
+    LEARN_CHECK(p1 - p0 == 1);
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     // Stay within array bounds / object lifetime.
     int x = 0;
     auto addr = reinterpret_cast<std::uintptr_t>(&x);
-    assert(addr != 0);
+    LEARN_CHECK(addr != 0);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -59,37 +58,37 @@ void demo_basics() {
     std::string a = "alpha";
     std::string b = "beta";
     b = a;  // copy assignment
-    assert(a == "alpha");
-    assert(b == "alpha");
+    LEARN_CHECK(a == "alpha");
+    LEARN_CHECK(b == "alpha");
     a[0] = 'A';
-    assert(b == "alpha");
+    LEARN_CHECK(b == "alpha");
 }
 
 void demo_intermediate() {
     Buffer a(3);
     Buffer b(1);
     b = a;
-    assert(b.size() == 3);
-    assert(b.at(2) == 2);
+    LEARN_CHECK(b.size() == 3);
+    LEARN_CHECK(b.at(2) == 2);
     b.set(0, 42);
-    assert(a.at(0) == 0);
-    assert(b.at(0) == 42);
+    LEARN_CHECK(a.at(0) == 0);
+    LEARN_CHECK(b.at(0) == 42);
 }
 
 void demo_expert() {
     Buffer a(5);
     Buffer& alias = a;
     a = alias;  // self-assignment via alias must be safe
-    assert(a.size() == 5);
-    assert(a.at(4) == 4);
+    LEARN_CHECK(a.size() == 5);
+    LEARN_CHECK(a.at(4) == 4);
 
     Buffer left(2);
     Buffer right(4);
     left = right;
-    assert(left.size() == 4);
-    assert(right.size() == 4);
+    LEARN_CHECK(left.size() == 4);
+    LEARN_CHECK(right.size() == 4);
     left.set(1, 7);
-    assert(right.at(1) == 1);
+    LEARN_CHECK(right.at(1) == 1);
 }
 
 int run(int argc, char** argv) {

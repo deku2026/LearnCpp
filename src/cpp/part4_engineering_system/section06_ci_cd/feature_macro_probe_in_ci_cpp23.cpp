@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -18,20 +17,20 @@ namespace {
 void demo_basics() {
     // CI can compile a small probe TU printing feature macros
 #if defined(__cplusplus)
-    assert(__cplusplus >= 201703L);
+    LEARN_CHECK(__cplusplus >= 201703L);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_format)
-    assert(__cpp_lib_format >= 201907L || __cpp_lib_format < 201907L);
+    LEARN_CHECK(__cpp_lib_format >= 201907L || __cpp_lib_format < 201907L);
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Gate optional demos; fail CI only for required baseline features
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

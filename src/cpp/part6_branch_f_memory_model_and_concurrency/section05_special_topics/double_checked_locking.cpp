@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <memory>
 #include <mutex>
 
@@ -41,16 +40,16 @@ std::atomic<Singleton*> Singleton::instance{nullptr};
 std::mutex Singleton::m;
 
 void demo_basics() {
-    assert(Singleton::get().value() == 42);
+    LEARN_CHECK(Singleton::get().value() == 42);
 }
 
 void demo_intermediate() {
-    assert(&Singleton::get() == &Singleton::get());
+    LEARN_CHECK(&Singleton::get() == &Singleton::get());
 }
 
 void demo_expert() {
     // Prefer function-local static (Meyers) unless you need lazy dynamic lifetime control.
-    assert(Singleton::get().value() == 42);
+    LEARN_CHECK(Singleton::get().value() == 42);
 }
 
 int run(int argc, char** argv) {

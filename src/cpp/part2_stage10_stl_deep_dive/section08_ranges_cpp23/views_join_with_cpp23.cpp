@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -23,9 +22,9 @@ void demo_basics() {
     std::vector<std::string> ws{"a", "b", "c"};
     auto j = ws | std::views::join_with('-');
     std::string s(j.begin(), j.end());
-    assert(s == "a-b-c");
+    LEARN_CHECK(s == "a-b-c");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,9 +33,9 @@ void demo_intermediate() {
     std::vector<std::string> ws{"xx", "yy"};
     auto j = ws | std::views::join_with(std::string_view{"::"});
     std::string s(j.begin(), j.end());
-    assert(s == "xx::yy");
+    LEARN_CHECK(s == "xx::yy");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -45,9 +44,9 @@ void demo_expert() {
     std::vector<std::vector<int>> vv{{1, 2}, {3}};
     auto j = vv | std::views::join_with(0);
     std::vector<int> out(j.begin(), j.end());
-    assert((out == std::vector<int>{1, 2, 0, 3}));
+    LEARN_CHECK((out == std::vector<int>{1, 2, 0, 3}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

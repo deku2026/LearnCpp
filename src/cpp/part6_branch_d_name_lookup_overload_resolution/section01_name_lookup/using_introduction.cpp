@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Base {
@@ -31,7 +29,7 @@ using a::g;
 }
 
 void demo_basics() {
-    assert(b::g == 1);
+    LEARN_CHECK(b::g == 1);
 }
 
 void demo_intermediate() {
@@ -39,13 +37,13 @@ void demo_intermediate() {
     d.f(1);    // Base::f(int) via using
     d.f(1.0);  // Base::f(double)
     d.f('x');  // Derived::f(char)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     using std_size = decltype(sizeof(0));
     std_size n = 3;
-    assert(n == 3);
+    LEARN_CHECK(n == 3);
 }
 
 int run(int argc, char** argv) {

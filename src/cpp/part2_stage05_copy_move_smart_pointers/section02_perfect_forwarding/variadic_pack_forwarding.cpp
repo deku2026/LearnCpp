@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <utility>
@@ -39,9 +38,9 @@ std::string join_forwarded(Args&&... args) {
 
 void demo_basics() {
     auto p = my_make_unique<Widget>(1, std::string{"w"});
-    assert(p != nullptr);
-    assert(p->id == 1);
-    assert(p->name == "w");
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(p->id == 1);
+    LEARN_CHECK(p->name == "w");
 }
 
 void demo_intermediate() {
@@ -49,22 +48,22 @@ void demo_intermediate() {
     std::string name = "alpha";
     v.emplace_back(7, name);                 // lvalue string -> copy into Widget
     v.emplace_back(8, std::string{"beta"});  // rvalue string -> move into Widget
-    assert(v.size() == 2);
-    assert(v[0].name == "alpha");
-    assert(v[1].name == "beta");
-    assert(name == "alpha");
+    LEARN_CHECK(v.size() == 2);
+    LEARN_CHECK(v[0].name == "alpha");
+    LEARN_CHECK(v[1].name == "beta");
+    LEARN_CHECK(name == "alpha");
 }
 
 void demo_expert() {
     std::string a = "A";
     std::string b = "B";
     auto s = join_forwarded(a, std::string{"-"}, std::move(b), "!");
-    assert(s == "A-B!");
-    assert(a == "A");
+    LEARN_CHECK(s == "A-B!");
+    LEARN_CHECK(a == "A");
 
     auto q = std::make_unique<Widget>(42, "std");
-    assert(q->id == 42);
-    assert(q->name == "std");
+    LEARN_CHECK(q->id == 42);
+    LEARN_CHECK(q->name == "std");
 }
 
 int run(int argc, char** argv) {

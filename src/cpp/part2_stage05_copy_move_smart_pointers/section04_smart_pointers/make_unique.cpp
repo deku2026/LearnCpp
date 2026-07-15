@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <utility>
@@ -29,26 +28,26 @@ std::unique_ptr<T> my_make_unique(Args&&... args) {
 
 void demo_basics() {
     auto p = std::make_unique<int>(42);
-    assert(p != nullptr);
-    assert(*p == 42);
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(*p == 42);
 }
 
 void demo_intermediate() {
     auto w = std::make_unique<Widget>(7, "seven");
-    assert(w->id == 7);
-    assert(w->name == "seven");
+    LEARN_CHECK(w->id == 7);
+    LEARN_CHECK(w->name == "seven");
 
     auto arr = std::make_unique<int[]>(3);
     arr[0] = 1;
     arr[1] = 2;
     arr[2] = 3;
-    assert(arr[2] == 3);
+    LEARN_CHECK(arr[2] == 3);
 }
 
 void demo_expert() {
     auto q = my_make_unique<Widget>(1, std::string{"custom"});
-    assert(q->id == 1);
-    assert(q->name == "custom");
+    LEARN_CHECK(q->id == 1);
+    LEARN_CHECK(q->name == "custom");
 
     // make_unique avoids naked new at call sites.
     auto release_and_rebuild = [](std::unique_ptr<int> p) {
@@ -57,7 +56,7 @@ void demo_expert() {
         return p;
     };
     auto r = release_and_rebuild(std::make_unique<int>(1));
-    assert(*r == 99);
+    LEARN_CHECK(*r == 99);
 }
 
 int run(int argc, char** argv) {

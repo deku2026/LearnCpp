@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <limits>
 #include <optional>
 
@@ -32,14 +31,14 @@ std::optional<int> try_div(int a, int b) {
 
 void demo_basics() {
     // SAFE: never divide by zero.
-    assert(safe_div(10, 2) == 5);
-    assert(safe_div(10, 0) == 0);
+    LEARN_CHECK(safe_div(10, 2) == 5);
+    LEARN_CHECK(safe_div(10, 0) == 0);
 }
 
 void demo_intermediate() {
     auto r = try_div(9, 3);
-    assert(r.has_value() && *r == 3);
-    assert(!try_div(1, 0).has_value());
+    LEARN_CHECK(r.has_value() && *r == 3);
+    LEARN_CHECK(!try_div(1, 0).has_value());
 }
 
 void demo_expert() {
@@ -50,8 +49,8 @@ void demo_expert() {
     int max = std::numeric_limits<int>::max();
     // SAFE contrast: detect would-be overflow instead of overflowing.
     bool would_overflow = max > 0 && max > std::numeric_limits<int>::max() - 1;
-    assert(would_overflow);
-    assert(max == std::numeric_limits<int>::max());
+    LEARN_CHECK(would_overflow);
+    LEARN_CHECK(max == std::numeric_limits<int>::max());
 }
 
 int run(int argc, char** argv) {

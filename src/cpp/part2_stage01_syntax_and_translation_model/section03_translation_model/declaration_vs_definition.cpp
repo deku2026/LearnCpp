@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -53,26 +52,26 @@ Opaque* opaque_null() {
 
 void demo_basics() {
     // Call uses the declaration; linker needs the definition we provided above.
-    assert(scale(21) == 42);
+    LEARN_CHECK(scale(21) == 42);
 
     // Variable definition allocates storage; declaration alone does not.
-    assert(g_config == 42);
+    LEARN_CHECK(g_config == 42);
     g_config = 7;
-    assert(g_config == 7);
+    LEARN_CHECK(g_config == 7);
 }
 
 void demo_intermediate() {
     // Redeclarations must match; definition body is unique.
     Widget w{11};
-    assert(w.value() == 11);
+    LEARN_CHECK(w.value() == 11);
 
     // Incomplete type: can declare pointers/references, not define objects until complete.
     Opaque* p = opaque_null();
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
 
     Opaque o{99};
     p = &o;
-    assert(p->tag == 99);
+    LEARN_CHECK(p->tag == 99);
 }
 
 void demo_expert() {
@@ -92,15 +91,15 @@ void demo_expert() {
         int scale(int);
         return scale(n);
     };
-    assert(twice(5) == 10);
+    LEARN_CHECK(twice(5) == 10);
 
     // Type alias is a declaration that does not define a new type entity.
     using Counter = int;
     Counter c = scale(3);
-    assert(c == 6);
+    LEARN_CHECK(c == 6);
 
     std::string note = "declare often, define once";
-    assert(note.find("define") != std::string::npos);
+    LEARN_CHECK(note.find("define") != std::string::npos);
 }
 
 int run(int argc, char** argv) {

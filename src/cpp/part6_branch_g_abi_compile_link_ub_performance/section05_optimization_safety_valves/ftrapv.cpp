@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 
 namespace {
@@ -21,17 +20,17 @@ bool will_overflow_add(int a, int b) {
 }
 
 void demo_basics() {
-    assert(!will_overflow_add(10, 20));
-    assert(10 + 20 == 30);
+    LEARN_CHECK(!will_overflow_add(10, 20));
+    LEARN_CHECK(10 + 20 == 30);
 }
 
 void demo_intermediate() {
-    assert(will_overflow_add(INT_MAX, 1));
+    LEARN_CHECK(will_overflow_add(INT_MAX, 1));
 }
 
 void demo_expert() {
     // ftrapv is a debugging aid; production still needs defined algorithms.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <map>
 #include <string>
 #include <tuple>
@@ -26,25 +25,25 @@ struct Point {
 void demo_basics() {
     std::pair p{1, 2};
     auto [a, b] = p;
-    assert(a == 1);
-    assert(b == 2);
+    LEARN_CHECK(a == 1);
+    LEARN_CHECK(b == 2);
 
     auto t = std::make_tuple(3, 4.5, 'z');
     auto [i, d, c] = t;
-    assert(i == 3);
-    assert(d == 4.5);
-    assert(c == 'z');
+    LEARN_CHECK(i == 3);
+    LEARN_CHECK(d == 4.5);
+    LEARN_CHECK(c == 'z');
 }
 
 void demo_intermediate() {
     Point pt{10, 20};
     auto [x, y] = pt;
-    assert(x == 10);
-    assert(y == 20);
+    LEARN_CHECK(x == 10);
+    LEARN_CHECK(y == 20);
 
     std::array<int, 3> arr{7, 8, 9};
     auto [u, v, w] = arr;
-    assert(u + v + w == 24);
+    LEARN_CHECK(u + v + w == 24);
 }
 
 void demo_expert() {
@@ -54,13 +53,13 @@ void demo_expert() {
         (void)k;
         sum += val;
     }
-    assert(sum == 3);
+    LEARN_CHECK(sum == 3);
 
     // Reference binding mutates original.
     Point q{1, 2};
     auto& [rx, ry] = q;
     rx = 5;
-    assert(q.x == 5);
+    LEARN_CHECK(q.x == 5);
 }
 
 int run(int argc, char** argv) {

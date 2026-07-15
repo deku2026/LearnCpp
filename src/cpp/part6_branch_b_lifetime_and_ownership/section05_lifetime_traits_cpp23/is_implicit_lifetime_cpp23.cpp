@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -44,13 +43,13 @@ void demo_intermediate() {
 #else
     static_assert(!std::is_trivially_destructible_v<WithUserDtor>);
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Implicit lifetime matters for start_lifetime_as / byte buffers in systems code.
     alignas(int) unsigned char buf[sizeof(int)]{};
-    assert(sizeof(buf) == sizeof(int));
+    LEARN_CHECK(sizeof(buf) == sizeof(int));
 }
 
 int run(int argc, char** argv) {

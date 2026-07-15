@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <new>
 
 namespace {
@@ -19,10 +18,10 @@ void demo_basics() {
 #if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
     int* p = std::start_lifetime_as<int>(buf);
     *p = 5;
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
 #else
     int* p = new (buf) int(5);
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
 #endif
 }
 
@@ -32,17 +31,17 @@ void demo_intermediate() {
     int* a = std::start_lifetime_as_array<int>(buf, 2);
     a[0] = 1;
     a[1] = 2;
-    assert(a[0] + a[1] == 3);
+    LEARN_CHECK(a[0] + a[1] == 3);
 #else
     int* a = new (buf) int[2];
     a[0] = 1;
     a[1] = 2;
-    assert(a[0] + a[1] == 3);
+    LEARN_CHECK(a[0] + a[1] == 3);
 #endif
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

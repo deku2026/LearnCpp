@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -21,7 +20,7 @@ void demo_basics() {
     for (int x : v) {
         s += x;
     }
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
 }
 
 void demo_intermediate() {
@@ -29,14 +28,14 @@ void demo_intermediate() {
     for (int& x : v) {
         x *= 2;
     }
-    assert(v[0] == 2 && v[1] == 4 && v[2] == 6);
+    LEARN_CHECK(v[0] == 2 && v[1] == 4 && v[2] == 6);
 
     // auto&& binds to element correctly for generic code.
     int s = 0;
     for (auto&& e : v) {
         s += e;
     }
-    assert(s == 12);
+    LEARN_CHECK(s == 12);
 }
 
 void demo_expert() {
@@ -46,7 +45,7 @@ void demo_expert() {
     for (const auto& w : words) {
         total += w.size();
     }
-    assert(total == 6);
+    LEARN_CHECK(total == 6);
 
     // C-array also works.
     int a[] = {4, 5, 6};
@@ -54,7 +53,7 @@ void demo_expert() {
     for (int x : a) {
         p *= x;
     }
-    assert(p == 120);
+    LEARN_CHECK(p == 120);
 }
 
 int run(int argc, char** argv) {

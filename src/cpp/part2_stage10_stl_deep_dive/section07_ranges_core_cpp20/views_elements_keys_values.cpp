@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <ranges>
 #include <string>
@@ -21,8 +20,8 @@ void demo_basics() {
     std::map<std::string, int> m{{"a", 1}, {"b", 2}};
     auto keys = m | std::views::keys;
     std::vector<std::string> k(keys.begin(), keys.end());
-    assert(k.size() == 2);
-    assert(k[0] == "a");
+    LEARN_CHECK(k.size() == 2);
+    LEARN_CHECK(k[0] == "a");
 }
 
 void demo_intermediate() {
@@ -32,14 +31,14 @@ void demo_intermediate() {
     for (int x : vals) {
         sum += x;
     }
-    assert(sum == 30);
+    LEARN_CHECK(sum == 30);
 }
 
 void demo_expert() {
     std::vector<std::tuple<int, char, double>> v{{1, 'a', 1.5}, {2, 'b', 2.5}};
     auto mid = v | std::views::elements<1>;
     std::vector<char> out(mid.begin(), mid.end());
-    assert((out == std::vector<char>{'a', 'b'}));
+    LEARN_CHECK((out == std::vector<char>{'a', 'b'}));
 }
 
 }  // namespace

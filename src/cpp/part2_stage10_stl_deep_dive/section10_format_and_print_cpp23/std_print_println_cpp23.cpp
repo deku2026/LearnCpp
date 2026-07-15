@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 #include <version>
@@ -26,9 +25,9 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const auto s = std::format("Hello {}", 42);
-    assert(s == "Hello 42");
+    LEARN_CHECK(s == "Hello 42");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -36,12 +35,12 @@ void demo_intermediate() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     // print to stringstream via format for assertable demo
     const auto s = std::format("x={} y={}", 1, 2);
-    assert(s == "x=1 y=2");
+    LEARN_CHECK(s == "x=1 y=2");
 #else
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-    assert(std::format("{}", 7) == "7");
+    LEARN_CHECK(std::format("{}", 7) == "7");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
 }
@@ -50,11 +49,11 @@ void demo_expert() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     // Prefer print/println over iostream for formatted output when available
     // Avoid calling print in unit demos that capture stdout; use format
-    assert(std::format("{:.2f}", 3.14159) == "3.14");
+    LEARN_CHECK(std::format("{:.2f}", 3.14159) == "3.14");
 #elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-    assert(std::format("{:.2f}", 3.14159) == "3.14");
+    LEARN_CHECK(std::format("{:.2f}", 3.14159) == "3.14");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <string>
 #include <utility>
@@ -41,7 +40,7 @@ concept CallableWithInt = requires(T f) {
 void demo_basics() {
     static_assert(Incrementable<int>);
     static_assert(!Incrementable<std::string>);
-    assert(Incrementable<int>);
+    LEARN_CHECK(Incrementable<int>);
 }
 
 void demo_intermediate() {
@@ -53,7 +52,7 @@ void demo_intermediate() {
 void demo_expert() {
     auto f = [](int x) { return x + 1; };
     static_assert(CallableWithInt<decltype(f)>);
-    assert(f(41) == 42);
+    LEARN_CHECK(f(41) == 42);
 
     struct S {
         using value_type = int;

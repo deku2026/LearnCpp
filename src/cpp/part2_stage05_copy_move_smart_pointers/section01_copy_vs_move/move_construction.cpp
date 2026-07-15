@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -48,37 +47,37 @@ public:
 void demo_basics() {
     std::string a = "payload";
     std::string b = std::move(a);  // move construction
-    assert(b == "payload");
+    LEARN_CHECK(b == "payload");
     // a is valid but unspecified; reassignment is always safe
     a = "refilled";
-    assert(a == "refilled");
+    LEARN_CHECK(a == "refilled");
 }
 
 void demo_intermediate() {
     Buffer a(8);
     const int* old = a.data();
-    assert(a.size() == 8);
-    assert(a.at(0) == 1);
+    LEARN_CHECK(a.size() == 8);
+    LEARN_CHECK(a.at(0) == 1);
 
     Buffer b = std::move(a);  // steal pointer, null source
-    assert(b.size() == 8);
-    assert(b.data() == old);
-    assert(b.at(7) == 8);
-    assert(a.empty());
-    assert(a.data() == nullptr);
+    LEARN_CHECK(b.size() == 8);
+    LEARN_CHECK(b.data() == old);
+    LEARN_CHECK(b.at(7) == 8);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(a.data() == nullptr);
 }
 
 void demo_expert() {
     std::vector<std::string> src{"x", "y", "z"};
     const auto* first_ptr = src[0].data();
     std::vector<std::string> dst = std::move(src);
-    assert(dst.size() == 3);
-    assert(dst[0] == "x");
+    LEARN_CHECK(dst.size() == 3);
+    LEARN_CHECK(dst[0] == "x");
     // After move, src is valid; clear/assign are safe
     src.clear();
-    assert(src.empty());
+    LEARN_CHECK(src.empty());
     src.push_back("new");
-    assert(src.size() == 1);
+    LEARN_CHECK(src.size() == 1);
     (void)first_ptr;
 }
 

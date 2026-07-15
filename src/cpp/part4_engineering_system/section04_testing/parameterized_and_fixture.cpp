@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -23,20 +22,20 @@ void demo_basics() {
     };
     Fixture f;
     f.SetUp();
-    assert(f.value == 1);
+    LEARN_CHECK(f.value == 1);
 }
 
 void demo_intermediate() {
     // Parameterized: same test over value table
     int cases[] = {1, 2, 3};
     for (int c : cases) {
-        assert(c > 0);
+        LEARN_CHECK(c > 0);
     }
 }
 
 void demo_expert() {
     // Keep fixtures lean; avoid hidden global state
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

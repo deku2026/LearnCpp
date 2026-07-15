@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <functional>
 #include <numeric>
 #include <ranges>
@@ -25,14 +24,14 @@ void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
     // in_value_result: .in is the end iterator, .value is the folded result
     auto result = std::ranges::fold_left_with_iter(v, 0, std::plus<>{});
-    assert(result.value == 10);
-    assert(result.in == v.end());
+    LEARN_CHECK(result.value == 10);
+    LEARN_CHECK(result.in == v.end());
 #else
     std::vector<int> v{1, 2, 3, 4};
     auto val = std::accumulate(v.begin(), v.end(), 0);
     auto it = v.end();
-    assert(val == 10);
-    assert(it == v.end());
+    LEARN_CHECK(val == 10);
+    LEARN_CHECK(it == v.end());
 #endif
 }
 
@@ -40,14 +39,14 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{1, 2, 3, 4};
     auto result = std::ranges::fold_left_with_iter(v.begin(), v.begin() + 2, 0, std::plus<>{});
-    assert(result.value == 3);
-    assert(result.in == v.begin() + 2);
+    LEARN_CHECK(result.value == 3);
+    LEARN_CHECK(result.in == v.begin() + 2);
 #else
     std::vector<int> v{1, 2, 3, 4};
     auto it = v.begin() + 2;
     auto val = std::accumulate(v.begin(), it, 0);
-    assert(val == 3);
-    assert(it == v.begin() + 2);
+    LEARN_CHECK(val == 3);
+    LEARN_CHECK(it == v.begin() + 2);
 #endif
 }
 
@@ -55,14 +54,14 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{2, 3, 4};
     auto result = std::ranges::fold_left_with_iter(v, 1, std::multiplies<>{});
-    assert(result.value == 24);
-    assert(result.in == v.end());
+    LEARN_CHECK(result.value == 24);
+    LEARN_CHECK(result.in == v.end());
 #else
     std::vector<int> v{2, 3, 4};
     auto val = std::accumulate(v.begin(), v.end(), 1, std::multiplies<>{});
     auto it = v.end();
-    assert(val == 24);
-    assert(it == v.end());
+    LEARN_CHECK(val == 24);
+    LEARN_CHECK(it == v.end());
 #endif
 }
 

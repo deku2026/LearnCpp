@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -38,9 +37,9 @@ void demo_basics() {
     int n = 0;
     {
         ScopeGuard g([&] { n = 1; });
-        assert(n == 0);
+        LEARN_CHECK(n == 0);
     }
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 }
 
 void demo_intermediate() {
@@ -49,7 +48,7 @@ void demo_intermediate() {
         ScopeGuard g([&] { n = 1; });
         g.dismiss();
     }
-    assert(n == 0);
+    LEARN_CHECK(n == 0);
 }
 
 void demo_expert() {
@@ -59,7 +58,7 @@ void demo_expert() {
         throw 1;
     } catch (...) {
     }
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 }
 
 int run(int argc, char** argv) {

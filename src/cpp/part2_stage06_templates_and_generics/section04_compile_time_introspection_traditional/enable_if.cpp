@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -38,9 +37,9 @@ struct HasSize<T, std::enable_if_t<std::is_same_v<decltype(std::declval<T>().siz
 };
 
 void demo_basics() {
-    assert(classify(42) == 1);
-    assert(classify(3.14) == 2);
-    assert(classify(std::string{"x"}) == 3);
+    LEARN_CHECK(classify(42) == 1);
+    LEARN_CHECK(classify(3.14) == 2);
+    LEARN_CHECK(classify(std::string{"x"}) == 3);
 }
 
 void demo_intermediate() {
@@ -54,7 +53,7 @@ void demo_expert() {
     auto only_integral = [](auto x) -> std::enable_if_t<std::is_integral_v<decltype(x)>, int> {
         return static_cast<int>(x) * 2;
     };
-    assert(only_integral(21) == 42);
+    LEARN_CHECK(only_integral(21) == 42);
 }
 
 int run(int argc, char** argv) {

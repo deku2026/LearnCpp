@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <numeric>
 #include <vector>
@@ -18,28 +17,28 @@ namespace {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::accumulate(v.begin(), v.end(), 0) == 10);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 0) == 10);
     std::vector<int> seq(5);
     std::iota(seq.begin(), seq.end(), 10);
-    assert(seq.front() == 10 && seq.back() == 14);
+    LEARN_CHECK(seq.front() == 10 && seq.back() == 14);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4};
     std::vector<int> ps(v.size());
     std::partial_sum(v.begin(), v.end(), ps.begin());
-    assert((ps == std::vector<int>{1, 3, 6, 10}));
+    LEARN_CHECK((ps == std::vector<int>{1, 3, 6, 10}));
     int prod = std::accumulate(v.begin(), v.end(), 1, std::multiplies<>());
-    assert(prod == 24);
+    LEARN_CHECK(prod == 24);
 }
 
 void demo_expert() {
     std::vector<int> a{1, 2, 3};
     std::vector<int> b{4, 5, 6};
-    assert(std::inner_product(a.begin(), a.end(), b.begin(), 0) == 32);
+    LEARN_CHECK(std::inner_product(a.begin(), a.end(), b.begin(), 0) == 32);
     std::vector<int> d(3);
     std::adjacent_difference(a.begin(), a.end(), d.begin());
-    assert((d == std::vector<int>{1, 1, 1}));
+    LEARN_CHECK((d == std::vector<int>{1, 1, 1}));
 }
 
 }  // namespace

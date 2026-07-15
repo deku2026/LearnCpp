@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -27,9 +26,9 @@ void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     // Portable assertable path uses format; vprint_* writes to FILE*
     const auto s = std::format("unicode-ish: {}", "ok");
-    assert(s == "unicode-ish: ok");
+    LEARN_CHECK(s == "unicode-ish: ok");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -38,9 +37,9 @@ void demo_intermediate() {
     // vprint_unicode / vprint_nonunicode select UTF-8 vs locale-safe path for FILE*
     // Portable assertable path uses std::format (avoids make_format_args rvalue issues).
     const auto s = std::format("{}", 42);
-    assert(s == "42");
+    LEARN_CHECK(s == "42");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -49,12 +48,12 @@ void demo_expert() {
     // API surface check via feature-test; print family is the portable surface.
     static_assert(__cpp_lib_print >= 202207L);
     const auto s = std::format("print-ok: {}", "utf8");
-    assert(s == "print-ok: utf8");
+    LEARN_CHECK(s == "print-ok: utf8");
 #elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const auto s = std::format("print-ok: {}", "utf8");
-    assert(s == "print-ok: utf8");
+    LEARN_CHECK(s == "print-ok: utf8");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

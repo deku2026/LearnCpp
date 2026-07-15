@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 
 namespace {
@@ -22,19 +21,19 @@ struct Hidden {
 
 void demo_basics() {
     Hidden h{4};
-    assert(get(h) == 4);
+    LEARN_CHECK(get(h) == 4);
 }
 
 void demo_intermediate() {
     Hidden a{1}, b{1}, c{2};
-    assert(a == b);
-    assert(!(a == c));
+    LEARN_CHECK(a == b);
+    LEARN_CHECK(!(a == c));
 }
 
 void demo_expert() {
     // get is not in ordinary unqualified lookup without an argument of type Hidden.
     Hidden h{9};
-    assert(get(h) == 9);
+    LEARN_CHECK(get(h) == 9);
 }
 
 int run(int argc, char** argv) {

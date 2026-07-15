@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -42,8 +41,8 @@ void demo_basics() {
     std::string s = "hi";
     wrapper_forward(s);
     wrapper_forward(std::string{});
-    assert(g_lvalue_hits == 1);
-    assert(g_rvalue_hits == 1);
+    LEARN_CHECK(g_lvalue_hits == 1);
+    LEARN_CHECK(g_rvalue_hits == 1);
 }
 
 void demo_intermediate() {
@@ -53,8 +52,8 @@ void demo_intermediate() {
     std::string s = "x";
     wrapper_broken(s);
     wrapper_broken(std::string{});
-    assert(g_lvalue_hits == 2);
-    assert(g_rvalue_hits == 0);  // rvalue category lost without forward
+    LEARN_CHECK(g_lvalue_hits == 2);
+    LEARN_CHECK(g_rvalue_hits == 0);  // rvalue category lost without forward
 }
 
 void demo_expert() {
@@ -63,15 +62,15 @@ void demo_expert() {
         std::string local = std::move(s);
         return local;
     };
-    assert(consume_rref(std::string{"ok"}) == "ok");
+    LEARN_CHECK(consume_rref(std::string{"ok"}) == "ok");
 
     auto factory = [](auto&& s) { return std::string(std::forward<decltype(s)>(s)); };
     std::string a = "copy-me";
     std::string b = factory(a);
     std::string c = factory(std::string{"move-me"});
-    assert(b == "copy-me");
-    assert(c == "move-me");
-    assert(a == "copy-me");
+    LEARN_CHECK(b == "copy-me");
+    LEARN_CHECK(c == "move-me");
+    LEARN_CHECK(a == "copy-me");
 }
 
 int run(int argc, char** argv) {

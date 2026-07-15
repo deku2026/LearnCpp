@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -29,7 +28,7 @@ void demo_basics() {
     for (int x : make_vec()) {
         sum += x;
     }
-    assert(sum == 10);
+    LEARN_CHECK(sum == 10);
 }
 
 void demo_intermediate() {
@@ -39,7 +38,7 @@ void demo_intermediate() {
         (void)c;
         ++n;
     }
-    assert(n == 4);
+    LEARN_CHECK(n == 4);
 }
 
 void demo_expert() {
@@ -48,14 +47,14 @@ void demo_expert() {
     for (int x : make_vec()) {
         last = x;
     }
-    assert(last == 4);
+    LEARN_CHECK(last == 4);
 
     // Prefer init-statement when chaining factories.
     int total = 0;
     for (const auto& v = make_vec(); int x : v) {
         total += x;
     }
-    assert(total == 10);
+    LEARN_CHECK(total == 10);
 }
 
 int run(int argc, char** argv) {

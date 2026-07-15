@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -38,17 +37,17 @@ Widget&& passthrough(Widget&& w) {
 
 void demo_basics() {
     Widget w = make_by_value();
-    assert(w.s == "local");
+    LEARN_CHECK(w.s == "local");
     // Either NRVO (0 moves) or implicit move (>=1); never a required copy path.
-    assert(w.copies == 0);
+    LEARN_CHECK(w.copies == 0);
 }
 
 void demo_intermediate() {
     Widget src("data");
     Widget&& rr = passthrough(std::move(src));
     Widget dst = std::move(rr);
-    assert(dst.s == "data");
-    assert(dst.moves >= 1);
+    LEARN_CHECK(dst.s == "data");
+    LEARN_CHECK(dst.moves >= 1);
 }
 
 void demo_expert() {
@@ -57,14 +56,14 @@ void demo_expert() {
         std::string local = "abc";
         return local;
     };
-    assert(factory() == "abc");
+    LEARN_CHECK(factory() == "abc");
 
     // When returning a member of a local, move is intentional (no NRVO on member).
     auto member_out = []() -> std::string {
         Widget w("member");
         return std::move(w.s);
     };
-    assert(member_out() == "member");
+    LEARN_CHECK(member_out() == "member");
 }
 
 int run(int argc, char** argv) {

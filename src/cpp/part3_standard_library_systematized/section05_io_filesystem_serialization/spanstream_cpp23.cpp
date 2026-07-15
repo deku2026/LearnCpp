@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <span>
 #include <string>
 #include <version>
@@ -25,7 +24,7 @@ void demo_basics() {
     buf[0] = 'o';
     buf[1] = 'k';
     std::span<char> sp{buf};
-    assert(sp[0] == 'o');
+    LEARN_CHECK(sp[0] == 'o');
 }
 
 void demo_intermediate() {
@@ -34,10 +33,10 @@ void demo_intermediate() {
     std::span<char> sp{buf};
     std::ospanstream os{sp};
     os << "hi";
-    assert(std::string(buf.data()) == "hi" || os.span().size() >= 2);
+    LEARN_CHECK(std::string(buf.data()) == "hi" || os.span().size() >= 2);
 #else
     std::array<char, 8> buf{'h', 'i', '\0'};
-    assert(std::string(buf.data()) == "hi");
+    LEARN_CHECK(std::string(buf.data()) == "hi");
 #endif
 }
 
@@ -47,9 +46,9 @@ void demo_expert() {
     std::ispanstream is{std::span<const char>{buf.data(), 2}};
     int v = 0;
     is >> v;
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <string>
 #include <vector>
@@ -21,7 +20,7 @@ void demo_basics() {
     for (std::vector<int> v{1, 2, 3}; int x : v) {
         sum += x;
     }
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_intermediate() {
         (void)k;
         total += v;
     }
-    assert(total == 3);
+    LEARN_CHECK(total == 3);
 }
 
 void demo_expert() {
@@ -41,7 +40,7 @@ void demo_expert() {
     for (auto data = std::vector<int>{10, 20, 30}; int x : data) {
         n += x;
     }
-    assert(n == 60);
+    LEARN_CHECK(n == 60);
 
     int count = 0;
     for (int i = 0; char c : std::string{"xy"}) {
@@ -49,7 +48,7 @@ void demo_expert() {
         ++count;
         (void)c;
     }
-    assert(count == 2);
+    LEARN_CHECK(count == 2);
 }
 
 int run(int argc, char** argv) {

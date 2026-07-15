@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -24,16 +23,16 @@ T id(T x) {
 }
 
 void demo_basics() {
-    assert(id(3) == 3);  // non-template preferred when equal
+    LEARN_CHECK(id(3) == 3);  // non-template preferred when equal
 }
 
 void demo_intermediate() {
-    assert(id(std::string{"a"}) == "a");
+    LEARN_CHECK(id(std::string{"a"}) == "a");
 }
 
 void demo_expert() {
     // Non-template wins over template if both equally good.
-    assert(id(5) == 5);
+    LEARN_CHECK(id(5) == 5);
 }
 
 int run(int argc, char** argv) {

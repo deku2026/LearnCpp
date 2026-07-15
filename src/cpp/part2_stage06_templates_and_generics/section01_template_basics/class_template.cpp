@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -26,7 +25,7 @@ public:
     void push(T&& value) { data_.push_back(std::move(value)); }
 
     T pop() {
-        assert(!data_.empty());
+        LEARN_CHECK(!data_.empty());
         T v = std::move(data_.back());
         data_.pop_back();
         return v;
@@ -35,7 +34,7 @@ public:
     bool empty() const { return data_.empty(); }
     std::size_t size() const { return data_.size(); }
     const T& top() const {
-        assert(!data_.empty());
+        LEARN_CHECK(!data_.empty());
         return data_.back();
     }
 };
@@ -44,20 +43,20 @@ void demo_basics() {
     Stack<int> s;
     s.push(1);
     s.push(2);
-    assert(s.size() == 2);
-    assert(s.top() == 2);
-    assert(s.pop() == 2);
-    assert(s.pop() == 1);
-    assert(s.empty());
+    LEARN_CHECK(s.size() == 2);
+    LEARN_CHECK(s.top() == 2);
+    LEARN_CHECK(s.pop() == 2);
+    LEARN_CHECK(s.pop() == 1);
+    LEARN_CHECK(s.empty());
 }
 
 void demo_intermediate() {
     Stack<std::string> ss;
     ss.push("alpha");
     ss.push(std::string{"beta"});
-    assert(ss.top() == "beta");
-    assert(ss.pop() == "beta");
-    assert(ss.pop() == "alpha");
+    LEARN_CHECK(ss.top() == "beta");
+    LEARN_CHECK(ss.pop() == "beta");
+    LEARN_CHECK(ss.pop() == "alpha");
 }
 
 void demo_expert() {
@@ -66,14 +65,14 @@ void demo_expert() {
     Stack<double> sd;
     si.push(1);
     sd.push(1.5);
-    assert(si.size() == 1);
-    assert(sd.top() == 1.5);
+    LEARN_CHECK(si.size() == 1);
+    LEARN_CHECK(sd.top() == 1.5);
 
     // Distinct monomorphs; member functions instantiate on use only.
     Stack<long> sl;
     sl.push(100L);
-    assert(sl.top() == 100L);
-    assert(sl.size() == 1);
+    LEARN_CHECK(sl.top() == 100L);
+    LEARN_CHECK(sl.size() == 1);
 }
 
 int run(int argc, char** argv) {

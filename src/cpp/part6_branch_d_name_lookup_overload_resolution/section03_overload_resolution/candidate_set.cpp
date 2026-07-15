@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int f(int) {
@@ -24,17 +22,17 @@ int f(int, int) {
 }
 
 void demo_basics() {
-    assert(f(1) == 1);
-    assert(f(1.0) == 2);
+    LEARN_CHECK(f(1) == 1);
+    LEARN_CHECK(f(1.0) == 2);
 }
 
 void demo_intermediate() {
-    assert(f(1, 2) == 3);
+    LEARN_CHECK(f(1, 2) == 3);
 }
 
 void demo_expert() {
     // Candidates include functions found by ordinary lookup + ADL.
-    assert(f(static_cast<short>(1)) == 1);
+    LEARN_CHECK(f(static_cast<short>(1)) == 1);
 }
 
 int run(int argc, char** argv) {

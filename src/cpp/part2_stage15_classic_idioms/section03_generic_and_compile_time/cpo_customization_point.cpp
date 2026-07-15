@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -44,18 +43,18 @@ int tag_invoke_draw(const Box& b) {
 }
 
 void demo_basics() {
-    assert(lib::draw(Circle{3}) == 9);
+    LEARN_CHECK(lib::draw(Circle{3}) == 9);
 }
 
 void demo_intermediate() {
-    assert(lib::draw(Box{4}) == 4);
+    LEARN_CHECK(lib::draw(Box{4}) == 4);
 }
 
 void demo_expert() {
     // User types opt in via free function associated with the type.
     Circle c{2};
     Box b{5};
-    assert(lib::draw(c) + lib::draw(b) == 9);
+    LEARN_CHECK(lib::draw(c) + lib::draw(b) == 9);
 }
 
 int run(int argc, char** argv) {

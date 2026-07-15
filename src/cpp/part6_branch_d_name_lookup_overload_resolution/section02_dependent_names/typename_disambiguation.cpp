@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <vector>
 
@@ -23,12 +22,12 @@ typename C::value_type first_or_default(const C& c) {
 
 void demo_basics() {
     std::vector<int> v{10, 20};
-    assert(first_or_default(v) == 10);
+    LEARN_CHECK(first_or_default(v) == 10);
 }
 
 void demo_intermediate() {
     std::vector<int> empty;
-    assert(first_or_default(empty) == 0);
+    LEARN_CHECK(first_or_default(empty) == 0);
 }
 
 void demo_expert() {

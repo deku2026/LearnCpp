@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -42,23 +41,23 @@ public:
 
 void demo_basics() {
     Rect a;
-    assert(a.w() == 0 && a.h() == 0);
+    LEARN_CHECK(a.w() == 0 && a.h() == 0);
 
     Rect b{4};
-    assert(b.w() == 4 && b.h() == 4);
-    assert(b.area() == 16);
+    LEARN_CHECK(b.w() == 4 && b.h() == 4);
+    LEARN_CHECK(b.area() == 16);
 
     Rect c{3, 5};
-    assert(c.area() == 15);
+    LEARN_CHECK(c.area() == 15);
 }
 
 void demo_intermediate() {
     Named n{"widget"};
-    assert(n.name() == "widget");
-    assert(n.id() == 0);
+    LEARN_CHECK(n.name() == "widget");
+    LEARN_CHECK(n.id() == 0);
 
     Named m{"item", 7};
-    assert(m.id() == 7);
+    LEARN_CHECK(m.id() == 7);
 }
 
 void demo_expert() {
@@ -72,7 +71,7 @@ void demo_expert() {
         Trace() : Trace(&body_order, 1) { body_order = 2; }
     };
     Trace t;
-    assert(body_order == 2);
+    LEARN_CHECK(body_order == 2);
     (void)t;
 }
 

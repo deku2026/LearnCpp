@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -41,18 +40,18 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     Point p{1, 2};
-    assert(std::format("{}", p) == "(1,2)");
+    LEARN_CHECK(std::format("{}", p) == "(1,2)");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     Point p{3, 4};
-    assert(std::format("pt={}", p) == "pt=(3,4)");
+    LEARN_CHECK(std::format("pt={}", p) == "pt=(3,4)");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -61,9 +60,9 @@ void demo_expert() {
     // C++23 formattable concept / const-correct formatters
     Point p{0, 0};
     const Point& cp = p;
-    assert(std::format("{}", cp) == "(0,0)");
+    LEARN_CHECK(std::format("{}", cp) == "(0,0)");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

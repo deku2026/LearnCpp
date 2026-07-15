@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -25,18 +24,18 @@ int Widget::live = 0;
 void demo_basics() {
     Widget::live = 0;
     auto a = std::make_shared<Widget>(1);
-    assert(a.use_count() == 1);
-    assert(Widget::live == 1);
+    LEARN_CHECK(a.use_count() == 1);
+    LEARN_CHECK(Widget::live == 1);
     {
         auto b = a;
-        assert(a.use_count() == 2);
-        assert(b.use_count() == 2);
-        assert(b->id == 1);
+        LEARN_CHECK(a.use_count() == 2);
+        LEARN_CHECK(b.use_count() == 2);
+        LEARN_CHECK(b->id == 1);
     }
-    assert(a.use_count() == 1);
-    assert(Widget::live == 1);
+    LEARN_CHECK(a.use_count() == 1);
+    LEARN_CHECK(Widget::live == 1);
     a.reset();
-    assert(Widget::live == 0);
+    LEARN_CHECK(Widget::live == 0);
 }
 
 void demo_intermediate() {
@@ -44,25 +43,25 @@ void demo_intermediate() {
     auto a = std::make_shared<Widget>(2);
     auto b = a;
     auto c = std::move(b);
-    assert(b == nullptr);
-    assert(a.use_count() == 2);
-    assert(c.use_count() == 2);
-    assert(c->id == 2);
+    LEARN_CHECK(b == nullptr);
+    LEARN_CHECK(a.use_count() == 2);
+    LEARN_CHECK(c.use_count() == 2);
+    LEARN_CHECK(c->id == 2);
 }
 
 void demo_expert() {
     Widget::live = 0;
     std::shared_ptr<Widget> empty;
-    assert(empty.use_count() == 0);
-    assert(!empty);
+    LEARN_CHECK(empty.use_count() == 0);
+    LEARN_CHECK(!empty);
 
     auto p = std::make_shared<Widget>(3);
     empty = p;
-    assert(empty.use_count() == 2);
+    LEARN_CHECK(empty.use_count() == 2);
     p.reset();
-    assert(empty.use_count() == 1);
+    LEARN_CHECK(empty.use_count() == 1);
     empty.reset();
-    assert(Widget::live == 0);
+    LEARN_CHECK(Widget::live == 0);
 
     // Alias constructor: share ownership of parent, point at member.
     struct Pair {
@@ -71,10 +70,10 @@ void demo_expert() {
     };
     auto pair = std::make_shared<Pair>();
     std::shared_ptr<int> y_view(pair, &pair->y);
-    assert(*y_view == 20);
-    assert(y_view.use_count() == pair.use_count());
+    LEARN_CHECK(*y_view == 20);
+    LEARN_CHECK(y_view.use_count() == pair.use_count());
     pair.reset();
-    assert(*y_view == 20);  // still alive via aliasing shared_ptr
+    LEARN_CHECK(*y_view == 20);  // still alive via aliasing shared_ptr
 }
 
 int run(int argc, char** argv) {

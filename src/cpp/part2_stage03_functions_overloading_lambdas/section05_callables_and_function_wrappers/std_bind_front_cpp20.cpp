@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <string>
 
@@ -25,25 +24,25 @@ int add3(int a, int b, int c) {
 
 void demo_basics() {
     auto sub10 = std::bind_front(sub, 10);
-    assert(sub10(3) == 7);
+    LEARN_CHECK(sub10(3) == 7);
 }
 
 void demo_intermediate() {
     auto add1 = std::bind_front(add3, 1);
-    assert(add1(2, 3) == 6);
+    LEARN_CHECK(add1(2, 3) == 6);
 
     auto add1_2 = std::bind_front(add3, 1, 2);
-    assert(add1_2(3) == 6);
+    LEARN_CHECK(add1_2(3) == 6);
 }
 
 void demo_expert() {
     auto greeter = [](const std::string& g, const std::string& name) { return g + ", " + name; };
     auto hi = std::bind_front(greeter, std::string{"Hi"});
-    assert(hi(std::string{"Ada"}) == "Hi, Ada");
+    LEARN_CHECK(hi(std::string{"Ada"}) == "Hi, Ada");
 
     // Equivalent lambda is often clearer for non-trivial logic.
     auto sub10_lam = [](int b) { return sub(10, b); };
-    assert(sub10_lam(3) == 7);
+    LEARN_CHECK(sub10_lam(3) == 7);
 }
 
 int run(int argc, char** argv) {

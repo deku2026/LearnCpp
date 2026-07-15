@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -21,14 +20,14 @@ void demo_basics() {
 #else
     // Conceptual: binding const int& to prvalue int materializes a temporary.
     const int& r = 5;
-    assert(r == 5);
+    LEARN_CHECK(r == 5);
 #endif
 }
 
 void demo_intermediate() {
     int x = 3;
     const int& r = x;  // no temporary
-    assert(r == 3);
+    LEARN_CHECK(r == 3);
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     static_assert(std::reference_constructs_from_temporary_v<const double&, int>);
 #else
     const double& r = 1;  // temporary double
-    assert(r == 1.0);
+    LEARN_CHECK(r == 1.0);
 #endif
 }
 

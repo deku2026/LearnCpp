@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int static_style_add(int a, int b) {
@@ -18,17 +16,17 @@ int static_style_add(int a, int b) {
 }
 
 void demo_basics() {
-    assert(static_style_add(2, 3) == 5);
+    LEARN_CHECK(static_style_add(2, 3) == 5);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     using Fn = int (*)(int, int);
     Fn f = &static_style_add;
-    assert(f(1, 1) == 2);
+    LEARN_CHECK(f(1, 1) == 2);
 }
 
 int run(int argc, char** argv) {

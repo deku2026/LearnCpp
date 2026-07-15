@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -20,25 +19,25 @@ namespace {
 void demo_basics() {
     std::string s = "hello";
     std::string_view sv{s.begin(), s.end()};
-    assert(sv == "hello");
+    LEARN_CHECK(sv == "hello");
 }
 
 void demo_intermediate() {
     std::vector<char> chars{'H', 'i', '!'};
 #if defined(__cpp_lib_containers_ranges) || (defined(__cplusplus) && __cplusplus >= 202302L)
     std::string_view sv(chars.begin(), chars.end());
-    assert(sv == "Hi!");
+    LEARN_CHECK(sv == "Hi!");
 #else
     std::string_view sv(chars.data(), chars.size());
-    assert(sv == "Hi!");
+    LEARN_CHECK(sv == "Hi!");
 #endif
 }
 
 void demo_expert() {
     const char buf[] = {'a', 'b', 'c', 'd'};
     std::string_view sv(buf, buf + 3);
-    assert(sv == "abc");
-    assert(sv.size() == 3);
+    LEARN_CHECK(sv == "abc");
+    LEARN_CHECK(sv.size() == 3);
 }
 
 }  // namespace

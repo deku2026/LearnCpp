@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int free_val() {
@@ -28,15 +26,15 @@ int combine(T) {
 }
 
 void demo_basics() {
-    assert(combine(0) == 30);
+    LEARN_CHECK(combine(0) == 30);
 }
 
 void demo_intermediate() {
-    assert(combine(1.0) == 30);
+    LEARN_CHECK(combine(1.0) == 30);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

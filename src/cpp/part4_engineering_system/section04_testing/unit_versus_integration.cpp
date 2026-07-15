@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Unit: pure function, no I/O
     auto twice = [](int x) { return x * 2; };
-    assert(twice(3) == 6);
+    LEARN_CHECK(twice(3) == 6);
 }
 
 void demo_intermediate() {
     // Integration: multiple components + real filesystem/network carefully
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Pyramid: many unit, fewer integration, few e2e
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

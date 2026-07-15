@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <variant>
 
@@ -44,27 +43,27 @@ int as_int(const Value& v) {
 
 void demo_basics() {
     Value v = 42;
-    assert(describe(v) == "i:42");
+    LEARN_CHECK(describe(v) == "i:42");
     v = std::string{"hi"};
-    assert(describe(v) == "s:hi");
+    LEARN_CHECK(describe(v) == "s:hi");
 }
 
 void demo_intermediate() {
     Value v = 3.9;
-    assert(as_int(v) == 3);
+    LEARN_CHECK(as_int(v) == 3);
     v = 10;
-    assert(as_int(v) == 10);
+    LEARN_CHECK(as_int(v) == 10);
     v = std::string{"abcd"};
-    assert(as_int(v) == 4);
+    LEARN_CHECK(as_int(v) == 4);
 }
 
 void demo_expert() {
     // index() / holds_alternative as matching helpers.
     Value v = 1;
-    assert(std::holds_alternative<int>(v));
-    assert(v.index() == 0);
+    LEARN_CHECK(std::holds_alternative<int>(v));
+    LEARN_CHECK(v.index() == 0);
     v = std::string{"x"};
-    assert(std::get<std::string>(v) == "x");
+    LEARN_CHECK(std::get<std::string>(v) == "x");
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // strategy.matrix: os, compiler, build_type
     std::string os = "windows-latest";
-    assert(!os.empty());
+    LEARN_CHECK(!os.empty());
 }
 
 void demo_intermediate() {
     // fail-fast: false to see all cells
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Cache vcpkg/ccache keys carefully
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

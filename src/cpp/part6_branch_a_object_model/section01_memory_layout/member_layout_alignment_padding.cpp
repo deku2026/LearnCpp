@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 
@@ -50,15 +49,15 @@ void demo_intermediate() {
     static_assert(sizeof(Bad) >= sizeof(Good));
     static_assert(sizeof(Good) == 8);
     static_assert(sizeof(Bad) == 12);
-    assert(offsetof(Good, i) == 0);
-    assert(offsetof(Good, c) == 4);
+    LEARN_CHECK(offsetof(Good, i) == 0);
+    LEARN_CHECK(offsetof(Good, c) == 4);
 }
 
 void demo_expert() {
     static_assert(alignof(Aligned) == 16);
     static_assert(sizeof(Aligned) % 16 == 0);
     Aligned arr[2]{};
-    assert(reinterpret_cast<std::uintptr_t>(&arr[1]) % 16u == 0);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(&arr[1]) % 16u == 0);
 }
 
 }  // namespace

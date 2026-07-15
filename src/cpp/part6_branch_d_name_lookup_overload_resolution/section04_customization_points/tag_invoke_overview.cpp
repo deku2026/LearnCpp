@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -39,7 +38,7 @@ struct Service {
 
 void demo_basics() {
     user::Service s;
-    assert(lib::invoke_tag(s) == 11);
+    LEARN_CHECK(lib::invoke_tag(s) == 11);
 }
 
 struct Alt {
@@ -47,11 +46,11 @@ struct Alt {
 };
 
 void demo_intermediate() {
-    assert(lib::invoke_tag(Alt{}) == 7);
+    LEARN_CHECK(lib::invoke_tag(Alt{}) == 7);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 constexpr int square(int x) {
@@ -28,21 +26,21 @@ constexpr int min_v(int a, int b) {
 void demo_basics() {
     static_assert(square(5) == 25);
     constexpr int s = square(7);
-    assert(s == 49);
+    LEARN_CHECK(s == 49);
 }
 
 void demo_intermediate() {
     static_assert(abs_cpp11(-3) == 3);
     static_assert(min_v(4, 2) == 2);
     int runtime = 6;
-    assert(square(runtime) == 36);  // also callable at runtime
+    LEARN_CHECK(square(runtime) == 36);  // also callable at runtime
 }
 
 void demo_expert() {
     constexpr int table[] = {square(1), square(2), square(3), square(4)};
     static_assert(table[3] == 16);
-    assert(table[2] == 9);
-    assert(min_v(abs_cpp11(-10), square(3)) == 9);
+    LEARN_CHECK(table[2] == 9);
+    LEARN_CHECK(min_v(abs_cpp11(-10), square(3)) == 9);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 #include <memory>
 
@@ -26,13 +25,13 @@ void demo_intermediate() {
     std::list<int> lst;
     lst.push_back(1);
     lst.push_back(2);
-    assert(lst.front() == 1 && lst.back() == 2);
+    LEARN_CHECK(lst.front() == 1 && lst.back() == 2);
 }
 
 void demo_expert() {
     // Containers rebind the user allocator to their internal node type.
     std::list<int, std::allocator<int>> lst{3, 4};
-    assert(lst.size() == 2);
+    LEARN_CHECK(lst.size() == 2);
 }
 
 int run(int argc, char** argv) {

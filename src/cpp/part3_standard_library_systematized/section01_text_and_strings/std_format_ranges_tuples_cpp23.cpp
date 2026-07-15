@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <format>
 #include <string>
 #include <tuple>
@@ -21,9 +20,9 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     std::string s = std::format("{}", 42);
-    assert(s == "42");
+    LEARN_CHECK(s == "42");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -31,10 +30,10 @@ void demo_intermediate() {
 #if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
     std::vector<int> v{1, 2, 3};
     std::string s = std::format("{}", v);
-    assert(s.find('1') != std::string::npos);
+    LEARN_CHECK(s.find('1') != std::string::npos);
 #else
     std::vector<int> v{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
 #endif
 }
 
@@ -43,9 +42,9 @@ void demo_expert() {
     auto t = std::make_tuple(1, "x");
     (void)t;
     std::string s = std::format("{}-{}", 1, "x");
-    assert(s == "1-x");
+    LEARN_CHECK(s == "1-x");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

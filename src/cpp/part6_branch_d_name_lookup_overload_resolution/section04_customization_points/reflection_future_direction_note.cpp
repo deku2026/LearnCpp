@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 #include <type_traits>
 
@@ -26,12 +25,12 @@ constexpr std::string_view kind() {
 }
 
 void demo_basics() {
-    assert(kind<int>() == "integral");
-    assert(kind<double>() == "floating");
+    LEARN_CHECK(kind<int>() == "integral");
+    LEARN_CHECK(kind<double>() == "floating");
 }
 
 void demo_intermediate() {
-    assert(kind<void*>() == "other");
+    LEARN_CHECK(kind<void*>() == "other");
 }
 
 void demo_expert() {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <variant>
 
@@ -30,7 +29,7 @@ void demo_basics() {
                    [&](const std::string& s) { result = static_cast<int>(s.size()); },
                },
                v);
-    assert(result == 20);
+    LEARN_CHECK(result == 20);
 }
 
 void demo_intermediate() {
@@ -40,7 +39,7 @@ void demo_intermediate() {
                                   [](const std::string& s) { return static_cast<int>(s.size()); },
                               },
                               v);
-    assert(r == 3);
+    LEARN_CHECK(r == 3);
 }
 
 void demo_expert() {
@@ -51,7 +50,7 @@ void demo_expert() {
                                     [](const std::string&) { return 3; },
                                 },
                                 v);
-    assert(tag == 2);
+    LEARN_CHECK(tag == 2);
 }
 
 }  // namespace

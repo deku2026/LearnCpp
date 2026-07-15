@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -46,17 +45,17 @@ Widget make_pessimizing() {
 void demo_basics() {
     Widget::moves = 0;
     Widget a = make_good();
-    assert(a.s == "good");
+    LEARN_CHECK(a.s == "good");
     // Good path: 0 (NRVO) or 1 (implicit move) moves — never a required copy.
-    assert(Widget::moves <= 1);
+    LEARN_CHECK(Widget::moves <= 1);
 }
 
 void demo_intermediate() {
     Widget::moves = 0;
     Widget b = make_pessimizing();
-    assert(b.s == "bad");
+    LEARN_CHECK(b.s == "bad");
     // Pessimizing move: at least one move (NRVO suppressed).
-    assert(Widget::moves >= 1);
+    LEARN_CHECK(Widget::moves >= 1);
 }
 
 void demo_expert() {
@@ -65,19 +64,19 @@ void demo_expert() {
         Widget w("member");
         return std::move(w.s);
     };
-    assert(member() == "member");
+    LEARN_CHECK(member() == "member");
 
     // Returning a function parameter by value: move is appropriate.
     auto from_param = [](std::string s) -> std::string {
         return s;  // implicit move from by-value param
     };
-    assert(from_param("param") == "param");
+    LEARN_CHECK(from_param("param") == "param");
 
     auto good_string = []() -> std::string {
         std::string local = "plain";
         return local;  // never std::move(local)
     };
-    assert(good_string() == "plain");
+    LEARN_CHECK(good_string() == "plain");
 }
 
 int run(int argc, char** argv) {

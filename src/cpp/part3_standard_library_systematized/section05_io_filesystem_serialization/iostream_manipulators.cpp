@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -19,22 +18,22 @@ namespace {
 void demo_basics() {
     std::ostringstream os;
     os << std::boolalpha << true;
-    assert(os.str() == "true");
+    LEARN_CHECK(os.str() == "true");
 }
 
 void demo_intermediate() {
     std::ostringstream os;
     os << std::hex << 255;
-    assert(os.str() == "ff");
+    LEARN_CHECK(os.str() == "ff");
 }
 
 void demo_expert() {
     std::ostringstream os;
     os << std::setw(5) << std::setfill('0') << 42;
-    assert(os.str() == "00042");
+    LEARN_CHECK(os.str() == "00042");
     std::ostringstream os2;
     os2 << std::fixed << std::setprecision(2) << 3.14159;
-    assert(os2.str() == "3.14");
+    LEARN_CHECK(os2.str() == "3.14");
 }
 
 int run(int argc, char** argv) {

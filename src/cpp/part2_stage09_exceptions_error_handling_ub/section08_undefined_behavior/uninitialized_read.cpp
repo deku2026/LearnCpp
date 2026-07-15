@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <vector>
 
@@ -22,30 +21,30 @@ struct Point {
 
 void demo_basics() {
     int x = 0;  // SAFE
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
     Point p;
-    assert(p.x == 0 && p.y == 0);
+    LEARN_CHECK(p.x == 0 && p.y == 0);
 }
 
 void demo_intermediate() {
     std::vector<int> v(3);  // value-initialized to 0
-    assert(v[0] == 0 && v[2] == 0);
+    LEARN_CHECK(v[0] == 0 && v[2] == 0);
 
     std::optional<int> o;
-    assert(!o.has_value());  // empty, not an uninitialized int read
+    LEARN_CHECK(!o.has_value());  // empty, not an uninitialized int read
     o = 5;
-    assert(*o == 5);
+    LEARN_CHECK(*o == 5);
 }
 
 void demo_expert() {
     // Comment only: `int x; int y = x;` is UB if x is automatic and unread init.
     int a{};
     int b{1};
-    assert(a == 0);
-    assert(b == 1);
+    LEARN_CHECK(a == 0);
+    LEARN_CHECK(b == 1);
 
     char buf[4]{};
-    assert(buf[0] == '\0');
+    LEARN_CHECK(buf[0] == '\0');
 }
 
 int run(int argc, char** argv) {

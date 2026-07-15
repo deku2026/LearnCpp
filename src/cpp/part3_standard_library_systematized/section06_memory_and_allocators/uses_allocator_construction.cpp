@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <memory_resource>
 #include <scoped_allocator>
@@ -22,20 +21,20 @@ void demo_basics() {
     std::allocator<int> a;
     std::vector<int> v(a);
     v.push_back(1);
-    assert(v.size() == 1);
+    LEARN_CHECK(v.size() == 1);
 }
 
 void demo_intermediate() {
     std::pmr::vector<std::pmr::string> v;
     v.emplace_back("hi");
-    assert(v.front() == "hi");
+    LEARN_CHECK(v.front() == "hi");
 }
 
 void demo_expert() {
     std::pmr::monotonic_buffer_resource mono;
     std::pmr::vector<std::pmr::string> v{&mono};
     v.emplace_back("arena");
-    assert(v.front() == "arena");
+    LEARN_CHECK(v.front() == "arena");
 }
 
 int run(int argc, char** argv) {

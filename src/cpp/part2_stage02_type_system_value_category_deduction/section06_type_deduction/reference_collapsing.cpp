@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -48,7 +47,7 @@ void demo_intermediate() {
     using LRef = int&;
     LRef&& still_lref = x;
     static_assert(std::is_same_v<decltype(still_lref), int&>);
-    assert(still_lref == 1);
+    LEARN_CHECK(still_lref == 1);
 }
 
 void demo_expert() {
@@ -63,8 +62,8 @@ void demo_expert() {
     decltype(auto) b = forward_demo(5);
     static_assert(std::is_same_v<decltype(a), int&>);
     static_assert(std::is_same_v<decltype(b), int&&>);
-    assert(a == 5);
-    assert(b == 5);
+    LEARN_CHECK(a == 5);
+    LEARN_CHECK(b == 5);
 
     // remove_reference then add && is the move cast pattern
     using T = int&;
@@ -73,7 +72,7 @@ void demo_expert() {
 
     int v = 9;
     Moved m = static_cast<Moved>(v);
-    assert(m == 9);
+    LEARN_CHECK(m == 9);
 }
 
 int run(int argc, char** argv) {

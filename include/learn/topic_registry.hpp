@@ -6,7 +6,20 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdio>
+#include <cstdlib>
 #include <string_view>
+
+// Topic demos must keep side effects in Release/CI (NDEBUG). `<cassert>` assert
+// is stripped when NDEBUG is defined, which turns locals into -Wunused errors
+// under -Werror. Prefer LEARN_CHECK for runtime checks in topic bodies.
+#define LEARN_CHECK(cond)                                                                        \
+    do {                                                                                         \
+        if (!(cond)) {                                                                           \
+            std::fprintf(stderr, "LEARN_CHECK failed: %s (%s:%d)\n", #cond, __FILE__, __LINE__); \
+            std::abort();                                                                        \
+        }                                                                                        \
+    } while (0)
 
 namespace learn {
 

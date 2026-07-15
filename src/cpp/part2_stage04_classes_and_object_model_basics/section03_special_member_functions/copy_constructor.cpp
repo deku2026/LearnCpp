@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <string>
 #include <utility>
@@ -45,9 +44,9 @@ struct Pair {
 void demo_basics() {
     Pair p{"hi", "there"};
     Pair q = p;
-    assert(q.a == "hi" && q.b == "there");
+    LEARN_CHECK(q.a == "hi" && q.b == "there");
     q.a = "x";
-    assert(p.a == "hi");
+    LEARN_CHECK(p.a == "hi");
 }
 
 void demo_intermediate() {
@@ -55,10 +54,10 @@ void demo_intermediate() {
     a.at(0) = 10;
     a.at(1) = 20;
     Buffer b = a;
-    assert(b.size() == 3);
-    assert(b.at(0) == 10);
+    LEARN_CHECK(b.size() == 3);
+    LEARN_CHECK(b.at(0) == 10);
     b.at(0) = 99;
-    assert(a.at(0) == 10);
+    LEARN_CHECK(a.at(0) == 10);
 }
 
 void demo_expert() {
@@ -67,9 +66,9 @@ void demo_expert() {
     a.at(0) = 1;
     {
         Buffer b = a;
-        assert(b.at(0) == 1);
+        LEARN_CHECK(b.at(0) == 1);
     }
-    assert(a.at(0) == 1);
+    LEARN_CHECK(a.at(0) == 1);
 }
 
 int run(int argc, char** argv) {

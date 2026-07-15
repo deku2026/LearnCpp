@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -17,17 +16,17 @@ namespace {
 
 void demo_basics() {
     // TEST_CASE("name") { REQUIRE(1+1 == 2); }
-    assert(1 + 1 == 2);
+    LEARN_CHECK(1 + 1 == 2);
 }
 
 void demo_intermediate() {
     // SECTION for BDD-like nested scenarios
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Header-only option simplifies small projects
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

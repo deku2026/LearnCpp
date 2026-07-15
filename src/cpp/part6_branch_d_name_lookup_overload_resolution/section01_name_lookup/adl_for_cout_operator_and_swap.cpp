@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ostream>
 #include <sstream>
 #include <utility>
@@ -34,20 +33,20 @@ void demo_basics() {
     lib::Widget w{3};
     std::ostringstream oss;
     oss << w;  // ADL finds lib::operator<<
-    assert(oss.str() == "W3");
+    LEARN_CHECK(oss.str() == "W3");
 }
 
 void demo_intermediate() {
     lib::Widget a{1}, b{2};
     using std::swap;
     swap(a, b);  // prefers lib::swap via ADL
-    assert(a.id == 2 && b.id == 1);
+    LEARN_CHECK(a.id == 2 && b.id == 1);
 }
 
 void demo_expert() {
     lib::Widget a{5}, b{6};
     std::swap(a, b);  // still works if move-assignable; ADL swap preferred with using
-    assert(a.id == 6 && b.id == 5);
+    LEARN_CHECK(a.id == 6 && b.id == 5);
 }
 
 int run(int argc, char** argv) {

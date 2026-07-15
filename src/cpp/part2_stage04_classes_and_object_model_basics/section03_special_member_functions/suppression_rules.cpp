@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -44,9 +43,9 @@ void demo_basics() {
     WithDtor a;
     a.x = 3;
     WithDtor b = std::move(a);
-    assert(b.x == 3);
+    LEARN_CHECK(b.x == 3);
     // After "move" that fell back to copy, source is unchanged.
-    assert(a.x == 3);
+    LEARN_CHECK(a.x == 3);
 }
 
 void demo_intermediate() {
@@ -56,7 +55,7 @@ void demo_intermediate() {
     WithMove m;
     m.x = 9;
     WithMove n = std::move(m);
-    assert(n.x == 9);
+    LEARN_CHECK(n.x == 9);
 }
 
 void demo_expert() {
@@ -66,7 +65,7 @@ void demo_expert() {
     Restored r;
     r.x = 1;
     Restored s = std::move(r);
-    assert(s.x == 1);
+    LEARN_CHECK(s.x == 1);
 }
 
 int run(int argc, char** argv) {

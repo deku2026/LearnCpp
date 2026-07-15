@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -23,11 +22,11 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_ranges_to) && __cpp_lib_ranges_to >= 202202L
     auto v = std::views::iota(1, 5) | std::ranges::to<std::vector>();
-    assert((v == std::vector<int>{1, 2, 3, 4}));
+    LEARN_CHECK((v == std::vector<int>{1, 2, 3, 4}));
 #else
     auto r = std::views::iota(1, 5);
     std::vector<int> v(r.begin(), r.end());
-    assert((v == std::vector<int>{1, 2, 3, 4}));
+    LEARN_CHECK((v == std::vector<int>{1, 2, 3, 4}));
 #endif
 }
 
@@ -35,10 +34,10 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_to) && __cpp_lib_ranges_to >= 202202L
     std::vector<int> src{1, 2, 3, 4, 5};
     auto v = src | std::views::filter([](int x) { return x % 2; }) | std::ranges::to<std::vector>();
-    assert((v == std::vector<int>{1, 3, 5}));
+    LEARN_CHECK((v == std::vector<int>{1, 3, 5}));
 #else
     std::vector<int> v{1, 3, 5};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
 #endif
 }
 
@@ -46,9 +45,9 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_to) && __cpp_lib_ranges_to >= 202202L
     auto v = std::views::iota(0, 3) | std::views::transform([](int x) { return x * x; }) |
              std::ranges::to<std::vector<int>>();
-    assert((v == std::vector<int>{0, 1, 4}));
+    LEARN_CHECK((v == std::vector<int>{0, 1, 4}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

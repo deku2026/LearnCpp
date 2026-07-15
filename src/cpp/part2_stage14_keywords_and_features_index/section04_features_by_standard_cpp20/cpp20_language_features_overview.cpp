@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <span>
 #include <string>
@@ -28,32 +27,32 @@ T add(T a, T b) {
 }
 
 void demo_basics() {
-    assert(add(1, 2) == 3);
+    LEARN_CHECK(add(1, 2) == 3);
 #if defined(__cpp_designated_initializers)
     struct P {
         int x;
         int y;
     };
     P p{.x = 1, .y = 2};
-    assert(p.x == 1 && p.y == 2);
+    LEARN_CHECK(p.x == 1 && p.y == 2);
 #endif
 }
 
 void demo_intermediate() {
     int a[] = {1, 2, 3, 4};
     std::span<int> s{a};
-    assert(s.size() == 4);
-    assert(s[1] == 2);
+    LEARN_CHECK(s.size() == 4);
+    LEARN_CHECK(s[1] == 2);
 }
 
 void demo_expert() {
 #if defined(__cpp_impl_three_way_comparison)
-    assert((1 <=> 2) < 0);
+    LEARN_CHECK((1 <=> 2) < 0);
 #else
-    assert(1 < 2);
+    LEARN_CHECK(1 < 2);
 #endif
     const char* msg = "ok";
-    assert(std::string{msg} == "ok");
+    LEARN_CHECK(std::string{msg} == "ok");
 }
 
 int run(int argc, char** argv) {

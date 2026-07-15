@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <vector>
 #include <version>
 
@@ -21,12 +20,12 @@ void demo_basics() {
     std::vector<int> v{1, 2, 3, 4, 5};
     auto it = std::shift_left(v.begin(), v.end(), 2);
     // [3,4,5, ?, ?] — elements after it are moved-from
-    assert(v[0] == 3);
-    assert(v[1] == 4);
-    assert(v[2] == 5);
+    LEARN_CHECK(v[0] == 3);
+    LEARN_CHECK(v[1] == 4);
+    LEARN_CHECK(v[2] == 5);
     (void)it;
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,11 +33,11 @@ void demo_intermediate() {
 #if defined(__cpp_lib_shift) && __cpp_lib_shift >= 201806L
     std::vector<int> v{1, 2, 3, 4, 5};
     std::shift_right(v.begin(), v.end(), 2);
-    assert(v[2] == 1);
-    assert(v[3] == 2);
-    assert(v[4] == 3);
+    LEARN_CHECK(v[2] == 1);
+    LEARN_CHECK(v[3] == 2);
+    LEARN_CHECK(v[4] == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -46,10 +45,10 @@ void demo_expert() {
 #if defined(__cpp_lib_shift) && __cpp_lib_shift >= 201806L
     std::vector<int> v{1, 2, 3};
     auto it = std::shift_left(v.begin(), v.end(), 0);
-    assert(it == v.end());
-    assert((v == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK(it == v.end());
+    LEARN_CHECK((v == std::vector<int>{1, 2, 3}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

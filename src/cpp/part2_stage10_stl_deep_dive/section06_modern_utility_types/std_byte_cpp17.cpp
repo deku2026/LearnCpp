@@ -9,31 +9,30 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 
 namespace {
 
 void demo_basics() {
     std::byte b{std::byte{0x0F}};
-    assert(std::to_integer<int>(b) == 15);
+    LEARN_CHECK(std::to_integer<int>(b) == 15);
 }
 
 void demo_intermediate() {
     std::byte b{std::byte{0b0001}};
     b <<= 3;
-    assert(std::to_integer<int>(b) == 0b1000);
+    LEARN_CHECK(std::to_integer<int>(b) == 0b1000);
     b |= std::byte{0b0111};
-    assert(std::to_integer<int>(b) == 0b1111);
+    LEARN_CHECK(std::to_integer<int>(b) == 0b1111);
 }
 
 void demo_expert() {
     std::byte a{std::byte{0xF0}};
     std::byte b{std::byte{0x0F}};
-    assert(std::to_integer<int>(a & b) == 0);
-    assert(std::to_integer<int>(a | b) == 0xFF);
-    assert(std::to_integer<int>(a ^ b) == 0xFF);
-    assert(std::to_integer<unsigned>(~std::byte{0}) == 0xFFu);
+    LEARN_CHECK(std::to_integer<int>(a & b) == 0);
+    LEARN_CHECK(std::to_integer<int>(a | b) == 0xFF);
+    LEARN_CHECK(std::to_integer<int>(a ^ b) == 0xFF);
+    LEARN_CHECK(std::to_integer<unsigned>(~std::byte{0}) == 0xFFu);
 }
 
 }  // namespace

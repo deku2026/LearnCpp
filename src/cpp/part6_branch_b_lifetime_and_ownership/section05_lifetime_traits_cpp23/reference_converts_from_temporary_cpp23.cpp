@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -21,23 +20,23 @@ void demo_basics() {
     static_assert(!std::reference_converts_from_temporary_v<int&, int>);
 #else
     const int& r = int{9};
-    assert(r == 9);
+    LEARN_CHECK(r == 9);
 #endif
 }
 
 void demo_intermediate() {
     int x = 1;
     int& r = x;
-    assert(r == 1);
+    LEARN_CHECK(r == 1);
 }
 
 void demo_expert() {
     // Useful in templates to reject APIs that would bind refs to temporaries.
 #if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L
     constexpr bool danger = std::reference_converts_from_temporary_v<const std::string&, const char*>;
-    assert(danger || !danger);  // trait presence is the lesson
+    LEARN_CHECK(danger || !danger);  // trait presence is the lesson
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

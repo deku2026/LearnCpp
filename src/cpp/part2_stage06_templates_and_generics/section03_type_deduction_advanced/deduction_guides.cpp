@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iterator>
 #include <string>
 #include <type_traits>
@@ -52,26 +51,26 @@ Range(It, It) -> Range<It>;
 
 void demo_basics() {
     Wrapper w("hello");  // uses guide -> Wrapper<string>
-    assert(w.value == "hello");
+    LEARN_CHECK(w.value == "hello");
     static_assert(std::is_same_v<decltype(w), Wrapper<std::string>>);
 }
 
 void demo_intermediate() {
     int arr[3] = {1, 2, 3};
     SpanLike s(arr);
-    assert(s.n == 3);
-    assert(s.data[0] == 1);
+    LEARN_CHECK(s.n == 3);
+    LEARN_CHECK(s.data[0] == 1);
     static_assert(std::is_same_v<decltype(s), SpanLike<int>>);
 }
 
 void demo_expert() {
     std::vector<int> v{10, 20, 30};
     Range r(v.begin(), v.end());
-    assert(r.size() == 3);
+    LEARN_CHECK(r.size() == 3);
     static_assert(std::is_same_v<decltype(r), Range<std::vector<int>::iterator>>);
 
     Wrapper w2(42);
-    assert(w2.value == 42);
+    LEARN_CHECK(w2.value == 42);
     static_assert(std::is_same_v<decltype(w2), Wrapper<int>>);
 }
 

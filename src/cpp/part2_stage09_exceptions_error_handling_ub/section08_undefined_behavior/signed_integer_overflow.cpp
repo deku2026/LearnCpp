@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <limits>
 #include <optional>
@@ -36,22 +35,22 @@ std::optional<int> safe_mul(int a, int b) {
 }
 
 void demo_basics() {
-    assert(safe_add(2, 3).value() == 5);
-    assert(!safe_add(std::numeric_limits<int>::max(), 1).has_value());
+    LEARN_CHECK(safe_add(2, 3).value() == 5);
+    LEARN_CHECK(!safe_add(std::numeric_limits<int>::max(), 1).has_value());
 }
 
 void demo_intermediate() {
-    assert(safe_mul(6, 7).value() == 42);
-    assert(!safe_mul(std::numeric_limits<int>::max(), 2).has_value());
+    LEARN_CHECK(safe_mul(6, 7).value() == 42);
+    LEARN_CHECK(!safe_mul(std::numeric_limits<int>::max(), 2).has_value());
 }
 
 void demo_expert() {
     // Unsigned wrap is defined (mod 2^n); signed overflow is not.
     unsigned u = std::numeric_limits<unsigned>::max();
-    assert(u + 1u == 0u);
+    LEARN_CHECK(u + 1u == 0u);
 
     // Comment only: `int x = INT_MAX + 1;` is UB — never execute.
-    assert(safe_add(std::numeric_limits<int>::min(), -1) == std::nullopt);
+    LEARN_CHECK(safe_add(std::numeric_limits<int>::min(), -1) == std::nullopt);
 }
 
 int run(int argc, char** argv) {

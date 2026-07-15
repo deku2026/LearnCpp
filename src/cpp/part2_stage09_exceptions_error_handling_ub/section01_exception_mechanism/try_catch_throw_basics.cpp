@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 
@@ -25,24 +24,24 @@ int parse_positive(int x) {
 void demo_basics() {
     try {
         parse_positive(-1);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::invalid_argument& e) {
-        assert(std::string{e.what()}.find("non-positive") != std::string::npos);
+        LEARN_CHECK(std::string{e.what()}.find("non-positive") != std::string::npos);
     }
-    assert(parse_positive(3) == 3);
+    LEARN_CHECK(parse_positive(3) == 3);
 }
 
 void demo_intermediate() {
     try {
         throw 42;
     } catch (int v) {
-        assert(v == 42);
+        LEARN_CHECK(v == 42);
     }
 
     try {
         throw std::string{"err"};
     } catch (const std::string& s) {
-        assert(s == "err");
+        LEARN_CHECK(s == "err");
     }
 }
 
@@ -51,10 +50,10 @@ void demo_expert() {
     try {
         throw std::out_of_range("oor");
     } catch (const std::out_of_range& e) {
-        assert(std::string{e.what()} == "oor");
+        LEARN_CHECK(std::string{e.what()} == "oor");
     } catch (const std::exception& e) {
         (void)e;
-        assert(false);
+        LEARN_CHECK(false);
     }
 }
 

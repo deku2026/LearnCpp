@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -20,18 +19,18 @@ void demo_basics() {
     int automatic = 1;  // automatic storage
     static int local_static = 0;
     ++local_static;
-    assert(automatic == 1);
-    assert(local_static >= 1);
+    LEARN_CHECK(automatic == 1);
+    LEARN_CHECK(local_static >= 1);
     g_static = 42;
-    assert(g_static == 42);
+    LEARN_CHECK(g_static == 42);
 }
 
 void demo_intermediate() {
     thread_local int tls = 0;
     ++tls;
-    assert(tls >= 1);
+    LEARN_CHECK(tls >= 1);
     int* dyn = new int(7);  // dynamic storage
-    assert(*dyn == 7);
+    LEARN_CHECK(*dyn == 7);
     delete dyn;
 }
 
@@ -44,14 +43,14 @@ void demo_expert() {
         ~Tracer() { /* destroyed at program end for static */ }
     };
     static Tracer t;
-    assert(t.id >= 1);
+    LEARN_CHECK(t.id >= 1);
     int x = 0;
     {
         int y = 1;
-        assert(y == 1);
+        LEARN_CHECK(y == 1);
     }
     // y's lifetime ended; x still alive
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 int run(int argc, char** argv) {

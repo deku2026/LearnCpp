@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <cctype>
 #include <functional>
 #include <ranges>
@@ -23,7 +22,7 @@ namespace {
 
 void demo_basics() {
     std::set<int, std::greater<int>> s{1, 2, 3};
-    assert(*s.begin() == 3);
+    LEARN_CHECK(*s.begin() == 3);
 }
 
 void demo_intermediate() {
@@ -35,7 +34,7 @@ void demo_intermediate() {
         }
     };
     std::set<std::string, CaseInsensitive> s{"B", "a"};
-    assert(s.size() == 2);
+    LEARN_CHECK(s.size() == 2);
 }
 
 void demo_expert() {
@@ -45,9 +44,9 @@ void demo_expert() {
     };
     std::vector<Person> people{{"bob", 30}, {"ann", 20}};
     std::ranges::sort(people, {}, &Person::age);
-    assert(people.front().name == "ann");
+    LEARN_CHECK(people.front().name == "ann");
     std::unordered_set<int> u{1, 2, 2};
-    assert(u.size() == 2);
+    LEARN_CHECK(u.size() == 2);
 }
 
 int run(int argc, char** argv) {

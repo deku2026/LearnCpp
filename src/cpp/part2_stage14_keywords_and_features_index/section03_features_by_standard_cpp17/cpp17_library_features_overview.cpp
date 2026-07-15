@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -20,22 +19,22 @@ namespace {
 
 void demo_basics() {
     std::optional<int> o = 10;
-    assert(o.has_value());
-    assert(*o == 10);
+    LEARN_CHECK(o.has_value());
+    LEARN_CHECK(*o == 10);
 }
 
 void demo_intermediate() {
     std::variant<int, std::string> v = 3;
-    assert(std::get<int>(v) == 3);
+    LEARN_CHECK(std::get<int>(v) == 3);
     v = std::string{"hi"};
-    assert(std::get<std::string>(v) == "hi");
+    LEARN_CHECK(std::get<std::string>(v) == "hi");
 }
 
 void demo_expert() {
     std::any a = 5;
-    assert(std::any_cast<int>(a) == 5);
+    LEARN_CHECK(std::any_cast<int>(a) == 5);
     std::string_view sv{"abc"};
-    assert(sv.substr(1) == "bc");
+    LEARN_CHECK(sv.substr(1) == "bc");
 }
 
 int run(int argc, char** argv) {

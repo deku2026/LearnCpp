@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <version>
 
@@ -21,7 +20,7 @@ void demo_basics() {
     int* raw = nullptr;
     create(&raw);
     std::unique_ptr<int> p{raw};
-    assert(*p == 42);
+    LEARN_CHECK(*p == 42);
 }
 
 void demo_intermediate() {
@@ -29,9 +28,9 @@ void demo_intermediate() {
     auto create = [](int** out) { *out = new int{7}; };
     std::unique_ptr<int> p;
     create(std::out_ptr(p));
-    assert(p && *p == 7);
+    LEARN_CHECK(p && *p == 7);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -43,9 +42,9 @@ void demo_expert() {
     };
     std::unique_ptr<int> u = std::make_unique<int>(1);
     replace(std::inout_ptr(u));
-    assert(u && *u == 9);
+    LEARN_CHECK(u && *u == 9);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <vector>
 
@@ -19,7 +18,7 @@ void demo_basics() {
     std::allocator<int> a;
     int* p = a.allocate(1);
     std::allocator_traits<std::allocator<int>>::construct(a, p, 5);
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     std::allocator_traits<std::allocator<int>>::destroy(a, p);
     a.deallocate(p, 1);
 }
@@ -27,13 +26,13 @@ void demo_basics() {
 void demo_intermediate() {
     std::vector<int> v(std::allocator<int>{});
     v.push_back(1);
-    assert(v.front() == 1);
+    LEARN_CHECK(v.front() == 1);
 }
 
 void demo_expert() {
     using A = std::allocator<int>;
     static_assert(std::is_same_v<A::value_type, int>);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

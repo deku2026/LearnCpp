@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -36,16 +35,16 @@ std::string kind_of(T&&) {
 
 void demo_basics() {
     int x = 1;
-    assert(is_lvalue_ref_param(x));
-    assert(!is_lvalue_ref_param(1));
-    assert(!is_lvalue_ref_param(std::move(x)));
+    LEARN_CHECK(is_lvalue_ref_param(x));
+    LEARN_CHECK(!is_lvalue_ref_param(1));
+    LEARN_CHECK(!is_lvalue_ref_param(std::move(x)));
 }
 
 void demo_intermediate() {
     std::string s = "hi";
-    assert(kind_of(s) == "lvalue");
-    assert(kind_of(std::string{"tmp"}) == "rvalue");
-    assert(kind_of(std::move(s)) == "rvalue");
+    LEARN_CHECK(kind_of(s) == "lvalue");
+    LEARN_CHECK(kind_of(std::string{"tmp"}) == "rvalue");
+    LEARN_CHECK(kind_of(std::move(s)) == "rvalue");
 
     std::vector<int> v{1, 2, 3};
     only_rvalue(std::move(v));
@@ -63,8 +62,8 @@ void demo_expert() {
         }
     };
     int n = 0;
-    assert(probe(n) == 1);
-    assert(probe(0) == 2);
+    LEARN_CHECK(probe(n) == 1);
+    LEARN_CHECK(probe(0) == 2);
 
     static_assert(std::is_same_v<decltype(std::declval<int&>()), int&>);
 }

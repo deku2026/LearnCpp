@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <version>
 
@@ -33,12 +32,12 @@ constexpr int mode_marker() {
 void demo_basics() {
     constexpr int c = mode_marker();
     static_assert(c == 1);
-    assert(c == 1);
+    LEARN_CHECK(c == 1);
 }
 
 void demo_intermediate() {
     int r = mode_marker();
-    assert(r == 2);
+    LEARN_CHECK(r == 2);
 }
 
 void demo_expert() {
@@ -53,7 +52,7 @@ void demo_expert() {
     };
     constexpr int a = pick(1);
     static_assert(a == 11);
-    assert(pick(1.0) == 22);
+    LEARN_CHECK(pick(1.0) == 22);
 }
 
 int run(int argc, char** argv) {

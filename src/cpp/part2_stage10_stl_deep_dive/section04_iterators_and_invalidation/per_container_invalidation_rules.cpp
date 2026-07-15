@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 #include <map>
 #include <vector>
@@ -21,9 +20,9 @@ void demo_basics() {
     v.reserve(16);
     auto it = v.begin();
     v.push_back(5);  // no realloc
-    assert(*it == 1);
+    LEARN_CHECK(*it == 1);
     it = v.erase(v.begin() + 1);
-    assert(*it == 3);
+    LEARN_CHECK(*it == 3);
 }
 
 void demo_intermediate() {
@@ -31,8 +30,8 @@ void demo_intermediate() {
     auto a = L.begin();
     auto b = std::next(a);
     L.erase(b);  // only erased iterator invalidated
-    assert(*a == 1);
-    assert(L.size() == 2);
+    LEARN_CHECK(*a == 1);
+    LEARN_CHECK(L.size() == 2);
 }
 
 void demo_expert() {
@@ -40,9 +39,9 @@ void demo_expert() {
     auto it1 = m.find(1);
     auto it3 = m.find(3);
     m.erase(2);  // only key 2 invalidated
-    assert(it1->second == 1);
-    assert(it3->second == 3);
-    assert(m.size() == 2);
+    LEARN_CHECK(it1->second == 1);
+    LEARN_CHECK(it3->second == 3);
+    LEARN_CHECK(m.size() == 2);
 }
 
 }  // namespace

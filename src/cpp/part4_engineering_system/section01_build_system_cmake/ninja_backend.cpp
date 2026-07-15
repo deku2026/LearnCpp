@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // cmake -G Ninja -B build
     std::string generator = "Ninja";
-    assert(generator == "Ninja");
+    LEARN_CHECK(generator == "Ninja");
 }
 
 void demo_intermediate() {
     // Ninja is single-config; pass -DCMAKE_BUILD_TYPE=Debug
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Parallelism is default; good fit for CI
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

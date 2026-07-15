@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <format>
 #include <string>
@@ -20,7 +19,7 @@ namespace {
 void demo_basics() {
     using namespace std::chrono_literals;
     auto d = 42ms;
-    assert(d.count() == 42);
+    LEARN_CHECK(d.count() == 42);
 }
 
 void demo_intermediate() {
@@ -30,16 +29,16 @@ void demo_intermediate() {
     (void)tp;
 #endif
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     using namespace std::chrono_literals;
     std::string s = std::format("{}", 5ms);
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

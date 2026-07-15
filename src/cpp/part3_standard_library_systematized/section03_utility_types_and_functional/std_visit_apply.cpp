@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <tuple>
 #include <type_traits>
@@ -28,13 +27,13 @@ void demo_basics() {
             }
         },
         v);
-    assert(got == 5);
+    LEARN_CHECK(got == 5);
 }
 
 void demo_intermediate() {
     auto t = std::make_tuple(2, 3);
     int prod = std::apply([](int a, int b) { return a * b; }, t);
-    assert(prod == 6);
+    LEARN_CHECK(prod == 6);
 }
 
 void demo_expert() {
@@ -42,7 +41,7 @@ void demo_expert() {
     std::variant<int, double> b = 2.5;
     double sum = 0;
     std::visit([&](auto x, auto y) { sum = static_cast<double>(x) + static_cast<double>(y); }, a, b);
-    assert(sum > 3.4 && sum < 3.6);
+    LEARN_CHECK(sum > 3.4 && sum < 3.6);
 }
 
 int run(int argc, char** argv) {

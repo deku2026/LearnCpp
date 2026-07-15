@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -23,7 +22,7 @@ void demo_basics() {
     volatile int vi = 2;
     static int si = 3;
     (void)si;
-    assert(b && c == 'a' && i == 0 && ci == 1 && vi == 2);
+    LEARN_CHECK(b && c == 'a' && i == 0 && ci == 1 && vi == 2);
 }
 
 void demo_intermediate() {
@@ -37,23 +36,23 @@ void demo_intermediate() {
     };
     Der d;
     Base& r = d;
-    assert(r.f() == 2);
+    LEARN_CHECK(r.f() == 2);
     try {
         throw 1;
     } catch (...) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 
 void demo_expert() {
     // templates / concepts-ish / operators as keywords
-    assert((true and false) == false);
-    assert((true or false) == true);
-    assert((not false) == true);
+    LEARN_CHECK((true and false) == false);
+    LEARN_CHECK((true or false) == true);
+    LEARN_CHECK((not false) == true);
     using T = int;
     static_assert(std::is_same_v<T, int>);
     enum class E { A };
-    assert(static_cast<int>(E::A) == 0);
+    LEARN_CHECK(static_cast<int>(E::A) == 0);
 }
 
 int run(int argc, char** argv) {

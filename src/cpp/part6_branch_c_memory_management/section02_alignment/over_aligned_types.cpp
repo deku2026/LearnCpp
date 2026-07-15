@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <memory>
 #include <new>
@@ -21,20 +20,20 @@ struct alignas(64) CacheLine {
 };
 
 void demo_basics() {
-    assert(alignof(CacheLine) == 64);
+    LEARN_CHECK(alignof(CacheLine) == 64);
     CacheLine c{};
-    assert(c.data[0] == 0);
+    LEARN_CHECK(c.data[0] == 0);
 }
 
 void demo_intermediate() {
     auto p = std::make_unique<CacheLine>();
-    assert(reinterpret_cast<std::uintptr_t>(p.get()) % 64u == 0);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(p.get()) % 64u == 0);
 }
 
 void demo_expert() {
     void* raw = ::operator new(sizeof(CacheLine), std::align_val_t{64});
     auto* p = new (raw) CacheLine{};
-    assert(reinterpret_cast<std::uintptr_t>(p) % 64u == 0);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(p) % 64u == 0);
     p->~CacheLine();
     ::operator delete(raw, std::align_val_t{64});
 }

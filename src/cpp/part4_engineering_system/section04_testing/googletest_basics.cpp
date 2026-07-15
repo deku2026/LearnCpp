@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // TEST(Suite, Name) { EXPECT_EQ(1+1, 2); }
     auto add = [](int a, int b) { return a + b; };
-    assert(add(1, 1) == 2);
+    LEARN_CHECK(add(1, 1) == 2);
 }
 
 void demo_intermediate() {
     // ASSERT_* aborts test; EXPECT_* continues
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // gtest_discover_tests for CTest integration
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

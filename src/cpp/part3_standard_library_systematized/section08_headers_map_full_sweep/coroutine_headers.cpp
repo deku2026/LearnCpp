@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <coroutine>
 #include <version>
 
@@ -17,22 +16,22 @@ namespace {
 
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) && __cpp_impl_coroutine >= 201902L
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
     // full generators need a task type; header provides coroutine_traits/handle
-    assert(sizeof(void*) >= 4);
+    LEARN_CHECK(sizeof(void*) >= 4);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_coroutine) && __cpp_lib_coroutine >= 201902L
-    assert(__cpp_lib_coroutine >= 201902L);
+    LEARN_CHECK(__cpp_lib_coroutine >= 201902L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

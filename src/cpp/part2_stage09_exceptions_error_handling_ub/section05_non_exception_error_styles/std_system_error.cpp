@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <system_error>
 
@@ -24,10 +23,10 @@ void may_fail(bool fail) {
 void demo_basics() {
     try {
         may_fail(true);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::system_error& e) {
-        assert(e.code() == std::errc::permission_denied);
-        assert(std::string{e.what()}.find("open") != std::string::npos);
+        LEARN_CHECK(e.code() == std::errc::permission_denied);
+        LEARN_CHECK(std::string{e.what()}.find("open") != std::string::npos);
     }
 }
 
@@ -35,7 +34,7 @@ void demo_intermediate() {
     may_fail(false);
     std::error_code ec = std::make_error_code(std::errc::timed_out);
     std::system_error se(ec, "wait");
-    assert(se.code() == std::errc::timed_out);
+    LEARN_CHECK(se.code() == std::errc::timed_out);
 }
 
 void demo_expert() {
@@ -43,7 +42,7 @@ void demo_expert() {
         throw std::system_error(std::make_error_code(std::errc::io_error), "io");
     } catch (const std::runtime_error& e) {
         // system_error inherits runtime_error
-        assert(std::string{e.what()}.size() > 0);
+        LEARN_CHECK(std::string{e.what()}.size() > 0);
     }
 }
 

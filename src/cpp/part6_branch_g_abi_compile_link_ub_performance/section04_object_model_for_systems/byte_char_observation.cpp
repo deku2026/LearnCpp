@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstring>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     auto* bytes = reinterpret_cast<const std::byte*>(&x);
     std::byte acc{0};
     for (std::size_t i = 0; i < sizeof(int); ++i) acc = acc | bytes[i];
-    assert(acc != std::byte{0} || x == 0);
+    LEARN_CHECK(acc != std::byte{0} || x == 0);
 }
 
 void demo_intermediate() {
@@ -29,12 +28,12 @@ void demo_intermediate() {
     std::memcpy(buf, &x, sizeof(int));
     int y = 0;
     std::memcpy(&y, buf, sizeof(int));
-    assert(y == 7);
+    LEARN_CHECK(y == 7);
 }
 
 void demo_expert() {
     std::byte b{0xFF};
-    assert(std::to_integer<int>(b) == 255);
+    LEARN_CHECK(std::to_integer<int>(b) == 255);
 }
 
 int run(int argc, char** argv) {

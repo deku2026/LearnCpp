@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Measure before optimizing
     std::string motto = "profile first";
-    assert(!motto.empty());
+    LEARN_CHECK(!motto.empty());
 }
 
 void demo_intermediate() {
     // Sampling vs instrumentation profilers
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Symbols required (RelWithDebInfo)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

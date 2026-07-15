@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -46,24 +45,24 @@ std::error_code via_error_code(int x, int& out) {
 }
 
 void demo_basics() {
-    assert(via_exception(3) == 3);
+    LEARN_CHECK(via_exception(3) == 3);
     try {
         via_exception(-1);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::invalid_argument&) {
     }
 }
 
 void demo_intermediate() {
-    assert(via_optional(3).value() == 3);
-    assert(!via_optional(-1).has_value());
+    LEARN_CHECK(via_optional(3).value() == 3);
+    LEARN_CHECK(!via_optional(-1).has_value());
 
     int out = 0;
     auto ec = via_error_code(5, out);
-    assert(!ec);
-    assert(out == 5);
+    LEARN_CHECK(!ec);
+    LEARN_CHECK(out == 5);
     ec = via_error_code(-1, out);
-    assert(ec == std::errc::invalid_argument);
+    LEARN_CHECK(ec == std::errc::invalid_argument);
 }
 
 void demo_expert() {
@@ -74,11 +73,11 @@ void demo_expert() {
         }
         return x;
     };
-    assert(*via_expected(2) == 2);
-    assert(via_expected(-1).error() == "neg");
+    LEARN_CHECK(*via_expected(2) == 2);
+    LEARN_CHECK(via_expected(-1).error() == "neg");
 #else
     // expected unavailable: optional stands in for success/failure without reason detail.
-    assert(via_optional(2).value() == 2);
+    LEARN_CHECK(via_optional(2).value() == 2);
 #endif
 }
 

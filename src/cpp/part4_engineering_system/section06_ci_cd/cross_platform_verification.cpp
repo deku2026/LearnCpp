@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -22,17 +21,17 @@ void demo_basics() {
 #else
     const bool windows = false;
 #endif
-    assert(windows || !windows);
+    LEARN_CHECK(windows || !windows);
 }
 
 void demo_intermediate() {
     // filesystem paths: prefer std::filesystem::path
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // CI matrix covers OS differences
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

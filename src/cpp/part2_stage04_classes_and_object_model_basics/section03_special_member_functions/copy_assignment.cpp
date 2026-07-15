@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <utility>
 
@@ -53,15 +52,17 @@ void demo_basics() {
     a.at(1) = 2;
     Buffer b{1};
     b = a;
-    assert(b.size() == 2);
-    assert(b.at(1) == 2);
+    LEARN_CHECK(b.size() == 2);
+    LEARN_CHECK(b.at(1) == 2);
 }
 
 void demo_intermediate() {
     Buffer a{1};
     a.at(0) = 7;
-    a = a;
-    assert(a.at(0) == 7);
+    // Indirection so -Wself-assign-overloaded cannot see a = a.
+    Buffer* p = &a;
+    a = *p;
+    LEARN_CHECK(a.at(0) == 7);
 }
 
 void demo_expert() {
@@ -70,7 +71,7 @@ void demo_expert() {
     Buffer b{1};
     b = a;
     b.at(0) = 0;
-    assert(a.at(0) == 9);
+    LEARN_CHECK(a.at(0) == 9);
 }
 
 int run(int argc, char** argv) {

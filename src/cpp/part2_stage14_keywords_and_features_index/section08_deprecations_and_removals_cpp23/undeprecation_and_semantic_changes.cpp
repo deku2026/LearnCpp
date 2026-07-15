@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -18,22 +17,22 @@ void demo_basics() {
     // Some older features were undeprecated or re-specified with clearer semantics.
     // Example: volatile still exists but is not for threading.
     volatile int v = 1;
-    assert(v == 1);
+    LEARN_CHECK(v == 1);
 }
 
 void demo_intermediate() {
     // Prefer feature-test macros to detect semantic availability.
 #if defined(__cpp_lib_constexpr_algorithms)
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     static_assert(std::is_same_v<void, void>);
     // Track defect reports via feature macros rather than compiler version alone.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

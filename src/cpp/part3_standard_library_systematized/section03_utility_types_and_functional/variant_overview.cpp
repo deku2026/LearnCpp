@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <variant>
@@ -18,17 +17,17 @@ namespace {
 
 void demo_basics() {
     std::variant<int, std::string> v = 10;
-    assert(std::holds_alternative<int>(v));
-    assert(std::get<int>(v) == 10);
+    LEARN_CHECK(std::holds_alternative<int>(v));
+    LEARN_CHECK(std::get<int>(v) == 10);
     v = std::string{"hi"};
-    assert(std::get<std::string>(v) == "hi");
+    LEARN_CHECK(std::get<std::string>(v) == "hi");
 }
 
 void demo_intermediate() {
     std::variant<int, double> v = 3.5;
-    assert(v.index() == 1);
-    assert(std::get_if<int>(&v) == nullptr);
-    assert(std::get_if<double>(&v) != nullptr);
+    LEARN_CHECK(v.index() == 1);
+    LEARN_CHECK(std::get_if<int>(&v) == nullptr);
+    LEARN_CHECK(std::get_if<double>(&v) != nullptr);
 }
 
 void demo_expert() {
@@ -42,7 +41,7 @@ void demo_expert() {
             }
         },
         v);
-    assert(sum == 1);
+    LEARN_CHECK(sum == 1);
 }
 
 int run(int argc, char** argv) {

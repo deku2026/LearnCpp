@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Vault {
@@ -32,14 +30,14 @@ public:
 
 void demo_basics() {
     Vault v;
-    assert(inspect(v) == 42);
+    LEARN_CHECK(inspect(v) == 42);
 }
 
 void demo_intermediate() {
     Vault v;
-    assert(Auditor::peek(v) == 42);
+    LEARN_CHECK(Auditor::peek(v) == 42);
     Auditor::set(v, 7);
-    assert(inspect(v) == 7);
+    LEARN_CHECK(inspect(v) == 7);
 }
 
 void demo_expert() {
@@ -50,7 +48,7 @@ void demo_expert() {
         static int via_friend(const Vault& v) { return inspect(v); }
     };
     Vault v;
-    assert(Stranger::via_friend(v) == 42);
+    LEARN_CHECK(Stranger::via_friend(v) == 42);
 }
 
 int run(int argc, char** argv) {

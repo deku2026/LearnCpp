@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <ranges>
 #include <vector>
@@ -21,9 +20,9 @@ void demo_basics() {
 #if defined(__cpp_lib_ranges_chunk) && __cpp_lib_ranges_chunk >= 202202L
     std::vector<int> v{1, 1, 2, 2, 2, 3};
     auto c = v | std::views::chunk_by(std::equal_to<>{});
-    assert(std::ranges::distance(c) == 3);
+    LEARN_CHECK(std::ranges::distance(c) == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -32,9 +31,9 @@ void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 2, 1};
     auto c = v | std::views::chunk_by(std::less<>{});
     // increasing runs: [1,2,3] [2] wait — chunk_by keeps while pred(prev,curr)
-    assert(std::ranges::distance(c) >= 1);
+    LEARN_CHECK(std::ranges::distance(c) >= 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -42,10 +41,10 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_chunk) && __cpp_lib_ranges_chunk >= 202202L
     std::vector<int> v{5, 5, 5};
     auto c = v | std::views::chunk_by(std::equal_to<>{});
-    assert(std::ranges::distance(c) == 1);
-    assert(std::ranges::distance(*c.begin()) == 3);
+    LEARN_CHECK(std::ranges::distance(c) == 1);
+    LEARN_CHECK(std::ranges::distance(*c.begin()) == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // MAJOR.MINOR.PATCH — breaking/feature/fix
     int major = 1, minor = 2, patch = 3;
-    assert(major == 1 && minor == 2 && patch == 3);
+    LEARN_CHECK(major == 1 && minor == 2 && patch == 3);
 }
 
 void demo_intermediate() {
     // Lockfiles pin exact resolved versions
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // CI should fail on undelcared dependency drift
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

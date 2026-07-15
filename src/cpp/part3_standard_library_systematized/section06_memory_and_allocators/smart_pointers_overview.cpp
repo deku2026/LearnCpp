@@ -9,30 +9,29 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
 
 void demo_basics() {
     auto u = std::make_unique<int>(5);
-    assert(*u == 5);
+    LEARN_CHECK(*u == 5);
     auto s = std::make_shared<int>(9);
-    assert(*s == 9);
-    assert(s.use_count() == 1);
+    LEARN_CHECK(*s == 9);
+    LEARN_CHECK(s.use_count() == 1);
 }
 
 void demo_intermediate() {
     auto s = std::make_shared<int>(1);
     std::weak_ptr<int> w = s;
-    assert(!w.expired());
+    LEARN_CHECK(!w.expired());
     {
         auto locked = w.lock();
-        assert(locked);
-        assert(*locked == 1);
+        LEARN_CHECK(locked);
+        LEARN_CHECK(*locked == 1);
     }
     s.reset();
-    assert(w.expired());
+    LEARN_CHECK(w.expired());
 }
 
 void demo_expert() {
@@ -40,7 +39,7 @@ void demo_expert() {
     arr[0] = 1;
     arr[1] = 2;
     arr[2] = 3;
-    assert(arr[2] == 3);
+    LEARN_CHECK(arr[2] == 3);
 }
 
 int run(int argc, char** argv) {

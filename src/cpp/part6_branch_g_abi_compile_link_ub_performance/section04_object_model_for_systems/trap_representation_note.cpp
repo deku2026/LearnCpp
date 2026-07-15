@@ -9,25 +9,24 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 
 namespace {
 
 void demo_basics() {
     std::uint32_t x = 0;
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 void demo_intermediate() {
     // Prefer value-initialization over indeterminate reads.
     int a[4]{};
-    assert(a[3] == 0);
+    LEARN_CHECK(a[3] == 0);
 }
 
 void demo_expert() {
     // Teaching: some old architectures had trap reps for ints; modern ILP32/LP64 less so.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

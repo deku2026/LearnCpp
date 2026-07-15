@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -117,11 +116,11 @@ void demo_basics() {
             co_return;
         }(&n);
         r.resume();
-        assert(n == 1);
+        LEARN_CHECK(n == 1);
     }  // destroy
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -130,9 +129,9 @@ void demo_intermediate() {
     // Owning wrapper must destroy exactly once.
     auto r = []() -> Resumable { co_await std::suspend_always{}; }();
     r.resume();
-    assert(!r.done());
+    LEARN_CHECK(!r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -141,9 +140,9 @@ void demo_expert() {
     // final_suspend always => caller/wrapper responsible for destroy.
     auto r = []() -> Resumable { co_return; }();
     r.resume();
-    assert(r.done());
+    LEARN_CHECK(r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

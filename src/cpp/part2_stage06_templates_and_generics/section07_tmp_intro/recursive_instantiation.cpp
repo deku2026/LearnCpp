@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -49,19 +48,19 @@ struct Count<T, Rest...> {
 
 void demo_basics() {
     static_assert(Factorial<5>::value == 120);
-    assert(Factorial<5>::value == 120);
-    assert(Factorial<0>::value == 1);
+    LEARN_CHECK(Factorial<5>::value == 120);
+    LEARN_CHECK(Factorial<0>::value == 1);
 }
 
 void demo_intermediate() {
     static_assert(Power<2, 10>::value == 1024);
-    assert((Power<3, 4>::value == 81));
+    LEARN_CHECK((Power<3, 4>::value == 81));
 }
 
 void demo_expert() {
     static_assert(Count<int, double, char>::value == 3);
     static_assert(Count<>::value == 0);
-    assert((Count<int, int>::value == 2));
+    LEARN_CHECK((Count<int, int>::value == 2));
 }
 
 int run(int argc, char** argv) {

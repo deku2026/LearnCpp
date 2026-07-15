@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -37,17 +36,17 @@ Noisy makeRVO() {
 void demo_basics() {
     Noisy::ctors = Noisy::copies = Noisy::moves = 0;
     Noisy a = makeRVO();
-    assert(a.value == 42);
+    LEARN_CHECK(a.value == 42);
     // C++17 guaranteed elision for prvalue: no copy/move required.
-    assert(Noisy::ctors == 1);
-    assert(Noisy::copies == 0);
-    assert(Noisy::moves == 0);
+    LEARN_CHECK(Noisy::ctors == 1);
+    LEARN_CHECK(Noisy::copies == 0);
+    LEARN_CHECK(Noisy::moves == 0);
 }
 
 void demo_intermediate() {
     auto factory = []() -> std::string { return std::string("rvo"); };
     std::string s = factory();
-    assert(s == "rvo");
+    LEARN_CHECK(s == "rvo");
 }
 
 void demo_expert() {
@@ -62,7 +61,7 @@ void demo_expert() {
     };
     auto make = []() -> OnlyPrvalue { return OnlyPrvalue{7}; };
     OnlyPrvalue o = make();
-    assert(o.x == 7);
+    LEARN_CHECK(o.x == 7);
 }
 
 int run(int argc, char** argv) {

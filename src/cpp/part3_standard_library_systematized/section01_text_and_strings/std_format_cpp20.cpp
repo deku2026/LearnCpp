@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <format>
 #include <string>
 #include <version>
@@ -19,28 +18,28 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     std::string s = std::format("{} + {} = {}", 1, 2, 3);
-    assert(s == "1 + 2 = 3");
+    LEARN_CHECK(s == "1 + 2 = 3");
 #else
     std::string s = "1 + 2 = 3";
-    assert(s.size() == 9);
+    LEARN_CHECK(s.size() == 9);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-    assert(std::format("{:04}", 7) == "0007");
-    assert(std::format("{:.2f}", 3.14159) == "3.14");
+    LEARN_CHECK(std::format("{:04}", 7) == "0007");
+    LEARN_CHECK(std::format("{:.2f}", 3.14159) == "3.14");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-    assert(std::format("{:>5}", 42) == "   42");
-    assert(std::format("{:x}", 255) == "ff");
+    LEARN_CHECK(std::format("{:>5}", 42) == "   42");
+    LEARN_CHECK(std::format("{:x}", 255) == "ff");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

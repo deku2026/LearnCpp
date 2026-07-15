@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 
 namespace {
@@ -18,19 +17,19 @@ namespace {
 
 void demo_basics() {
     auto fib = [](this auto self, int n) -> int { return n < 2 ? n : self(n - 1) + self(n - 2); };
-    assert(fib(0) == 0);
-    assert(fib(1) == 1);
-    assert(fib(10) == 55);
+    LEARN_CHECK(fib(0) == 0);
+    LEARN_CHECK(fib(1) == 1);
+    LEARN_CHECK(fib(10) == 55);
 }
 
 void demo_intermediate() {
     auto fact = [](this const auto& self, int n) -> int { return n <= 1 ? 1 : n * self(n - 1); };
-    assert(fact(5) == 120);
+    LEARN_CHECK(fact(5) == 120);
 }
 
 void demo_expert() {
     auto sum = [](this auto self, int n, int acc) -> int { return n == 0 ? acc : self(n - 1, acc + n); };
-    assert(sum(5, 0) == 15);
+    LEARN_CHECK(sum(5, 0) == 15);
 }
 
 #else
@@ -38,15 +37,15 @@ void demo_expert() {
 void demo_basics() {
     std::function<int(int)> fib;
     fib = [&](int n) -> int { return n < 2 ? n : fib(n - 1) + fib(n - 2); };
-    assert(fib(10) == 55);
+    LEARN_CHECK(fib(10) == 55);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

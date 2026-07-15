@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
@@ -20,17 +19,17 @@ namespace {
 
 void demo_basics() {
     static_assert(sizeof(std::int32_t) == 4);
-    assert(typeid(int).name() != nullptr);
+    LEARN_CHECK(typeid(int).name() != nullptr);
 }
 
 void demo_intermediate() {
-    assert(std::is_integral_v<int>);
-    assert(std::numeric_limits<int>::is_specialized);
+    LEARN_CHECK(std::is_integral_v<int>);
+    LEARN_CHECK(std::numeric_limits<int>::is_specialized);
 }
 
 void demo_expert() {
-    assert(sizeof(std::size_t) >= 4);
-    assert(alignof(std::max_align_t) >= 1);
+    LEARN_CHECK(sizeof(std::size_t) >= 4);
+    LEARN_CHECK(alignof(std::max_align_t) >= 1);
 }
 
 int run(int argc, char** argv) {

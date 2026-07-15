@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <stdexcept>
 #include <vector>
@@ -37,19 +36,19 @@ struct BasicSafe {
 void demo_basics() {
     BasicSafe b;
     b.push_recompute(1, false);
-    assert(b.data.size() == 1);
-    assert(b.sum == 1);
+    LEARN_CHECK(b.data.size() == 1);
+    LEARN_CHECK(b.sum == 1);
 }
 
 void demo_intermediate() {
     BasicSafe b;
     try {
         b.push_recompute(5, true);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (...) {
         // Invariant holds even though operation failed.
-        assert(b.data.size() == 1);
-        assert(b.sum == 5);
+        LEARN_CHECK(b.data.size() == 1);
+        LEARN_CHECK(b.sum == 5);
     }
 }
 
@@ -61,7 +60,7 @@ void demo_expert() {
     } catch (...) {
         // p destroyed; no leak
     }
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

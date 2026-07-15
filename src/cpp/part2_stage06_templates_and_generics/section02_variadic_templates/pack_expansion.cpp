@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -39,30 +38,30 @@ void apply_each(F f, Ts&&... xs) {
 
 void demo_basics() {
     auto t = map_identity(1, 2.5, 'a');
-    assert(std::get<0>(t) == 1);
-    assert(std::get<1>(t) == 2.5);
-    assert(std::get<2>(t) == 'a');
+    LEARN_CHECK(std::get<0>(t) == 1);
+    LEARN_CHECK(std::get<1>(t) == 2.5);
+    LEARN_CHECK(std::get<2>(t) == 'a');
 }
 
 void demo_intermediate() {
     auto v = to_int_vector(1, 2, 3, 4);
-    assert(v.size() == 4);
-    assert(v[0] == 1 && v[3] == 4);
+    LEARN_CHECK(v.size() == 4);
+    LEARN_CHECK(v[0] == 1 && v[3] == 4);
 
     int sum = 0;
     apply_each([&](int x) { sum += x; }, 1, 2, 3);
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_expert() {
     std::array<int, 3> a{10, 20, 30};
     auto t = std::apply([](auto... xs) { return std::tuple(xs...); }, a);
-    assert(std::get<0>(t) == 10);
-    assert(std::get<2>(t) == 30);
+    LEARN_CHECK(std::get<0>(t) == 10);
+    LEARN_CHECK(std::get<2>(t) == 30);
 
     int n = 0;
     apply_each([&](auto) { ++n; }, 1, "x", 3.0);
-    assert(n == 3);
+    LEARN_CHECK(n == 3);
 }
 
 int run(int argc, char** argv) {

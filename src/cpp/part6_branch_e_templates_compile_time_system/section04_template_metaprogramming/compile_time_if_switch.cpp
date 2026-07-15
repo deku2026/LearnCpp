@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -27,15 +26,15 @@ auto describe(T v) {
 }
 
 void demo_basics() {
-    assert(describe(5) == 5);
+    LEARN_CHECK(describe(5) == 5);
 }
 
 void demo_intermediate() {
-    assert(describe(std::string{"abc"}) == 3);
+    LEARN_CHECK(describe(std::string{"abc"}) == 3);
 }
 
 void demo_expert() {
-    assert(describe(1.0) == 0);
+    LEARN_CHECK(describe(1.0) == 0);
 }
 
 int run(int argc, char** argv) {

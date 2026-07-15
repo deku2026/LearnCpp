@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -40,7 +39,7 @@ void demo_intermediate() {
     int a = 1;
     int b = 2;
     swap_like(a, b);
-    assert(a == 2 && b == 1);
+    LEARN_CHECK(a == 2 && b == 1);
     static_assert(noexcept(swap_like(a, b)));
 }
 

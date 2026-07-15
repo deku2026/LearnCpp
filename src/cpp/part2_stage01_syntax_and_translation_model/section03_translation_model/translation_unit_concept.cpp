@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -56,30 +55,30 @@ int get() {
 void demo_basics() {
     // A translation unit is the source file after preprocessing (#includes expanded).
     // This file is one TU; main() lives elsewhere and calls our registered run().
-    assert(local_counter == 0);
+    LEARN_CHECK(local_counter == 0);
     bump_local();
     bump_local();
-    assert(local_counter == 2);
+    LEARN_CHECK(local_counter == 2);
 
     // File-scope static (also internal linkage) is another classic TU-private form.
     static int file_static = 0;
     ++file_static;
-    assert(file_static == 1);
+    LEARN_CHECK(file_static == 1);
 }
 
 void demo_intermediate() {
     // Same *spelling* of a name in different TUs' internal linkage → independent objects.
-    assert(simulated_tu_a::get() == 100);
-    assert(simulated_tu_b::get() == 200);
+    LEARN_CHECK(simulated_tu_a::get() == 100);
+    LEARN_CHECK(simulated_tu_b::get() == 200);
 
     simulated_tu_a::bump();
     simulated_tu_b::bump();
     simulated_tu_b::bump();
 
-    assert(simulated_tu_a::get() == 101);
-    assert(simulated_tu_b::get() == 202);
+    LEARN_CHECK(simulated_tu_a::get() == 101);
+    LEARN_CHECK(simulated_tu_b::get() == 202);
     // Outer anonymous-namespace counter is still separate.
-    assert(local_counter == 2);
+    LEARN_CHECK(local_counter == 2);
 }
 
 void demo_expert() {
@@ -89,19 +88,19 @@ void demo_expert() {
     const int a = simulated_tu_a::get();
     const int b = simulated_tu_b::get();
     const int c = local_counter;
-    assert(a != b);
-    assert(c != a);
-    assert(c != b);
+    LEARN_CHECK(a != b);
+    LEARN_CHECK(c != a);
+    LEARN_CHECK(c != b);
 
     // Distinct function entities for each simulated TU's internal helper.
     using Fn = int (*)();
     const Fn fa = &simulated_tu_a::get;
     const Fn fb = &simulated_tu_b::get;
-    assert(fa != fb);
-    assert(fa() == a);
-    assert(fb() == b);
+    LEARN_CHECK(fa != fb);
+    LEARN_CHECK(fa() == a);
+    LEARN_CHECK(fb() == b);
 
-    assert(std::string{"tu"} + std::string{"_model"} == "tu_model");
+    LEARN_CHECK(std::string{"tu"} + std::string{"_model"} == "tu_model");
     (void)std::string_view{"one_cpp_plus_includes"};
 }
 

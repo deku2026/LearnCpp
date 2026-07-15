@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -34,13 +33,13 @@ int sum_even(const std::vector<int>& v) {
 }
 
 void demo_basics() {
-    assert(sum_n(10) == 55);
-    assert(sum_n(0) == 0);
+    LEARN_CHECK(sum_n(10) == 55);
+    LEARN_CHECK(sum_n(0) == 0);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4, 5, 6};
-    assert(sum_even(v) == 12);
+    LEARN_CHECK(sum_even(v) == 12);
 
     int count = 0;
     for (int i = 0; i < 10; ++i) {
@@ -49,7 +48,7 @@ void demo_intermediate() {
         }
         ++count;
     }
-    assert(count == 5);
+    LEARN_CHECK(count == 5);
 }
 
 void demo_expert() {
@@ -65,7 +64,7 @@ void demo_expert() {
             break;
         }
     }
-    assert(found == 34 || found == 43);  // 3*4 or 4*3
+    LEARN_CHECK(found == 34 || found == 43);  // 3*4 or 4*3
 }
 
 int run(int argc, char** argv) {

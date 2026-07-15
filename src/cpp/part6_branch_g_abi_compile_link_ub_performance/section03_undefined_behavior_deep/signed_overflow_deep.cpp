@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 #include <cstdint>
 
@@ -22,19 +21,19 @@ bool would_add_overflow(int a, int b) {
 }
 
 void demo_basics() {
-    assert(!would_add_overflow(1, 2));
-    assert(1 + 2 == 3);
+    LEARN_CHECK(!would_add_overflow(1, 2));
+    LEARN_CHECK(1 + 2 == 3);
 }
 
 void demo_intermediate() {
-    assert(would_add_overflow(INT_MAX, 1));
-    assert(would_add_overflow(INT_MIN, -1));
+    LEARN_CHECK(would_add_overflow(INT_MAX, 1));
+    LEARN_CHECK(would_add_overflow(INT_MIN, -1));
 }
 
 void demo_expert() {
     // Unsigned wrap is defined mod 2^n; still may be a logic bug.
     std::uint32_t u = 0xFFFFFFFFu;
-    assert(u + 1u == 0u);
+    LEARN_CHECK(u + 1u == 0u);
 }
 
 int run(int argc, char** argv) {

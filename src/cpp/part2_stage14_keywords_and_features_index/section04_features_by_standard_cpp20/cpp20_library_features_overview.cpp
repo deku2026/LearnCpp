@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <span>
 #include <string>
@@ -19,33 +18,33 @@ namespace {
 
 void demo_basics() {
     auto p = std::make_shared<int>(5);
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     std::span<const int> empty{};
-    assert(empty.empty());
+    LEARN_CHECK(empty.empty());
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_jthread) && __cpp_lib_jthread >= 201911L
     // jthread present on this toolchain when macro is set
-    assert(__cpp_lib_jthread >= 201911L);
+    LEARN_CHECK(__cpp_lib_jthread >= 201911L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #if defined(__cpp_lib_span) && __cpp_lib_span >= 202002L
     int a[2]{7, 8};
     std::span<int, 2> s{a};
-    assert(s[0] == 7);
+    LEARN_CHECK(s[0] == 7);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_constexpr_algorithms)
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
     std::string s = "cpp20";
-    assert(s.starts_with("cpp") || s.find("cpp") == 0);
+    LEARN_CHECK(s.starts_with("cpp") || s.find("cpp") == 0);
 }
 
 int run(int argc, char** argv) {

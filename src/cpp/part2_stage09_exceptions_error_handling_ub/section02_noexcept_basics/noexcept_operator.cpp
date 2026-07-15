@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -32,7 +31,10 @@ struct B {
 void demo_basics() {
     static_assert(noexcept(no_throw()));
     static_assert(!noexcept(may_throw()));
-    assert(noexcept(no_throw()));
+    LEARN_CHECK(noexcept(no_throw()));
+    // ODR-use so -Wunused-function does not fire (noexcept is unevaluated).
+    no_throw();
+    may_throw();
 }
 
 void demo_intermediate() {

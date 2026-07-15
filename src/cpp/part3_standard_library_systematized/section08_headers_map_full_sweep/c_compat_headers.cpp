@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
@@ -19,21 +18,21 @@
 namespace {
 
 void demo_basics() {
-    assert(std::abs(-2) == 2);
-    assert(std::strlen("ab") == 2);
+    LEARN_CHECK(std::abs(-2) == 2);
+    LEARN_CHECK(std::strlen("ab") == 2);
 }
 
 void demo_intermediate() {
     std::int32_t x = 1;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
     char buf[8];
     std::snprintf(buf, sizeof(buf), "%d", 7);
-    assert(buf[0] == '7');
+    LEARN_CHECK(buf[0] == '7');
 }
 
 void demo_expert() {
     void* p = std::malloc(16);
-    assert(p != nullptr);
+    LEARN_CHECK(p != nullptr);
     std::free(p);
 }
 

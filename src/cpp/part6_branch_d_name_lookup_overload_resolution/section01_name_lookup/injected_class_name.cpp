@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -29,14 +28,14 @@ struct Node {
 void demo_basics() {
     Node n;
     n.v = 1;
-    assert(n.next == nullptr);
-    assert(n.v == 1);
+    LEARN_CHECK(n.next == nullptr);
+    LEARN_CHECK(n.v == 1);
 }
 
 void demo_intermediate() {
     Box<int> b;
     b.value = 5;
-    assert(b.self_ptr()->value == 5);
+    LEARN_CHECK(b.self_ptr()->value == 5);
     static_assert(std::is_same_v<Box<int>::self, Box<int>>);
 }
 
@@ -44,7 +43,7 @@ void demo_expert() {
     // In templates, injected-class-name can refer to the current specialization.
     Box<double> b;
     typename Box<double>::self copy = b;
-    assert(copy.value == 0.0);
+    LEARN_CHECK(copy.value == 0.0);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -18,21 +17,21 @@ namespace {
 void demo_basics() {
     // Portable equivalent of std module import for this course tree:
     std::string s = "headers";
-    assert(s == "headers");
+    LEARN_CHECK(s == "headers");
 }
 
 void demo_intermediate() {
     // Real import std needs module-enabled toolchain + BMI build rules
 #if defined(__cpp_lib_modules)
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     // Keep demos header-based so all CI compilers can run topics
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

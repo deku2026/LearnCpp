@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -32,22 +31,22 @@ constexpr std::array<T, N> sorted_copy(std::array<T, N> a) {
 void demo_basics() {
     constexpr auto s = sorted_copy(std::array{3, 1, 2});
     static_assert(s[0] == 1 && s[1] == 2 && s[2] == 3);
-    assert(s[0] == 1);
+    LEARN_CHECK(s[0] == 1);
 }
 
 void demo_intermediate() {
     constexpr auto s = sorted_copy(std::array{9, 7, 5, 3, 1});
     static_assert(s[0] == 1);
     static_assert(s[4] == 9);
-    assert(s[2] == 5);
+    LEARN_CHECK(s[2] == 5);
 }
 
 void demo_expert() {
     auto runtime = sorted_copy(std::array{4, 4, 2, 8});
-    assert(runtime[0] == 2);
-    assert(runtime[1] == 4);
-    assert(runtime[2] == 4);
-    assert(runtime[3] == 8);
+    LEARN_CHECK(runtime[0] == 2);
+    LEARN_CHECK(runtime[1] == 4);
+    LEARN_CHECK(runtime[2] == 4);
+    LEARN_CHECK(runtime[3] == 8);
 
     constexpr auto already = sorted_copy(std::array{1, 2, 3});
     static_assert(already[1] == 2);

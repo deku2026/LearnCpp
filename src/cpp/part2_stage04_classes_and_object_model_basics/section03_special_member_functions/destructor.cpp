@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -41,20 +40,20 @@ void demo_basics() {
     g_alive = 0;
     {
         Tracer a{1};
-        assert(g_alive == 1);
+        LEARN_CHECK(g_alive == 1);
     }
-    assert(g_alive == 0);
+    LEARN_CHECK(g_alive == 0);
 }
 
 void demo_intermediate() {
     g_alive = 0;
     {
         Box b{3, "x"};
-        assert(b.id() == 3);
-        assert(b.label() == "x");
-        assert(g_alive == 1);
+        LEARN_CHECK(b.id() == 3);
+        LEARN_CHECK(b.label() == "x");
+        LEARN_CHECK(g_alive == 1);
     }
-    assert(g_alive == 0);
+    LEARN_CHECK(g_alive == 0);
 }
 
 void demo_expert() {
@@ -64,9 +63,9 @@ void demo_expert() {
         v.reserve(2);  // avoid reallocation (default copy/move would not bump g_alive)
         v.emplace_back(1);
         v.emplace_back(2);
-        assert(g_alive == 2);
+        LEARN_CHECK(g_alive == 2);
     }
-    assert(g_alive == 0);
+    LEARN_CHECK(g_alive == 0);
 
     // Destructors should not throw under normal RAII design.
     static_assert(std::is_nothrow_destructible_v<Box>);

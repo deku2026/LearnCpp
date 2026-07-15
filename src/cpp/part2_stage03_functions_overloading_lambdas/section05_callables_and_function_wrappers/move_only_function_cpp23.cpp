@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -20,14 +19,14 @@ void demo_basics() {
 #if defined(__cpp_lib_move_only_function) && __cpp_lib_move_only_function >= 202110L
     auto p = std::make_unique<int>(42);
     std::move_only_function<int()> task = [p = std::move(p)] { return *p; };
-    assert(task() == 42);
+    LEARN_CHECK(task() == 42);
 #else
     // Fallback: keep ownership outside a copyable std::function.
     auto p = std::make_unique<int>(42);
     int* raw = p.get();
     std::function<int()> task = [raw] { return *raw; };
-    assert(task() == 42);
-    assert(p != nullptr);
+    LEARN_CHECK(task() == 42);
+    LEARN_CHECK(p != nullptr);
 #endif
 }
 
@@ -36,14 +35,14 @@ void demo_intermediate() {
     auto p = std::make_unique<int>(7);
     std::move_only_function<int()> task = [p = std::move(p)] { return *p; };
     auto task2 = std::move(task);
-    assert(task2() == 7);
+    LEARN_CHECK(task2() == 7);
     // task is empty after move — do not call (UB if empty).
-    assert(static_cast<bool>(task2));
+    LEARN_CHECK(static_cast<bool>(task2));
 #else
     auto p = std::make_unique<int>(7);
     auto task = [v = *p] { return v; };
     auto task2 = task;
-    assert(task2() == 7);
+    LEARN_CHECK(task2() == 7);
 #endif
 }
 
@@ -55,12 +54,12 @@ void demo_expert() {
         *p += 1;
         return *p;
     };
-    assert(f() == 2);
-    assert(f() == 3);
+    LEARN_CHECK(f() == 2);
+    LEARN_CHECK(f() == 3);
 
     // Empty call is UB — always ensure engaged before invoke.
     std::move_only_function<int()> empty;
-    assert(!empty);
+    LEARN_CHECK(!empty);
 #else
     // Document limitation: unique_ptr capture cannot live in std::function.
     auto p = std::make_unique<int>(1);
@@ -68,7 +67,7 @@ void demo_expert() {
         *v += 1;
         return *v;
     };
-    assert(local() == 2);
+    LEARN_CHECK(local() == 2);
 #endif
 }
 

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <cstddef>
 #include <version>
 
@@ -25,11 +24,11 @@ void demo_basics() {
     int data[6] = {0, 1, 2, 3, 4, 5};
     // layout_right = row-major (default)
     std::mdspan<int, std::extents<std::size_t, 2, 3>, std::layout_right> mr{data};
-    assert((mr[0, 0] == 0));
-    assert((mr[0, 1] == 1));
-    assert((mr[1, 0] == 3));
+    LEARN_CHECK((mr[0, 0] == 0));
+    LEARN_CHECK((mr[0, 1] == 1));
+    LEARN_CHECK((mr[1, 0] == 3));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -38,11 +37,11 @@ void demo_intermediate() {
     int data[6] = {0, 1, 2, 3, 4, 5};
     // layout_left = column-major
     std::mdspan<int, std::extents<std::size_t, 2, 3>, std::layout_left> ml{data};
-    assert((ml[0, 0] == 0));
-    assert((ml[1, 0] == 1));
-    assert((ml[0, 1] == 2));
+    LEARN_CHECK((ml[0, 0] == 0));
+    LEARN_CHECK((ml[1, 0] == 1));
+    LEARN_CHECK((ml[0, 1] == 2));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -55,10 +54,10 @@ void demo_expert() {
     std::array<std::size_t, 2> strides{2, 6};  // custom stride example via layout_stride
     std::layout_stride::mapping<std::extents<std::size_t, 2, 2>> map{std::extents<std::size_t, 2, 2>{}, strides};
     std::mdspan<int, std::extents<std::size_t, 2, 2>, std::layout_stride> ms{data, map};
-    assert((ms[0, 0] == 0));
-    assert(ms.stride(0) == 2);
+    LEARN_CHECK((ms[0, 0] == 0));
+    LEARN_CHECK(ms.stride(0) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -19,19 +18,19 @@ namespace {
 
 void demo_basics() {
     if (int x = 3; x > 0) {
-        assert(x == 3);
+        LEARN_CHECK(x == 3);
     }
     std::string s = "hello";
     std::string_view sv = s;
-    assert(sv.size() == 5);
+    LEARN_CHECK(sv.size() == 5);
 }
 
 void demo_intermediate() {
     auto t = std::tuple{1, 2};
     auto [a, b] = t;
-    assert(a == 1 && b == 2);
+    LEARN_CHECK(a == 1 && b == 2);
     if constexpr (sizeof(int) >= 4) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 
@@ -41,7 +40,7 @@ void demo_expert() {
     static_assert(f() == 5);
     void* p = nullptr;
     if (p == nullptr) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <new>
 
 namespace {
@@ -22,20 +21,20 @@ struct Y {
 void demo_basics() {
     alignas(Y) unsigned char buf[sizeof(Y)];
     Y* p = new (buf) Y(1);
-    assert(p->n == 1);
+    LEARN_CHECK(p->n == 1);
     p->~Y();
     new (buf) Y(2);
     Y* q = std::launder(reinterpret_cast<Y*>(buf));
-    assert(q->n == 2);
+    LEARN_CHECK(q->n == 2);
 }
 
 void demo_intermediate() {
     int x = 3;
-    assert(*std::launder(&x) == 3);
+    LEARN_CHECK(*std::launder(&x) == 3);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

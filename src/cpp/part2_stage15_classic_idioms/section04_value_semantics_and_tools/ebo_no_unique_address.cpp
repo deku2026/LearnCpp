@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <type_traits>
 
@@ -35,22 +34,22 @@ struct Compact {
 };
 
 void demo_basics() {
-    assert(sizeof(Empty) >= 1);
+    LEARN_CHECK(sizeof(Empty) >= 1);
     Holder h{1, {}};
-    assert(h.x == 1);
+    LEARN_CHECK(h.x == 1);
 }
 
 void demo_intermediate() {
     Compact c{2, {}};
-    assert(c.x == 2);
+    LEARN_CHECK(c.x == 2);
     // With no_unique_address, sizeof(Compact) may equal sizeof(int).
-    assert(sizeof(Compact) >= sizeof(int));
+    LEARN_CHECK(sizeof(Compact) >= sizeof(int));
 }
 
 void demo_expert() {
     static_assert(std::is_empty_v<Empty>);
     Compact c{3, {}};
-    assert(c.x == 3);
+    LEARN_CHECK(c.x == 3);
 }
 
 int run(int argc, char** argv) {

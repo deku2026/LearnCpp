@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -41,24 +40,24 @@ int double_area(const Shape<D>& s) {
 void demo_basics() {
     Square sq;
     sq.side = 4;
-    assert(sq.area() == 16);
-    assert(sq.name() == "square");
+    LEARN_CHECK(sq.area() == 16);
+    LEARN_CHECK(sq.name() == "square");
 }
 
 void demo_intermediate() {
     Rect r;
     r.w = 3;
     r.h = 5;
-    assert(r.area() == 15);
-    assert(double_area(r) == 30);
+    LEARN_CHECK(r.area() == 15);
+    LEARN_CHECK(double_area(r) == 30);
 }
 
 void demo_expert() {
     // No vtable: different Derived => different monomorphs of Shape/double_area.
     Square sq;
     sq.side = 2;
-    assert(double_area(sq) == 8);
-    assert(sq.name() != Rect{}.name());
+    LEARN_CHECK(double_area(sq) == 8);
+    LEARN_CHECK(sq.name() != Rect{}.name());
 }
 
 int run(int argc, char** argv) {

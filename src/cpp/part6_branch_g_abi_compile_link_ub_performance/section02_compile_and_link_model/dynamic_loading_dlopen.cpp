@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -29,18 +28,18 @@ Plugin load_plugin() {
 
 void demo_basics() {
     Plugin p = load_plugin();
-    assert(std::string{p.name} == "demo");
-    assert(p.run(3) == 4);
+    LEARN_CHECK(std::string{p.name} == "demo");
+    LEARN_CHECK(p.run(3) == 4);
 }
 
 void demo_intermediate() {
     Plugin p = load_plugin();
-    assert(p.run(0) == 1);
+    LEARN_CHECK(p.run(0) == 1);
 }
 
 void demo_expert() {
     Plugin p = load_plugin();
-    assert(p.run != nullptr);
+    LEARN_CHECK(p.run != nullptr);
 }
 
 int run(int argc, char** argv) {

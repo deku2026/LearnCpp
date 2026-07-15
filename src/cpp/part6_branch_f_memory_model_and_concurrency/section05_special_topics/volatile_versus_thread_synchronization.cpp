@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -19,7 +18,7 @@ void demo_basics() {
     // volatile: suppress certain optimizations for MMIO/setjmp — not a mutex.
     volatile int device = 0;
     device = 1;
-    assert(device == 1);
+    LEARN_CHECK(device == 1);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_intermediate() {
     std::thread t2([&] {
         while (ready.load() == 0) {
         }
-        assert(data == 4);
+        LEARN_CHECK(data == 4);
     });
     t1.join();
     t2.join();
@@ -42,7 +41,7 @@ void demo_expert() {
     // Teaching: volatile int shared; // does NOT prevent data races.
     std::atomic<int> shared{0};
     shared.store(1);
-    assert(shared.load() == 1);
+    LEARN_CHECK(shared.load() == 1);
 }
 
 int run(int argc, char** argv) {

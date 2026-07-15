@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <utility>
 
@@ -45,7 +44,7 @@ void demo_basics() {
     Vec b{{4, 5, 6}};
     Vec c{{0, 0, 0}};
     c = a + b;
-    assert(c[0] == 5 && c[1] == 7 && c[2] == 9);
+    LEARN_CHECK(c[0] == 5 && c[1] == 7 && c[2] == 9);
 }
 
 void demo_intermediate() {
@@ -54,7 +53,7 @@ void demo_intermediate() {
     Vec c{{3, 3, 3}};
     Vec d{{0, 0, 0}};
     d = a + b + c;
-    assert(d[0] == 6);
+    LEARN_CHECK(d[0] == 6);
 }
 
 void demo_expert() {
@@ -62,7 +61,7 @@ void demo_expert() {
     Vec a{{1, 0, 0}};
     Vec b{{0, 1, 0}};
     auto e = a + b;
-    assert(e[0] == 1 && e[1] == 1);
+    LEARN_CHECK(e[0] == 1 && e[1] == 1);
 }
 
 int run(int argc, char** argv) {

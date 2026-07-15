@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int countdown_sum(int n) {
@@ -32,14 +30,14 @@ int do_while_count(int n) {
 }
 
 void demo_basics() {
-    assert(countdown_sum(5) == 15);
-    assert(countdown_sum(0) == 0);
+    LEARN_CHECK(countdown_sum(5) == 15);
+    LEARN_CHECK(countdown_sum(0) == 0);
 }
 
 void demo_intermediate() {
-    assert(do_while_count(3) == 3);
+    LEARN_CHECK(do_while_count(3) == 3);
     // do-while runs once even when condition starts false after first body.
-    assert(do_while_count(0) == 1);  // n becomes -1 after first iteration
+    LEARN_CHECK(do_while_count(0) == 1);  // n becomes -1 after first iteration
 }
 
 void demo_expert() {
@@ -52,8 +50,8 @@ void demo_expert() {
         }
         return a;
     };
-    assert(gcd(48, 18) == 6);
-    assert(gcd(7, 3) == 1);
+    LEARN_CHECK(gcd(48, 18) == 6);
+    LEARN_CHECK(gcd(7, 3) == 1);
 }
 
 int run(int argc, char** argv) {

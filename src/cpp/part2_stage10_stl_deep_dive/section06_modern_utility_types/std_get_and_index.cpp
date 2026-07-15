@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <tuple>
 #include <variant>
 
@@ -18,21 +17,21 @@ namespace {
 
 void demo_basics() {
     std::tuple<int, char> t{7, 'x'};
-    assert(std::get<0>(t) == 7);
-    assert(std::get<char>(t) == 'x');
+    LEARN_CHECK(std::get<0>(t) == 7);
+    LEARN_CHECK(std::get<char>(t) == 'x');
 }
 
 void demo_intermediate() {
     std::array<int, 3> a{1, 2, 3};
-    assert(std::get<1>(a) == 2);
+    LEARN_CHECK(std::get<1>(a) == 2);
     std::variant<int, double> v = 3.5;
-    assert(std::get<double>(v) == 3.5);
+    LEARN_CHECK(std::get<double>(v) == 3.5);
 }
 
 void demo_expert() {
     std::tuple<int, int, int> t{1, 2, 3};
     std::get<2>(t) = 9;
-    assert(std::get<2>(t) == 9);
+    LEARN_CHECK(std::get<2>(t) == 9);
     constexpr auto a = std::array{10, 20};
     static_assert(std::get<0>(a) == 10);
 }

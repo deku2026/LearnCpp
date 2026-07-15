@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -120,14 +119,14 @@ void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     int step = 0;
     auto r = two_steps(&step);
-    assert(step == 0);
+    LEARN_CHECK(step == 0);
     r.resume();
-    assert(step == 1);
+    LEARN_CHECK(step == 1);
     r.resume();
-    assert(step == 2);
-    assert(r.done());
+    LEARN_CHECK(step == 2);
+    LEARN_CHECK(r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -137,11 +136,11 @@ void demo_intermediate() {
     int step = 0;
     auto r = two_steps(&step);
     r.resume();
-    assert(step == 1 && !r.done());
+    LEARN_CHECK(step == 1 && !r.done());
     r.resume();
-    assert(step == 2 && r.done());
+    LEARN_CHECK(step == 2 && r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -153,12 +152,12 @@ void demo_expert() {
     auto r2 = two_steps(&b);
     r1.resume();
     r2.resume();
-    assert(a == 1 && b == 1);
+    LEARN_CHECK(a == 1 && b == 1);
     r1.resume();
     r2.resume();
-    assert(a == 2 && b == 2);
+    LEARN_CHECK(a == 2 && b == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

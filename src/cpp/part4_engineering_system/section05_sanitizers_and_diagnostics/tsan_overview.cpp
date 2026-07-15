@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -19,17 +18,17 @@ void demo_basics() {
     // -fsanitize=thread
     // Safe: mutex-protected or atomic
     std::string note = "join all threads";
-    assert(!note.empty());
+    LEARN_CHECK(!note.empty());
 }
 
 void demo_intermediate() {
     // Separate CI lane from ASan
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Higher memory overhead
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

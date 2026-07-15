@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -26,7 +25,7 @@ void demo_basics() {
     for (int x : r) {
         sum += x;
     }
-    assert(sum == 1 + 9 + 25);
+    LEARN_CHECK(sum == 1 + 9 + 25);
 }
 
 void demo_intermediate() {
@@ -38,7 +37,7 @@ void demo_intermediate() {
     auto c = r | std::views::common;
     std::vector<int> out(std::ranges::begin(c), std::ranges::end(c));
 #endif
-    assert((out == std::vector<int>{10, 20, 30}));
+    LEARN_CHECK((out == std::vector<int>{10, 20, 30}));
 }
 
 void demo_expert() {
@@ -51,8 +50,8 @@ void demo_expert() {
     auto c = r | std::views::common;
     std::vector<int> v(std::ranges::begin(c), std::ranges::end(c));
 #endif
-    assert(v.size() == 5);
-    assert(std::ranges::equal(v, std::views::iota(0, 5)));
+    LEARN_CHECK(v.size() == 5);
+    LEARN_CHECK(std::ranges::equal(v, std::views::iota(0, 5)));
 }
 
 }  // namespace

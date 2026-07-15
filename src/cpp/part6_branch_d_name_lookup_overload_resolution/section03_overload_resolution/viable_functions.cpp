@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -22,19 +21,19 @@ int g(std::string) {
 }
 
 void demo_basics() {
-    assert(g(3) == 1);
-    assert(g("hi") == 2);
+    LEARN_CHECK(g(3) == 1);
+    LEARN_CHECK(g("hi") == 2);
 }
 
 void demo_intermediate() {
     // g(3.0) viable via double->int conversion
-    assert(g(3.0) == 1);
+    LEARN_CHECK(g(3.0) == 1);
 }
 
 void demo_expert() {
     // Too many args: not viable
     // g(1, 2); // would not compile
-    assert(g(std::string{"x"}) == 2);
+    LEARN_CHECK(g(std::string{"x"}) == 2);
 }
 
 int run(int argc, char** argv) {

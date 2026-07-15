@@ -9,14 +9,13 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 namespace {
 
 int div_positive(int a, int b) {
     // Precondition documented; we assert instead of relying on assume for safety.
-    assert(b > 0);
+    LEARN_CHECK(b > 0);
 #if defined(__cpp_lib_unreachable) || defined(__has_cpp_attribute)
 #if __has_cpp_attribute(assume)
     [[assume(b > 0)]];
@@ -26,18 +25,18 @@ int div_positive(int a, int b) {
 }
 
 int abs_if_nonneg_documented(int x) {
-    assert(x >= 0);
+    LEARN_CHECK(x >= 0);
     return x;
 }
 
 void demo_basics() {
-    assert(div_positive(10, 2) == 5);
-    assert(div_positive(9, 3) == 3);
+    LEARN_CHECK(div_positive(10, 2) == 5);
+    LEARN_CHECK(div_positive(9, 3) == 3);
 }
 
 void demo_intermediate() {
-    assert(abs_if_nonneg_documented(0) == 0);
-    assert(abs_if_nonneg_documented(7) == 7);
+    LEARN_CHECK(abs_if_nonneg_documented(0) == 0);
+    LEARN_CHECK(abs_if_nonneg_documented(7) == 7);
 }
 
 void demo_expert() {
@@ -45,8 +44,8 @@ void demo_expert() {
     // Use assert in demos; assume is only a compiler hint when condition holds.
     int a = 8;
     int b = 4;
-    assert(b != 0);
-    assert(div_positive(a, b) == 2);
+    LEARN_CHECK(b != 0);
+    LEARN_CHECK(div_positive(a, b) == 2);
 }
 
 int run(int argc, char** argv) {

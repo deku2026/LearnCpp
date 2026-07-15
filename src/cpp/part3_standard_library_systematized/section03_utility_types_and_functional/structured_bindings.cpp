@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <map>
 #include <string>
 #include <utility>
@@ -20,16 +19,16 @@ namespace {
 void demo_basics() {
     std::pair<int, int> p{1, 2};
     auto [x, y] = p;
-    assert(x == 1 && y == 2);
+    LEARN_CHECK(x == 1 && y == 2);
 }
 
 void demo_intermediate() {
     std::array<int, 3> a{10, 20, 30};
     auto [i, j, k] = a;
-    assert(i + j + k == 60);
+    LEARN_CHECK(i + j + k == 60);
     std::map<std::string, int> m{{"a", 1}};
     for (const auto& [key, val] : m) {
-        assert(key == "a" && val == 1);
+        LEARN_CHECK(key == "a" && val == 1);
     }
 }
 
@@ -41,7 +40,7 @@ void demo_expert() {
     Point pt{3, 4};
     auto& [rx, ry] = pt;
     rx = 9;
-    assert(pt.x == 9);
+    LEARN_CHECK(pt.x == 9);
 }
 
 int run(int argc, char** argv) {

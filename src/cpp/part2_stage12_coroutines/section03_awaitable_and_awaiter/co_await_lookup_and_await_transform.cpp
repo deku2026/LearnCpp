@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -156,9 +155,9 @@ void demo_basics() {
     int out = 0;
     auto t = use_transform(&out);
     t.resume();
-    assert(out == 42);
+    LEARN_CHECK(out == 42);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -167,9 +166,9 @@ void demo_intermediate() {
     int out = 0;
     auto t = use_transform(&out);
     t.resume();
-    assert(t.h.promise().transformed == 21);
+    LEARN_CHECK(t.h.promise().transformed == 21);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -179,9 +178,9 @@ void demo_expert() {
     int out = 0;
     auto t = use_transform(&out);
     t.resume();
-    assert(out == 42);
+    LEARN_CHECK(out == 42);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

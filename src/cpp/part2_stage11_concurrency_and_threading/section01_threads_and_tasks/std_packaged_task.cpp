@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <future>
 #include <stdexcept>
 #include <thread>
@@ -21,14 +20,14 @@ void demo_basics() {
     std::packaged_task<int()> task([] { return 40 + 2; });
     std::future<int> f = task.get_future();
     task();
-    assert(f.get() == 42);
+    LEARN_CHECK(f.get() == 42);
 }
 
 void demo_intermediate() {
     std::packaged_task<int(int, int)> task([](int a, int b) { return a * b; });
     std::future<int> f = task.get_future();
     std::thread t(std::move(task), 6, 7);
-    assert(f.get() == 42);
+    LEARN_CHECK(f.get() == 42);
     t.join();
 }
 
@@ -45,7 +44,7 @@ void demo_expert() {
     } catch (const std::runtime_error&) {
         threw = true;
     }
-    assert(threw);
+    LEARN_CHECK(threw);
 }
 
 int run(int argc, char** argv) {

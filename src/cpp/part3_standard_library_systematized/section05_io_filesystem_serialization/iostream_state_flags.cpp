@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 
@@ -20,25 +19,25 @@ void demo_basics() {
     int x = 0;
     is >> x;
     // Extraction may set eofbit at end of stream; good() is false then, fail() is not.
-    assert(!is.fail());
-    assert(x == 42);
+    LEARN_CHECK(!is.fail());
+    LEARN_CHECK(x == 42);
 }
 
 void demo_intermediate() {
     std::istringstream is{"x"};
     int x = 0;
     is >> x;
-    assert(is.fail());
+    LEARN_CHECK(is.fail());
     is.clear();
-    assert(!is.fail());
+    LEARN_CHECK(!is.fail());
 }
 
 void demo_expert() {
     std::istringstream is{""};
     char c = 0;
     is >> c;
-    assert(is.eof() || is.fail());
-    assert((is.rdstate() & std::ios_base::failbit) != 0 || is.eof());
+    LEARN_CHECK(is.eof() || is.fail());
+    LEARN_CHECK((is.rdstate() & std::ios_base::failbit) != 0 || is.eof());
 }
 
 int run(int argc, char** argv) {

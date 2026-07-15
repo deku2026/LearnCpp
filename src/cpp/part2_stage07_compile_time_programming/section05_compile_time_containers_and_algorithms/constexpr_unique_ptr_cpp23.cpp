@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <version>
 
@@ -24,17 +23,17 @@ constexpr int compute() {
 
 void demo_basics() {
     auto p = std::make_unique<int>(42);
-    assert(p && *p == 42);
+    LEARN_CHECK(p && *p == 42);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_constexpr_memory) && __cpp_lib_constexpr_memory >= 202202L
     constexpr int v = compute();
     static_assert(v == 42);
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 #else
     auto p = std::make_unique<int>(21);
-    assert(*p * 2 == 42);
+    LEARN_CHECK(*p * 2 == 42);
 #endif
 }
 
@@ -46,11 +45,11 @@ void demo_expert() {
         return *a + *b;
     }();
     static_assert(s == 7);
-    assert(s == 7);
+    LEARN_CHECK(s == 7);
 #else
     auto a = std::make_unique<int>(3);
     auto b = std::make_unique<int>(4);
-    assert(*a + *b == 7);
+    LEARN_CHECK(*a + *b == 7);
 #endif
 }
 

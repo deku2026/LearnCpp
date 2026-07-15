@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <deque>
 #include <vector>
 
@@ -18,39 +17,39 @@ namespace {
 
 void demo_basics() {
     std::vector<bool> vb{true, false, true};
-    assert(vb.size() == 3);
-    assert(vb[0]);
-    assert(!vb[1]);
+    LEARN_CHECK(vb.size() == 3);
+    LEARN_CHECK(vb[0]);
+    LEARN_CHECK(!vb[1]);
     // vb[i] is a proxy, not bool&
     auto proxy = vb[0];
-    assert(static_cast<bool>(proxy));
+    LEARN_CHECK(static_cast<bool>(proxy));
 }
 
 void demo_intermediate() {
     std::vector<bool> vb(4, false);
     vb[2] = true;
-    assert(vb[2]);
+    LEARN_CHECK(vb[2]);
     // Prefer real bool storage when references/pointers are needed
     std::vector<char> flags{0, 1, 0, 1};
     char& r = flags[1];
     r = 0;
-    assert(flags[1] == 0);
+    LEARN_CHECK(flags[1] == 0);
 }
 
 void demo_expert() {
     std::array<bool, 3> ab{true, false, true};
     bool& ref = ab[0];
     ref = false;
-    assert(!ab[0]);
+    LEARN_CHECK(!ab[0]);
 
     std::deque<bool> db{true, false};
     bool& dref = db[0];
     dref = false;
-    assert(!db[0]);
+    LEARN_CHECK(!db[0]);
 
     std::vector<bool> vb{true};
     // cannot form bool* to element; use alternatives above for addressability
-    assert(vb.front());
+    LEARN_CHECK(vb.front());
 }
 
 }  // namespace

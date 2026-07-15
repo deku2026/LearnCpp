@@ -9,21 +9,20 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
 namespace {
 
 void process(std::string_view sv) {
-    assert(!sv.empty() || sv.empty());
+    LEARN_CHECK(!sv.empty() || sv.empty());
 }
 
 void demo_basics() {
     std::string s = "hello world";
     std::string_view sv = s;
-    assert(sv.size() == 11);
-    assert(sv.substr(0, 5) == "hello");
+    LEARN_CHECK(sv.size() == 11);
+    LEARN_CHECK(sv.substr(0, 5) == "hello");
     process(s);
     process("literal");
 }
@@ -31,10 +30,10 @@ void demo_intermediate() {
     std::string s = "hello world";
     std::string_view sv = s;
     sv.remove_prefix(6);
-    assert(sv == "world");
+    LEARN_CHECK(sv == "world");
     sv.remove_suffix(2);
-    assert(sv == "wor");
-    assert(sv.size() == 3);
+    LEARN_CHECK(sv == "wor");
+    LEARN_CHECK(sv.size() == 3);
 }
 
 void demo_expert() {
@@ -42,7 +41,7 @@ void demo_expert() {
     static_assert(k.size() == 12);
     static_assert(k.starts_with("comp"));
     static_assert(k.ends_with("time"));
-    assert(k.find('t') != std::string_view::npos);
+    LEARN_CHECK(k.find('t') != std::string_view::npos);
 }
 
 int run(int argc, char** argv) {

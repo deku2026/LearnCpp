@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -18,7 +17,7 @@ namespace {
 void demo_basics() {
     std::atomic<int> x{0};
     x.store(1);
-    assert(x.load() == 1);
+    LEARN_CHECK(x.load() == 1);
 }
 
 void demo_intermediate() {
@@ -34,7 +33,7 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(x.load() == 1 && y.load() == 1);
+    LEARN_CHECK(x.load() == 1 && y.load() == 1);
 }
 
 void demo_expert() {
@@ -47,7 +46,7 @@ void demo_expert() {
     std::thread c([&] {
         while (flag.load(std::memory_order_seq_cst) == 0) {
         }
-        assert(payload == 11);
+        LEARN_CHECK(payload == 11);
     });
     p.join();
     c.join();

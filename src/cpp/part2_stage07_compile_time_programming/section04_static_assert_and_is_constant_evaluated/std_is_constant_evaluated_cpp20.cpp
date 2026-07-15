@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -29,13 +28,13 @@ constexpr int path_id() {
 void demo_basics() {
     constexpr int a = smart_abs(-5);
     static_assert(a == 5);
-    assert(smart_abs(-7) == 7);
+    LEARN_CHECK(smart_abs(-7) == 7);
 }
 
 void demo_intermediate() {
     constexpr int p = path_id();
     static_assert(p == 1);
-    assert(path_id() == 2);
+    LEARN_CHECK(path_id() == 2);
 }
 
 void demo_expert() {
@@ -58,7 +57,7 @@ void demo_expert() {
     };
     constexpr int c = popcount_like(0b1011u);
     static_assert(c == 3);
-    assert(popcount_like(0b1000u) == 1);
+    LEARN_CHECK(popcount_like(0b1000u) == 1);
 }
 
 int run(int argc, char** argv) {

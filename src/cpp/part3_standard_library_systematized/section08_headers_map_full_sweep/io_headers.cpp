@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -22,19 +21,19 @@ namespace {
 void demo_basics() {
     std::ostringstream os;
     os << std::setw(2) << 7;
-    assert(!os.str().empty());
+    LEARN_CHECK(!os.str().empty());
 }
 
 void demo_intermediate() {
     auto p = std::filesystem::path{"a/b"};
-    assert(p.filename() == "b");
+    LEARN_CHECK(p.filename() == "b");
 }
 
 void demo_expert() {
     std::stringstream ss{"1"};
     int x = 0;
     ss >> x;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 }
 
 int run(int argc, char** argv) {

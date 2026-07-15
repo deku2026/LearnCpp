@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -35,12 +34,12 @@ private:
 
 void demo_basics() {
     Square s(3);
-    assert(s.area() == 9);
+    LEARN_CHECK(s.area() == 9);
 }
 
 void demo_intermediate() {
     std::unique_ptr<Shape> p = std::make_unique<Square>(4);
-    assert(p->area() == 16);
+    LEARN_CHECK(p->area() == 16);
 }
 
 void demo_expert() {
@@ -49,7 +48,7 @@ void demo_expert() {
         int area_impl() const override { return 5; }
     };
     Checked c;
-    assert(c.area() == 5);
+    LEARN_CHECK(c.area() == 5);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 
 namespace {
@@ -31,12 +30,12 @@ int rank(T) {
 }
 
 void demo_basics() {
-    assert(rank(1) == 2);   // signed int
-    assert(rank(1u) == 1);  // unsigned
+    LEARN_CHECK(rank(1) == 2);   // signed int
+    LEARN_CHECK(rank(1u) == 1);  // unsigned
 }
 
 void demo_intermediate() {
-    assert(rank(static_cast<short>(1)) == 2);
+    LEARN_CHECK(rank(static_cast<short>(1)) == 2);
 }
 
 void demo_expert() {

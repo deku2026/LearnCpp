@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -28,11 +27,11 @@ void demo_basics() {
     Widget::live = 0;
     {
         auto w = std::make_unique<Widget>(1);
-        assert(w != nullptr);
-        assert(w->id == 1);
-        assert(Widget::live == 1);
+        LEARN_CHECK(w != nullptr);
+        LEARN_CHECK(w->id == 1);
+        LEARN_CHECK(Widget::live == 1);
     }
-    assert(Widget::live == 0);
+    LEARN_CHECK(Widget::live == 0);
 }
 
 void demo_intermediate() {
@@ -40,10 +39,10 @@ void demo_intermediate() {
     auto a = std::make_unique<Widget>(10);
     // auto b = a; // not copyable
     auto b = std::move(a);
-    assert(a == nullptr);
-    assert(b != nullptr);
-    assert(b->id == 10);
-    assert(Widget::live == 1);
+    LEARN_CHECK(a == nullptr);
+    LEARN_CHECK(b != nullptr);
+    LEARN_CHECK(b->id == 10);
+    LEARN_CHECK(Widget::live == 1);
 }
 
 void demo_expert() {
@@ -52,11 +51,11 @@ void demo_expert() {
     vec.push_back(std::make_unique<Widget>(1));
     auto p = std::make_unique<Widget>(2);
     vec.push_back(std::move(p));
-    assert(p == nullptr);
-    assert(vec.size() == 2);
-    assert(Widget::live == 2);
+    LEARN_CHECK(p == nullptr);
+    LEARN_CHECK(vec.size() == 2);
+    LEARN_CHECK(Widget::live == 2);
     vec.clear();
-    assert(Widget::live == 0);
+    LEARN_CHECK(Widget::live == 0);
 
     // Polymorphic unique_ptr needs virtual destructor on base (shown safely).
     struct Base {
@@ -67,7 +66,7 @@ void demo_expert() {
         int tag() const override { return 2; }
     };
     std::unique_ptr<Base> pb = std::make_unique<Derived>();
-    assert(pb->tag() == 2);
+    LEARN_CHECK(pb->tag() == 2);
 }
 
 int run(int argc, char** argv) {

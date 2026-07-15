@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -120,11 +119,11 @@ void demo_basics() {
     std::vector<std::coroutine_handle<>> q;
     q.push_back(r.h);
     q[0].resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
     q[0].resume();
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -144,9 +143,9 @@ void demo_intermediate() {
     for (auto h : ready) {
         h.resume();
     }
-    assert(a == 1 && b == 2);
+    LEARN_CHECK(a == 1 && b == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -161,9 +160,9 @@ void demo_expert() {
     auto handle = r.h;
     handle.resume();
     handle.resume();
-    assert(n == 9);
+    LEARN_CHECK(n == 9);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

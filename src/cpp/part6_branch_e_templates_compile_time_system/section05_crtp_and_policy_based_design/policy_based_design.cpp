@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -32,17 +31,17 @@ struct Engine {
 
 void demo_basics() {
     Engine<FastPolicy> e;
-    assert(e.run(3) == 3);
-    assert(e.kind() == "fast");
+    LEARN_CHECK(e.run(3) == 3);
+    LEARN_CHECK(e.kind() == "fast");
 }
 
 void demo_intermediate() {
     Engine<SafePolicy> e;
-    assert(e.run(3) == 6);
+    LEARN_CHECK(e.run(3) == 6);
 }
 
 void demo_expert() {
-    assert(Engine<SafePolicy>{}.kind() == "safe");
+    LEARN_CHECK(Engine<SafePolicy>{}.kind() == "safe");
 }
 
 int run(int argc, char** argv) {

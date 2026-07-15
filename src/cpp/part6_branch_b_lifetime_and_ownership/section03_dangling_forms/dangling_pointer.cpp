@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -17,26 +16,26 @@ namespace {
 void demo_basics() {
     int x = 1;
     int* p = &x;
-    assert(*p == 1);
+    LEARN_CHECK(*p == 1);
     // After x goes out of scope, p would dangle — we do not use that.
 }
 
 void demo_intermediate() {
     auto up = std::make_unique<int>(5);
     int* raw = up.get();
-    assert(*raw == 5);
+    LEARN_CHECK(*raw == 5);
     up.reset();
     // raw is dangling here — do not dereference. Track validity via owner.
-    assert(up.get() == nullptr);
+    LEARN_CHECK(up.get() == nullptr);
 }
 
 void demo_expert() {
     // SAFE: null after release, or use smart pointers exclusively.
     int* p = new int(3);
-    assert(*p == 3);
+    LEARN_CHECK(*p == 3);
     delete p;
     p = nullptr;
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
 }
 
 int run(int argc, char** argv) {

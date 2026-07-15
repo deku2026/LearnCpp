@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <span>
 #include <vector>
 
@@ -25,29 +24,29 @@ void scale(std::span<int> s, int factor) {
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
     scale(v, 2);
-    assert((v == std::vector<int>{2, 4, 6, 8}));
+    LEARN_CHECK((v == std::vector<int>{2, 4, 6, 8}));
     int carr[] = {1, 2};
     scale(carr, 3);
-    assert(carr[0] == 3 && carr[1] == 6);
+    LEARN_CHECK(carr[0] == 3 && carr[1] == 6);
 }
 
 void demo_intermediate() {
     std::array<int, 5> a{1, 2, 3, 4, 5};
     std::span<int> sp = a;
     auto sub = sp.subspan(1, 3);
-    assert(sub.size() == 3);
-    assert(sub[0] == 2);
-    assert(sp.first(2).size() == 2);
-    assert(sp.last(2)[0] == 4);
+    LEARN_CHECK(sub.size() == 3);
+    LEARN_CHECK(sub[0] == 2);
+    LEARN_CHECK(sp.first(2).size() == 2);
+    LEARN_CHECK(sp.last(2)[0] == 4);
 }
 
 void demo_expert() {
     std::vector<int> v{10, 20, 30};
     std::span<const int> csp = v;
-    assert(csp[1] == 20);
+    LEARN_CHECK(csp[1] == 20);
     std::span<int, 3> static_sp{v.data(), 3};
-    assert(static_sp.extent == 3);
-    assert(static_sp[2] == 30);
+    LEARN_CHECK(static_sp.extent == 3);
+    LEARN_CHECK(static_sp[2] == 30);
 }
 
 }  // namespace

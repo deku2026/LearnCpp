@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -35,22 +34,22 @@ public:
 
 void demo_basics() {
     Leaf leaf;
-    assert(leaf.f() == 3);
-    assert(leaf.g() == 20);
+    LEARN_CHECK(leaf.f() == 3);
+    LEARN_CHECK(leaf.g() == 20);
 }
 
 void demo_intermediate() {
     Leaf leaf;
     Base& b = leaf;
-    assert(b.f() == 3);
-    assert(b.g() == 20);
+    LEARN_CHECK(b.f() == 3);
+    LEARN_CHECK(b.g() == 20);
 }
 
 void demo_expert() {
     static_assert(std::is_final_v<Leaf>);
     Mid m;
     Base& b = m;
-    assert(b.g() == 20);
+    LEARN_CHECK(b.g() == 20);
 }
 
 int run(int argc, char** argv) {

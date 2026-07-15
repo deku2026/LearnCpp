@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <span>
 
@@ -18,20 +17,20 @@ namespace {
 void demo_basics() {
     // I.11: never transfer ownership by raw pointer; use unique_ptr.
     auto p = std::make_unique<int>(1);
-    assert(*p == 1);
+    LEARN_CHECK(*p == 1);
 }
 
 void demo_intermediate() {
     // F.42: return T*; only if non-owning and lifetime clear.
     int x = 5;
     int* borrow = &x;
-    assert(*borrow == 5);
+    LEARN_CHECK(*borrow == 5);
 }
 
 void demo_expert() {
     int a[] = {1, 2, 3};
     std::span<int> s{a};
-    assert(s.size() == 3);
+    LEARN_CHECK(s.size() == 3);
 }
 
 int run(int argc, char** argv) {

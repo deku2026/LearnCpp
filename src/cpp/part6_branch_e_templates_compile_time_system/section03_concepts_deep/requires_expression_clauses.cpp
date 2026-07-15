@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <vector>
 
@@ -36,7 +35,7 @@ void demo_basics() {
 void demo_intermediate() {
     static_assert(HasNested<std::vector<int>> || !HasNested<int>);
     IntWrap a{1}, b{2};
-    assert((a + b).v == 3);
+    LEARN_CHECK((a + b).v == 3);
 }
 
 void demo_expert() {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Debug: asserts; Release: optimize; RelWithDebInfo: profile/prod symbols
     std::string types[] = {"Debug", "Release", "RelWithDebInfo"};
-    assert(types[0] == "Debug");
+    LEARN_CHECK(types[0] == "Debug");
 }
 
 void demo_intermediate() {
     // Some bugs only appear with optimization
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Ship RelWithDebInfo + separate debug info when possible
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

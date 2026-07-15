@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -34,12 +33,12 @@ void demo_basics() {
     for (int x : count_to(3)) {
         out.push_back(x);
     }
-    assert((out == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((out == std::vector<int>{1, 2, 3}));
 #else
     // Fallback: iota view models the same lazy sequence idea
     auto g = std::views::iota(1, 4);
     std::vector<int> out(g.begin(), g.end());
-    assert((out == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((out == std::vector<int>{1, 2, 3}));
 #endif
 }
 
@@ -49,13 +48,13 @@ void demo_intermediate() {
     for (int x : count_to(5)) {
         sum += x;
     }
-    assert(sum == 15);
+    LEARN_CHECK(sum == 15);
 #else
     int sum = 0;
     for (int x : std::views::iota(1, 6)) {
         sum += x;
     }
-    assert(sum == 15);
+    LEARN_CHECK(sum == 15);
 #endif
 }
 
@@ -64,9 +63,9 @@ void demo_expert() {
     // generator is an input_range / view-like sequence from coroutines
     auto g = count_to(4);
     static_assert(std::ranges::input_range<decltype(g)>);
-    assert(std::ranges::distance(count_to(4)) == 4);
+    LEARN_CHECK(std::ranges::distance(count_to(4)) == 4);
 #else
-    assert(std::ranges::distance(std::views::iota(1, 5)) == 4);
+    LEARN_CHECK(std::ranges::distance(std::views::iota(1, 5)) == 4);
 #endif
 }
 

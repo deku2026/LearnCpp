@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
@@ -18,7 +17,7 @@ namespace {
 
 void demo_basics() {
     alignas(double) unsigned char buf[sizeof(double)];
-    assert(reinterpret_cast<std::uintptr_t>(buf) % alignof(double) == 0 || true);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(buf) % alignof(double) == 0 || true);
     (void)buf;
 }
 
@@ -28,7 +27,7 @@ void demo_intermediate() {
         alignas(std::max_align_t) unsigned char bytes[64];
     };
     Storage s{};
-    assert(sizeof(s.bytes) == 64);
+    LEARN_CHECK(sizeof(s.bytes) == 64);
 }
 
 void demo_expert() {

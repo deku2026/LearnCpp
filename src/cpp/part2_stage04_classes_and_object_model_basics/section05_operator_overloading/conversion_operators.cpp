@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -39,20 +38,20 @@ double scale(double x) {
 void demo_basics() {
     Meter m{1.5};
     double d = m;
-    assert(d == 1.5);
+    LEARN_CHECK(d == 1.5);
 }
 
 void demo_intermediate() {
     Meter m{2.0};
-    assert(scale(m) == 4.0);
+    LEARN_CHECK(scale(m) == 4.0);
 }
 
 void demo_expert() {
     Label lab{"ok"};
     std::string s = lab;
-    assert(s == "ok");
+    LEARN_CHECK(s == "ok");
     // Implicit conversion operators can surprise; prefer explicit in new code.
-    assert(static_cast<std::string>(lab).size() == 2);
+    LEARN_CHECK(static_cast<std::string>(lab).size() == 2);
 }
 
 int run(int argc, char** argv) {

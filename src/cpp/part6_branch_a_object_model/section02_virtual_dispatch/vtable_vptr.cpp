@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -30,29 +29,29 @@ struct Derived : Base {
 void demo_basics() {
     Base b;
     Derived d;
-    assert(std::string{b.name()} == "Base");
-    assert(std::string{d.name()} == "Derived");
+    LEARN_CHECK(std::string{b.name()} == "Base");
+    LEARN_CHECK(std::string{d.name()} == "Derived");
     Base& r = d;
-    assert(std::string{r.name()} == "Derived");
+    LEARN_CHECK(std::string{r.name()} == "Derived");
 }
 
 void demo_intermediate() {
     Derived d;
     Base* p = &d;
-    assert(std::string{p->name()} == "Derived");
-    assert(p->id() == 1);  // not overridden
+    LEARN_CHECK(std::string{p->name()} == "Derived");
+    LEARN_CHECK(p->id() == 1);  // not overridden
     // Polymorphic types are larger than non-polymorphic equivalents.
     struct Plain {
         int data;
     };
-    assert(sizeof(Base) > sizeof(Plain));
+    LEARN_CHECK(sizeof(Base) > sizeof(Plain));
 }
 
 void demo_expert() {
     // Same call site, different dynamic type => different vtable target.
     auto call = [](const Base& o) { return std::string{o.name()}; };
-    assert(call(Base{}) == "Base");
-    assert(call(Derived{}) == "Derived");
+    LEARN_CHECK(call(Base{}) == "Base");
+    LEARN_CHECK(call(Derived{}) == "Derived");
 }
 
 }  // namespace

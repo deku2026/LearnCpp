@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -34,23 +33,23 @@ Derived(T) -> Derived<T>;
 
 void demo_basics() {
     Derived<int> d{42};
-    assert(d.value == 42);
+    LEARN_CHECK(d.value == 42);
 }
 
 void demo_intermediate() {
     Derived e{7};
     static_assert(std::is_same_v<decltype(e), Derived<int>>);
-    assert(e.value == 7);
+    LEARN_CHECK(e.value == 7);
 }
 
 void demo_expert() {
     Derived<double> x{1.5};
-    assert(x.value == 1.5);
+    LEARN_CHECK(x.value == 1.5);
 
     auto make = [](auto v) { return Derived{std::move(v)}; };
     auto y = make(std::string{"hi"});
     static_assert(std::is_same_v<decltype(y), Derived<std::string>>);
-    assert(y.value == "hi");
+    LEARN_CHECK(y.value == "hi");
 }
 
 int run(int argc, char** argv) {

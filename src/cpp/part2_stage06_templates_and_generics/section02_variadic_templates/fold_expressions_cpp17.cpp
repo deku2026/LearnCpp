@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 #include <vector>
@@ -38,30 +37,30 @@ void push_all(std::vector<T>& out, Ts&&... xs) {
 
 void demo_basics() {
     static_assert(sum(1, 2, 3, 4) == 10);
-    assert(sum(1, 2, 3) == 6);
-    assert(all_true(true, true, true));
-    assert(!all_true(true, false, true));
+    LEARN_CHECK(sum(1, 2, 3) == 6);
+    LEARN_CHECK(all_true(true, true, true));
+    LEARN_CHECK(!all_true(true, false, true));
 }
 
 void demo_intermediate() {
-    assert(any_true(false, false, true));
-    assert(!any_true(false, false));
+    LEARN_CHECK(any_true(false, false, true));
+    LEARN_CHECK(!any_true(false, false));
 
     std::string s;
     auto append = [&](auto&&... parts) { ((s += parts), ...); };
     append("a", "b", "c");
-    assert(s == "abc");
+    LEARN_CHECK(s == "abc");
 }
 
 void demo_expert() {
     std::vector<int> v;
     push_all(v, 1, 2, 3);
-    assert(v.size() == 3);
-    assert(v[0] == 1 && v[2] == 3);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v[0] == 1 && v[2] == 3);
 
     // Binary fold with init.
     auto sum_from = [](auto init, auto... xs) { return (init + ... + xs); };
-    assert(sum_from(10, 1, 2, 3) == 16);
+    LEARN_CHECK(sum_from(10, 1, 2, 3) == 16);
 }
 
 int run(int argc, char** argv) {

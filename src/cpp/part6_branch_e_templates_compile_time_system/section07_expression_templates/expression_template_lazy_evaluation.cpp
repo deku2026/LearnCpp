@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <vector>
 
@@ -45,19 +44,19 @@ Vec eval(const Expr& e) {
 void demo_basics() {
     Vec a(3, 1.0), b(3, 2.0);
     auto e = a + b;
-    assert(e[0] == 3.0);
+    LEARN_CHECK(e[0] == 3.0);
 }
 
 void demo_intermediate() {
     Vec a(2, 1.0), b(2, 2.0), c(2, 3.0);
     Vec r = eval(a + b + c);
-    assert(r[0] == 6.0);
+    LEARN_CHECK(r[0] == 6.0);
 }
 
 void demo_expert() {
     // Lazy: no temporary Vec for intermediate sums until eval.
     Vec a(1, 5.0), b(1, 5.0);
-    assert((a + b)[0] == 10.0);
+    LEARN_CHECK((a + b)[0] == 10.0);
 }
 
 int run(int argc, char** argv) {

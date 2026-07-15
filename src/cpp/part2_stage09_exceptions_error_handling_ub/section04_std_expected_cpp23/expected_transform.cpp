@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -24,34 +23,34 @@ namespace {
 void demo_basics() {
     std::expected<int, std::string> e{21};
     auto r = e.transform([](int x) { return x * 2; });
-    assert(r.has_value());
-    assert(*r == 42);
+    LEARN_CHECK(r.has_value());
+    LEARN_CHECK(*r == 42);
 }
 
 void demo_intermediate() {
     std::expected<int, std::string> e{std::unexpected<std::string>("x")};
     auto r = e.transform([](int x) { return x * 2; });
-    assert(!r);
-    assert(r.error() == "x");
+    LEARN_CHECK(!r);
+    LEARN_CHECK(r.error() == "x");
 }
 
 void demo_expert() {
     std::expected<int, std::string> e{3};
     auto r = e.transform([](int x) { return std::to_string(x); });
-    assert(r.has_value());
-    assert(*r == "3");
+    LEARN_CHECK(r.has_value());
+    LEARN_CHECK(*r == "3");
 }
 
 #else
 
 void demo_basics() {
-    assert(21 * 2 == 42);
+    LEARN_CHECK(21 * 2 == 42);
 }
 void demo_intermediate() {
-    assert(std::string{"x"} == "x");
+    LEARN_CHECK(std::string{"x"} == "x");
 }
 void demo_expert() {
-    assert(std::to_string(3) == "3");
+    LEARN_CHECK(std::to_string(3) == "3");
 }
 
 #endif

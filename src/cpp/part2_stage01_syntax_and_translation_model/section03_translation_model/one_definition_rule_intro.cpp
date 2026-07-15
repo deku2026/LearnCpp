@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 
 namespace {
@@ -50,22 +49,22 @@ T identity(T v) {
 }
 
 void demo_basics() {
-    assert(unique_id() == 1);
-    assert(doubled(21) == 42);
-    assert(kMagic == 0xC0FFEE);
+    LEARN_CHECK(unique_id() == 1);
+    LEARN_CHECK(doubled(21) == 42);
+    LEARN_CHECK(kMagic == 0xC0FFEE);
 }
 
 void demo_intermediate() {
     // Both "TUs" call the same inline function definition — ODR-compliant pattern.
-    assert(logical_tu_a::use_doubled(3) == 6);
-    assert(logical_tu_b::use_doubled(4) == 8);
+    LEARN_CHECK(logical_tu_a::use_doubled(3) == 6);
+    LEARN_CHECK(logical_tu_b::use_doubled(4) == 8);
 
     // Function addresses of the same inline may compare equal after linking
     // (implementation may merge); we only assert behavioral identity.
-    assert(logical_tu_a::use_doubled(10) == logical_tu_b::use_doubled(10));
+    LEARN_CHECK(logical_tu_a::use_doubled(10) == logical_tu_b::use_doubled(10));
 
-    assert(identity(std::string_view{"odr"}) == "odr");
-    assert(identity(7) == 7);
+    LEARN_CHECK(identity(std::string_view{"odr"}) == "odr");
+    LEARN_CHECK(identity(7) == 7);
 }
 
 void demo_expert() {
@@ -87,10 +86,10 @@ void demo_expert() {
 
     constexpr Point p{3, 4};
     static_assert(p.sum() == 7);
-    assert(p.sum() == 7);
+    LEARN_CHECK(p.sum() == 7);
 
     // One definition of unique_id in this program — calling it repeatedly is fine.
-    assert(unique_id() + unique_id() == 2);
+    LEARN_CHECK(unique_id() + unique_id() == 2);
 }
 
 int run(int argc, char** argv) {

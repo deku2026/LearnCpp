@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <utility>
@@ -20,42 +19,42 @@ namespace {
 void demo_basics() {
     std::string str = "example";
     std::string sink = std::move(str);
-    assert(sink == "example");
+    LEARN_CHECK(sink == "example");
 
     // Safe on moved-from: empty/clear/assign/destroy
     (void)str.empty();
     str.clear();
     str = "new value";
-    assert(str == "new value");
+    LEARN_CHECK(str == "new value");
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4};
     std::vector<int> w = std::move(v);
-    assert(w.size() == 4);
+    LEARN_CHECK(w.size() == 4);
 
     // Valid but unspecified: do not assume size/capacity.
     v.clear();
-    assert(v.empty());
+    LEARN_CHECK(v.empty());
     v.push_back(99);
-    assert(v.size() == 1);
-    assert(v[0] == 99);
+    LEARN_CHECK(v.size() == 1);
+    LEARN_CHECK(v[0] == 99);
 }
 
 void demo_expert() {
     // unique_ptr moved-from state is fully specified: nullptr
     auto p = std::make_unique<int>(42);
     auto q = std::move(p);
-    assert(q != nullptr);
-    assert(*q == 42);
-    assert(p == nullptr);
+    LEARN_CHECK(q != nullptr);
+    LEARN_CHECK(*q == 42);
+    LEARN_CHECK(p == nullptr);
 
     // Guard before use after potential move.
     if (p) {
-        assert(false);  // should not run
+        LEARN_CHECK(false);  // should not run
     } else {
         p = std::make_unique<int>(7);
-        assert(*p == 7);
+        LEARN_CHECK(*p == 7);
     }
 
     std::string a = "x";
@@ -64,8 +63,8 @@ void demo_expert() {
         (void)a.back();  // only if non-empty
     }
     a.assign("rebuilt");
-    assert(a == "rebuilt");
-    assert(b == "x");
+    LEARN_CHECK(a == "rebuilt");
+    LEARN_CHECK(b == "x");
 }
 
 int run(int argc, char** argv) {

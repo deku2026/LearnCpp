@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -123,7 +122,7 @@ void demo_basics() {
     for (int x : g) {
         v.push_back(x);
     }
-    assert((v == std::vector<int>{1, 2}));
+    LEARN_CHECK((v == std::vector<int>{1, 2}));
 #else
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = []() -> Gen<int> {
@@ -134,9 +133,9 @@ void demo_basics() {
     while (g.next()) {
         v.push_back(g.value());
     }
-    assert((v == std::vector<int>{1, 2}));
+    LEARN_CHECK((v == std::vector<int>{1, 2}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
 }
@@ -152,7 +151,7 @@ void demo_intermediate() {
     for (int x : g) {
         sum += x;
     }
-    assert(sum == 3);
+    LEARN_CHECK(sum == 3);
 #else
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = []() -> Gen<int> {
@@ -164,9 +163,9 @@ void demo_intermediate() {
     while (g.next()) {
         sum += g.value();
     }
-    assert(sum == 3);
+    LEARN_CHECK(sum == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
 }
@@ -175,10 +174,10 @@ void demo_expert() {
 #if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
     auto g = []() -> std::generator<int> { co_yield 10; }();
     auto it = g.begin();
-    assert(it != g.end());
-    assert(*it == 10);
+    LEARN_CHECK(it != g.end());
+    LEARN_CHECK(*it == 10);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

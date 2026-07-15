@@ -9,32 +9,30 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 void demo_basics() {
 #if defined(__has_include)
 #if __has_include(<optional>)
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(false);
+    LEARN_CHECK(false);
 #endif
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__has_include)
 #if __has_include(<version>)
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #if __has_include(<generator>)
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
@@ -44,19 +42,19 @@ void demo_expert() {
     if (true) [[likely]] {
         x = 1;
     }
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 #else
     int x = 1;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 #endif
 #if __has_cpp_attribute(nodiscard)
     struct S {
         [[nodiscard]] int f() const { return 2; }
     };
-    assert(S{}.f() == 2);
+    LEARN_CHECK(S{}.f() == 2);
 #endif
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

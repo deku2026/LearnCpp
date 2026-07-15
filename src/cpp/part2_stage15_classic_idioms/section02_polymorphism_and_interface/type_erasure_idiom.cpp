@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <utility>
 
@@ -52,19 +51,19 @@ struct Box {
 
 void demo_basics() {
     Drawable d = Circle{3};
-    assert(d.draw() == 9);
+    LEARN_CHECK(d.draw() == 9);
 }
 
 void demo_intermediate() {
     Drawable d = Box{4};
     Drawable c = d;
-    assert(c.draw() == 4);
+    LEARN_CHECK(c.draw() == 4);
 }
 
 void demo_expert() {
     Drawable d = Circle{2};
     d = Box{5};
-    assert(d.draw() == 5);
+    LEARN_CHECK(d.draw() == 5);
 }
 
 int run(int argc, char** argv) {

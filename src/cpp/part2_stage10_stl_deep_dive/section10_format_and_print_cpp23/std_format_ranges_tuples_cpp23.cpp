@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -25,14 +24,14 @@ void demo_basics() {
 #if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
     std::vector<int> v{1, 2, 3};
     const auto s = std::format("{}", v);
-    assert(s.find('1') != std::string::npos);
-    assert(s.find('3') != std::string::npos);
+    LEARN_CHECK(s.find('1') != std::string::npos);
+    LEARN_CHECK(s.find('3') != std::string::npos);
 #elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     std::vector<int> v{1, 2, 3};
     const auto s = std::format("{} {} {}", v[0], v[1], v[2]);
-    assert(s == "1 2 3");
+    LEARN_CHECK(s == "1 2 3");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -40,12 +39,12 @@ void demo_intermediate() {
 #if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
     auto t = std::make_tuple(1, "x");
     const auto s = std::format("{}", t);
-    assert(s.find('1') != std::string::npos);
+    LEARN_CHECK(s.find('1') != std::string::npos);
 #elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const auto s = std::format("{} {}", 1, "x");
-    assert(s == "1 x");
+    LEARN_CHECK(s == "1 x");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -53,11 +52,11 @@ void demo_expert() {
 #if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
     std::vector<std::pair<int, int>> v{{1, 2}, {3, 4}};
     const auto s = std::format("{}", v);
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 #elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-    assert(std::format("{}", 42) == "42");
+    LEARN_CHECK(std::format("{}", 42) == "42");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

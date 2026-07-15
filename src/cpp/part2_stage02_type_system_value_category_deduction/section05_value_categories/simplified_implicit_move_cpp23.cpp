@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 #include <version>
@@ -52,27 +51,27 @@ Probe make_by_return_param(Probe p) {
 
 void demo_basics() {
     Probe a = make_by_return_local();
-    assert(a.value == 42);
-    assert(!a.moved_from);
+    LEARN_CHECK(a.value == 42);
+    LEARN_CHECK(!a.moved_from);
 
     std::string s = [] {
         std::string local = "hello";
         return local;  // implicit move into return value
     }();
-    assert(s == "hello");
+    LEARN_CHECK(s == "hello");
 }
 
 void demo_intermediate() {
     Probe in{7};
     Probe out = make_by_return_param(std::move(in));
-    assert(out.value == 7);
-    assert(in.moved_from);
+    LEARN_CHECK(out.value == 7);
+    LEARN_CHECK(in.moved_from);
 
     // Explicit move still works and is clear for non-return contexts
     Probe x{1};
     Probe y = std::move(x);
-    assert(y.value == 1);
-    assert(x.moved_from);
+    LEARN_CHECK(y.value == 1);
+    LEARN_CHECK(x.moved_from);
 }
 
 void demo_expert() {
@@ -88,7 +87,7 @@ void demo_expert() {
         return p;
     };
     Probe z = factory();
-    assert(z.value == 99);
+    LEARN_CHECK(z.value == 99);
 
     // NRVO/implicit move: either way, observer sees correct final value.
     auto build = [](int n) {
@@ -100,8 +99,8 @@ void demo_expert() {
     };
     Probe pos = build(3);
     Probe zero = build(0);
-    assert(pos.value == 3);
-    assert(zero.value == 0);
+    LEARN_CHECK(pos.value == 3);
+    LEARN_CHECK(zero.value == 0);
 }
 
 int run(int argc, char** argv) {

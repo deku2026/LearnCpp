@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <cstdint>
 #include <thread>
 
@@ -19,25 +18,25 @@ namespace {
 void demo_basics() {
     std::atomic<std::int32_t> x{0};
     x.store(3);
-    assert(x.load() == 3);
+    LEARN_CHECK(x.load() == 3);
 }
 
 void demo_intermediate() {
     std::atomic<std::uint64_t> counter{0};
     std::thread t([&] { counter.fetch_add(10); });
     t.join();
-    assert(counter.load() == 10);
+    LEARN_CHECK(counter.load() == 10);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_atomic_lock_free_type_aliases) && __cpp_lib_atomic_lock_free_type_aliases >= 201907L
     std::atomic_signed_lock_free s{0};
     s.store(1);
-    assert(s.load() == 1);
+    LEARN_CHECK(s.load() == 1);
 #else
     std::atomic<long> s{0};
     s.store(1);
-    assert(s.load() == 1);
+    LEARN_CHECK(s.load() == 1);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <exception>
 #include <optional>
 #include <stdexcept>
@@ -152,18 +151,18 @@ void demo_basics() {
     } catch (const std::runtime_error&) {
         threw = true;
     }
-    assert(threw);
+    LEARN_CHECK(threw);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto t = boom();
-    assert(static_cast<bool>(t.h.promise().ep));
+    LEARN_CHECK(static_cast<bool>(t.h.promise().ep));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -171,9 +170,9 @@ void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // Exceptions escape the coroutine body into unhandled_exception.
     auto t = boom();
-    assert(t.h.done());
+    LEARN_CHECK(t.h.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

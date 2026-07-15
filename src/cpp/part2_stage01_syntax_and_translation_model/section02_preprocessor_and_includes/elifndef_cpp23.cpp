@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 
 // Prefer low-memory path when LEARNCPP_DEMO_RAM is not defined.
@@ -74,21 +73,21 @@ namespace {
 void demo_basics() {
     // #ifndef / #elif !defined keep a block only when a macro is absent.
     static_assert(learncpp_memory_mode_portable == 2);
-    assert(learncpp_memory_mode_portable == 2);
+    LEARN_CHECK(learncpp_memory_mode_portable == 2);
 }
 
 void demo_intermediate() {
     static_assert(learncpp_memory_mode_elifndef == 2);
-    assert(learncpp_memory_mode_elifndef == learncpp_memory_mode_portable);
+    LEARN_CHECK(learncpp_memory_mode_elifndef == learncpp_memory_mode_portable);
 
     constexpr std::string_view path = learncpp_used_elifndef_syntax ? "elifndef" : "elif !defined";
-    assert(path == "elifndef" || path == "elif !defined");
+    LEARN_CHECK(path == "elifndef" || path == "elif !defined");
 }
 
 void demo_expert() {
     // FAST_PATH is defined → first branch wins; #elifndef is not reached.
     static_assert(learncpp_ladder == 10);
-    assert(learncpp_ladder == 10);
+    LEARN_CHECK(learncpp_ladder == 10);
 
 #if !defined(LEARNCPP_DEMO_RAM)
     constexpr bool ram_absent = true;
@@ -96,7 +95,7 @@ void demo_expert() {
     constexpr bool ram_absent = false;
 #endif
     static_assert(ram_absent);
-    assert(ram_absent);
+    LEARN_CHECK(ram_absent);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -120,15 +119,15 @@ Gen<int> count_to(int n) {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = count_to(3);
-    assert(g.next());
-    assert(g.value() == 0);
-    assert(g.next());
-    assert(g.value() == 1);
-    assert(g.next());
-    assert(g.value() == 2);
-    assert(!g.next());
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 0);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 1);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 2);
+    LEARN_CHECK(!g.next());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -139,23 +138,23 @@ void demo_intermediate() {
     while (g.next()) {
         v.push_back(g.value());
     }
-    assert((v == std::vector<int>{0, 1, 2, 3}));
+    LEARN_CHECK((v == std::vector<int>{0, 1, 2, 3}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     // Not a coroutine: ordinary function returns all at once.
     auto plain = [] { return std::vector<int>{0, 1, 2}; };
-    assert(plain().size() == 3);
+    LEARN_CHECK(plain().size() == 3);
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = count_to(3);
     int n = 0;
     while (g.next()) {
         ++n;
     }
-    assert(n == 3);
+    LEARN_CHECK(n == 3);
 #endif
 }
 

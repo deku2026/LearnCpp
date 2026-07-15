@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <queue>
 #include <vector>
@@ -21,9 +20,9 @@ void demo_basics() {
     pq.push(3);
     pq.push(1);
     pq.push(4);
-    assert(pq.top() == 4);
+    LEARN_CHECK(pq.top() == 4);
     pq.pop();
-    assert(pq.top() == 3);
+    LEARN_CHECK(pq.top() == 3);
 }
 
 void demo_intermediate() {
@@ -31,16 +30,16 @@ void demo_intermediate() {
     minq.push(3);
     minq.push(1);
     minq.push(4);
-    assert(minq.top() == 1);
+    LEARN_CHECK(minq.top() == 1);
 }
 
 void demo_expert() {
     std::vector<int> data{5, 1, 9, 3};
     std::priority_queue<int> pq(std::less<int>(), data);
-    assert(pq.size() == 4);
-    assert(pq.top() == 9);
+    LEARN_CHECK(pq.size() == 4);
+    LEARN_CHECK(pq.top() == 9);
     pq.pop();
-    assert(pq.top() == 5);
+    LEARN_CHECK(pq.top() == 5);
 }
 
 }  // namespace

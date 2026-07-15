@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <new>
 
@@ -17,13 +16,13 @@ namespace {
 
 void demo_basics() {
     int x = 1;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 }  // x lifetime ends
 
 void demo_intermediate() {
     alignas(int) unsigned char buf[sizeof(int)];
     int* p = new (buf) int(5);
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     std::destroy_at(p);
 }
 
@@ -33,7 +32,7 @@ void demo_expert() {
     int* p = new (buf) int(1);
     std::destroy_at(p);
     p = new (buf) int(2);
-    assert(*p == 2);
+    LEARN_CHECK(*p == 2);
 }
 
 int run(int argc, char** argv) {

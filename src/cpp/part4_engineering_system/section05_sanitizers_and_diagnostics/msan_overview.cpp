@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // -fsanitize=memory (Clang); requires instrumented libs
     int x = 0;
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 void demo_intermediate() {
     // Not for MSVC; Linux Clang primary
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Cannot mix with ASan
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 
 namespace {
@@ -19,16 +18,16 @@ void demo_basics() {
     int x = 5;
     int y = 0;
     std::memcpy(&y, &x, sizeof(int));
-    assert(y == 5);
+    LEARN_CHECK(y == 5);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // -fno-strict-aliasing may paper over bugs at a performance cost; fix code first.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

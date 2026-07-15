@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <string>
 #include <version>
@@ -25,9 +24,9 @@ void demo_basics() {
     using namespace std::chrono;
     const auto d = 1500ms;
     const auto s = std::format("{}", d);
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -36,9 +35,9 @@ void demo_intermediate() {
     using namespace std::chrono;
     const year_month_day ymd{2024y / May / 1d};
     const auto s = std::format("{}", ymd);
-    assert(s.find("2024") != std::string::npos);
+    LEARN_CHECK(s.find("2024") != std::string::npos);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -47,9 +46,9 @@ void demo_expert() {
     using namespace std::chrono;
     std::chrono::sys_seconds tp{sys_days{2024y / January / 2d} + 3h + 4min + 5s};
     (void)tp;
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

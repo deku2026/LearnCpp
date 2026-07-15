@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -27,6 +26,7 @@ struct WithVirtual {
 struct MixedAccess {
 public:
     int a = 0;
+    int get_b() const { return b; }
 
 private:
     int b = 0;
@@ -55,7 +55,9 @@ void demo_intermediate() {
     static_assert(std::is_aggregate_v<Aggregate>);
     static_assert(!std::is_aggregate_v<NonAggregate>);
     Aggregate a{1, 2};
-    assert(a.a == 1 && a.b == 2);
+    LEARN_CHECK(a.a == 1 && a.b == 2);
+    MixedAccess m;
+    LEARN_CHECK(m.a == 0 && m.get_b() == 0);
 }
 
 void demo_expert() {
@@ -63,7 +65,7 @@ void demo_expert() {
     static_assert(std::is_trivial_v<Trivial> && std::is_standard_layout_v<Trivial>);
     // Standard-layout: first member address equals object address.
     Trivial t{3, 4.0};
-    assert(static_cast<void*>(&t) == static_cast<void*>(&t.x));
+    LEARN_CHECK(static_cast<void*>(&t) == static_cast<void*>(&t.x));
 }
 
 }  // namespace

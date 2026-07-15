@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -35,16 +34,16 @@ public:
 void demo_basics() {
     Handle a{42};
     Handle b = std::move(a);
-    assert(a.empty());
-    assert(b.value() == 42);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(b.value() == 42);
 }
 
 void demo_intermediate() {
     Handle a{1};
     Handle b = std::move(a);
     Handle c = std::move(b);
-    assert(a.empty() && b.empty());
-    assert(c.value() == 1);
+    LEARN_CHECK(a.empty() && b.empty());
+    LEARN_CHECK(c.value() == 1);
 }
 
 void demo_expert() {
@@ -52,8 +51,8 @@ void demo_expert() {
     Handle a{9};
     auto make = [](Handle h) { return h; };
     Handle b = make(std::move(a));
-    assert(a.empty());
-    assert(b.value() == 9);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(b.value() == 9);
 }
 
 int run(int argc, char** argv) {

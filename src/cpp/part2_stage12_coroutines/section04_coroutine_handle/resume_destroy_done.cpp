@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -114,15 +113,15 @@ void demo_basics() {
         co_await std::suspend_always{};
         co_await std::suspend_always{};
     }();
-    assert(!r.done());
+    LEARN_CHECK(!r.done());
     r.resume();
-    assert(!r.done());
+    LEARN_CHECK(!r.done());
     r.resume();
-    assert(!r.done());
+    LEARN_CHECK(!r.done());
     r.resume();
-    assert(r.done());
+    LEARN_CHECK(r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -130,9 +129,9 @@ void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto r = []() -> Resumable { co_return; }();
     r.resume();
-    assert(r.done());
+    LEARN_CHECK(r.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -142,11 +141,11 @@ void demo_expert() {
     {
         auto r = []() -> Resumable { co_await std::suspend_always{}; }();
         r.resume();
-        assert(!r.done());
+        LEARN_CHECK(!r.done());
     }
-    assert(true);
+    LEARN_CHECK(true);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <type_traits>
 
@@ -27,12 +26,12 @@ int classic(T x) {
 }
 
 void demo_basics() {
-    assert(modern(3) == 4);
-    assert(classic(3) == 4);
+    LEARN_CHECK(modern(3) == 4);
+    LEARN_CHECK(classic(3) == 4);
 }
 
 void demo_intermediate() {
-    assert(modern(true) == 2);
+    LEARN_CHECK(modern(true) == 2);
 }
 
 void demo_expert() {

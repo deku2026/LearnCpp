@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <type_traits>
 #include <vector>
@@ -22,10 +21,10 @@ void demo_basics() {
     std::vector<int> v{1, 2, 3};
     auto c = v | std::views::as_const;
     static_assert(std::is_const_v<std::remove_reference_t<decltype(*c.begin())>>);
-    assert(*c.begin() == 1);
+    LEARN_CHECK(*c.begin() == 1);
 #else
     const std::vector<int> v{1, 2, 3};
-    assert(v[0] == 1);
+    LEARN_CHECK(v[0] == 1);
 #endif
 }
 
@@ -33,9 +32,9 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_as_const) && __cpp_lib_ranges_as_const >= 202207L
     std::vector<int> v{1, 2, 3, 4};
     auto c = v | std::views::as_const | std::views::take(2);
-    assert(std::ranges::distance(c) == 2);
+    LEARN_CHECK(std::ranges::distance(c) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -43,10 +42,10 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_as_const) && __cpp_lib_ranges_as_const >= 202207L
     std::vector<int> v{5, 6};
     for (auto&& x : v | std::views::as_const) {
-        assert(x >= 5);
+        LEARN_CHECK(x >= 5);
     }
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

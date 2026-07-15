@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -32,14 +31,14 @@ constexpr auto add_const() {
 void demo_basics() {
     static_assert(value<42>() == 42);
     static_assert(value<true>() == true);
-    assert(value<'Z'>() == 'Z');
+    LEARN_CHECK(value<'Z'>() == 'Z');
 }
 
 void demo_intermediate() {
     static_assert(Constant<10>::value == 10);
     static_assert(std::is_same_v<decltype(Constant<10>::value), const int>);
     static_assert(std::is_same_v<decltype(Constant<3u>::value), const unsigned>);
-    assert((add_const<2, 3>() == 5));
+    LEARN_CHECK((add_const<2, 3>() == 5));
 }
 
 void demo_expert() {
@@ -47,7 +46,7 @@ void demo_expert() {
     static_assert(!std::is_same_v<Constant<1>, Constant<2>>);
     static_assert(add_const<1, 2>() + add_const<3, 4>() == 10);
     static_assert(value<'A'>() == 'A');
-    assert(value<false>() == false);
+    LEARN_CHECK(value<false>() == false);
 }
 
 int run(int argc, char** argv) {

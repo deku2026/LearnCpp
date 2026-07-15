@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <type_traits>
 
@@ -27,10 +26,10 @@ struct S {
 void demo_basics() {
 #if defined(__cpp_lib_invoke_r) && __cpp_lib_invoke_r >= 202106L
     const double d = std::invoke_r<double>(free_fn, 5);
-    assert(d == 10.0);
+    LEARN_CHECK(d == 10.0);
 #else
     const double d = static_cast<double>(std::invoke(free_fn, 5));
-    assert(d == 10.0);
+    LEARN_CHECK(d == 10.0);
 #endif
 }
 
@@ -38,10 +37,10 @@ void demo_intermediate() {
     S s;
 #if defined(__cpp_lib_invoke_r) && __cpp_lib_invoke_r >= 202106L
     const long r = std::invoke_r<long>(&S::method, s, 8);
-    assert(r == 50L);
+    LEARN_CHECK(r == 50L);
 #else
     const long r = static_cast<long>(std::invoke(&S::method, s, 8));
-    assert(r == 50L);
+    LEARN_CHECK(r == 50L);
 #endif
 }
 
@@ -49,11 +48,11 @@ void demo_expert() {
     auto lam = [](int a, int b) { return a + b; };
 #if defined(__cpp_lib_invoke_r) && __cpp_lib_invoke_r >= 202106L
     static_assert(std::is_same_v<decltype(std::invoke_r<int>(lam, 1, 2)), int>);
-    assert(std::invoke_r<int>(lam, 1, 2) == 3);
-    assert(std::invoke_r<double>(lam, 1, 2) == 3.0);
+    LEARN_CHECK(std::invoke_r<int>(lam, 1, 2) == 3);
+    LEARN_CHECK(std::invoke_r<double>(lam, 1, 2) == 3.0);
 #else
-    assert(static_cast<int>(std::invoke(lam, 1, 2)) == 3);
-    assert(static_cast<double>(std::invoke(lam, 1, 2)) == 3.0);
+    LEARN_CHECK(static_cast<int>(std::invoke(lam, 1, 2)) == 3);
+    LEARN_CHECK(static_cast<double>(std::invoke(lam, 1, 2)) == 3.0);
 #endif
 }
 

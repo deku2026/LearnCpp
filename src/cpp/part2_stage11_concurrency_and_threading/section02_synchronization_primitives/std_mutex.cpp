@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <thread>
 #include <vector>
@@ -30,7 +29,7 @@ void demo_basics() {
     std::thread t2(inc);
     t1.join();
     t2.join();
-    assert(counter == 2000);
+    LEARN_CHECK(counter == 2000);
 }
 
 void demo_intermediate() {
@@ -44,17 +43,17 @@ void demo_intermediate() {
     std::thread t2([&] { push(2); });
     t1.join();
     t2.join();
-    assert(v.size() == 2);
+    LEARN_CHECK(v.size() == 2);
 }
 
 void demo_expert() {
     std::mutex m;
     bool locked = m.try_lock();
-    assert(locked);
+    LEARN_CHECK(locked);
     m.unlock();
     m.lock();
     bool second = m.try_lock();
-    assert(!second);
+    LEARN_CHECK(!second);
     m.unlock();
 }
 

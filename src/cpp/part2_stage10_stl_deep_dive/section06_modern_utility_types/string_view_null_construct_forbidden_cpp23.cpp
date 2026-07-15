@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -19,29 +18,29 @@ namespace {
 void demo_basics() {
     const char* p = "hello";
     std::string_view sv{p};
-    assert(sv == "hello");
+    LEARN_CHECK(sv == "hello");
     // std::string_view bad{nullptr}; // ill-formed in C++23
 }
 
 void demo_intermediate() {
     std::string s = "data";
     std::string_view sv{s};
-    assert(!sv.empty());
+    LEARN_CHECK(!sv.empty());
     std::string_view empty{};
-    assert(empty.data() == nullptr || empty.empty());
-    assert(empty.empty());
+    LEARN_CHECK(empty.data() == nullptr || empty.empty());
+    LEARN_CHECK(empty.empty());
 }
 
 void demo_expert() {
     // Prefer empty view over null pointer construction
     std::string_view e1;
     std::string_view e2{""};
-    assert(e1.empty());
-    assert(e2.empty());
+    LEARN_CHECK(e1.empty());
+    LEARN_CHECK(e2.empty());
     static_assert(!std::is_constructible_v<std::string_view, std::nullptr_t> ||
                   std::is_constructible_v<std::string_view, std::nullptr_t>);
     // On C++23 libraries, nullptr_t ctor is deleted → not constructible
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 }  // namespace

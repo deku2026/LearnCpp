@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,18 +17,18 @@ namespace {
 void demo_basics() {
     // Ninja/Makefiles: CMAKE_BUILD_TYPE; VS/Xcode: --config Debug
     std::string single = "Debug";
-    assert(single == "Debug");
+    LEARN_CHECK(single == "Debug");
 }
 
 void demo_intermediate() {
     // Multi-config builds all configs in one build tree
     const char* configs[] = {"Debug", "Release", "RelWithDebInfo"};
-    assert(std::string_view{configs[0]} == "Debug");
+    LEARN_CHECK(std::string_view{configs[0]} == "Debug");
 }
 
 void demo_expert() {
     // Prefer generator expressions over branching on CMAKE_BUILD_TYPE alone
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

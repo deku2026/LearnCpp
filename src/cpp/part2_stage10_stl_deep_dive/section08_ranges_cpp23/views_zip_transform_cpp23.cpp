@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <ranges>
 #include <vector>
@@ -23,9 +22,9 @@ void demo_basics() {
     std::vector<int> b{10, 20, 30};
     auto z = std::views::zip_transform(std::plus<>{}, a, b);
     std::vector<int> out(z.begin(), z.end());
-    assert((out == std::vector<int>{11, 22, 33}));
+    LEARN_CHECK((out == std::vector<int>{11, 22, 33}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,9 +33,9 @@ void demo_intermediate() {
     std::vector<int> a{1, 2};
     std::vector<int> b{3, 4};
     auto z = std::views::zip_transform([](int x, int y) { return x * y; }, a, b);
-    assert(*z.begin() == 3);
+    LEARN_CHECK(*z.begin() == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -45,9 +44,9 @@ void demo_expert() {
     auto z =
         std::views::zip_transform([](int x, int y) { return x - y; }, std::views::iota(5, 8), std::views::iota(1, 4));
     std::vector<int> out(z.begin(), z.end());
-    assert((out == std::vector<int>{4, 4, 4}));
+    LEARN_CHECK((out == std::vector<int>{4, 4, 4}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

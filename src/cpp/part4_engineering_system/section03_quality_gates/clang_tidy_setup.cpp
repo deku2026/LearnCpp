@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // CMAKE_EXPORT_COMPILE_COMMANDS=ON
     std::string db = "compile_commands.json";
-    assert(db.ends_with(".json"));
+    LEARN_CHECK(db.ends_with(".json"));
 }
 
 void demo_intermediate() {
     // Checks: bugprone-*,clang-analyzer-*,modernize-*
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // warnings-as-errors for selected checks in CI
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

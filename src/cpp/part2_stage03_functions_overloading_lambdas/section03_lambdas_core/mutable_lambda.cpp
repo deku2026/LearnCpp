@@ -9,28 +9,26 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 void demo_basics() {
     int n = 0;
     auto counter = [n]() mutable { return ++n; };
-    assert(counter() == 1);
-    assert(counter() == 2);
-    assert(counter() == 3);
-    assert(n == 0);
+    LEARN_CHECK(counter() == 1);
+    LEARN_CHECK(counter() == 2);
+    LEARN_CHECK(counter() == 3);
+    LEARN_CHECK(n == 0);
 }
 
 void demo_intermediate() {
     int n = 5;
     // Without mutable, value-captured n is const inside operator().
     auto read = [n] { return n; };
-    assert(read() == 5);
+    LEARN_CHECK(read() == 5);
 
     auto bump_outer = [&n] { ++n; };
     bump_outer();
-    assert(n == 6);
+    LEARN_CHECK(n == 6);
 }
 
 void demo_expert() {
@@ -40,10 +38,10 @@ void demo_expert() {
         return seed;
     };
     auto b = a;  // copy of closure state
-    assert(a() == 2);
-    assert(a() == 4);
-    assert(b() == 2);  // independent copy started at seed=1
-    assert(seed == 1);
+    LEARN_CHECK(a() == 2);
+    LEARN_CHECK(a() == 4);
+    LEARN_CHECK(b() == 2);  // independent copy started at seed=1
+    LEARN_CHECK(seed == 1);
 }
 
 int run(int argc, char** argv) {

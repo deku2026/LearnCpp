@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <string>
@@ -26,7 +25,7 @@ void demo_basics() {
         std::ofstream out(path);
         out << "x";
     }
-    assert(fs::exists(path));
+    LEARN_CHECK(fs::exists(path));
     fs::remove(path);
 }
 
@@ -36,24 +35,24 @@ void demo_intermediate() {
     fs::remove(path);
     {
         std::ofstream out(path, std::ios::out | std::ios::noreplace);
-        assert(static_cast<bool>(out));
+        LEARN_CHECK(static_cast<bool>(out));
         out << "first";
     }
     {
         std::ofstream out2(path, std::ios::out | std::ios::noreplace);
-        assert(!out2);  // exclusive create fails if exists
+        LEARN_CHECK(!out2);  // exclusive create fails if exists
     }
     fs::remove(path);
 #else
     // Portable approximation: fail if exists
     const auto path = fs::temp_directory_path() / "learncpp_excl_demo_b.txt";
     fs::remove(path);
-    assert(!fs::exists(path));
+    LEARN_CHECK(!fs::exists(path));
     {
         std::ofstream out(path);
         out << "first";
     }
-    assert(fs::exists(path));
+    LEARN_CHECK(fs::exists(path));
     fs::remove(path);
 #endif
 }
@@ -64,7 +63,7 @@ void demo_expert() {
     std::ofstream out(path, std::ios::binary);
     out.write("OK", 2);
     out.close();
-    assert(fs::file_size(path) == 2);
+    LEARN_CHECK(fs::file_size(path) == 2);
     fs::remove(path);
 }
 

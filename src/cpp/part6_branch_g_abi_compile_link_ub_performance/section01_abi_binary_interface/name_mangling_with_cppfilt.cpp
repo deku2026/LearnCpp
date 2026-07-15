@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <typeinfo>
 
 namespace {
@@ -24,16 +23,16 @@ extern "C" int c_add(int a, int b) {
 }  // namespace demo
 
 void demo_basics() {
-    assert(demo::add(1, 2) == 3);
-    assert(demo::c_add(1, 2) == 3);
+    LEARN_CHECK(demo::add(1, 2) == 3);
+    LEARN_CHECK(demo::c_add(1, 2) == 3);
 }
 
 void demo_intermediate() {
-    assert(typeid(int).name() != nullptr);
+    LEARN_CHECK(typeid(int).name() != nullptr);
 }
 
 void demo_expert() {
-    assert(demo::add(2, 2) == demo::c_add(2, 2));
+    LEARN_CHECK(demo::add(2, 2) == demo::c_add(2, 2));
 }
 
 int run(int argc, char** argv) {

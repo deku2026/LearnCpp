@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <queue>
 
 namespace {
@@ -18,10 +17,10 @@ void demo_basics() {
     std::queue<int> q;
     q.push(1);
     q.push(2);
-    assert(q.front() == 1);
-    assert(q.back() == 2);
+    LEARN_CHECK(q.front() == 1);
+    LEARN_CHECK(q.back() == 2);
     q.pop();
-    assert(q.front() == 2);
+    LEARN_CHECK(q.front() == 2);
 }
 
 void demo_intermediate() {
@@ -29,13 +28,13 @@ void demo_intermediate() {
     for (int i = 0; i < 5; ++i) {
         q.push(i);
     }
-    assert(q.size() == 5);
+    LEARN_CHECK(q.size() == 5);
     int sum = 0;
     while (!q.empty()) {
         sum += q.front();
         q.pop();
     }
-    assert(sum == 10);
+    LEARN_CHECK(sum == 10);
 }
 
 void demo_expert() {
@@ -45,9 +44,9 @@ void demo_expert() {
     b.push(2);
     b.push(3);
     a.swap(b);
-    assert(a.size() == 2);
-    assert(a.front() == 2);
-    assert(b.front() == 1);
+    LEARN_CHECK(a.size() == 2);
+    LEARN_CHECK(a.front() == 2);
+    LEARN_CHECK(b.front() == 1);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory_resource>
 #include <string>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     std::pmr::monotonic_buffer_resource mr(buf, sizeof(buf));
     std::pmr::string s{&mr};
     s = "hello";
-    assert(s == "hello");
+    LEARN_CHECK(s == "hello");
 }
 
 void demo_intermediate() {
@@ -28,7 +27,7 @@ void demo_intermediate() {
     std::pmr::monotonic_buffer_resource mr(buf, sizeof(buf));
     void* a = mr.allocate(32);
     void* b = mr.allocate(32);
-    assert(a != b);
+    LEARN_CHECK(a != b);
     // individual deallocate is no-op for monotonic; release on destruction/reset
     (void)a;
     (void)b;
@@ -38,7 +37,7 @@ void demo_expert() {
     std::pmr::monotonic_buffer_resource mr;
     std::pmr::vector<int> v{&mr};
     v.resize(100, 1);
-    assert(v[99] == 1);
+    LEARN_CHECK(v[99] == 1);
 }
 
 int run(int argc, char** argv) {

@@ -9,40 +9,39 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 namespace {
 
 void demo_basics() {
 #if defined(__cpp_lib_optional)
-    assert(__cpp_lib_optional >= 201606L);
+    LEARN_CHECK(__cpp_lib_optional >= 201606L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_jthread)
-    assert(__cpp_lib_jthread >= 201911L);
+    LEARN_CHECK(__cpp_lib_jthread >= 201911L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #if defined(__cpp_lib_span)
-    assert(__cpp_lib_span >= 202002L);
+    LEARN_CHECK(__cpp_lib_span >= 202002L);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_expected)
-    assert(__cpp_lib_expected >= 202202L);
+    LEARN_CHECK(__cpp_lib_expected >= 202202L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #if defined(__cpp_lib_generator)
-    assert(__cpp_lib_generator >= 202207L);
+    LEARN_CHECK(__cpp_lib_generator >= 202207L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

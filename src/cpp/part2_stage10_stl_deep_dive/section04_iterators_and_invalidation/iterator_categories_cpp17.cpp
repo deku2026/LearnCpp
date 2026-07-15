@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iterator>
 #include <list>
 #include <type_traits>
@@ -22,29 +21,29 @@ void demo_basics() {
     using LI = std::list<int>::iterator;
     static_assert(std::is_same_v<std::iterator_traits<VI>::iterator_category, std::random_access_iterator_tag>);
     static_assert(std::is_same_v<std::iterator_traits<LI>::iterator_category, std::bidirectional_iterator_tag>);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3};
     auto it = v.begin();
-    assert(*(it + 2) == 3);
-    assert(it[1] == 2);
+    LEARN_CHECK(*(it + 2) == 3);
+    LEARN_CHECK(it[1] == 2);
     std::list<int> L{1, 2, 3};
     auto lit = L.begin();
     ++lit;
     --lit;
-    assert(*lit == 1);
+    LEARN_CHECK(*lit == 1);
 }
 
 void demo_expert() {
     // sort requires random access — use member sort for list
     std::list<int> L{3, 1, 2};
     L.sort();
-    assert(L.front() == 1);
+    LEARN_CHECK(L.front() == 1);
     std::vector<int> v{3, 1, 2};
     // vector iterators are random_access / contiguous-capable
-    assert(v.end() - v.begin() == 3);
+    LEARN_CHECK(v.end() - v.begin() == 3);
 }
 
 }  // namespace

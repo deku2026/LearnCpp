@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -17,27 +16,27 @@ namespace {
 
 void demo_basics() {
     auto add = [](auto a, auto b) { return a + b; };
-    assert(add(1, 2) == 3);
-    assert(add(1.5, 2.5) == 4.0);
+    LEARN_CHECK(add(1, 2) == 3);
+    LEARN_CHECK(add(1.5, 2.5) == 4.0);
 }
 
 void demo_intermediate() {
     auto size_of = [](const auto& x) { return sizeof(x); };
-    assert(size_of(int{}) == sizeof(int));
-    assert(size_of(std::string{}) >= 0);
+    LEARN_CHECK(size_of(int{}) == sizeof(int));
+    LEARN_CHECK(size_of(std::string{}) >= 0);
 
     auto same = [](auto a, auto b) { return std::is_same_v<decltype(a), decltype(b)>; };
-    assert(same(1, 2));
-    assert(!same(1, 2.0));
+    LEARN_CHECK(same(1, 2));
+    LEARN_CHECK(!same(1, 2.0));
 }
 
 void demo_expert() {
     // Each auto is an independent template parameter.
     auto first = [](auto a, auto) { return a; };
-    assert(first(10, "ignored") == 10);
+    LEARN_CHECK(first(10, "ignored") == 10);
 
     auto apply = [](auto f, auto x) { return f(x); };
-    assert(apply([](int n) { return n * n; }, 5) == 25);
+    LEARN_CHECK(apply([](int n) { return n * n; }, 5) == 25);
 }
 
 int run(int argc, char** argv) {

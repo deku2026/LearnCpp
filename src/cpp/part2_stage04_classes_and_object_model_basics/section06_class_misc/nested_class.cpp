@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -62,9 +61,9 @@ void demo_basics() {
     list.push_front(2);
     list.push_front(1);
     auto it = list.begin();
-    assert(*it == 1);
+    LEARN_CHECK(*it == 1);
     ++it;
-    assert(*it == 2);
+    LEARN_CHECK(*it == 2);
 }
 
 void demo_intermediate() {
@@ -74,8 +73,8 @@ void demo_intermediate() {
     for (auto it = list.begin(); it != list.end(); ++it) {
         out.push_back(*it);
     }
-    assert(out.size() == 1);
-    assert(out[0] == 5);
+    LEARN_CHECK(out.size() == 1);
+    LEARN_CHECK(out[0] == 5);
 }
 
 void demo_expert() {
@@ -83,7 +82,7 @@ void demo_expert() {
     LinkedList list;
     list.push_front(9);
     LinkedList::Iterator it = list.begin();
-    assert(*it == 9);
+    LEARN_CHECK(*it == 9);
 }
 
 int run(int argc, char** argv) {

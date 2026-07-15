@@ -9,38 +9,37 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
 
 void demo_basics() {
     auto u = std::make_unique<int>(3);
-    assert(*u == 3);
+    LEARN_CHECK(*u == 3);
     auto s = std::make_shared<int>(4);
-    assert(*s == 4);
-    assert(s.use_count() == 1);
+    LEARN_CHECK(*s == 4);
+    LEARN_CHECK(s.use_count() == 1);
 }
 
 void demo_intermediate() {
     auto s = std::make_shared<int>(10);
     std::weak_ptr<int> w = s;
-    assert(!w.expired());
+    LEARN_CHECK(!w.expired());
     if (auto locked = w.lock()) {
-        assert(*locked == 10);
+        LEARN_CHECK(*locked == 10);
     }
     s.reset();
-    assert(w.expired());
+    LEARN_CHECK(w.expired());
 }
 
 void demo_expert() {
     auto s1 = std::make_shared<int>(1);
     auto s2 = s1;
-    assert(s1.use_count() == 2);
+    LEARN_CHECK(s1.use_count() == 2);
     std::unique_ptr<int> u = std::make_unique<int>(2);
     std::shared_ptr<int> from_u = std::move(u);
-    assert(!u);
-    assert(*from_u == 2);
+    LEARN_CHECK(!u);
+    LEARN_CHECK(*from_u == 2);
 }
 
 int run(int argc, char** argv) {

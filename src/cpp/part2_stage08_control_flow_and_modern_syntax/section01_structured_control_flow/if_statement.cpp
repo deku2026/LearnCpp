@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -32,15 +31,15 @@ int classify_ptr(const int* p) {
 }
 
 void demo_basics() {
-    assert(sign(5) == 1);
-    assert(sign(-2) == -1);
-    assert(sign(0) == 0);
+    LEARN_CHECK(sign(5) == 1);
+    LEARN_CHECK(sign(-2) == -1);
+    LEARN_CHECK(sign(0) == 0);
 }
 
 void demo_intermediate() {
     int x = 10;
-    assert(classify_ptr(&x) == 10);
-    assert(classify_ptr(nullptr) == -1);
+    LEARN_CHECK(classify_ptr(&x) == 10);
+    LEARN_CHECK(classify_ptr(nullptr) == -1);
 
     // Nested if with braces (avoid dangling-else ambiguity).
     int a = 1;
@@ -53,15 +52,15 @@ void demo_intermediate() {
             r = 2;
         }
     }
-    assert(r == 2);
+    LEARN_CHECK(r == 2);
 }
 
 void demo_expert() {
     std::string s = "ok";
     if (!s.empty()) {
-        assert(s.size() == 2);
+        LEARN_CHECK(s.size() == 2);
     } else {
-        assert(false);
+        LEARN_CHECK(false);
     }
 
     // Common pattern: early return style simulated.
@@ -71,7 +70,7 @@ void demo_expert() {
         }
         return -x;
     };
-    assert(abs_if(-3) == 3);
+    LEARN_CHECK(abs_if(-3) == 3);
 }
 
 int run(int argc, char** argv) {

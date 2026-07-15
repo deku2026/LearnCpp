@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <type_traits>
 
@@ -22,7 +21,7 @@ void demo_basics() {
 
 void demo_intermediate() {
     std::allocator<int> a, b;
-    assert(a == b);
+    LEARN_CHECK(a == b);
 }
 
 void demo_expert() {

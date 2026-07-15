@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -18,8 +17,8 @@ namespace {
 void demo_basics() {
     const float f = 1.0f;
     const auto u = std::bit_cast<std::uint32_t>(f);
-    assert(u == 0x3f800000u);
-    assert(std::bit_cast<float>(u) == 1.0f);
+    LEARN_CHECK(u == 0x3f800000u);
+    LEARN_CHECK(std::bit_cast<float>(u) == 1.0f);
 }
 
 void demo_intermediate() {
@@ -35,14 +34,14 @@ void demo_intermediate() {
     static_assert(sizeof(A) == sizeof(B));
     auto y = std::bit_cast<B>(x);
     (void)y;
-    assert(sizeof(y) == 4);
+    LEARN_CHECK(sizeof(y) == 4);
 }
 
 void demo_expert() {
     const double d = 0.0;
     const auto bits = std::bit_cast<std::uint64_t>(d);
-    assert(bits == 0);
-    assert(std::bit_cast<double>(bits) == 0.0);
+    LEARN_CHECK(bits == 0);
+    LEARN_CHECK(std::bit_cast<double>(bits) == 0.0);
 }
 
 }  // namespace

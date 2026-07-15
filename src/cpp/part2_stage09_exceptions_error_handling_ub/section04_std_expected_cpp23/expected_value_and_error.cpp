@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -30,35 +29,35 @@ std::expected<int, std::string> f(bool ok) {
 
 void demo_basics() {
     auto a = f(true);
-    assert(static_cast<bool>(a));
-    assert(a.value() == 42);
+    LEARN_CHECK(static_cast<bool>(a));
+    LEARN_CHECK(a.value() == 42);
 }
 
 void demo_intermediate() {
     auto b = f(false);
-    assert(!b);
-    assert(b.error() == "nope");
-    assert(b.value_or(0) == 0);
+    LEARN_CHECK(!b);
+    LEARN_CHECK(b.error() == "nope");
+    LEARN_CHECK(b.value_or(0) == 0);
 }
 
 void demo_expert() {
     auto a = f(true);
-    assert(*a == 42);
+    LEARN_CHECK(*a == 42);
     auto b = f(false);
     // Prefer error()/value_or over value() when maybe empty.
-    assert(b.error().size() == 4);
+    LEARN_CHECK(b.error().size() == 4);
 }
 
 #else
 
 void demo_basics() {
-    assert(42 == 42);
+    LEARN_CHECK(42 == 42);
 }
 void demo_intermediate() {
-    assert(std::string{"nope"} == "nope");
+    LEARN_CHECK(std::string{"nope"} == "nope");
 }
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

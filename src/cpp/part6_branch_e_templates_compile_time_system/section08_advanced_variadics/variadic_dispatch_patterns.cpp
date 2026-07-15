@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -25,17 +24,17 @@ void for_each_arg(F f, Ts&&... ts) {
 }
 
 void demo_basics() {
-    assert(sum_all(1, 2, 3) == 6);
+    LEARN_CHECK(sum_all(1, 2, 3) == 6);
 }
 
 void demo_intermediate() {
     int acc = 0;
     for_each_arg([&](int x) { acc += x; }, 1, 2, 3, 4);
-    assert(acc == 10);
+    LEARN_CHECK(acc == 10);
 }
 
 void demo_expert() {
-    assert(sum_all() == 0);
+    LEARN_CHECK(sum_all() == 0);
 }
 
 int run(int argc, char** argv) {

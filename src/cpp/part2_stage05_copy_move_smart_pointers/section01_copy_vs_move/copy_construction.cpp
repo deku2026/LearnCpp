@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -47,38 +46,38 @@ public:
 void demo_basics() {
     std::string a = "hello";
     std::string b = a;  // copy construction
-    assert(a == "hello");
-    assert(b == "hello");
+    LEARN_CHECK(a == "hello");
+    LEARN_CHECK(b == "hello");
     b[0] = 'H';
-    assert(a == "hello");
-    assert(b == "Hello");
+    LEARN_CHECK(a == "hello");
+    LEARN_CHECK(b == "Hello");
 }
 
 void demo_intermediate() {
     Buffer a(4);
     Buffer b = a;  // deep copy: new allocation + element copy
-    assert(a.size() == 4);
-    assert(b.size() == 4);
-    assert(a.at(2) == 2);
-    assert(b.at(2) == 2);
+    LEARN_CHECK(a.size() == 4);
+    LEARN_CHECK(b.size() == 4);
+    LEARN_CHECK(a.at(2) == 2);
+    LEARN_CHECK(b.at(2) == 2);
 
     b.set(2, 99);
-    assert(a.at(2) == 2);   // source unchanged
-    assert(b.at(2) == 99);  // independent storage
+    LEARN_CHECK(a.at(2) == 2);   // source unchanged
+    LEARN_CHECK(b.at(2) == 99);  // independent storage
 }
 
 void demo_expert() {
     std::vector<std::string> v1{"a", "bb", "ccc"};
     std::vector<std::string> v2 = v1;
-    assert(v1.size() == v2.size());
+    LEARN_CHECK(v1.size() == v2.size());
     v2.push_back("dddd");
-    assert(v1.size() == 3);
-    assert(v2.size() == 4);
-    assert(v1[0] == "a");
-    assert(v2[0] == "a");
+    LEARN_CHECK(v1.size() == 3);
+    LEARN_CHECK(v2.size() == 4);
+    LEARN_CHECK(v1[0] == "a");
+    LEARN_CHECK(v2[0] == "a");
     v2[0][0] = 'A';
-    assert(v1[0] == "a");  // independent after copy
-    assert(v2[0] == "A");
+    LEARN_CHECK(v1[0] == "a");  // independent after copy
+    LEARN_CHECK(v2[0] == "A");
 }
 
 int run(int argc, char** argv) {

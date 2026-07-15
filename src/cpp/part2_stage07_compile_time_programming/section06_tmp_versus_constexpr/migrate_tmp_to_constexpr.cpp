@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -63,19 +62,19 @@ constexpr int fib_cx(int n) {
 void demo_basics() {
     static_assert(FactTmp<5>::value == 120);
     static_assert(fact_cx(5) == 120);
-    assert(fact_cx(5) == FactTmp<5>::value);
+    LEARN_CHECK(fact_cx(5) == FactTmp<5>::value);
 }
 
 void demo_intermediate() {
     static_assert(FibTmp<10>::value == 55);
     static_assert(fib_cx(10) == 55);
-    assert(fib_cx(10) == FibTmp<10>::value);
+    LEARN_CHECK(fib_cx(10) == FibTmp<10>::value);
 }
 
 void demo_expert() {
     // constexpr works with runtime args too; TMP is fixed at instantiation.
     int n = 6;
-    assert(fact_cx(n) == 720);
+    LEARN_CHECK(fact_cx(n) == 720);
     static_assert(std::is_same_v<std::integral_constant<int, FactTmp<4>::value>, std::integral_constant<int, 24>>);
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <stdexcept>
 #include <utility>
@@ -37,7 +36,7 @@ void demo_basics() {
     {
         ScopeGuard g([&] { x = 1; });
     }
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 }
 
 void demo_intermediate() {
@@ -46,7 +45,7 @@ void demo_intermediate() {
         ScopeGuard g([&] { x = 99; });
         g.dismiss();
     }
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 }
 
 void demo_expert() {
@@ -57,7 +56,7 @@ void demo_expert() {
         throw std::runtime_error("fail");
         rollback.dismiss();
     } catch (...) {
-        assert(balance == 100);
+        LEARN_CHECK(balance == 100);
     }
 
     balance = 100;
@@ -67,7 +66,7 @@ void demo_expert() {
         // success path
         rollback.dismiss();
     }
-    assert(balance == 90);
+    LEARN_CHECK(balance == 90);
 }
 
 int run(int argc, char** argv) {

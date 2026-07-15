@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -56,19 +55,19 @@ void demo_intermediate() {
         return scheduler.submit(std::forward_like<decltype(self)>(m));
     };
 
-    assert(callback());  // lvalue closure -> copy submit
-    assert(scheduler.copies == 1);
-    assert(scheduler.moves == 0);
+    LEARN_CHECK(callback());  // lvalue closure -> copy submit
+    LEARN_CHECK(scheduler.copies == 1);
+    LEARN_CHECK(scheduler.moves == 0);
 
-    assert(std::move(callback)());  // rvalue closure -> move submit
-    assert(scheduler.moves == 1);
+    LEARN_CHECK(std::move(callback)());  // rvalue closure -> move submit
+    LEARN_CHECK(scheduler.moves == 1);
 #else
     // Fallback without forward_like / deducing this: manual branches.
     std::string m = "msg";
-    assert(scheduler.submit(m));
-    assert(scheduler.copies == 1);
-    assert(scheduler.submit(std::move(m)));
-    assert(scheduler.moves == 1);
+    LEARN_CHECK(scheduler.submit(m));
+    LEARN_CHECK(scheduler.copies == 1);
+    LEARN_CHECK(scheduler.submit(std::move(m)));
+    LEARN_CHECK(scheduler.moves == 1);
 #endif
 }
 
@@ -81,8 +80,8 @@ void demo_expert() {
     auto take = [](auto&& owner) { return std::string(std::forward_like<decltype(owner)>(owner.item)); };
     std::string a = take(bag);
     std::string b = take(std::move(bag));
-    assert(a == "x");
-    assert(b == "x");
+    LEARN_CHECK(a == "x");
+    LEARN_CHECK(b == "x");
 #else
     struct Bag {
         std::string item{"x"};
@@ -90,8 +89,8 @@ void demo_expert() {
     Bag bag;
     std::string a = bag.item;
     std::string b = std::move(bag.item);
-    assert(a == "x");
-    assert(b == "x");
+    LEARN_CHECK(a == "x");
+    LEARN_CHECK(b == "x");
 #endif
 }
 

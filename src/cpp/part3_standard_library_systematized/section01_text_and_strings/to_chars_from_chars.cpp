@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <charconv>
 #include <cstring>
 #include <string>
@@ -19,29 +18,29 @@ namespace {
 void demo_basics() {
     char buf[32]{};
     auto [ptr, ec] = std::to_chars(buf, buf + sizeof(buf), 42);
-    assert(ec == std::errc{});
-    assert(std::string(buf, ptr) == "42");
+    LEARN_CHECK(ec == std::errc{});
+    LEARN_CHECK(std::string(buf, ptr) == "42");
 }
 
 void demo_intermediate() {
     const char* s = "12345";
     int value = 0;
     auto [ptr, ec] = std::from_chars(s, s + 5, value);
-    assert(ec == std::errc{});
-    assert(value == 12345);
-    assert(ptr == s + 5);
+    LEARN_CHECK(ec == std::errc{});
+    LEARN_CHECK(value == 12345);
+    LEARN_CHECK(ptr == s + 5);
 }
 
 void demo_expert() {
     char buf[32]{};
     auto r1 = std::to_chars(buf, buf + sizeof(buf), 255, 16);
-    assert(r1.ec == std::errc{});
-    assert(std::string(buf, r1.ptr) == "ff");
+    LEARN_CHECK(r1.ec == std::errc{});
+    LEARN_CHECK(std::string(buf, r1.ptr) == "ff");
     const char* hex = "ff";
     int v = 0;
     auto r2 = std::from_chars(hex, hex + 2, v, 16);
-    assert(r2.ec == std::errc{});
-    assert(v == 255);
+    LEARN_CHECK(r2.ec == std::errc{});
+    LEARN_CHECK(v == 255);
 }
 
 int run(int argc, char** argv) {

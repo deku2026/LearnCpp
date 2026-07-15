@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <thread>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     int n = 0;
     std::call_once(flag, [&] { n = 1; });
     std::call_once(flag, [&] { n = 2; });
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 }
 
 void demo_intermediate() {
@@ -31,14 +30,14 @@ void demo_intermediate() {
     t1.join();
     t2.join();
     t3.join();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 }
 
 void demo_expert() {
     std::once_flag flag;
     static int* p = nullptr;
     std::call_once(flag, [] { p = new int(9); });
-    assert(p && *p == 9);
+    LEARN_CHECK(p && *p == 9);
     delete p;
     p = nullptr;
 }

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -32,21 +31,21 @@ void demo_basics() {
     std::vector<int> v{1, 2, 3};
     auto r = v | times_n{10};
     std::vector<int> out(r.begin(), r.end());
-    assert((out == std::vector<int>{10, 20, 30}));
+    LEARN_CHECK((out == std::vector<int>{10, 20, 30}));
 #else
     std::vector<int> v{1, 2, 3};
     auto r = v | std::views::transform([](int x) { return x * 10; });
     std::vector<int> out(r.begin(), r.end());
-    assert((out == std::vector<int>{10, 20, 30}));
+    LEARN_CHECK((out == std::vector<int>{10, 20, 30}));
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_ranges) && __cplusplus >= 202302L
     auto r = std::views::iota(1, 4) | times_n{2} | std::views::filter([](int x) { return x > 2; });
-    assert(std::ranges::distance(r) == 2);
+    LEARN_CHECK(std::ranges::distance(r) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -59,9 +58,9 @@ void demo_expert() {
     for (int x : r) {
         sum += x;
     }
-    assert(sum == 9);
+    LEARN_CHECK(sum == 9);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

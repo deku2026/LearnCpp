@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -22,10 +21,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
     auto st = std::stacktrace::current();
-    assert(st.size() >= 0);
+    LEARN_CHECK(st.size() >= 0);
 #else
     // Portable: document API shape without requiring stacktrace library.
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,10 +33,10 @@ void demo_intermediate() {
     auto st = std::stacktrace::current();
     std::string s = std::to_string(st);
     // Implementation-defined content; just ensure call works.
-    assert(s.size() >= 0);
+    LEARN_CHECK(s.size() >= 0);
 #else
     std::string s = "stacktrace unavailable";
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 #endif
 }
 
@@ -46,10 +45,10 @@ void demo_expert() {
     auto st = std::stacktrace::current();
     if (!st.empty()) {
         auto desc = st[0].description();
-        assert(desc.size() >= 0);
+        LEARN_CHECK(desc.size() >= 0);
     }
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

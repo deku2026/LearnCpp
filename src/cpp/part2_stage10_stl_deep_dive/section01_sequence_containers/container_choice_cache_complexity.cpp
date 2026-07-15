@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 #include <numeric>
 #include <vector>
@@ -24,7 +23,7 @@ void demo_basics() {
     for (int x : v) {
         sum += x;
     }
-    assert(sum == 499500);
+    LEARN_CHECK(sum == 499500);
 }
 
 void demo_intermediate() {
@@ -32,11 +31,11 @@ void demo_intermediate() {
     std::list<int> L{1, 2, 3};
     auto it = std::next(L.begin());
     L.insert(it, 99);
-    assert(*std::next(L.begin()) == 99);
+    LEARN_CHECK(*std::next(L.begin()) == 99);
     // deque: efficient front + back
     // array: fixed compile-time size
     // Prefer vector unless measured need for list/deque properties
-    assert(L.size() == 4);
+    LEARN_CHECK(L.size() == 4);
 }
 
 void demo_expert() {
@@ -60,9 +59,9 @@ void demo_expert() {
         }
         return s;
     };
-    assert(sum_vec() == sum_list());
+    LEARN_CHECK(sum_vec() == sum_list());
     // Both correct; vector usually wins on modern CPUs due to cache
-    assert(v.size() == L.size());
+    LEARN_CHECK(v.size() == L.size());
 }
 
 }  // namespace

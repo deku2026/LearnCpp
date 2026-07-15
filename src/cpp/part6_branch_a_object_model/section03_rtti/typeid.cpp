@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <typeinfo>
 
@@ -22,26 +21,26 @@ struct Base {
 struct Derived : Base {};
 
 void demo_basics() {
-    assert(typeid(int) == typeid(int));
-    assert(typeid(int).name() != nullptr);
+    LEARN_CHECK(typeid(int) == typeid(int));
+    LEARN_CHECK(typeid(int).name() != nullptr);
 }
 
 void demo_intermediate() {
     Derived d;
     Base& r = d;
     Base* p = &d;
-    assert(typeid(r) == typeid(Derived));
-    assert(typeid(*p) == typeid(Derived));
-    assert(typeid(p) == typeid(Base*));  // pointer expression: static type
+    LEARN_CHECK(typeid(r) == typeid(Derived));
+    LEARN_CHECK(typeid(*p) == typeid(Derived));
+    LEARN_CHECK(typeid(p) == typeid(Base*));  // pointer expression: static type
 }
 
 void demo_expert() {
     Derived d;
     Base& r = d;
-    assert(typeid(r) != typeid(Base));
+    LEARN_CHECK(typeid(r) != typeid(Base));
     const std::type_info& ti = typeid(r);
-    assert(ti == typeid(Derived));
-    assert(std::string{ti.name()}.size() > 0);
+    LEARN_CHECK(ti == typeid(Derived));
+    LEARN_CHECK(std::string{ti.name()}.size() > 0);
 }
 
 }  // namespace

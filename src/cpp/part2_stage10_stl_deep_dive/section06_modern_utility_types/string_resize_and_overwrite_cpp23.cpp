@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <version>
@@ -25,13 +24,13 @@ void demo_basics() {
         }
         return n;
     });
-    assert(s == "abcde");
+    LEARN_CHECK(s == "abcde");
 #else
     std::string s(5, '\0');
     for (std::size_t i = 0; i < s.size(); ++i) {
         s[i] = static_cast<char>('a' + static_cast<int>(i));
     }
-    assert(s == "abcde");
+    LEARN_CHECK(s == "abcde");
 #endif
 }
 
@@ -44,11 +43,11 @@ void demo_intermediate() {
         }
         return std::size_t{6};  // actual length may be shorter
     });
-    assert(s == "012345");
-    assert(s.size() == 6);
+    LEARN_CHECK(s == "012345");
+    LEARN_CHECK(s.size() == 6);
 #else
     std::string s = "012345";
-    assert(s.size() == 6);
+    LEARN_CHECK(s.size() == 6);
 #endif
 }
 
@@ -65,10 +64,10 @@ void demo_expert() {
         }
         return n;
     });
-    assert(s == "XYZ");
+    LEARN_CHECK(s == "XYZ");
 #else
     std::string s = "XYZ";
-    assert(s == "XYZ");
+    LEARN_CHECK(s == "XYZ");
 #endif
 }
 

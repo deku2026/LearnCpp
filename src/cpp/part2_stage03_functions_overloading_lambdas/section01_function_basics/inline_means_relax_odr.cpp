@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 // Same definition may appear in multiple TUs when marked inline.
@@ -38,19 +37,19 @@ T tmax(T a, T b) {
 namespace {
 
 void demo_basics() {
-    assert(add_inline(2, 3) == 5);
+    LEARN_CHECK(add_inline(2, 3) == 5);
     ++g_inline_counter;
-    assert(g_inline_counter >= 1);
+    LEARN_CHECK(g_inline_counter >= 1);
 
     Point p{3, 4};
-    assert(p.sum() == 7);
+    LEARN_CHECK(p.sum() == 7);
 }
 
 void demo_intermediate() {
     static_assert(square(5) == 25);
-    assert(square(6) == 36);
-    assert(tmax(1, 9) == 9);
-    assert(tmax(2.5, 1.5) == 2.5);
+    LEARN_CHECK(square(6) == 36);
+    LEARN_CHECK(tmax(1, 9) == 9);
+    LEARN_CHECK(tmax(2.5, 1.5) == 2.5);
 }
 
 void demo_expert() {
@@ -58,8 +57,8 @@ void demo_expert() {
     static_assert(std::is_same_v<decltype(square(1)), int>);
     const int before = g_inline_counter;
     g_inline_counter = before;
-    assert(g_inline_counter == before);
-    assert(add_inline(0, 0) == 0);
+    LEARN_CHECK(g_inline_counter == before);
+    LEARN_CHECK(add_inline(0, 0) == 0);
 }
 
 int run(int argc, char** argv) {

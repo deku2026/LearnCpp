@@ -11,7 +11,6 @@
 
 #include <atomic>
 #include <barrier>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -21,9 +20,9 @@ void demo_basics() {
     std::atomic<int> c{0};
     std::barrier bar{1, [&]() noexcept { c.fetch_add(1); }};
     bar.arrive_and_wait();
-    assert(c.load() == 1);
+    LEARN_CHECK(c.load() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -38,9 +37,9 @@ void demo_intermediate() {
     bar.arrive_and_wait();
     bar.arrive_and_wait();
     t.join();
-    assert(phases.load() == 2);
+    LEARN_CHECK(phases.load() == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -51,9 +50,9 @@ void demo_expert() {
     std::thread t([&] { bar.arrive_and_wait(); });
     bar.arrive_and_wait();
     t.join();
-    assert(token.load() == 7);
+    LEARN_CHECK(token.load() == 7);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

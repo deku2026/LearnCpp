@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -34,14 +33,14 @@ struct HasUserCtor {
 
 void demo_basics() {
     Agg a{1};
-    assert(a.x == 1 && a.y == 2);
+    LEARN_CHECK(a.x == 1 && a.y == 2);
 
     Agg b{3, 4};
-    assert(b.x == 3 && b.y == 4);
+    LEARN_CHECK(b.x == 3 && b.y == 4);
 
 #if defined(__cpp_designated_initializers)
     Agg c{.x = 9, .y = 8};
-    assert(c.x == 9 && c.y == 8);
+    LEARN_CHECK(c.x == 9 && c.y == 8);
 #endif
 }
 
@@ -51,15 +50,15 @@ void demo_intermediate() {
     static_assert(!std::is_aggregate_v<HasUserCtor>);
 
     NotAgg n{5};
-    assert(n.x() == 5);
+    LEARN_CHECK(n.x() == 5);
 }
 
 void demo_expert() {
     // User-declared constructors, private/protected non-static data, virtual
     // functions, and virtual bases make a class non-aggregate.
     Agg nested[2]{{1, 2}, {3, 4}};
-    assert(nested[0].x == 1);
-    assert(nested[1].y == 4);
+    LEARN_CHECK(nested[0].x == 1);
+    LEARN_CHECK(nested[1].y == 4);
 }
 
 int run(int argc, char** argv) {

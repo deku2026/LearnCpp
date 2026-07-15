@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <version>
 
@@ -23,11 +22,11 @@ void demo_basics() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     int data[6] = {10, 20, 30, 40, 50, 60};
     std::mdspan m{data, std::extents<std::size_t, 2, 3>{}};
-    assert((m[1, 2] == 60));
+    LEARN_CHECK((m[1, 2] == 60));
     const auto& map = m.mapping();
-    assert(map(1, 2) == 5);
+    LEARN_CHECK(map(1, 2) == 5);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -36,10 +35,10 @@ void demo_intermediate() {
     int data[9] = {};
     std::mdspan<int, std::extents<std::size_t, 3, 3>> m{data};
     m[1, 1] = 42;
-    assert(data[4] == 42);  // row-major offset 1*3+1
-    assert(m.mapping()(1, 1) == 4);
+    LEARN_CHECK(data[4] == 42);  // row-major offset 1*3+1
+    LEARN_CHECK(m.mapping()(1, 1) == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -52,10 +51,10 @@ void demo_expert() {
             m[i, j] = static_cast<int>(i * 10 + j);
         }
     }
-    assert((m[1, 3] == 13));
-    assert(m.mapping().required_span_size() == 8);
+    LEARN_CHECK((m[1, 3] == 13));
+    LEARN_CHECK(m.mapping().required_span_size() == 8);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

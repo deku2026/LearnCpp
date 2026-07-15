@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <typeinfo>
 
@@ -22,25 +21,25 @@ struct B : A {};
 
 void demo_basics() {
     const std::type_info& ti = typeid(int);
-    assert(ti == typeid(int));
-    assert(ti != typeid(double));
-    assert(ti.name() != nullptr);
+    LEARN_CHECK(ti == typeid(int));
+    LEARN_CHECK(ti != typeid(double));
+    LEARN_CHECK(ti.name() != nullptr);
 }
 
 void demo_intermediate() {
     A a;
     B b;
-    assert(typeid(a) == typeid(A));
-    assert(typeid(b) == typeid(B));
-    assert(typeid(a).before(typeid(b)) || typeid(b).before(typeid(a)) || typeid(a) == typeid(b));
+    LEARN_CHECK(typeid(a) == typeid(A));
+    LEARN_CHECK(typeid(b) == typeid(B));
+    LEARN_CHECK(typeid(a).before(typeid(b)) || typeid(b).before(typeid(a)) || typeid(a) == typeid(b));
 }
 
 void demo_expert() {
     const std::type_info& t1 = typeid(B);
     const std::type_info& t2 = typeid(B);
-    assert(t1 == t2);
-    assert(t1.hash_code() == t2.hash_code());
-    assert(std::string{t1.name()}.find('B') != std::string::npos || std::string{t1.name()}.size() > 0);
+    LEARN_CHECK(t1 == t2);
+    LEARN_CHECK(t1.hash_code() == t2.hash_code());
+    LEARN_CHECK(std::string{t1.name()}.find('B') != std::string::npos || std::string{t1.name()}.size() > 0);
 }
 
 }  // namespace

@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 template <class T>
@@ -30,18 +28,18 @@ int rank(const T*) {
 
 void demo_basics() {
     int x = 0;
-    assert(rank(x) == 1);
-    assert(rank(&x) == 2);
+    LEARN_CHECK(rank(x) == 1);
+    LEARN_CHECK(rank(&x) == 2);
 }
 
 void demo_intermediate() {
     const int x = 0;
-    assert(rank(&x) == 3);
+    LEARN_CHECK(rank(&x) == 3);
 }
 
 void demo_expert() {
     int* p = nullptr;
-    assert(rank(p) == 2);
+    LEARN_CHECK(rank(p) == 2);
 }
 
 int run(int argc, char** argv) {

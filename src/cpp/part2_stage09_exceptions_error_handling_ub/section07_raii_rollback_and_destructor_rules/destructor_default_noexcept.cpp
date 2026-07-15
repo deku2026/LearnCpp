@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -33,13 +32,13 @@ struct Composite {
 void demo_basics() {
     static_assert(std::is_nothrow_destructible_v<DefaultDtor>);
     static_assert(std::is_nothrow_destructible_v<ExplicitNoexcept>);
-    assert(std::is_nothrow_destructible_v<DefaultDtor>);
+    LEARN_CHECK(std::is_nothrow_destructible_v<DefaultDtor>);
 }
 
 void demo_intermediate() {
     static_assert(std::is_nothrow_destructible_v<Composite>);
     DefaultDtor d;
-    assert(d.x == 0);
+    LEARN_CHECK(d.x == 0);
 }
 
 void demo_expert() {

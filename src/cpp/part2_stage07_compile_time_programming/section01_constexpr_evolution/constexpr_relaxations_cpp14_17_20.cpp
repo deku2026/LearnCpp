@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -48,13 +47,13 @@ struct Point {
 
 void demo_basics() {
     static_assert(sum_to(10) == 55);
-    assert(sum_to(10) == 55);
+    LEARN_CHECK(sum_to(10) == 55);
 }
 
 void demo_intermediate() {
     constexpr auto add5 = make_adder(5);
     static_assert(add5(7) == 12);
-    assert(add5(7) == 12);
+    LEARN_CHECK(add5(7) == 12);
 }
 
 void demo_expert() {
@@ -63,7 +62,7 @@ void demo_expert() {
 
     constexpr Point p{3, -4};
     static_assert(p.manh() == 7);
-    assert(p.manh() == 7);
+    LEARN_CHECK(p.manh() == 7);
 }
 
 int run(int argc, char** argv) {

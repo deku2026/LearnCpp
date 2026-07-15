@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int add(int a, int b, [[maybe_unused]] int debug_tag) {
@@ -18,13 +16,13 @@ int add(int a, int b, [[maybe_unused]] int debug_tag) {
 }
 
 void demo_basics() {
-    assert(add(2, 3, 99) == 5);
+    LEARN_CHECK(add(2, 3, 99) == 5);
 }
 
 void demo_intermediate() {
     [[maybe_unused]] int only_for_debug = 1;
     int x = 10;
-    assert(x == 10);
+    LEARN_CHECK(x == 10);
 }
 
 void demo_expert() {
@@ -32,7 +30,7 @@ void demo_expert() {
     [[maybe_unused]] Mode m = Mode::A;
 
     auto f = [](int v, [[maybe_unused]] const char* name) { return v * 2; };
-    assert(f(21, "answer") == 42);
+    LEARN_CHECK(f(21, "answer") == 42);
 }
 
 int run(int argc, char** argv) {

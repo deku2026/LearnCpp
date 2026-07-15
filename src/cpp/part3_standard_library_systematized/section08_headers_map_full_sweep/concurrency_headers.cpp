@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <future>
 #include <mutex>
 #include <thread>
@@ -20,7 +19,7 @@ namespace {
 void demo_basics() {
     std::atomic<int> x{0};
     x.fetch_add(1);
-    assert(x.load() == 1);
+    LEARN_CHECK(x.load() == 1);
 }
 
 void demo_intermediate() {
@@ -30,14 +29,14 @@ void demo_intermediate() {
         std::lock_guard<std::mutex> lock(m);
         ++n;
     }
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 }
 
 void demo_expert() {
     std::promise<int> pr;
     std::future<int> fut = pr.get_future();
     std::thread th([&] { pr.set_value(42); });
-    assert(fut.get() == 42);
+    LEARN_CHECK(fut.get() == 42);
     th.join();
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <type_traits>
 #include <vector>
@@ -20,8 +19,8 @@ namespace {
 void demo_basics() {
     std::size_t n = 10;
     std::ptrdiff_t d = -3;
-    assert(n == 10);
-    assert(d == -3);
+    LEARN_CHECK(n == 10);
+    LEARN_CHECK(d == -3);
     static_assert(std::is_unsigned_v<std::size_t>);
     static_assert(std::is_signed_v<std::ptrdiff_t>);
 }
@@ -29,18 +28,18 @@ void demo_basics() {
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3, 4, 5};
     const std::size_t sz = v.size();
-    assert(sz == 5);
+    LEARN_CHECK(sz == 5);
 
     // Prefer size_t loop index to match container size type.
     std::size_t sum = 0;
     for (std::size_t i = 0; i < v.size(); ++i) {
         sum += static_cast<std::size_t>(v[i]);
     }
-    assert(sum == 15);
+    LEARN_CHECK(sum == 15);
 
     const int arr[4] = {10, 20, 30, 40};
     const std::ptrdiff_t span = &arr[3] - &arr[0];
-    assert(span == 3);
+    LEARN_CHECK(span == 3);
 }
 
 void demo_expert() {
@@ -49,24 +48,24 @@ void demo_expert() {
     auto z = 10z;
     static_assert(std::is_same_v<decltype(uz), std::size_t>);
     static_assert(std::is_same_v<decltype(z), std::make_signed_t<std::size_t>>);
-    assert(uz == 10);
-    assert(z == 10);
+    LEARN_CHECK(uz == 10);
+    LEARN_CHECK(z == 10);
 
     std::vector<int> v{1, 2, 3};
     for (auto i = 0uz; i < v.size(); ++i) {
-        assert(v[i] == static_cast<int>(i) + 1);
+        LEARN_CHECK(v[i] == static_cast<int>(i) + 1);
     }
 #else
     // Fallback: explicit casts avoid signed/unsigned mismatch.
     std::vector<int> v{1, 2, 3};
     for (std::size_t i = 0; i < v.size(); ++i) {
-        assert(v[i] == static_cast<int>(i) + 1);
+        LEARN_CHECK(v[i] == static_cast<int>(i) + 1);
     }
     static_assert(std::is_same_v<decltype(sizeof(0)), std::size_t>);
 #endif
 
     static_assert(sizeof(std::size_t) == sizeof(void*) || sizeof(std::size_t) != sizeof(void*));
-    assert(sizeof(std::size_t) >= 4);
+    LEARN_CHECK(sizeof(std::size_t) >= 4);
 }
 
 int run(int argc, char** argv) {

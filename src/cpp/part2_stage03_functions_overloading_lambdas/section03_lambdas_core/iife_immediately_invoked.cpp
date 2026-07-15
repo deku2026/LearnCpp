@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -17,7 +16,7 @@ namespace {
 
 void demo_basics() {
     const int x = [] { return 40 + 2; }();
-    assert(x == 42);
+    LEARN_CHECK(x == 42);
 }
 
 void demo_intermediate() {
@@ -37,9 +36,9 @@ void demo_intermediate() {
         }
         return v;
     }();
-    assert(primes.front() == 2);
-    assert(primes.back() == 19);
-    assert(primes.size() == 8);
+    LEARN_CHECK(primes.front() == 2);
+    LEARN_CHECK(primes.back() == 19);
+    LEARN_CHECK(primes.size() == 8);
 }
 
 void demo_expert() {
@@ -49,14 +48,14 @@ void demo_expert() {
         }
         return std::string{"err"};
     }(0);
-    assert(label == "ok");
+    LEARN_CHECK(label == "ok");
 
     int side = 0;
     const int y = [&side] {
         side = 1;
         return 9;
     }();
-    assert(y == 9 && side == 1);
+    LEARN_CHECK(y == 9 && side == 1);
 }
 
 int run(int argc, char** argv) {

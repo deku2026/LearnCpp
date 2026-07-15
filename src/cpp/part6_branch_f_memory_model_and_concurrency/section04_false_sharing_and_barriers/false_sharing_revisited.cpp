@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -23,7 +22,7 @@ void demo_basics() {
     Slot a, b;
     a.v = 1;
     b.v = 2;
-    assert(a.v.load() + b.v.load() == 3);
+    LEARN_CHECK(a.v.load() + b.v.load() == 3);
 }
 
 void demo_intermediate() {
@@ -36,11 +35,11 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(s1.v.load() == 2000 && s2.v.load() == 2000);
+    LEARN_CHECK(s1.v.load() == 2000 && s2.v.load() == 2000);
 }
 
 void demo_expert() {
-    assert(sizeof(Slot) >= 64);
+    LEARN_CHECK(sizeof(Slot) >= 64);
 }
 
 int run(int argc, char** argv) {

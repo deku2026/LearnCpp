@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <string>
 #include <vector>
@@ -24,9 +23,9 @@ namespace {
 void demo_basics() {
     // map: node-based, O(log n) insert, stable iterators, poorer locality
     std::map<int, int> m{{1, 1}, {2, 2}, {3, 3}};
-    assert(m.find(2)->second == 2);
+    LEARN_CHECK(m.find(2)->second == 2);
     // Prefer flat_map when mostly lookup/traverse after bulk build
-    assert(m.size() == 3);
+    LEARN_CHECK(m.size() == 3);
 }
 
 void demo_intermediate() {
@@ -36,7 +35,7 @@ void demo_intermediate() {
         (void)k;
         sum += v;
     }
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_map<std::string, int> flat{{"b", 2}, {"a", 1}, {"c", 3}};
     int fsum = 0;
@@ -44,7 +43,7 @@ void demo_intermediate() {
         (void)k;
         fsum += v;
     }
-    assert(fsum == 6);
+    LEARN_CHECK(fsum == 6);
 #endif
 }
 
@@ -57,14 +56,14 @@ void demo_expert() {
     for (int i = 0; i < 100; ++i) {
         m[i] = i;
     }
-    assert(m.size() == 100);
+    LEARN_CHECK(m.size() == 100);
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_map<int, int> fm;
     for (int i = 0; i < 100; ++i) {
         fm[i] = i;
     }
-    assert(fm.size() == 100);
-    assert(fm.find(50)->second == 50);
+    LEARN_CHECK(fm.size() == 100);
+    LEARN_CHECK(fm.find(50)->second == 50);
 #endif
 }
 

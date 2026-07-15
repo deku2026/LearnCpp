@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 template <class T>
@@ -23,16 +21,16 @@ inline int answer() {
 }
 
 void demo_basics() {
-    assert(twice(2) == 4);
-    assert(answer() == 42);
+    LEARN_CHECK(twice(2) == 4);
+    LEARN_CHECK(answer() == 42);
 }
 
 void demo_intermediate() {
-    assert(twice(1.5) == 3.0);
+    LEARN_CHECK(twice(1.5) == 3.0);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

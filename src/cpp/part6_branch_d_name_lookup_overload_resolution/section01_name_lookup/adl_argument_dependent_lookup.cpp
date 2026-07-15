@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 namespace geo {
@@ -24,19 +22,19 @@ int magnitude2(Point p) {
 
 void demo_basics() {
     geo::Point p{3, 4};
-    assert(magnitude2(p) == 25);  // found via ADL
+    LEARN_CHECK(magnitude2(p) == 25);  // found via ADL
 }
 
 void demo_intermediate() {
     using geo::Point;
     Point p{0, 0};
-    assert(magnitude2(p) == 0);
+    LEARN_CHECK(magnitude2(p) == 0);
 }
 
 void demo_expert() {
     // Qualified call disables ADL.
     geo::Point p{1, 0};
-    assert(geo::magnitude2(p) == 1);
+    LEARN_CHECK(geo::magnitude2(p) == 1);
 }
 
 int run(int argc, char** argv) {

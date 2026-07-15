@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int zeroed;         // static storage: zero-initialized before dynamic init
@@ -23,23 +21,23 @@ struct Counter {
 Counter dynamic_obj;  // dynamic initialization
 
 void demo_basics() {
-    assert(zeroed == 0);
-    assert(constant == 10);
+    LEARN_CHECK(zeroed == 0);
+    LEARN_CHECK(constant == 10);
 }
 
 void demo_intermediate() {
-    assert(dynamic_obj.n == 1);
+    LEARN_CHECK(dynamic_obj.n == 1);
     static int once = 0;
     ++once;
-    assert(once >= 1);
+    LEARN_CHECK(once >= 1);
 }
 
 void demo_expert() {
     // Constant initialization happens before dynamic initialization.
     constexpr int k = 5;
     static int arr[k] = {};
-    assert(arr[0] == 0);
-    assert(sizeof(arr) / sizeof(arr[0]) == 5);
+    LEARN_CHECK(arr[0] == 0);
+    LEARN_CHECK(sizeof(arr) / sizeof(arr[0]) == 5);
 }
 
 int run(int argc, char** argv) {

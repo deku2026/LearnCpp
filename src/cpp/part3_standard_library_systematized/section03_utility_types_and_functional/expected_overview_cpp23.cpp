@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
@@ -21,22 +20,22 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     std::expected<int, std::string> e = 1;
-    assert(e.has_value());
+    LEARN_CHECK(e.has_value());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
     std::expected<int, std::string> e = 42;
-    assert(*e == 42);
+    LEARN_CHECK(*e == 42);
     std::expected<int, std::string> err = std::unexpected<std::string>{"fail"};
-    assert(!err.has_value());
-    assert(err.error() == "fail");
+    LEARN_CHECK(!err.has_value());
+    LEARN_CHECK(err.error() == "fail");
 #else
     std::string err = "fail";
-    assert(err == "fail");
+    LEARN_CHECK(err == "fail");
 #endif
 }
 
@@ -48,10 +47,10 @@ void demo_expert() {
         }
         return a / b;
     };
-    assert(div(10, 2).value() == 5);
-    assert(div(1, 0).error() == "div0");
+    LEARN_CHECK(div(10, 2).value() == 5);
+    LEARN_CHECK(div(1, 0).error() == "div0");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

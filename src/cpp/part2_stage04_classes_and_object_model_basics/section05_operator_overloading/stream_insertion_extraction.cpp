@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ios>
 #include <istream>
 #include <ostream>
@@ -60,14 +59,14 @@ void demo_basics() {
     Money m{125};
     std::ostringstream oss;
     oss << m;
-    assert(oss.str() == "$1.25");
+    LEARN_CHECK(oss.str() == "$1.25");
 }
 
 void demo_intermediate() {
     std::istringstream iss("$2.05");
     Money m;
     iss >> m;
-    assert(m.cents() == 205);
+    LEARN_CHECK(m.cents() == 205);
 }
 
 void demo_expert() {
@@ -75,7 +74,7 @@ void demo_expert() {
     Money b{5};
     std::ostringstream oss;
     oss << a << ' ' << b;
-    assert(oss.str() == "$1.00 $0.05");
+    LEARN_CHECK(oss.str() == "$1.00 $0.05");
 }
 
 int run(int argc, char** argv) {

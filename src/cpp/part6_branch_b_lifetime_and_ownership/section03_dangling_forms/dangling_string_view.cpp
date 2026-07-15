@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,21 +17,21 @@ namespace {
 void demo_basics() {
     std::string s = "hello";
     std::string_view sv = s;
-    assert(sv == "hello");
+    LEARN_CHECK(sv == "hello");
 }
 
 void demo_intermediate() {
     // Temporary string extended by const ref, then view it.
     const std::string& ext = std::string("abc");
     std::string_view sv = ext;
-    assert(sv.size() == 3);
+    LEARN_CHECK(sv.size() == 3);
 }
 
 void demo_expert() {
     // Do not: std::string_view sv = std::string("tmp"); // dangling after full-expression
     std::string owner = "tmp";
     std::string_view sv = owner;
-    assert(sv == "tmp");
+    LEARN_CHECK(sv == "tmp");
 }
 
 int run(int argc, char** argv) {

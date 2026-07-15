@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <version>
 
@@ -17,7 +16,7 @@ namespace {
 
 void demo_basics() {
     auto p = std::make_unique<int>(3);
-    assert(*p == 3);
+    LEARN_CHECK(*p == 3);
 }
 
 void demo_intermediate() {
@@ -26,18 +25,18 @@ void demo_intermediate() {
         std::unique_ptr<int> p{new int{5}};
         return *p;
     }();
-    assert(v == 5);
+    LEARN_CHECK(v == 5);
 #else
     auto p = std::unique_ptr<int>{new int{5}};
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
 #endif
 }
 
 void demo_expert() {
     std::unique_ptr<int> a = std::make_unique<int>(1);
     std::unique_ptr<int> b = std::move(a);
-    assert(!a);
-    assert(b && *b == 1);
+    LEARN_CHECK(!a);
+    LEARN_CHECK(b && *b == 1);
 }
 
 int run(int argc, char** argv) {

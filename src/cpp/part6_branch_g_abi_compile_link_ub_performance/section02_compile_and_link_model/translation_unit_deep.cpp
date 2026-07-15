@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 namespace {
@@ -22,15 +20,15 @@ int shared_func() {
 }
 
 void demo_basics() {
-    assert(shared_func() == 2);
+    LEARN_CHECK(shared_func() == 2);
 }
 
 void demo_intermediate() {
-    assert(tu_local == 1);
+    LEARN_CHECK(tu_local == 1);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -20,19 +19,19 @@ void demo_basics() {
     int* p = &v[0];
     auto it = v.begin();
     v.push_back(4);  // no reallocation
-    assert(p == &v[0]);
-    assert(it == v.begin());
-    assert(*p == 1);
-    assert(*it == 1);
+    LEARN_CHECK(p == &v[0]);
+    LEARN_CHECK(it == v.begin());
+    LEARN_CHECK(*p == 1);
+    LEARN_CHECK(*it == 1);
 }
 
 void demo_intermediate() {
     std::vector<int> v{10, 20, 30, 40};
     auto it = v.begin() + 1;
-    assert(*it == 20);
+    LEARN_CHECK(*it == 20);
     it = v.erase(it);  // erase invalidates from erase point; returns next
-    assert(*it == 30);
-    assert((v == std::vector<int>{10, 30, 40}));
+    LEARN_CHECK(*it == 30);
+    LEARN_CHECK((v == std::vector<int>{10, 30, 40}));
 }
 
 void demo_expert() {
@@ -45,10 +44,10 @@ void demo_expert() {
     v.push_back(3);  // may reallocate
     if (v.capacity() > cap_before) {
         // old pointer is invalidated after reallocation; do not use it
-        assert(&v[0] != old || v.capacity() == cap_before);
+        LEARN_CHECK(&v[0] != old || v.capacity() == cap_before);
     }
-    assert(v.size() == 3);
-    assert(v[0] == 1 && v[2] == 3);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v[0] == 1 && v[2] == 3);
 }
 
 }  // namespace

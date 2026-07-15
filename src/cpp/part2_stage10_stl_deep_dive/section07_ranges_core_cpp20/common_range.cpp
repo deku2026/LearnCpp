@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     static_assert(std::ranges::common_range<std::vector<int>>);
     std::vector<int> v{3, 1, 2};
     std::sort(v.begin(), v.end());
-    assert(v.front() == 1);
+    LEARN_CHECK(v.front() == 1);
 }
 
 void demo_intermediate() {
@@ -28,7 +27,7 @@ void demo_intermediate() {
     // iota may be common depending on implementation/bounds
     auto c = v | std::views::common;
     std::vector<int> out(c.begin(), c.end());
-    assert(out.size() == 5);
+    LEARN_CHECK(out.size() == 5);
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     auto t = v | std::views::take(3);
     auto c = t | std::views::common;
     static_assert(std::ranges::common_range<decltype(c)>);
-    assert(std::distance(c.begin(), c.end()) == 3);
+    LEARN_CHECK(std::distance(c.begin(), c.end()) == 3);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -52,20 +51,20 @@ void demo_basics() {
     g_open = g_close = 0;
     {
         Handle h{1};
-        assert(h.id() == 1);
-        assert(g_open == 1);
+        LEARN_CHECK(h.id() == 1);
+        LEARN_CHECK(g_open == 1);
     }
-    assert(g_close == 1);
+    LEARN_CHECK(g_close == 1);
 }
 
 void demo_intermediate() {
     g_open = g_close = 0;
     Handle a{7};
     Handle b = std::move(a);
-    assert(a.empty());
-    assert(b.id() == 7);
-    assert(g_open == 1);
-    assert(g_close == 0);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(b.id() == 7);
+    LEARN_CHECK(g_open == 1);
+    LEARN_CHECK(g_close == 0);
 }
 
 void demo_expert() {
@@ -73,10 +72,10 @@ void demo_expert() {
     Handle a{1};
     Handle b{2};
     a = std::move(b);
-    assert(a.id() == 2);
-    assert(b.empty());
-    assert(g_close == 1);
-    assert(g_open == 2);
+    LEARN_CHECK(a.id() == 2);
+    LEARN_CHECK(b.empty());
+    LEARN_CHECK(g_close == 1);
+    LEARN_CHECK(g_open == 2);
 }
 
 int run(int argc, char** argv) {

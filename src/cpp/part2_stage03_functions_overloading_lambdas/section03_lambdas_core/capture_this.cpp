@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <string>
 
@@ -35,9 +34,9 @@ struct Counter {
 void demo_basics() {
     Counter c{5};
     auto r = c.make_reader();
-    assert(r() == 5);
+    LEARN_CHECK(r() == 5);
     c.value = 9;
-    assert(r() == 9);  // still sees live object via this
+    LEARN_CHECK(r() == 9);  // still sees live object via this
 }
 
 void demo_intermediate() {
@@ -45,18 +44,18 @@ void demo_intermediate() {
     auto bump = c.make_bump();
     bump();
     bump();
-    assert(c.value == 2);
+    LEARN_CHECK(c.value == 2);
 }
 
 void demo_expert() {
     Counter c{11};
     auto snap = c.make_safe_snapshot();
     c.value = 0;
-    assert(snap() == 11);
+    LEARN_CHECK(snap() == 11);
 
     // [this] does not extend object lifetime; do not store past *this.
     std::string tag = "this-capture";
-    assert(tag.find("this") != std::string::npos);
+    LEARN_CHECK(tag.find("this") != std::string::npos);
 }
 
 int run(int argc, char** argv) {

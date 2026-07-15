@@ -9,25 +9,24 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <numbers>
 
 namespace {
 
 void demo_basics() {
-    assert(std::numbers::pi > 3.14 && std::numbers::pi < 3.15);
-    assert(std::numbers::e > 2.71 && std::numbers::e < 2.72);
+    LEARN_CHECK(std::numbers::pi > 3.14 && std::numbers::pi < 3.15);
+    LEARN_CHECK(std::numbers::e > 2.71 && std::numbers::e < 2.72);
 }
 
 void demo_intermediate() {
-    assert(std::numbers::sqrt2 > 1.41 && std::numbers::sqrt2 < 1.42);
-    assert(std::numbers::ln2 > 0.69 && std::numbers::ln2 < 0.70);
+    LEARN_CHECK(std::numbers::sqrt2 > 1.41 && std::numbers::sqrt2 < 1.42);
+    LEARN_CHECK(std::numbers::ln2 > 0.69 && std::numbers::ln2 < 0.70);
 }
 
 void demo_expert() {
     const float pi_f = std::numbers::pi_v<float>;
-    assert(pi_f > 3.14f && pi_f < 3.15f);
+    LEARN_CHECK(pi_f > 3.14f && pi_f < 3.15f);
 }
 
 int run(int argc, char** argv) {

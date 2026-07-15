@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -17,9 +16,9 @@ namespace {
 
 void demo_basics() {
     // Classic fixed-width escapes still work
-    assert('\x41' == 'A');
-    assert('\101' == 'A');  // octal
-    assert(U'\u0041' == U'A');
+    LEARN_CHECK('\x41' == 'A');
+    LEARN_CHECK('\101' == 'A');  // octal
+    LEARN_CHECK(U'\u0041' == U'A');
 }
 
 void demo_intermediate() {
@@ -37,8 +36,8 @@ void demo_intermediate() {
     // Portable demonstration of the idea using classic escapes with same values.
     const char a = '\x41';
     const char star = '\x2A';
-    assert(a == 'A');
-    assert(star == '*');
+    LEARN_CHECK(a == 'A');
+    LEARN_CHECK(star == '*');
 
 #if defined(__clang__) || defined(__GNUC__) || defined(_MSC_VER)
     // Many C++23 compilers accept \x{...} / \u{...}; guard with a known macro if present.
@@ -46,26 +45,26 @@ void demo_intermediate() {
     // Try brace-delimited forms when compiling as C++23
 #if __cplusplus >= 202302L
     const char b = '\x{41}';
-    assert(b == 'A');
+    LEARN_CHECK(b == 'A');
     const char32_t pi = U'\u{3C0}';
-    assert(pi == 0x3C0);
+    LEARN_CHECK(pi == 0x3C0);
     const char nul_like = '\o{0}';
-    assert(nul_like == '\0');
+    LEARN_CHECK(nul_like == '\0');
 #else
     const char b = '\x41';
-    assert(b == 'A');
+    LEARN_CHECK(b == 'A');
     const char32_t pi = U'\u03C0';
-    assert(pi == 0x3C0);
+    LEARN_CHECK(pi == 0x3C0);
 #endif
 #else
     const char b = '\x41';
-    assert(b == 'A');
+    LEARN_CHECK(b == 'A');
     const char32_t pi = U'\u03C0';
-    assert(pi == 0x3C0);
+    LEARN_CHECK(pi == 0x3C0);
 #endif
 #else
     const char b = '\x41';
-    assert(b == 'A');
+    LEARN_CHECK(b == 'A');
 #endif
 }
 
@@ -76,28 +75,28 @@ void demo_expert() {
     const char classic[] =
         "\x41"
         "B";  // split to force 'A' then 'B'
-    assert(classic[0] == 'A');
-    assert(classic[1] == 'B');
+    LEARN_CHECK(classic[0] == 'A');
+    LEARN_CHECK(classic[1] == 'B');
 
 #if __cplusplus >= 202302L
     const char modern[] = "\x{41}B";  // brace ends the escape clearly
-    assert(modern[0] == 'A');
-    assert(modern[1] == 'B');
+    LEARN_CHECK(modern[0] == 'A');
+    LEARN_CHECK(modern[1] == 'B');
 
     const char32_t emoji = U'\u{1F600}';
-    assert(emoji == 0x1F600);
+    LEARN_CHECK(emoji == 0x1F600);
 #else
     const char modern[] =
         "\x41"
         "B";
-    assert(modern[0] == 'A');
-    assert(modern[1] == 'B');
+    LEARN_CHECK(modern[0] == 'A');
+    LEARN_CHECK(modern[1] == 'B');
     const char32_t emoji = U'\U0001F600';
-    assert(emoji == 0x1F600);
+    LEARN_CHECK(emoji == 0x1F600);
 #endif
 
     std::string s = "ok";
-    assert(s == "ok");
+    LEARN_CHECK(s == "ok");
 }
 
 int run(int argc, char** argv) {

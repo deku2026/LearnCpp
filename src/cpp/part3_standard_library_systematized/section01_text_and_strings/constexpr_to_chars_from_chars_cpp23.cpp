@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <charconv>
 #include <version>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     char buf[16]{};
     auto [p, ec] = std::to_chars(buf, buf + 16, 7);
-    assert(ec == std::errc{});
-    assert(p - buf == 1);
-    assert(buf[0] == '7');
+    LEARN_CHECK(ec == std::errc{});
+    LEARN_CHECK(p - buf == 1);
+    LEARN_CHECK(buf[0] == '7');
 }
 
 void demo_intermediate() {
     const char in[] = "99";
     int v = 0;
     auto [p, ec] = std::from_chars(in, in + 2, v);
-    assert(ec == std::errc{});
-    assert(v == 99);
+    LEARN_CHECK(ec == std::errc{});
+    LEARN_CHECK(v == 99);
 }
 
 void demo_expert() {
@@ -38,11 +37,11 @@ void demo_expert() {
         auto r = std::to_chars(b, b + 8, 3);
         return r.ec == std::errc{} && b[0] == '3';
     }();
-    assert(ok);
+    LEARN_CHECK(ok);
 #else
     char b[8]{};
     auto r = std::to_chars(b, b + 8, 3);
-    assert(r.ec == std::errc{} && b[0] == '3');
+    LEARN_CHECK(r.ec == std::errc{} && b[0] == '3');
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <sstream>
 #include <string>
@@ -25,11 +24,11 @@ void demo_basics() {
         std::osyncstream synced(oss);
         synced << "hello";
     }
-    assert(oss.str() == "hello");
+    LEARN_CHECK(oss.str() == "hello");
 #else
     std::ostringstream oss;
     oss << "hello";
-    assert(oss.str() == "hello");
+    LEARN_CHECK(oss.str() == "hello");
 #endif
 }
 
@@ -47,8 +46,8 @@ void demo_intermediate() {
     t1.join();
     t2.join();
     const std::string out = oss.str();
-    assert(out.size() == 2);
-    assert((out == "AB") || (out == "BA"));
+    LEARN_CHECK(out.size() == 2);
+    LEARN_CHECK((out == "AB") || (out == "BA"));
 #else
     std::mutex m;
     std::ostringstream oss;
@@ -62,7 +61,7 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(oss.str().size() == 2);
+    LEARN_CHECK(oss.str().size() == 2);
 #endif
 }
 
@@ -73,12 +72,12 @@ void demo_expert() {
         std::osyncstream s(oss);
         s << "x" << 1 << "y";
         s.emit();
-        assert(oss.str() == "x1y");
+        LEARN_CHECK(oss.str() == "x1y");
     }
 #else
     std::ostringstream oss;
     oss << "x" << 1 << "y";
-    assert(oss.str() == "x1y");
+    LEARN_CHECK(oss.str() == "x1y");
 #endif
 }
 

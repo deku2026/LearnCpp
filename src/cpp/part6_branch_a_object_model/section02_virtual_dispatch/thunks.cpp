@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -36,17 +35,17 @@ void demo_basics() {
     Left* pl = &b;
     Right* pr = &b;
     // Virtual call through either base reaches Both::who after this adjustment.
-    assert(pl->who() == 60);
-    assert(pr->who() == 60);
+    LEARN_CHECK(pl->who() == 60);
+    LEARN_CHECK(pr->who() == 60);
 }
 
 void demo_intermediate() {
     Both b;
     Right* pr = &b;
     // Address of Right subobject may differ from complete object.
-    assert(static_cast<void*>(pr) == static_cast<void*>(&b) ||
-           reinterpret_cast<std::uintptr_t>(pr) > reinterpret_cast<std::uintptr_t>(&b));
-    assert(static_cast<Both*>(pr) == &b);
+    LEARN_CHECK(static_cast<void*>(pr) == static_cast<void*>(&b) ||
+                reinterpret_cast<std::uintptr_t>(pr) > reinterpret_cast<std::uintptr_t>(&b));
+    LEARN_CHECK(static_cast<Both*>(pr) == &b);
 }
 
 void demo_expert() {
@@ -55,7 +54,7 @@ void demo_expert() {
     Both b;
     Left& l = b;
     Right& r = b;
-    assert(l.who() == r.who());
+    LEARN_CHECK(l.who() == r.who());
 }
 
 }  // namespace

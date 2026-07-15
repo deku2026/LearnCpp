@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <tuple>
 #include <utility>
 
@@ -18,13 +17,13 @@ namespace {
 void demo_basics() {
     auto t = std::make_tuple(1, 2);
     auto [a, b] = t;
-    assert(a == 1 && b == 2);
+    LEARN_CHECK(a == 1 && b == 2);
 }
 
 void demo_intermediate() {
     std::pair<int, int> p{3, 4};
     auto [x, y] = p;
-    assert(x + y == 7);
+    LEARN_CHECK(x + y == 7);
 }
 
 void demo_expert() {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -19,13 +18,13 @@ void demo_basics() {
     float f = 1.0f;
     auto u = std::bit_cast<std::uint32_t>(f);
     auto back = std::bit_cast<float>(u);
-    assert(back == 1.0f);
+    LEARN_CHECK(back == 1.0f);
 }
 
 void demo_intermediate() {
     std::uint32_t bits = 0u;
     float z = std::bit_cast<float>(bits);
-    assert(z == 0.0f);
+    LEARN_CHECK(z == 0.0f);
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     A x{1, 2};
     auto y = std::bit_cast<std::uint32_t>(x);
     auto z = std::bit_cast<A>(y);
-    assert(z.a == 1 && z.b == 2);
+    LEARN_CHECK(z.a == 1 && z.b == 2);
 }
 
 int run(int argc, char** argv) {

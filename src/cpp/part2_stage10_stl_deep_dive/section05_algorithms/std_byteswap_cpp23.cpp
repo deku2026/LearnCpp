@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <version>
 
@@ -21,22 +20,22 @@ namespace {
 
 void demo_basics() {
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
-    assert(std::byteswap(std::uint16_t{0x1234}) == std::uint16_t{0x3412});
+    LEARN_CHECK(std::byteswap(std::uint16_t{0x1234}) == std::uint16_t{0x3412});
 #else
     auto bs16 = [](std::uint16_t x) -> std::uint16_t { return static_cast<std::uint16_t>((x << 8) | (x >> 8)); };
-    assert(bs16(0x1234) == 0x3412);
+    LEARN_CHECK(bs16(0x1234) == 0x3412);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
-    assert(std::byteswap(std::uint32_t{0x12345678}) == std::uint32_t{0x78563412});
+    LEARN_CHECK(std::byteswap(std::uint32_t{0x12345678}) == std::uint32_t{0x78563412});
 #else
     auto bs32 = [](std::uint32_t x) -> std::uint32_t {
         return ((x & 0x000000FFu) << 24) | ((x & 0x0000FF00u) << 8) | ((x & 0x00FF0000u) >> 8) |
                ((x & 0xFF000000u) >> 24);
     };
-    assert(bs32(0x12345678u) == 0x78563412u);
+    LEARN_CHECK(bs32(0x12345678u) == 0x78563412u);
 #endif
 }
 
@@ -44,9 +43,9 @@ void demo_expert() {
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
     const std::uint64_t x = 0x0123456789ABCDEFull;
     const auto y = std::byteswap(x);
-    assert(std::byteswap(y) == x);
+    LEARN_CHECK(std::byteswap(y) == x);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

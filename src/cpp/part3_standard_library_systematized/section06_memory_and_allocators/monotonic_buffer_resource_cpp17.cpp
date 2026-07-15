@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <memory_resource>
 #include <vector>
 
@@ -22,7 +21,7 @@ void demo_basics() {
     std::pmr::vector<int> v{&mono};
     v.push_back(1);
     v.push_back(2);
-    assert(v.size() == 2);
+    LEARN_CHECK(v.size() == 2);
 }
 
 void demo_intermediate() {
@@ -31,7 +30,7 @@ void demo_intermediate() {
     std::pmr::vector<int> b{&mono};
     a.resize(10, 1);
     b.resize(10, 2);
-    assert(a[0] == 1 && b[0] == 2);
+    LEARN_CHECK(a[0] == 1 && b[0] == 2);
 }
 
 void demo_expert() {
@@ -40,7 +39,7 @@ void demo_expert() {
     {
         std::pmr::vector<int> v{&mono};
         v.push_back(3);
-        assert(v.back() == 3);
+        LEARN_CHECK(v.back() == 3);
     }
     mono.release();
 }

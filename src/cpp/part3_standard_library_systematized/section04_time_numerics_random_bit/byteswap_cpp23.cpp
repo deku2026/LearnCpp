@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 #include <version>
 
@@ -19,28 +18,28 @@ namespace {
 void demo_basics() {
     std::uint16_t x = 0x1234u;
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
-    assert(std::byteswap(x) == 0x3412u);
+    LEARN_CHECK(std::byteswap(x) == 0x3412u);
 #else
     auto swap16 = [](std::uint16_t v) -> std::uint16_t { return static_cast<std::uint16_t>((v << 8) | (v >> 8)); };
-    assert(swap16(x) == 0x3412u);
+    LEARN_CHECK(swap16(x) == 0x3412u);
 #endif
 }
 
 void demo_intermediate() {
     std::uint32_t x = 0x01020304u;
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
-    assert(std::byteswap(x) == 0x04030201u);
+    LEARN_CHECK(std::byteswap(x) == 0x04030201u);
 #else
-    assert(x == 0x01020304u);
+    LEARN_CHECK(x == 0x01020304u);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_byteswap) && __cpp_lib_byteswap >= 202110L
     std::uint64_t x = 0x0102030405060708ull;
-    assert(std::byteswap(std::byteswap(x)) == x);
+    LEARN_CHECK(std::byteswap(std::byteswap(x)) == x);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

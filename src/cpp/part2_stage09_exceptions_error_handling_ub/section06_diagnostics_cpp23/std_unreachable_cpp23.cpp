@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -47,14 +46,14 @@ int only_zero_one(int x) {
 }
 
 void demo_basics() {
-    assert(std::string{color_name(0)} == "red");
-    assert(std::string{color_name(1)} == "green");
+    LEARN_CHECK(std::string{color_name(0)} == "red");
+    LEARN_CHECK(std::string{color_name(1)} == "green");
 }
 
 void demo_intermediate() {
-    assert(only_zero_one(0) == 10);
-    assert(only_zero_one(1) == 20);
-    assert(only_zero_one(2) == -1);
+    LEARN_CHECK(only_zero_one(0) == 10);
+    LEARN_CHECK(only_zero_one(1) == 20);
+    LEARN_CHECK(only_zero_one(2) == -1);
 }
 
 void demo_expert() {
@@ -62,7 +61,7 @@ void demo_expert() {
     // Feature exists; we still never invoke it on a reachable path.
     static_assert(__cpp_lib_unreachable >= 202202L);
 #endif
-    assert(std::string{color_name(9)} == "unknown");
+    LEARN_CHECK(std::string{color_name(9)} == "unknown");
 }
 
 int run(int argc, char** argv) {

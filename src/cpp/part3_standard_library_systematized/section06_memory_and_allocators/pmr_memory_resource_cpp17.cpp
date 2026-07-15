@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory_resource>
 #include <string>
 #include <vector>
@@ -18,8 +17,8 @@ namespace {
 
 void demo_basics() {
     std::pmr::vector<int> v{1, 2, 3};
-    assert(v.size() == 3);
-    assert(v.get_allocator().resource() != nullptr);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v.get_allocator().resource() != nullptr);
 }
 
 void demo_intermediate() {
@@ -27,14 +26,14 @@ void demo_intermediate() {
     std::pmr::polymorphic_allocator<int> alloc{&pool};
     std::pmr::vector<int> v(alloc);
     v.push_back(10);
-    assert(v.front() == 10);
+    LEARN_CHECK(v.front() == 10);
 }
 
 void demo_expert() {
     std::pmr::monotonic_buffer_resource mono;
     std::pmr::string s{&mono};
     s = "pmr";
-    assert(s == "pmr");
+    LEARN_CHECK(s == "pmr");
 }
 
 int run(int argc, char** argv) {

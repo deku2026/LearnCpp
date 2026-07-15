@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <type_traits>
@@ -18,14 +17,14 @@ namespace {
 
 void demo_basics() {
     const int n = 42;
-    assert(n == 42);
+    LEARN_CHECK(n == 42);
     // n = 1; // ill-formed
 
     int x = 10;
     const int& rx = x;
-    assert(rx == 10);
+    LEARN_CHECK(rx == 10);
     x = 11;
-    assert(rx == 11);  // const ref sees underlying changes
+    LEARN_CHECK(rx == 11);  // const ref sees underlying changes
 }
 
 void demo_intermediate() {
@@ -33,29 +32,29 @@ void demo_intermediate() {
     int b = 2;
 
     const int* p_to_const = &a;  // cannot modify *p through this pointer
-    assert(*p_to_const == 1);
+    LEARN_CHECK(*p_to_const == 1);
     p_to_const = &b;  // pointer itself can rebind
-    assert(*p_to_const == 2);
+    LEARN_CHECK(*p_to_const == 2);
 
     int* const const_p = &a;  // pointer cannot rebind
     *const_p = 5;
-    assert(a == 5);
-    assert(const_p == &a);
+    LEARN_CHECK(a == 5);
+    LEARN_CHECK(const_p == &a);
 
     const int* const both = &b;
-    assert(*both == 2);
-    assert(both == &b);
+    LEARN_CHECK(*both == 2);
+    LEARN_CHECK(both == &b);
 }
 
 void demo_expert() {
     int v = 7;
     int* p = &v;
     const int* cp = p;  // adding const to pointee is OK
-    assert(*cp == 7);
+    LEARN_CHECK(*cp == 7);
 
     // Binding temporary to const reference extends lifetime
     const std::size_t& len = std::string("abcd").size();
-    assert(len == 4);
+    LEARN_CHECK(len == 4);
 
     static_assert(std::is_const_v<const int>);
     static_assert(!std::is_const_v<int>);
@@ -63,7 +62,7 @@ void demo_expert() {
 
     // Function parameter by const ref avoids copies for large objects
     auto sum_two = [](const int& lhs, const int& rhs) { return lhs + rhs; };
-    assert(sum_two(3, 4) == 7);
+    LEARN_CHECK(sum_two(3, 4) == 7);
 }
 
 int run(int argc, char** argv) {

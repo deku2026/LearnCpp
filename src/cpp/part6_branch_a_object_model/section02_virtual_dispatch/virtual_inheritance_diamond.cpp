@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct VBase {
@@ -42,8 +40,8 @@ struct RightNV {
 
 void demo_basics() {
     Diamond d;
-    assert(d.v == 42);
-    assert(d.left == 1 && d.right == 2 && d.bottom == 3);
+    LEARN_CHECK(d.v == 42);
+    LEARN_CHECK(d.left == 1 && d.right == 2 && d.bottom == 3);
 }
 
 void demo_intermediate() {
@@ -53,15 +51,15 @@ void demo_intermediate() {
     VBase* from_L = L;
     VBase* from_R = R;
     // Single shared virtual base subobject.
-    assert(from_L == from_R);
-    assert(from_L->id() == 42);
+    LEARN_CHECK(from_L == from_R);
+    LEARN_CHECK(from_L->id() == 42);
 }
 
 void demo_expert() {
     Diamond d;
-    assert(static_cast<VBase*>(&d)->id() == 42);
+    LEARN_CHECK(static_cast<VBase*>(&d)->id() == 42);
     // Virtual bases typically cost extra size (vbase offsets); layout ABI-dependent.
-    assert(sizeof(Diamond) >= sizeof(int) * 3);
+    LEARN_CHECK(sizeof(Diamond) >= sizeof(int) * 3);
 }
 
 }  // namespace

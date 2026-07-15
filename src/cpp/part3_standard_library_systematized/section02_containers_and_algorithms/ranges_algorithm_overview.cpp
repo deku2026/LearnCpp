@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -19,7 +18,7 @@ namespace {
 void demo_basics() {
     std::vector<int> v{3, 1, 2};
     std::ranges::sort(v);
-    assert(std::ranges::is_sorted(v));
+    LEARN_CHECK(std::ranges::is_sorted(v));
 }
 
 void demo_intermediate() {
@@ -29,7 +28,7 @@ void demo_intermediate() {
     for (int x : even) {
         got.push_back(x);
     }
-    assert((got == std::vector<int>{2, 4}));
+    LEARN_CHECK((got == std::vector<int>{2, 4}));
 }
 
 void demo_expert() {
@@ -39,7 +38,7 @@ void demo_expert() {
     for (int x : squared) {
         sum += x;
     }
-    assert(sum == 14);
+    LEARN_CHECK(sum == 14);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -18,7 +17,7 @@ namespace {
 void demo_basics() {
     std::atomic<int> c{0};
     c.fetch_add(1, std::memory_order_relaxed);
-    assert(c.load(std::memory_order_relaxed) == 1);
+    LEARN_CHECK(c.load(std::memory_order_relaxed) == 1);
 }
 
 void demo_intermediate() {
@@ -29,14 +28,14 @@ void demo_intermediate() {
     std::thread t1(work), t2(work);
     t1.join();
     t2.join();
-    assert(c.load() == 2000);
+    LEARN_CHECK(c.load() == 2000);
 }
 
 void demo_expert() {
     // relaxed does not synchronize-with; do not use alone to publish non-atomic data.
     std::atomic<int> c{0};
     c.store(3, std::memory_order_relaxed);
-    assert(c.load(std::memory_order_relaxed) == 3);
+    LEARN_CHECK(c.load(std::memory_order_relaxed) == 3);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -32,22 +31,22 @@ Error make_error(int c) {
 
 void demo_basics() {
     int v = compute();
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
     // Discarding compute() would typically warn; we always use the result.
 }
 
 void demo_intermediate() {
     int ec = open_resource();
-    assert(ec == 0);
+    LEARN_CHECK(ec == 0);
 }
 
 void demo_expert() {
     Error e = make_error(7);
-    assert(e.code == 7);
+    LEARN_CHECK(e.code == 7);
 
     // C++20: nodiscard can carry a reason string (message for diagnostics).
     auto x = open_resource();
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
     (void)std::string{"used"};
 }
 

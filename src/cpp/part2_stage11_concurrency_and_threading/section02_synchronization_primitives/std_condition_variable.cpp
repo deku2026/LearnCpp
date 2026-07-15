@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <condition_variable>
 #include <mutex>
 #include <queue>
@@ -33,7 +32,7 @@ void demo_basics() {
     {
         std::unique_lock<std::mutex> lk(m);
         cv.wait(lk, [&] { return ready; });
-        assert(value == 42);
+        LEARN_CHECK(value == 42);
     }
     producer.join();
 }
@@ -64,7 +63,7 @@ void demo_intermediate() {
     }
     cv.notify_all();
     consumer.join();
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_expert() {
@@ -88,7 +87,7 @@ void demo_expert() {
         cv.wait(lk, [&] { return phase == 2; });
     }
     t.join();
-    assert(phase == 2);
+    LEARN_CHECK(phase == 2);
 }
 
 int run(int argc, char** argv) {

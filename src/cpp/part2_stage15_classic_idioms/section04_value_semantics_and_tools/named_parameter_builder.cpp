@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -41,20 +40,20 @@ public:
 
 void demo_basics() {
     Config c = ConfigBuilder{}.width(10).height(20).build();
-    assert(c.width == 10 && c.height == 20);
+    LEARN_CHECK(c.width == 10 && c.height == 20);
 }
 
 void demo_intermediate() {
     Config c = ConfigBuilder{}.name("ui").width(8).build();
-    assert(c.name == "ui" && c.width == 8);
+    LEARN_CHECK(c.name == "ui" && c.width == 8);
 }
 
 void demo_expert() {
     auto b = ConfigBuilder{}.width(1).height(2).name("x");
     Config c1 = b.build();
     Config c2 = b.width(9).build();
-    assert(c1.width == 1);
-    assert(c2.width == 9);
+    LEARN_CHECK(c1.width == 1);
+    LEARN_CHECK(c2.width == 9);
 }
 
 int run(int argc, char** argv) {

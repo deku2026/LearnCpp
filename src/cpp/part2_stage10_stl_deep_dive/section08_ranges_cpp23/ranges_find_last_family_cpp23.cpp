@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -21,12 +20,12 @@ void demo_basics() {
 #if defined(__cpp_lib_ranges_find_last) && __cpp_lib_ranges_find_last >= 202207L
     std::vector<int> v{1, 2, 3, 2, 1};
     auto [it, end] = std::ranges::find_last(v, 2);
-    assert(it != end && *it == 2);
-    assert(it == v.begin() + 3);
+    LEARN_CHECK(it != end && *it == 2);
+    LEARN_CHECK(it == v.begin() + 3);
 #else
     std::vector<int> v{1, 2, 3, 2, 1};
     auto it = std::find(v.rbegin(), v.rend(), 2);
-    assert(it != v.rend() && *it == 2);
+    LEARN_CHECK(it != v.rend() && *it == 2);
 #endif
 }
 
@@ -34,9 +33,9 @@ void demo_intermediate() {
 #if defined(__cpp_lib_ranges_find_last) && __cpp_lib_ranges_find_last >= 202207L
     std::vector<int> v{1, 2, 3, 4, 5};
     auto [it, end] = std::ranges::find_last_if(v, [](int x) { return x % 2 == 0; });
-    assert(it != end && *it == 4);
+    LEARN_CHECK(it != end && *it == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -44,9 +43,9 @@ void demo_expert() {
 #if defined(__cpp_lib_ranges_find_last) && __cpp_lib_ranges_find_last >= 202207L
     std::vector<int> v{1, 3, 5};
     auto [it, end] = std::ranges::find_last_if_not(v, [](int x) { return x % 2 == 0; });
-    assert(it != end && *it == 5);
+    LEARN_CHECK(it != end && *it == 5);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

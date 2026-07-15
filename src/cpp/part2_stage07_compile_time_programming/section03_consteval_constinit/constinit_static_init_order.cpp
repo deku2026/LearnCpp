@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 constexpr int compute() {
@@ -29,21 +27,21 @@ struct Holder {
 constinit int Holder::value = 100;
 
 void demo_basics() {
-    assert(g_counter == 42);
-    assert(g_fixed == 42);
+    LEARN_CHECK(g_counter == 42);
+    LEARN_CHECK(g_fixed == 42);
 }
 
 void demo_intermediate() {
     g_counter += 1;
-    assert(g_counter == 43);
-    g_counter = 42;         // restore for other tests if re-run
-    assert(g_fixed == 42);  // const object
+    LEARN_CHECK(g_counter == 43);
+    g_counter = 42;              // restore for other tests if re-run
+    LEARN_CHECK(g_fixed == 42);  // const object
 }
 
 void demo_expert() {
-    assert(Holder::value == 100);
+    LEARN_CHECK(Holder::value == 100);
     Holder::value = 101;
-    assert(Holder::value == 101);
+    LEARN_CHECK(Holder::value == 101);
     Holder::value = 100;
 
     // Teaching: constinit prevents dynamic initialization; static init order

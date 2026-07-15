@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <set>
 #include <string>
@@ -18,32 +17,32 @@ namespace {
 
 void demo_basics() {
     std::map<std::string, int> m{{"banana", 2}, {"apple", 1}};
-    assert(m.begin()->first == "apple");
-    assert(m["banana"] == 2);
+    LEARN_CHECK(m.begin()->first == "apple");
+    LEARN_CHECK(m["banana"] == 2);
     std::set<int> s{3, 1, 4, 1, 5};
-    assert(s.size() == 4);
-    assert(*s.begin() == 1);
+    LEARN_CHECK(s.size() == 4);
+    LEARN_CHECK(*s.begin() == 1);
 }
 
 void demo_intermediate() {
     std::map<int, int> m;
     m.insert({1, 10});
     m.emplace(2, 20);
-    assert(m.count(1) == 1);
-    assert(m.find(3) == m.end());
+    LEARN_CHECK(m.count(1) == 1);
+    LEARN_CHECK(m.find(3) == m.end());
     auto [it, ok] = m.insert({1, 99});
-    assert(!ok);
-    assert(it->second == 10);
+    LEARN_CHECK(!ok);
+    LEARN_CHECK(it->second == 10);
 }
 
 void demo_expert() {
     std::map<int, int> m{{1, 1}, {2, 2}, {3, 3}};
     auto it = m.find(2);
-    assert(it != m.end());
+    LEARN_CHECK(it != m.end());
     m.erase(it);
-    assert(m.size() == 2);
-    assert(m.lower_bound(2)->first == 3);
-    assert(m.upper_bound(1)->first == 3);
+    LEARN_CHECK(m.size() == 2);
+    LEARN_CHECK(m.lower_bound(2)->first == 3);
+    LEARN_CHECK(m.upper_bound(1)->first == 3);
 }
 
 }  // namespace

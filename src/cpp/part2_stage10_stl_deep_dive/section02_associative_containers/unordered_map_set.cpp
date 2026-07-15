@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -18,10 +17,10 @@ namespace {
 
 void demo_basics() {
     std::unordered_map<std::string, int> um{{"a", 1}, {"b", 2}};
-    assert(um["a"] == 1);
-    assert(um.count("b") == 1);
+    LEARN_CHECK(um["a"] == 1);
+    LEARN_CHECK(um.count("b") == 1);
     std::unordered_set<int> us{1, 2, 2, 3};
-    assert(us.size() == 3);
+    LEARN_CHECK(us.size() == 3);
 }
 
 void demo_intermediate() {
@@ -30,19 +29,19 @@ void demo_intermediate() {
     for (int i = 0; i < 50; ++i) {
         um[i] = i * i;
     }
-    assert(um.size() == 50);
-    assert(um.at(7) == 49);
+    LEARN_CHECK(um.size() == 50);
+    LEARN_CHECK(um.at(7) == 49);
     um.erase(7);
-    assert(um.find(7) == um.end());
+    LEARN_CHECK(um.find(7) == um.end());
 }
 
 void demo_expert() {
     std::unordered_map<std::string, int> um;
     um.max_load_factor(0.5f);
     um.rehash(32);
-    assert(um.bucket_count() >= 32);
+    LEARN_CHECK(um.bucket_count() >= 32);
     um["x"] = 1;
-    assert(um.load_factor() <= um.max_load_factor() + 0.01f);
+    LEARN_CHECK(um.load_factor() <= um.max_load_factor() + 0.01f);
 }
 
 }  // namespace

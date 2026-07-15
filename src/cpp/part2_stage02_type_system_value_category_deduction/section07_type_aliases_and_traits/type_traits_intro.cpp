@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <string>
 #include <type_traits>
@@ -28,9 +27,9 @@ void demo_basics() {
     static_assert(std::is_pointer_v<int*>);
     static_assert(std::is_reference_v<int&>);
 
-    assert(is_number_v<int>);
-    assert(is_number_v<double>);
-    assert(!is_number_v<std::string>);
+    LEARN_CHECK(is_number_v<int>);
+    LEARN_CHECK(is_number_v<double>);
+    LEARN_CHECK(!is_number_v<std::string>);
 }
 
 void demo_intermediate() {
@@ -69,7 +68,7 @@ void demo_expert() {
 
     // Runtime confirmation that traits guided a simple branch
     if constexpr (std::is_integral_v<int>) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 

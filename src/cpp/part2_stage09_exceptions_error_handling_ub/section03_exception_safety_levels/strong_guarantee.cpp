@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -34,8 +33,8 @@ struct StrongBag {
 void demo_basics() {
     StrongBag s;
     s.add_pair("x", "y", false);
-    assert(s.items.size() == 2);
-    assert(s.items[0] == "x");
+    LEARN_CHECK(s.items.size() == 2);
+    LEARN_CHECK(s.items[0] == "x");
 }
 
 void demo_intermediate() {
@@ -43,11 +42,11 @@ void demo_intermediate() {
     s.items.push_back("keep");
     try {
         s.add_pair("a", "b", true);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (...) {
         // Strong: original state preserved.
-        assert(s.items.size() == 1);
-        assert(s.items[0] == "keep");
+        LEARN_CHECK(s.items.size() == 1);
+        LEARN_CHECK(s.items[0] == "keep");
     }
 }
 
@@ -58,8 +57,8 @@ void demo_expert() {
         s.add_pair("3", "4", true);
     } catch (...) {
     }
-    assert(s.items.size() == 2);
-    assert(s.items[1] == "2");
+    LEARN_CHECK(s.items.size() == 2);
+    LEARN_CHECK(s.items[1] == "2");
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -33,21 +32,21 @@ public:
 void demo_basics() {
     Widget w{"hello"};
     auto& r = w.data();
-    assert(r == "hello");
+    LEARN_CHECK(r == "hello");
     r = "world";
-    assert(w.data() == "world");
+    LEARN_CHECK(w.data() == "world");
 }
 
 void demo_intermediate() {
     const Widget cw{"const"};
     const auto& r = cw.data();
-    assert(r == "const");
+    LEARN_CHECK(r == "const");
     static_assert(std::is_const_v<std::remove_reference_t<decltype(cw.data())>>);
 }
 
 void demo_expert() {
     std::string s = Widget{"tmp"}.data();
-    assert(s == "tmp");
+    LEARN_CHECK(s == "tmp");
 }
 
 #else
@@ -63,16 +62,16 @@ void demo_basics() {
         std::string data() && { return std::move(data_); }
     };
     Widget w{"hello"};
-    assert(w.data() == "hello");
-    assert(Widget{"tmp"}.data() == "tmp");
+    LEARN_CHECK(w.data() == "hello");
+    LEARN_CHECK(Widget{"tmp"}.data() == "tmp");
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <thread>
 
@@ -18,20 +17,20 @@ namespace {
 void demo_basics() {
     using namespace std::chrono_literals;
     auto d = 100ms;
-    assert(d == std::chrono::milliseconds{100});
-    assert(std::chrono::duration_cast<std::chrono::seconds>(1500ms).count() == 1);
+    LEARN_CHECK(d == std::chrono::milliseconds{100});
+    LEARN_CHECK(std::chrono::duration_cast<std::chrono::seconds>(1500ms).count() == 1);
 }
 
 void demo_intermediate() {
     auto t0 = std::chrono::steady_clock::now();
     auto t1 = t0 + std::chrono::milliseconds{5};
-    assert(t1 > t0);
+    LEARN_CHECK(t1 > t0);
 }
 
 void demo_expert() {
     using namespace std::chrono_literals;
     std::chrono::duration<double> sec = 2500ms;
-    assert(sec.count() > 2.4 && sec.count() < 2.6);
+    LEARN_CHECK(sec.count() > 2.4 && sec.count() < 2.6);
 }
 
 int run(int argc, char** argv) {

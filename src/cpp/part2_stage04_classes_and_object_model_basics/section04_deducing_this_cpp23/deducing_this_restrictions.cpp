@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -40,7 +39,7 @@ struct Child : Poly {
 
 void demo_basics() {
     Demo d;
-    assert(d.read() == 1);
+    LEARN_CHECK(d.read() == 1);
 }
 
 void demo_intermediate() {
@@ -48,31 +47,31 @@ void demo_intermediate() {
     // members are separate and non-virtual by rule.
     Child c;
     Poly& p = c;
-    assert(p.f() == 2);
-    assert(c.via_explicit() == 2);
+    LEARN_CHECK(p.f() == 2);
+    LEARN_CHECK(c.via_explicit() == 2);
 }
 
 void demo_expert() {
     // Explicit object params carry cv/ref through the parameter type itself.
     Demo d;
     const Demo& r = d;
-    assert(r.read() == 1);
+    LEARN_CHECK(r.read() == 1);
     static_assert(std::is_invocable_v<decltype(&Demo::read), const Demo&>);
 }
 
 #else
 
 void demo_basics() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Restrictions apply only when the feature exists.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

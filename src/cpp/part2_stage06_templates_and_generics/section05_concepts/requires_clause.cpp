@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <type_traits>
 
@@ -40,15 +39,15 @@ bool less_eq(const T& a, const T& b) {
 }
 
 void demo_basics() {
-    assert(twice(21) == 42);
-    assert(twice(1.5) == 3.0);
+    LEARN_CHECK(twice(21) == 42);
+    LEARN_CHECK(twice(1.5) == 3.0);
 }
 
 void demo_intermediate() {
     static_assert(min_bytes<int>() >= 4);
-    assert(min_bytes<int>() >= 4);
-    assert(less_eq(1, 2));
-    assert(less_eq(2.0, 2.0));
+    LEARN_CHECK(min_bytes<int>() >= 4);
+    LEARN_CHECK(less_eq(1, 2));
+    LEARN_CHECK(less_eq(2.0, 2.0));
 }
 
 void demo_expert() {
@@ -56,7 +55,7 @@ void demo_expert() {
     auto mid = [](auto a, auto b)
         requires std::same_as<decltype(a), decltype(b)> && std::integral<decltype(a)>
     { return (a + b) / 2; };
-    assert(mid(2, 6) == 4);
+    LEARN_CHECK(mid(2, 6) == 4);
 }
 
 int run(int argc, char** argv) {

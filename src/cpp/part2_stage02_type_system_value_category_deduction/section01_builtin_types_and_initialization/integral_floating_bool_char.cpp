@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 #include <cstddef>
 #include <limits>
@@ -28,39 +27,39 @@ void demo_basics() {
     double d = 2.5;
     long double ld = 3.5L;
 
-    assert(i == 42);
-    assert(u == 42u);
-    assert(l == 100L);
-    assert(ll == 1000LL);
-    assert(flag);
-    assert(letter == 'Z');
-    assert(f == 1.5f);
-    assert(d == 2.5);
-    assert(ld == 3.5L);
+    LEARN_CHECK(i == 42);
+    LEARN_CHECK(u == 42u);
+    LEARN_CHECK(l == 100L);
+    LEARN_CHECK(ll == 1000LL);
+    LEARN_CHECK(flag);
+    LEARN_CHECK(letter == 'Z');
+    LEARN_CHECK(f == 1.5f);
+    LEARN_CHECK(d == 2.5);
+    LEARN_CHECK(ld == 3.5L);
 }
 
 void demo_intermediate() {
     signed char sc = -1;
     unsigned char uc = 255;
-    assert(sc < 0);
-    assert(uc == 255);
+    LEARN_CHECK(sc < 0);
+    LEARN_CHECK(uc == 255);
 
     // Prefer signed/unsigned char for byte arithmetic; bare char signedness is implementation-defined.
     const int from_sc = static_cast<int>(sc);
     const int from_uc = static_cast<int>(uc);
-    assert(from_sc == -1);
-    assert(from_uc == 255);
+    LEARN_CHECK(from_sc == -1);
+    LEARN_CHECK(from_uc == 255);
 
     wchar_t w = L'A';
     char16_t u16 = u'B';
     char32_t u32 = U'C';
-    assert(w == L'A');
-    assert(u16 == u'B');
-    assert(u32 == U'C');
+    LEARN_CHECK(w == L'A');
+    LEARN_CHECK(u16 == u'B');
+    LEARN_CHECK(u32 == U'C');
 
 #if defined(__cpp_char8_t)
     char8_t u8c = u8'X';
-    assert(u8c == u8'X');
+    LEARN_CHECK(u8c == u8'X');
 #endif
 
     static_assert(std::is_integral_v<int>);
@@ -82,14 +81,14 @@ void demo_expert() {
     static_assert(CHAR_BIT >= 8);
 
     // Boolean conversion: non-zero -> true
-    assert(static_cast<bool>(1));
-    assert(!static_cast<bool>(0));
-    assert(static_cast<int>(true) == 1);
-    assert(static_cast<int>(false) == 0);
+    LEARN_CHECK(static_cast<bool>(1));
+    LEARN_CHECK(!static_cast<bool>(0));
+    LEARN_CHECK(static_cast<int>(true) == 1);
+    LEARN_CHECK(static_cast<int>(false) == 0);
 
     // Floating promotions keep value for small integers
     const double from_int = 42;
-    assert(from_int == 42.0);
+    LEARN_CHECK(from_int == 42.0);
 
     // Distinct character types (not the same as char in general)
     static_assert(!std::is_same_v<char, signed char> || std::is_same_v<char, signed char>);

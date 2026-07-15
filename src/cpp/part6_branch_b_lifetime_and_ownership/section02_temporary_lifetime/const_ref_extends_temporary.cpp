@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -21,22 +20,22 @@ struct Box {
 
 void demo_basics() {
     const Box& r = Box{7};
-    assert(r.v == 7);
+    LEARN_CHECK(r.v == 7);
 }
 
 void demo_intermediate() {
     Box&& rr = Box{9};
-    assert(rr.v == 9);
+    LEARN_CHECK(rr.v == 9);
     const int& i = 5;
-    assert(i == 5);
+    LEARN_CHECK(i == 5);
 }
 
 void demo_expert() {
     // Extension binds to the reference variable's scope, not through further aliases.
     const Box& r = Box{1};
     const Box& alias = r;  // no new extension of a temporary
-    assert(alias.v == 1);
-    assert(&alias == &r);
+    LEARN_CHECK(alias.v == 1);
+    LEARN_CHECK(&alias == &r);
 }
 
 int run(int argc, char** argv) {

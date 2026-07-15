@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Separate job with sanitizer flags and debug info
     std::string lane = "asan-ubsan";
-    assert(lane.find("asan") != std::string::npos);
+    LEARN_CHECK(lane.find("asan") != std::string::npos);
 }
 
 void demo_intermediate() {
     // Longer timeouts; more RAM
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Keep main fast lane without sanitizers if needed
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

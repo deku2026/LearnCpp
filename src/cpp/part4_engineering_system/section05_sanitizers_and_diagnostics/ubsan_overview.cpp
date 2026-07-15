@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -19,17 +18,17 @@ void demo_basics() {
     // -fsanitize=undefined
     int x = 100;
     int y = x * 2;  // safe
-    assert(y == 200);
+    LEARN_CHECK(y == 200);
 }
 
 void demo_intermediate() {
     // Catches signed overflow, bad shifts, misaligned (optional)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Pair with ASan in CI lane
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

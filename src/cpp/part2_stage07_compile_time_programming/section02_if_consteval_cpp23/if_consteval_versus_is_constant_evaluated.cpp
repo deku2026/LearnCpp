@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <version>
 
@@ -45,19 +44,19 @@ constexpr int mixed() {
 void demo_basics() {
     constexpr int a = via_is_constant_evaluated();
     static_assert(a == 1);
-    assert(via_is_constant_evaluated() == 2);
+    LEARN_CHECK(via_is_constant_evaluated() == 2);
 }
 
 void demo_intermediate() {
     constexpr int b = via_if_consteval();
     static_assert(b == 1);
-    assert(via_if_consteval() == 2);
+    LEARN_CHECK(via_if_consteval() == 2);
 }
 
 void demo_expert() {
     constexpr int c = mixed();
     static_assert(c == 1);
-    assert(mixed() == 2);
+    LEARN_CHECK(mixed() == 2);
 
     // Teaching note: if consteval is the clear C++23 tool for "compile vs run" split;
     // is_constant_evaluated remains useful on C++20.

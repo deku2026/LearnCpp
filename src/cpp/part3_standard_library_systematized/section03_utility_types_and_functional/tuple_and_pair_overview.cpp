@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -18,22 +17,22 @@ namespace {
 
 void demo_basics() {
     std::pair<int, std::string> p{1, "a"};
-    assert(p.first == 1);
-    assert(p.second == "a");
+    LEARN_CHECK(p.first == 1);
+    LEARN_CHECK(p.second == "a");
 }
 
 void demo_intermediate() {
     auto t = std::make_tuple(1, 2.5, std::string{"z"});
-    assert(std::get<0>(t) == 1);
-    assert(std::get<2>(t) == "z");
+    LEARN_CHECK(std::get<0>(t) == 1);
+    LEARN_CHECK(std::get<2>(t) == "z");
 }
 
 void demo_expert() {
     std::tuple<int, int> a{1, 2};
     std::tuple<int, int> b{3, 4};
     auto c = std::tuple_cat(a, b);
-    assert(std::tuple_size_v<decltype(c)> == 4);
-    assert(std::get<3>(c) == 4);
+    LEARN_CHECK(std::tuple_size_v<decltype(c)> == 4);
+    LEARN_CHECK(std::get<3>(c) == 4);
 }
 
 int run(int argc, char** argv) {

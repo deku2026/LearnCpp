@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -43,20 +42,20 @@ void demo_basics() {
     auto b = id(2.5);
     static_assert(std::is_same_v<decltype(a), int>);
     static_assert(std::is_same_v<decltype(b), double>);
-    assert(a == 42);
-    assert(b == 2.5);
+    LEARN_CHECK(a == 42);
+    LEARN_CHECK(b == 2.5);
 
     int x = 7;
     int& r = as_lref(x);
     r = 8;
-    assert(x == 8);
+    LEARN_CHECK(x == 8);
 }
 
 void demo_intermediate() {
     int arr[3] = {1, 2, 3};
     // Array decays when matching T (by value)
     auto first = id(arr[0]);
-    assert(first == 1);
+    LEARN_CHECK(first == 1);
 
     // Pointer parameter: array decays to pointer
     sink_ptr(arr);
@@ -64,32 +63,32 @@ void demo_intermediate() {
     // Explicit template argument overrides deduction
     auto wide = id<long>(3);
     static_assert(std::is_same_v<decltype(wide), long>);
-    assert(wide == 3L);
+    LEARN_CHECK(wide == 3L);
 
     std::vector<int> v{1, 2, 3};
     auto w = id(v);
-    assert(w.size() == 3);
+    LEARN_CHECK(w.size() == 3);
 }
 
 void demo_expert() {
     // CTAD: class template argument deduction
     Pair p{1, 2};
     static_assert(std::is_same_v<decltype(p.a), int>);
-    assert(p.a == 1 && p.b == 2);
+    LEARN_CHECK(p.a == 1 && p.b == 2);
 
     std::pair pr{std::string{"a"}, 3};
-    assert(pr.first == "a");
-    assert(pr.second == 3);
+    LEARN_CHECK(pr.first == "a");
+    LEARN_CHECK(pr.second == 3);
 
     std::array nums{1, 2, 3, 4};
     static_assert(nums.size() == 4);
-    assert(nums[3] == 4);
+    LEARN_CHECK(nums[3] == 4);
 
     // Deduction with references: const T& keeps low-level const in T for pointers etc.
     const int c = 9;
     auto ccopy = id(c);  // T=int (top-level const ignored for by-value)
     static_assert(std::is_same_v<decltype(ccopy), int>);
-    assert(ccopy == 9);
+    LEARN_CHECK(ccopy == 9);
 }
 
 int run(int argc, char** argv) {

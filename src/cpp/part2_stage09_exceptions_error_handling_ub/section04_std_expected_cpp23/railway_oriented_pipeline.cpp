@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -54,32 +53,32 @@ Ex pipeline(const std::string& s) {
 
 void demo_basics() {
     auto r = pipeline("21");
-    assert(r.has_value());
-    assert(*r == 42);
+    LEARN_CHECK(r.has_value());
+    LEARN_CHECK(*r == 42);
 }
 
 void demo_intermediate() {
-    assert(pipeline("").error() == "empty");
-    assert(pipeline("0").error() == "zero");
+    LEARN_CHECK(pipeline("").error() == "empty");
+    LEARN_CHECK(pipeline("0").error() == "zero");
 }
 
 void demo_expert() {
-    assert(pipeline("x").error() == "nan");
+    LEARN_CHECK(pipeline("x").error() == "nan");
     auto r = parse("5").transform([](int x) { return x + 1; }).and_then(non_zero);
-    assert(*r == 6);
+    LEARN_CHECK(*r == 6);
 }
 
 #else
 
 void demo_basics() {
-    assert(21 * 2 == 42);
+    LEARN_CHECK(21 * 2 == 42);
 }
 void demo_intermediate() {
-    assert(std::string{"empty"} == "empty");
-    assert(std::string{"zero"} == "zero");
+    LEARN_CHECK(std::string{"empty"} == "empty");
+    LEARN_CHECK(std::string{"zero"} == "zero");
 }
 void demo_expert() {
-    assert(std::string{"nan"} == "nan");
+    LEARN_CHECK(std::string{"nan"} == "nan");
 }
 
 #endif

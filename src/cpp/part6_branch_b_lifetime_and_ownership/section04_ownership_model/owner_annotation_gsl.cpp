@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -28,20 +27,20 @@ struct FileLike {
 
 void demo_basics() {
     FileLike f{3};
-    assert(f.buf != nullptr);
-    assert(*f.buf == 3);
+    LEARN_CHECK(f.buf != nullptr);
+    LEARN_CHECK(*f.buf == 3);
 }
 
 void demo_intermediate() {
     // owner annotation documents who must delete; prefer unique_ptr in new code.
     owner<int*> p = new int(8);
-    assert(*p == 8);
+    LEARN_CHECK(*p == 8);
     delete p;
 }
 
 void demo_expert() {
     FileLike f{1};
-    assert(*f.buf == 1);
+    LEARN_CHECK(*f.buf == 1);
 }
 
 int run(int argc, char** argv) {

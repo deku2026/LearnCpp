@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 namespace {
@@ -31,7 +30,7 @@ constexpr int portable_no_static(int x) {
 void demo_basics() {
     constexpr int v = portable_no_static(21);
     static_assert(v == 42);
-    assert(v == 42);
+    LEARN_CHECK(v == 42);
 }
 
 void demo_intermediate() {
@@ -39,11 +38,11 @@ void demo_intermediate() {
     // Runtime path exercises static local; compile-time use is implementation-defined in scope.
     int a = with_static_local(3);
     int b = with_static_local(10);
-    assert(a == 6);   // cache=3, return 3+3
-    assert(b == 13);  // cache stays 3, return 3+10
+    LEARN_CHECK(a == 6);   // cache=3, return 3+3
+    LEARN_CHECK(b == 13);  // cache stays 3, return 3+10
 #else
-    assert(portable_no_static(3) == 6);
-    assert(portable_no_static(10) == 20);
+    LEARN_CHECK(portable_no_static(3) == 6);
+    LEARN_CHECK(portable_no_static(10) == 20);
 #endif
 }
 
@@ -52,7 +51,7 @@ void demo_expert() {
     static_assert(__cpp_threadsafe_static_init >= 200806L || true);
 #endif
     // thread_local in constexpr is a C++23 relaxation; we only assert portable behavior here.
-    assert(portable_no_static(0) == 0);
+    LEARN_CHECK(portable_no_static(0) == 0);
 }
 
 int run(int argc, char** argv) {

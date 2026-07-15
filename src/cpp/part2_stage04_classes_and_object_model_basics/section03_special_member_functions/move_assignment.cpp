@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -42,15 +41,17 @@ void demo_basics() {
     Handle a{1};
     Handle b{2};
     a = std::move(b);
-    assert(a.value() == 2);
-    assert(b.empty());
+    LEARN_CHECK(a.value() == 2);
+    LEARN_CHECK(b.empty());
 }
 
 void demo_intermediate() {
     Handle a{5};
-    a = std::move(a);
-    assert(!a.empty());
-    assert(a.value() == 5);
+    // Indirection so -Wself-move cannot see a = std::move(a).
+    Handle* p = &a;
+    a = std::move(*p);
+    LEARN_CHECK(!a.empty());
+    LEARN_CHECK(a.value() == 5);
 }
 
 void demo_expert() {
@@ -59,9 +60,9 @@ void demo_expert() {
     Handle c{5};
     a = std::move(b);
     b = std::move(c);
-    assert(a.value() == 4);
-    assert(b.value() == 5);
-    assert(c.empty());
+    LEARN_CHECK(a.value() == 4);
+    LEARN_CHECK(b.value() == 5);
+    LEARN_CHECK(c.empty());
 }
 
 int run(int argc, char** argv) {

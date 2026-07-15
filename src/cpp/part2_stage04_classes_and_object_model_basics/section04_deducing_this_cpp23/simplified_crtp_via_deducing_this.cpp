@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -31,22 +30,22 @@ struct Named : Base {
 
 void demo_basics() {
     Derived d;
-    assert(d.interface() == 42);
+    LEARN_CHECK(d.interface() == 42);
 }
 
 void demo_intermediate() {
     Named n;
-    assert(n.interface() == 1);
+    LEARN_CHECK(n.interface() == 1);
 }
 
 void demo_expert() {
     // self is the static type of the object expression (Derived/Named).
     // Call on the derived object so Self deduces to Derived&, not Base&.
     Derived d;
-    assert(d.interface() == 42);
+    LEARN_CHECK(d.interface() == 42);
     Named n;
     n.label = "abcd";
-    assert(n.interface() == 4);
+    LEARN_CHECK(n.interface() == 4);
 }
 
 #else
@@ -62,15 +61,15 @@ struct Derived : Base<Derived> {
 
 void demo_basics() {
     Derived d;
-    assert(d.interface() == 42);
+    LEARN_CHECK(d.interface() == 42);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 #endif

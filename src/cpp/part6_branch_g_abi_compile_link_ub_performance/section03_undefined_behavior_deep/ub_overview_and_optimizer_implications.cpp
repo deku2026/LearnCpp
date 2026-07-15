@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 #include <optional>
 
@@ -22,15 +21,15 @@ std::optional<int> safe_add(int a, int b) {
 
 void demo_basics() {
     auto r = safe_add(2, 3);
-    assert(r && *r == 5);
+    LEARN_CHECK(r && *r == 5);
 }
 
 void demo_intermediate() {
-    assert(!safe_add(INT_MAX, 1).has_value());
+    LEARN_CHECK(!safe_add(INT_MAX, 1).has_value());
 }
 
 void demo_expert() {
-    assert(safe_add(INT_MIN, -1) == std::nullopt);
+    LEARN_CHECK(safe_add(INT_MIN, -1) == std::nullopt);
 }
 
 int run(int argc, char** argv) {

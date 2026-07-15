@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -22,12 +21,12 @@ void demo_basics() {
     for (int x : evens) {
         out.push_back(x);
     }
-    assert((out == std::vector<int>{2, 4}));
+    LEARN_CHECK((out == std::vector<int>{2, 4}));
 }
 
 void demo_intermediate() {
     auto r = std::views::iota(1, 10) | std::views::filter([](int x) { return x > 7; });
-    assert(std::ranges::distance(r) == 2);
+    LEARN_CHECK(std::ranges::distance(r) == 2);
 }
 
 void demo_expert() {
@@ -37,7 +36,7 @@ void demo_expert() {
          v | std::views::filter([](int x) { return x % 2; }) | std::views::transform([](int x) { return x * x; })) {
         sum += x;
     }
-    assert(sum == 1 + 9);
+    LEARN_CHECK(sum == 1 + 9);
 }
 
 }  // namespace

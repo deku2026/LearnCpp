@@ -9,24 +9,23 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
 
 void demo_basics() {
     std::string caveats = "tooling,BMI,cache,IDE";
-    assert(caveats.find("BMI") != std::string::npos);
+    LEARN_CHECK(caveats.find("BMI") != std::string::npos);
 }
 
 void demo_intermediate() {
     // Package managers and sanitizers may lag module support
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Document supported compilers before adopting import std in production
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

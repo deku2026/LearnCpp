@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdio>
 #include <string>
 #include <version>
@@ -22,21 +21,21 @@ void demo_basics() {
     static_assert(__cpp_lib_print >= 202207L);
 #endif
     std::string msg = "print-ready";
-    assert(!msg.empty());
+    LEARN_CHECK(!msg.empty());
 }
 
 void demo_intermediate() {
     // Equivalent portable idea: format then fwrite/puts
     const char* line = "line\n";
-    assert(line[0] == 'l');
+    LEARN_CHECK(line[0] == 'l');
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     // std::print goes to stdout; use when teaching interactive demos
-    assert(__cpp_lib_print >= 202207L);
+    LEARN_CHECK(__cpp_lib_print >= 202207L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

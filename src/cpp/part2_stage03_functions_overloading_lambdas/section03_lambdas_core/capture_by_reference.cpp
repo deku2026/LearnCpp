@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <vector>
 
@@ -19,11 +18,11 @@ void demo_basics() {
     int a = 1;
     auto f = [&a] { return a; };
     a = 99;
-    assert(f() == 99);
+    LEARN_CHECK(f() == 99);
 
     auto inc = [&a] { ++a; };
     inc();
-    assert(a == 100);
+    LEARN_CHECK(a == 100);
 }
 
 void demo_intermediate() {
@@ -32,12 +31,12 @@ void demo_intermediate() {
     auto all = [&] { return a + b; };
     a = 10;
     b = 20;
-    assert(all() == 30);
+    LEARN_CHECK(all() == 30);
 
     auto mixed = [&, a] { return a + b; };  // a by value, b by ref
     a = 0;
     b = 5;
-    assert(mixed() == 15);  // captured a was 10, b is 5
+    LEARN_CHECK(mixed() == 15);  // captured a was 10, b is 5
 }
 
 void demo_expert() {
@@ -50,14 +49,14 @@ void demo_expert() {
             ++count;
         }
     }
-    assert(count == 1);
+    LEARN_CHECK(count == 1);
 
     // Dangling avoided: value-capture when returning callable.
     auto good = [] {
         int local = 42;
         return std::function<int()>{[local] { return local; }};
     };
-    assert(good()() == 42);
+    LEARN_CHECK(good()() == 42);
 
     // BAD pattern (not executed): return [&local]{ return local; }; // UB after return
 }

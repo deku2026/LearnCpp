@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -17,39 +16,39 @@ namespace {
 void demo_basics() {
     std::string s = "Hello";
     s += ", World";
-    assert(s == "Hello, World");
-    assert(s.size() == 12);
-    assert(s.capacity() >= s.size());
-    assert(s[0] == 'H');
-    assert(s.front() == 'H');
-    assert(s.back() == 'd');
+    LEARN_CHECK(s == "Hello, World");
+    LEARN_CHECK(s.size() == 12);
+    LEARN_CHECK(s.capacity() >= s.size());
+    LEARN_CHECK(s[0] == 'H');
+    LEARN_CHECK(s.front() == 'H');
+    LEARN_CHECK(s.back() == 'd');
 }
 
 void demo_intermediate() {
     std::string s = "abc";
     s.append("def");
     s.insert(3, "X");
-    assert(s == "abcXdef");
+    LEARN_CHECK(s == "abcXdef");
     s.erase(3, 1);
-    assert(s == "abcdef");
-    assert(s.find("cd") == 2);
-    assert(s.substr(2, 3) == "cde");
+    LEARN_CHECK(s == "abcdef");
+    LEARN_CHECK(s.find("cd") == 2);
+    LEARN_CHECK(s.substr(2, 3) == "cde");
     s.reserve(64);
-    assert(s.capacity() >= 64);
+    LEARN_CHECK(s.capacity() >= 64);
 }
 
 void demo_expert() {
     std::string short_s = "short";
     const char* data = short_s.data();
-    assert(data != nullptr);
-    assert(short_s.c_str()[short_s.size()] == '\0');
+    LEARN_CHECK(data != nullptr);
+    LEARN_CHECK(short_s.c_str()[short_s.size()] == '\0');
     std::string empty;
-    assert(empty.empty());
+    LEARN_CHECK(empty.empty());
     empty.resize(3, 'z');
-    assert(empty == "zzz");
+    LEARN_CHECK(empty == "zzz");
     // size() is bytes, not Unicode code points
     std::string utf8 = "hi";
-    assert(utf8.size() == 2);
+    LEARN_CHECK(utf8.size() == 2);
 }
 
 int run(int argc, char** argv) {

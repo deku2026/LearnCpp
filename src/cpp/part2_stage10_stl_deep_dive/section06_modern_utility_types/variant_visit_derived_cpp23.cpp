@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <variant>
 #include <version>
@@ -34,12 +33,12 @@ struct DerivedVisitor : BaseVisitor {
 
 void demo_basics() {
     std::variant<int, std::string> v = 5;
-    assert(std::visit(DerivedVisitor{}, v) == 5);
+    LEARN_CHECK(std::visit(DerivedVisitor{}, v) == 5);
 }
 
 void demo_intermediate() {
     std::variant<int, std::string> v = std::string{"xy"};
-    assert(std::visit(DerivedVisitor{}, v) == 2);
+    LEARN_CHECK(std::visit(DerivedVisitor{}, v) == 2);
 }
 
 void demo_expert() {
@@ -51,7 +50,7 @@ void demo_expert() {
                                   [](double d) { return d; },
                               },
                               v);
-    assert(r == 1.5);
+    LEARN_CHECK(r == 1.5);
 }
 
 }  // namespace

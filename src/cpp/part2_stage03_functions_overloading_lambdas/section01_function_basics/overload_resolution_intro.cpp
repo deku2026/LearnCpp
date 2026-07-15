@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -34,29 +33,29 @@ int score(int x, int y) {
 }
 
 void demo_basics() {
-    assert(which(42) == Kind::Int);
-    assert(which(3.14) == Kind::Double);
-    assert(which("text") == Kind::CStr);
+    LEARN_CHECK(which(42) == Kind::Int);
+    LEARN_CHECK(which(3.14) == Kind::Double);
+    LEARN_CHECK(which("text") == Kind::CStr);
 }
 
 void demo_intermediate() {
     // char promotes to int better than converting to double
-    assert(which('a') == Kind::Int);
-    assert(which(true) == Kind::Int);
+    LEARN_CHECK(which('a') == Kind::Int);
+    LEARN_CHECK(which(true) == Kind::Int);
 
-    assert(score(3) == 3);
-    assert(score(3, 4) == 7);
+    LEARN_CHECK(score(3) == 3);
+    LEARN_CHECK(score(3, 4) == 7);
     // Return type alone cannot overload: int f(); double f(); is ill-formed.
 }
 
 void demo_expert() {
     // Default args + overload can create ambiguity; keep sets disjoint.
     // void g(int); void g(int, int = 0);  // g(5) would be ambiguous
-    assert(score(1) == 1);
-    assert(score(1, 0) == 1);
+    LEARN_CHECK(score(1) == 1);
+    LEARN_CHECK(score(1, 0) == 1);
 
     const char* p = nullptr;
-    assert(which(p) == Kind::CStr);
+    LEARN_CHECK(which(p) == Kind::CStr);
 }
 
 int run(int argc, char** argv) {

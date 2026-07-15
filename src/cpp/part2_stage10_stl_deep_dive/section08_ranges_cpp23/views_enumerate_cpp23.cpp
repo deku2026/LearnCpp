@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -21,12 +20,12 @@ void demo_basics() {
     std::vector<char> v{'a', 'b', 'c'};
     auto e = v | std::views::enumerate;
     auto it = e.begin();
-    assert(std::get<0>(*it) == 0);
-    assert(std::get<1>(*it) == 'a');
+    LEARN_CHECK(std::get<0>(*it) == 0);
+    LEARN_CHECK(std::get<1>(*it) == 'a');
 #else
     std::vector<char> v{'a', 'b', 'c'};
     for (std::size_t i = 0; i < v.size(); ++i) {
-        assert(v[i] == static_cast<char>('a' + static_cast<int>(i)));
+        LEARN_CHECK(v[i] == static_cast<char>('a' + static_cast<int>(i)));
     }
 #endif
 }
@@ -40,19 +39,19 @@ void demo_intermediate() {
         sum_idx += static_cast<int>(i);
         sum_val += x;
     }
-    assert(sum_idx == 3);
-    assert(sum_val == 60);
+    LEARN_CHECK(sum_idx == 3);
+    LEARN_CHECK(sum_val == 60);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_ranges_enumerate) && __cpp_lib_ranges_enumerate >= 202302L
     auto e = std::views::iota(1, 4) | std::views::enumerate;
-    assert(std::ranges::distance(e) == 3);
+    LEARN_CHECK(std::ranges::distance(e) == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

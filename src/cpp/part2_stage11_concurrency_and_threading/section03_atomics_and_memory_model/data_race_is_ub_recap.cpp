@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <mutex>
 #include <thread>
 
@@ -33,7 +32,7 @@ void demo_basics() {
     });
     t1.join();
     t2.join();
-    assert(x == 200);
+    LEARN_CHECK(x == 200);
 }
 
 void demo_intermediate() {
@@ -50,7 +49,7 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(x.load() == 200);
+    LEARN_CHECK(x.load() == 200);
 }
 
 void demo_expert() {
@@ -62,7 +61,7 @@ void demo_expert() {
     });
     while (!done.load(std::memory_order_acquire)) {
     }
-    assert(payload == 3);
+    LEARN_CHECK(payload == 3);
     writer.join();
 }
 

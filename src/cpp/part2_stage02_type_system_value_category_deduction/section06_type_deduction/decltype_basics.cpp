@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -28,9 +27,9 @@ void demo_basics() {
     static_assert(std::is_same_v<decltype(cx), const int>);
 
     decltype(x) y = 1;
-    assert(y == 1);
+    LEARN_CHECK(y == 1);
     decltype(cx) z = 2;
-    assert(z == 2);
+    LEARN_CHECK(z == 2);
 }
 
 void demo_intermediate() {
@@ -43,7 +42,7 @@ void demo_intermediate() {
 
     decltype(g()) ref = g();  // int&
     ref = 9;
-    assert(global == 9);
+    LEARN_CHECK(global == 9);
 
     static_assert(std::is_same_v<decltype(1 + 1), int>);
     static_assert(std::is_same_v<decltype(g()), int&>);
@@ -61,7 +60,7 @@ void demo_expert() {
     int counter = 0;
     using T = decltype(static_cast<int>(counter));
     static_assert(std::is_same_v<T, int>);
-    assert(counter == 0);
+    LEARN_CHECK(counter == 0);
 
     const int* p = &x;
     static_assert(std::is_same_v<decltype(p), const int*>);

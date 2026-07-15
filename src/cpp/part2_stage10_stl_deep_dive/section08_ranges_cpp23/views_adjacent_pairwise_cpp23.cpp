@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <tuple>
 #include <vector>
@@ -30,9 +29,9 @@ void demo_basics() {
 #endif
     auto a = std::views::zip(v | std::views::take(v.size() - 1), v | std::views::drop(1));
     auto it = a.begin();
-    assert(std::get<0>(*it) == 1 && std::get<1>(*it) == 2);
+    LEARN_CHECK(std::get<0>(*it) == 1 && std::get<1>(*it) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -43,9 +42,9 @@ void demo_intermediate() {
     for (auto [x, y] : std::views::zip(v | std::views::take(3), v | std::views::drop(1))) {
         diffs += y - x;
     }
-    assert(diffs == 3);
+    LEARN_CHECK(diffs == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -58,9 +57,9 @@ void demo_expert() {
             increasing_pair = true;
         }
     }
-    assert(increasing_pair);
+    LEARN_CHECK(increasing_pair);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

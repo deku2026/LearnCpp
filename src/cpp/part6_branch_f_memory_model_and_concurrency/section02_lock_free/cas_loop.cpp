@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -24,9 +23,9 @@ void atomic_max(std::atomic<int>& a, int v) {
 void demo_basics() {
     std::atomic<int> a{3};
     atomic_max(a, 5);
-    assert(a.load() == 5);
+    LEARN_CHECK(a.load() == 5);
     atomic_max(a, 4);
-    assert(a.load() == 5);
+    LEARN_CHECK(a.load() == 5);
 }
 
 void demo_intermediate() {
@@ -36,7 +35,7 @@ void demo_intermediate() {
     t1.join();
     t2.join();
     t3.join();
-    assert(a.load() == 20);
+    LEARN_CHECK(a.load() == 20);
 }
 
 void demo_expert() {
@@ -49,7 +48,7 @@ void demo_expert() {
     std::thread t1(add, 5), t2(add, 7);
     t1.join();
     t2.join();
-    assert(sum.load() == 12);
+    LEARN_CHECK(sum.load() == 12);
 }
 
 int run(int argc, char** argv) {

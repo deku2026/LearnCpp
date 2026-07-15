@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 namespace {
@@ -20,8 +19,8 @@ int abs_positive(int x) {
 }
 
 void demo_basics() {
-    assert(abs_positive(-3) == 3);
-    assert(abs_positive(2) == 2);
+    LEARN_CHECK(abs_positive(-3) == 3);
+    LEARN_CHECK(abs_positive(2) == 2);
 }
 
 void demo_intermediate() {
@@ -32,18 +31,18 @@ void demo_intermediate() {
         if (x < 0) return -1;
         std::unreachable();  // only if all cases covered
     };
-    assert(classify(0) == 0);
-    assert(classify(5) == 1);
-    assert(classify(-2) == -1);
+    LEARN_CHECK(classify(0) == 0);
+    LEARN_CHECK(classify(5) == 1);
+    LEARN_CHECK(classify(-2) == -1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     // Teaching: lying to the compiler with assume/unreachable about reachable states is UB.
     // Prefer real checks in general code.
-    assert(abs_positive(0) == 0);
+    LEARN_CHECK(abs_positive(0) == 0);
 }
 
 int run(int argc, char** argv) {

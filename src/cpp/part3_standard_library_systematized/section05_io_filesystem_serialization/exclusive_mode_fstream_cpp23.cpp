@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <version>
@@ -21,10 +20,10 @@ void demo_basics() {
     std::filesystem::remove(path);
     {
         std::ofstream out(path);
-        assert(out);
+        LEARN_CHECK(out);
         out << "first";
     }
-    assert(std::filesystem::exists(path));
+    LEARN_CHECK(std::filesystem::exists(path));
     std::filesystem::remove(path);
 }
 
@@ -34,22 +33,22 @@ void demo_intermediate() {
     std::filesystem::remove(path);
     {
         std::ofstream out(path, std::ios::noreplace);
-        assert(static_cast<bool>(out));
+        LEARN_CHECK(static_cast<bool>(out));
         out << "a";
     }
     {
         std::ofstream out(path, std::ios::noreplace);
-        assert(!out);
+        LEARN_CHECK(!out);
     }
     std::filesystem::remove(path);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     // exclusive create prevents clobbering existing files when supported
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

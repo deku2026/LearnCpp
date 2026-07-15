@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -40,18 +39,18 @@ struct Widget : ObjectBase {
 void demo_basics() {
     Widget w;
     w.set_object_name("main");
-    assert(w.object_name() == "main");
-    assert(w.meta()->class_name == "Widget");
+    LEARN_CHECK(w.object_name() == "main");
+    LEARN_CHECK(w.meta()->class_name == "Widget");
 }
 
 void demo_intermediate() {
     // Standard C++: dynamic type via vtable/RTTI; no built-in property system.
     Widget w;
     ObjectBase* p = &w;
-    assert(p->meta()->class_name == "Widget");
+    LEARN_CHECK(p->meta()->class_name == "Widget");
     // Qt adds signals/slots, parent ownership tree, moc-generated meta calls —
     // those are framework conventions, not ISO object layout rules.
-    assert(sizeof(Widget) >= sizeof(void*));
+    LEARN_CHECK(sizeof(Widget) >= sizeof(void*));
 }
 
 void demo_expert() {
@@ -60,9 +59,9 @@ void demo_expert() {
     Widget b;
     a.set_object_name("a");
     b.set_object_name("b");
-    assert(a.object_name() != b.object_name());
+    LEARN_CHECK(a.object_name() != b.object_name());
     // Standard layout/trivial traits usually fail for polymorphic framework bases.
-    assert(a.meta() == &Widget::meta_data);
+    LEARN_CHECK(a.meta() == &Widget::meta_data);
 }
 
 }  // namespace

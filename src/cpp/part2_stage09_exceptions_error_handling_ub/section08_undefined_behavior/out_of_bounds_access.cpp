@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <stdexcept>
 #include <vector>
 
@@ -25,29 +24,29 @@ int get_checked(const std::vector<int>& v, std::size_t i) {
 
 void demo_basics() {
     std::vector<int> v{10, 20, 30};
-    assert(get_checked(v, 1) == 20);
-    assert(get_checked(v, 99) == -1);
+    LEARN_CHECK(get_checked(v, 1) == 20);
+    LEARN_CHECK(get_checked(v, 99) == -1);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2};
     try {
         (void)v.at(5);  // throws, defined
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::out_of_range&) {
     }
-    assert(v.at(0) == 1);
+    LEARN_CHECK(v.at(0) == 1);
 }
 
 void demo_expert() {
     std::array<int, 3> a{1, 2, 3};
-    assert(a.size() == 3);
+    LEARN_CHECK(a.size() == 3);
     // SAFE: iterate with range-for, never a[3].
     int s = 0;
     for (int x : a) {
         s += x;
     }
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
     // Comment only: `a[3]` is UB.
 }
 

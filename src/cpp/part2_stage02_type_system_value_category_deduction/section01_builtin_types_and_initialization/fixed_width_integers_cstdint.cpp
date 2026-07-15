@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
@@ -22,14 +21,14 @@ void demo_basics() {
     std::int64_t i64 = -2;
     std::uint64_t u64 = 2u;
 
-    assert(i32 == -1);
-    assert(u32 == 1u);
-    assert(i64 == -2);
-    assert(u64 == 2u);
-    assert(sizeof(i32) == 4);
-    assert(sizeof(u32) == 4);
-    assert(sizeof(i64) == 8);
-    assert(sizeof(u64) == 8);
+    LEARN_CHECK(i32 == -1);
+    LEARN_CHECK(u32 == 1u);
+    LEARN_CHECK(i64 == -2);
+    LEARN_CHECK(u64 == 2u);
+    LEARN_CHECK(sizeof(i32) == 4);
+    LEARN_CHECK(sizeof(u32) == 4);
+    LEARN_CHECK(sizeof(i64) == 8);
+    LEARN_CHECK(sizeof(u64) == 8);
 }
 
 void demo_intermediate() {
@@ -38,10 +37,10 @@ void demo_intermediate() {
     std::uint_least32_t least32 = 3000u;
     std::uint_fast32_t fast32 = 4000u;
 
-    assert(least16 == 1000);
-    assert(fast16 == 2000);
-    assert(least32 == 3000u);
-    assert(fast32 == 4000u);
+    LEARN_CHECK(least16 == 1000);
+    LEARN_CHECK(fast16 == 2000);
+    LEARN_CHECK(least32 == 3000u);
+    LEARN_CHECK(fast32 == 4000u);
 
     static_assert(sizeof(std::int_least16_t) >= 2);
     static_assert(sizeof(std::int_fast16_t) >= 2);
@@ -58,10 +57,10 @@ void demo_expert() {
     int x = 42;
     ip = reinterpret_cast<std::intptr_t>(&x);
     up = reinterpret_cast<std::uintptr_t>(&x);
-    assert(reinterpret_cast<int*>(ip) == &x);
-    assert(reinterpret_cast<int*>(up) == &x);
-    assert(imax > 0);
-    assert(umax > 0u);
+    LEARN_CHECK(reinterpret_cast<int*>(ip) == &x);
+    LEARN_CHECK(reinterpret_cast<int*>(up) == &x);
+    LEARN_CHECK(imax > 0);
+    LEARN_CHECK(umax > 0u);
 
     static_assert(std::numeric_limits<std::int8_t>::digits == 7);
     static_assert(std::numeric_limits<std::uint8_t>::digits == 8);

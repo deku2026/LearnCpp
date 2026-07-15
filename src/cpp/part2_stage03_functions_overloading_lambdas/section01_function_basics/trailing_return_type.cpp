@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -29,23 +28,23 @@ auto make_fp() -> int (*)(int) {
 }
 
 void demo_basics() {
-    assert(add_plain(2, 3) == 5);
+    LEARN_CHECK(add_plain(2, 3) == 5);
     static_assert(std::is_same_v<decltype(add_plain(1, 1)), int>);
 }
 
 void demo_intermediate() {
-    assert(add_dep(1, 2) == 3);
-    assert(add_dep(1.5, 2) == 3.5);
+    LEARN_CHECK(add_dep(1, 2) == 3);
+    LEARN_CHECK(add_dep(1.5, 2) == 3.5);
     static_assert(std::is_same_v<decltype(add_dep(1, 2.0)), double>);
 }
 
 void demo_expert() {
     auto* fp = make_fp();
-    assert(fp(21) == 42);
+    LEARN_CHECK(fp(21) == 42);
 
     // Trailing form keeps the function name visible before a complex type.
     auto id = [](int x) -> int { return x; };
-    assert(id(7) == 7);
+    LEARN_CHECK(id(7) == 7);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <tuple>
 #include <vector>
@@ -20,9 +19,9 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_ranges_cartesian_product) && __cpp_lib_ranges_cartesian_product >= 202207L
     auto c = std::views::cartesian_product(std::views::iota(0, 2), std::views::iota(0, 3));
-    assert(std::ranges::distance(c) == 6);
+    LEARN_CHECK(std::ranges::distance(c) == 6);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -32,10 +31,10 @@ void demo_intermediate() {
     std::vector<char> b{'x', 'y'};
     auto c = std::views::cartesian_product(a, b);
     auto it = c.begin();
-    assert(std::get<0>(*it) == 1);
-    assert(std::get<1>(*it) == 'x');
+    LEARN_CHECK(std::get<0>(*it) == 1);
+    LEARN_CHECK(std::get<1>(*it) == 'x');
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -45,9 +44,9 @@ void demo_expert() {
     for (auto [i, j] : std::views::cartesian_product(std::views::iota(0, 2), std::views::iota(0, 2))) {
         n += i + j;
     }
-    assert(n == 4);
+    LEARN_CHECK(n == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

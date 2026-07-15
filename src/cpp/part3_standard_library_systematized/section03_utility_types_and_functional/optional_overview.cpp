@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 
@@ -17,18 +16,18 @@ namespace {
 
 void demo_basics() {
     std::optional<int> o;
-    assert(!o.has_value());
+    LEARN_CHECK(!o.has_value());
     o = 10;
-    assert(o.has_value());
-    assert(*o == 10);
+    LEARN_CHECK(o.has_value());
+    LEARN_CHECK(*o == 10);
 }
 
 void demo_intermediate() {
     std::optional<std::string> o = "hi";
-    assert(o.value() == "hi");
-    assert(o.value_or("x") == "hi");
+    LEARN_CHECK(o.value() == "hi");
+    LEARN_CHECK(o.value_or("x") == "hi");
     o.reset();
-    assert(o.value_or("x") == "x");
+    LEARN_CHECK(o.value_or("x") == "x");
 }
 
 void demo_expert() {
@@ -38,8 +37,8 @@ void demo_expert() {
         }
         return 7;
     };
-    assert(parse(true).value() == 7);
-    assert(!parse(false));
+    LEARN_CHECK(parse(true).value() == 7);
+    LEARN_CHECK(!parse(false));
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <version>
 
@@ -23,11 +22,11 @@ void demo_basics() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     int data[6] = {1, 2, 3, 4, 5, 6};
     std::mdspan<int, std::extents<std::size_t, 2, 3>> m{data};
-    assert(m.extent(0) == 2);
-    assert(m.extent(1) == 3);
-    assert(m.rank() == 2);
+    LEARN_CHECK(m.extent(0) == 2);
+    LEARN_CHECK(m.extent(1) == 3);
+    LEARN_CHECK(m.rank() == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -35,11 +34,11 @@ void demo_intermediate() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     int data[12] = {};
     std::mdspan<int, std::dextents<std::size_t, 2>> m{data, 3, 4};
-    assert(m.extent(0) == 3);
-    assert(m.extent(1) == 4);
-    assert(m.size() == 12);
+    LEARN_CHECK(m.extent(0) == 3);
+    LEARN_CHECK(m.extent(1) == 4);
+    LEARN_CHECK(m.size() == 12);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -48,11 +47,11 @@ void demo_expert() {
     int data[8] = {};
     // mixed: static 2, dynamic N
     std::mdspan<int, std::extents<std::size_t, 2, std::dynamic_extent>> m{data, 4};
-    assert(m.extent(0) == 2);
-    assert(m.extent(1) == 4);
-    assert(m.static_extent(0) == 2);
+    LEARN_CHECK(m.extent(0) == 2);
+    LEARN_CHECK(m.extent(1) == 4);
+    LEARN_CHECK(m.static_extent(0) == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

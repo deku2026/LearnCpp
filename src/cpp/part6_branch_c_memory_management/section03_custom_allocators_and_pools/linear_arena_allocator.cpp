@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 
@@ -38,7 +37,7 @@ void demo_basics() {
     alignas(16) unsigned char storage[256];
     Arena a(storage, sizeof(storage));
     void* p = a.allocate(16, 8);
-    assert(p != nullptr);
+    LEARN_CHECK(p != nullptr);
 }
 
 void demo_intermediate() {
@@ -46,10 +45,10 @@ void demo_intermediate() {
     Arena a(storage, sizeof(storage));
     int* i = static_cast<int*>(a.allocate(sizeof(int), alignof(int)));
     double* d = static_cast<double*>(a.allocate(sizeof(double), alignof(double)));
-    assert(i && d);
+    LEARN_CHECK(i && d);
     *i = 3;
     *d = 1.5;
-    assert(*i == 3 && *d == 1.5);
+    LEARN_CHECK(*i == 3 && *d == 1.5);
 }
 
 void demo_expert() {
@@ -57,8 +56,8 @@ void demo_expert() {
     Arena a(storage, sizeof(storage));
     (void)a.allocate(32, 8);
     a.reset();
-    assert(a.used() == 0);
-    assert(a.allocate(64, 8) != nullptr);
+    LEARN_CHECK(a.used() == 0);
+    LEARN_CHECK(a.allocate(64, 8) != nullptr);
 }
 
 int run(int argc, char** argv) {

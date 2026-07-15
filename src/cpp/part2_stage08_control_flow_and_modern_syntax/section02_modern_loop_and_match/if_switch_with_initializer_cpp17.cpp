@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <string>
 
@@ -38,14 +37,14 @@ const char* grade(int score) {
 
 void demo_basics() {
     std::map<std::string, int> m{{"a", 1}, {"b", 2}};
-    assert(lookup(m, "a") == 1);
-    assert(lookup(m, "z") == -1);
+    LEARN_CHECK(lookup(m, "a") == 1);
+    LEARN_CHECK(lookup(m, "z") == -1);
 }
 
 void demo_intermediate() {
-    assert(std::string{grade(95)} == "A");
-    assert(std::string{grade(85)} == "B");
-    assert(std::string{grade(50)} == "D");
+    LEARN_CHECK(std::string{grade(95)} == "A");
+    LEARN_CHECK(std::string{grade(85)} == "B");
+    LEARN_CHECK(std::string{grade(50)} == "D");
 }
 
 void demo_expert() {
@@ -56,10 +55,10 @@ void demo_expert() {
     } else {
         out = -1;
     }
-    assert(out == 20);
+    LEARN_CHECK(out == 20);
 
     // x is not in scope here — use out only.
-    assert(out != 0);
+    LEARN_CHECK(out != 0);
 }
 
 int run(int argc, char** argv) {

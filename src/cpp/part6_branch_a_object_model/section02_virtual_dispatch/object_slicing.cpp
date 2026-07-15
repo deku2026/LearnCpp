@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 
@@ -29,25 +28,25 @@ struct Derived : Base {
 void demo_basics() {
     Derived d;
     Base sliced = d;  // object slicing: copies Base subobject only
-    assert(sliced.b == 1);
-    assert(sliced.name() == "Base");  // dynamic type is Base
+    LEARN_CHECK(sliced.b == 1);
+    LEARN_CHECK(sliced.name() == "Base");  // dynamic type is Base
 }
 
 void demo_intermediate() {
     Derived d;
     Base& ref = d;
     Base* ptr = &d;
-    assert(ref.name() == "Derived");
-    assert(ptr->name() == "Derived");
+    LEARN_CHECK(ref.name() == "Derived");
+    LEARN_CHECK(ptr->name() == "Derived");
 }
 
 void demo_expert() {
     // Containers of Base by value slice; use unique_ptr/shared_ptr or references.
     std::unique_ptr<Base> p = std::make_unique<Derived>();
-    assert(p->name() == "Derived");
+    LEARN_CHECK(p->name() == "Derived");
     Derived d;
     Base copy = d;
-    assert(sizeof(copy) == sizeof(Base));
+    LEARN_CHECK(sizeof(copy) == sizeof(Base));
     (void)d.d;
 }
 

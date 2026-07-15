@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <utility>
 
@@ -18,14 +17,14 @@ namespace {
 void demo_basics() {
     int a = 3;
     auto twice = [x = a * 2] { return x; };
-    assert(twice() == 6);
+    LEARN_CHECK(twice() == 6);
 }
 
 void demo_intermediate() {
     auto p = std::make_unique<int>(42);
     auto owns = [ptr = std::move(p)] { return *ptr; };
-    assert(p == nullptr);
-    assert(owns() == 42);
+    LEARN_CHECK(p == nullptr);
+    LEARN_CHECK(owns() == 42);
 }
 
 void demo_expert() {
@@ -34,13 +33,13 @@ void demo_expert() {
         *ptr += 1;
         return *ptr;
     };
-    assert(f() == 8);
-    assert(f() == 9);
+    LEARN_CHECK(f() == 8);
+    LEARN_CHECK(f() == 9);
 
     // Recursive-style counter via init-capture state (no self-call needed).
     auto step = [n = 0]() mutable { return ++n; };
-    assert(step() == 1);
-    assert(step() == 2);
+    LEARN_CHECK(step() == 1);
+    LEARN_CHECK(step() == 2);
 }
 
 int run(int argc, char** argv) {

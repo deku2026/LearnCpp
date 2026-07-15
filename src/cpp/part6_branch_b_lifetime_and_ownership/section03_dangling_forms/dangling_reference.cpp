@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -26,21 +25,21 @@ const std::string& pick(const std::string& a, const std::string& b) {
 }
 
 void demo_basics() {
-    assert(safe_value() == 1);
+    LEARN_CHECK(safe_value() == 1);
 }
 
 void demo_intermediate() {
     std::string a = "hi";
     std::string b = "hello";
     const std::string& r = pick(a, b);
-    assert(r == "hello");
+    LEARN_CHECK(r == "hello");
 }
 
 void demo_expert() {
     // Returning ref to parameter is OK only while arguments live.
     std::string a = "x";
     std::string b = "yy";
-    assert(pick(a, b) == "yy");
+    LEARN_CHECK(pick(a, b) == "yy");
 }
 
 int run(int argc, char** argv) {

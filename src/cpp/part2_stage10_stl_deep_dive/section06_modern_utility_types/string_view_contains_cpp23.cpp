@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 #include <version>
 
@@ -18,21 +17,21 @@ namespace {
 void demo_basics() {
     constexpr std::string_view sv = "hello world";
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
-    assert(sv.contains("world"));
-    assert(sv.contains('o'));
-    assert(!sv.contains("xyz"));
+    LEARN_CHECK(sv.contains("world"));
+    LEARN_CHECK(sv.contains('o'));
+    LEARN_CHECK(!sv.contains("xyz"));
 #else
-    assert(sv.find("world") != std::string_view::npos);
-    assert(sv.find('o') != std::string_view::npos);
+    LEARN_CHECK(sv.find("world") != std::string_view::npos);
+    LEARN_CHECK(sv.find('o') != std::string_view::npos);
 #endif
 }
 
 void demo_intermediate() {
     std::string_view sv = "abc";
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
-    assert(sv.contains(std::string_view{"b"}));
+    LEARN_CHECK(sv.contains(std::string_view{"b"}));
 #else
-    assert(sv.find("b") != std::string_view::npos);
+    LEARN_CHECK(sv.find("b") != std::string_view::npos);
 #endif
 }
 
@@ -41,7 +40,7 @@ void demo_expert() {
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
     static_assert(sv.contains("test"));
 #endif
-    assert(sv.find("feature") == 0);
+    LEARN_CHECK(sv.find("feature") == 0);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <unordered_map>
@@ -29,32 +28,32 @@ struct PointHash {
 };
 
 void demo_basics() {
-    assert(std::hash<int>{}(42) == std::hash<int>{}(42));
+    LEARN_CHECK(std::hash<int>{}(42) == std::hash<int>{}(42));
     std::unordered_map<int, int> um;
     um[1] = 1;
-    assert(um.bucket_count() >= 1);
-    assert(um.load_factor() > 0.0f);
+    LEARN_CHECK(um.bucket_count() >= 1);
+    LEARN_CHECK(um.load_factor() > 0.0f);
 }
 
 void demo_intermediate() {
     std::unordered_map<int, int> um;
     um.max_load_factor(1.0f);
     um.reserve(100);
-    assert(um.bucket_count() >= 100);
+    LEARN_CHECK(um.bucket_count() >= 100);
     for (int i = 0; i < 50; ++i) {
         um[i] = i;
     }
-    assert(um.load_factor() <= um.max_load_factor());
+    LEARN_CHECK(um.load_factor() <= um.max_load_factor());
 }
 
 void demo_expert() {
     std::unordered_map<Point, int, PointHash> um;
     const Point key{1, 2};
     um[key] = 3;
-    assert(um[key] == 3);
+    LEARN_CHECK(um[key] == 3);
     um.rehash(64);
-    assert(um.bucket_count() >= 64);
-    assert(um.at(key) == 3);
+    LEARN_CHECK(um.bucket_count() >= 64);
+    LEARN_CHECK(um.at(key) == 3);
 }
 
 int run(int argc, char** argv) {

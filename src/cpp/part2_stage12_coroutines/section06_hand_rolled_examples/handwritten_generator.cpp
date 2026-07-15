@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -115,10 +114,10 @@ void demo_basics() {
         co_yield 10;
         co_yield 20;
     }();
-    assert(g.next() && g.value() == 10);
-    assert(g.next() && g.value() == 20);
+    LEARN_CHECK(g.next() && g.value() == 10);
+    LEARN_CHECK(g.next() && g.value() == 20);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -134,9 +133,9 @@ void demo_intermediate() {
     while (g.next()) {
         v.push_back(g.value());
     }
-    assert((v == std::vector<int>{2, 3, 4}));
+    LEARN_CHECK((v == std::vector<int>{2, 3, 4}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -157,9 +156,9 @@ void demo_expert() {
     while (g.next()) {
         v.push_back(g.value());
     }
-    assert((v == std::vector<int>{0, 1, 1, 2, 3, 5}));
+    LEARN_CHECK((v == std::vector<int>{0, 1, 1, 2, 3, 5}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

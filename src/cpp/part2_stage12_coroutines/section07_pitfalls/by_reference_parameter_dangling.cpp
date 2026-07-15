@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -122,10 +121,10 @@ void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     int live = 4;
     auto g = uses_ref(live);
-    assert(g.next());
-    assert(g.value() == 4);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -133,10 +132,10 @@ void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // Prefer by-value parameters so the frame owns a copy.
     auto g = uses_value(8);
-    assert(g.next());
-    assert(g.value() == 8);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 8);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -145,10 +144,10 @@ void demo_expert() {
     // DANGER pattern avoided: do not pass temporary to ref-param coroutine
     // that outlives the full-expression without consuming immediately.
     auto g = uses_value(1 + 2);
-    assert(g.next());
-    assert(g.value() == 3);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

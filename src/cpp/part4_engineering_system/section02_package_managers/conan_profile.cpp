@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,18 +17,18 @@ namespace {
 void demo_basics() {
     // conan install . -pr:h default -pr:b default
     std::string profile = "default";
-    assert(!profile.empty());
+    LEARN_CHECK(!profile.empty());
 }
 
 void demo_intermediate() {
     // settings: os/compiler/build_type/arch
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // conan.lock freezes graph
     std::string lock = "conan.lock";
-    assert(lock.find("lock") != std::string::npos);
+    LEARN_CHECK(lock.find("lock") != std::string::npos);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -19,18 +18,18 @@ void demo_basics() {
     std::vector<int> v{0, 0, 1, 2, 0};
     auto d = v | std::views::drop_while([](int x) { return x == 0; });
     std::vector<int> out(d.begin(), d.end());
-    assert((out == std::vector<int>{1, 2, 0}));
+    LEARN_CHECK((out == std::vector<int>{1, 2, 0}));
 }
 
 void demo_intermediate() {
     auto d = std::views::iota(0, 10) | std::views::drop_while([](int x) { return x < 7; });
-    assert(*d.begin() == 7);
+    LEARN_CHECK(*d.begin() == 7);
 }
 
 void demo_expert() {
     std::vector<int> v{1, 2, 3};
     auto d = v | std::views::drop_while([](int) { return true; });
-    assert(std::ranges::empty(d));
+    LEARN_CHECK(std::ranges::empty(d));
 }
 
 }  // namespace

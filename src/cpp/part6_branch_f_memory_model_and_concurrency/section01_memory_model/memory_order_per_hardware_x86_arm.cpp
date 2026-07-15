@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -19,7 +18,7 @@ void demo_basics() {
     // Portable code uses atomics; do not rely on x86 strong ordering alone.
     std::atomic<int> x{0};
     x.store(1, std::memory_order_release);
-    assert(x.load(std::memory_order_acquire) == 1);
+    LEARN_CHECK(x.load(std::memory_order_acquire) == 1);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_intermediate() {
     std::thread c([&] {
         while (!flag.load(std::memory_order_acquire)) {
         }
-        assert(data == 8);
+        LEARN_CHECK(data == 8);
     });
     p.join();
     c.join();
@@ -41,7 +40,7 @@ void demo_intermediate() {
 void demo_expert() {
     // Teaching: on x86 many release/acquire lower to ordinary MOV; on ARM barriers matter.
     // Always write the intended memory_order, not what your CPU happens to do.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

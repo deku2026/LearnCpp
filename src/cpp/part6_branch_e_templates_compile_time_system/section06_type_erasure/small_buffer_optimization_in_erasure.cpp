@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <new>
 #include <utility>
@@ -69,18 +68,18 @@ public:
 
 void demo_basics() {
     SmallErased e{5};
-    assert(e.get() == 5);
+    LEARN_CHECK(e.get() == 5);
 }
 
 void demo_intermediate() {
     SmallErased a{7};
     SmallErased b{std::move(a)};
-    assert(b.get() == 7);
+    LEARN_CHECK(b.get() == 7);
 }
 
 void demo_expert() {
     SmallErased e{11};
-    assert(e.get() == 11);
+    LEARN_CHECK(e.get() == 11);
 }
 
 int run(int argc, char** argv) {

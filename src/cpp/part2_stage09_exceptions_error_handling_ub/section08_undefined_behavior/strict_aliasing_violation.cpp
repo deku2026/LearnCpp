@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 #include <cstring>
 #include <version>
@@ -41,14 +40,14 @@ float bits_to_float(std::uint32_t u) {
 void demo_basics() {
     float f = 1.0f;
     auto bits = float_bits(f);
-    assert(bits_to_float(bits) == 1.0f);
+    LEARN_CHECK(bits_to_float(bits) == 1.0f);
 }
 
 void demo_intermediate() {
     // char* may alias; this is allowed for byte inspection.
     int x = 0x01020304;
     const auto* p = reinterpret_cast<const unsigned char*>(&x);
-    assert(p[0] == 0x04 || p[0] == 0x01);  // endian-dependent
+    LEARN_CHECK(p[0] == 0x04 || p[0] == 0x01);  // endian-dependent
 }
 
 void demo_expert() {
@@ -60,7 +59,7 @@ void demo_expert() {
     std::memcpy(&u, &d, sizeof(u));
     double back = 0;
     std::memcpy(&back, &u, sizeof(back));
-    assert(back == 2.5);
+    LEARN_CHECK(back == 2.5);
 }
 
 int run(int argc, char** argv) {

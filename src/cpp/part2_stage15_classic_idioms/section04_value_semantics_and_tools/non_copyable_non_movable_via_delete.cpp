@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -25,7 +24,7 @@ struct Token {
 
 void demo_basics() {
     Token t(1);
-    assert(t.id == 1);
+    LEARN_CHECK(t.id == 1);
     static_assert(!std::is_copy_constructible_v<Token>);
 }
 
@@ -38,7 +37,7 @@ void demo_expert() {
     // Unique ownership / identity types often delete copy and move.
     Token a(3);
     Token b(4);
-    assert(a.id != b.id);
+    LEARN_CHECK(a.id != b.id);
 }
 
 int run(int argc, char** argv) {

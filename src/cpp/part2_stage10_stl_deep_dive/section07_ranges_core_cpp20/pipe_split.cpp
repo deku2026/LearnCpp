@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -24,7 +23,7 @@ void demo_basics() {
     for (auto p : parts) {
         out.emplace_back(p.begin(), p.end());
     }
-    assert((out == std::vector<std::string>{"a", "b", "c"}));
+    LEARN_CHECK((out == std::vector<std::string>{"a", "b", "c"}));
 }
 
 void demo_intermediate() {
@@ -35,7 +34,7 @@ void demo_intermediate() {
         (void)p;
         ++n;
     }
-    assert(n == 3);
+    LEARN_CHECK(n == 3);
 }
 
 void demo_expert() {
@@ -43,7 +42,7 @@ void demo_expert() {
     auto parts = s | std::views::split(' ');
     auto it = parts.begin();
     std::string first((*it).begin(), (*it).end());
-    assert(first == "one");
+    LEARN_CHECK(first == "one");
 }
 
 }  // namespace

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iterator>
 #include <ranges>
 #include <vector>
@@ -20,18 +19,18 @@ namespace {
 void demo_basics() {
     std::vector<int> v{3, 1, 2};
     std::sort(v.begin(), v.end());
-    assert(v.front() == 1);
+    LEARN_CHECK(v.front() == 1);
 }
 
 void demo_intermediate() {
     std::vector<int> v{1, 2, 3};
-    assert(std::ranges::all_of(v, [](int x) { return x > 0; }));
+    LEARN_CHECK(std::ranges::all_of(v, [](int x) { return x > 0; }));
 }
 
 void demo_expert() {
     std::vector<int> v{1, 2};
     auto d = std::distance(v.begin(), v.end());
-    assert(d == 2);
+    LEARN_CHECK(d == 2);
 }
 
 int run(int argc, char** argv) {

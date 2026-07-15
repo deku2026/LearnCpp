@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <initializer_list>
 #include <string>
 #include <type_traits>
@@ -22,10 +21,10 @@ void demo_basics() {
     auto d = 3.14;
     auto b = true;
     auto c = 'x';
-    assert(i == 42);
-    assert(d > 3.0);
-    assert(b);
-    assert(c == 'x');
+    LEARN_CHECK(i == 42);
+    LEARN_CHECK(d > 3.0);
+    LEARN_CHECK(b);
+    LEARN_CHECK(c == 'x');
 
     static_assert(std::is_same_v<decltype(i), int>);
     static_assert(std::is_same_v<decltype(d), double>);
@@ -41,7 +40,7 @@ void demo_intermediate() {
     auto a1 = x;   // int
     auto a2 = cx;  // int (top-level const dropped)
     auto a3 = rx;  // int (reference dropped)
-    assert(a1 == 10 && a2 == 20 && a3 == 10);
+    LEARN_CHECK(a1 == 10 && a2 == 20 && a3 == 10);
 
     static_assert(std::is_same_v<decltype(a1), int>);
     static_assert(std::is_same_v<decltype(a2), int>);
@@ -50,8 +49,8 @@ void demo_intermediate() {
     auto& r1 = x;
     const auto& r2 = cx;
     r1 = 11;
-    assert(x == 11);
-    assert(r2 == 20);
+    LEARN_CHECK(x == 11);
+    LEARN_CHECK(r2 == 20);
     static_assert(std::is_same_v<decltype(r1), int&>);
 }
 
@@ -59,25 +58,25 @@ void demo_expert() {
     // auto with braces historically deduced initializer_list; prefer = for scalars.
     auto list = {1, 2, 3};
     static_assert(std::is_same_v<decltype(list), std::initializer_list<int>>);
-    assert(list.size() == 3);
+    LEARN_CHECK(list.size() == 3);
 
     auto v = std::vector<int>{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
 
     auto s = std::string{"demo"};
-    assert(s == "demo");
+    LEARN_CHECK(s == "demo");
 
     // auto* and auto&& patterns
     int n = 5;
     auto* p = &n;
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     static_assert(std::is_same_v<decltype(p), int*>);
 
     auto&& uref = n;  // lvalue -> int&
     static_assert(std::is_same_v<decltype(uref), int&>);
     auto&& rref = 42;  // prvalue -> int&&
     static_assert(std::is_same_v<decltype(rref), int&&>);
-    assert(rref == 42);
+    LEARN_CHECK(rref == 42);
 }
 
 int run(int argc, char** argv) {

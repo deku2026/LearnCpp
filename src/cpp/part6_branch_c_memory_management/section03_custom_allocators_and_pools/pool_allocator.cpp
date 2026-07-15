@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <vector>
 
@@ -47,9 +46,9 @@ public:
 void demo_basics() {
     IntPool pool(4);
     int* p = pool.allocate();
-    assert(p);
+    LEARN_CHECK(p);
     *p = 9;
-    assert(*p == 9);
+    LEARN_CHECK(*p == 9);
     pool.deallocate(p);
 }
 
@@ -57,10 +56,10 @@ void demo_intermediate() {
     IntPool pool(2);
     int* a = pool.allocate();
     int* b = pool.allocate();
-    assert(a && b && a != b);
-    assert(pool.allocate() == nullptr);
+    LEARN_CHECK(a && b && a != b);
+    LEARN_CHECK(pool.allocate() == nullptr);
     pool.deallocate(a);
-    assert(pool.allocate() != nullptr);
+    LEARN_CHECK(pool.allocate() != nullptr);
     pool.deallocate(b);
 }
 
@@ -69,10 +68,10 @@ void demo_expert() {
     int* arr[8];
     for (int i = 0; i < 8; ++i) {
         arr[i] = pool.allocate();
-        assert(arr[i]);
+        LEARN_CHECK(arr[i]);
         *arr[i] = i;
     }
-    for (int i = 0; i < 8; ++i) assert(*arr[i] == i);
+    for (int i = 0; i < 8; ++i) LEARN_CHECK(*arr[i] == i);
     for (int i = 0; i < 8; ++i) pool.deallocate(arr[i]);
 }
 

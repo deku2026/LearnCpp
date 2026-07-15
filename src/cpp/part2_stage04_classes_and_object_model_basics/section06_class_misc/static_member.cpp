@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Counter {
@@ -28,25 +26,25 @@ void demo_basics() {
     Counter::reset_for_demo();
     Counter a;
     Counter b;
-    assert(Counter::total() == 2);
-    assert(a.id() == 1);
-    assert(b.id() == 2);
+    LEARN_CHECK(Counter::total() == 2);
+    LEARN_CHECK(a.id() == 1);
+    LEARN_CHECK(b.id() == 2);
 }
 
 void demo_intermediate() {
     Counter::reset_for_demo();
-    assert(Counter::total() == 0);
+    LEARN_CHECK(Counter::total() == 0);
     Counter c;
-    assert(c.id() == 1);
-    assert(Counter::total() == 1);
+    LEARN_CHECK(c.id() == 1);
+    LEARN_CHECK(Counter::total() == 1);
 }
 
 void demo_expert() {
     // Static member function has no this; call via type or object.
     Counter::reset_for_demo();
     Counter c;
-    assert(c.total() == 1);
-    assert(Counter::total() == 1);
+    LEARN_CHECK(c.total() == 1);
+    LEARN_CHECK(Counter::total() == 1);
 }
 
 int run(int argc, char** argv) {

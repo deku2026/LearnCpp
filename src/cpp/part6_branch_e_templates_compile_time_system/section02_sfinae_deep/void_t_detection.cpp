@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -31,8 +30,8 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-    assert(has_type_member<Yes>::value);
-    assert(!has_type_member<No>::value);
+    LEARN_CHECK(has_type_member<Yes>::value);
+    LEARN_CHECK(!has_type_member<No>::value);
 }
 
 void demo_expert() {

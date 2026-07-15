@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -29,7 +28,7 @@ void demo_basics() {
     MyAlloc<int> a;
     int* p = a.allocate(1);
     *p = 4;
-    assert(*p == 4);
+    LEARN_CHECK(*p == 4);
     a.deallocate(p, 1);
 }
 
@@ -40,7 +39,7 @@ void demo_intermediate() {
 
 void demo_expert() {
     // Specialize allocator, not allocator_traits.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

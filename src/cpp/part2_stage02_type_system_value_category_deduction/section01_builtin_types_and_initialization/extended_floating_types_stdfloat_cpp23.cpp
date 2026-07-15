@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <limits>
 #include <type_traits>
@@ -28,9 +27,9 @@ void demo_basics() {
     float f = 1.0f;
     double d = 2.0;
     long double ld = 3.0L;
-    assert(f == 1.0f);
-    assert(d == 2.0);
-    assert(ld == 3.0L);
+    LEARN_CHECK(f == 1.0f);
+    LEARN_CHECK(d == 2.0);
+    LEARN_CHECK(ld == 3.0L);
     static_assert(std::is_floating_point_v<float>);
     static_assert(std::is_floating_point_v<double>);
 }
@@ -38,35 +37,35 @@ void demo_basics() {
 void demo_intermediate() {
 #if defined(__STDCPP_FLOAT32_T__) && __STDCPP_FLOAT32_T__
     std::float32_t a = 1.0f32;
-    assert(static_cast<float>(a) == 1.0f);
+    LEARN_CHECK(static_cast<float>(a) == 1.0f);
     static_assert(sizeof(std::float32_t) == 4);
 #endif
 
 #if defined(__STDCPP_FLOAT64_T__) && __STDCPP_FLOAT64_T__
     std::float64_t b = 2.0f64;
-    assert(static_cast<double>(b) == 2.0);
+    LEARN_CHECK(static_cast<double>(b) == 2.0);
     static_assert(sizeof(std::float64_t) == 8);
 #endif
 
 #if defined(__STDCPP_FLOAT16_T__) && __STDCPP_FLOAT16_T__
     std::float16_t h = 0.5f16;
-    assert(static_cast<float>(h) == 0.5f);
+    LEARN_CHECK(static_cast<float>(h) == 0.5f);
 #endif
 
     // Without extended types, classic types still demonstrate precision ideas.
     const float half = 0.5f;
-    assert(half + half == 1.0f);
+    LEARN_CHECK(half + half == 1.0f);
 }
 
 void demo_expert() {
 #if defined(__STDCPP_BFLOAT16_T__) && __STDCPP_BFLOAT16_T__
     std::bfloat16_t bf = 1.5bf16;
-    assert(static_cast<float>(bf) == 1.5f);
+    LEARN_CHECK(static_cast<float>(bf) == 1.5f);
 #endif
 
 #if defined(__STDCPP_FLOAT128_T__) && __STDCPP_FLOAT128_T__
     std::float128_t q = 1.0f128;
-    assert(static_cast<double>(q) == 1.0);
+    LEARN_CHECK(static_cast<double>(q) == 1.0);
 #endif
 
     // Feature-test awareness: extended floats are optional per platform.
@@ -76,12 +75,12 @@ void demo_expert() {
 
     // IEC 559 classic floats remain the common portable path.
     if constexpr (std::numeric_limits<double>::is_iec559) {
-        assert(std::numeric_limits<double>::digits == 53);
+        LEARN_CHECK(std::numeric_limits<double>::digits == 53);
     }
 
     const double a = 0.1;
     const double b = 0.2;
-    assert(std::abs((a + b) - 0.3) < 1e-12);
+    LEARN_CHECK(std::abs((a + b) - 0.3) < 1e-12);
 }
 
 int run(int argc, char** argv) {

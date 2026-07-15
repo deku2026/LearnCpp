@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -50,21 +49,21 @@ int points(char grade) {
 }
 
 void demo_basics() {
-    assert(describe(1) == "one+twoish");
-    assert(describe(2) == "+twoish");
-    assert(describe(3) == "three");
+    LEARN_CHECK(describe(1) == "one+twoish");
+    LEARN_CHECK(describe(2) == "+twoish");
+    LEARN_CHECK(describe(3) == "three");
 }
 
 void demo_intermediate() {
-    assert(points('A') == 4);
-    assert(points('D') == 0);
-    assert(points('Z') == -1);
+    LEARN_CHECK(points('A') == 4);
+    LEARN_CHECK(points('D') == 0);
+    LEARN_CHECK(points('Z') == -1);
 }
 
 void demo_expert() {
     // Fallthrough without attribute may warn; with attribute documents intent.
-    assert(describe(0) == "other");
-    assert(describe(2).find("two") != std::string::npos);
+    LEARN_CHECK(describe(0) == "other");
+    LEARN_CHECK(describe(2).find("two") != std::string::npos);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -36,27 +35,27 @@ Derived(T) -> Derived<T>;
 
 void demo_basics() {
     Derived d{42};
-    assert(d.value == 42);
+    LEARN_CHECK(d.value == 42);
     static_assert(std::is_same_v<decltype(d), Derived<int>>);
 }
 
 void demo_intermediate() {
     Derived ds{std::string{"hi"}};
-    assert(ds.value == "hi");
+    LEARN_CHECK(ds.value == "hi");
     static_assert(std::is_same_v<decltype(ds), Derived<std::string>>);
 }
 
 void demo_expert() {
     // Explicit type still works without relying on CTAD.
     Derived<double> dd(3.5);
-    assert(dd.value == 3.5);
+    LEARN_CHECK(dd.value == 3.5);
 
 #if defined(__cpp_lib_containers_ranges) || defined(__cpp_concepts)
     // Feature-test noise: inherited ctor + CTAD available on modern toolchains.
     static_assert(true);
 #endif
     Base b{7};
-    assert(b.value == 7);
+    LEARN_CHECK(b.value == 7);
 }
 
 int run(int argc, char** argv) {

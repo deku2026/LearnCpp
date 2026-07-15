@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 static int mul(int a, int b) {
@@ -22,15 +20,15 @@ int api_square(int x) {
 }
 
 void demo_basics() {
-    assert(api_square(4) == 16);
+    LEARN_CHECK(api_square(4) == 16);
 }
 
 void demo_intermediate() {
-    assert(api_square(0) == 0);
+    LEARN_CHECK(api_square(0) == 0);
 }
 
 void demo_expert() {
-    assert(api_square(3) == 9);
+    LEARN_CHECK(api_square(3) == 9);
 }
 
 int run(int argc, char** argv) {

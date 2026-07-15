@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Point {
@@ -29,20 +27,20 @@ struct Scale {
 void demo_basics() {
     constexpr Point origin{0, 0};
     static_assert(origin.x == 0);
-    assert(origin.y == 0);
+    LEARN_CHECK(origin.y == 0);
 }
 
 void demo_intermediate() {
     constexpr Point p{3, 4};
     static_assert(p.sum() == 7);
-    assert(p.sum() == 7);
+    LEARN_CHECK(p.sum() == 7);
 }
 
 void demo_expert() {
     constexpr Scale s{5};
     static_assert(s.apply(2) == 10);
     Point runtime{1, 2};
-    assert(runtime.sum() == 3);
+    LEARN_CHECK(runtime.sum() == 3);
 }
 
 int run(int argc, char** argv) {

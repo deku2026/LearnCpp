@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -44,20 +43,20 @@ constexpr std::array<int, 8> make_facts() {
 void demo_basics() {
     static_assert(kSquares[0] == 0);
     static_assert(kSquares[5] == 25);
-    assert(kSquares[9] == 81);
+    LEARN_CHECK(kSquares[9] == 81);
 }
 
 void demo_intermediate() {
     constexpr auto facts = make_facts();
     static_assert(facts[5] == 120);
-    assert(facts[0] == 1);
-    assert(facts[7] == 5040);
+    LEARN_CHECK(facts[0] == 1);
+    LEARN_CHECK(facts[7] == 5040);
 }
 
 void demo_expert() {
     // Index with runtime value into compile-time table.
     int i = 4;
-    assert(kSquares[static_cast<std::size_t>(i)] == 16);
+    LEARN_CHECK(kSquares[static_cast<std::size_t>(i)] == 16);
     constexpr int s = kSquares[3];
     static_assert(s == 9);
 }

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -27,25 +26,25 @@ const std::string& pick(const std::string& a, const std::string& b) {
 }
 
 void demo_basics() {
-    assert(by_value() == 42);
+    LEARN_CHECK(by_value() == 42);
 }
 
 void demo_intermediate() {
     std::string a = "hi";
     std::string b = "hello";
     const std::string& r = pick(a, b);
-    assert(r == "hello");
-    assert(b == "hello");
+    LEARN_CHECK(r == "hello");
+    LEARN_CHECK(b == "hello");
 }
 
 void demo_expert() {
     // Temporary lifetime: const ref extends temporary to full expression / ref lifetime.
     const std::string& t = std::string{"tmp"};
-    assert(t == "tmp");
+    LEARN_CHECK(t == "tmp");
 
     std::vector<int> v{1, 2, 3};
     const int& e = v[1];
-    assert(e == 2);
+    LEARN_CHECK(e == 2);
     // Comment only: holding ref into vector then reallocate may dangle — avoid.
 }
 

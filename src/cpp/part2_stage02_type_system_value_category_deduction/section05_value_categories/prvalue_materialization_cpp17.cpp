@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -27,23 +26,23 @@ Tracker make_tracker(int v) {
 void demo_basics() {
     // C++17: initializing from prvalue initializes the target directly (GUARANTEED elision).
     Tracker t = make_tracker(7);
-    assert(t.id == 7);
+    LEARN_CHECK(t.id == 7);
 
     Tracker t2 = Tracker{8};
-    assert(t2.id == 8);
+    LEARN_CHECK(t2.id == 8);
 }
 
 void demo_intermediate() {
     // Temporary materialization: prvalue becomes xvalue when a glvalue is needed.
     const Tracker& ref = Tracker{9};  // materializes temporary, binds const ref
-    assert(ref.id == 9);
+    LEARN_CHECK(ref.id == 9);
 
     // Member access on prvalue materializes then accesses
-    assert(Tracker{10}.id == 10);
+    LEARN_CHECK(Tracker{10}.id == 10);
 
     // string prvalue materialization for const ref parameter pattern
     auto len = [](const std::string& s) { return s.size(); };
-    assert(len(std::string("abcd")) == 4);
+    LEARN_CHECK(len(std::string("abcd")) == 4);
 }
 
 void demo_expert() {
@@ -54,11 +53,11 @@ void demo_expert() {
     // Nested construction still yields the final object value
     auto factory = [](int n) { return make_tracker(n + 1); };
     Tracker t = factory(40);
-    assert(t.id == 41);
+    LEARN_CHECK(t.id == 41);
 
     // Array prvalue is not common; use brace init materialization via const ref
     const int (&arr_ref)[3] = {1, 2, 3};
-    assert(arr_ref[0] == 1 && arr_ref[2] == 3);
+    LEARN_CHECK(arr_ref[0] == 1 && arr_ref[2] == 3);
 
     // Mandatory elision means even non-copyable types can return by value
     struct MoveOnly {
@@ -71,7 +70,7 @@ void demo_expert() {
     };
     auto make_mo = [] { return MoveOnly{3}; };
     MoveOnly mo = make_mo();
-    assert(mo.v == 3);
+    LEARN_CHECK(mo.v == 3);
 }
 
 int run(int argc, char** argv) {

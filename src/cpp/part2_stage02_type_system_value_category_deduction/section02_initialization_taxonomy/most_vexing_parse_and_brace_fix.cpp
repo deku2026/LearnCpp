@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 
@@ -30,10 +29,10 @@ struct Holder {
 void demo_basics() {
     // Object construction with braces — never a function declaration.
     Widget w{};
-    assert(w.get() == 1);
+    LEARN_CHECK(w.get() == 1);
 
     Widget w2{42};
-    assert(w2.get() == 42);
+    LEARN_CHECK(w2.get() == 42);
 }
 
 void demo_intermediate() {
@@ -43,35 +42,35 @@ void demo_intermediate() {
 
     Widget w{};          // object
     Holder h{Widget{}};  // object of Holder constructed from temporary Widget
-    assert(w.get() == 1);
-    assert(h.value == 1);
+    LEARN_CHECK(w.get() == 1);
+    LEARN_CHECK(h.value == 1);
 
     Holder h2{Widget{9}};
-    assert(h2.value == 9);
+    LEARN_CHECK(h2.value == 9);
 }
 
 void demo_expert() {
     // Another common MVP: std::string vs function declaration
     // std::string s(std::string()); // function declaration in some contexts
     std::string s{std::string{"ok"}};
-    assert(s == "ok");
+    LEARN_CHECK(s == "ok");
 
     // istringstream construction
     std::istringstream input{"123"};
     int n = 0;
     input >> n;
-    assert(n == 123);
+    LEARN_CHECK(n == 123);
 
     // Prefer braces when default-constructing to avoid function-declaration parse.
     struct Outer {
         Widget inner{};
     };
     Outer o{};
-    assert(o.inner.get() == 1);
+    LEARN_CHECK(o.inner.get() == 1);
 
     // Direct parentheses construction of a type with no ambiguity
     Widget explicit_parens(7);
-    assert(explicit_parens.get() == 7);
+    LEARN_CHECK(explicit_parens.get() == 7);
 }
 
 int run(int argc, char** argv) {

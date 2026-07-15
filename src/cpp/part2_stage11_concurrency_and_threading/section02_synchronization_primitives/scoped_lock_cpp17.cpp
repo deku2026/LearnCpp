@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <mutex>
 #include <thread>
 
@@ -25,7 +24,7 @@ void demo_basics() {
         a = 1;
         b = 2;
     }
-    assert(a == 1 && b == 2);
+    LEARN_CHECK(a == 1 && b == 2);
 }
 
 void demo_intermediate() {
@@ -48,7 +47,7 @@ void demo_intermediate() {
     std::thread t2(rl);
     t1.join();
     t2.join();
-    assert(x == 400);
+    LEARN_CHECK(x == 400);
 }
 
 void demo_expert() {

@@ -9,30 +9,29 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
 
 void demo_basics() {
     std::string ascii = "ASCII only is portable";
-    assert(ascii.find("portable") != std::string::npos);
+    LEARN_CHECK(ascii.find("portable") != std::string::npos);
 }
 
 void demo_intermediate() {
     // Prefer u8 literals when encoding matters
     const char8_t* u8 = u8"ok";
-    assert(u8[0] == u8'o');
-    assert(u8[1] == u8'k');
+    LEARN_CHECK(u8[0] == u8'o');
+    LEARN_CHECK(u8[1] == u8'k');
 }
 
 void demo_expert() {
     // Named/delimited escapes (C++23) when available — ASCII fallback always works
     std::string hex = "\x41";
-    assert(hex == "A");
+    LEARN_CHECK(hex == "A");
 #if defined(__cpp_named_character_escapes)
     std::string named = "\N{LATIN CAPITAL LETTER A}";
-    assert(named == "A");
+    LEARN_CHECK(named == "A");
 #endif
 }
 

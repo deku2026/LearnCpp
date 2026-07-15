@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -23,10 +22,10 @@ struct AddN {
 void demo_basics() {
     int n = 10;
     auto add_n = [n](int x) { return x + n; };
-    assert(add_n(5) == 15);
+    LEARN_CHECK(add_n(5) == 15);
 
     AddN manual{10};
-    assert(manual(5) == 15);
+    LEARN_CHECK(manual(5) == 15);
 }
 
 void demo_intermediate() {
@@ -44,11 +43,11 @@ void demo_expert() {
     // Empty capture => conversion to function pointer.
     auto times2 = [](int x) { return x * 2; };
     int (*fp)(int) = times2;
-    assert(fp(21) == 42);
+    LEARN_CHECK(fp(21) == 42);
 
     int cap = 1;
     auto with_state = [cap](int x) { return x + cap; };
-    assert(with_state(2) == 3);
+    LEARN_CHECK(with_state(2) == 3);
     // int (*bad)(int) = with_state; // ill-formed: has capture
 }
 

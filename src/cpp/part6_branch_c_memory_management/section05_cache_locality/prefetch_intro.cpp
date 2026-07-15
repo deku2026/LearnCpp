@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <numeric>
 #include <vector>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     std::iota(v.begin(), v.end(), 0);
     int sum = 0;
     for (int x : v) sum += x;
-    assert(sum == 127 * 128 / 2);
+    LEARN_CHECK(sum == 127 * 128 / 2);
 }
 
 void demo_intermediate() {
@@ -28,17 +27,17 @@ void demo_intermediate() {
     std::vector<int> v(64, 1);
     int sum = 0;
     for (std::size_t i = 0; i < v.size(); ++i) sum += v[i];
-    assert(sum == 64);
+    LEARN_CHECK(sum == 64);
 }
 
 void demo_expert() {
 #if defined(__GNUC__) || defined(__clang__)
     int x = 1;
     __builtin_prefetch(&x, 0, 3);
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 #else
     int x = 1;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 #endif
 }
 

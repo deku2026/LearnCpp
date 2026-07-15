@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Builder {
@@ -37,14 +35,14 @@ public:
 void demo_basics() {
     Builder b;
     b.set_x(1).set_y(2);
-    assert(b.x() == 1 && b.y() == 2);
+    LEARN_CHECK(b.x() == 1 && b.y() == 2);
 }
 
 void demo_intermediate() {
     Builder b;
-    assert(b.same_as(&b));
+    LEARN_CHECK(b.same_as(&b));
     Builder other;
-    assert(!b.same_as(&other));
+    LEARN_CHECK(!b.same_as(&other));
 }
 
 void demo_expert() {
@@ -52,8 +50,8 @@ void demo_expert() {
     // Explicit this-> is mainly for shadowing and returning *this for chaining.
     Builder b;
     Builder& again = b.set_x(9);
-    assert(&again == &b);
-    assert(b.x() == 9);
+    LEARN_CHECK(&again == &b);
+    LEARN_CHECK(b.x() == 9);
 }
 
 int run(int argc, char** argv) {

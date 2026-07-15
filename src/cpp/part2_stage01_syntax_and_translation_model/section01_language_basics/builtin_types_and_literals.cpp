@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
@@ -28,38 +27,38 @@ void demo_basics() {
     float f = 1.5f;
     void* p = nullptr;
 
-    assert(i == 42);
-    assert(u == 42u);
-    assert(l == 42L);
-    assert(ll == 42LL);
-    assert(ok);
-    assert(c == 'A');
-    assert(d > 3.0 && d < 3.2);
-    assert(f == 1.5f);
-    assert(p == nullptr);
+    LEARN_CHECK(i == 42);
+    LEARN_CHECK(u == 42u);
+    LEARN_CHECK(l == 42L);
+    LEARN_CHECK(ll == 42LL);
+    LEARN_CHECK(ok);
+    LEARN_CHECK(c == 'A');
+    LEARN_CHECK(d > 3.0 && d < 3.2);
+    LEARN_CHECK(f == 1.5f);
+    LEARN_CHECK(p == nullptr);
 }
 
 void demo_intermediate() {
     const unsigned long long big = 1'000'000'000'000ull;
-    assert(big == 1000000000000ull);
+    LEARN_CHECK(big == 1000000000000ull);
 
     const int hex = 0xFF;
     const int oct = 010;
     const int bin = 0b1010;
-    assert(hex == 255);
-    assert(oct == 8);
-    assert(bin == 10);
+    LEARN_CHECK(hex == 255);
+    LEARN_CHECK(oct == 8);
+    LEARN_CHECK(bin == 10);
 
     const long double ld = 1.0L;
-    assert(ld == 1.0L);
+    LEARN_CHECK(ld == 1.0L);
 
     const std::size_t n = sizeof(int);
-    assert(n >= 2);
+    LEARN_CHECK(n >= 2);
     static_assert(std::is_same_v<decltype(sizeof(0)), std::size_t>);
 
     const char* s = "text";
-    assert(s[0] == 't');
-    assert(nullptr == static_cast<int*>(nullptr));
+    LEARN_CHECK(s[0] == 't');
+    LEARN_CHECK(nullptr == static_cast<int*>(nullptr));
 }
 
 void demo_expert() {
@@ -68,8 +67,8 @@ void demo_expert() {
 
     const std::int32_t i32 = -1;
     const std::uint32_t u32 = 1u;
-    assert(i32 < 0);
-    assert(u32 > 0u);
+    LEARN_CHECK(i32 < 0);
+    LEARN_CHECK(u32 > 0u);
 
     // Suffix type checks
     static_assert(std::is_same_v<decltype(1), int>);
@@ -86,7 +85,7 @@ void demo_expert() {
     static_assert(0xFF'FF == 0xFFFF);
 
     const std::size_t bytes = sizeof(std::size_t);
-    assert(bytes == 4 || bytes == 8);
+    LEARN_CHECK(bytes == 4 || bytes == 8);
 }
 
 int run(int argc, char** argv) {

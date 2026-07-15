@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -17,7 +16,7 @@ namespace {
 void demo_basics() {
     std::vector<int> v{1, 2, 3};
     auto it = v.begin();
-    assert(*it == 1);
+    LEARN_CHECK(*it == 1);
 }
 
 void demo_intermediate() {
@@ -25,8 +24,8 @@ void demo_intermediate() {
     v.reserve(100);
     auto it = v.begin();
     v.push_back(2);  // no reallocation due to reserve
-    assert(*it == 1);
-    assert(v.size() == 2);
+    LEARN_CHECK(*it == 1);
+    LEARN_CHECK(v.size() == 2);
 }
 
 void demo_expert() {
@@ -34,8 +33,8 @@ void demo_expert() {
     // After potential reallocation, old iterators are invalid — reacquire.
     v.push_back(3);
     auto it = v.begin();
-    assert(*it == 1);
-    assert(v.back() == 3);
+    LEARN_CHECK(*it == 1);
+    LEARN_CHECK(v.back() == 3);
 }
 
 int run(int argc, char** argv) {

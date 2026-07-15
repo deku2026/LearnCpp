@@ -10,33 +10,32 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <string>
 
 namespace {
 
 void demo_basics() {
     std::any a = 42;
-    assert(a.has_value());
-    assert(std::any_cast<int>(a) == 42);
+    LEARN_CHECK(a.has_value());
+    LEARN_CHECK(std::any_cast<int>(a) == 42);
     a = std::string{"hi"};
-    assert(std::any_cast<std::string>(a) == "hi");
+    LEARN_CHECK(std::any_cast<std::string>(a) == "hi");
 }
 
 void demo_intermediate() {
     std::any a;
-    assert(!a.has_value());
+    LEARN_CHECK(!a.has_value());
     a = 3.14;
-    assert(a.type() == typeid(double));
+    LEARN_CHECK(a.type() == typeid(double));
     a.reset();
-    assert(!a.has_value());
+    LEARN_CHECK(!a.has_value());
 }
 
 void demo_expert() {
     std::any a = 10;
     int* p = std::any_cast<int>(&a);
-    assert(p && *p == 10);
-    assert(std::any_cast<std::string>(&a) == nullptr);
+    LEARN_CHECK(p && *p == 10);
+    LEARN_CHECK(std::any_cast<std::string>(&a) == nullptr);
 }
 
 }  // namespace

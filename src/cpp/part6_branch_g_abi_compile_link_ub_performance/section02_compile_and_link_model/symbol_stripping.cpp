@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 static int only_here() {
@@ -22,15 +20,15 @@ int keep_api() {
 }
 
 void demo_basics() {
-    assert(keep_api() == 7);
+    LEARN_CHECK(keep_api() == 7);
 }
 
 void demo_intermediate() {
-    assert(only_here() == 7);
+    LEARN_CHECK(only_here() == 7);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

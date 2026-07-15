@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <coroutine>
 #include <optional>
 
@@ -41,7 +40,7 @@ Task add_by_value(int a, int b) {
 
 void demo_basics() {
     Task t = add_by_value(2, 3);
-    assert(t.get() == 5);
+    LEARN_CHECK(t.get() == 5);
 }
 
 void demo_intermediate() {
@@ -49,14 +48,14 @@ void demo_intermediate() {
     int x = 10;
     int y = 20;
     Task t = add_by_value(x, y);
-    assert(t.get() == 30);
+    LEARN_CHECK(t.get() == 30);
 }
 
 void demo_expert() {
     // Teaching (not executed): co_return ref_param where ref_param binds to temporary
     // that dies at the call full-expression can dangle when the coroutine resumes later.
     Task t = add_by_value(1, 1);
-    assert(t.get() == 2);
+    LEARN_CHECK(t.get() == 2);
 }
 
 int run(int argc, char** argv) {

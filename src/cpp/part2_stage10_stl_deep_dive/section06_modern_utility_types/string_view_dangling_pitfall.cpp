@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -34,30 +33,30 @@ std::vector<std::string_view> split(std::string_view sv, char delim) {
 void demo_basics() {
     const std::string s = "a,b,c";
     auto tokens = split(s, ',');
-    assert(tokens.size() == 3);
-    assert(tokens[0] == "a");
-    assert(tokens[2] == "c");
+    LEARN_CHECK(tokens.size() == 3);
+    LEARN_CHECK(tokens[0] == "a");
+    LEARN_CHECK(tokens[2] == "c");
     // tokens remain valid only while s lives
 }
 
 void demo_intermediate() {
     std::string owner = "stable";
     std::string_view sv = owner;
-    assert(sv == "stable");
+    LEARN_CHECK(sv == "stable");
     owner = "changed-longer-string";  // may reallocate
     // sv may dangle after reallocation — do not use sv; rebind instead
     sv = owner;
-    assert(sv == "changed-longer-string");
+    LEARN_CHECK(sv == "changed-longer-string");
 }
 
 void demo_expert() {
     // Safe: view into static storage
     static const std::string persistent = "ok";
     std::string_view sv = persistent;
-    assert(sv == "ok");
+    LEARN_CHECK(sv == "ok");
     // Unsafe patterns (not executed): return string_view to local/temporary
     // std::string_view bad = std::string("temp"); // temporary dies
-    assert(!sv.empty());
+    LEARN_CHECK(!sv.empty());
 }
 
 }  // namespace

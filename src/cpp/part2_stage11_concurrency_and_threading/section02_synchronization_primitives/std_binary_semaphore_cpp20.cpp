@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <semaphore>
 #include <thread>
 
@@ -20,12 +19,12 @@ void demo_basics() {
 #if defined(__cpp_lib_semaphore) && __cpp_lib_semaphore >= 201907L
     std::binary_semaphore sem{1};
     sem.acquire();
-    assert(!sem.try_acquire());
+    LEARN_CHECK(!sem.try_acquire());
     sem.release();
-    assert(sem.try_acquire());
+    LEARN_CHECK(sem.try_acquire());
     sem.release();
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -40,13 +39,13 @@ void demo_intermediate() {
     order.store(1);
     gate.release();
     t.join();
-    assert(order.load() == 2);
+    LEARN_CHECK(order.load() == 2);
 #else
     std::atomic<int> order{0};
     std::thread t([&] { order.store(2); });
     order.store(1);
     t.join();
-    assert(order.load() == 2);
+    LEARN_CHECK(order.load() == 2);
 #endif
 }
 
@@ -66,7 +65,7 @@ void demo_expert() {
     std::thread t2(work);
     t1.join();
     t2.join();
-    assert(critical.load() == 100);
+    LEARN_CHECK(critical.load() == 100);
 #else
     std::atomic<int> critical{0};
     auto work = [&] {
@@ -78,7 +77,7 @@ void demo_expert() {
     std::thread t2(work);
     t1.join();
     t2.join();
-    assert(critical.load() == 100);
+    LEARN_CHECK(critical.load() == 100);
 #endif
 }
 

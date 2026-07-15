@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <version>
 
@@ -43,24 +42,24 @@ int runtime_only_seed() {
 void demo_basics() {
     // Used at runtime only — still a valid constexpr function.
     int x = clamp_int(runtime_only_seed(), 0, 5);
-    assert(x == 5);
+    LEARN_CHECK(x == 5);
 }
 
 void demo_intermediate() {
     // Same function *can* be constant-evaluated when args are constant.
     constexpr int c = clamp_int(100, 0, 10);
     static_assert(c == 10);
-    assert(c == 10);
+    LEARN_CHECK(c == 10);
 }
 
 void demo_expert() {
     // "Never constant-evaluated" in practice is a usage property, not a language error.
     int n = runtime_only_seed();
-    assert(sum_n(n) == 21);  // 0..6
+    LEARN_CHECK(sum_n(n) == 21);  // 0..6
 
     constexpr int small = sum_n(5);
     static_assert(small == 10);
-    assert(small == 10);
+    LEARN_CHECK(small == 10);
 }
 
 int run(int argc, char** argv) {

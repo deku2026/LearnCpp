@@ -9,26 +9,24 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 void demo_basics() {
     // auto_ptr removed (C++17); use unique_ptr.
     // export templates removed long ago.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
     // trigraphs removed (C++17)
     // throws-specifications dynamic exception specs removed
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Garbage collector API support removed in C++23 path on many implementations.
     // Write code assuming no GC hooks.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

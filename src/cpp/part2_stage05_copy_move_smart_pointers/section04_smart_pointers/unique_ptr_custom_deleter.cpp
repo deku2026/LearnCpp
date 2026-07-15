@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -38,11 +37,11 @@ void demo_basics() {
     {
         auto closer = [](Handle* h) { close_handle(h); };
         std::unique_ptr<Handle, decltype(closer)> hp(open_handle(1), closer);
-        assert(hp != nullptr);
-        assert(hp->id == 1);
-        assert(Handle::open_count == 1);
+        LEARN_CHECK(hp != nullptr);
+        LEARN_CHECK(hp->id == 1);
+        LEARN_CHECK(Handle::open_count == 1);
     }
-    assert(Handle::open_count == 0);
+    LEARN_CHECK(Handle::open_count == 0);
 }
 
 void demo_intermediate() {
@@ -50,10 +49,10 @@ void demo_intermediate() {
     using HPtr = std::unique_ptr<Handle, void (*)(Handle*)>;
     HPtr a(open_handle(2), &close_handle);
     HPtr b = std::move(a);
-    assert(a == nullptr);
-    assert(b->id == 2);
+    LEARN_CHECK(a == nullptr);
+    LEARN_CHECK(b->id == 2);
     b.reset();
-    assert(Handle::open_count == 0);
+    LEARN_CHECK(Handle::open_count == 0);
 }
 
 void demo_expert() {
@@ -72,15 +71,15 @@ void demo_expert() {
     int closes = 0;
     {
         std::unique_ptr<Handle, Closer> hp(open_handle(3), Closer{&closes});
-        assert(hp->id == 3);
-        assert(Handle::open_count == 1);
+        LEARN_CHECK(hp->id == 3);
+        LEARN_CHECK(Handle::open_count == 1);
     }
-    assert(closes == 1);
-    assert(Handle::open_count == 0);
+    LEARN_CHECK(closes == 1);
+    LEARN_CHECK(Handle::open_count == 0);
 
     // Array form with default_delete is the common non-scalar case.
     std::unique_ptr<int[]> arr(new int[3]{1, 2, 3});
-    assert(arr[2] == 3);
+    LEARN_CHECK(arr[2] == 3);
 }
 
 int run(int argc, char** argv) {

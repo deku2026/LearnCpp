@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <scoped_allocator>
 #include <vector>
@@ -24,18 +23,18 @@ void demo_intermediate() {
     std::allocator<int> a;
     std::vector<int> v(a);
     v.push_back(1);
-    assert(v[0] == 1);
+    LEARN_CHECK(v[0] == 1);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_make_obj_using_allocator)
     std::allocator<int> a;
     auto v = std::make_obj_using_allocator<std::vector<int>>(a, 3, 7);
-    assert(v.size() == 3);
-    assert(v[0] == 7);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v[0] == 7);
 #else
     std::vector<int> v(3, 7);
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
 #endif
 }
 

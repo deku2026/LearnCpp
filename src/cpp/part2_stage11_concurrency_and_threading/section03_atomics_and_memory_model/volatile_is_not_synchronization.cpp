@@ -10,16 +10,15 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
 
 void demo_basics() {
     volatile int v = 1;
-    assert(v == 1);
+    LEARN_CHECK(v == 1);
     std::atomic<int> a{1};
-    assert(a.load() == 1);
+    LEARN_CHECK(a.load() == 1);
 }
 
 void demo_intermediate() {
@@ -31,7 +30,7 @@ void demo_intermediate() {
     });
     while (flag.load(std::memory_order_acquire) == 0) {
     }
-    assert(data == 5);
+    LEARN_CHECK(data == 5);
     t.join();
 }
 
@@ -45,7 +44,7 @@ void demo_expert() {
     });
     stop.store(true, std::memory_order_release);
     worker.join();
-    assert(ticks.load() >= 0);
+    LEARN_CHECK(ticks.load() >= 0);
 }
 
 int run(int argc, char** argv) {

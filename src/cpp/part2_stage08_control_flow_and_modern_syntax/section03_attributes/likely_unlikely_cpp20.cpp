@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int classify(int x) {
@@ -31,14 +29,14 @@ int clamp_nonneg(int x) {
 }
 
 void demo_basics() {
-    assert(classify(5) == 1);
-    assert(classify(-2) == -1);
-    assert(classify(0) == 0);
+    LEARN_CHECK(classify(5) == 1);
+    LEARN_CHECK(classify(-2) == -1);
+    LEARN_CHECK(classify(0) == 0);
 }
 
 void demo_intermediate() {
-    assert(clamp_nonneg(3) == 3);
-    assert(clamp_nonneg(-1) == 0);
+    LEARN_CHECK(clamp_nonneg(3) == 3);
+    LEARN_CHECK(clamp_nonneg(-1) == 0);
 }
 
 void demo_expert() {
@@ -51,7 +49,7 @@ void demo_expert() {
             sum += 1;
         }
     }
-    assert(sum == 99 + 1000);
+    LEARN_CHECK(sum == 99 + 1000);
 }
 
 int run(int argc, char** argv) {

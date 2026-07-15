@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Factory {
@@ -27,16 +25,16 @@ int use(const F& f) {
 
 void demo_basics() {
     Factory f;
-    assert(f.make<int>(3) == 3);
+    LEARN_CHECK(f.make<int>(3) == 3);
 }
 
 void demo_intermediate() {
-    assert(use(Factory{}) == 42);
+    LEARN_CHECK(use(Factory{}) == 42);
 }
 
 void demo_expert() {
     // Without .template, parse may treat make as non-template and < as less-than.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

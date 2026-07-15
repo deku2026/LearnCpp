@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <utility>
 
@@ -144,9 +143,9 @@ Resumable voidy(int* p) {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto t = answer();
-    assert(t.get() == 42);
+    LEARN_CHECK(t.get() == 42);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -155,9 +154,9 @@ void demo_intermediate() {
     int n = 0;
     auto r = voidy(&n);
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -165,10 +164,10 @@ void demo_expert() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     // co_return x => return_value; bare co_return => return_void.
     auto t = answer();
-    assert(t.h.done());
-    assert(t.get() == 42);
+    LEARN_CHECK(t.h.done());
+    LEARN_CHECK(t.get() == 42);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

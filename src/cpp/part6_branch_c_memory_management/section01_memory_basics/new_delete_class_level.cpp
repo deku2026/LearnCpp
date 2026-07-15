@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdlib>
 #include <new>
 
@@ -35,22 +34,22 @@ int Tracked::deletes = 0;
 void demo_basics() {
     Tracked::news = Tracked::deletes = 0;
     Tracked* p = new Tracked(1);
-    assert(p->v == 1);
+    LEARN_CHECK(p->v == 1);
     delete p;
-    assert(Tracked::news == 1);
-    assert(Tracked::deletes == 1);
+    LEARN_CHECK(Tracked::news == 1);
+    LEARN_CHECK(Tracked::deletes == 1);
 }
 
 void demo_intermediate() {
     Tracked stack{2};  // does not call operator new
-    assert(stack.v == 2);
+    LEARN_CHECK(stack.v == 2);
 }
 
 void demo_expert() {
     Tracked::news = Tracked::deletes = 0;
     Tracked* p = new Tracked(3);
     delete p;
-    assert(Tracked::news == Tracked::deletes);
+    LEARN_CHECK(Tracked::news == Tracked::deletes);
 }
 
 int run(int argc, char** argv) {

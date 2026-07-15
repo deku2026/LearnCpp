@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <variant>
@@ -31,14 +30,14 @@ Result divide(int a, int b) {
 
 void demo_basics() {
     auto r = divide(10, 2);
-    assert(std::holds_alternative<int>(r));
-    assert(std::get<int>(r) == 5);
+    LEARN_CHECK(std::holds_alternative<int>(r));
+    LEARN_CHECK(std::get<int>(r) == 5);
 }
 
 void demo_intermediate() {
     auto r = divide(1, 0);
-    assert(std::holds_alternative<Error>(r));
-    assert(std::get<Error>(r).msg == "div0");
+    LEARN_CHECK(std::holds_alternative<Error>(r));
+    LEARN_CHECK(std::get<Error>(r).msg == "div0");
 }
 
 void demo_expert() {
@@ -53,7 +52,7 @@ void demo_expert() {
             }
         },
         r);
-    assert(value == 3);
+    LEARN_CHECK(value == 3);
 }
 
 int run(int argc, char** argv) {

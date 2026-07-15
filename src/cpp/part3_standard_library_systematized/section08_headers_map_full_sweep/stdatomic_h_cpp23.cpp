@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <version>
 
 namespace {
@@ -18,21 +17,21 @@ namespace {
 void demo_basics() {
     std::atomic<int> x{0};
     x.store(1);
-    assert(x.load() == 1);
+    LEARN_CHECK(x.load() == 1);
 }
 
 void demo_intermediate() {
     // C++ code should prefer <atomic>; <stdatomic.h> is C interop (C++23)
 #if defined(__cpp_lib_stdatomic_h) && __cpp_lib_stdatomic_h >= 202011L
-    assert(__cpp_lib_stdatomic_h >= 202011L);
+    LEARN_CHECK(__cpp_lib_stdatomic_h >= 202011L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
-    assert(!flag.test_and_set());
+    LEARN_CHECK(!flag.test_and_set());
     flag.clear();
 }
 

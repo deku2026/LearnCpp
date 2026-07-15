@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 #include <version>
@@ -20,11 +19,11 @@ void demo_basics() {
     std::optional<int> o = 21;
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     auto r = o.transform([](int x) { return x * 2; });
-    assert(r.has_value());
-    assert(*r == 42);
+    LEARN_CHECK(r.has_value());
+    LEARN_CHECK(*r == 42);
 #else
     auto r = o.has_value() ? std::optional<int>{*o * 2} : std::nullopt;
-    assert(r && *r == 42);
+    LEARN_CHECK(r && *r == 42);
 #endif
 }
 
@@ -37,9 +36,9 @@ void demo_intermediate() {
         }
         return std::nullopt;
     });
-    assert(r.value() == 6);
+    LEARN_CHECK(r.value() == 6);
 #else
-    assert(o.value() + 1 == 6);
+    LEARN_CHECK(o.value() + 1 == 6);
 #endif
 }
 
@@ -47,11 +46,11 @@ void demo_expert() {
     std::optional<int> empty;
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     auto r = empty.or_else([] { return std::optional<int>{99}; });
-    assert(*r == 99);
+    LEARN_CHECK(*r == 99);
     auto t = empty.transform([](int x) { return x; });
-    assert(!t);
+    LEARN_CHECK(!t);
 #else
-    assert(empty.value_or(99) == 99);
+    LEARN_CHECK(empty.value_or(99) == 99);
 #endif
     (void)std::string{"ok"};
 }

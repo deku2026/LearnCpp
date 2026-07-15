@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Persistent mode harness around parse API
     auto ok = [](std::string_view in) { return !in.empty(); };
-    assert(ok("a"));
+    LEARN_CHECK(ok("a"));
 }
 
 void demo_intermediate() {
     // Instrumentation via afl-clang-fast
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Combine with ASan builds
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

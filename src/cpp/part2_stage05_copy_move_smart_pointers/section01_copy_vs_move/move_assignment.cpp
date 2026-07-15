@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <string>
 #include <utility>
@@ -59,9 +58,9 @@ void demo_basics() {
     std::string a = "source";
     std::string b = "target";
     b = std::move(a);
-    assert(b == "source");
+    LEARN_CHECK(b == "source");
     a = "ok";
-    assert(a == "ok");
+    LEARN_CHECK(a == "ok");
 }
 
 void demo_intermediate() {
@@ -69,26 +68,26 @@ void demo_intermediate() {
     Buffer b(1);
     const int* stolen = a.data();
     b = std::move(a);
-    assert(b.size() == 4);
-    assert(b.data() == stolen);
-    assert(b.at(0) == 10);
-    assert(a.empty());
-    assert(a.data() == nullptr);
+    LEARN_CHECK(b.size() == 4);
+    LEARN_CHECK(b.data() == stolen);
+    LEARN_CHECK(b.at(0) == 10);
+    LEARN_CHECK(a.empty());
+    LEARN_CHECK(a.data() == nullptr);
 }
 
 void demo_expert() {
     Buffer a(3);
     Buffer* p = &a;
     a = std::move(*p);  // self-move: remains valid
-    assert(a.size() == 3 || a.empty());
+    LEARN_CHECK(a.size() == 3 || a.empty());
 
     std::vector<int> v1{1, 2, 3, 4};
     std::vector<int> v2{9};
     v2 = std::move(v1);
-    assert(v2.size() == 4);
-    assert(v2[3] == 4);
+    LEARN_CHECK(v2.size() == 4);
+    LEARN_CHECK(v2[3] == 4);
     v1 = std::vector<int>{5};
-    assert(v1.size() == 1);
+    LEARN_CHECK(v1.size() == 1);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <new>
 
@@ -18,7 +17,7 @@ namespace {
 void demo_basics() {
     alignas(int) unsigned char storage[sizeof(int)];
     int* p = new (storage) int{5};
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     std::destroy_at(p);
 }
 
@@ -27,13 +26,13 @@ void demo_intermediate() {
     int* p = new (storage) int{1};
     std::destroy_at(p);
     p = new (storage) int{2};
-    assert(*std::launder(p) == 2);
+    LEARN_CHECK(*std::launder(p) == 2);
     std::destroy_at(p);
 }
 
 void demo_expert() {
     // launder is rarely needed with ordinary unique_ptr/vector usage
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

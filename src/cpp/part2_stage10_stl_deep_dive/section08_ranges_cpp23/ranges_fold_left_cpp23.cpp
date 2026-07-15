@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <functional>
 #include <numeric>
 #include <ranges>
@@ -22,33 +21,33 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::ranges::fold_left(v, 0, std::plus<>{}) == 10);
+    LEARN_CHECK(std::ranges::fold_left(v, 0, std::plus<>{}) == 10);
 #else
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::accumulate(v.begin(), v.end(), 0) == 10);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 0) == 10);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::ranges::fold_left(v, 1, std::multiplies<>{}) == 24);
+    LEARN_CHECK(std::ranges::fold_left(v, 1, std::multiplies<>{}) == 24);
 #else
     std::vector<int> v{1, 2, 3, 4};
-    assert(std::accumulate(v.begin(), v.end(), 1, std::multiplies<>{}) == 24);
+    LEARN_CHECK(std::accumulate(v.begin(), v.end(), 1, std::multiplies<>{}) == 24);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
     auto r = std::views::iota(1, 5);
-    assert(std::ranges::fold_left(r, 0, std::plus<>{}) == 10);
+    LEARN_CHECK(std::ranges::fold_left(r, 0, std::plus<>{}) == 10);
 #else
     int s = 0;
     for (int x : std::views::iota(1, 5)) {
         s += x;
     }
-    assert(s == 10);
+    LEARN_CHECK(s == 10);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -17,17 +16,17 @@ namespace {
 
 void demo_basics() {
     // CHECK(1+1 == 2); fast compile times
-    assert(1 + 1 == 2);
+    LEARN_CHECK(1 + 1 == 2);
 }
 
 void demo_intermediate() {
     // Similar to Catch2, smaller
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Good for embedded/header-heavy codebases
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -18,12 +17,12 @@ void demo_basics() {
     std::allocator<int> a;
 #if defined(__cpp_lib_allocate_at_least) && __cpp_lib_allocate_at_least >= 202302L
     auto r = std::allocator_traits<std::allocator<int>>::allocate_at_least(a, 4);
-    assert(r.count >= 4);
-    assert(r.ptr != nullptr);
+    LEARN_CHECK(r.count >= 4);
+    LEARN_CHECK(r.ptr != nullptr);
     std::allocator_traits<std::allocator<int>>::deallocate(a, r.ptr, r.count);
 #else
     int* p = a.allocate(4);
-    assert(p != nullptr);
+    LEARN_CHECK(p != nullptr);
     a.deallocate(p, 4);
 #endif
 }
@@ -32,16 +31,16 @@ void demo_intermediate() {
 #if defined(__cpp_lib_allocate_at_least) && __cpp_lib_allocate_at_least >= 202302L
     std::allocator<char> a;
     auto r = std::allocator_traits<std::allocator<char>>::allocate_at_least(a, 1);
-    assert(r.count >= 1);
+    LEARN_CHECK(r.count >= 1);
     std::allocator_traits<std::allocator<char>>::deallocate(a, r.ptr, r.count);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
     // Containers may over-allocate capacity using allocate_at_least.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -30,11 +29,11 @@ inline int use_registry() {
 
 void demo_basics() {
     // Function-local static: initialized on first control pass (C++11 thread-safe).
-    assert(tu_a::registry() == "ok");
+    LEARN_CHECK(tu_a::registry() == "ok");
 }
 
 void demo_intermediate() {
-    assert(tu_b::use_registry() == 2);
+    LEARN_CHECK(tu_b::use_registry() == 2);
 }
 
 void demo_expert() {
@@ -42,7 +41,7 @@ void demo_expert() {
     // Prefer Meyers singleton / function-local static or constexpr data.
     static int a = 1;
     static int b = a + 1;  // same TU: ordered
-    assert(b == 2);
+    LEARN_CHECK(b == 2);
 }
 
 int run(int argc, char** argv) {

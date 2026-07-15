@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -23,20 +22,20 @@ void demo_basics() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     // Format string is checked against argument types (consteval in C++20/23)
     const auto s = std::format("{} {}", 1, "two");
-    assert(s == "1 two");
+    LEARN_CHECK(s == "1 two");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     const auto s = std::format("{:04d}", 42);
-    assert(s == "0042");
+    LEARN_CHECK(s == "0042");
     const auto h = std::format("{:x}", 255);
-    assert(h == "ff");
+    LEARN_CHECK(h == "ff");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -44,9 +43,9 @@ void demo_expert() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     // compile-time checked format string; prefer std::format over vformat/make_format_args
     const auto s = std::format("{}-{}", 1, 2);
-    assert(s == "1-2");
+    LEARN_CHECK(s == "1-2");
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

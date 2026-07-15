@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -21,12 +20,12 @@ void demo_basics() {
     {
         std::atomic_ref<int> ar(x);
         ar.store(10);
-        assert(ar.load() == 10);
+        LEARN_CHECK(ar.load() == 10);
     }
-    assert(x == 10);
+    LEARN_CHECK(x == 10);
 #else
     int x = 10;
-    assert(x == 10);
+    LEARN_CHECK(x == 10);
 #endif
 }
 
@@ -43,7 +42,7 @@ void demo_intermediate() {
     std::thread t2(bump);
     t1.join();
     t2.join();
-    assert(counter == 1000);
+    LEARN_CHECK(counter == 1000);
 #else
     std::atomic<int> counter{0};
     auto bump = [&] {
@@ -55,7 +54,7 @@ void demo_intermediate() {
     std::thread t2(bump);
     t1.join();
     t2.join();
-    assert(counter.load() == 1000);
+    LEARN_CHECK(counter.load() == 1000);
 #endif
 }
 
@@ -65,14 +64,14 @@ void demo_expert() {
     std::atomic_ref<int> ar(x);
     int expected = 1;
     bool ok = ar.compare_exchange_strong(expected, 9);
-    assert(ok);
-    assert(x == 9);
+    LEARN_CHECK(ok);
+    LEARN_CHECK(x == 9);
 #else
     std::atomic<int> x{1};
     int expected = 1;
     bool ok = x.compare_exchange_strong(expected, 9);
-    assert(ok);
-    assert(x.load() == 9);
+    LEARN_CHECK(ok);
+    LEARN_CHECK(x.load() == 9);
 #endif
 }
 

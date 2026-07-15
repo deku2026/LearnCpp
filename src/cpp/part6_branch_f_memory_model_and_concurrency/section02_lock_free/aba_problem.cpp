@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 
 namespace {
 
@@ -34,23 +33,27 @@ void demo_basics() {
     // ABA: read A, another thread A->B->A, CAS still succeeds though state changed.
     std::atomic<int> x{1};
     int expected = 1;
-    assert(x.compare_exchange_strong(expected, 2));
-    assert(x.load() == 2);
+    LEARN_CHECK(x.compare_exchange_strong(expected, 2));
+    LEARN_CHECK(x.load() == 2);
 }
 
 void demo_intermediate() {
     Versioned v;
     v.value.store(1);
     v.version.store(0);
-    assert(v.value.load() == 1);
+    LEARN_CHECK(v.value.load() == 1);
+    LEARN_CHECK(cas_versioned(v, 1, 2, 0));
+    LEARN_CHECK(v.value.load() == 2);
+    LEARN_CHECK(v.version.load() == 1);
+    LEARN_CHECK(!cas_versioned(v, 2, 3, 0));  // stale version
 }
 
 void demo_expert() {
     // Tagged pointers / version counters help detect ABA; full lock-free stacks need care.
     std::atomic<int> tag{0};
     int t = tag.fetch_add(1);
-    assert(t == 0);
-    assert(tag.load() == 1);
+    LEARN_CHECK(t == 0);
+    LEARN_CHECK(tag.load() == 1);
 }
 
 int run(int argc, char** argv) {

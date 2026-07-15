@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <vector>
 #include <version>
@@ -23,22 +22,22 @@ namespace {
 void demo_basics() {
     // Nested vector: flexible but non-contiguous rows, double indirection
     std::vector<std::vector<int>> nested{{1, 2}, {3, 4}};
-    assert(nested[1][0] == 3);
+    LEARN_CHECK(nested[1][0] == 3);
     // Flat buffer + manual index: contiguous but error-prone
     std::vector<int> flat{1, 2, 3, 4};
     auto at = [&](int i, int j) -> int& { return flat[static_cast<std::size_t>(i * 2 + j)]; };
-    assert(at(1, 0) == 3);
+    LEARN_CHECK(at(1, 0) == 3);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     std::vector<int> flat{1, 2, 3, 4, 5, 6};
     std::mdspan m{flat.data(), std::extents<std::size_t, 2, 3>{}};
-    assert((m[1, 2] == 6));
+    LEARN_CHECK((m[1, 2] == 6));
     // mdspan: zero-copy view, multi-index, layout policy — no ownership
 #else
     std::vector<int> flat{1, 2, 3, 4, 5, 6};
-    assert(flat[5] == 6);
+    LEARN_CHECK(flat[5] == 6);
 #endif
 }
 
@@ -48,10 +47,10 @@ void demo_expert() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     std::mdspan<int, std::dextents<std::size_t, 2>> m{buf.data(), 3, 4};
     m[2, 3] = 99;
-    assert(buf[11] == 99);
+    LEARN_CHECK(buf[11] == 99);
 #else
     buf[11] = 99;
-    assert(buf[11] == 99);
+    LEARN_CHECK(buf[11] == 99);
 #endif
 }
 

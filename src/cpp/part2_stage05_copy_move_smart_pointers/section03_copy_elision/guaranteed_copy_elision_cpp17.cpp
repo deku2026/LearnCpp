@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -30,16 +29,16 @@ Immobile make_immobile() {
 
 void demo_basics() {
     Immobile x = make_immobile();  // guaranteed elision: no move/copy needed
-    assert(x.value == 123);
+    LEARN_CHECK(x.value == 123);
 }
 
 void demo_intermediate() {
     Immobile y = Immobile{7};  // prvalue initialization of same type
-    assert(y.value == 7);
+    LEARN_CHECK(y.value == 7);
 
     auto factory = [] { return Immobile{9}; };
     Immobile z = factory();
-    assert(z.value == 9);
+    LEARN_CHECK(z.value == 9);
 }
 
 void demo_expert() {
@@ -49,7 +48,7 @@ void demo_expert() {
     // Nested prvalue still elided into the final object.
     auto outer = []() -> Immobile { return Immobile{make_immobile().value + 1}; };
     Immobile w = outer();
-    assert(w.value == 124);
+    LEARN_CHECK(w.value == 124);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -30,13 +29,13 @@ void demo_basics() {
     static_assert(sizeof(Derived) == sizeof(int));
     Derived d;
     d.x = 7;
-    assert(d.x == 7);
+    LEARN_CHECK(d.x == 7);
 }
 
 void demo_intermediate() {
     // Empty member (without no_unique_address) usually costs at least 1 + padding.
     static_assert(sizeof(NotEmpty) > sizeof(int));
-    assert(sizeof(Derived) < sizeof(NotEmpty));
+    LEARN_CHECK(sizeof(Derived) < sizeof(NotEmpty));
 }
 
 void demo_expert() {

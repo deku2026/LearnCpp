@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <compare>
 #include <string>
 
@@ -31,25 +30,25 @@ struct Rank {
 void demo_basics() {
     Version a{1, 2, 0};
     Version b{1, 3, 0};
-    assert(a < b);
-    assert(!(a == b));
-    assert(a != b);
-    assert(b >= a);
+    LEARN_CHECK(a < b);
+    LEARN_CHECK(!(a == b));
+    LEARN_CHECK(a != b);
+    LEARN_CHECK(b >= a);
 }
 
 void demo_intermediate() {
-    assert((4 <=> 5) < 0);
-    assert((5 <=> 5) == 0);
-    assert((6 <=> 5) > 0);
+    LEARN_CHECK((4 <=> 5) < 0);
+    LEARN_CHECK((5 <=> 5) == 0);
+    LEARN_CHECK((6 <=> 5) > 0);
 }
 
 void demo_expert() {
     Rank a{10};
     Rank b{20};
-    assert(a < b);
-    assert(a != b);
+    LEARN_CHECK(a < b);
+    LEARN_CHECK(a != b);
     // Hand-written <=> does not synthesize ==; we provided == separately.
-    assert((a <=> b) == std::strong_ordering::less);
+    LEARN_CHECK((a <=> b) == std::strong_ordering::less);
 }
 
 int run(int argc, char** argv) {

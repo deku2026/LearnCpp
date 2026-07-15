@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Printer {
@@ -29,21 +27,21 @@ struct Printer {
 void demo_basics() {
     Printer p;
     p.value = 5;
-    assert(p.id() == 5);
+    LEARN_CHECK(p.id() == 5);
 }
 
 void demo_intermediate() {
     const Printer p{7};
 #if defined(__cpp_explicit_this_parameter) && __cpp_explicit_this_parameter >= 202110L
-    assert(p.id() == 7);
+    LEARN_CHECK(p.id() == 7);
 #else
-    assert(p.id() == 7);
+    LEARN_CHECK(p.id() == 7);
 #endif
 }
 
 void demo_expert() {
     // deducing this can replace many CRTP mixins with a single member template.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

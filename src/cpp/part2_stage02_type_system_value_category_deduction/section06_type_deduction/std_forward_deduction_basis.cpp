@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -40,10 +39,10 @@ void demo_basics() {
     std::string s = "x";
     const std::string cs = "y";
 
-    assert(forward_to_take(s) == 1);
-    assert(forward_to_take(cs) == 2);
-    assert(forward_to_take(std::string{"z"}) == 3);
-    assert(forward_to_take(std::move(s)) == 3);
+    LEARN_CHECK(forward_to_take(s) == 1);
+    LEARN_CHECK(forward_to_take(cs) == 2);
+    LEARN_CHECK(forward_to_take(std::string{"z"}) == 3);
+    LEARN_CHECK(forward_to_take(std::move(s)) == 3);
 }
 
 void demo_intermediate() {
@@ -52,21 +51,21 @@ void demo_intermediate() {
     decltype(auto) b = forward_identity(5);
     static_assert(std::is_same_v<decltype(a), int&>);
     static_assert(std::is_same_v<decltype(b), int&&>);
-    assert(a == 5);
-    assert(b == 5);
+    LEARN_CHECK(a == 5);
+    LEARN_CHECK(b == 5);
 
     // Without forward, named parameter is always an lvalue (even if T deduced as string).
     auto broken = [](auto&& arg) { return take(arg); };
     // prvalue string binds as string&& param type, but name `arg` is lvalue => take(string&)
-    assert(broken(std::string{"t"}) == 1);
+    LEARN_CHECK(broken(std::string{"t"}) == 1);
 }
 
 void demo_expert() {
     // Multi-hop factory
     auto emplace_like = [](auto&& x) { return forward_to_take(std::forward<decltype(x)>(x)); };
     std::string local = "L";
-    assert(emplace_like(local) == 1);
-    assert(emplace_like(std::move(local)) == 3);
+    LEARN_CHECK(emplace_like(local) == 1);
+    LEARN_CHECK(emplace_like(std::move(local)) == 3);
 
     // Type relationship of forward
     using T = int&;
@@ -79,10 +78,10 @@ void demo_expert() {
     // Forwarding into constructor (template at namespace scope below via free function)
     std::string src = "box";
     std::string b1 = std::forward<std::string&>(src);
-    assert(b1 == "box");
-    assert(src == "box");
+    LEARN_CHECK(b1 == "box");
+    LEARN_CHECK(src == "box");
     std::string b2 = std::forward<std::string>(std::move(src));
-    assert(b2 == "box");
+    LEARN_CHECK(b2 == "box");
 }
 
 int run(int argc, char** argv) {

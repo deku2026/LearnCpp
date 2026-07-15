@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory_resource>
 #include <vector>
 
@@ -19,7 +18,7 @@ void demo_basics() {
     std::pmr::monotonic_buffer_resource mr;
     std::pmr::vector<int> v{&mr};
     v.push_back(1);
-    assert(v[0] == 1);
+    LEARN_CHECK(v[0] == 1);
 }
 
 void demo_intermediate() {
@@ -27,13 +26,13 @@ void demo_intermediate() {
     std::pmr::monotonic_buffer_resource mr(buf, sizeof(buf));
     std::pmr::vector<int> v{&mr};
     for (int i = 0; i < 10; ++i) v.push_back(i);
-    assert(v.size() == 10);
+    LEARN_CHECK(v.size() == 10);
 }
 
 void demo_expert() {
     auto* up = std::pmr::new_delete_resource();
     void* p = up->allocate(16, alignof(std::max_align_t));
-    assert(p != nullptr);
+    LEARN_CHECK(p != nullptr);
     up->deallocate(p, 16, alignof(std::max_align_t));
 }
 

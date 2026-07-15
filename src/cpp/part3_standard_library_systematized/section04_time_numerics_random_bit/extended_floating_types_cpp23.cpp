@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <limits>
 #include <version>
@@ -20,13 +19,13 @@ void demo_basics() {
     float f = 1.5f;
     double d = 1.5;
     long double ld = 1.5L;
-    assert(f == 1.5f);
-    assert(d == 1.5);
-    assert(ld == 1.5L);
+    LEARN_CHECK(f == 1.5f);
+    LEARN_CHECK(d == 1.5);
+    LEARN_CHECK(ld == 1.5L);
 }
 
 void demo_intermediate() {
-    assert(std::numeric_limits<float>::max_exponent >= std::numeric_limits<float>::min_exponent);
+    LEARN_CHECK(std::numeric_limits<float>::max_exponent >= std::numeric_limits<float>::min_exponent);
 #if defined(__STDCPP_FLOAT16_T__)
     std::float16_t h = 1.0f16;
     (void)h;
@@ -35,7 +34,7 @@ void demo_intermediate() {
 
 void demo_expert() {
     // Prefer feature macros before relying on std::float16_t / std::bfloat16_t
-    assert(std::isfinite(1.0));
+    LEARN_CHECK(std::isfinite(1.0));
 }
 
 int run(int argc, char** argv) {

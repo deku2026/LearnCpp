@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -52,18 +51,18 @@ void demo_basics() {
     Point c;
     c.x = 0;
     c.y = 0;
-    assert(a == b);
-    assert(a != c);
+    LEARN_CHECK(a == b);
+    LEARN_CHECK(a != c);
 }
 
 void demo_intermediate() {
-    assert(Counted<Point>::live >= 0);
+    LEARN_CHECK(Counted<Point>::live >= 0);
     {
         Point p;
-        assert(Counted<Point>::live >= 1);
+        LEARN_CHECK(Counted<Point>::live >= 1);
     }
     // After scope, live decreases.
-    assert(Counted<Point>::live >= 0);
+    LEARN_CHECK(Counted<Point>::live >= 0);
 }
 
 void demo_expert() {
@@ -73,8 +72,8 @@ void demo_expert() {
     n2.name = "a";
     Named n3;
     n3.name = "b";
-    assert(n1 == n2);
-    assert(n1 != n3);
+    LEARN_CHECK(n1 == n2);
+    LEARN_CHECK(n1 != n3);
 }
 
 int run(int argc, char** argv) {

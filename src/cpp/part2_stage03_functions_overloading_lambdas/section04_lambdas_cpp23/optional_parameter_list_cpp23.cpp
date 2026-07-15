@@ -9,17 +9,15 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 void demo_basics() {
     auto a = [] { return 1; };
-    assert(a() == 1);
+    LEARN_CHECK(a() == 1);
 
     // Pre-C++23 style with empty parameter list still valid.
     auto b = []() { return 2; };
-    assert(b() == 2);
+    LEARN_CHECK(b() == 2);
 }
 
 void demo_intermediate() {
@@ -27,15 +25,15 @@ void demo_intermediate() {
     // P1102: empty () optional even with specifiers.
     int n = 0;
     auto c = [n] mutable { return ++n; };
-    assert(c() == 1);
-    assert(c() == 2);
+    LEARN_CHECK(c() == 1);
+    LEARN_CHECK(c() == 2);
 
     auto d = [] constexpr { return 7; };
     static_assert(d() == 7);
 #else
     int n = 0;
     auto c = [n]() mutable { return ++n; };
-    assert(c() == 1);
+    LEARN_CHECK(c() == 1);
     auto d = []() constexpr { return 7; };
     static_assert(d() == 7);
 #endif
@@ -44,14 +42,14 @@ void demo_intermediate() {
 void demo_expert() {
 #if defined(__cplusplus) && __cplusplus >= 202302L
     auto e = [] noexcept { return 3; };
-    assert(e() == 3);
+    LEARN_CHECK(e() == 3);
 #else
     auto e = []() noexcept { return 3; };
-    assert(e() == 3);
+    LEARN_CHECK(e() == 3);
 #endif
     // With parameters, () is still required.
     auto f = [](int x) { return x + 1; };
-    assert(f(4) == 5);
+    LEARN_CHECK(f(4) == 5);
 }
 
 int run(int argc, char** argv) {

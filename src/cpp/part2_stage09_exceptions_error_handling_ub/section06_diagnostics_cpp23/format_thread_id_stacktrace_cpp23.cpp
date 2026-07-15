@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -32,16 +31,16 @@ std::string thread_tag() {
 
 void demo_basics() {
     auto id = thread_tag();
-    assert(!id.empty());
+    LEARN_CHECK(!id.empty());
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
     auto s = std::format("tid={}", thread_tag());
-    assert(s.find("tid=") == 0);
+    LEARN_CHECK(s.find("tid=") == 0);
 #else
     auto s = std::string{"tid="} + thread_tag();
-    assert(s.find("tid=") == 0);
+    LEARN_CHECK(s.find("tid=") == 0);
 #endif
 }
 
@@ -49,10 +48,10 @@ void demo_expert() {
 #if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
     auto st = std::stacktrace::current();
     auto msg = thread_tag() + " frames=" + std::to_string(st.size());
-    assert(msg.find("frames=") != std::string::npos);
+    LEARN_CHECK(msg.find("frames=") != std::string::npos);
 #else
     auto msg = thread_tag() + " frames=n/a";
-    assert(msg.find("frames=") != std::string::npos);
+    LEARN_CHECK(msg.find("frames=") != std::string::npos);
 #endif
 }
 

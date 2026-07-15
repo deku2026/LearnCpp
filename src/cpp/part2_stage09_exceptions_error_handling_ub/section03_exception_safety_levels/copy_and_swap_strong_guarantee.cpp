@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -40,27 +39,29 @@ void demo_basics() {
     Buffer a("hello");
     Buffer b("world");
     a = b;
-    assert(a.get() == "world");
-    assert(b.get() == "world");
+    LEARN_CHECK(a.get() == "world");
+    LEARN_CHECK(b.get() == "world");
 }
 
 void demo_intermediate() {
     Buffer a("old");
     Buffer b("new");
     a = std::move(b);
-    assert(a.get() == "new");
+    LEARN_CHECK(a.get() == "new");
 }
 
 void demo_expert() {
     Buffer a("x");
-    a = a;  // self-assignment safe with copy-and-swap
-    assert(a.get() == "x");
+    // Indirection so -Wself-assign-overloaded cannot see a = a.
+    Buffer* p = &a;
+    a = *p;  // self-assignment safe with copy-and-swap
+    LEARN_CHECK(a.get() == "x");
 
     Buffer c("left");
     Buffer d("right");
     c.swap(d);
-    assert(c.get() == "right");
-    assert(d.get() == "left");
+    LEARN_CHECK(c.get() == "right");
+    LEARN_CHECK(d.get() == "left");
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <string>
 #include <string_view>
@@ -20,12 +19,12 @@ namespace {
 void demo_basics() {
     std::map<std::string, int, std::less<>> m{{"a", 1}, {"b", 2}};
 #if defined(__cpp_lib_associative_heterogeneous_erasure)
-    assert(m.erase(std::string_view{"a"}) == 1);
+    LEARN_CHECK(m.erase(std::string_view{"a"}) == 1);
 #else
-    assert(m.erase(std::string{"a"}) == 1);
+    LEARN_CHECK(m.erase(std::string{"a"}) == 1);
 #endif
-    assert(!m.contains("a"));
-    assert(m.contains("b"));
+    LEARN_CHECK(!m.contains("a"));
+    LEARN_CHECK(m.contains("b"));
 }
 
 void demo_intermediate() {
@@ -35,26 +34,26 @@ void demo_intermediate() {
 #else
     auto nh = m.extract(std::string{"x"});
 #endif
-    assert(nh);
-    assert(nh.key() == "x");
-    assert(nh.mapped() == 10);
-    assert(m.size() == 1);
+    LEARN_CHECK(nh);
+    LEARN_CHECK(nh.key() == "x");
+    LEARN_CHECK(nh.mapped() == 10);
+    LEARN_CHECK(m.size() == 1);
     nh.key() = "z";
     m.insert(std::move(nh));
-    assert(m.contains("z"));
+    LEARN_CHECK(m.contains("z"));
 }
 
 void demo_expert() {
     std::map<std::string, int, std::less<>> m{{"keep", 1}, {"drop", 2}};
 #if defined(__cpp_lib_associative_heterogeneous_erasure)
     const auto n = m.erase(std::string_view{"missing"});
-    assert(n == 0);
-    assert(m.erase("drop") == 1);
+    LEARN_CHECK(n == 0);
+    LEARN_CHECK(m.erase("drop") == 1);
 #else
-    assert(m.erase(std::string{"missing"}) == 0);
-    assert(m.erase(std::string{"drop"}) == 1);
+    LEARN_CHECK(m.erase(std::string{"missing"}) == 0);
+    LEARN_CHECK(m.erase(std::string{"drop"}) == 1);
 #endif
-    assert(m.size() == 1);
+    LEARN_CHECK(m.size() == 1);
 }
 
 }  // namespace

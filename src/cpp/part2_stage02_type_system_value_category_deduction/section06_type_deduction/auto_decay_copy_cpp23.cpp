@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -24,16 +23,16 @@ void demo_basics() {
     // Classic copy via auto variable
     auto copy = rx;
     static_assert(std::is_same_v<decltype(copy), int>);
-    assert(copy == 10);
+    LEARN_CHECK(copy == 10);
 
     // C++23 decay-copy expression when available
 #if defined(__cpp_auto_cast) && __cpp_auto_cast >= 202110L
     auto c2 = auto(rx);
     static_assert(std::is_same_v<decltype(c2), int>);
-    assert(c2 == 10);
+    LEARN_CHECK(c2 == 10);
 #else
     auto c2 = static_cast<std::decay_t<decltype(rx)>>(rx);
-    assert(c2 == 10);
+    LEARN_CHECK(c2 == 10);
 #endif
 }
 
@@ -44,22 +43,22 @@ void demo_intermediate() {
 #if defined(__cpp_auto_cast) && __cpp_auto_cast >= 202110L
     auto pr = auto(rs);  // decay-copy to std::string prvalue then materialize
     static_assert(std::is_same_v<decltype(pr), std::string>);
-    assert(pr == "hello");
+    LEARN_CHECK(pr == "hello");
     pr += "!";
-    assert(s == "hello");  // original unchanged
+    LEARN_CHECK(s == "hello");  // original unchanged
 #else
     auto pr = std::string(rs);
-    assert(pr == "hello");
+    LEARN_CHECK(pr == "hello");
     pr += "!";
-    assert(s == "hello");
+    LEARN_CHECK(s == "hello");
 #endif
 
     // Useful to pass a copy into APIs expecting values without naming a temporary.
     auto takes_value = [](std::string v) { return v.size(); };
 #if defined(__cpp_auto_cast) && __cpp_auto_cast >= 202110L
-    assert(takes_value(auto(s)) == 5);
+    LEARN_CHECK(takes_value(auto(s)) == 5);
 #else
-    assert(takes_value(std::string(s)) == 5);
+    LEARN_CHECK(takes_value(std::string(s)) == 5);
 #endif
 }
 
@@ -69,21 +68,21 @@ void demo_expert() {
 #if defined(__cpp_auto_cast) && __cpp_auto_cast >= 202110L
     auto p = auto(arr);
     static_assert(std::is_same_v<decltype(p), int*>);
-    assert(p[1] == 2);
+    LEARN_CHECK(p[1] == 2);
 #else
     auto p = +arr;  // force decay to pointer
     static_assert(std::is_same_v<decltype(p), int*>);
-    assert(p[1] == 2);
+    LEARN_CHECK(p[1] == 2);
 #endif
 
     const int n = 3;
 #if defined(__cpp_auto_cast) && __cpp_auto_cast >= 202110L
     auto m = auto{n};
     static_assert(std::is_same_v<decltype(m), int>);
-    assert(m == 3);
+    LEARN_CHECK(m == 3);
 #else
     auto m = int{n};
-    assert(m == 3);
+    LEARN_CHECK(m == 3);
 #endif
 
     // Contrast with decltype(auto) which would keep reference
@@ -91,7 +90,7 @@ void demo_expert() {
     int& r = x;
     decltype(auto) kept = r;
     static_assert(std::is_same_v<decltype(kept), int&>);
-    assert(&kept == &x);
+    LEARN_CHECK(&kept == &x);
 }
 
 int run(int argc, char** argv) {

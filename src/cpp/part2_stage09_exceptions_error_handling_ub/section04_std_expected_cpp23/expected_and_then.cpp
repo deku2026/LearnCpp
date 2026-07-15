@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -37,32 +36,32 @@ std::expected<int, std::string> times2(int x) {
 
 void demo_basics() {
     auto r = parse(21).and_then(times2);
-    assert(r.has_value());
-    assert(*r == 42);
+    LEARN_CHECK(r.has_value());
+    LEARN_CHECK(*r == 42);
 }
 
 void demo_intermediate() {
     auto r = parse(-1).and_then(times2);
-    assert(!r.has_value());
-    assert(r.error() == "neg");
+    LEARN_CHECK(!r.has_value());
+    LEARN_CHECK(r.error() == "neg");
 }
 
 void demo_expert() {
     auto r = parse(2000).and_then(times2);
-    assert(!r);
-    assert(r.error() == "big");
+    LEARN_CHECK(!r);
+    LEARN_CHECK(r.error() == "big");
 }
 
 #else
 
 void demo_basics() {
-    assert(21 * 2 == 42);
+    LEARN_CHECK(21 * 2 == 42);
 }
 void demo_intermediate() {
-    assert(std::string{"neg"} == "neg");
+    LEARN_CHECK(std::string{"neg"} == "neg");
 }
 void demo_expert() {
-    assert(std::string{"big"} == "big");
+    LEARN_CHECK(std::string{"big"} == "big");
 }
 
 #endif

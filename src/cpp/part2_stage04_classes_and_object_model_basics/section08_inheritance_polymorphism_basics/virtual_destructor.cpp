@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
@@ -38,26 +37,26 @@ void demo_basics() {
     {
         Derived d;
     }
-    assert(g_derived_dtor == 1);
-    assert(g_base_dtor == 1);
+    LEARN_CHECK(g_derived_dtor == 1);
+    LEARN_CHECK(g_base_dtor == 1);
 }
 
 void demo_intermediate() {
     g_base_dtor = g_derived_dtor = 0;
     {
         std::unique_ptr<Base> p = std::make_unique<Derived>();
-        assert(p != nullptr);
+        LEARN_CHECK(p != nullptr);
     }
-    assert(g_derived_dtor == 1);
-    assert(g_base_dtor == 1);
+    LEARN_CHECK(g_derived_dtor == 1);
+    LEARN_CHECK(g_base_dtor == 1);
 }
 
 void demo_expert() {
     g_base_dtor = g_derived_dtor = 0;
     Base* p = new Derived();
     delete p;  // safe: Base::~Base is virtual
-    assert(g_derived_dtor == 1);
-    assert(g_base_dtor == 1);
+    LEARN_CHECK(g_derived_dtor == 1);
+    LEARN_CHECK(g_base_dtor == 1);
 
     // Documented unsafe pattern (not executed):
     // BadBase* q = new DerivedAsBadBase(); delete q; // UB without virtual dtor

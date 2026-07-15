@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -18,28 +17,28 @@ namespace {
 
 void demo_basics() {
     std::pair<int, std::string> p{1, "a"};
-    assert(p.first == 1);
-    assert(p.second == "a");
+    LEARN_CHECK(p.first == 1);
+    LEARN_CHECK(p.second == "a");
     auto [x, y] = p;
-    assert(x == 1 && y == "a");
+    LEARN_CHECK(x == 1 && y == "a");
 }
 
 void demo_intermediate() {
     std::tuple<int, double, char> t{1, 2.5, 'z'};
-    assert(std::get<0>(t) == 1);
-    assert(std::get<double>(t) == 2.5);
+    LEARN_CHECK(std::get<0>(t) == 1);
+    LEARN_CHECK(std::get<double>(t) == 2.5);
     auto [a, b, c] = t;
-    assert(a == 1 && b == 2.5 && c == 'z');
+    LEARN_CHECK(a == 1 && b == 2.5 && c == 'z');
 }
 
 void demo_expert() {
     auto t1 = std::make_tuple(1, 2);
     auto t2 = std::tuple_cat(t1, std::make_tuple(3));
-    assert(std::get<2>(t2) == 3);
+    LEARN_CHECK(std::get<2>(t2) == 3);
     int x = 0;
     std::string s;
     std::tie(x, s) = std::make_pair(9, std::string{"ok"});
-    assert(x == 9 && s == "ok");
+    LEARN_CHECK(x == 9 && s == "ok");
 }
 
 }  // namespace

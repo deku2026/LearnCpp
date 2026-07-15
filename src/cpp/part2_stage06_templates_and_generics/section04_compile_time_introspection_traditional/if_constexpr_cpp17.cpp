@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -37,15 +36,15 @@ int safe_size(const T& x) {
 }
 
 void demo_basics() {
-    assert(describe(21) == 42);
-    assert(describe(std::string{"abcd"}) == 4);
-    assert(describe(3.14) == -1);
+    LEARN_CHECK(describe(21) == 42);
+    LEARN_CHECK(describe(std::string{"abcd"}) == 4);
+    LEARN_CHECK(describe(3.14) == -1);
 }
 
 void demo_intermediate() {
-    assert((safe_size(std::vector<int>{1, 2, 3}) == 3));
-    assert(safe_size(42) == 0);
-    assert(safe_size(std::string{"xy"}) == 2);
+    LEARN_CHECK((safe_size(std::vector<int>{1, 2, 3}) == 3));
+    LEARN_CHECK(safe_size(42) == 0);
+    LEARN_CHECK(safe_size(std::string{"xy"}) == 2);
 }
 
 void demo_expert() {
@@ -60,8 +59,8 @@ void demo_expert() {
         }
     };
     int x = 0;
-    assert(print_type_kind(x) == 0);
-    assert(print_type_kind(&x) == 1);
+    LEARN_CHECK(print_type_kind(x) == 0);
+    LEARN_CHECK(print_type_kind(&x) == 1);
 }
 
 int run(int argc, char** argv) {

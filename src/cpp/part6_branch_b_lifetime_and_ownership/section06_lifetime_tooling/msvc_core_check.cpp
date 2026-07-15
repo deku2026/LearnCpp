@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <vector>
 
@@ -20,19 +19,19 @@ void demo_basics() {
     for (std::size_t i = 0; i < v.size(); ++i) {
         v[i] = static_cast<int>(i);
     }
-    assert(v[2] == 2);
+    LEARN_CHECK(v[2] == 2);
 }
 
 void demo_intermediate() {
     auto p = std::make_unique<int[]>(4);
     p[0] = 1;
-    assert(p[0] == 1);
+    LEARN_CHECK(p[0] == 1);
 }
 
 void demo_expert() {
     // Prefer at() or gsl::at in audited code paths.
     std::vector<int> v{9};
-    assert(v.at(0) == 9);
+    LEARN_CHECK(v.at(0) == 9);
 }
 
 int run(int argc, char** argv) {

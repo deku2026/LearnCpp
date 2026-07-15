@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,30 +17,30 @@ namespace {
 void demo_basics() {
     const char* lit = "hello";
     std::string_view sv = lit;
-    assert(sv.size() == 5);
-    assert(sv[0] == 'h');
-    assert(sv.substr(1, 3) == "ell");
+    LEARN_CHECK(sv.size() == 5);
+    LEARN_CHECK(sv[0] == 'h');
+    LEARN_CHECK(sv.substr(1, 3) == "ell");
 }
 
 void demo_intermediate() {
     std::string owner = "owned-data";
     std::string_view sv = owner;
-    assert(sv == "owned-data");
-    assert(sv.starts_with("owned"));
-    assert(sv.ends_with("data"));
-    assert(sv.find("data") == 6);
+    LEARN_CHECK(sv == "owned-data");
+    LEARN_CHECK(sv.starts_with("owned"));
+    LEARN_CHECK(sv.ends_with("data"));
+    LEARN_CHECK(sv.find("data") == 6);
 }
 
 void demo_expert() {
     std::string_view empty;
-    assert(empty.empty());
+    LEARN_CHECK(empty.empty());
     std::string_view a = "abc";
     std::string_view b = a.substr(1);
-    assert(b == "bc");
+    LEARN_CHECK(b == "bc");
     // dangling risk: never return string_view to a temporary string
     std::string tmp = "safe";
     std::string_view keep = tmp;
-    assert(keep == "safe");
+    LEARN_CHECK(keep == "safe");
 }
 
 int run(int argc, char** argv) {

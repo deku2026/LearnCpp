@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -19,17 +18,17 @@ void demo_basics() {
     // LLVMFuzzerTestOneInput(data, size)
     auto parse = [](const unsigned char* data, std::size_t n) { return n == 0 ? 0 : static_cast<int>(data[0]); };
     unsigned char buf[] = {1, 2};
-    assert(parse(buf, 2) == 1);
+    LEARN_CHECK(parse(buf, 2) == 1);
 }
 
 void demo_intermediate() {
     // Build with -fsanitize=fuzzer,address
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Corpus + coverage guided mutation
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

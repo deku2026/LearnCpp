@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 namespace outer {
@@ -26,23 +24,23 @@ int read() {
 int value = 0;
 
 void demo_basics() {
-    assert(value == 0);
-    assert(outer::value == 1);
-    assert(outer::inner::value == 2);
+    LEARN_CHECK(value == 0);
+    LEARN_CHECK(outer::value == 1);
+    LEARN_CHECK(outer::inner::value == 2);
 }
 
 void demo_intermediate() {
-    assert(outer::inner::read() == 2);
+    LEARN_CHECK(outer::inner::read() == 2);
     int value = 9;
-    assert(value == 9);  // local hides global
+    LEARN_CHECK(value == 9);  // local hides global
 }
 
 void demo_expert() {
     {
         using outer::value;
-        assert(value == 1);
+        LEARN_CHECK(value == 1);
     }
-    assert(::value == 0);
+    LEARN_CHECK(::value == 0);
 }
 
 int run(int argc, char** argv) {

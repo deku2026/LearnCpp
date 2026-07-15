@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // set(CMAKE_UNITY_BUILD ON) or target property UNITY_BUILD
     const bool unity = true;
-    assert(unity);
+    LEARN_CHECK(unity);
 }
 
 void demo_intermediate() {
     // Watch for anonymous namespace / static symbol collisions across TU batches
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Exclude problematic files via SKIP_UNITY_BUILD_INCLUSION
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

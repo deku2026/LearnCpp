@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -30,53 +29,53 @@ void demo_basics() {
     double d{};
     bool b{};
     int* p{};
-    assert(i == 0);
-    assert(d == 0.0);
-    assert(!b);
-    assert(p == nullptr);
+    LEARN_CHECK(i == 0);
+    LEARN_CHECK(d == 0.0);
+    LEARN_CHECK(!b);
+    LEARN_CHECK(p == nullptr);
 
     int j = int();
-    assert(j == 0);
+    LEARN_CHECK(j == 0);
 }
 
 void demo_intermediate() {
     Agg a{};
-    assert(a.a == 0);
-    assert(a.b == 0.0);
+    LEARN_CHECK(a.a == 0);
+    LEARN_CHECK(a.b == 0.0);
 
     HasCtor h{};
-    assert(h.n == 5);  // default ctor runs
+    LEARN_CHECK(h.n == 5);  // default ctor runs
 
     std::string s{};
-    assert(s.empty());
+    LEARN_CHECK(s.empty());
 
     std::vector<int> v{};
-    assert(v.empty());
+    LEARN_CHECK(v.empty());
 
     int arr[3]{};
-    assert(arr[0] == 0 && arr[1] == 0 && arr[2] == 0);
+    LEARN_CHECK(arr[0] == 0 && arr[1] == 0 && arr[2] == 0);
 }
 
 void demo_expert() {
     // new T() value-initializes; new T default-initializes (unsafe for scalars).
     auto* pi = new int();
-    assert(*pi == 0);
+    LEARN_CHECK(*pi == 0);
     delete pi;
 
     auto* pa = new Agg();
-    assert(pa->a == 0 && pa->b == 0.0);
+    LEARN_CHECK(pa->a == 0 && pa->b == 0.0);
     delete pa;
 
     // Temporary value-init
-    assert(int{} == 0);
-    assert(double{} == 0.0);
+    LEARN_CHECK(int{} == 0);
+    LEARN_CHECK(double{} == 0.0);
 
     struct Nested {
         Agg inner;
         int tag;
     };
     Nested n{};
-    assert(n.inner.a == 0 && n.inner.b == 0.0 && n.tag == 0);
+    LEARN_CHECK(n.inner.a == 0 && n.inner.b == 0.0 && n.tag == 0);
 }
 
 int run(int argc, char** argv) {

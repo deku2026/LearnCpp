@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <numeric>
 #include <vector>
 #include <version>
@@ -28,7 +27,7 @@ void demo_basics() {
 #else
     std::sort(v.begin(), v.end());
 #endif
-    assert(std::is_sorted(v.begin(), v.end()));
+    LEARN_CHECK(std::is_sorted(v.begin(), v.end()));
 }
 
 void demo_intermediate() {
@@ -40,7 +39,7 @@ void demo_intermediate() {
 #else
     std::for_each(v.begin(), v.end(), [](int& x) { x *= 2; });
 #endif
-    assert(v.front() == 2 && v.back() == 200);
+    LEARN_CHECK(v.front() == 2 && v.back() == 200);
 }
 
 void demo_expert() {
@@ -50,9 +49,9 @@ void demo_expert() {
 #else
     auto sum = std::reduce(v.begin(), v.end(), 0);
 #endif
-    assert(sum == 15);
+    LEARN_CHECK(sum == 15);
     // par/par_unseq require no data races in predicates
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <charconv>
 #include <string>
 #include <version>
@@ -17,31 +16,31 @@
 namespace {
 
 void demo_basics() {
-    assert(std::stoi("42") == 42);
-    assert(std::stod("3.5") == 3.5);
+    LEARN_CHECK(std::stoi("42") == 42);
+    LEARN_CHECK(std::stod("3.5") == 3.5);
 }
 
 void demo_intermediate() {
     char buf[16]{};
     auto [p, ec] = std::to_chars(buf, buf + 16, 100);
-    assert(ec == std::errc{});
+    LEARN_CHECK(ec == std::errc{});
     int v = 0;
     auto r = std::from_chars(buf, p, v);
-    assert(r.ec == std::errc{} && v == 100);
+    LEARN_CHECK(r.ec == std::errc{} && v == 100);
 }
 
 void demo_expert() {
     // from_chars does not skip whitespace; stoi does
     try {
         (void)std::stoi(" 7");
-        assert(true);
+        LEARN_CHECK(true);
     } catch (...) {
-        assert(false);
+        LEARN_CHECK(false);
     }
     const char* s = " 7";
     int v = 0;
     auto r = std::from_chars(s, s + 2, v);
-    assert(r.ec != std::errc{} || v == 7);
+    LEARN_CHECK(r.ec != std::errc{} || v == 7);
 }
 
 int run(int argc, char** argv) {

@@ -9,23 +9,22 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <forward_list>
 
 namespace {
 
 void demo_basics() {
     std::forward_list<int> fl{1, 2, 3};
-    assert(fl.front() == 1);
+    LEARN_CHECK(fl.front() == 1);
     fl.push_front(0);
-    assert(fl.front() == 0);
+    LEARN_CHECK(fl.front() == 0);
 }
 
 void demo_intermediate() {
     std::forward_list<int> fl{1, 3};
     auto it = fl.before_begin();
     fl.insert_after(it, 0);
-    assert(fl.front() == 0);
+    LEARN_CHECK(fl.front() == 0);
     auto p = fl.begin();  // 0
     ++p;                  // 1
     fl.insert_after(p, 2);
@@ -34,13 +33,13 @@ void demo_intermediate() {
     for (int x : fl) {
         sum += x;
     }
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_expert() {
     std::forward_list<int> fl{5, 1, 4, 2, 3};
     fl.sort();
-    assert(fl.front() == 1);
+    LEARN_CHECK(fl.front() == 1);
     fl.unique();
     fl.remove_if([](int x) { return x % 2 == 0; });
     int n = 0;
@@ -48,9 +47,9 @@ void demo_expert() {
         (void)x;
         ++n;
     }
-    assert(n == 3);  // 1,3,5
+    LEARN_CHECK(n == 3);  // 1,3,5
     fl.reverse();
-    assert(fl.front() == 5);
+    LEARN_CHECK(fl.front() == 5);
 }
 
 }  // namespace

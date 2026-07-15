@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <tuple>
 #include <utility>
 
@@ -20,21 +19,21 @@ int add(int a, int b) {
 }
 
 void demo_basics() {
-    assert(std::apply(add, std::make_tuple(2, 3)) == 5);
+    LEARN_CHECK(std::apply(add, std::make_tuple(2, 3)) == 5);
 }
 
 void demo_intermediate() {
     auto t = std::make_tuple(10, 20, 30);
     auto sum = std::apply([](int a, int b, int c) { return a + b + c; }, t);
-    assert(sum == 60);
+    LEARN_CHECK(sum == 60);
 }
 
 void demo_expert() {
     std::pair<int, int> p{4, 5};
-    assert(std::apply(add, p) == 9);
+    LEARN_CHECK(std::apply(add, p) == 9);
     auto t = std::make_tuple(1, 2);
     auto r = std::apply([](auto... xs) { return (xs + ...); }, t);
-    assert(r == 3);
+    LEARN_CHECK(r == 3);
 }
 
 }  // namespace

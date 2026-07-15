@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -31,12 +30,12 @@ constexpr int mode() {
 }
 
 void demo_basics() {
-    assert(mode() == 2);
+    LEARN_CHECK(mode() == 2);
 }
 
 void demo_intermediate() {
     constexpr int c = mode();
-    assert(c == 1 || c == 2);
+    LEARN_CHECK(c == 1 || c == 2);
     // At runtime mode() is 2; as constant expression it is 1 when supported.
 #if defined(__cpp_if_consteval) || defined(__cpp_lib_is_constant_evaluated)
     static_assert(mode() == 1);
@@ -45,7 +44,7 @@ void demo_intermediate() {
 
 void demo_expert() {
     auto runtime = mode();
-    assert(runtime == 2);
+    LEARN_CHECK(runtime == 2);
 }
 
 int run(int argc, char** argv) {

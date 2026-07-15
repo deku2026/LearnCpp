@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -35,7 +34,7 @@ void demo_basics() {
     Widget w{7, "alpha"};
     auto f = w.by_star_this();
     w.id = 0;
-    assert(f() == 7);
+    LEARN_CHECK(f() == 7);
 }
 
 void demo_intermediate() {
@@ -43,15 +42,15 @@ void demo_intermediate() {
     auto ptr_view = w.by_this();
     auto copy_view = w.by_star_this();
     w.id = 99;
-    assert(ptr_view() == 99);
-    assert(copy_view() == 1);
+    LEARN_CHECK(ptr_view() == 99);
+    LEARN_CHECK(copy_view() == 1);
 }
 
 void demo_expert() {
     Widget w{3, "gamma"};
     auto name_fn = w.name_snapshot();
     w.name = "changed";
-    assert(name_fn() == "gamma");
+    LEARN_CHECK(name_fn() == "gamma");
 }
 
 int run(int argc, char** argv) {

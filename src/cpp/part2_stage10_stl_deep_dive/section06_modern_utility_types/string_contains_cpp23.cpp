@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -18,29 +17,29 @@ namespace {
 void demo_basics() {
     std::string s = "hello world";
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
-    assert(s.contains("world"));
-    assert(s.contains('h'));
-    assert(!s.contains("xyz"));
+    LEARN_CHECK(s.contains("world"));
+    LEARN_CHECK(s.contains('h'));
+    LEARN_CHECK(!s.contains("xyz"));
 #else
-    assert(s.find("world") != std::string::npos);
+    LEARN_CHECK(s.find("world") != std::string::npos);
 #endif
 }
 
 void demo_intermediate() {
     std::string s = "C++23";
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
-    assert(s.contains(std::string{"++"}));
+    LEARN_CHECK(s.contains(std::string{"++"}));
 #else
-    assert(s.find("++") != std::string::npos);
+    LEARN_CHECK(s.find("++") != std::string::npos);
 #endif
 }
 
 void demo_expert() {
     std::string s = "feature";
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
-    assert(s.contains(std::string_view{"eat"}));
+    LEARN_CHECK(s.contains(std::string_view{"eat"}));
 #else
-    assert(s.find("eat") != std::string::npos);
+    LEARN_CHECK(s.find("eat") != std::string::npos);
 #endif
 }
 

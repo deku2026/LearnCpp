@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -19,7 +18,7 @@ void demo_basics() {
     int a = 1;  // trailing line comment
     /* block comment */
     int b = 2; /* trailing block */
-    assert(a + b == 3);
+    LEARN_CHECK(a + b == 3);
 }
 
 void demo_intermediate() {
@@ -29,18 +28,18 @@ void demo_intermediate() {
        // line-style text is still inside the block
        x = 999;
     */
-    assert(x == 10);
+    LEARN_CHECK(x == 10);
 
     // Line comment swallows block openers until newline.
     // /* this is still a line comment
     int y = 20;
-    assert(y == 20);
+    LEARN_CHECK(y == 20);
 
     /* multi-line
        block spanning
        several lines */
     int z = /* mid-expression */ 5;
-    assert(z == 5);
+    LEARN_CHECK(z == 5);
 }
 
 void demo_expert() {
@@ -54,18 +53,18 @@ void demo_expert() {
 
     // If comments were deleted with no space, a/**/b could become ab.
     // With the required space, a and b stay separate identifiers:
-    assert(a + b == 3);
-    assert(ab == 42);
+    LEARN_CHECK(a + b == 3);
+    LEARN_CHECK(ab == 42);
 
     // Adjacent string literals still concatenate after comment→space
     // because phase 6 string concatenation ignores intervening whitespace.
     const char* s = "he" /* gap */ "llo";
-    assert(std::string{s} == "hello");
+    LEARN_CHECK(std::string{s} == "hello");
 
     // Token sequence a /*x*/ b is a, space, b — never the single identifier ab.
     const int left = 3;
     const int right = 4;
-    assert(left + /* ignored */ right == 7);
+    LEARN_CHECK(left + /* ignored */ right == 7);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -122,12 +121,12 @@ Gen<int> by_ref(const int& x) {
 void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = by_value(3);
-    assert(g.next());
-    assert(g.value() == 3);
-    assert(g.next());
-    assert(g.value() == 4);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 3);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -136,10 +135,10 @@ void demo_intermediate() {
     int x = 10;
     auto g = by_value(x);
     x = 0;
-    assert(g.next());
-    assert(g.value() == 10);  // independent copy in frame
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 10);  // independent copy in frame
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -148,10 +147,10 @@ void demo_expert() {
     // Safe pattern: keep referent alive for the coroutine lifetime.
     int live = 5;
     auto g = by_ref(live);
-    assert(g.next());
-    assert(g.value() == 5);
+    LEARN_CHECK(g.next());
+    LEARN_CHECK(g.value() == 5);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

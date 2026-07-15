@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -19,7 +18,7 @@ namespace {
 void demo_basics() {
     static_assert(std::ranges::view<std::ranges::iota_view<int>>);
     auto v = std::views::iota(0, 3);
-    assert(std::ranges::distance(v) == 3);
+    LEARN_CHECK(std::ranges::distance(v) == 3);
 }
 
 void demo_intermediate() {
@@ -30,14 +29,14 @@ void demo_intermediate() {
     for (int x : evens) {
         sum += x;
     }
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_expert() {
     // views are cheap to copy/move; they don't own (usually)
     auto v = std::views::iota(1, 5);
     auto v2 = v;
-    assert(std::ranges::equal(v, v2));
+    LEARN_CHECK(std::ranges::equal(v, v2));
 }
 
 }  // namespace

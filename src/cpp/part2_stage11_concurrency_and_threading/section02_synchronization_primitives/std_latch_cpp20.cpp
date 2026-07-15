@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <latch>
 #include <thread>
 #include <vector>
@@ -26,13 +25,13 @@ void demo_basics() {
         done.count_down();
     });
     done.wait();
-    assert(v.load() == 1);
+    LEARN_CHECK(v.load() == 1);
     t.join();
 #else
     std::atomic<int> v{0};
     std::thread t([&] { v.store(1); });
     t.join();
-    assert(v.load() == 1);
+    LEARN_CHECK(v.load() == 1);
 #endif
 }
 
@@ -49,7 +48,7 @@ void demo_intermediate() {
         });
     }
     done.wait();
-    assert(sum.load() == n);
+    LEARN_CHECK(sum.load() == n);
     for (auto& t : ts) {
         t.join();
     }
@@ -62,7 +61,7 @@ void demo_intermediate() {
     for (auto& t : ts) {
         t.join();
     }
-    assert(sum.load() == 4);
+    LEARN_CHECK(sum.load() == 4);
 #endif
 }
 
@@ -74,15 +73,15 @@ void demo_expert() {
         start.wait();
         ran.fetch_add(1);
     });
-    assert(ran.load() == 0);
+    LEARN_CHECK(ran.load() == 0);
     start.count_down();
     t.join();
-    assert(ran.load() == 1);
+    LEARN_CHECK(ran.load() == 1);
 #else
     std::atomic<int> ran{0};
     std::thread t([&] { ran.fetch_add(1); });
     t.join();
-    assert(ran.load() == 1);
+    LEARN_CHECK(ran.load() == 1);
 #endif
 }
 

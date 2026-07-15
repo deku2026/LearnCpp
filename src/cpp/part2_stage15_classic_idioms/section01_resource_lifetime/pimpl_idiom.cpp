@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 
@@ -47,16 +46,16 @@ void Widget::set(int v) {
 
 void demo_basics() {
     Widget w;
-    assert(w.value() == 0);
+    LEARN_CHECK(w.value() == 0);
     w.set(3);
-    assert(w.value() == 3);
+    LEARN_CHECK(w.value() == 3);
 }
 
 void demo_intermediate() {
     Widget w;
     w.set(10);
     Widget w2 = std::move(w);
-    assert(w2.value() == 10);
+    LEARN_CHECK(w2.value() == 10);
 }
 
 void demo_expert() {
@@ -65,7 +64,7 @@ void demo_expert() {
     Widget b;
     a.set(1);
     b.set(2);
-    assert(a.value() + b.value() == 3);
+    LEARN_CHECK(a.value() + b.value() == 3);
 }
 
 int run(int argc, char** argv) {

@@ -9,26 +9,25 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <limits>
 
 namespace {
 
 void demo_basics() {
-    assert(std::numeric_limits<int>::is_integer);
-    assert(std::numeric_limits<int>::min() < 0);
-    assert(std::numeric_limits<int>::max() > 0);
+    LEARN_CHECK(std::numeric_limits<int>::is_integer);
+    LEARN_CHECK(std::numeric_limits<int>::min() < 0);
+    LEARN_CHECK(std::numeric_limits<int>::max() > 0);
 }
 
 void demo_intermediate() {
-    assert(std::numeric_limits<unsigned>::min() == 0u);
-    assert(std::numeric_limits<float>::epsilon() > 0.0f);
-    assert(std::numeric_limits<double>::digits10 >= 15);
+    LEARN_CHECK(std::numeric_limits<unsigned>::min() == 0u);
+    LEARN_CHECK(std::numeric_limits<float>::epsilon() > 0.0f);
+    LEARN_CHECK(std::numeric_limits<double>::digits10 >= 15);
 }
 
 void demo_expert() {
     static_assert(std::numeric_limits<bool>::digits == 1);
-    assert(std::numeric_limits<int>::radix == 2);
+    LEARN_CHECK(std::numeric_limits<int>::radix == 2);
 }
 
 int run(int argc, char** argv) {

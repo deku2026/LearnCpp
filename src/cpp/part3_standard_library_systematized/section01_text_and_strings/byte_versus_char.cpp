@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <type_traits>
 #include <vector>
@@ -18,23 +17,23 @@ namespace {
 
 void demo_basics() {
     char c = 'A';
-    assert(static_cast<int>(c) == 65);
+    LEARN_CHECK(static_cast<int>(c) == 65);
     std::byte b{0x41};
-    assert(std::to_integer<int>(b) == 0x41);
+    LEARN_CHECK(std::to_integer<int>(b) == 0x41);
 }
 
 void demo_intermediate() {
     std::vector<std::byte> blob{std::byte{0x00}, std::byte{0xFF}};
-    assert(blob.size() == 2);
-    assert(std::to_integer<unsigned>(blob[1]) == 255u);
+    LEARN_CHECK(blob.size() == 2);
+    LEARN_CHECK(std::to_integer<unsigned>(blob[1]) == 255u);
     char text[] = "hi";
-    assert(text[0] == 'h');
+    LEARN_CHECK(text[0] == 'h');
 }
 
 void demo_expert() {
     std::byte x{0b0000'1111};
     x <<= 1;
-    assert(std::to_integer<int>(x) == 0b0001'1110);
+    LEARN_CHECK(std::to_integer<int>(x) == 0b0001'1110);
     // char may be signed; std::byte is not a character type
     static_assert(!std::is_same_v<std::byte, char>);
 }

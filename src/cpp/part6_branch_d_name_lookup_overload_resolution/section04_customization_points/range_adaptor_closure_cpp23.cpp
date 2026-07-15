@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     auto even = v | std::views::filter([](int x) { return x % 2 == 0; });
     int sum = 0;
     for (int x : even) sum += x;
-    assert(sum == 6);
+    LEARN_CHECK(sum == 6);
 }
 
 void demo_intermediate() {
@@ -28,21 +27,21 @@ void demo_intermediate() {
     auto squared = v | std::views::transform([](int x) { return x * x; });
     int sum = 0;
     for (int x : squared) sum += x;
-    assert(sum == 14);
+    LEARN_CHECK(sum == 14);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_ranges_to_container) && __cpp_lib_ranges_to_container >= 202202L
     std::vector<int> v{1, 2, 3};
     auto out = v | std::views::transform([](int x) { return x + 1; }) | std::ranges::to<std::vector>();
-    assert(out.size() == 3);
-    assert(out[0] == 2);
+    LEARN_CHECK(out.size() == 3);
+    LEARN_CHECK(out[0] == 2);
 #else
     std::vector<int> out;
     for (int x : std::vector<int>{1, 2, 3} | std::views::transform([](int n) { return n + 1; })) {
         out.push_back(x);
     }
-    assert(out[0] == 2);
+    LEARN_CHECK(out[0] == 2);
 #endif
 }
 

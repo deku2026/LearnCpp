@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -128,7 +127,7 @@ void demo_basics() {
     for (int x : tree()) {
         v.push_back(x);
     }
-    assert((v == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((v == std::vector<int>{1, 2, 3}));
 #else
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     auto g = []() -> Gen<int> {
@@ -140,9 +139,9 @@ void demo_basics() {
     while (g.next()) {
         v.push_back(g.value());
     }
-    assert((v == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((v == std::vector<int>{1, 2, 3}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 #endif
 }
@@ -160,9 +159,9 @@ void demo_intermediate() {
     for (int x : nested(nested, 3)) {
         v.push_back(x);
     }
-    assert((v == std::vector<int>{3, 2, 1}));
+    LEARN_CHECK((v == std::vector<int>{3, 2, 1}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -175,9 +174,9 @@ void demo_expert() {
     for (int v : b()) {
         x = v;
     }
-    assert(x == 7);
+    LEARN_CHECK(x == 7);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

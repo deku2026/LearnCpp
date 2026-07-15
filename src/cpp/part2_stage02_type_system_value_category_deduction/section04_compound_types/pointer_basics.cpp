@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -17,29 +16,29 @@ namespace {
 void demo_basics() {
     int x = 42;
     int* p = &x;
-    assert(p != nullptr);
-    assert(*p == 42);
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(*p == 42);
     *p = 100;
-    assert(x == 100);
+    LEARN_CHECK(x == 100);
 
     int* n = nullptr;
-    assert(n == nullptr);
+    LEARN_CHECK(n == nullptr);
 }
 
 void demo_intermediate() {
     int arr[5] = {10, 20, 30, 40, 50};
     int* p = arr;  // array decays to pointer to first element
-    assert(*p == 10);
-    assert(*(p + 1) == 20);
-    assert(p[2] == 30);
+    LEARN_CHECK(*p == 10);
+    LEARN_CHECK(*(p + 1) == 20);
+    LEARN_CHECK(p[2] == 30);
 
     p += 2;
-    assert(*p == 30);
+    LEARN_CHECK(*p == 30);
     --p;
-    assert(*p == 20);
+    LEARN_CHECK(*p == 20);
 
     const std::ptrdiff_t diff = &arr[4] - &arr[0];
-    assert(diff == 4);
+    LEARN_CHECK(diff == 4);
 }
 
 void demo_expert() {
@@ -47,24 +46,24 @@ void demo_expert() {
     int b = 2;
     int* p = &a;
     int** pp = &p;
-    assert(**pp == 1);
+    LEARN_CHECK(**pp == 1);
     *pp = &b;
-    assert(*p == 2);
+    LEARN_CHECK(*p == 2);
 
     // void* can hold any object pointer; cast back to use
     void* raw = &a;
     int* back = static_cast<int*>(raw);
-    assert(*back == 1);
+    LEARN_CHECK(*back == 1);
 
     // Pointer to const vs const pointer
     const int c = 9;
     const int* pc = &c;
-    assert(*pc == 9);
+    LEARN_CHECK(*pc == 9);
 
     int mutable_v = 3;
     int* const cp = &mutable_v;
     *cp = 4;
-    assert(mutable_v == 4);
+    LEARN_CHECK(mutable_v == 4);
 }
 
 int run(int argc, char** argv) {

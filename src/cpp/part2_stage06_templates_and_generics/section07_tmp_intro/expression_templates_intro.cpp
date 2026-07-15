@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <cstddef>
 
 namespace {
@@ -48,9 +47,9 @@ void demo_basics() {
     b.d = {4, 5, 6};
     Vec3 c;
     c = a + b;  // single loop assignment, no intermediate Vec3 from +
-    assert(c[0] == 5);
-    assert(c[1] == 7);
-    assert(c[2] == 9);
+    LEARN_CHECK(c[0] == 5);
+    LEARN_CHECK(c[1] == 7);
+    LEARN_CHECK(c[2] == 9);
 }
 
 void demo_intermediate() {
@@ -59,17 +58,17 @@ void demo_intermediate() {
     Vec3 c{{3, 3, 3}};
     Vec3 d;
     d = a + b + c;  // nested AddExpr
-    assert(d[0] == 6);
-    assert(d[2] == 6);
+    LEARN_CHECK(d[0] == 6);
+    LEARN_CHECK(d[2] == 6);
 }
 
 void demo_expert() {
     Vec3 a{{10, 0, 0}};
     Vec3 b{{0, 20, 0}};
     auto expr = a + b;
-    assert(expr[0] == 10);
-    assert(expr[1] == 20);
-    assert(expr[2] == 0);
+    LEARN_CHECK(expr[0] == 10);
+    LEARN_CHECK(expr[1] == 20);
+    LEARN_CHECK(expr[2] == 0);
 }
 
 int run(int argc, char** argv) {

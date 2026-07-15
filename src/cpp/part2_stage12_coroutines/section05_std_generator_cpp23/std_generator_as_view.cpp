@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <numeric>
 #include <utility>
 #include <vector>
@@ -32,10 +31,10 @@ void demo_basics() {
     for (int x : g) {
         v.push_back(x);
     }
-    assert(v.size() == 4);
+    LEARN_CHECK(v.size() == 4);
 #else
     std::vector<int> v{1, 2, 3, 4};
-    assert(v.size() == 4);
+    LEARN_CHECK(v.size() == 4);
 #endif
 }
 
@@ -50,9 +49,9 @@ void demo_intermediate() {
     for (int x : g) {
         sum += x;
     }
-    assert(sum == 12);
+    LEARN_CHECK(sum == 12);
 #else
-    assert(std::accumulate(std::vector<int>{2, 4, 6}.begin(), std::vector<int>{2, 4, 6}.end(), 0) == 12);
+    LEARN_CHECK(std::accumulate(std::vector<int>{2, 4, 6}.begin(), std::vector<int>{2, 4, 6}.end(), 0) == 12);
 #endif
 }
 
@@ -68,9 +67,9 @@ void demo_expert() {
         (void)x;
         ++n;
     }
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

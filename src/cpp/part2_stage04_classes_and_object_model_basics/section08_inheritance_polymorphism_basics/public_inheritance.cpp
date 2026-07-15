@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -31,22 +30,22 @@ public:
 
 void demo_basics() {
     Dog d{"Rex"};
-    assert(d.name() == "Rex");
-    assert(d.legs() == 4);
-    assert(std::string{d.sound()} == "woof");
+    LEARN_CHECK(d.name() == "Rex");
+    LEARN_CHECK(d.legs() == 4);
+    LEARN_CHECK(std::string{d.sound()} == "woof");
 }
 
 void demo_intermediate() {
     Dog d{"Fido"};
     Animal& a = d;
-    assert(a.name() == "Fido");
+    LEARN_CHECK(a.name() == "Fido");
 }
 
 void demo_expert() {
     // public inheritance preserves public base interface.
     Dog d{"A"};
     const Animal* p = &d;
-    assert(p->name() == "A");
+    LEARN_CHECK(p->name() == "A");
 }
 
 int run(int argc, char** argv) {

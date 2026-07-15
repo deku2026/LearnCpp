@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string_view>
 
 // Scenario macros for the branch ladder (only GPU is "on").
@@ -54,17 +53,17 @@ namespace {
 void demo_basics() {
     // #ifdef / #elif defined select which block survives phase 4.
     static_assert(learncpp_backend_portable == 2);
-    assert(learncpp_backend_portable == 2);
+    LEARN_CHECK(learncpp_backend_portable == 2);
 }
 
 void demo_intermediate() {
     // #elifdef X ≡ #elif defined(X) — same branch, shorter spelling in C++23.
     static_assert(learncpp_backend_elifdef == 2);
-    assert(learncpp_backend_elifdef == learncpp_backend_portable);
+    LEARN_CHECK(learncpp_backend_elifdef == learncpp_backend_portable);
 
     // Document which spelling this build actually used.
     constexpr std::string_view path = learncpp_used_elifdef_syntax ? "elifdef" : "elif defined";
-    assert(path == "elifdef" || path == "elif defined");
+    LEARN_CHECK(path == "elifdef" || path == "elif defined");
 }
 
 void demo_expert() {
@@ -76,8 +75,8 @@ void demo_expert() {
     constexpr bool only_gpu = false;
 #endif
     static_assert(only_gpu);
-    assert(only_gpu);
-    assert(learncpp_backend_elifdef == 2);
+    LEARN_CHECK(only_gpu);
+    LEARN_CHECK(learncpp_backend_elifdef == 2);
 }
 
 int run(int argc, char** argv) {

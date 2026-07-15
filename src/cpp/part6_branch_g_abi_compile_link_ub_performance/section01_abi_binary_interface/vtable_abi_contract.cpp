@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <typeinfo>
 
@@ -27,17 +26,17 @@ struct Impl : Interface {
 void demo_basics() {
     Impl x;
     Interface& i = x;
-    assert(i.code() == 2);
+    LEARN_CHECK(i.code() == 2);
 }
 
 void demo_intermediate() {
     Impl x;
     Interface* p = &x;
-    assert(p->code() == 2);
+    LEARN_CHECK(p->code() == 2);
 }
 
 void demo_expert() {
-    assert(std::string{typeid(Impl).name()}.size() > 0);
+    LEARN_CHECK(std::string{typeid(Impl).name()}.size() > 0);
 }
 
 int run(int argc, char** argv) {

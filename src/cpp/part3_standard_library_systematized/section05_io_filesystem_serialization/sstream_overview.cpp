@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 
@@ -18,7 +17,7 @@ namespace {
 void demo_basics() {
     std::ostringstream os;
     os << 1 << ',' << 2;
-    assert(os.str() == "1,2");
+    LEARN_CHECK(os.str() == "1,2");
 }
 
 void demo_intermediate() {
@@ -26,7 +25,7 @@ void demo_intermediate() {
     std::string a;
     std::string b;
     is >> a >> b;
-    assert(a == "one" && b == "two");
+    LEARN_CHECK(a == "one" && b == "two");
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     char eq = 0;
     ss >> key >> eq >> value;
     // extraction may differ; ensure stream usable
-    assert(ss.str().find('=') != std::string::npos);
+    LEARN_CHECK(ss.str().find('=') != std::string::npos);
 }
 
 int run(int argc, char** argv) {

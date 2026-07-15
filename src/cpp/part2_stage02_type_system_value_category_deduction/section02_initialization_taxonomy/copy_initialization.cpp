@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -37,53 +36,53 @@ void demo_basics() {
     int a = 42;
     double d = 2.5;
     std::string s = "copy";
-    assert(a == 42);
-    assert(d == 2.5);
-    assert(s == "copy");
+    LEARN_CHECK(a == 42);
+    LEARN_CHECK(d == 2.5);
+    LEARN_CHECK(s == "copy");
 
     ImplicitFromInt x = 7;  // copy-init allows non-explicit converting ctor
-    assert(x.value == 7);
+    LEARN_CHECK(x.value == 7);
 }
 
 void demo_intermediate() {
     // Function argument copy-initialization
-    assert(identity(10) == 10);
+    LEARN_CHECK(identity(10) == 10);
 
     ImplicitFromInt y = make_implicit(11);
-    assert(y.value == 11);
+    LEARN_CHECK(y.value == 11);
 
     // Copy-init from another object
     ImplicitFromInt z = y;
-    assert(z.value == 11);
+    LEARN_CHECK(z.value == 11);
 
     // Braced copy-init still copy-init for T x = {v}
     ImplicitFromInt w = {12};
-    assert(w.value == 12);
+    LEARN_CHECK(w.value == 12);
 
     // Explicit constructors cannot be used in copy-initialization:
     // ExplicitFromInt bad = 1; // ill-formed
     ExplicitFromInt ok(1);  // direct-init is fine
-    assert(ok.value == 1);
+    LEARN_CHECK(ok.value == 1);
 }
 
 void demo_expert() {
     // Copy elision may skip actual copies; observable value still correct.
     std::string s = std::string("elide");
-    assert(s == "elide");
+    LEARN_CHECK(s == "elide");
 
     // Move can be used in copy-initialization contexts.
     std::string src = "moved";
     std::string dst = std::move(src);
-    assert(dst == "moved");
+    LEARN_CHECK(dst == "moved");
 
     // Array-to-pointer and function-to-pointer decays in copy-init of pointers.
     const char text[] = "abc";
     const char* p = text;
-    assert(p[0] == 'a');
+    LEARN_CHECK(p[0] == 'a');
 
     int nums[] = {1, 2, 3};
     int* np = nums;
-    assert(np[1] == 2);
+    LEARN_CHECK(np[1] == 2);
 }
 
 int run(int argc, char** argv) {

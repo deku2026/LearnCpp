@@ -10,19 +10,18 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 
 namespace {
 
 void demo_basics() {
-    assert(std::clamp(5, 0, 10) == 5);
-    assert(std::clamp(-1, 0, 10) == 0);
-    assert(std::clamp(99, 0, 10) == 10);
+    LEARN_CHECK(std::clamp(5, 0, 10) == 5);
+    LEARN_CHECK(std::clamp(-1, 0, 10) == 0);
+    LEARN_CHECK(std::clamp(99, 0, 10) == 10);
 }
 
 void demo_intermediate() {
-    assert(std::clamp(3.5, 1.0, 2.0) == 2.0);
-    assert(std::clamp(1.5, 1.0, 2.0) == 1.5);
+    LEARN_CHECK(std::clamp(3.5, 1.0, 2.0) == 2.0);
+    LEARN_CHECK(std::clamp(1.5, 1.0, 2.0) == 1.5);
 }
 
 void demo_expert() {
@@ -30,7 +29,7 @@ void demo_expert() {
     const int hi = 100;
     for (int x : {-10, 0, 50, 100, 200}) {
         const int c = std::clamp(x, lo, hi);
-        assert(c >= lo && c <= hi);
+        LEARN_CHECK(c >= lo && c <= hi);
     }
 }
 

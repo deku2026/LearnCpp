@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <ranges>
 #include <string>
@@ -20,20 +19,20 @@ namespace {
 void demo_basics() {
     static_assert(std::ranges::range<std::vector<int>>);
     std::vector<int> v{1, 2, 3};
-    assert(std::ranges::begin(v) != std::ranges::end(v));
+    LEARN_CHECK(std::ranges::begin(v) != std::ranges::end(v));
 }
 
 void demo_intermediate() {
     int a[] = {1, 2, 3};
     static_assert(std::ranges::range<decltype(a)>);
-    assert(std::ranges::size(a) == 3);
+    LEARN_CHECK(std::ranges::size(a) == 3);
 }
 
 void demo_expert() {
     static_assert(std::ranges::range<std::string>);
     static_assert(!std::ranges::range<int>);
     std::vector<int> v;
-    assert(std::ranges::empty(v));
+    LEARN_CHECK(std::ranges::empty(v));
 }
 
 }  // namespace

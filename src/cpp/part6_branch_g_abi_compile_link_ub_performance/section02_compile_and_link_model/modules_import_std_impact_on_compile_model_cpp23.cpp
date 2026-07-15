@@ -9,22 +9,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
 
 void demo_basics() {
     std::string s = "modules";
-    assert(s.size() == 7);
+    LEARN_CHECK(s.size() == 7);
 }
 
 void demo_intermediate() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

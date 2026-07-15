@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <type_traits>
 
@@ -18,9 +17,9 @@ namespace {
 void demo_basics() {
     int x = 1;
     std::reference_wrapper<int> r = x;
-    assert(r.get() == 1);
+    LEARN_CHECK(r.get() == 1);
     r.get() = 2;
-    assert(x == 2);
+    LEARN_CHECK(x == 2);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_expert() {
     int a = 3, b = 4;
     auto ra = std::ref(a);
     auto rb = std::ref(b);
-    assert(ra.get() + rb.get() == 7);
+    LEARN_CHECK(ra.get() + rb.get() == 7);
 }
 
 int run(int argc, char** argv) {

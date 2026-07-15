@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 namespace {
@@ -30,12 +29,12 @@ constexpr int square_smart(int x) {
 void demo_basics() {
     constexpr int a = square_smart(5);
     static_assert(a == 25);
-    assert(a == 25);
+    LEARN_CHECK(a == 25);
 }
 
 void demo_intermediate() {
     int r = 6;
-    assert(square_smart(r) == 36);
+    LEARN_CHECK(square_smart(r) == 36);
 }
 
 void demo_expert() {
@@ -43,7 +42,7 @@ void demo_expert() {
     // consteval function cannot be called at runtime; gated by if consteval.
     constexpr int b = only_compile_time(7);
     static_assert(b == 49);
-    assert(b == 49);
+    LEARN_CHECK(b == 49);
 #else
     constexpr int b = square_smart(7);
     static_assert(b == 49);

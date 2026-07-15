@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Widget {
@@ -23,26 +21,26 @@ struct Widget {
 void demo_basics() {
     int Widget::* pm = &Widget::a;
     Widget w;
-    assert(w.*pm == 1);
+    LEARN_CHECK(w.*pm == 1);
     pm = &Widget::b;
-    assert(w.*pm == 2);
+    LEARN_CHECK(w.*pm == 2);
 }
 
 void demo_intermediate() {
     int (Widget::*pmf)() const = &Widget::sum;
     Widget w{3, 4};
-    assert((w.*pmf)() == 7);
+    LEARN_CHECK((w.*pmf)() == 7);
     Widget* p = &w;
-    assert((p->*pmf)() == 7);
+    LEARN_CHECK((p->*pmf)() == 7);
 }
 
 void demo_expert() {
     int (Widget::*pmf)(int) const = &Widget::scale;
     Widget w{5, 5};
-    assert((w.*pmf)(3) == 30);
+    LEARN_CHECK((w.*pmf)(3) == 30);
     // Member pointers are not ordinary pointers; null member pointer compares equal to 0.
     int Widget::* none = nullptr;
-    assert(none == nullptr);
+    LEARN_CHECK(none == nullptr);
 }
 
 }  // namespace

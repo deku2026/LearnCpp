@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 inline int odr_ok() {
@@ -23,16 +21,16 @@ struct Widget {
 };
 
 void demo_basics() {
-    assert(odr_ok() == 5);
+    LEARN_CHECK(odr_ok() == 5);
 }
 
 void demo_intermediate() {
     Widget w;
-    assert(w.get() == 1);
+    LEARN_CHECK(w.get() == 1);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 
 namespace {
@@ -31,21 +30,21 @@ std::optional<int> try_read(const int* p) {
 
 void demo_basics() {
     int x = 7;
-    assert(read_if(&x) == 7);
-    assert(read_if(nullptr) == -1);
+    LEARN_CHECK(read_if(&x) == 7);
+    LEARN_CHECK(read_if(nullptr) == -1);
 }
 
 void demo_intermediate() {
     int y = 3;
-    assert(try_read(&y).value() == 3);
-    assert(!try_read(nullptr).has_value());
+    LEARN_CHECK(try_read(&y).value() == 3);
+    LEARN_CHECK(!try_read(nullptr).has_value());
 }
 
 void demo_expert() {
     // Prefer references when null is not allowed.
     auto need_ref = [](const int& r) { return r + 1; };
     int z = 41;
-    assert(need_ref(z) == 42);
+    LEARN_CHECK(need_ref(z) == 42);
 
     // Comment only: `int* p = nullptr; int v = *p;` is UB — never do this.
 }

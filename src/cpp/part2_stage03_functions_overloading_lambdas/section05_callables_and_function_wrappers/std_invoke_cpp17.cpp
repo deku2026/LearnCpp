@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 
 namespace {
@@ -24,18 +23,18 @@ struct S {
 };
 
 void demo_basics() {
-    assert(std::invoke(free_fn, 5) == 10);
+    LEARN_CHECK(std::invoke(free_fn, 5) == 10);
     auto lam = [](int a, int b) { return a + b; };
-    assert(std::invoke(lam, 1, 2) == 3);
+    LEARN_CHECK(std::invoke(lam, 1, 2) == 3);
 }
 
 void demo_intermediate() {
     S s;
-    assert(std::invoke(&S::method, s, 8) == 50);
-    assert(std::invoke(&S::mem, s) == 42);
+    LEARN_CHECK(std::invoke(&S::method, s, 8) == 50);
+    LEARN_CHECK(std::invoke(&S::mem, s) == 42);
 
     S* ps = &s;
-    assert(std::invoke(&S::method, ps, 1) == 43);
+    LEARN_CHECK(std::invoke(&S::method, ps, 1) == 43);
 }
 
 void demo_expert() {
@@ -43,9 +42,9 @@ void demo_expert() {
     auto call = [](auto&& f, auto&&... args) {
         return std::invoke(std::forward<decltype(f)>(f), std::forward<decltype(args)>(args)...);
     };
-    assert(call(free_fn, 3) == 6);
+    LEARN_CHECK(call(free_fn, 3) == 6);
     S s{10};
-    assert(call(&S::method, s, 5) == 15);
+    LEARN_CHECK(call(&S::method, s, 5) == 15);
 }
 
 int run(int argc, char** argv) {

@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 void demo_basics() {
@@ -19,7 +17,7 @@ void demo_basics() {
 #else
     auto make = []() -> int { return 42; };
 #endif
-    assert(make() == 42);
+    LEARN_CHECK(make() == 42);
 }
 
 void demo_intermediate() {
@@ -28,7 +26,7 @@ void demo_intermediate() {
 #else
     auto scale = [](int x) { return x * 2; };
 #endif
-    assert(scale(5) == 10);
+    LEARN_CHECK(scale(5) == 10);
 }
 
 void demo_expert() {
@@ -40,10 +38,10 @@ void demo_expert() {
     auto touch = [&sink]() { ++sink; };
 #endif
     touch();
-    assert(sink == 1);
+    LEARN_CHECK(sink == 1);
 
     auto id = [](int x) noexcept { return x; };
-    assert(id(3) == 3);
+    LEARN_CHECK(id(3) == 3);
 }
 
 int run(int argc, char** argv) {

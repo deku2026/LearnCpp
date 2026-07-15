@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -44,16 +43,16 @@ TypeTag<T> deduce(T&&) {
 void demo_basics() {
     int x = 1;
     const int cx = 2;
-    assert(tag_by_value(x) == 0);   // T = int (top-level const stripped on by-value)
-    assert(tag_by_value(cx) == 0);  // still int for by-value param
-    assert(is_const_ref(cx) == true);
-    assert(is_const_ref(x) == false);
+    LEARN_CHECK(tag_by_value(x) == 0);   // T = int (top-level const stripped on by-value)
+    LEARN_CHECK(tag_by_value(cx) == 0);  // still int for by-value param
+    LEARN_CHECK(is_const_ref(cx) == true);
+    LEARN_CHECK(is_const_ref(x) == false);
 }
 
 void demo_intermediate() {
     int arr[3] = {1, 2, 3};
     // By-value: array decays to pointer.
-    assert(tag_by_value(arr) == 2);
+    LEARN_CHECK(tag_by_value(arr) == 2);
 
     auto t1 = deduce(42);      // T = int (rvalue)
     auto t2 = deduce(arr[0]);  // T = int& (lvalue)
@@ -72,7 +71,7 @@ void demo_expert() {
 
     // Partial explicit args: remaining deduced.
     auto id = [](auto v) { return v; };
-    assert(id(5) == 5);
+    LEARN_CHECK(id(5) == 5);
 }
 
 int run(int argc, char** argv) {

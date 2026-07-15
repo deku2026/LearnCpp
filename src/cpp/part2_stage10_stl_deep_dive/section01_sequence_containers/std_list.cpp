@@ -9,18 +9,17 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 
 namespace {
 
 void demo_basics() {
     std::list<int> L{1, 2, 3};
-    assert(L.size() == 3);
+    LEARN_CHECK(L.size() == 3);
     L.push_front(0);
     L.push_back(4);
-    assert(L.front() == 0);
-    assert(L.back() == 4);
+    LEARN_CHECK(L.front() == 0);
+    LEARN_CHECK(L.back() == 4);
 }
 
 void demo_intermediate() {
@@ -28,11 +27,11 @@ void demo_intermediate() {
     auto it = L.begin();
     ++it;
     L.insert(it, 99);
-    assert(*std::next(L.begin()) == 99);
+    LEARN_CHECK(*std::next(L.begin()) == 99);
     L.remove(99);
-    assert(L.size() == 4);
+    LEARN_CHECK(L.size() == 4);
     L.reverse();
-    assert(L.front() == 4);
+    LEARN_CHECK(L.front() == 4);
 }
 
 void demo_expert() {
@@ -41,12 +40,12 @@ void demo_expert() {
     auto keep = a.begin();
     ++keep;  // points to 2
     a.splice(a.end(), b);
-    assert(a.size() == 5);
-    assert(b.empty());
-    assert(*keep == 2);  // iterator not invalidated by splice into a
+    LEARN_CHECK(a.size() == 5);
+    LEARN_CHECK(b.empty());
+    LEARN_CHECK(*keep == 2);  // iterator not invalidated by splice into a
     a.sort();
-    assert(a.front() == 1);
-    assert(a.back() == 20);
+    LEARN_CHECK(a.front() == 1);
+    LEARN_CHECK(a.back() == 20);
 }
 
 }  // namespace

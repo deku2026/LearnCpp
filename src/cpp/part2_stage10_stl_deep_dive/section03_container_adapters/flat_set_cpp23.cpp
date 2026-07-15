@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
@@ -21,10 +20,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
     std::flat_set<int> fs{3, 1, 4, 1, 5};
-    assert(fs.size() == 4);
-    assert(*fs.begin() == 1);
+    LEARN_CHECK(fs.size() == 4);
+    LEARN_CHECK(*fs.begin() == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -34,12 +33,12 @@ void demo_intermediate() {
     fs.insert(2);
     fs.insert(1);
     fs.insert(2);
-    assert(fs.size() == 2);
-    assert(fs.contains(1));
+    LEARN_CHECK(fs.size() == 2);
+    LEARN_CHECK(fs.contains(1));
     fs.erase(1);
-    assert(!fs.contains(1));
+    LEARN_CHECK(!fs.contains(1));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -47,10 +46,10 @@ void demo_expert() {
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
     std::flat_set<int> fs{1, 2, 3, 4, 5};
     auto it = fs.lower_bound(3);
-    assert(*it == 3);
-    assert(fs.find(9) == fs.end());
+    LEARN_CHECK(*it == 3);
+    LEARN_CHECK(fs.find(9) == fs.end());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

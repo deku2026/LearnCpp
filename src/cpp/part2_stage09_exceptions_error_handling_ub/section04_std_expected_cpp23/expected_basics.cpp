@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -30,21 +29,21 @@ std::expected<int, std::string> parse_positive(int x) {
 
 void demo_basics() {
     auto ok = parse_positive(5);
-    assert(ok.has_value());
-    assert(*ok == 5);
+    LEARN_CHECK(ok.has_value());
+    LEARN_CHECK(*ok == 5);
 }
 
 void demo_intermediate() {
     auto bad = parse_positive(0);
-    assert(!bad.has_value());
-    assert(bad.error() == "non-positive");
+    LEARN_CHECK(!bad.has_value());
+    LEARN_CHECK(bad.error() == "non-positive");
 }
 
 void demo_expert() {
     auto v = parse_positive(10).value_or(-1);
-    assert(v == 10);
+    LEARN_CHECK(v == 10);
     auto w = parse_positive(-1).value_or(-1);
-    assert(w == -1);
+    LEARN_CHECK(w == -1);
 }
 
 #else
@@ -70,19 +69,19 @@ MiniExpected<int, std::string> parse_positive(int x) {
 
 void demo_basics() {
     auto ok = parse_positive(5);
-    assert(ok.has_value());
-    assert(*ok == 5);
+    LEARN_CHECK(ok.has_value());
+    LEARN_CHECK(*ok == 5);
 }
 
 void demo_intermediate() {
     auto bad = parse_positive(0);
-    assert(!bad.has_value());
-    assert(bad.err() == "non-positive");
+    LEARN_CHECK(!bad.has_value());
+    LEARN_CHECK(bad.err() == "non-positive");
 }
 
 void demo_expert() {
-    assert(parse_positive(10).value_or(-1) == 10);
-    assert(parse_positive(-1).value_or(-1) == -1);
+    LEARN_CHECK(parse_positive(10).value_or(-1) == 10);
+    LEARN_CHECK(parse_positive(-1).value_or(-1) == -1);
 }
 
 #endif

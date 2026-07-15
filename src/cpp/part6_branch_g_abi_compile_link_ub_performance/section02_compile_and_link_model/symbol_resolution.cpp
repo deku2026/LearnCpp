@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 namespace obj_a {
@@ -25,15 +23,15 @@ int consume() {
 }  // namespace obj_b
 
 void demo_basics() {
-    assert(obj_b::consume() == 11);
+    LEARN_CHECK(obj_b::consume() == 11);
 }
 
 void demo_intermediate() {
-    assert(obj_a::provide() == 10);
+    LEARN_CHECK(obj_a::provide() == 10);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

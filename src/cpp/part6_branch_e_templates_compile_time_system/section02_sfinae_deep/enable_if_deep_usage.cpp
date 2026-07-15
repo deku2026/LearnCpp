@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -25,18 +24,18 @@ int classify(T) {
 }
 
 void demo_basics() {
-    assert(classify(1) == 1);
-    assert(classify(1.0) == 2);
+    LEARN_CHECK(classify(1) == 1);
+    LEARN_CHECK(classify(1.0) == 2);
 }
 
 void demo_intermediate() {
-    assert(classify(true) == 1);
-    assert(classify(1.0f) == 2);
+    LEARN_CHECK(classify(true) == 1);
+    LEARN_CHECK(classify(1.0f) == 2);
 }
 
 void demo_expert() {
     // Prefer concepts in C++20+, enable_if still appears in older code.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

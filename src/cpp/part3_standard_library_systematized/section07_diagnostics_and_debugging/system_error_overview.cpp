@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <system_error>
 
@@ -17,24 +16,24 @@ namespace {
 
 void demo_basics() {
     std::error_code ec;
-    assert(!ec);
+    LEARN_CHECK(!ec);
     ec = std::make_error_code(std::errc::invalid_argument);
-    assert(ec);
-    assert(ec == std::errc::invalid_argument);
+    LEARN_CHECK(ec);
+    LEARN_CHECK(ec == std::errc::invalid_argument);
 }
 
 void demo_intermediate() {
     std::error_code ec = std::make_error_code(std::errc::no_such_file_or_directory);
     std::string msg = ec.message();
-    assert(!msg.empty());
+    LEARN_CHECK(!msg.empty());
 }
 
 void demo_expert() {
     try {
         throw std::system_error(std::make_error_code(std::errc::permission_denied), "demo");
     } catch (const std::system_error& e) {
-        assert(e.code() == std::errc::permission_denied);
-        assert(std::string{e.what()}.find("demo") != std::string::npos || true);
+        LEARN_CHECK(e.code() == std::errc::permission_denied);
+        LEARN_CHECK(std::string{e.what()}.find("demo") != std::string::npos || true);
     }
 }
 

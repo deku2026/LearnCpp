@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -68,8 +67,8 @@ int Accumulator::total() const {
 // ========== simulated consumer.cpp ==========
 // Real project: another .cpp includes only the header and links against math_utils.o.
 void demo_basics() {
-    assert(math_utils::add(2, 3) == 5);
-    assert(math_utils::mul(4, 5) == 20);
+    LEARN_CHECK(math_utils::add(2, 3) == 5);
+    LEARN_CHECK(math_utils::mul(4, 5) == 20);
 }
 
 void demo_intermediate() {
@@ -77,7 +76,7 @@ void demo_intermediate() {
     acc.push(1);
     acc.push(2);
     acc.push(3);
-    assert(acc.total() == 16);
+    LEARN_CHECK(acc.total() == 16);
 
     // Headers should not define non-inline free functions (would ODR-break if
     // included from multiple TUs). Definitions stay in the .cpp above.
@@ -86,7 +85,7 @@ void demo_intermediate() {
     for (int x : xs) {
         s = math_utils::add(s, x);
     }
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
 }
 
 void demo_expert() {
@@ -106,12 +105,12 @@ void demo_expert() {
         acc.push(math_utils::mul(i, i));
     }
     // 1+4+9+16+25 = 55
-    assert(acc.total() == 55);
+    LEARN_CHECK(acc.total() == 55);
 
     const std::string iface = "math_utils.hpp";
     const std::string impl = "math_utils.cpp";
-    assert(iface.ends_with(".hpp"));
-    assert(impl.ends_with(".cpp"));
+    LEARN_CHECK(iface.ends_with(".hpp"));
+    LEARN_CHECK(impl.ends_with(".cpp"));
 }
 
 int run(int argc, char** argv) {

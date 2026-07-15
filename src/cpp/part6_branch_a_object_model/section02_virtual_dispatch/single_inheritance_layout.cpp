@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -29,18 +28,18 @@ void demo_basics() {
     Derived x;
     x.b = 1;
     x.d = 2;
-    assert(x.f() == 3);
+    LEARN_CHECK(x.f() == 3);
     Base* p = &x;
-    assert(p->f() == 3);
+    LEARN_CHECK(p->f() == 3);
 }
 
 void demo_intermediate() {
     // Single inheritance: one vptr shared; Derived adds its members.
-    assert(sizeof(Derived) >= sizeof(Base));
+    LEARN_CHECK(sizeof(Derived) >= sizeof(Base));
     Derived x{};
     Base* as_base = &x;
     // Primary base subobject typically at offset 0 (ABI-dependent, common case).
-    assert(static_cast<void*>(as_base) == static_cast<void*>(&x));
+    LEARN_CHECK(static_cast<void*>(as_base) == static_cast<void*>(&x));
 }
 
 void demo_expert() {
@@ -48,8 +47,8 @@ void demo_expert() {
     x.b = 10;
     x.d = 20;
     Base& r = x;
-    assert(r.f() == 30);
-    assert(reinterpret_cast<std::uintptr_t>(&x) % alignof(Derived) == 0);
+    LEARN_CHECK(r.f() == 30);
+    LEARN_CHECK(reinterpret_cast<std::uintptr_t>(&x) % alignof(Derived) == 0);
 }
 
 }  // namespace

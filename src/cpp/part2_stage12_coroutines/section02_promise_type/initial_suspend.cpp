@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -143,11 +142,11 @@ void demo_basics() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     int n = 0;
     auto r = lazy(&n);
-    assert(n == 0);
+    LEARN_CHECK(n == 0);
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -155,10 +154,10 @@ void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     int n = 0;
     auto e = eager_set(&n);
-    assert(n == 2);
-    assert(e.h.done());
+    LEARN_CHECK(n == 2);
+    LEARN_CHECK(e.h.done());
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -169,11 +168,11 @@ void demo_expert() {
     int b = 0;
     auto r = lazy(&a);
     auto e = eager_set(&b);
-    assert(a == 0 && b == 2);
+    LEARN_CHECK(a == 0 && b == 2);
     r.resume();
-    assert(a == 1);
+    LEARN_CHECK(a == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

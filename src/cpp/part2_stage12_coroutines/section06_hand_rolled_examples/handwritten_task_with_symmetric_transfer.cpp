@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -169,9 +168,9 @@ void demo_basics() {
     int n = 0;
     auto t = leaf(&n);
     t.start();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -181,9 +180,9 @@ void demo_intermediate() {
     auto child = leaf(&n);
     auto p = parent(&n, &child);
     p.start();
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -194,9 +193,9 @@ void demo_expert() {
     auto child = leaf(&n);
     auto p = parent(&n, &child);
     p.start();
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

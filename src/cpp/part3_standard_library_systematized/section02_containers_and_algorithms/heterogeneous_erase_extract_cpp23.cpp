@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <set>
 #include <string>
@@ -19,27 +18,27 @@ namespace {
 
 void demo_basics() {
     std::map<std::string, int> m{{"alpha", 1}, {"beta", 2}};
-    assert(m.find("alpha") != m.end());
+    LEARN_CHECK(m.find("alpha") != m.end());
     m.erase("beta");
-    assert(m.size() == 1);
+    LEARN_CHECK(m.size() == 1);
 }
 
 void demo_intermediate() {
     std::map<std::string, int, std::less<>> m{{"key", 42}};
     std::string_view sv = "key";
     auto it = m.find(sv);
-    assert(it != m.end());
-    assert(it->second == 42);
+    LEARN_CHECK(it != m.end());
+    LEARN_CHECK(it->second == 42);
 }
 
 void demo_expert() {
     std::map<std::string, int> m{{"a", 1}, {"b", 2}};
     auto node = m.extract("a");
-    assert(node);
-    assert(node.key() == "a");
-    assert(m.size() == 1);
+    LEARN_CHECK(node);
+    LEARN_CHECK(node.key() == "a");
+    LEARN_CHECK(m.size() == 1);
     m.insert(std::move(node));
-    assert(m.size() == 2);
+    LEARN_CHECK(m.size() == 2);
 }
 
 int run(int argc, char** argv) {

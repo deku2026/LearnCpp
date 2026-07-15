@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <tuple>
 #include <utility>
 
@@ -32,7 +31,7 @@ auto make_tuple_holder(Args... args) {
 
 void demo_basics() {
     auto f = make_sum_by_value(1, 2, 3);
-    assert(f() == 6);
+    LEARN_CHECK(f() == 6);
 }
 
 void demo_intermediate() {
@@ -41,17 +40,17 @@ void demo_intermediate() {
     auto f = make_sum_by_ref(a, b);
     a = 1;
     b = 2;
-    assert(f() == 3);
+    LEARN_CHECK(f() == 3);
 }
 
 void demo_expert() {
     auto holder = make_tuple_holder(4, 5);
     auto t = holder();
-    assert(std::get<0>(t) == 4);
-    assert(std::get<1>(t) == 5);
+    LEARN_CHECK(std::get<0>(t) == 4);
+    LEARN_CHECK(std::get<1>(t) == 5);
 
     auto empty = make_sum_by_value();
-    assert(empty() == 0);
+    LEARN_CHECK(empty() == 0);
 }
 
 int run(int argc, char** argv) {

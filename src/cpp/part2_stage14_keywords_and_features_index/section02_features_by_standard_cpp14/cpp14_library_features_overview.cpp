@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <memory>
 #include <utility>
@@ -18,13 +17,13 @@ namespace {
 
 void demo_basics() {
     auto p = std::make_unique<int>(42);
-    assert(*p == 42);
+    LEARN_CHECK(*p == 42);
 }
 
 void demo_intermediate() {
     using namespace std::chrono_literals;
     auto d = 50ms;
-    assert(d.count() == 50);
+    LEARN_CHECK(d.count() == 50);
 }
 
 void demo_expert() {
@@ -32,7 +31,7 @@ void demo_expert() {
     a[0] = 1;
     a[1] = 2;
     a[2] = 3;
-    assert(a[2] == 3);
+    LEARN_CHECK(a[2] == 3);
 }
 
 int run(int argc, char** argv) {

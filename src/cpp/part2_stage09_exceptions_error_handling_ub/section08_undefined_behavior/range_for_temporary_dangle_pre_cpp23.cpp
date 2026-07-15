@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -28,7 +27,7 @@ void demo_basics() {
     for (const auto& w : make_words()) {
         n += static_cast<int>(w.size());
     }
-    assert(n == 6);
+    LEARN_CHECK(n == 6);
 }
 
 void demo_intermediate() {
@@ -37,7 +36,7 @@ void demo_intermediate() {
     for (auto words = make_words(); const auto& w : words) {
         total += w.size();
     }
-    assert(total == 6);
+    LEARN_CHECK(total == 6);
 }
 
 void demo_expert() {
@@ -48,7 +47,7 @@ void demo_expert() {
         (void)c;
         ++letters;
     }
-    assert(letters == 3);
+    LEARN_CHECK(letters == 3);
 
     // Comment only: chaining temporary containers without lifetime extension
     // was a pre-C++23 footgun in some patterns; keep a named owner.

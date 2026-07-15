@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -144,11 +143,11 @@ void demo_basics() {
     Counted::promise_type::lives = 0;
     {
         auto c = make_counted();
-        assert(Counted::promise_type::lives == 1);
+        LEARN_CHECK(Counted::promise_type::lives == 1);
     }
-    assert(Counted::promise_type::lives == 0);
+    LEARN_CHECK(Counted::promise_type::lives == 0);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -156,10 +155,10 @@ void demo_intermediate() {
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
     Counted::promise_type::lives = 0;
     auto c = make_counted();
-    assert(c.h.done());
-    assert(Counted::promise_type::lives == 1);
+    LEARN_CHECK(c.h.done());
+    LEARN_CHECK(Counted::promise_type::lives == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -168,9 +167,9 @@ void demo_expert() {
     // promise_type is the customization hub for suspend/return/exception.
     Counted::promise_type::lives = 0;
     auto c = make_counted();
-    assert(Counted::promise_type::lives == 1);
+    LEARN_CHECK(Counted::promise_type::lives == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

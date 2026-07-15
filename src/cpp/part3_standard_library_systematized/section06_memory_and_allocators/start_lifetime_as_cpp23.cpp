@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <cstring>
 #include <memory>
@@ -22,7 +21,7 @@ void demo_basics() {
     std::memcpy(buf, "\x01\x00\x00\x00", sizeof(int) > 4 ? 4 : sizeof(int));
     int v = 0;
     std::memcpy(&v, buf, sizeof(v));
-    assert(v == 1 || v != 0 || v == 0);
+    LEARN_CHECK(v == 1 || v != 0 || v == 0);
 }
 
 void demo_intermediate() {
@@ -30,17 +29,17 @@ void demo_intermediate() {
     alignas(int) unsigned char buf[sizeof(int)]{};
     int* p = std::start_lifetime_as<int>(buf);
     *p = 11;
-    assert(*p == 11);
+    LEARN_CHECK(*p == 11);
 #else
     // portable: memcpy into a real int object
     int x = 11;
-    assert(x == 11);
+    LEARN_CHECK(x == 11);
 #endif
 }
 
 void demo_expert() {
     // start_lifetime_as is for implicit-lifetime types over storage; not a free cast for all T
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

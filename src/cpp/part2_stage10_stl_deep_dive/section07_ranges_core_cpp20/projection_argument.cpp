@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <string>
 #include <vector>
@@ -25,22 +24,22 @@ struct Person {
 void demo_basics() {
     std::vector<Person> people{{"Bob", 30}, {"Ann", 25}, {"Carl", 40}};
     std::ranges::sort(people, {}, &Person::age);
-    assert(people.front().name == "Ann");
-    assert(people.back().name == "Carl");
+    LEARN_CHECK(people.front().name == "Ann");
+    LEARN_CHECK(people.back().name == "Carl");
 }
 
 void demo_intermediate() {
     std::vector<Person> people{{"Bob", 30}, {"Ann", 25}};
     auto it = std::ranges::find(people, 30, &Person::age);
-    assert(it != people.end());
-    assert(it->name == "Bob");
+    LEARN_CHECK(it != people.end());
+    LEARN_CHECK(it->name == "Bob");
 }
 
 void demo_expert() {
     std::vector<std::pair<int, std::string>> v{{2, "b"}, {1, "a"}};
     std::ranges::sort(v, std::ranges::greater{}, &std::pair<int, std::string>::first);
-    assert(v.front().first == 2);
-    assert(std::ranges::max(v, {}, &std::pair<int, std::string>::first).first == 2);
+    LEARN_CHECK(v.front().first == 2);
+    LEARN_CHECK(std::ranges::max(v, {}, &std::pair<int, std::string>::first).first == 2);
 }
 
 }  // namespace

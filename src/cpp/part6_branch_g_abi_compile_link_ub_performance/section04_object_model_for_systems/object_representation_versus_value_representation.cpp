@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <type_traits>
 
@@ -25,16 +24,16 @@ void demo_basics() {
     P a{1, 2};
     P b{};
     std::memcpy(&b, &a, sizeof(P));
-    assert(b.x == 1 && b.y == 2);
+    LEARN_CHECK(b.x == 1 && b.y == 2);
 }
 
 void demo_intermediate() {
-    assert(sizeof(P) == sizeof(int) * 2);
+    LEARN_CHECK(sizeof(P) == sizeof(int) * 2);
 }
 
 void demo_expert() {
     // Value representation may ignore padding; comparisons on padding are meaningless.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

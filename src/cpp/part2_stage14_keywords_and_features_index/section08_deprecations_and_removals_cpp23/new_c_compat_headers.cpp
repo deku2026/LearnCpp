@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -18,24 +17,26 @@ namespace {
 
 void demo_basics() {
     std::int32_t x = 1;
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
     char buf[8]{};
-    std::strcpy(buf, "hi");
-    assert(std::strcmp(buf, "hi") == 0);
+    // Prefer memcpy over strcpy (MSVC deprecates strcpy under -Werror).
+    const char hi[] = "hi";
+    std::memcpy(buf, hi, sizeof(hi));
+    LEARN_CHECK(std::strcmp(buf, "hi") == 0);
 }
 
 void demo_intermediate() {
     // Prefer <cstdint> etc. over .h forms in C++.
     std::uint64_t y = 2;
-    assert(y == 2);
+    LEARN_CHECK(y == 2);
 }
 
 void demo_expert() {
     // snprintf is safer than sprintf
     char out[16];
     int n = std::snprintf(out, sizeof(out), "%d", 42);
-    assert(n == 2);
-    assert(std::strcmp(out, "42") == 0);
+    LEARN_CHECK(n == 2);
+    LEARN_CHECK(std::strcmp(out, "42") == 0);
 }
 
 int run(int argc, char** argv) {

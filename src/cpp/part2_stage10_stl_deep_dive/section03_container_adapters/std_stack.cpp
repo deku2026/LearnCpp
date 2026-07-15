@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stack>
 #include <vector>
 
@@ -19,19 +18,19 @@ void demo_basics() {
     std::stack<int> st;
     st.push(1);
     st.push(2);
-    assert(st.top() == 2);
+    LEARN_CHECK(st.top() == 2);
     st.pop();
-    assert(st.top() == 1);
-    assert(st.size() == 1);
+    LEARN_CHECK(st.top() == 1);
+    LEARN_CHECK(st.size() == 1);
 }
 
 void demo_intermediate() {
     std::stack<int, std::vector<int>> st;
     st.push(10);
     st.push(20);
-    assert(!st.empty());
+    LEARN_CHECK(!st.empty());
     st.pop();
-    assert(st.top() == 10);
+    LEARN_CHECK(st.top() == 10);
 }
 
 void demo_expert() {
@@ -41,10 +40,10 @@ void demo_expert() {
     a.push(2);
     b.push(9);
     a.swap(b);
-    assert(a.top() == 9);
-    assert(b.top() == 2);
-    assert(a.size() == 1);
-    assert(b.size() == 2);
+    LEARN_CHECK(a.top() == 9);
+    LEARN_CHECK(b.top() == 2);
+    LEARN_CHECK(a.size() == 1);
+    LEARN_CHECK(b.size() == 2);
 }
 
 }  // namespace

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <set>
 #include <string>
@@ -20,24 +19,24 @@ namespace {
 
 void demo_basics() {
     std::map<std::string, int> m{{"a", 1}};
-    assert(m.contains("a"));
-    assert(!m.contains("b"));
+    LEARN_CHECK(m.contains("a"));
+    LEARN_CHECK(!m.contains("b"));
 }
 
 void demo_intermediate() {
     std::set<int> s{1, 2, 3};
-    assert(s.contains(2));
+    LEARN_CHECK(s.contains(2));
     std::unordered_map<int, int> um{{5, 50}};
-    assert(um.contains(5));
-    assert(!um.contains(6));
+    LEARN_CHECK(um.contains(5));
+    LEARN_CHECK(!um.contains(6));
 }
 
 void demo_expert() {
     std::map<std::string, int, std::less<>> m{{"hello", 1}};
-    assert(m.contains(std::string_view{"hello"}));
-    assert(!m.contains(std::string_view{"world"}));
+    LEARN_CHECK(m.contains(std::string_view{"hello"}));
+    LEARN_CHECK(!m.contains(std::string_view{"world"}));
     // Prefer contains over find != end for readability
-    assert(m.find("hello") != m.end());
+    LEARN_CHECK(m.find("hello") != m.end());
 }
 
 }  // namespace

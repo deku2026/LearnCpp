@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 #if defined(__cpp_lib_mdspan)
 #include <mdspan>
@@ -21,14 +20,14 @@ void demo_basics() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     std::vector<int> data{1, 2, 3, 4, 5, 6};
     std::mdspan<int, std::extents<std::size_t, 2, 3>> m{data.data(), 2, 3};
-    assert((m[0, 0] == 1));
-    assert((m[1, 2] == 6));
+    LEARN_CHECK((m[0, 0] == 1));
+    LEARN_CHECK((m[1, 2] == 6));
 #else
     // Fallback without mdspan: row-major 2x3.
     int data[6] = {1, 2, 3, 4, 5, 6};
     auto at = [&](int r, int c) { return data[r * 3 + c]; };
-    assert(at(0, 0) == 1);
-    assert(at(1, 2) == 6);
+    LEARN_CHECK(at(0, 0) == 1);
+    LEARN_CHECK(at(1, 2) == 6);
 #endif
 }
 
@@ -37,11 +36,11 @@ void demo_intermediate() {
     std::vector<int> data(6, 0);
     std::mdspan m{data.data(), std::extents<std::size_t, std::dynamic_extent, 3>{2, 3}};
     m[0, 1] = 9;
-    assert(data[1] == 9);
+    LEARN_CHECK(data[1] == 9);
 #else
     int data[6] = {};
     data[1] = 9;
-    assert(data[1] == 9);
+    LEARN_CHECK(data[1] == 9);
 #endif
 }
 
@@ -50,9 +49,9 @@ void demo_expert() {
     std::vector<int> owner{1, 2, 3, 4};
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     std::mdspan<int, std::extents<std::size_t, 2, 2>> m{owner.data()};
-    assert((m[1, 1] == 4));
+    LEARN_CHECK((m[1, 1] == 4));
 #else
-    assert(owner[3] == 4);
+    LEARN_CHECK(owner[3] == 4);
 #endif
 }
 

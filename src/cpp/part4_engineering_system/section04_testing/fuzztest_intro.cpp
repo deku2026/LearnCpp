@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Property: for all inputs, invariant holds
     auto inv = [](int x) { return x + 0 == x; };
-    assert(inv(42));
+    LEARN_CHECK(inv(42));
 }
 
 void demo_intermediate() {
     // Domain combinators generate structured inputs
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Integrates with GoogleTest
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

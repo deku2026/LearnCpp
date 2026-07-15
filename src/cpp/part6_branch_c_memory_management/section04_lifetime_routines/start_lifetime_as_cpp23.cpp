@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <new>
 #include <type_traits>
@@ -21,11 +20,11 @@ void demo_basics() {
 #if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
     int* p = std::start_lifetime_as<int>(buf);
     *p = 42;
-    assert(*p == 42);
+    LEARN_CHECK(*p == 42);
 #else
     // Portable fallback: placement new starts lifetime of int.
     int* p = new (buf) int(42);
-    assert(*p == 42);
+    LEARN_CHECK(*p == 42);
 #endif
 }
 
@@ -39,17 +38,17 @@ void demo_intermediate() {
     Agg* a = std::start_lifetime_as<Agg>(buf);
     a->x = 1;
     a->y = 2;
-    assert(a->x + a->y == 3);
+    LEARN_CHECK(a->x + a->y == 3);
 #else
     Agg* a = new (buf) Agg{1, 2};
-    assert(a->x + a->y == 3);
+    LEARN_CHECK(a->x + a->y == 3);
 #endif
 }
 
 void demo_expert() {
     // Only for implicit-lifetime / trivial cases; not a general type-pun tool.
     static_assert(std::is_trivially_copyable_v<int>);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

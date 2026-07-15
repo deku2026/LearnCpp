@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 
 namespace {
@@ -34,29 +33,29 @@ struct Derived : Base1, Base2 {
 
 void demo_basics() {
     Derived x;
-    assert(x.f1() == 4);
-    assert(x.f2() == 5);
+    LEARN_CHECK(x.f1() == 4);
+    LEARN_CHECK(x.f2() == 5);
 }
 
 void demo_intermediate() {
     Derived x;
     Base1* p1 = &x;
     Base2* p2 = &x;
-    assert(p1->f1() == 4);
-    assert(p2->f2() == 5);
+    LEARN_CHECK(p1->f1() == 4);
+    LEARN_CHECK(p2->f2() == 5);
     // Conversion to non-primary base may change the address (ABI-dependent).
     const auto a0 = reinterpret_cast<std::uintptr_t>(&x);
     const auto a2 = reinterpret_cast<std::uintptr_t>(p2);
-    assert(a2 == a0 || a2 > a0);
+    LEARN_CHECK(a2 == a0 || a2 > a0);
 }
 
 void demo_expert() {
     Derived x;
     Base2* p2 = &x;
     Derived* back = static_cast<Derived*>(p2);
-    assert(back == &x);
+    LEARN_CHECK(back == &x);
     // reinterpret_cast would NOT adjust; do not use it for hierarchy casts.
-    assert(sizeof(Derived) >= sizeof(Base1) + sizeof(int));
+    LEARN_CHECK(sizeof(Derived) >= sizeof(Base1) + sizeof(int));
 }
 
 }  // namespace

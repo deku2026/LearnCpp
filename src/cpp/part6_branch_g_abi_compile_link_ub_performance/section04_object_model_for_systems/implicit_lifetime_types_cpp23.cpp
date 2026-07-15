@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -33,11 +32,11 @@ void demo_intermediate() {
     static_assert(std::is_trivial_v<Agg>);
 #endif
     Agg a{1, 2};
-    assert(a.a + a.b == 3);
+    LEARN_CHECK(a.a + a.b == 3);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

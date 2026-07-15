@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // -fprofile-instr-generate -fcoverage-mapping
     std::string tool = "llvm-cov";
-    assert(!tool.empty());
+    LEARN_CHECK(!tool.empty());
 }
 
 void demo_intermediate() {
     // Enforce coverage thresholds carefully (quality not vanity)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Exclude generated code
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

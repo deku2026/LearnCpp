@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -20,29 +19,29 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_ranges_contains) && __cpp_lib_ranges_contains >= 202207L
     std::vector<int> v{1, 2, 3};
-    assert(std::ranges::contains(v, 2));
-    assert(!std::ranges::contains(v, 9));
+    LEARN_CHECK(std::ranges::contains(v, 2));
+    LEARN_CHECK(!std::ranges::contains(v, 9));
 #else
     std::vector<int> v{1, 2, 3};
-    assert(std::ranges::find(v, 2) != v.end());
+    LEARN_CHECK(std::ranges::find(v, 2) != v.end());
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_ranges_contains) && __cpp_lib_ranges_contains >= 202207L
-    assert(std::ranges::contains(std::views::iota(0, 5), 3));
+    LEARN_CHECK(std::ranges::contains(std::views::iota(0, 5), 3));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_ranges_contains) && __cpp_lib_ranges_contains >= 202207L
     std::vector<int> v{1, 2, 3, 4};
-    assert((std::ranges::contains_subrange(v, std::vector<int>{2, 3})));
-    assert((!std::ranges::contains_subrange(v, std::vector<int>{2, 4})));
+    LEARN_CHECK((std::ranges::contains_subrange(v, std::vector<int>{2, 3})));
+    LEARN_CHECK((!std::ranges::contains_subrange(v, std::vector<int>{2, 4})));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

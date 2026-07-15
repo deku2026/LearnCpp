@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 int k(int) {
@@ -21,17 +19,17 @@ int k(double) {
 }
 
 void demo_basics() {
-    assert(k(1) == 1);    // exact
-    assert(k(1.0) == 2);  // exact double
+    LEARN_CHECK(k(1) == 1);    // exact
+    LEARN_CHECK(k(1.0) == 2);  // exact double
 }
 
 void demo_intermediate() {
-    assert(k(true) == 1);  // promotion bool->int
+    LEARN_CHECK(k(true) == 1);  // promotion bool->int
 }
 
 void demo_expert() {
     char c = 1;
-    assert(k(c) == 1);  // promotion to int
+    LEARN_CHECK(k(c) == 1);  // promotion to int
 }
 
 int run(int argc, char** argv) {

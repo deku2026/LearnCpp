@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // valgrind --leak-check=full ./app
     std::string tool = "valgrind";
-    assert(tool == "valgrind");
+    LEARN_CHECK(tool == "valgrind");
 }
 
 void demo_intermediate() {
     // Slower than ASan; different bug classes
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Not available natively on Windows
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

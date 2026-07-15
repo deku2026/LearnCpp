@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,19 +17,19 @@ namespace {
 void demo_basics() {
     // PRIVATE: only this target; PUBLIC: this + consumers; INTERFACE: consumers only
     enum class Vis { Private, Public, Interface };
-    assert(static_cast<int>(Vis::Public) != static_cast<int>(Vis::Private));
+    LEARN_CHECK(static_cast<int>(Vis::Public) != static_cast<int>(Vis::Private));
 }
 
 void demo_intermediate() {
     // Header dependency => PUBLIC/INTERFACE link; .cpp-only dep => PRIVATE
     const bool header_dep_is_public = true;
-    assert(header_dep_is_public);
+    LEARN_CHECK(header_dep_is_public);
 }
 
 void demo_expert() {
     // INTERFACE libraries model header-only packages
     std::string kind = "INTERFACE";
-    assert(kind == "INTERFACE");
+    LEARN_CHECK(kind == "INTERFACE");
 }
 
 int run(int argc, char** argv) {

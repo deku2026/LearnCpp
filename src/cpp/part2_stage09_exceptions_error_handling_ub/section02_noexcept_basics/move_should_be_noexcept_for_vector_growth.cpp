@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -59,9 +58,9 @@ void demo_intermediate() {
     v.reserve(1);
     v.emplace_back(1);
     v.emplace_back(2);  // may reallocate and move
-    assert(v.size() == 2);
-    assert(v[0].v == 1);
-    assert(NoexceptMovable::moves >= 0);
+    LEARN_CHECK(v.size() == 2);
+    LEARN_CHECK(v[0].v == 1);
+    LEARN_CHECK(NoexceptMovable::moves >= 0);
 }
 
 void demo_expert() {
@@ -69,8 +68,8 @@ void demo_expert() {
     std::vector<ThrowingMove> v;
     v.emplace_back(1);
     v.emplace_back(2);
-    assert(v.size() == 2);
-    assert(v[1].v == 2);
+    LEARN_CHECK(v.size() == 2);
+    LEARN_CHECK(v[1].v == 2);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <concepts>
 #include <ranges>
 #include <string>
@@ -23,7 +22,7 @@ void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
     auto evens = v | std::views::filter([](int x) { return x % 2 == 0; });
     // OK: v outlives evens
-    assert(std::ranges::distance(evens) == 2);
+    LEARN_CHECK(std::ranges::distance(evens) == 2);
 }
 
 void demo_intermediate() {
@@ -31,7 +30,7 @@ void demo_intermediate() {
     auto f = std::views::iota(0, 10) | std::views::filter([](int x) { return x % 2 == 0; });
     static_assert(!std::ranges::sized_range<decltype(f)>);
     // distance is O(n)
-    assert(std::ranges::distance(f) == 5);
+    LEARN_CHECK(std::ranges::distance(f) == 5);
 }
 
 void demo_expert() {
@@ -45,8 +44,8 @@ void demo_expert() {
     auto pipe = ws | std::views::filter([](const std::string& s) { return s.size() > 1; }) |
                 std::views::transform([](const std::string& s) { return s.size(); });
     std::vector<std::size_t> once(pipe.begin(), pipe.end());
-    assert(once.size() == 2);
-    assert(once[0] == 2 && once[1] == 3);
+    LEARN_CHECK(once.size() == 2);
+    LEARN_CHECK(once[0] == 2 && once[1] == 3);
 }
 
 }  // namespace

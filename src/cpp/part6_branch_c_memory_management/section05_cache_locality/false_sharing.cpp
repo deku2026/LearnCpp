@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -24,7 +23,7 @@ void demo_basics() {
     PaddedCounter b;
     a.v.store(1);
     b.v.store(2);
-    assert(a.v.load() + b.v.load() == 3);
+    LEARN_CHECK(a.v.load() + b.v.load() == 3);
 }
 
 void demo_intermediate() {
@@ -38,14 +37,14 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(c1.v.load() == 1000);
-    assert(c2.v.load() == 1000);
+    LEARN_CHECK(c1.v.load() == 1000);
+    LEARN_CHECK(c2.v.load() == 1000);
 }
 
 void demo_expert() {
     // Adjacent atomics without padding may share a cache line (false sharing).
     // We only run the padded safe pattern above.
-    assert(sizeof(PaddedCounter) >= 64);
+    LEARN_CHECK(sizeof(PaddedCounter) >= 64);
 }
 
 int run(int argc, char** argv) {

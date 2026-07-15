@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -38,12 +37,12 @@ std::string serialize(const T& x, ...) {
 void demo_basics() {
     static_assert(has_c_str_v<std::string>);
     static_assert(!has_c_str_v<int>);
-    assert(has_c_str_v<std::string>);
+    LEARN_CHECK(has_c_str_v<std::string>);
 }
 
 void demo_intermediate() {
-    assert(serialize(std::string{"hi"}, 0) == "hi");
-    assert(serialize(42, 0) == "42");
+    LEARN_CHECK(serialize(std::string{"hi"}, 0) == "hi");
+    LEARN_CHECK(serialize(42, 0) == "42");
 }
 
 void demo_expert() {
@@ -51,8 +50,8 @@ void demo_expert() {
     struct WithCStr {
         const char* c_str() const { return "ok"; }
     };
-    assert(serialize(WithCStr{}, 0) == "ok");
-    assert(serialize(7, 0) == "7");
+    LEARN_CHECK(serialize(WithCStr{}, 0) == "ok");
+    LEARN_CHECK(serialize(7, 0) == "7");
 }
 
 int run(int argc, char** argv) {

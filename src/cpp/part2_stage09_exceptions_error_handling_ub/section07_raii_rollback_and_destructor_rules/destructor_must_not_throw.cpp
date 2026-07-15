@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <stdexcept>
 #include <string>
 
@@ -30,7 +29,7 @@ void demo_basics() {
     {
         QuietDtor q{&done};
     }
-    assert(done == 1);
+    LEARN_CHECK(done == 1);
 }
 
 void demo_intermediate() {
@@ -39,7 +38,7 @@ void demo_intermediate() {
         QuietDtor q{&done};
         throw std::runtime_error("x");
     } catch (...) {
-        assert(done == 1);  // dtor ran during unwind without throwing
+        LEARN_CHECK(done == 1);  // dtor ran during unwind without throwing
     }
 }
 
@@ -61,7 +60,7 @@ void demo_expert() {
         FileLike g;
         g.flush_ok = false;
     }
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

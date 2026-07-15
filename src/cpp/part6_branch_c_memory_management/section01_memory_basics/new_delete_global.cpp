@@ -9,27 +9,26 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <new>
 
 namespace {
 
 void demo_basics() {
     int* p = new int(5);
-    assert(*p == 5);
+    LEARN_CHECK(*p == 5);
     delete p;
 }
 
 void demo_intermediate() {
     int* a = new int[3]{1, 2, 3};
-    assert(a[2] == 3);
+    LEARN_CHECK(a[2] == 3);
     delete[] a;
 }
 
 void demo_expert() {
     int* p = new (std::nothrow) int(9);
-    assert(p != nullptr);
-    assert(*p == 9);
+    LEARN_CHECK(p != nullptr);
+    LEARN_CHECK(*p == 9);
     delete p;
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <sstream>
 #include <string>
 #include <version>
@@ -35,18 +34,18 @@ std::string diag_line(int code, const std::string& msg) {
 
 void demo_basics() {
     auto s = diag_line(1, "ok");
-    assert(s.find("code=1") != std::string::npos);
-    assert(s.find("ok") != std::string::npos);
+    LEARN_CHECK(s.find("code=1") != std::string::npos);
+    LEARN_CHECK(s.find("ok") != std::string::npos);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     // std::print writes to stdout; we still assert format helper works.
     auto s = diag_line(42, "answer");
-    assert(s.find("42") != std::string::npos);
+    LEARN_CHECK(s.find("42") != std::string::npos);
 #else
     auto s = diag_line(42, "answer");
-    assert(s == "code=42 msg=answer");
+    LEARN_CHECK(s == "code=42 msg=answer");
 #endif
 }
 
@@ -54,7 +53,7 @@ void demo_expert() {
     // Prefer structured diagnostic strings over ad-hoc concatenation.
     auto a = diag_line(0, "x");
     auto b = diag_line(0, "x");
-    assert(a == b);
+    LEARN_CHECK(a == b);
 }
 
 int run(int argc, char** argv) {

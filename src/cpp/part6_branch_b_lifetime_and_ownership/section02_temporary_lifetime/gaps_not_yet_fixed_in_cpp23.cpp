@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -24,14 +23,14 @@ std::string make_s() {
 void demo_basics() {
     std::string owner = make_s();
     std::string_view sv = owner;
-    assert(sv == "data");
+    LEARN_CHECK(sv == "data");
 }
 
 void demo_intermediate() {
     // Keep owning string alive as long as views need it.
     const std::string& ext = make_s();
     std::string_view sv = ext;
-    assert(sv.size() == 4);
+    LEARN_CHECK(sv.size() == 4);
 }
 
 void demo_expert() {
@@ -40,7 +39,7 @@ void demo_expert() {
     // - init-captures that dangle
     // Prefer owning types or extend lifetime at the call site.
     std::string s = make_s();
-    assert(!s.empty());
+    LEARN_CHECK(!s.empty());
 }
 
 int run(int argc, char** argv) {

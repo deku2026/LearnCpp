@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 struct Base {
@@ -27,22 +25,22 @@ void demo_basics() {
     int x = 1;
     {
         int x = 2;
-        assert(x == 2);
+        LEARN_CHECK(x == 2);
     }
-    assert(x == 1);
+    LEARN_CHECK(x == 1);
 }
 
 void demo_intermediate() {
     Derived d;
-    assert(d.x == 2);
-    assert(d.Base::x == 1);
+    LEARN_CHECK(d.x == 2);
+    LEARN_CHECK(d.Base::x == 1);
 }
 
 void demo_expert() {
     Derived d;
     d.f(1.0);      // Derived::f
     d.Base::f(1);  // call hidden base overload explicitly
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

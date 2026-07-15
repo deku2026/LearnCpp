@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -22,14 +21,14 @@ auto add_trail(const L& lhs, const R& rhs) -> decltype(lhs + rhs) {
 
 void demo_basics() {
     auto f = [](int x) -> int { return x + 1; };
-    assert(f(1) == 2);
-    assert(add_trail(1, 2.5) == 3.5);
+    LEARN_CHECK(f(1) == 2);
+    LEARN_CHECK(add_trail(1, 2.5) == 3.5);
 }
 
 void demo_intermediate() {
     // Trailing return sees parameters; useful for decltype on args.
     auto mul = [](auto a, auto b) -> decltype(a * b) { return a * b; };
-    assert(mul(2, 3) == 6);
+    LEARN_CHECK(mul(2, 3) == 6);
     static_assert(std::is_same_v<decltype(mul(2, 3.0)), double>);
 }
 
@@ -41,10 +40,10 @@ void demo_expert() {
 #else
     auto g = [n]() -> int { return n * n; };
 #endif
-    assert(g() == 16);
+    LEARN_CHECK(g() == 16);
 
     auto h = [](int x) noexcept -> int { return x; };
-    assert(h(9) == 9);
+    LEARN_CHECK(h(9) == 9);
 }
 
 int run(int argc, char** argv) {

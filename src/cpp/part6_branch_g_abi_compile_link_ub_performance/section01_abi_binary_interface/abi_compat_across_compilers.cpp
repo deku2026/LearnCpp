@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -20,19 +19,19 @@ struct Layout {
 };
 
 void demo_basics() {
-    assert(sizeof(Layout) >= sizeof(int));
-    assert(alignof(Layout) >= alignof(int));
+    LEARN_CHECK(sizeof(Layout) >= sizeof(int));
+    LEARN_CHECK(alignof(Layout) >= alignof(int));
 }
 
 void demo_intermediate() {
     static_assert(std::is_standard_layout_v<Layout>);
     Layout a{'x', 1};
-    assert(a.i == 1);
+    LEARN_CHECK(a.i == 1);
 }
 
 void demo_expert() {
     Layout a{'a', 2};
-    assert(a.c == 'a');
+    LEARN_CHECK(a.c == 'a');
 }
 
 int run(int argc, char** argv) {

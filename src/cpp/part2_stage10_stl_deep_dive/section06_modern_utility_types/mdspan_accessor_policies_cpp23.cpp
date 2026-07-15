@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <type_traits>
 #include <version>
@@ -24,11 +23,11 @@ void demo_basics() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     int data[4] = {1, 2, 3, 4};
     std::mdspan<int, std::extents<std::size_t, 2, 2>, std::layout_right, std::default_accessor<int>> m{data};
-    assert((m[0, 1] == 2));
+    LEARN_CHECK((m[0, 1] == 2));
     m[1, 0] = 9;
-    assert(data[2] == 9);
+    LEARN_CHECK(data[2] == 9);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -36,11 +35,11 @@ void demo_intermediate() {
 #if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
     int data[4] = {1, 2, 3, 4};
     std::default_accessor<int> acc{};
-    assert(acc.access(data, 2) == 3);
+    LEARN_CHECK(acc.access(data, 2) == 3);
     acc.access(data, 2) = 30;
-    assert(data[2] == 30);
+    LEARN_CHECK(data[2] == 30);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -49,10 +48,10 @@ void demo_expert() {
     // Accessor customizes pointer→element (e.g. scaled, atomic, checked)
     const int data[3] = {7, 8, 9};
     std::mdspan<const int, std::extents<std::size_t, 3>> m{data};
-    assert(m[2] == 9);
+    LEARN_CHECK(m[2] == 9);
     static_assert(std::is_same_v<decltype(m)::accessor_type, std::default_accessor<const int>>);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

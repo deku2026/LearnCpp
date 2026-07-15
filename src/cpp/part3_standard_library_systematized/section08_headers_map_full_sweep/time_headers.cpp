@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <chrono>
 #include <ctime>
 
@@ -17,7 +16,7 @@ namespace {
 
 void demo_basics() {
     using namespace std::chrono_literals;
-    assert((10ms).count() == 10);
+    LEARN_CHECK((10ms).count() == 10);
 }
 
 void demo_intermediate() {
@@ -27,7 +26,7 @@ void demo_intermediate() {
 
 void demo_expert() {
     std::time_t t = std::time(nullptr);
-    assert(t != static_cast<std::time_t>(-1) || t == static_cast<std::time_t>(-1));
+    LEARN_CHECK(t != static_cast<std::time_t>(-1) || t == static_cast<std::time_t>(-1));
 }
 
 int run(int argc, char** argv) {

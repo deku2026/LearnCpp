@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -29,18 +28,18 @@ void demo_basics() {
     std::memcpy(bytes.data(), &p, sizeof(p));
     Packet q{};
     std::memcpy(&q, bytes.data(), sizeof(q));
-    assert(q.id == 1 && q.value == 42);
+    LEARN_CHECK(q.id == 1 && q.value == 42);
 }
 
 void demo_intermediate() {
     // Text forms (JSON/XML) need external libs; string building is not enough for production
     std::string json_like = "{\"n\":1}";
-    assert(json_like.find("n") != std::string::npos);
+    LEARN_CHECK(json_like.find("n") != std::string::npos);
 }
 
 void demo_expert() {
     // Prefer schema evolution (protobuf/flatbuffers) for long-lived formats
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

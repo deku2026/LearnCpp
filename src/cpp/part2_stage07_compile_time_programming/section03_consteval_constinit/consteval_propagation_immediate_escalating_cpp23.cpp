@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <version>
 
 namespace {
@@ -35,19 +34,19 @@ consteval int compose() {
 void demo_basics() {
     constexpr int a = seed();
     static_assert(a == 7);
-    assert(a == 7);
+    LEARN_CHECK(a == 7);
 }
 
 void demo_intermediate() {
     constexpr int b = use_seed_times(2);
     static_assert(b == 14);
-    assert(use_seed_times(2) == 14);
+    LEARN_CHECK(use_seed_times(2) == 14);
 }
 
 void demo_expert() {
     constexpr int c = compose();
     static_assert(c == 21);
-    assert(c == 21);
+    LEARN_CHECK(c == 21);
 
 #if defined(__cpp_consteval)
     static_assert(__cpp_consteval >= 201811L || true);

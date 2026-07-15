@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <vector>
 #include <version>
 
@@ -31,22 +30,22 @@ constexpr int sum_vector() {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3};
-    assert(v.size() == 3);
-    assert(v[0] + v[1] + v[2] == 6);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v[0] + v[1] + v[2] == 6);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_constexpr_vector) && __cpp_lib_constexpr_vector >= 201907L
     constexpr int s = sum_vector();
     static_assert(s == 6);
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
 #else
     std::vector<int> v{1, 2, 3};
     int s = 0;
     for (int x : v) {
         s += x;
     }
-    assert(s == 6);
+    LEARN_CHECK(s == 6);
 #endif
 }
 
@@ -58,11 +57,11 @@ void demo_expert() {
         return static_cast<int>(v.size()) + v[0];
     }();
     static_assert(n == 12);
-    assert(n == 12);
+    LEARN_CHECK(n == 12);
 #else
     std::vector<int> v(4, 10);
     v.resize(2);
-    assert(static_cast<int>(v.size()) + v[0] == 12);
+    LEARN_CHECK(static_cast<int>(v.size()) + v[0] == 12);
 #endif
 }
 

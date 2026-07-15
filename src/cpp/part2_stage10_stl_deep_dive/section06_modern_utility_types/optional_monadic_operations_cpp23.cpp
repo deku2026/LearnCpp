@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <optional>
 #include <string>
 #include <version>
@@ -27,10 +26,10 @@ void demo_basics() {
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     std::optional<int> o = 2;
     auto t = o.transform([](int x) { return x * 10; });
-    assert(t == 20);
+    LEARN_CHECK(t == 20);
 #else
     std::optional<int> o = 2;
-    assert(*o * 10 == 20);
+    LEARN_CHECK(*o * 10 == 20);
 #endif
 }
 
@@ -38,25 +37,25 @@ void demo_intermediate() {
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     std::optional<std::string> s = "42";
     auto n = s.and_then(to_int);
-    assert(n == 42);
+    LEARN_CHECK(n == 42);
     std::optional<std::string> bad = "x";
-    assert(!bad.and_then(to_int));
+    LEARN_CHECK(!bad.and_then(to_int));
 #else
-    assert(to_int("42") == 42);
-    assert(!to_int("x"));
+    LEARN_CHECK(to_int("42") == 42);
+    LEARN_CHECK(!to_int("x"));
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
     auto v = std::optional<int>{}.or_else([] { return std::optional<int>{3}; }).transform([](int x) { return x + 1; });
-    assert(v == 4);
+    LEARN_CHECK(v == 4);
     auto empty = std::optional<int>{5}.and_then([](int) -> std::optional<int> { return std::nullopt; });
-    assert(!empty);
+    LEARN_CHECK(!empty);
 #else
     std::optional<int> v = 3;
     v = *v + 1;
-    assert(v == 4);
+    LEARN_CHECK(v == 4);
 #endif
 }
 

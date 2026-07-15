@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -22,10 +21,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_multimap<std::string, int> fmm{{"a", 1}, {"a", 2}, {"b", 3}};
-    assert(fmm.size() == 3);
-    assert(fmm.count("a") == 2);
+    LEARN_CHECK(fmm.size() == 3);
+    LEARN_CHECK(fmm.count("a") == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -37,9 +36,9 @@ void demo_intermediate() {
     for (auto it = r.first; it != r.second; ++it) {
         ++n;
     }
-    assert(n == 2);
+    LEARN_CHECK(n == 2);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -47,10 +46,10 @@ void demo_expert() {
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_multimap<int, int> fmm{{1, 10}, {1, 11}, {2, 20}};
     fmm.erase(1);
-    assert(fmm.size() == 1);
-    assert(fmm.begin()->second == 20);
+    LEARN_CHECK(fmm.size() == 1);
+    LEARN_CHECK(fmm.begin()->second == 20);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

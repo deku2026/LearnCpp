@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <string>
 
@@ -26,22 +25,22 @@ int add3(int a, int b, int c) {
 void demo_basics() {
 #if defined(__cpp_lib_bind_back) && __cpp_lib_bind_back >= 202202L
     auto sub_from = std::bind_back(sub, 3);
-    assert(sub_from(10) == 7);
+    LEARN_CHECK(sub_from(10) == 7);
 #else
     auto sub_from = [](int a) { return sub(a, 3); };
-    assert(sub_from(10) == 7);
+    LEARN_CHECK(sub_from(10) == 7);
 #endif
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_bind_back) && __cpp_lib_bind_back >= 202202L
     auto plus_c = std::bind_back(add3, 3);
-    assert(plus_c(1, 2) == 6);
+    LEARN_CHECK(plus_c(1, 2) == 6);
     auto plus_bc = std::bind_back(add3, 2, 3);
-    assert(plus_bc(1) == 6);
+    LEARN_CHECK(plus_bc(1) == 6);
 #else
     auto plus_c = [](int a, int b) { return add3(a, b, 3); };
-    assert(plus_c(1, 2) == 6);
+    LEARN_CHECK(plus_c(1, 2) == 6);
 #endif
 }
 
@@ -49,10 +48,10 @@ void demo_expert() {
     auto wrap = [](const std::string& body, const std::string& suffix) { return body + suffix; };
 #if defined(__cpp_lib_bind_back) && __cpp_lib_bind_back >= 202202L
     auto with_bang = std::bind_back(wrap, std::string{"!"});
-    assert(with_bang(std::string{"ok"}) == "ok!");
+    LEARN_CHECK(with_bang(std::string{"ok"}) == "ok!");
 #else
     auto with_bang = [&](const std::string& body) { return wrap(body, "!"); };
-    assert(with_bang(std::string{"ok"}) == "ok!");
+    LEARN_CHECK(with_bang(std::string{"ok"}) == "ok!");
 #endif
 }
 

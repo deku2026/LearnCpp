@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iterator>
 #include <list>
 #include <type_traits>
@@ -50,23 +49,23 @@ int process(T v) {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3, 4};
-    assert(my_advance(v.begin(), 3) == 300);
+    LEARN_CHECK(my_advance(v.begin(), 3) == 300);
 
     std::list<int> lst{1, 2, 3, 4};
-    assert(my_advance(lst.begin(), 3) == 3);
+    LEARN_CHECK(my_advance(lst.begin(), 3) == 3);
 }
 
 void demo_intermediate() {
-    assert(process(42) == 1);
-    assert(process(3.14) == 0);
-    assert(process(true) == 1);
+    LEARN_CHECK(process(42) == 1);
+    LEARN_CHECK(process(3.14) == 0);
+    LEARN_CHECK(process(true) == 1);
 }
 
 void demo_expert() {
     static_assert(std::is_base_of_v<std::input_iterator_tag, std::random_access_iterator_tag>);
     // random_access overloads beat input via more derived tag.
     std::vector<char> c{'a', 'b'};
-    assert(my_advance(c.begin(), 1) == 100);
+    LEARN_CHECK(my_advance(c.begin(), 1) == 100);
 }
 
 int run(int argc, char** argv) {

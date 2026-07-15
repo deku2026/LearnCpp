@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -28,19 +27,19 @@ public:
 void demo_basics() {
     Fraction f{1, 2};
     double d = static_cast<double>(f);
-    assert(d == 0.5);
+    LEARN_CHECK(d == 0.5);
 }
 
 void demo_intermediate() {
     Fraction z{0, 1};
     Fraction n{3, 4};
-    assert(!static_cast<bool>(z));
-    assert(static_cast<bool>(n));
+    LEARN_CHECK(!static_cast<bool>(z));
+    LEARN_CHECK(static_cast<bool>(n));
     if (n) {
-        assert(true);
+        LEARN_CHECK(true);
     }
     if (!z) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 
@@ -48,7 +47,7 @@ void demo_expert() {
     static_assert(!std::is_convertible_v<Fraction, double>);
     static_assert(std::is_constructible_v<double, Fraction>);
     Fraction f{2, 5};
-    assert(static_cast<double>(f) == 0.4);
+    LEARN_CHECK(static_cast<double>(f) == 0.4);
 }
 
 int run(int argc, char** argv) {

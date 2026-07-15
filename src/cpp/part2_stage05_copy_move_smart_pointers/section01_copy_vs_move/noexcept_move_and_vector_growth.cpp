@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -77,9 +76,9 @@ void demo_intermediate() {
     v.emplace_back(1);
     v.emplace_back(2);  // reallocation: should move if noexcept
 
-    assert(v.size() == 2);
-    assert(Movable::moves >= 1);
-    assert(Movable::copies == 0);
+    LEARN_CHECK(v.size() == 2);
+    LEARN_CHECK(Movable::moves >= 1);
+    LEARN_CHECK(Movable::copies == 0);
 }
 
 void demo_expert() {
@@ -91,17 +90,17 @@ void demo_expert() {
     v.emplace_back(1);
     v.emplace_back(2);  // reallocation: prefers copy for strong exception guarantee
 
-    assert(v.size() == 2);
-    assert(ThrowMovable::copies >= 1);
+    LEARN_CHECK(v.size() == 2);
+    LEARN_CHECK(ThrowMovable::copies >= 1);
 
     // move_if_noexcept selects copy for potentially-throwing move.
     ThrowMovable src(9);
     ThrowMovable::copies = 0;
     ThrowMovable::moves = 0;
     ThrowMovable dst(std::move_if_noexcept(src));
-    assert(ThrowMovable::copies == 1);
-    assert(ThrowMovable::moves == 0);
-    assert(dst.id == 9);
+    LEARN_CHECK(ThrowMovable::copies == 1);
+    LEARN_CHECK(ThrowMovable::moves == 0);
+    LEARN_CHECK(dst.id == 9);
 }
 
 int run(int argc, char** argv) {

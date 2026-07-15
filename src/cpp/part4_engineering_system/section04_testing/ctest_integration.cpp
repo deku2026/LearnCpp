@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // enable_testing(); add_test(NAME t COMMAND app)
     std::string cmd = "ctest";
-    assert(cmd == "ctest");
+    LEARN_CHECK(cmd == "ctest");
 }
 
 void demo_intermediate() {
     // ctest --output-on-failure -j
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Labels and regex filters: ctest -R unit
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

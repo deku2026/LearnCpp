@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 template <int N>
@@ -30,7 +28,7 @@ constexpr int sum_to(int n) {
 
 void demo_basics() {
     static_assert(Fact<5>::value == 120);
-    assert(Fact<4>::value == 24);
+    LEARN_CHECK(Fact<4>::value == 24);
 }
 
 void demo_intermediate() {

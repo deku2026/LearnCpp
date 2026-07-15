@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 constexpr int feature_level() {
@@ -31,7 +29,7 @@ constexpr int feature_level() {
 // We keep classic directives for maximum portability in this demo.
 
 void demo_basics() {
-    assert(feature_level() == 0);
+    LEARN_CHECK(feature_level() == 0);
 }
 
 void demo_intermediate() {
@@ -45,14 +43,14 @@ void demo_intermediate() {
 #endif
         ;
     static_assert(via_elif_defined == 2);
-    assert(via_elif_defined == 2);
+    LEARN_CHECK(via_elif_defined == 2);
 #endif
 }
 
 void demo_expert() {
     // #warning is widely available as extension; C++23 standardizes #warning.
     // We do not emit warnings from this demo; only assert control-flow macros.
-    assert(feature_level() >= 0);
+    LEARN_CHECK(feature_level() >= 0);
 }
 
 int run(int argc, char** argv) {

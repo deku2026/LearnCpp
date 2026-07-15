@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -18,9 +17,9 @@ void demo_basics() {
     auto a = [] { return 42; };
     auto b = [](int x) { return x * 2; };
     auto c = [](int x) -> double { return x / 2.0; };
-    assert(a() == 42);
-    assert(b(3) == 6);
-    assert(c(5) == 2.5);
+    LEARN_CHECK(a() == 42);
+    LEARN_CHECK(b(3) == 6);
+    LEARN_CHECK(c(5) == 2.5);
 }
 
 void demo_intermediate() {
@@ -30,8 +29,8 @@ void demo_intermediate() {
         }
         return 0;
     };
-    assert(choose(true) == 1);
-    assert(choose(false) == 0);
+    LEARN_CHECK(choose(true) == 1);
+    LEARN_CHECK(choose(false) == 0);
     static_assert(std::is_same_v<decltype(choose(true)), int>);
 }
 
@@ -43,8 +42,8 @@ void demo_expert() {
         }
         return static_cast<double>(n);
     };
-    assert(scale(true, 2) == 3.0);
-    assert(scale(false, 2) == 2.0);
+    LEARN_CHECK(scale(true, 2) == 3.0);
+    LEARN_CHECK(scale(false, 2) == 2.0);
 
     auto deduced_fn = [](int n) { return n; };
     static_assert(std::is_same_v<decltype(deduced_fn(1)), int>);

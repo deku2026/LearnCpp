@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <stdexcept>
 
@@ -25,18 +24,18 @@ struct Widget : std::enable_shared_from_this<Widget> {
 void demo_basics() {
     auto w = std::make_shared<Widget>(1);
     auto self = w->getSelf();
-    assert(self.get() == w.get());
-    assert(w.use_count() == 2);
-    assert(self->id == 1);
+    LEARN_CHECK(self.get() == w.get());
+    LEARN_CHECK(w.use_count() == 2);
+    LEARN_CHECK(self->id == 1);
 }
 
 void demo_intermediate() {
     auto w = std::make_shared<Widget>(2);
     {
         auto self = w->shared_from_this();
-        assert(w.use_count() == 2);
+        LEARN_CHECK(w.use_count() == 2);
     }
-    assert(w.use_count() == 1);
+    LEARN_CHECK(w.use_count() == 1);
 }
 
 void demo_expert() {
@@ -48,14 +47,14 @@ void demo_expert() {
     } catch (const std::bad_weak_ptr&) {
         threw = true;
     }
-    assert(threw);
+    LEARN_CHECK(threw);
 
     // Correct pattern: construct via make_shared first.
     auto w = std::make_shared<Widget>(4);
     std::weak_ptr<Widget> weak = w->weak_from_this();
-    assert(!weak.expired());
+    LEARN_CHECK(!weak.expired());
     w.reset();
-    assert(weak.expired());
+    LEARN_CHECK(weak.expired());
 }
 
 int run(int argc, char** argv) {

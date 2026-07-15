@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -53,9 +52,9 @@ void demo_expert() {
     auto f = [](auto&& x) -> decltype(auto) { return std::forward<decltype(x)>(x); };
     int v = 10;
     int& lr = f(v);
-    assert(&lr == &v);
+    LEARN_CHECK(&lr == &v);
     int&& rr = f(20);
-    assert(rr == 20);
+    LEARN_CHECK(rr == 20);
 }
 
 int run(int argc, char** argv) {

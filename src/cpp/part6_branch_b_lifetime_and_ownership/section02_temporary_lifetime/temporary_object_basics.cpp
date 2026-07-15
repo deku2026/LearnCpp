@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -19,21 +18,21 @@ int make() {
 }
 
 void demo_basics() {
-    assert(make() + 1 == 43);
+    LEARN_CHECK(make() + 1 == 43);
     std::string s = std::string("he") + "llo";
-    assert(s == "hello");
+    LEARN_CHECK(s == "hello");
 }
 
 void demo_intermediate() {
     const std::string& ext = std::string("temp");
-    assert(ext == "temp");  // lifetime extended to scope of ext
+    LEARN_CHECK(ext == "temp");  // lifetime extended to scope of ext
 }
 
 void demo_expert() {
     // Full-expression end destroys unextended temporaries.
     int sum = 0;
     sum += std::string("ab").size();
-    assert(sum == 2);
+    LEARN_CHECK(sum == 2);
 }
 
 int run(int argc, char** argv) {

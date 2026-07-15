@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 class Config {
@@ -39,16 +37,16 @@ public:
 
 void demo_basics() {
     Config c{7};
-    assert(c.id() == 7);
+    LEARN_CHECK(c.id() == 7);
     c.set_value(3);
-    assert(c.value() == 3);
+    LEARN_CHECK(c.value() == 3);
 }
 
 void demo_intermediate() {
     const Cache cache{10};
-    assert(cache.get() == 10);
-    assert(cache.get() == 10);
-    assert(cache.hits() == 2);
+    LEARN_CHECK(cache.get() == 10);
+    LEARN_CHECK(cache.get() == 10);
+    LEARN_CHECK(cache.hits() == 2);
 }
 
 void demo_expert() {
@@ -56,7 +54,7 @@ void demo_expert() {
     Cache cache{1};
     const Cache& r = cache;
     (void)r.get();
-    assert(cache.hits() == 1);
+    LEARN_CHECK(cache.hits() == 1);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <vector>
@@ -53,16 +52,16 @@ void demo_basics() {
     Dog d;
     Cat c;
     Animal* p = &d;
-    assert(p->speak() == "woof");
+    LEARN_CHECK(p->speak() == "woof");
     p = &c;
-    assert(p->speak() == "meow");
+    LEARN_CHECK(p->speak() == "meow");
 }
 
 void demo_intermediate() {
     DogC d;
     CatC c;
-    assert(loud(d) == "woof!");
-    assert(loud(c) == "meow!");
+    LEARN_CHECK(loud(d) == "woof!");
+    LEARN_CHECK(loud(c) == "meow!");
 }
 
 void demo_expert() {
@@ -70,11 +69,11 @@ void demo_expert() {
     std::vector<std::unique_ptr<Animal>> zoo;
     zoo.push_back(std::make_unique<Dog>());
     zoo.push_back(std::make_unique<Cat>());
-    assert(zoo[0]->speak() == "woof");
-    assert(zoo[1]->speak() == "meow");
+    LEARN_CHECK(zoo[0]->speak() == "woof");
+    LEARN_CHECK(zoo[1]->speak() == "meow");
 
     // CRTP is monomorphic per call site — zero virtual dispatch.
-    assert(DogC{}.speak() == "woof");
+    LEARN_CHECK(DogC{}.speak() == "woof");
 }
 
 int run(int argc, char** argv) {

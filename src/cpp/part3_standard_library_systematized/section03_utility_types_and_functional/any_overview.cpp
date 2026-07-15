@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <string>
 #include <typeinfo>
 
@@ -18,25 +17,25 @@ namespace {
 
 void demo_basics() {
     std::any a = 42;
-    assert(std::any_cast<int>(a) == 42);
+    LEARN_CHECK(std::any_cast<int>(a) == 42);
     a = std::string{"x"};
-    assert(std::any_cast<std::string>(a) == "x");
+    LEARN_CHECK(std::any_cast<std::string>(a) == "x");
 }
 
 void demo_intermediate() {
     std::any a;
-    assert(!a.has_value());
+    LEARN_CHECK(!a.has_value());
     a = 1.5;
-    assert(a.type() == typeid(double));
+    LEARN_CHECK(a.type() == typeid(double));
 }
 
 void demo_expert() {
     std::any a = 7;
     try {
         (void)std::any_cast<std::string>(a);
-        assert(false);
+        LEARN_CHECK(false);
     } catch (const std::bad_any_cast&) {
-        assert(true);
+        LEARN_CHECK(true);
     }
 }
 

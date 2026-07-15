@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 
@@ -47,8 +46,8 @@ std::string dir_name(Direction d) {
 }
 
 void demo_basics() {
-    assert(dir_name(Direction::North) == "north");
-    assert(dir_name(Direction::West) == "west");
+    LEARN_CHECK(dir_name(Direction::North) == "north");
+    LEARN_CHECK(dir_name(Direction::West) == "west");
 }
 
 void demo_intermediate() {
@@ -56,15 +55,15 @@ void demo_intermediate() {
     {
         using enum Mode;
         Mode m = Read;
-        assert(m == Mode::Read);
+        LEARN_CHECK(m == Mode::Read);
         m = Write;
-        assert(m == Write);
+        LEARN_CHECK(m == Write);
     }
 #else
     Mode m = Mode::Read;
-    assert(m == Mode::Read);
+    LEARN_CHECK(m == Mode::Read);
     m = Mode::Write;
-    assert(m == Mode::Write);
+    LEARN_CHECK(m == Mode::Write);
 #endif
 }
 
@@ -98,9 +97,9 @@ void demo_expert() {
         return d;
     };
 
-    assert(opposite(Direction::North) == Direction::South);
-    assert(opposite(Direction::East) == Direction::West);
-    assert(dir_name(opposite(Direction::South)) == "north");
+    LEARN_CHECK(opposite(Direction::North) == Direction::South);
+    LEARN_CHECK(opposite(Direction::East) == Direction::West);
+    LEARN_CHECK(dir_name(opposite(Direction::South)) == "north");
 }
 
 int run(int argc, char** argv) {

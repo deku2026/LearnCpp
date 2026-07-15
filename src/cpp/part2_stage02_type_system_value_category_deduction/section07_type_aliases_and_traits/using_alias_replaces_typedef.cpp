@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -31,12 +30,12 @@ int add(int a, int b) {
 
 void demo_basics() {
     IntVec v{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
     Str s = "alias";
-    assert(s == "alias");
+    LEARN_CHECK(s == "alias");
 
     ulong_t u = 10ul;
-    assert(u == 10ul);
+    LEARN_CHECK(u == 10ul);
 
     static_assert(std::is_same_v<IntVec, std::vector<int>>);
     static_assert(std::is_same_v<Str, std::string>);
@@ -45,19 +44,19 @@ void demo_basics() {
 void demo_intermediate() {
     FuncPtr fp = add;
     OldFuncPtr ofp = add;
-    assert(fp(2, 3) == 5);
-    assert(ofp(4, 5) == 9);
+    LEARN_CHECK(fp(2, 3) == 5);
+    LEARN_CHECK(ofp(4, 5) == 9);
 
     // using is clearer for function pointers and references
     using IntRef = int&;
     int x = 7;
     IntRef r = x;
     r = 8;
-    assert(x == 8);
+    LEARN_CHECK(x == 8);
 
     using CString = const char*;
     CString msg = "ok";
-    assert(msg[0] == 'o');
+    LEARN_CHECK(msg[0] == 'o');
 }
 
 void demo_expert() {
@@ -70,7 +69,7 @@ void demo_expert() {
     // Alias for complex container
     using Table = std::vector<std::vector<int>>;
     Table t{{1, 2}, {3, 4}};
-    assert(t[1][0] == 3);
+    LEARN_CHECK(t[1][0] == 3);
 
     // typedef cannot be templated; using can (see alias_template topic)
     // Here show equivalence of typedef and using for non-templates
@@ -78,7 +77,7 @@ void demo_expert() {
     static_assert(std::is_same_v<ULong, ulong_t>);
 
     FuncPtr ops[1] = {add};
-    assert(ops[0](10, 1) == 11);
+    LEARN_CHECK(ops[0](10, 1) == 11);
 }
 
 int run(int argc, char** argv) {

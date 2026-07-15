@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,18 +17,18 @@ namespace {
 void demo_basics() {
     // target_include_directories(core PUBLIC include)
     std::string include_dir = "include";
-    assert(!include_dir.empty());
+    LEARN_CHECK(!include_dir.empty());
 }
 
 void demo_intermediate() {
     // $<BUILD_INTERFACE:...> vs $<INSTALL_INTERFACE:...> for exportable targets
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Never use include_directories() globally in modern CMake
     const bool use_target_include = true;
-    assert(use_target_include);
+    LEARN_CHECK(use_target_include);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 
 namespace {
@@ -31,13 +30,13 @@ int load_user(UserId id) {
 
 void demo_basics() {
     UserId u{7};
-    assert(load_user(u) == 7);
+    LEARN_CHECK(load_user(u) == 7);
 }
 
 void demo_intermediate() {
     UserId u{1};
     GroupId g{1};
-    assert(u.value == g.value);
+    LEARN_CHECK(u.value == g.value);
     // load_user(g); // would not compile — different types
 }
 
@@ -45,7 +44,7 @@ void demo_expert() {
     struct MeterTag {};
     using Meter = Strong<MeterTag, double>;
     Meter m{3.5};
-    assert(m.value == 3.5);
+    LEARN_CHECK(m.value == 3.5);
 }
 
 int run(int argc, char** argv) {

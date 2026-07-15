@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 // Old TMP style
@@ -36,11 +34,11 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-    assert(factorial(6) == 720);
+    LEARN_CHECK(factorial(6) == 720);
 }
 
 void demo_expert() {
-    assert(Factorial<4>::value == factorial(4));
+    LEARN_CHECK(Factorial<4>::value == factorial(4));
 }
 
 int run(int argc, char** argv) {

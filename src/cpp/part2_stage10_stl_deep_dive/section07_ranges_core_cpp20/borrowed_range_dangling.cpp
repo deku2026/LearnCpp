@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <ranges>
 #include <span>
 #include <type_traits>
@@ -23,7 +22,7 @@ void demo_basics() {
     static_assert(!std::ranges::borrowed_range<std::vector<int>>);
     std::vector<int> v{1, 2, 3};
     auto it = std::ranges::find(v, 2);
-    assert(it != v.end() && *it == 2);
+    LEARN_CHECK(it != v.end() && *it == 2);
 }
 
 void demo_intermediate() {
@@ -31,17 +30,17 @@ void demo_intermediate() {
     auto d = std::ranges::find(std::vector<int>{1, 2, 3}, 2);
     static_assert(std::is_same_v<decltype(d), std::ranges::dangling>);
     (void)d;
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     int a[] = {1, 2, 3};
     static_assert(std::ranges::borrowed_range<decltype((a))>);
     auto it = std::ranges::find(a, 3);
-    assert(*it == 3);
+    LEARN_CHECK(*it == 3);
     std::span<int> sp = a;
     auto it2 = std::ranges::find(sp, 1);
-    assert(*it2 == 1);
+    LEARN_CHECK(*it2 == 1);
 }
 
 }  // namespace

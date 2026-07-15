@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -30,22 +29,22 @@ public:
 void demo_basics() {
     Widget w{"hello"};
     const std::string& r = w.data();
-    assert(r == "hello");
+    LEARN_CHECK(r == "hello");
 }
 
 void demo_intermediate() {
     std::string s = Widget{"tmp"}.data();
-    assert(s == "tmp");
+    LEARN_CHECK(s == "tmp");
 }
 
 void demo_expert() {
     Widget w{"x"};
     w.data_mut() = "y";
-    assert(w.data() == "y");
+    LEARN_CHECK(w.data() == "y");
     // Four-overload pattern (const/non-const x lvalue/rvalue) is the pain
     // that C++23 deducing this collapses — see section04.
     const Widget cw{"c"};
-    assert(cw.data() == "c");
+    LEARN_CHECK(cw.data() == "c");
 }
 
 int run(int argc, char** argv) {

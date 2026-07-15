@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // IWYU suggests minimal correct includes
     std::string header = "<vector>";
-    assert(header.find("vector") != std::string::npos);
+    LEARN_CHECK(header.find("vector") != std::string::npos);
 }
 
 void demo_intermediate() {
     // Reduces rebuild surface and hidden dependencies
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Forward declare in headers when possible
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

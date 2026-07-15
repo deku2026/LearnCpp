@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <functional>
 #include <memory>
 
@@ -35,17 +34,17 @@ struct ErasedInt {
 
 void demo_basics() {
     std::function<int(int)> f = [](int x) { return x + 1; };
-    assert(f(2) == 3);
+    LEARN_CHECK(f(2) == 3);
 }
 
 void demo_intermediate() {
     std::any a = 5;
-    assert(std::any_cast<int>(a) == 5);
+    LEARN_CHECK(std::any_cast<int>(a) == 5);
 }
 
 void demo_expert() {
     ErasedInt e{9};
-    assert(e.get() == 9);
+    LEARN_CHECK(e.get() == 9);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <version>
 #if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
@@ -23,17 +22,17 @@ void demo_basics() {
     auto st = std::stacktrace::current();
     (void)st;
 #endif
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
     // Log stacktrace on fatal errors in engineering builds
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Combine with sanitizer reports and core dumps
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

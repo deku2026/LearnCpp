@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <map>
 #include <string>
 #include <utility>
@@ -27,28 +26,28 @@ namespace {
 
 void demo_basics() {
     std::map<int, int> m{{1, 10}, {2, 20}};
-    assert(m[1] == 10);
+    LEARN_CHECK(m[1] == 10);
 }
 
 void demo_intermediate() {
 #if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
     std::flat_map<int, std::string> fm{{1, "a"}, {2, "b"}};
-    assert(fm[1] == "a");
-    assert(fm.size() == 2);
+    LEARN_CHECK(fm[1] == "a");
+    LEARN_CHECK(fm.size() == 2);
 #else
     // flat map idea: sorted vector of pairs
     std::vector<std::pair<int, std::string>> fm{{1, "a"}, {2, "b"}};
-    assert(fm[0].second == "a");
+    LEARN_CHECK(fm[0].second == "a");
 #endif
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
     std::flat_set<int> fs{3, 1, 2};
-    assert(fs.contains(2));
+    LEARN_CHECK(fs.contains(2));
 #else
     std::vector<int> fs{1, 2, 3};
-    assert(std::binary_search(fs.begin(), fs.end(), 2));
+    LEARN_CHECK(std::binary_search(fs.begin(), fs.end(), 2));
 #endif
 }
 

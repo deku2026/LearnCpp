@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <vector>
 
 namespace {
@@ -18,10 +17,10 @@ namespace {
 void demo_basics() {
 #if defined(__cpp_static_call_operator) && __cpp_static_call_operator >= 202207L
     auto sq = [](int x) static { return x * x; };
-    assert(sq(5) == 25);
+    LEARN_CHECK(sq(5) == 25);
 #else
     auto sq = [](int x) { return x * x; };
-    assert(sq(5) == 25);
+    LEARN_CHECK(sq(5) == 25);
 #endif
 }
 
@@ -32,7 +31,7 @@ void demo_intermediate() {
 #else
     std::sort(v.begin(), v.end(), [](int a, int b) { return a < b; });
 #endif
-    assert(v[0] == 1 && v[1] == 2 && v[2] == 3);
+    LEARN_CHECK(v[0] == 1 && v[1] == 2 && v[2] == 3);
 }
 
 void demo_expert() {
@@ -42,11 +41,11 @@ void demo_expert() {
 #else
     auto id = [](int x) { return x; };
 #endif
-    assert(id(9) == 9);
+    LEARN_CHECK(id(9) == 9);
 
     int n = 1;
     auto with_capture = [n](int x) { return x + n; };
-    assert(with_capture(2) == 3);
+    LEARN_CHECK(with_capture(2) == 3);
 }
 
 int run(int argc, char** argv) {

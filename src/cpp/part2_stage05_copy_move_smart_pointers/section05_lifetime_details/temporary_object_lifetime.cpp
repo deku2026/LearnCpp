@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 
@@ -33,41 +32,41 @@ void demo_basics() {
     Tracker::live = 0;
     {
         Tracker t = make_tracker(1);  // temporary materialized / elided into t
-        assert(t.id == 1);
-        assert(Tracker::live == 1);
+        LEARN_CHECK(t.id == 1);
+        LEARN_CHECK(Tracker::live == 1);
     }
-    assert(Tracker::live == 0);
+    LEARN_CHECK(Tracker::live == 0);
 }
 
 void demo_intermediate() {
     Tracker::live = 0;
     // Full-expression lifetime: temporary dies at semicolon.
-    assert(make_tracker(2).id == 2);
-    assert(Tracker::live == 0);
+    LEARN_CHECK(make_tracker(2).id == 2);
+    LEARN_CHECK(Tracker::live == 0);
 
     // Binding const ref extends temporary (see also const_ref_extends_temporary).
     {
         const Tracker& r = make_tracker(3);
-        assert(r.id == 3);
-        assert(Tracker::live == 1);
+        LEARN_CHECK(r.id == 3);
+        LEARN_CHECK(Tracker::live == 1);
     }
-    assert(Tracker::live == 0);
+    LEARN_CHECK(Tracker::live == 0);
 }
 
 void demo_expert() {
     // Temporary as function argument lives until the full call expression ends.
     auto use = [](const Tracker& t) { return t.id; };
-    assert(use(make_tracker(4)) == 4);
-    assert(Tracker::live == 0);
+    LEARN_CHECK(use(make_tracker(4)) == 4);
+    LEARN_CHECK(Tracker::live == 0);
 
     // prvalue string temporary used immediately is safe.
-    assert(std::string("tmp").size() == 3);
+    LEARN_CHECK(std::string("tmp").size() == 3);
 
     // Storing a pointer/reference into a dying temporary is the classic trap;
     // we only show the safe pattern: copy the value out.
     int id = make_tracker(5).id;
-    assert(id == 5);
-    assert(Tracker::live == 0);
+    LEARN_CHECK(id == 5);
+    LEARN_CHECK(Tracker::live == 0);
 }
 
 int run(int argc, char** argv) {

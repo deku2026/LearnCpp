@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -42,7 +41,7 @@ void demo_basics() {
     static_assert(has_size_v<std::string>);
     static_assert(has_size_v<std::vector<int>>);
     static_assert(!has_size_v<int>);
-    assert(has_size_v<std::string>);
+    LEARN_CHECK(has_size_v<std::string>);
 }
 
 void demo_intermediate() {
@@ -56,7 +55,7 @@ void demo_expert() {
     static_assert(has_value_type<std::vector<int>>::value);
     static_assert(!has_value_type<int>::value);
     static_assert(std::is_same_v<std::vector<int>::value_type, int>);
-    assert(has_size_v<std::vector<char>>);
+    LEARN_CHECK(has_size_v<std::vector<char>>);
 }
 
 int run(int argc, char** argv) {

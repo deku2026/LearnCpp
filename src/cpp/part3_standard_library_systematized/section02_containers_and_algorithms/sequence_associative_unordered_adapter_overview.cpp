@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <list>
 #include <map>
 #include <queue>
@@ -22,29 +21,29 @@ namespace {
 
 void demo_basics() {
     std::vector<int> v{1, 2, 3};
-    assert(v.size() == 3);
-    assert(v.back() == 3);
+    LEARN_CHECK(v.size() == 3);
+    LEARN_CHECK(v.back() == 3);
     std::list<int> lst{4, 5};
-    assert(lst.front() == 4);
+    LEARN_CHECK(lst.front() == 4);
 }
 
 void demo_intermediate() {
     std::map<std::string, int> m{{"a", 1}, {"b", 2}};
-    assert(m["a"] == 1);
+    LEARN_CHECK(m["a"] == 1);
     std::unordered_map<int, int> u{{1, 10}};
-    assert(u[1] == 10);
+    LEARN_CHECK(u[1] == 10);
 }
 
 void demo_expert() {
     std::stack<int> st;
     st.push(1);
     st.push(2);
-    assert(st.top() == 2);
+    LEARN_CHECK(st.top() == 2);
     st.pop();
-    assert(st.top() == 1);
+    LEARN_CHECK(st.top() == 1);
     std::queue<int> q;
     q.push(9);
-    assert(q.front() == 9);
+    LEARN_CHECK(q.front() == 9);
 }
 
 int run(int argc, char** argv) {

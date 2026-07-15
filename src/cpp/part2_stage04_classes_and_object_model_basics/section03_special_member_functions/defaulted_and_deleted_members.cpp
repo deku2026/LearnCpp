@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 #include <utility>
 
@@ -34,7 +33,7 @@ void demo_basics() {
     MovableOnly a;
     a.v = 3;
     MovableOnly b = std::move(a);
-    assert(b.v == 3);
+    LEARN_CHECK(b.v == 3);
 
     static_assert(!std::is_copy_constructible_v<MovableOnly>);
     static_assert(std::is_move_constructible_v<MovableOnly>);
@@ -44,7 +43,7 @@ void demo_intermediate() {
     NoDouble n;
     n.take(1);
     // n.take(1.0); // would be ill-formed (deleted overload)
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
@@ -59,7 +58,7 @@ void demo_expert() {
     static_assert(std::is_trivially_copyable_v<Trivial>);
     Trivial t{};
     Trivial u = t;
-    assert(u.x == 0);
+    LEARN_CHECK(u.x == 0);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <type_traits>
 
@@ -20,7 +19,7 @@ void demo_basics() {
     // std::allocator typically does not propagate (always equal).
     static_assert(!AT::propagate_on_container_copy_assignment::value ||
                   AT::propagate_on_container_copy_assignment::value);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_intermediate() {
@@ -32,7 +31,7 @@ void demo_intermediate() {
 void demo_expert() {
     // When POCMA is true, move-assignment can take the allocator from the source.
     // When false and allocators unequal, element-wise move may be required.
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

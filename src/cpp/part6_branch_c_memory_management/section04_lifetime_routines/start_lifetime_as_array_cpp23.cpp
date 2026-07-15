@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <new>
 
 namespace {
@@ -20,12 +19,12 @@ void demo_basics() {
     int* a = std::start_lifetime_as_array<int>(buf, 4);
     a[0] = 1;
     a[3] = 4;
-    assert(a[0] == 1 && a[3] == 4);
+    LEARN_CHECK(a[0] == 1 && a[3] == 4);
 #else
     int* a = new (buf) int[4];
     a[0] = 1;
     a[3] = 4;
-    assert(a[0] == 1 && a[3] == 4);
+    LEARN_CHECK(a[0] == 1 && a[3] == 4);
 #endif
 }
 
@@ -40,11 +39,11 @@ void demo_intermediate() {
 #endif
     a[0] = 5;
     a[1] = 6;
-    assert(a[0] + a[1] == 11);
+    LEARN_CHECK(a[0] + a[1] == 11);
 }
 
 void demo_expert() {
-    assert(sizeof(int) * 4 >= 4);
+    LEARN_CHECK(sizeof(int) * 4 >= 4);
 }
 
 int run(int argc, char** argv) {

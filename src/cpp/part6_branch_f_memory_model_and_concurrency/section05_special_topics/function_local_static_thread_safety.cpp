@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 
 namespace {
@@ -23,7 +22,7 @@ int& counter() {
 void demo_basics() {
     counter() = 0;
     ++counter();
-    assert(counter() == 1);
+    LEARN_CHECK(counter() == 1);
 }
 
 void demo_intermediate() {
@@ -33,7 +32,7 @@ void demo_intermediate() {
         return value;
     }();
     (void)ref;
-    assert(hits.load() >= 1);
+    LEARN_CHECK(hits.load() >= 1);
 }
 
 void demo_expert() {
@@ -41,13 +40,13 @@ void demo_expert() {
     auto worker = [&] {
         static std::atomic<int> init_once{0};
         static int data = (init_once.fetch_add(1), 123);
-        assert(data == 123);
+        LEARN_CHECK(data == 123);
         seen.fetch_add(1);
     };
     std::thread t1(worker), t2(worker);
     t1.join();
     t2.join();
-    assert(seen.load() == 2);
+    LEARN_CHECK(seen.load() == 2);
 }
 
 int run(int argc, char** argv) {

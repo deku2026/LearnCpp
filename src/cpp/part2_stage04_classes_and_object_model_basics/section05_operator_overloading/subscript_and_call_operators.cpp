@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <vector>
 
@@ -37,8 +36,8 @@ void demo_basics() {
     IntArray a{3};
     a[0] = 10;
     a[1] = 20;
-    assert(a[0] == 10);
-    assert(a.size() == 3);
+    LEARN_CHECK(a[0] == 10);
+    LEARN_CHECK(a.size() == 3);
 }
 
 void demo_intermediate() {
@@ -48,14 +47,14 @@ void demo_intermediate() {
         t[1] = 2;
         return t;
     }();
-    assert(a[1] == 2);
+    LEARN_CHECK(a[1] == 2);
 }
 
 void demo_expert() {
     Multiplier times3{3};
-    assert(times3(7) == 21);
+    LEARN_CHECK(times3(7) == 21);
     auto apply = [](const Multiplier& m, int x) { return m(x); };
-    assert(apply(times3, 4) == 12);
+    LEARN_CHECK(apply(times3, 4) == 12);
 }
 
 int run(int argc, char** argv) {

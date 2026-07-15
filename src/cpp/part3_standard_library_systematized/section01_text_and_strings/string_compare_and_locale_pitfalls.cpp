@@ -9,30 +9,31 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <locale>
 #include <string>
 
 namespace {
 
 void demo_basics() {
-    assert(std::string{"a"} < std::string{"b"});
-    assert(std::string{"A"} < std::string{"a"});   // ASCII order
-    assert(std::string{"10"} < std::string{"2"});  // lexicographic, not numeric
+    LEARN_CHECK(std::string{"a"} < std::string{"b"});
+    LEARN_CHECK(std::string{"A"} < std::string{"a"});   // ASCII order
+    LEARN_CHECK(std::string{"10"} < std::string{"2"});  // lexicographic, not numeric
 }
 
 void demo_intermediate() {
     std::string a = "café";
     std::string b = "cafe";
     // byte-wise equality depends on encoding of source
-    assert(a != b || a == b);
-    assert(a.compare(b) != 0 || a == b);
+    LEARN_CHECK(a != b || a == b);
+    LEARN_CHECK(a.compare(b) != 0 || a == b);
 }
 
 void demo_expert() {
     // classic: operator== ignores locale; collate facets affect locale-aware compare
     std::locale loc = std::locale::classic();
-    assert(std::use_facet<std::collate<char>>(loc).compare("a", "a" + 1, "b", "b" + 1) < 0);
+    const char a[] = "a";
+    const char b[] = "b";
+    LEARN_CHECK(std::use_facet<std::collate<char>>(loc).compare(a, a + 1, b, b + 1) < 0);
 }
 
 int run(int argc, char** argv) {

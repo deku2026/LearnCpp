@@ -10,29 +10,28 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 
 namespace {
 
 void demo_basics() {
-    assert(std::popcount(std::uint8_t{0b1011}) == 3);
-    assert(std::countl_zero(std::uint8_t{0b0001'0000}) == 3);
-    assert(std::countr_zero(std::uint8_t{0b0001'0000}) == 4);
+    LEARN_CHECK(std::popcount(std::uint8_t{0b1011}) == 3);
+    LEARN_CHECK(std::countl_zero(std::uint8_t{0b0001'0000}) == 3);
+    LEARN_CHECK(std::countr_zero(std::uint8_t{0b0001'0000}) == 4);
 }
 
 void demo_intermediate() {
-    assert(std::rotl(std::uint8_t{0b1000'0001}, 1) == std::uint8_t{0b0000'0011});
-    assert(std::rotr(std::uint8_t{0b1000'0001}, 1) == std::uint8_t{0b1100'0000});
-    assert(std::has_single_bit(std::uint32_t{8}));
-    assert(!std::has_single_bit(std::uint32_t{12}));
+    LEARN_CHECK(std::rotl(std::uint8_t{0b1000'0001}, 1) == std::uint8_t{0b0000'0011});
+    LEARN_CHECK(std::rotr(std::uint8_t{0b1000'0001}, 1) == std::uint8_t{0b1100'0000});
+    LEARN_CHECK(std::has_single_bit(std::uint32_t{8}));
+    LEARN_CHECK(!std::has_single_bit(std::uint32_t{12}));
 }
 
 void demo_expert() {
-    assert(std::bit_floor(std::uint32_t{10}) == 8);
-    assert(std::bit_ceil(std::uint32_t{10}) == 16);
+    LEARN_CHECK(std::bit_floor(std::uint32_t{10}) == 8);
+    LEARN_CHECK(std::bit_ceil(std::uint32_t{10}) == 16);
     static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big);
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 }  // namespace

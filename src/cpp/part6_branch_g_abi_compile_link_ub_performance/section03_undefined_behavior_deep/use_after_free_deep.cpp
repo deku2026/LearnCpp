@@ -9,24 +9,23 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 
 namespace {
 
 void demo_basics() {
     auto p = std::make_unique<int>(3);
-    assert(*p == 3);
+    LEARN_CHECK(*p == 3);
     p.reset();
-    assert(p == nullptr);
+    LEARN_CHECK(p == nullptr);
 }
 
 void demo_intermediate() {
     int* raw = new int(4);
-    assert(*raw == 4);
+    LEARN_CHECK(*raw == 4);
     delete raw;
     raw = nullptr;
-    assert(raw == nullptr);
+    LEARN_CHECK(raw == nullptr);
 }
 
 void demo_expert() {
@@ -34,7 +33,7 @@ void demo_expert() {
     std::shared_ptr<int> a = std::make_shared<int>(1);
     std::weak_ptr<int> w = a;
     a.reset();
-    assert(w.expired());
+    LEARN_CHECK(w.expired());
 }
 
 int run(int argc, char** argv) {

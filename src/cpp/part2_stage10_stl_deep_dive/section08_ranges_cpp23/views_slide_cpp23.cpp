@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <ranges>
 #include <vector>
 #include <version>
@@ -20,9 +19,9 @@ void demo_basics() {
 #if defined(__cpp_lib_ranges_slide) && __cpp_lib_ranges_slide >= 202202L
     std::vector<int> v{1, 2, 3, 4};
     auto s = v | std::views::slide(2);
-    assert(std::ranges::distance(s) == 3);
+    LEARN_CHECK(std::ranges::distance(s) == 3);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -32,9 +31,9 @@ void demo_intermediate() {
     auto s = v | std::views::slide(3);
     auto first = *s.begin();
     std::vector<int> w(first.begin(), first.end());
-    assert((w == std::vector<int>{1, 2, 3}));
+    LEARN_CHECK((w == std::vector<int>{1, 2, 3}));
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -43,12 +42,12 @@ void demo_expert() {
     auto s = std::views::iota(0, 5) | std::views::slide(2);
     int n = 0;
     for (auto win : s) {
-        assert(std::ranges::distance(win) == 2);
+        LEARN_CHECK(std::ranges::distance(win) == 2);
         ++n;
     }
-    assert(n == 4);
+    LEARN_CHECK(n == 4);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // BasedOnStyle: LLVM / Google; IndentWidth: 4
     std::string style = "LLVM";
-    assert(!style.empty());
+    LEARN_CHECK(!style.empty());
 }
 
 void demo_intermediate() {
     // clang-format -i file.cpp; pre-commit hook
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // // clang-format off/on sparingly
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

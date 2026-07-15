@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <type_traits>
 
@@ -27,27 +26,27 @@ int overload_int(int) {
 
 void demo_basics() {
     int* p = nullptr;
-    assert(p == nullptr);
-    assert(p == 0);  // still comparable, but prefer nullptr in new code
+    LEARN_CHECK(p == nullptr);
+    LEARN_CHECK(p == 0);  // still comparable, but prefer nullptr in new code
 
     void* vp = nullptr;
-    assert(vp == nullptr);
+    LEARN_CHECK(vp == nullptr);
 
     static_assert(std::is_same_v<decltype(nullptr), std::nullptr_t>);
 }
 
 void demo_intermediate() {
     // 0 is int; nullptr is not an integer type.
-    assert(overload_int(0) == 3);
-    assert(overload_ptr(nullptr) == 2);
+    LEARN_CHECK(overload_int(0) == 3);
+    LEARN_CHECK(overload_ptr(nullptr) == 2);
 
     int x = 1;
     int* px = &x;
-    assert(overload_ptr(px) == 1);
+    LEARN_CHECK(overload_ptr(px) == 1);
 
     // NULL may be 0 or ((void*)0) depending on platform; nullptr is always null pointer constant of type nullptr_t.
     int* q = NULL;
-    assert(q == nullptr);
+    LEARN_CHECK(q == nullptr);
 }
 
 void demo_expert() {
@@ -61,14 +60,14 @@ void demo_expert() {
     int* a = nullptr;
     double* b = nullptr;
     bool is_null = static_cast<bool>(a);
-    assert(a == nullptr);
-    assert(b == nullptr);
-    assert(!is_null);
+    LEARN_CHECK(a == nullptr);
+    LEARN_CHECK(b == nullptr);
+    LEARN_CHECK(!is_null);
 
     // Prefer nullptr for pointer null; reserve 0 for integers.
     const int zero = 0;
-    assert(zero == 0);
-    assert(static_cast<int*>(nullptr) == nullptr);
+    LEARN_CHECK(zero == 0);
+    LEARN_CHECK(static_cast<int*>(nullptr) == nullptr);
 }
 
 int run(int argc, char** argv) {

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <span>
 #include <string>
 #include <version>
@@ -28,13 +27,13 @@ void demo_basics() {
     int a = 0;
     int b = 0;
     in >> a >> b;
-    assert(a == 10 && b == 20);
+    LEARN_CHECK(a == 10 && b == 20);
 #else
     std::istringstream in{"10 20"};
     int a = 0;
     int b = 0;
     in >> a >> b;
-    assert(a == 10 && b == 20);
+    LEARN_CHECK(a == 10 && b == 20);
 #endif
 }
 
@@ -44,11 +43,11 @@ void demo_intermediate() {
     std::ospanstream out{std::span<char>{buf}};
     out << "hi" << 42;
     const auto sp = out.span();
-    assert(std::string(sp.data(), sp.size()) == "hi42");
+    LEARN_CHECK(std::string(sp.data(), sp.size()) == "hi42");
 #else
     std::ostringstream out;
     out << "hi" << 42;
-    assert(out.str() == "hi42");
+    LEARN_CHECK(out.str() == "hi42");
 #endif
 }
 
@@ -61,9 +60,9 @@ void demo_expert() {
     int x = 0;
     int y = 0;
     io >> x >> y;
-    assert(x == 7 && y == 8);
+    LEARN_CHECK(x == 7 && y == 8);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

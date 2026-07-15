@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -19,24 +18,24 @@ namespace {
 void demo_basics() {
     auto first_of = []<class T>(const std::vector<T>& v) -> T { return v.empty() ? T{} : v.front(); };
     std::vector<int> v{10, 20, 30};
-    assert(first_of(v) == 10);
+    LEARN_CHECK(first_of(v) == 10);
 }
 
 void demo_intermediate() {
     auto size_of_elem = []<class T>(const std::vector<T>&) { return sizeof(T); };
     std::vector<int> vi{1};
     std::vector<double> vd{1.0};
-    assert(size_of_elem(vi) == sizeof(int));
-    assert(size_of_elem(vd) == sizeof(double));
+    LEARN_CHECK(size_of_elem(vi) == sizeof(int));
+    LEARN_CHECK(size_of_elem(vd) == sizeof(double));
 }
 
 void demo_expert() {
     auto cast_add = []<class T>(T a, T b) { return static_cast<T>(a + b); };
-    assert(cast_add(1, 2) == 3);
+    LEARN_CHECK(cast_add(1, 2) == 3);
     static_assert(std::is_same_v<decltype(cast_add(1, 2)), int>);
 
     auto id = []<class T>(T x) -> T { return x; };
-    assert(id(std::string{"ok"}) == "ok");
+    LEARN_CHECK(id(std::string{"ok"}) == "ok");
 }
 
 int run(int argc, char** argv) {

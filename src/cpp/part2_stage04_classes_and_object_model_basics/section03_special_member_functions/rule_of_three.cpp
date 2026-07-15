@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 
 namespace {
@@ -49,7 +48,7 @@ void demo_basics() {
     a[0] = 1;
     a[1] = 2;
     IntArray b = a;
-    assert(b[1] == 2);
+    LEARN_CHECK(b[1] == 2);
 }
 
 void demo_intermediate() {
@@ -57,8 +56,8 @@ void demo_intermediate() {
     a[0] = 9;
     IntArray b{3};
     b = a;
-    assert(b.size() == 1);
-    assert(b[0] == 9);
+    LEARN_CHECK(b.size() == 1);
+    LEARN_CHECK(b[0] == 9);
 }
 
 void demo_expert() {
@@ -66,7 +65,7 @@ void demo_expert() {
     a[0] = 4;
     IntArray b = a;
     b[0] = 0;
-    assert(a[0] == 4);
+    LEARN_CHECK(a[0] == 4);
 }
 
 int run(int argc, char** argv) {

@@ -9,14 +9,13 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdlib>
 
 namespace {
 
 struct MallocBuf {
     void* p;
-    explicit MallocBuf(std::size_t n) : p(std::malloc(n)) { assert(p != nullptr); }
+    explicit MallocBuf(std::size_t n) : p(std::malloc(n)) { LEARN_CHECK(p != nullptr); }
     ~MallocBuf() { std::free(p); }
     MallocBuf(const MallocBuf&) = delete;
     MallocBuf& operator=(const MallocBuf&) = delete;
@@ -24,7 +23,7 @@ struct MallocBuf {
 
 void demo_basics() {
     MallocBuf b(64);
-    assert(b.p != nullptr);
+    LEARN_CHECK(b.p != nullptr);
 }
 
 void demo_intermediate() {
@@ -36,9 +35,9 @@ void demo_intermediate() {
     };
     {
         Guard g(&freed);
-        assert(freed == 0);
+        LEARN_CHECK(freed == 0);
     }
-    assert(freed == 1);
+    LEARN_CHECK(freed == 1);
 }
 
 void demo_expert() {
@@ -53,7 +52,7 @@ void demo_expert() {
         throw 1;
     } catch (...) {
     }
-    assert(n == 9);
+    LEARN_CHECK(n == 9);
 }
 
 int run(int argc, char** argv) {

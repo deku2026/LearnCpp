@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 #include <version>
 
@@ -19,7 +18,7 @@ void demo_basics() {
     // Never call std::unreachable() in reachable code — it is UB by definition.
     int x = 1;
     if (x == 1) {
-        assert(true);
+        LEARN_CHECK(true);
     } else {
         // std::unreachable();  // only if x cannot be anything else
     }
@@ -37,15 +36,15 @@ void demo_intermediate() {
             v = 2;
             break;
     }
-    assert(v == 1);
+    LEARN_CHECK(v == 1);
 }
 
 void demo_expert() {
 #if defined(__cpp_lib_unreachable) && __cpp_lib_unreachable >= 202202L
     // Available as std::unreachable(); still must be unreachable
-    assert(__cpp_lib_unreachable >= 202202L);
+    LEARN_CHECK(__cpp_lib_unreachable >= 202202L);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

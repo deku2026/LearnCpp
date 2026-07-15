@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 #include <optional>
 
@@ -21,16 +20,16 @@ std::optional<int> checked_add(int a, int b) {
 }
 
 void demo_basics() {
-    assert(checked_add(1, 1) == 2);
+    LEARN_CHECK(checked_add(1, 1) == 2);
 }
 
 void demo_intermediate() {
     // Portable code should not rely on fwrapv; use checked ops or unsigned.
-    assert(!checked_add(INT_MAX, 1));
+    LEARN_CHECK(!checked_add(INT_MAX, 1));
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

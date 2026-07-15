@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <string>
 #include <vector>
@@ -36,14 +35,14 @@ void demo_basics() {
     static_assert(std::integral<int>);
     static_assert(std::signed_integral<int>);
     static_assert(std::unsigned_integral<unsigned>);
-    assert(inc(41) == 42);
+    LEARN_CHECK(inc(41) == 42);
 }
 
 void demo_intermediate() {
     static_assert(std::same_as<int, int>);
     static_assert(std::convertible_to<int, double>);
-    assert(same_values(3, 3));
-    assert(call_with_one([](int x) { return x + 9; }) == 10);
+    LEARN_CHECK(same_values(3, 3));
+    LEARN_CHECK(call_with_one([](int x) { return x + 9; }) == 10);
 }
 
 void demo_expert() {
@@ -52,7 +51,7 @@ void demo_expert() {
     static_assert(std::default_initializable<std::vector<int>>);
     static_assert(std::movable<std::string>);
     static_assert(std::copyable<int>);
-    assert(std::regular<int>);
+    LEARN_CHECK(std::regular<int>);
 }
 
 int run(int argc, char** argv) {

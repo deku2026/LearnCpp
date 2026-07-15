@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <utility>
 
 #if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
@@ -130,9 +129,9 @@ void demo_basics() {
     int n = 0;
     auto r = body(&n, {});
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -143,10 +142,10 @@ void demo_intermediate() {
     Resumable second = body(&b, {});
     Resumable first = body(&a, second.h);
     first.resume();  // transfers into second
-    assert(a == 1);
-    assert(b == 1);
+    LEARN_CHECK(a == 1);
+    LEARN_CHECK(b == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 
@@ -156,9 +155,9 @@ void demo_expert() {
     int n = 0;
     auto r = body(&n, std::noop_coroutine());
     r.resume();
-    assert(n == 1);
+    LEARN_CHECK(n == 1);
 #else
-    assert(true);
+    LEARN_CHECK(true);
 #endif
 }
 

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -63,8 +62,8 @@ LinkDiag diagnose(std::string_view symbol, bool has_def) {
 
 void demo_basics() {
     // Happy path: declaration + definition → call succeeds.
-    assert(compute_score(5) == 15);
-    assert(provider::secret_answer() == 42);
+    LEARN_CHECK(compute_score(5) == 15);
+    LEARN_CHECK(provider::secret_answer() == 42);
 }
 
 void demo_intermediate() {
@@ -76,14 +75,14 @@ void demo_intermediate() {
 
     const LinkDiag ok = diagnose("compute_score(int)", true);
     const LinkDiag bad = diagnose("missing_impl(int)", false);
-    assert(ok.definition_found);
-    assert(!bad.definition_found);
-    assert(ok.symbol.find("compute_score") != std::string_view::npos);
+    LEARN_CHECK(ok.definition_found);
+    LEARN_CHECK(!bad.definition_found);
+    LEARN_CHECK(ok.symbol.find("compute_score") != std::string_view::npos);
 
     // Simulated "report" string a developer might search for.
     const std::string linker_msg = "undefined reference to `missing_impl(int)'";
-    assert(linker_msg.find("undefined reference") != std::string::npos);
-    assert(linker_msg.find("missing_impl") != std::string::npos);
+    LEARN_CHECK(linker_msg.find("undefined reference") != std::string::npos);
+    LEARN_CHECK(linker_msg.find("missing_impl") != std::string::npos);
 }
 
 void demo_expert() {
@@ -97,12 +96,12 @@ void demo_expert() {
     //
     // Template case: definition must be visible at instantiation (usually header).
     auto apply = [](auto f, int x) { return f(x); };
-    assert(apply(compute_score, 1) == 11);
-    assert(apply(mangled_api, 4) == 12);
+    LEARN_CHECK(apply(compute_score, 1) == 11);
+    LEARN_CHECK(apply(mangled_api, 4) == 12);
 
     // After diagnosis, the fix is always: make exactly one suitable definition
     // reachable to the linker for every ODR-used symbol.
-    assert(diagnose("mangled_api(int)", true).definition_found);
+    LEARN_CHECK(diagnose("mangled_api(int)", true).definition_found);
 }
 
 int run(int argc, char** argv) {

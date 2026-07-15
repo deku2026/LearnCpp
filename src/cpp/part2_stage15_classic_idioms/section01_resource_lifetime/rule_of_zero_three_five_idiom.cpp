@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory>
 #include <string>
 #include <utility>
@@ -48,23 +47,23 @@ struct Rule5 {
 void demo_basics() {
     Rule0 a{"a", std::make_unique<int>(1)};
     Rule0 b = std::move(a);
-    assert(b.name == "a");
-    assert(b.data && *b.data == 1);
+    LEARN_CHECK(b.name == "a");
+    LEARN_CHECK(b.data && *b.data == 1);
 }
 
 void demo_intermediate() {
     Rule5 x(3);
     Rule5 y = x;
-    assert(*y.p == 3);
-    assert(*x.p == 3);
+    LEARN_CHECK(*y.p == 3);
+    LEARN_CHECK(*x.p == 3);
 }
 
 void demo_expert() {
     Rule5 x(5);
     Rule5 y(0);
     y = std::move(x);
-    assert(y.p && *y.p == 5);
-    assert(x.p == nullptr);
+    LEARN_CHECK(y.p && *y.p == 5);
+    LEARN_CHECK(x.p == nullptr);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <thread>
 #include <vector>
 
@@ -19,7 +18,7 @@ namespace {
 void demo_basics() {
     // ASan: bounds/UAF; UBSan: overflow/null; TSan: data races — when built with sanitizers.
     std::vector<int> v{1, 2, 3};
-    assert(v.at(1) == 2);
+    LEARN_CHECK(v.at(1) == 2);
 }
 
 void demo_intermediate() {
@@ -28,12 +27,12 @@ void demo_intermediate() {
     std::thread t2([&] { c.fetch_add(1); });
     t1.join();
     t2.join();
-    assert(c.load() == 2);
+    LEARN_CHECK(c.load() == 2);
 }
 
 void demo_expert() {
     int* p = new int(1);
-    assert(*p == 1);
+    LEARN_CHECK(*p == 1);
     delete p;
 }
 

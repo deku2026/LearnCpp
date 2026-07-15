@@ -10,23 +10,22 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 
 namespace {
 
 void demo_basics() {
     std::atomic<int> x{1};
     int expected = 1;
-    assert(x.compare_exchange_strong(expected, 2));
-    assert(x.load() == 2);
+    LEARN_CHECK(x.compare_exchange_strong(expected, 2));
+    LEARN_CHECK(x.load() == 2);
 }
 
 void demo_intermediate() {
     std::atomic<int> x{5};
     int expected = 0;
-    assert(!x.compare_exchange_strong(expected, 1));
-    assert(expected == 5);  // updated with actual
-    assert(x.load() == 5);
+    LEARN_CHECK(!x.compare_exchange_strong(expected, 1));
+    LEARN_CHECK(expected == 5);  // updated with actual
+    LEARN_CHECK(x.load() == 5);
 }
 
 void demo_expert() {
@@ -36,7 +35,7 @@ void demo_expert() {
     while (!x.compare_exchange_weak(expected, 1, std::memory_order_relaxed, std::memory_order_relaxed)) {
         expected = 0;
     }
-    assert(x.load() == 1);
+    LEARN_CHECK(x.load() == 1);
 }
 
 int run(int argc, char** argv) {

@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <mutex>
 #include <sstream>
 #include <string>
@@ -26,7 +25,7 @@ void demo_basics() {
         std::lock_guard<std::mutex> g(m);
         oss << "ok";
     }
-    assert(oss.str() == "ok");
+    LEARN_CHECK(oss.str() == "ok");
 }
 
 void demo_intermediate() {
@@ -42,7 +41,7 @@ void demo_intermediate() {
     });
     t1.join();
     t2.join();
-    assert(oss.str().size() == 2);
+    LEARN_CHECK(oss.str().size() == 2);
 }
 
 void demo_expert() {
@@ -58,8 +57,8 @@ void demo_expert() {
     std::thread t2([&] { emit("B"); });
     t1.join();
     t2.join();
-    assert(messages.load() == 2);
-    assert(oss.str().size() == 2);
+    LEARN_CHECK(messages.load() == 2);
+    LEARN_CHECK(oss.str().size() == 2);
 }
 
 int run(int argc, char** argv) {

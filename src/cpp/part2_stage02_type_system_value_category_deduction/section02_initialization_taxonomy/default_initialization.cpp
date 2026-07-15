@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -27,25 +26,25 @@ struct EmptyCtor {
 void demo_basics() {
     // Class types with default constructors are default-initialized safely.
     WithDefault w;
-    assert(w.value == 7);
+    LEARN_CHECK(w.value == 7);
 
     EmptyCtor e;
-    assert(e.value == 99);
+    LEARN_CHECK(e.value == 99);
 
     std::string s;  // default-init -> empty string
-    assert(s.empty());
+    LEARN_CHECK(s.empty());
 }
 
 void demo_intermediate() {
     // Arrays of class type: each element default-initialized.
     WithDefault arr[3];
-    assert(arr[0].value == 7);
-    assert(arr[1].value == 7);
-    assert(arr[2].value == 7);
+    LEARN_CHECK(arr[0].value == 7);
+    LEARN_CHECK(arr[1].value == 7);
+    LEARN_CHECK(arr[2].value == 7);
 
     // Prefer value-init for scalars to avoid indeterminate values.
     int safe{};
-    assert(safe == 0);
+    LEARN_CHECK(safe == 0);
 
     // Explicit default member initializers participate in default construction.
     struct Counter {
@@ -54,7 +53,7 @@ void demo_intermediate() {
     };
     Counter c;
     c.bump();
-    assert(c.n == 1);
+    LEARN_CHECK(c.n == 1);
 }
 
 void demo_expert() {
@@ -65,15 +64,15 @@ void demo_expert() {
 
     // Scalars: do not default-init then read; always initialize.
     int x = 0;  // safe alternative to bare `int x;`
-    assert(x == 0);
+    LEARN_CHECK(x == 0);
 
     // Dynamic storage: new T is default-init; new T() is value-init.
     auto* p = new WithDefault;
-    assert(p->value == 7);
+    LEARN_CHECK(p->value == 7);
     delete p;
 
     auto* q = new int();  // value-init -> 0
-    assert(*q == 0);
+    LEARN_CHECK(*q == 0);
     delete q;
 }
 

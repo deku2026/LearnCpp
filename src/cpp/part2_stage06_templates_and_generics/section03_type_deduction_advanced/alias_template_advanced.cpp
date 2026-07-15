@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <map>
 #include <string>
 #include <type_traits>
@@ -36,19 +35,19 @@ using RemoveConstRef = std::remove_const_t<std::remove_reference_t<T>>;
 
 void demo_basics() {
     Vec<int> v{1, 2, 3};
-    assert(v.size() == 3);
+    LEARN_CHECK(v.size() == 3);
     static_assert(std::is_same_v<Vec<int>, std::vector<int>>);
 }
 
 void demo_intermediate() {
     Dict<std::string> d;
     d["a"] = 1;
-    assert(d["a"] == 1);
+    LEARN_CHECK(d["a"] == 1);
     static_assert(std::is_same_v<Dict<std::string>, std::map<std::string, int>>);
 
     Dict<int, std::string> d2;
     d2[1] = "one";
-    assert(d2[1] == "one");
+    LEARN_CHECK(d2[1] == "one");
 }
 
 void demo_expert() {
@@ -58,7 +57,7 @@ void demo_expert() {
 
     using VI = Vec<Identity_t<int>>;
     VI xs{7};
-    assert(xs[0] == 7);
+    LEARN_CHECK(xs[0] == 7);
 }
 
 int run(int argc, char** argv) {

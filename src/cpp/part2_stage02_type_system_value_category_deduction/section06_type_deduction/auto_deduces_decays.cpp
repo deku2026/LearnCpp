@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <type_traits>
 
 namespace {
@@ -25,23 +24,23 @@ void demo_basics() {
     static_assert(std::is_same_v<decltype(a), int>);
     static_assert(std::is_same_v<decltype(b), int>);
     static_assert(std::is_same_v<decltype(c), int>);
-    assert(a == 10 && b == 20 && c == 10);
+    LEARN_CHECK(a == 10 && b == 20 && c == 10);
 }
 
 void demo_intermediate() {
     int arr[3] = {1, 2, 3};
     auto p = arr;  // decays to int*
     static_assert(std::is_same_v<decltype(p), int*>);
-    assert(p[0] == 1);
+    LEARN_CHECK(p[0] == 1);
 
     auto& ref_arr = arr;  // reference to array, no decay
     static_assert(std::is_same_v<decltype(ref_arr), int (&)[3]>);
-    assert(ref_arr[2] == 3);
+    LEARN_CHECK(ref_arr[2] == 3);
 
     const int n = 5;
     auto* pn = &n;  // const int*
     static_assert(std::is_same_v<decltype(pn), const int*>);
-    assert(*pn == 5);
+    LEARN_CHECK(*pn == 5);
 }
 
 void demo_expert() {
@@ -49,7 +48,7 @@ void demo_expert() {
     int (*raw)(int) = [](int v) { return v * 2; };
     auto fpd = raw;
     static_assert(std::is_same_v<decltype(fpd), int (*)(int)>);
-    assert(fpd(3) == 6);
+    LEARN_CHECK(fpd(3) == 6);
 
     // Preserve const/ref with trailing pattern
     int x = 1;
@@ -58,7 +57,7 @@ void demo_expert() {
     decltype(auto) keep = cr;  // const int&
     static_assert(std::is_same_v<decltype(copy), int>);
     static_assert(std::is_same_v<decltype(keep), const int&>);
-    assert(copy == 1 && keep == 1);
+    LEARN_CHECK(copy == 1 && keep == 1);
 
     // auto&& is forwarding reference
     auto&& r1 = x;

@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <version>
 
@@ -24,8 +23,8 @@ constexpr int ipow(int b, int e) {
 }
 
 void demo_basics() {
-    assert(std::abs(-5) == 5);
-    assert(std::abs(5) == 5);
+    LEARN_CHECK(std::abs(-5) == 5);
+    LEARN_CHECK(std::abs(5) == 5);
     static_assert(ipow(2, 8) == 256);
 }
 
@@ -33,20 +32,20 @@ void demo_intermediate() {
 #if defined(__cpp_lib_constexpr_cmath) && __cpp_lib_constexpr_cmath >= 202202L
     constexpr auto a = std::abs(-3);
     static_assert(a == 3);
-    assert(a == 3);
+    LEARN_CHECK(a == 3);
 #else
     // Portable: use our constexpr helper for compile-time, std::abs at runtime.
     constexpr int a = ipow(3, 1);
     static_assert(a == 3);
-    assert(std::abs(-3) == 3);
+    LEARN_CHECK(std::abs(-3) == 3);
 #endif
 }
 
 void demo_expert() {
     // Runtime floating math always available.
-    assert(std::fabs(-2.5) == 2.5);
-    assert(std::floor(3.7) == 3.0);
-    assert(std::ceil(3.2) == 4.0);
+    LEARN_CHECK(std::fabs(-2.5) == 2.5);
+    LEARN_CHECK(std::floor(3.7) == 3.0);
+    LEARN_CHECK(std::ceil(3.2) == 4.0);
 
 #if defined(__cpp_lib_constexpr_cmath)
     static_assert(__cpp_lib_constexpr_cmath >= 0);

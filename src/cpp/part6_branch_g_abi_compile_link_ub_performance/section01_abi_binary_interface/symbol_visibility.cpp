@@ -9,8 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-
 namespace {
 
 #if defined(__GNUC__) || defined(__clang__)
@@ -29,16 +27,16 @@ HIDDEN int internal_helper() {
 }
 
 void demo_basics() {
-    assert(public_api() == 1);
-    assert(internal_helper() == 2);
+    LEARN_CHECK(public_api() == 1);
+    LEARN_CHECK(internal_helper() == 2);
 }
 
 void demo_intermediate() {
-    assert(public_api() + internal_helper() == 3);
+    LEARN_CHECK(public_api() + internal_helper() == 3);
 }
 
 void demo_expert() {
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

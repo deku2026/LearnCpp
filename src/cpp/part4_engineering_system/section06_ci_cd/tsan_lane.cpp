@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <string_view>
 
@@ -18,17 +17,17 @@ namespace {
 void demo_basics() {
     // Run concurrency tests under TSan only
     std::string lane = "tsan";
-    assert(lane == "tsan");
+    LEARN_CHECK(lane == "tsan");
 }
 
 void demo_intermediate() {
     // Exclude conflicting sanitizer flags
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 void demo_expert() {
     // Flaky races still need deterministic repros
-    assert(true);
+    LEARN_CHECK(true);
 }
 
 int run(int argc, char** argv) {

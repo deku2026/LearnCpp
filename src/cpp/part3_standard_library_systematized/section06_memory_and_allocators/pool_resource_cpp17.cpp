@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <memory_resource>
 #include <vector>
 
@@ -21,14 +20,14 @@ void demo_basics() {
     for (int i = 0; i < 100; ++i) {
         v.push_back(i);
     }
-    assert(v.size() == 100);
+    LEARN_CHECK(v.size() == 100);
 }
 
 void demo_intermediate() {
     std::pmr::synchronized_pool_resource pool;
     std::pmr::vector<int> v{&pool};
     v.push_back(7);
-    assert(v.front() == 7);
+    LEARN_CHECK(v.front() == 7);
 }
 
 void demo_expert() {
@@ -38,7 +37,7 @@ void demo_expert() {
     std::pmr::unsynchronized_pool_resource pool{opts};
     std::pmr::vector<char> v{&pool};
     v.resize(128, 'x');
-    assert(v.size() == 128);
+    LEARN_CHECK(v.size() == 128);
 }
 
 int run(int argc, char** argv) {

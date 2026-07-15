@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <utility>
 #include <version>
@@ -48,7 +47,7 @@ void demo_basics() {
     Num b;
     b.v = 3;
     Num c = a + b;
-    assert(c.v == 5);
+    LEARN_CHECK(c.v == 5);
 }
 
 void demo_intermediate() {
@@ -56,14 +55,14 @@ void demo_intermediate() {
     Num23 a{10};
     Num23 b{32};
     auto c = a + b;
-    assert(c.v == 42);
+    LEARN_CHECK(c.v == 42);
 #else
     // Portable fallback: classic CRTP path already demonstrated.
     Num a;
     a.v = 10;
     Num b;
     b.v = 32;
-    assert((a + b).v == 42);
+    LEARN_CHECK((a + b).v == 42);
 #endif
 }
 
@@ -74,7 +73,7 @@ void demo_expert() {
     x.v = 1;
     Num y;
     y.v = 1;
-    assert((x + y).v == 2);
+    LEARN_CHECK((x + y).v == 2);
 }
 
 int run(int argc, char** argv) {

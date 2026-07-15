@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <string>
 #include <type_traits>
 
@@ -26,30 +25,30 @@ int& max_ref(int& a, int& b) {
 void demo_basics() {
     int x = 10;
     int& r = x;
-    assert(r == 10);
+    LEARN_CHECK(r == 10);
     r = 20;
-    assert(x == 20);
+    LEARN_CHECK(x == 20);
 
     // r is an alias; address is the same
-    assert(&r == &x);
+    LEARN_CHECK(&r == &x);
 }
 
 void demo_intermediate() {
     int a = 1;
     int b = 2;
     add_one(a);
-    assert(a == 2);
+    LEARN_CHECK(a == 2);
 
     max_ref(a, b) = 100;
-    assert(b == 100);
+    LEARN_CHECK(b == 100);
 
     const int c = 5;
     const int& cr = c;
-    assert(cr == 5);
+    LEARN_CHECK(cr == 5);
 
     // const ref can bind temporary (lifetime extended)
     const std::string& s = std::string("temp");
-    assert(s == "temp");
+    LEARN_CHECK(s == "temp");
 }
 
 void demo_expert() {
@@ -64,14 +63,14 @@ void demo_expert() {
     using RI = int&;
     RI& rr = x;  // still int&
     static_assert(std::is_same_v<decltype(rr), int&>);
-    assert(rr == 7);
+    LEARN_CHECK(rr == 7);
 
     // Range-for with references
     int arr[] = {1, 2, 3};
     for (int& e : arr) {
         e *= 2;
     }
-    assert(arr[0] == 2 && arr[1] == 4 && arr[2] == 6);
+    LEARN_CHECK(arr[0] == 2 && arr[1] == 4 && arr[2] == 6);
 }
 
 int run(int argc, char** argv) {
