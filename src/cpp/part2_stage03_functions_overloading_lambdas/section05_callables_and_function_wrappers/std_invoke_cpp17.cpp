@@ -1,20 +1,59 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage03-functions-overloading-lambdas.md
 // Stage    : part2_stage03_functions_overloading_lambdas
 // Section  : section05_callables_and_function_wrappers
 // Item     : std_invoke_cpp17
 // Topic id : part2/stage03/section05/std_invoke_cpp17
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::invoke for free fn, member ptr, lambda
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <functional>
+
 namespace {
+
+int free_fn(int x) {
+    return x * 2;
+}
+
+struct S {
+    int mem = 42;
+    int method(int x) const { return x + mem; }
+};
+
+void demo_basics() {
+    assert(std::invoke(free_fn, 5) == 10);
+    auto lam = [](int a, int b) { return a + b; };
+    assert(std::invoke(lam, 1, 2) == 3);
+}
+
+void demo_intermediate() {
+    S s;
+    assert(std::invoke(&S::method, s, 8) == 50);
+    assert(std::invoke(&S::mem, s) == 42);
+
+    S* ps = &s;
+    assert(std::invoke(&S::method, ps, 1) == 43);
+}
+
+void demo_expert() {
+    // Uniform call syntax for generic wrappers.
+    auto call = [](auto&& f, auto&&... args) {
+        return std::invoke(std::forward<decltype(f)>(f), std::forward<decltype(args)>(args)...);
+    };
+    assert(call(free_fn, 3) == 6);
+    S s{10};
+    assert(call(&S::method, s, 5) == 15);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

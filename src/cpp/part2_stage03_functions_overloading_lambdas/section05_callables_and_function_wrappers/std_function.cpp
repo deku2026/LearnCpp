@@ -1,20 +1,68 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage03-functions-overloading-lambdas.md
 // Stage    : part2_stage03_functions_overloading_lambdas
 // Section  : section05_callables_and_function_wrappers
 // Item     : std_function
 // Topic id : part2/stage03/section05/std_function
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: type-erased copyable callable wrapper; empty call throws
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <functional>
+#include <stdexcept>
+#include <vector>
+
 namespace {
+
+int free_inc(int x) {
+    return x + 1;
+}
+
+void demo_basics() {
+    std::function<int(int)> f = [](int x) { return x + 1; };
+    assert(f(10) == 11);
+
+    f = free_inc;
+    assert(f(10) == 11);
+}
+
+void demo_intermediate() {
+    int base = 100;
+    std::function<int(int)> f = [base](int x) { return x + base; };
+    assert(f(10) == 110);
+
+    std::vector<std::function<int(int)>> handlers;
+    handlers.push_back([](int x) { return x * 2; });
+    handlers.push_back([](int x) { return x - 1; });
+    assert(handlers[0](5) == 10);
+    assert(handlers[1](5) == 4);
+}
+
+void demo_expert() {
+    std::function<int(int)> empty;
+    assert(!empty);
+    bool threw = false;
+    try {
+        (void)empty(1);
+    } catch (const std::bad_function_call&) {
+        threw = true;
+    }
+    assert(threw);
+
+    // Requires copyable target; move-only lambdas need move_only_function.
+    std::function<int()> ok = [] { return 1; };
+    auto copy = ok;
+    assert(copy() == 1);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

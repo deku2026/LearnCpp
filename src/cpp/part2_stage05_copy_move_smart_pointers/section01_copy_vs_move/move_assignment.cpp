@@ -1,20 +1,102 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage05-copy-move-smart-pointers.md
 // Stage    : part2_stage05_copy_move_smart_pointers
 // Section  : section01_copy_vs_move
 // Item     : move_assignment
 // Topic id : part2/stage05/section01/move_assignment
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: move assignment transfers ownership, releases old resource
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <cstddef>
+#include <string>
+#include <utility>
+#include <vector>
+
 namespace {
+
+class Buffer {
+    int* data_ = nullptr;
+    std::size_t size_ = 0;
+
+public:
+    explicit Buffer(std::size_t n) : data_(new int[n]{}), size_(n) {
+        for (std::size_t i = 0; i < n; ++i) {
+            data_[i] = static_cast<int>(10 + i);
+        }
+    }
+
+    ~Buffer() { delete[] data_; }
+
+    Buffer(const Buffer&) = delete;
+    Buffer& operator=(const Buffer&) = delete;
+
+    Buffer(Buffer&& other) noexcept : data_(other.data_), size_(other.size_) {
+        other.data_ = nullptr;
+        other.size_ = 0;
+    }
+
+    Buffer& operator=(Buffer&& other) noexcept {
+        if (this != &other) {
+            delete[] data_;
+            data_ = other.data_;
+            size_ = other.size_;
+            other.data_ = nullptr;
+            other.size_ = 0;
+        }
+        return *this;
+    }
+
+    std::size_t size() const { return size_; }
+    bool empty() const { return size_ == 0; }
+    int at(std::size_t i) const { return data_[i]; }
+    int* data() const { return data_; }
+};
+
+void demo_basics() {
+    std::string a = "source";
+    std::string b = "target";
+    b = std::move(a);
+    assert(b == "source");
+    a = "ok";
+    assert(a == "ok");
+}
+
+void demo_intermediate() {
+    Buffer a(4);
+    Buffer b(1);
+    const int* stolen = a.data();
+    b = std::move(a);
+    assert(b.size() == 4);
+    assert(b.data() == stolen);
+    assert(b.at(0) == 10);
+    assert(a.empty());
+    assert(a.data() == nullptr);
+}
+
+void demo_expert() {
+    Buffer a(3);
+    Buffer* p = &a;
+    a = std::move(*p);  // self-move: remains valid
+    assert(a.size() == 3 || a.empty());
+
+    std::vector<int> v1{1, 2, 3, 4};
+    std::vector<int> v2{9};
+    v2 = std::move(v1);
+    assert(v2.size() == 4);
+    assert(v2[3] == 4);
+    v1 = std::vector<int>{5};
+    assert(v1.size() == 1);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

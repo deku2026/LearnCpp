@@ -1,20 +1,73 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage04-classes-and-object-model-basics.md
 // Stage    : part2_stage04_classes_and_object_model_basics
 // Section  : section05_operator_overloading
 // Item     : static_operator_call_static_subscript_cpp23
 // Topic id : part2/stage04/section05/static_operator_call_static_subscript_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: C++23 static operator() and static operator[]
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <cstddef>
+
 namespace {
+
+#if defined(__cpp_static_call_operator) || (defined(__cplusplus) && __cplusplus >= 202302L)
+
+struct Hash {
+    static std::size_t operator()(int x) { return static_cast<std::size_t>(x) * 2654435761u; }
+};
+
+struct Table {
+    static int operator[](int i) { return i * i; }
+};
+
+void demo_basics() {
+    Hash h;
+    assert(h(2) != 0);
+    assert(Hash{}(3) == Hash::operator()(3));
+}
+
+void demo_intermediate() {
+    assert(Table{}[4] == 16);
+    assert(Table::operator[](5) == 25);
+}
+
+void demo_expert() {
+    // Stateless callables can drop the implicit object parameter.
+    auto apply = [](auto f, int x) { return f(x); };
+    assert(apply(Hash{}, 1) == Hash{}(1));
+}
+
+#else
+
+struct Hash {
+    std::size_t operator()(int x) const { return static_cast<std::size_t>(x) * 2654435761u; }
+};
+
+void demo_basics() {
+    Hash h;
+    assert(h(2) != 0);
+}
+
+void demo_intermediate() {
+    assert(true);
+}
+
+void demo_expert() {
+    assert(true);
+}
+
+#endif
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

@@ -1,20 +1,79 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage02-type-system-value-category-deduction.md
 // Stage    : part2_stage02_type_system_value_category_deduction
 // Section  : section06_type_deduction
 // Item     : std_move_static_cast_to_rvalue
 // Topic id : part2/stage02/section06/std_move_static_cast_to_rvalue
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::move as static_cast to rvalue ref; does not move by itself
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 namespace {
+
+void demo_basics() {
+    int x = 10;
+    using R = decltype(std::move(x));
+    static_assert(std::is_same_v<R, int&&>);
+
+    int&& rr = std::move(x);
+    assert(rr == 10);
+    // x still holds 10; move only changes value category of the expression
+    assert(x == 10);
+}
+
+void demo_intermediate() {
+    std::string a = "payload";
+    std::string b = std::move(a);  // move constructor selected because of xvalue
+    assert(b == "payload");
+    // a is valid but unspecified; safe operations:
+    a.assign("new");
+    assert(a == "new");
+
+    // Equivalent cast form
+    std::string c = "xyz";
+    std::string d = static_cast<std::string&&>(c);
+    assert(d == "xyz");
+}
+
+void demo_expert() {
+    // move of const yields const T&& — often falls back to copy
+    const std::string cs = "const";
+    std::string copy = std::move(cs);  // copy ctor (no move from const)
+    assert(copy == "const");
+    assert(cs == "const");
+
+    // Containers
+    std::vector<int> v{1, 2, 3, 4};
+    std::vector<int> w = std::move(v);
+    assert(w.size() == 4);
+    assert(w[0] == 1);
+    // v valid unspecified; clear is safe
+    v.clear();
+    assert(v.empty());
+
+    // Naming a moved-from object is still an lvalue
+    std::string s = "a";
+    std::string&& r = std::move(s);
+    // r is a named rvalue ref => lvalue expressions of type string
+    std::string t = r;  // copy, not move
+    assert(t == "a");
+    std::string u = std::move(r);  // move
+    assert(u == "a");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

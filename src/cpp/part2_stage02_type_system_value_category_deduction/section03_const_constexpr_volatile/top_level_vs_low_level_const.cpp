@@ -1,20 +1,83 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage02-type-system-value-category-deduction.md
 // Stage    : part2_stage02_type_system_value_category_deduction
 // Section  : section03_const_constexpr_volatile
 // Item     : top_level_vs_low_level_const
 // Topic id : part2/stage02/section03/top_level_vs_low_level_const
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: top-level const (object itself) vs low-level const (pointee/referee)
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <type_traits>
+
 namespace {
+
+void demo_basics() {
+    // Top-level const: the variable itself is const.
+    const int top = 1;
+    int value = 2;
+    int* const top_ptr = &value;  // top-level const on pointer
+    assert(top == 1);
+    *top_ptr = 3;
+    assert(value == 3);
+}
+
+void demo_intermediate() {
+    int a = 10;
+    int b = 20;
+
+    // Low-level const: const applies to the object pointed/referred to.
+    const int* low = &a;
+    assert(*low == 10);
+    low = &b;  // OK: pointer not top-level const
+    assert(*low == 20);
+
+    // Copying drops top-level const, keeps low-level const.
+    const int c = 5;
+    int copy = c;  // top-level const of c is ignored in copy
+    assert(copy == 5);
+
+    const int* p = &c;
+    const int* q = p;  // low-level const preserved
+    assert(*q == 5);
+}
+
+void demo_expert() {
+    using TopPtr = int* const;
+    using LowPtr = const int*;
+    using Both = const int* const;
+
+    static_assert(std::is_const_v<TopPtr>);   // pointer is const
+    static_assert(!std::is_const_v<LowPtr>);  // pointer itself not const
+    static_assert(std::is_const_v<Both>);
+
+    static_assert(std::is_same_v<std::remove_const_t<TopPtr>, int*>);
+    static_assert(std::is_same_v<std::remove_const_t<LowPtr>, const int*>);
+
+    int x = 1;
+    TopPtr tp = &x;
+    LowPtr lp = &x;
+    Both bp = &x;
+    *tp = 2;
+    assert(x == 2);
+    assert(*lp == 2);
+    assert(*bp == 2);
+
+    // auto drops top-level const
+    const int n = 9;
+    auto a = n;
+    static_assert(std::is_same_v<decltype(a), int>);
+    assert(a == 9);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

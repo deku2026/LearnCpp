@@ -1,20 +1,90 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage04-classes-and-object-model-basics.md
 // Stage    : part2_stage04_classes_and_object_model_basics
 // Section  : section02_raii
 // Item     : raii_resource_handle
 // Topic id : part2/stage04/section02/raii_resource_handle
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: RAII acquire in ctor / release in dtor, no copy, movable handle
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <utility>
+
 namespace {
+
+int g_open = 0;
+int g_close = 0;
+
+class Handle {
+    int id_ = 0;
+
+public:
+    explicit Handle(int id) : id_(id) { ++g_open; }
+
+    ~Handle() {
+        if (id_ != 0) {
+            ++g_close;
+            id_ = 0;
+        }
+    }
+
+    Handle(const Handle&) = delete;
+    Handle& operator=(const Handle&) = delete;
+
+    Handle(Handle&& other) noexcept : id_(std::exchange(other.id_, 0)) {}
+    Handle& operator=(Handle&& other) noexcept {
+        if (this != &other) {
+            if (id_ != 0) {
+                ++g_close;
+            }
+            id_ = std::exchange(other.id_, 0);
+        }
+        return *this;
+    }
+
+    int id() const { return id_; }
+    bool empty() const { return id_ == 0; }
+};
+
+void demo_basics() {
+    g_open = g_close = 0;
+    {
+        Handle h{1};
+        assert(h.id() == 1);
+        assert(g_open == 1);
+    }
+    assert(g_close == 1);
+}
+
+void demo_intermediate() {
+    g_open = g_close = 0;
+    Handle a{7};
+    Handle b = std::move(a);
+    assert(a.empty());
+    assert(b.id() == 7);
+    assert(g_open == 1);
+    assert(g_close == 0);
+}
+
+void demo_expert() {
+    g_open = g_close = 0;
+    Handle a{1};
+    Handle b{2};
+    a = std::move(b);
+    assert(a.id() == 2);
+    assert(b.empty());
+    assert(g_close == 1);
+    assert(g_open == 2);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

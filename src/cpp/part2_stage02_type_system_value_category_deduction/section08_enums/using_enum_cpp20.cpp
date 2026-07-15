@@ -1,20 +1,114 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage02-type-system-value-category-deduction.md
 // Stage    : part2_stage02_type_system_value_category_deduction
 // Section  : section08_enums
 // Item     : using_enum_cpp20
 // Topic id : part2/stage02/section08/using_enum_cpp20
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: C++20 using enum to inject enumerators into local scope
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <version>
+
 namespace {
+
+enum class Direction { North, South, East, West };
+enum class Mode { Read, Write, ReadWrite };
+
+std::string dir_name(Direction d) {
+#if defined(__cpp_using_enum) && __cpp_using_enum >= 201907L
+    switch (d) {
+        using enum Direction;
+        case North:
+            return "north";
+        case South:
+            return "south";
+        case East:
+            return "east";
+        case West:
+            return "west";
+    }
+#else
+    switch (d) {
+        case Direction::North:
+            return "north";
+        case Direction::South:
+            return "south";
+        case Direction::East:
+            return "east";
+        case Direction::West:
+            return "west";
+    }
+#endif
+    return "unknown";
+}
+
+void demo_basics() {
+    assert(dir_name(Direction::North) == "north");
+    assert(dir_name(Direction::West) == "west");
+}
+
+void demo_intermediate() {
+#if defined(__cpp_using_enum) && __cpp_using_enum >= 201907L
+    {
+        using enum Mode;
+        Mode m = Read;
+        assert(m == Mode::Read);
+        m = Write;
+        assert(m == Write);
+    }
+#else
+    Mode m = Mode::Read;
+    assert(m == Mode::Read);
+    m = Mode::Write;
+    assert(m == Mode::Write);
+#endif
+}
+
+void demo_expert() {
+    // Local using enum reduces noise in dense switch logic
+    auto opposite = [](Direction d) {
+#if defined(__cpp_using_enum) && __cpp_using_enum >= 201907L
+        using enum Direction;
+        switch (d) {
+            case North:
+                return South;
+            case South:
+                return North;
+            case East:
+                return West;
+            case West:
+                return East;
+        }
+#else
+        switch (d) {
+            case Direction::North:
+                return Direction::South;
+            case Direction::South:
+                return Direction::North;
+            case Direction::East:
+                return Direction::West;
+            case Direction::West:
+                return Direction::East;
+        }
+#endif
+        return d;
+    };
+
+    assert(opposite(Direction::North) == Direction::South);
+    assert(opposite(Direction::East) == Direction::West);
+    assert(dir_name(opposite(Direction::South)) == "north");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 
