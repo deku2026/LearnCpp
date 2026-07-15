@@ -1,23 +1,86 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage10-stl-deep-dive.md
 // Stage    : part2_stage10_stl_deep_dive
 // Section  : section11_other_stl
 // Item     : exclusive_mode_fstream_cpp23
-// Topic id : part2/stage10/section11/exclusive_mode_fstream_cpp23
+// Topic id : part2/stage10/section11_other_stl/exclusive_mode_fstream_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: fstream exclusive create mode C++23 noreplace
 
 #include "learn/topic_registry.hpp"
+
+#include <cassert>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <version>
+
+namespace fs = std::filesystem;
+
+namespace {
+
+void demo_basics() {
+    const auto path = fs::temp_directory_path() / "learncpp_excl_demo_a.txt";
+    fs::remove(path);
+    {
+        std::ofstream out(path);
+        out << "x";
+    }
+    assert(fs::exists(path));
+    fs::remove(path);
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_ios_noreplace) && __cpp_lib_ios_noreplace >= 202207L
+    const auto path = fs::temp_directory_path() / "learncpp_excl_demo_b.txt";
+    fs::remove(path);
+    {
+        std::ofstream out(path, std::ios::out | std::ios::noreplace);
+        assert(static_cast<bool>(out));
+        out << "first";
+    }
+    {
+        std::ofstream out2(path, std::ios::out | std::ios::noreplace);
+        assert(!out2);  // exclusive create fails if exists
+    }
+    fs::remove(path);
+#else
+    // Portable approximation: fail if exists
+    const auto path = fs::temp_directory_path() / "learncpp_excl_demo_b.txt";
+    fs::remove(path);
+    assert(!fs::exists(path));
+    {
+        std::ofstream out(path);
+        out << "first";
+    }
+    assert(fs::exists(path));
+    fs::remove(path);
+#endif
+}
+
+void demo_expert() {
+    const auto path = fs::temp_directory_path() / "learncpp_excl_demo_c.txt";
+    fs::remove(path);
+    std::ofstream out(path, std::ios::binary);
+    out.write("OK", 2);
+    out.close();
+    assert(fs::file_size(path) == 2);
+    fs::remove(path);
+}
+
+}  // namespace
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section11/exclusive_mode_fstream_cpp23", run>;
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section11_other_stl/exclusive_mode_fstream_cpp23", run>;
 
 }  // namespace

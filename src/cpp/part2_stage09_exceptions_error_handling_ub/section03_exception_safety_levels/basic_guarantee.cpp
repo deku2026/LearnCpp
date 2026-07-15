@@ -1,20 +1,75 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage09-exceptions-error-handling-ub.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section03_exception_safety_levels
 // Item     : basic_guarantee
 // Topic id : part2/stage09/section03/basic_guarantee
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: basic guarantee — no leaks, invariants hold, state may change
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <memory>
+#include <stdexcept>
+#include <vector>
+
 namespace {
+
+struct BasicSafe {
+    std::vector<int> data;
+    int sum = 0;
+
+    void push_recompute(int x, bool fail) {
+        data.push_back(x);  // may change state
+        if (fail) {
+            // Keep invariant: sum matches data (recompute) even on failure path.
+            sum = 0;
+            for (int v : data) {
+                sum += v;
+            }
+            throw std::runtime_error("fail");
+        }
+        sum += x;
+    }
+};
+
+void demo_basics() {
+    BasicSafe b;
+    b.push_recompute(1, false);
+    assert(b.data.size() == 1);
+    assert(b.sum == 1);
+}
+
+void demo_intermediate() {
+    BasicSafe b;
+    try {
+        b.push_recompute(5, true);
+        assert(false);
+    } catch (...) {
+        // Invariant holds even though operation failed.
+        assert(b.data.size() == 1);
+        assert(b.sum == 5);
+    }
+}
+
+void demo_expert() {
+    // RAII ensures no resource leak under basic guarantee.
+    try {
+        auto p = std::make_unique<int>(1);
+        throw std::runtime_error("x");
+    } catch (...) {
+        // p destroyed; no leak
+    }
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

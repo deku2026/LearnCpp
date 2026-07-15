@@ -1,20 +1,188 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage12-coroutines.md
 // Stage    : part2_stage12_coroutines
 // Section  : section02_promise_type
 // Item     : unhandled_exception
 // Topic id : part2/stage12/section02/unhandled_exception
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: unhandled_exception stores or rethrows
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <exception>
+#include <optional>
+#include <stdexcept>
+#include <utility>
+
+#if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
+#include <coroutine>
+#include <exception>
+#include <optional>
+#include <utility>
+#include <vector>
+
+struct VoidTask {
+    struct promise_type {
+        VoidTask get_return_object() { return VoidTask{std::coroutine_handle<promise_type>::from_promise(*this)}; }
+        std::suspend_never initial_suspend() noexcept { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        void return_void() noexcept {}
+        void unhandled_exception() { std::terminate(); }
+    };
+    std::coroutine_handle<promise_type> h{};
+    explicit VoidTask(std::coroutine_handle<promise_type> handle) : h(handle) {}
+    VoidTask(VoidTask&& o) noexcept : h(std::exchange(o.h, {})) {}
+    ~VoidTask() {
+        if (h) {
+            h.destroy();
+        }
+    }
+    VoidTask(const VoidTask&) = delete;
+    VoidTask& operator=(const VoidTask&) = delete;
+    bool done() const { return !h || h.done(); }
+    void resume() {
+        if (h && !h.done()) {
+            h.resume();
+        }
+    }
+};
+
+template <class T>
+struct Gen {
+    struct promise_type {
+        std::optional<T> current;
+        Gen get_return_object() { return Gen{std::coroutine_handle<promise_type>::from_promise(*this)}; }
+        std::suspend_always initial_suspend() noexcept { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        std::suspend_always yield_value(T v) {
+            current = std::move(v);
+            return {};
+        }
+        void return_void() noexcept {}
+        void unhandled_exception() { std::terminate(); }
+    };
+    std::coroutine_handle<promise_type> h{};
+    explicit Gen(std::coroutine_handle<promise_type> handle) : h(handle) {}
+    Gen(Gen&& o) noexcept : h(std::exchange(o.h, {})) {}
+    ~Gen() {
+        if (h) {
+            h.destroy();
+        }
+    }
+    Gen(const Gen&) = delete;
+    Gen& operator=(const Gen&) = delete;
+    bool next() {
+        if (!h || h.done()) {
+            return false;
+        }
+        h.resume();
+        return !h.done();
+    }
+    T value() const { return *h.promise().current; }
+};
+
+struct Resumable {
+    struct promise_type {
+        Resumable get_return_object() { return Resumable{std::coroutine_handle<promise_type>::from_promise(*this)}; }
+        std::suspend_always initial_suspend() noexcept { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        void return_void() noexcept {}
+        void unhandled_exception() { std::terminate(); }
+    };
+    std::coroutine_handle<promise_type> h{};
+    explicit Resumable(std::coroutine_handle<promise_type> handle) : h(handle) {}
+    Resumable(Resumable&& o) noexcept : h(std::exchange(o.h, {})) {}
+    ~Resumable() {
+        if (h) {
+            h.destroy();
+        }
+    }
+    Resumable(const Resumable&) = delete;
+    Resumable& operator=(const Resumable&) = delete;
+    void resume() {
+        if (h && !h.done()) {
+            h.resume();
+        }
+    }
+    bool done() const { return !h || h.done(); }
+};
+#endif
+
 namespace {
+
+#if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
+struct Fallible {
+    struct promise_type {
+        std::exception_ptr ep;
+        Fallible get_return_object() { return Fallible{std::coroutine_handle<promise_type>::from_promise(*this)}; }
+        std::suspend_never initial_suspend() noexcept { return {}; }
+        std::suspend_always final_suspend() noexcept { return {}; }
+        void return_void() noexcept {}
+        void unhandled_exception() { ep = std::current_exception(); }
+    };
+    std::coroutine_handle<promise_type> h{};
+    explicit Fallible(std::coroutine_handle<promise_type> handle) : h(handle) {}
+    Fallible(Fallible&& o) noexcept : h(std::exchange(o.h, {})) {}
+    ~Fallible() {
+        if (h) {
+            h.destroy();
+        }
+    }
+    Fallible(const Fallible&) = delete;
+    void rethrow_if() {
+        if (h.promise().ep) {
+            std::rethrow_exception(h.promise().ep);
+        }
+    }
+};
+
+Fallible boom() {
+    throw std::runtime_error("x");
+    co_return;
+}
+#endif
+
+void demo_basics() {
+#if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
+    auto t = boom();
+    bool threw = false;
+    try {
+        t.rethrow_if();
+    } catch (const std::runtime_error&) {
+        threw = true;
+    }
+    assert(threw);
+#else
+    assert(true);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
+    auto t = boom();
+    assert(static_cast<bool>(t.h.promise().ep));
+#else
+    assert(true);
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_impl_coroutine) || defined(__cpp_coroutines)
+    // Exceptions escape the coroutine body into unhandled_exception.
+    auto t = boom();
+    assert(t.h.done());
+#else
+    assert(true);
+#endif
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

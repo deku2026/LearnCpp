@@ -1,20 +1,70 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage14-keywords-and-features-index.md
 // Stage    : part2_stage14_keywords_and_features_index
 // Section  : section05_features_by_standard_cpp23_language
 // Item     : cpp23_language_feature_checklist
 // Topic id : part2/stage14/section05/cpp23_language_feature_checklist
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: C++23 language feature checklist samples
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <version>
+
 namespace {
+
+void demo_basics() {
+#if defined(__cpp_explicit_this_parameter) && __cpp_explicit_this_parameter >= 202110L
+    struct S {
+        int n = 1;
+        int get(this const S& self) { return self.n; }
+    };
+    assert(S{}.get() == 1);
+#else
+    struct S {
+        int n = 1;
+        int get() const { return n; }
+    };
+    assert(S{}.get() == 1);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_if_consteval)
+    auto f = []() {
+        if consteval {
+            return 1;
+        } else {
+            return 2;
+        }
+    };
+    assert(f() == 2);
+#else
+    assert(true);
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_size_t_suffix)
+    auto n = 10uz;
+    assert(n == 10);
+#else
+    std::size_t n = 10;
+    assert(n == 10);
+#endif
+    static_assert(std::is_same_v<std::size_t, decltype(sizeof(0))>);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

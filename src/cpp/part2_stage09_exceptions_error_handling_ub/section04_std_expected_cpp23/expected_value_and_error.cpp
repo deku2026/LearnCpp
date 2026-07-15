@@ -1,20 +1,74 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage09-exceptions-error-handling-ub.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section04_std_expected_cpp23
 // Item     : expected_value_and_error
 // Topic id : part2/stage09/section04/expected_value_and_error
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: value(), error(), operator bool, value_or
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <version>
+
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#include <expected>
+#endif
+
 namespace {
+
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+
+std::expected<int, std::string> f(bool ok) {
+    if (ok) {
+        return 42;
+    }
+    return std::unexpected<std::string>("nope");
+}
+
+void demo_basics() {
+    auto a = f(true);
+    assert(static_cast<bool>(a));
+    assert(a.value() == 42);
+}
+
+void demo_intermediate() {
+    auto b = f(false);
+    assert(!b);
+    assert(b.error() == "nope");
+    assert(b.value_or(0) == 0);
+}
+
+void demo_expert() {
+    auto a = f(true);
+    assert(*a == 42);
+    auto b = f(false);
+    // Prefer error()/value_or over value() when maybe empty.
+    assert(b.error().size() == 4);
+}
+
+#else
+
+void demo_basics() {
+    assert(42 == 42);
+}
+void demo_intermediate() {
+    assert(std::string{"nope"} == "nope");
+}
+void demo_expert() {
+    assert(true);
+}
+
+#endif
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

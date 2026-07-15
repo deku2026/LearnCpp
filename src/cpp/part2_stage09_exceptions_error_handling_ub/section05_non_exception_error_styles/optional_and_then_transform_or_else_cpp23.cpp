@@ -1,20 +1,67 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage09-exceptions-error-handling-ub.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section05_non_exception_error_styles
 // Item     : optional_and_then_transform_or_else_cpp23
 // Topic id : part2/stage09/section05/optional_and_then_transform_or_else_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: optional monadic ops (C++23) with portable fallback
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <optional>
+#include <string>
+#include <version>
+
 namespace {
+
+void demo_basics() {
+    std::optional<int> o = 21;
+#if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
+    auto r = o.transform([](int x) { return x * 2; });
+    assert(r.has_value());
+    assert(*r == 42);
+#else
+    auto r = o.has_value() ? std::optional<int>{*o * 2} : std::nullopt;
+    assert(r && *r == 42);
+#endif
+}
+
+void demo_intermediate() {
+    std::optional<int> o = 5;
+#if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
+    auto r = o.and_then([](int x) -> std::optional<int> {
+        if (x > 0) {
+            return x + 1;
+        }
+        return std::nullopt;
+    });
+    assert(r.value() == 6);
+#else
+    assert(o.value() + 1 == 6);
+#endif
+}
+
+void demo_expert() {
+    std::optional<int> empty;
+#if defined(__cpp_lib_optional) && __cpp_lib_optional >= 202110L
+    auto r = empty.or_else([] { return std::optional<int>{99}; });
+    assert(*r == 99);
+    auto t = empty.transform([](int x) { return x; });
+    assert(!t);
+#else
+    assert(empty.value_or(99) == 99);
+#endif
+    (void)std::string{"ok"};
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

@@ -1,20 +1,59 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage15-classic-idioms.md
 // Stage    : part2_stage15_classic_idioms
 // Section  : section03_generic_and_compile_time
 // Item     : detection_idiom
 // Topic id : part2/stage15/section03/detection_idiom
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: void_t detection idiom
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <type_traits>
+#include <utility>
+
 namespace {
+
+template <class, class = void>
+struct has_size : std::false_type {};
+
+template <class T>
+struct has_size<T, std::void_t<decltype(std::declval<T>().size())>> : std::true_type {};
+
+struct With {
+    int size() const { return 3; }
+};
+struct Without {};
+
+void demo_basics() {
+    static_assert(has_size<With>::value);
+    static_assert(!has_size<Without>::value);
+    assert(has_size<With>::value);
+}
+
+void demo_intermediate() {
+    With w;
+    if constexpr (has_size<With>::value) {
+        assert(w.size() == 3);
+    }
+}
+
+void demo_expert() {
+#if defined(__cpp_concepts)
+    assert(true);
+#else
+    assert(true);
+#endif
+    static_assert(std::is_same_v<std::void_t<int>, void>);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

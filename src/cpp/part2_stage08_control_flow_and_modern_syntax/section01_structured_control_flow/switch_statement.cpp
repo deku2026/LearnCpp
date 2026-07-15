@@ -1,20 +1,89 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage08-control-flow-and-modern-syntax.md
 // Stage    : part2_stage08_control_flow_and_modern_syntax
 // Section  : section01_structured_control_flow
 // Item     : switch_statement
 // Topic id : part2/stage08/section01/switch_statement
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: switch, case, default, break, intentional fallthrough marker
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+
 namespace {
+
+const char* day_name(int d) {
+    switch (d) {
+        case 1:
+            return "mon";
+        case 2:
+            return "tue";
+        case 3:
+            return "wed";
+        case 4:
+            return "thu";
+        case 5:
+            return "fri";
+        case 6:
+            return "sat";
+        case 7:
+            return "sun";
+        default:
+            return "unknown";
+    }
+}
+
+int bucket(int x) {
+    switch (x) {
+        case 0:
+        case 1:
+        case 2:
+            return 0;
+        case 3:
+        case 4:
+            return 1;
+        default:
+            return 2;
+    }
+}
+
+void demo_basics() {
+    assert(std::string{day_name(1)} == "mon");
+    assert(std::string{day_name(7)} == "sun");
+    assert(std::string{day_name(0)} == "unknown");
+}
+
+void demo_intermediate() {
+    assert(bucket(0) == 0);
+    assert(bucket(2) == 0);
+    assert(bucket(3) == 1);
+    assert(bucket(9) == 2);
+}
+
+void demo_expert() {
+    enum class Color { Red, Green, Blue };
+    auto name = [](Color c) {
+        switch (c) {
+            case Color::Red:
+                return "r";
+            case Color::Green:
+                return "g";
+            case Color::Blue:
+                return "b";
+        }
+        return "?";
+    };
+    assert(std::string{name(Color::Green)} == "g");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

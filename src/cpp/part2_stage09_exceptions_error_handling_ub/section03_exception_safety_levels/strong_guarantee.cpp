@@ -1,20 +1,73 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage09-exceptions-error-handling-ub.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section03_exception_safety_levels
 // Item     : strong_guarantee
 // Topic id : part2/stage09/section03/strong_guarantee
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: strong guarantee — commit or rollback (as-if never called)
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
 namespace {
+
+struct StrongBag {
+    std::vector<std::string> items;
+
+    void add_pair(const std::string& a, const std::string& b, bool fail_second) {
+        // Build side effects on a temp, then commit.
+        std::vector<std::string> next = items;
+        next.push_back(a);
+        if (fail_second) {
+            throw std::runtime_error("fail before commit");
+        }
+        next.push_back(b);
+        items.swap(next);  // commit
+    }
+};
+
+void demo_basics() {
+    StrongBag s;
+    s.add_pair("x", "y", false);
+    assert(s.items.size() == 2);
+    assert(s.items[0] == "x");
+}
+
+void demo_intermediate() {
+    StrongBag s;
+    s.items.push_back("keep");
+    try {
+        s.add_pair("a", "b", true);
+        assert(false);
+    } catch (...) {
+        // Strong: original state preserved.
+        assert(s.items.size() == 1);
+        assert(s.items[0] == "keep");
+    }
+}
+
+void demo_expert() {
+    StrongBag s;
+    s.add_pair("1", "2", false);
+    try {
+        s.add_pair("3", "4", true);
+    } catch (...) {
+    }
+    assert(s.items.size() == 2);
+    assert(s.items[1] == "2");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

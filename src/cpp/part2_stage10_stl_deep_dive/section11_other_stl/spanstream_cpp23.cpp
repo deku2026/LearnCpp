@@ -1,23 +1,85 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage10-stl-deep-dive.md
 // Stage    : part2_stage10_stl_deep_dive
 // Section  : section11_other_stl
 // Item     : spanstream_cpp23
-// Topic id : part2/stage10/section11/spanstream_cpp23
+// Topic id : part2/stage10/section11_other_stl/spanstream_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: spanstream ispanstream ospanstream C++23
 
 #include "learn/topic_registry.hpp"
+
+#include <cassert>
+#include <span>
+#include <string>
+#include <version>
+
+#if defined(__cpp_lib_spanstream) && __cpp_lib_spanstream >= 202106L
+#include <spanstream>
+#endif
+#include <sstream>
+
+namespace {
+
+void demo_basics() {
+#if defined(__cpp_lib_spanstream) && __cpp_lib_spanstream >= 202106L
+    char buf[] = "10 20";
+    std::ispanstream in{std::span<char>{buf}};
+    int a = 0;
+    int b = 0;
+    in >> a >> b;
+    assert(a == 10 && b == 20);
+#else
+    std::istringstream in{"10 20"};
+    int a = 0;
+    int b = 0;
+    in >> a >> b;
+    assert(a == 10 && b == 20);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_spanstream) && __cpp_lib_spanstream >= 202106L
+    char buf[32]{};
+    std::ospanstream out{std::span<char>{buf}};
+    out << "hi" << 42;
+    const auto sp = out.span();
+    assert(std::string(sp.data(), sp.size()) == "hi42");
+#else
+    std::ostringstream out;
+    out << "hi" << 42;
+    assert(out.str() == "hi42");
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_lib_spanstream) && __cpp_lib_spanstream >= 202106L
+    char buf[64]{};
+    std::spanstream io{std::span<char>{buf}};
+    io << 7 << ' ' << 8;
+    io.seekg(0);
+    int x = 0;
+    int y = 0;
+    io >> x >> y;
+    assert(x == 7 && y == 8);
+#else
+    assert(true);
+#endif
+}
+
+}  // namespace
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section11/spanstream_cpp23", run>;
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section11_other_stl/spanstream_cpp23", run>;
 
 }  // namespace

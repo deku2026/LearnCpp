@@ -1,20 +1,49 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage14-keywords-and-features-index.md
 // Stage    : part2_stage14_keywords_and_features_index
 // Section  : section03_features_by_standard_cpp17
 // Item     : cpp17_library_features_overview
 // Topic id : part2/stage14/section03/cpp17_library_features_overview
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: C++17 library feature sampler
 
 #include "learn/topic_registry.hpp"
 
+#include <any>
+#include <cassert>
+#include <optional>
+#include <string>
+#include <string_view>
+#include <variant>
+
 namespace {
+
+void demo_basics() {
+    std::optional<int> o = 10;
+    assert(o.has_value());
+    assert(*o == 10);
+}
+
+void demo_intermediate() {
+    std::variant<int, std::string> v = 3;
+    assert(std::get<int>(v) == 3);
+    v = std::string{"hi"};
+    assert(std::get<std::string>(v) == "hi");
+}
+
+void demo_expert() {
+    std::any a = 5;
+    assert(std::any_cast<int>(a) == 5);
+    std::string_view sv{"abc"};
+    assert(sv.substr(1) == "bc");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

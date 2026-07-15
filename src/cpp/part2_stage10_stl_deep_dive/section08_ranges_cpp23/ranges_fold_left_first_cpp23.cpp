@@ -1,23 +1,81 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part2-stage10-stl-deep-dive.md
 // Stage    : part2_stage10_stl_deep_dive
 // Section  : section08_ranges_cpp23
 // Item     : ranges_fold_left_first_cpp23
-// Topic id : part2/stage10/section08/ranges_fold_left_first_cpp23
+// Topic id : part2/stage10/section08_ranges_cpp23/ranges_fold_left_first_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: ranges::fold_left_first C++23
 
 #include "learn/topic_registry.hpp"
+
+#include <algorithm>
+#include <cassert>
+#include <functional>
+#include <numeric>
+#include <optional>
+#include <ranges>
+#include <vector>
+#include <version>
+
+namespace {
+
+void demo_basics() {
+#if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
+    std::vector<int> v{1, 2, 3};
+    auto o = std::ranges::fold_left_first(v, std::plus<>{});
+    assert(o && *o == 6);
+#else
+    std::vector<int> v{1, 2, 3};
+    std::optional<int> o;
+    if (!v.empty()) {
+        o = std::accumulate(v.begin() + 1, v.end(), v.front());
+    }
+    assert(o && *o == 6);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
+    std::vector<int> empty;
+    auto o = std::ranges::fold_left_first(empty, std::plus<>{});
+    assert(!o);
+#else
+    std::vector<int> empty;
+    std::optional<int> o;
+    if (!empty.empty()) {
+        o = std::accumulate(empty.begin() + 1, empty.end(), empty.front());
+    }
+    assert(!o);
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
+    std::vector<int> v{5};
+    auto o = std::ranges::fold_left_first(v, std::multiplies<>{});
+    assert(o && *o == 5);
+#else
+    std::vector<int> v{5};
+    std::optional<int> o = v.front();
+    assert(o && *o == 5);
+#endif
+}
+
+}  // namespace
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/ranges_fold_left_first_cpp23", run>;
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage10/section08_ranges_cpp23/ranges_fold_left_first_cpp23", run>;
 
 }  // namespace
