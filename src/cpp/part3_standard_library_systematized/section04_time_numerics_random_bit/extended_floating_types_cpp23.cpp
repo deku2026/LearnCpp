@@ -13,7 +13,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <limits>
 #include <type_traits>

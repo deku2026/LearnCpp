@@ -11,7 +11,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <iostream>
 #include <optional>
 #include <thread>

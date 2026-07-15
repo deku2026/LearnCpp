@@ -9,13 +9,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <ranges>
 #include <string>
 #include <vector>
 #include <version>
 
+#if !defined(__cpp_lib_ranges_zip) || !(__cpp_lib_ranges_zip)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::views::zip not available (__cpp_lib_ranges_zip)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_enumerate_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -88,3 +96,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_enumerate_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_ranges_zip

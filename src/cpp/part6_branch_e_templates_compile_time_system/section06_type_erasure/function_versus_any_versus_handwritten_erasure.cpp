@@ -12,7 +12,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <functional>
 #include <iostream>
 #include <memory>

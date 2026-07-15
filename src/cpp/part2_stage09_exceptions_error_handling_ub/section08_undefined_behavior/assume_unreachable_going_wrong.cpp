@@ -11,12 +11,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-#include <expected>
 #include <iostream>
 #include <string>
 #include <utility>
+#include <version>
 
+#if !defined(__cpp_lib_unreachable) || !(__cpp_lib_unreachable)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::unreachable not available (__cpp_lib_unreachable)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section08/assume_unreachable_going_wrong", run>;
+}  // namespace
+#else
+#include <expected>
 namespace {
 
 // ✅ 契约用错误处理表达，而不是 assume/unreachable
@@ -85,3 +94,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section08/assume_unreachable_going_wrong", run>;
 
 }  // namespace
+#endif  // __cpp_lib_unreachable

@@ -14,7 +14,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <regex>
 #include <string>

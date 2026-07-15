@@ -12,7 +12,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <iostream>
 #include <tuple>
 #include <utility>

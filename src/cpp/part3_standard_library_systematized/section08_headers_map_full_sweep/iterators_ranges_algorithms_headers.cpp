@@ -9,12 +9,12 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <execution>
 #include <iostream>
 #include <iterator>
 #include <ranges>
 #include <vector>
+#include <version>
 
 #if defined(__has_include)
 #if __has_include(<generator>)
@@ -26,6 +26,15 @@
 #define LEARN_HAS_GENERATOR 0
 #endif
 
+#if !defined(__cpp_lib_generator) || !(__cpp_lib_generator)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::generator not available (__cpp_lib_generator)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/iterators_ranges_algorithms_headers", run>;
+}  // namespace
+#else
 namespace {
 
 #if LEARN_HAS_GENERATOR
@@ -83,3 +92,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/iterators_ranges_algorithms_headers", run>;
 
 }  // namespace
+#endif  // __cpp_lib_generator

@@ -6,7 +6,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -78,7 +77,8 @@ int run(int /*argc*/, char** /*argv*/) {
     Money a{100}, b{-250};
     std::ostringstream oss2;
     oss2 << a << ' ' << b;
-    assert(oss2.str() == "$1.00 $-2.50");
+    assert(oss2.str() == "$1.00 -$2.50");  // operator<< prints sign before $
+
     Point p{3, 4};
     std::ostringstream oss3;
     oss3 << p;

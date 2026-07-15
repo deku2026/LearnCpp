@@ -11,7 +11,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <filesystem>
 #include <fstream>
 #include <iostream>

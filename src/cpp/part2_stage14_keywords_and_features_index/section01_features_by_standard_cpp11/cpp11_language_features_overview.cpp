@@ -11,7 +11,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstdint>
 #include <initializer_list>
 #include <iostream>

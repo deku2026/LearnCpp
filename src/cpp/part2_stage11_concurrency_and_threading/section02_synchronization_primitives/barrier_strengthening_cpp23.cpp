@@ -16,7 +16,6 @@
 
 #include <atomic>
 #include <barrier>
-#include <cassert>
 #include <iostream>
 #include <thread>
 #include <type_traits>

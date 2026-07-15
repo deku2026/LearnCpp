@@ -9,29 +9,8 @@
 
 #include "learn/topic_registry.hpp"
 
-#if defined(__has_include)
-#if __has_include(<mdspan>)
-#include <mdspan>
-#define LEARNCPP_HAS_MDSPAN 1
-#endif
-#endif
-#ifndef LEARNCPP_HAS_MDSPAN
-#define LEARNCPP_HAS_MDSPAN 0
-#endif
-
-#if !LEARNCPP_HAS_MDSPAN
-namespace {
-int run(int /*argc*/, char** /*argv*/) {
-    std::cout << "[skip] <mdspan> not available on this standard library\n";
-    return 0;
-}
-[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/containers_headers", run>;
-}  // namespace
-#else
-
 #include <array>
 #include <bitset>
-#include <cassert>
 #include <deque>
 #include <forward_list>
 #include <iostream>
@@ -51,6 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
 #define LEARN_HAS_FLAT_MAP 1
 #endif
 #if __has_include(<mdspan>)
+#include <mdspan>
 #define LEARN_HAS_MDSPAN 1
 #endif
 #endif
@@ -124,4 +104,3 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/containers_headers", run>;
 
 }  // namespace
-#endif  // LEARNCPP_HAS_MDSPAN

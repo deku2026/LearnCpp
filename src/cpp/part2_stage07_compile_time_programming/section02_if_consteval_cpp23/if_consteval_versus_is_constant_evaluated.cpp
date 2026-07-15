@@ -13,7 +13,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <type_traits>
@@ -61,12 +60,13 @@ constexpr double power_if_consteval(double base, int exp) {
 // is_constant_evaluated() 在那里 *总是* true → else 被永久丢弃。
 
 constexpr int buggy_always_compile_time_branch(int x) {
-    // 演示「错误写法」的结构；我们不把运行期依赖放进 else，
-    // 而是用标记返回值暴露分支选择。
-    if (std::is_constant_evaluated()) {
+    // 错误写法等价物（-Werror 下不能真写 if constexpr (is_constant_evaluated())，
+    // 那会触发 -Wconstant-evaluated：条件本身在常量上下文求值 → ICE 恒 true）。
+    // 用 if constexpr (true) 复现「else 永久丢弃、运行期也误走 CT 臂」的结构。
+    if constexpr (true /* 模拟 if constexpr (std::is_constant_evaluated()) */) {
         return x + 1000;  // 恒走这里（无论外层是否 CTCE）
     } else {
-        return x + 1;  // 死代码
+        return x + 1;  // 死代码（被丢弃）
     }
 }
 

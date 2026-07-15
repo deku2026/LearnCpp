@@ -6,11 +6,20 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <utility>
+#include <version>
 
+#if !defined(__cpp_lib_unreachable) || !(__cpp_lib_unreachable)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::unreachable not available (__cpp_lib_unreachable)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section05/std_unreachable_cpp23_recap", run>;
+}  // namespace
+#else
 namespace {
 
 enum class Shape { Circle, Square, Triangle };
@@ -59,3 +68,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section05/std_unreachable_cpp23_recap", run>;
 
 }  // namespace
+#endif  // __cpp_lib_unreachable

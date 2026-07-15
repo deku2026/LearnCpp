@@ -10,7 +10,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 
 // 跨平台导出宏 (平台特定扩展, 非 ISO)

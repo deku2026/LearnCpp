@@ -15,7 +15,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <cstring>
 #include <iostream>

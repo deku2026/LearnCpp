@@ -14,7 +14,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <type_traits>  // remove_cvref_t, is_same_v

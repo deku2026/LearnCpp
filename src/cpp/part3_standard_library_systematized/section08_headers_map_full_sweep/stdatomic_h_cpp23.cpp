@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <iostream>
 
 #if defined(__has_include)

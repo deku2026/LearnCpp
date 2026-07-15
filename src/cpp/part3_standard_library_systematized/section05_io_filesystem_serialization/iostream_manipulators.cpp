@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -25,12 +24,12 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(oss.str() == "0xff");
         std::cout << "hex showbase: " << oss.str() << '\n';
 
-        // ⚠️ hex 是粘性的，必须改回 dec
+        // ⚠️ hex / showbase 都是粘性的，必须改回 dec / noshowbase
         oss.str({});
         oss.clear();
-        oss << 10;  // 仍是 hex → "a"
-        assert(oss.str() == "a");
-        std::cout << "sticky hex still on: " << oss.str() << '\n';
+        oss << 10;  // 仍是 hex+showbase → "0xa"
+        assert(oss.str() == "0xa");
+        std::cout << "sticky hex+showbase still on: " << oss.str() << '\n';
 
         oss.str({});
         oss.clear();

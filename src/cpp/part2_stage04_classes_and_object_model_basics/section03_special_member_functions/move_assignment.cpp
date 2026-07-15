@@ -6,7 +6,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <type_traits>
 #include <utility>

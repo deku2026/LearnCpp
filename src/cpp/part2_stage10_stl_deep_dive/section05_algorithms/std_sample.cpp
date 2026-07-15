@@ -7,7 +7,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 #include <iterator>
 #include <numeric>

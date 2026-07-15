@@ -11,14 +11,24 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-#include <expected>
 #include <iostream>
 #include <optional>
 #include <stdexcept>
 #include <string>
 #include <system_error>
+#include <version>
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected) || !__has_include(<expected>)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage09/section04/expected_versus_exception_optional_error_code", run>;
+}  // namespace
+#else
+#include <expected>
 namespace {
 
 // (a) 异常：罕见、可跨多层、调用方可不处理
@@ -110,3 +120,4 @@ int run(int /*argc*/, char** /*argv*/) {
     ::learn::topic<"part2/stage09/section04/expected_versus_exception_optional_error_code", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

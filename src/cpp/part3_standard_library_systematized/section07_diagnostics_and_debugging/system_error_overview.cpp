@@ -9,12 +9,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <filesystem>
 #include <iostream>
 #include <string>
 #include <system_error>
+#include <version>
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section07/system_error_overview", run>;
+}  // namespace
+#else
 namespace fs = std::filesystem;
 
 namespace {
@@ -75,3 +84,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part3/section07/system_error_overview", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

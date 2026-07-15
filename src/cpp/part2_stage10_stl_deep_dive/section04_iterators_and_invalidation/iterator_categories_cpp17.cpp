@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cassert>
 #include <deque>
 #include <forward_list>
 #include <iostream>

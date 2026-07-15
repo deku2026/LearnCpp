@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <type_traits>

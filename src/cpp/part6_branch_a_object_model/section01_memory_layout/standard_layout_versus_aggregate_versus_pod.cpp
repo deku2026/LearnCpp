@@ -12,7 +12,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <iostream>
 #include <type_traits>

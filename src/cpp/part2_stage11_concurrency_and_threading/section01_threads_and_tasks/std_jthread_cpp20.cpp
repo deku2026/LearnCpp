@@ -13,7 +13,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <chrono>
 #include <iostream>
 #include <thread>

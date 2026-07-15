@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <version>
@@ -22,6 +21,15 @@
 #define LEARN_HAS_STACKTRACE 0
 #endif
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section05/stacktrace_in_runtime_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 std::string current_stack_description() {
@@ -83,3 +91,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part4/section05/stacktrace_in_runtime_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

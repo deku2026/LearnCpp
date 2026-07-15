@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cassert>
 #include <iostream>
 #include <list>
 #include <ranges>

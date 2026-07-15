@@ -14,7 +14,6 @@
 
 #include <atomic>
 #include <barrier>
-#include <cassert>
 #include <iostream>
 #include <thread>
 #include <vector>

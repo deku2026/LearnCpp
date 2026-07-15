@@ -5,16 +5,33 @@
 // into a global `std::map` at static-init time. `main()` then dispatches.
 #pragma once
 
-// Topic demos use assert() as the primary verification path. CI builds with
-// RelWithDebInfo define NDEBUG, which would strip every assert and then turn
-// the "unused" demo locals/functions into -Werror failures. Keep asserts on
-// for the learn_cpp topic executable in all configs.
-#ifdef NDEBUG
-#undef NDEBUG
-#endif
+// Topic demos use assert() as the primary verification path.
+//
+// CI builds RelWithDebInfo with -DNDEBUG. That would make <cassert>'s assert a
+// no-op, then -Werror -Wunused-* fails on demo locals only referenced inside
+// assert(...). Undefining NDEBUG globally also breaks main()'s Release path
+// (no-arg should *list* topics, not run every topic).
+//
+// Solution: keep NDEBUG for main(), but redefine assert() to a learn:: check
+// that is always active in every TU that includes this registry header.
 #include <cassert>
 #include <cstddef>
+#include <cstdio>
+#include <cstdlib>
 #include <string_view>
+
+namespace learn {
+namespace detail {
+[[noreturn]] inline void assert_fail(const char* expr, const char* file, int line) {
+    std::fprintf(stderr, "Assertion failed: %s, file %s, line %d\n", expr, file, line);
+    std::abort();
+}
+}  // namespace detail
+}  // namespace learn
+
+// Override assert for topic TUs (and any TU including this header after <cassert>).
+#undef assert
+#define assert(expr) ((expr) ? (void)0 : ::learn::detail::assert_fail(#expr, __FILE__, __LINE__))
 
 namespace learn {
 

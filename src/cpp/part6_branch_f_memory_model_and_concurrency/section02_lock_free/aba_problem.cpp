@@ -12,7 +12,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <cstdint>
 #include <iostream>
 #include <thread>
@@ -61,28 +60,31 @@ int run(int argc, char** argv) {
 
     cas_push_slot(1);
     cas_push_slot(2);
-    [[maybe_unused]] auto h = unpack(head.load());
-    assert(h.index == 2);
-    assert(h.tag == 2);
+    {
+        const auto h = unpack(head.load());
+        assert(h.index == 2);
+        assert(h.tag == 2);
+    }
 
-    // 即使 index 回到 1, tag 不同 → CAS 失败
-    auto raw = head.load();
-    auto cur = unpack(raw);
-    Tagged stale{1, 0};  // 旧快照 tag=0
-    bool ok = head.compare_exchange_strong(raw, pack(stale));
-    // raw 可能已更新; 若 head 仍是 (2,2), 用错误 expected 会失败
-    (void)ok;
-    (void)cur;
-
-    std::uint64_t expected = pack({2, 2});
-    Tagged wrong{1, 0};
-    [[maybe_unused]] bool fail = head.compare_exchange_strong(expected, pack(wrong));
-    assert(!fail);
-    expected = pack({2, 2});
-    Tagged good{1, 3};
-    [[maybe_unused]] bool ok2 = head.compare_exchange_strong(expected, pack(good));
-    assert(ok2);
-    assert(unpack(head.load()).tag == 3);
+    // 错误 expected（旧 tag）的 CAS 必须失败——即便 index 想写回 2
+    {
+        std::uint64_t expected = pack({2, /*stale tag*/ 0});
+        Tagged desired{2, 99};
+        [[maybe_unused]] bool fail = head.compare_exchange_strong(expected, pack(desired));
+        assert(!fail);
+        // 失败后 expected 被写成当前值
+        const auto cur = unpack(expected);
+        assert(cur.index == 2 && cur.tag == 2);
+    }
+    // 正确 expected 才能成功，并推进 tag
+    {
+        std::uint64_t expected = pack({2, 2});
+        Tagged good{1, 3};
+        [[maybe_unused]] bool ok2 = head.compare_exchange_strong(expected, pack(good));
+        assert(ok2);
+        const auto h = unpack(head.load());
+        assert(h.index == 1 && h.tag == 3);
+    }
 
     std::cout << "  mitigations: tagged pointers, hazard pointers, RCU, GC\n";
     std::cout << "aba_problem: OK\n";

@@ -6,7 +6,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <iostream>
 #include <vector>

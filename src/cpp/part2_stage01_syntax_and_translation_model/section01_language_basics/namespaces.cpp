@@ -8,7 +8,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <vector>
 
@@ -153,7 +152,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 遮蔽演示
     int stock = 99;  // 局部名遮蔽
     assert(stock == 99);
-    assert(::inventory::stock == 10);  // 限定名不受影响
+    // demo_using_rules() 又 restock(3)，故 inventory::stock == 13
+    assert(::inventory::stock == 13);  // 限定名不受局部遮蔽影响
     (void)stock;
 
     std::cout << "[expert] qualify names in headers; unnamed ns for TU-private helpers\n";

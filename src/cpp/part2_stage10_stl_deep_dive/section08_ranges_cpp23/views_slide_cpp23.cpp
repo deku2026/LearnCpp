@@ -10,13 +10,21 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 #include <numeric>
 #include <ranges>
 #include <vector>
 #include <version>
 
+#if !defined(__cpp_lib_ranges_chunk) || !(__cpp_lib_ranges_chunk)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::views::chunk not available (__cpp_lib_ranges_chunk)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_slide_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -84,3 +92,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_slide_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_ranges_chunk

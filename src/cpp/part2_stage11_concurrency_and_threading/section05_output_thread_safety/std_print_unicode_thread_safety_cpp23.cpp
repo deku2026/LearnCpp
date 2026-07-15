@@ -15,7 +15,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <atomic>
-#include <cassert>
 #include <iostream>
 #include <mutex>
 #include <thread>

@@ -11,13 +11,22 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-#include <expected>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <string_view>
+#include <version>
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected) || !__has_include(<expected>)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section04/legacy_to_modern_rewrite", run>;
+}  // namespace
+#else
+#include <expected>
 namespace {
 
 // ---------- 5.1 legacy shape (C style, problems listed) ----------
@@ -106,3 +115,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section04/legacy_to_modern_rewrite", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

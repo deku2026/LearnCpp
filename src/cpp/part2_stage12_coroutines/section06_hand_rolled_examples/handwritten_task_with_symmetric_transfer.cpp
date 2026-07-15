@@ -19,7 +19,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <coroutine>
 #include <exception>
 #include <iostream>

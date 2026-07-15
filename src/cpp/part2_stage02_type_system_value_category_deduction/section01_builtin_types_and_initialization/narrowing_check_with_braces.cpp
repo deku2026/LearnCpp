@@ -8,7 +8,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <climits>
 #include <iostream>
 #include <type_traits>

@@ -13,7 +13,6 @@
 
 #include <algorithm>
 #include <any>
-#include <cassert>
 #include <charconv>
 #include <cstddef>
 #include <execution>

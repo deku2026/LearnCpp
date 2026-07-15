@@ -9,9 +9,9 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <string>
+#include <version>
 
 #if defined(__has_include)
 #if __has_include(<print>)
@@ -25,6 +25,15 @@
 
 #include <format>
 
+#if !defined(__cpp_lib_print) || !(__cpp_lib_print)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::println not available (__cpp_lib_print)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_print_for_diagnostics_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -72,3 +81,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_print_for_diagnostics_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_print

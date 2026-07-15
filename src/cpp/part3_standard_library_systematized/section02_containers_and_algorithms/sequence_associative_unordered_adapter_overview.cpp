@@ -13,7 +13,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <deque>
 #include <iostream>
 #include <list>

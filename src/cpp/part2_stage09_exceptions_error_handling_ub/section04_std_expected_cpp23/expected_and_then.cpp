@@ -9,11 +9,20 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-#include <expected>
 #include <iostream>
 #include <string>
+#include <version>
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected) || !__has_include(<expected>)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section04/expected_and_then", run>;
+}  // namespace
+#else
+#include <expected>
 namespace {
 
 enum class Error { Parse, Range };
@@ -92,3 +101,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section04/expected_and_then", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

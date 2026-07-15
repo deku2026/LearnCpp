@@ -13,14 +13,23 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
+#include <version>
 
+#if !defined(__cpp_lib_move_only_function) || !(__cpp_lib_move_only_function)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::move_only_function not available (__cpp_lib_move_only_function)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section02/type_erasure_idiom", run>;
+}  // namespace
+#else
 namespace {
 
 // Teaching-grade type-erased "Drawable" (Sean Parent style, simplified).
@@ -119,3 +128,4 @@ int run(int argc, char** argv) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage15/section02/type_erasure_idiom", run>;
 
 }  // namespace
+#endif  // __cpp_lib_move_only_function

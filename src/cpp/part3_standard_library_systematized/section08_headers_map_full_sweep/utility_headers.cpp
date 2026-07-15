@@ -11,7 +11,6 @@
 
 #include <any>
 #include <bit>
-#include <cassert>
 #include <functional>
 #include <iostream>
 #include <optional>

@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cassert>
 #include <concepts>
 #include <iostream>
 #include <iterator>

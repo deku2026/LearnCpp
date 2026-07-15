@@ -11,7 +11,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <concepts>
 #include <deque>
 #include <forward_list>

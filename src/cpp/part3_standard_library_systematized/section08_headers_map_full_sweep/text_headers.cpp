@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cctype>
 #include <charconv>
 #include <format>
@@ -19,6 +18,7 @@
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <version>
 
 #if defined(__has_include)
 #if __has_include(<print>)
@@ -30,6 +30,15 @@
 #define LEARN_HAS_PRINT 0
 #endif
 
+#if !defined(__cpp_lib_print) || !(__cpp_lib_print)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::println not available (__cpp_lib_print)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/text_headers", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -71,3 +80,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/text_headers", run>;
 
 }  // namespace
+#endif  // __cpp_lib_print

@@ -6,6 +6,8 @@
 
 #include "learn/topic_registry.hpp"
 
+#include <iostream>
+
 #if defined(__has_include)
 #if __has_include(<mdspan>)
 #include <mdspan>
@@ -26,7 +28,6 @@ int run(int /*argc*/, char** /*argv*/) {
 }  // namespace
 #else
 
-#include <cassert>
 #include <iostream>
 #include <vector>
 

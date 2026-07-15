@@ -15,7 +15,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <charconv>
 #include <iostream>
 #include <string_view>

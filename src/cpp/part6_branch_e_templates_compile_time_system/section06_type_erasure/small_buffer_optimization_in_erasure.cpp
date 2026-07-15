@@ -10,7 +10,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstddef>
 #include <iostream>
 #include <new>
@@ -51,13 +50,12 @@ class SmallFunction {
         return &vt;
     }
 
-    void* storage_for(std::size_t size, std::size_t align, bool local) {
+    void* storage_for(std::size_t size, std::size_t /*align*/, bool local) {
         if (local) {
             return buf_;
         }
-        // 简化: 超大走 new
-        void* p = ::operator new(size, std::align_val_t{align});
-        return p;
+        // 简化: 超大走 new（与 reset 里 delete 配对；避免 align_val_t 不匹配）
+        return ::operator new(size);
     }
 
 public:

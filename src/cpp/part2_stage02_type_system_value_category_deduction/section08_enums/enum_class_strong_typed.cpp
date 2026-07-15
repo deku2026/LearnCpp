@@ -9,11 +9,20 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <string_view>
 #include <type_traits>
+#include <version>
 
+#if !defined(__cpp_lib_to_underlying) || !(__cpp_lib_to_underlying)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::to_underlying not available (__cpp_lib_to_underlying)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section08/enum_class_strong_typed", run>;
+}  // namespace
+#else
 namespace {
 
 enum class Color { Red, Green, Blue };
@@ -70,7 +79,9 @@ int run(int argc, char** argv) {
         assert(x == 2);
 
         static_assert(std::is_enum_v<Color>);
+#if defined(__cpp_lib_is_scoped_enum) && __cpp_lib_is_scoped_enum
         static_assert(std::is_scoped_enum_v<Color>);
+#endif
         std::cout << "[advanced] no implicit int; explicit cast when needed\n";
     }
 
@@ -103,3 +114,4 @@ int run(int argc, char** argv) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section08/enum_class_strong_typed", run>;
 
 }  // namespace
+#endif  // __cpp_lib_to_underlying

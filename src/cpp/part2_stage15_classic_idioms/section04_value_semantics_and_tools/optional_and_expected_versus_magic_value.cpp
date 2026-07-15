@@ -12,13 +12,23 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
-#include <expected>
 #include <iostream>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <version>
 
+#if !defined(__cpp_lib_expected) || !(__cpp_lib_expected) || !__has_include(<expected>)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::expected not available (__cpp_lib_expected)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part2/stage15/section04/optional_and_expected_versus_magic_value", run>;
+}  // namespace
+#else
+#include <expected>
 namespace {
 
 // ---------- bad: magic values ----------
@@ -94,3 +104,4 @@ int run(int argc, char** argv) {
     ::learn::topic<"part2/stage15/section04/optional_and_expected_versus_magic_value", run>;
 
 }  // namespace
+#endif  // __cpp_lib_expected

@@ -11,7 +11,6 @@
 
 #include <array>
 #include <bit>
-#include <cassert>
 #include <cstdint>
 #include <iostream>
 #include <type_traits>

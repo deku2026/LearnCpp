@@ -9,10 +9,10 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <iostream>
 #include <type_traits>
+#include <version>
 
 namespace {
 
@@ -97,7 +97,9 @@ int run(int argc, char** argv) {
         assert(sum == 1);  // 0+1
 
         static_assert(std::is_enum_v<Color>);
+#if defined(__cpp_lib_is_scoped_enum) && __cpp_lib_is_scoped_enum
         static_assert(!std::is_scoped_enum_v<Color>);  // C++23：确认 unscoped
+#endif
 
         std::cout << "[expert] rewrite with enum class for scope + no implicit int\n";
         (void)c;

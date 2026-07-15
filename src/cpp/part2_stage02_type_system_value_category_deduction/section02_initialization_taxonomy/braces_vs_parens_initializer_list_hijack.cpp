@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <initializer_list>
 #include <iostream>
 #include <string>

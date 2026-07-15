@@ -10,7 +10,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>

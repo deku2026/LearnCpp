@@ -10,10 +10,19 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <utility>
+#include <version>
 
+#if !defined(__cpp_lib_unreachable) || !(__cpp_lib_unreachable)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::unreachable not available (__cpp_lib_unreachable)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_unreachable_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 // 仅在 x∈{0,1,2} 时调用 —— default 用 unreachable 告知优化器
@@ -85,3 +94,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_unreachable_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_unreachable

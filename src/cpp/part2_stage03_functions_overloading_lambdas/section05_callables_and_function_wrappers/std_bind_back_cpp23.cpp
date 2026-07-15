@@ -7,12 +7,21 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <functional>
 #include <iostream>
 #include <string>
+#include <version>
 
+#if !defined(__cpp_lib_bind_back) || !(__cpp_lib_bind_back)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::bind_back not available (__cpp_lib_bind_back)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage03/section05/std_bind_back_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 int sub(int a, int b) {
@@ -73,3 +82,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage03/section05/std_bind_back_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_bind_back

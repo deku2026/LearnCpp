@@ -13,7 +13,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <coroutine>
 #include <cstdint>
 #include <cstdlib>

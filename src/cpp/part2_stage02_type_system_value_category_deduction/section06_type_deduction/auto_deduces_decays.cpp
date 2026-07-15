@@ -10,7 +10,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <initializer_list>
 #include <iostream>
 #include <type_traits>

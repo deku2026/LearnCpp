@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <type_traits>
 
@@ -19,6 +18,15 @@
 #endif
 #endif
 
+#if !defined(__cpp_lib_is_scoped_enum) || !(__cpp_lib_is_scoped_enum)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::is_scoped_enum not available (__cpp_lib_is_scoped_enum)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section08/is_scoped_enum_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 enum Unscoped { A };
@@ -99,3 +107,4 @@ int run(int argc, char** argv) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage02/section08/is_scoped_enum_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_is_scoped_enum

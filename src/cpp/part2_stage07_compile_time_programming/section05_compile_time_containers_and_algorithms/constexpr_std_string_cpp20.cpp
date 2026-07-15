@@ -14,7 +14,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <string_view>

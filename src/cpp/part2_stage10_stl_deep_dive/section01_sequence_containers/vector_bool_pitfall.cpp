@@ -12,7 +12,6 @@
 
 #include <array>
 #include <bitset>
-#include <cassert>
 #include <deque>
 #include <iostream>
 #include <type_traits>

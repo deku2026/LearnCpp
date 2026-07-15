@@ -10,13 +10,21 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <functional>
 #include <iostream>
 #include <ranges>
 #include <vector>
 #include <version>
 
+#if !defined(__cpp_lib_ranges_slide) || !(__cpp_lib_ranges_slide)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::views::slide not available (__cpp_lib_ranges_slide)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_adjacent_pairwise_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -88,3 +96,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section08/views_adjacent_pairwise_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_ranges_slide

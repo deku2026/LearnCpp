@@ -12,7 +12,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cstring>
 #include <iostream>
 #include <string>

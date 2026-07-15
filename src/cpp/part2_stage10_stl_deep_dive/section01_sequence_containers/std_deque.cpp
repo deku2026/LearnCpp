@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <deque>
 #include <iostream>
 #include <iterator>

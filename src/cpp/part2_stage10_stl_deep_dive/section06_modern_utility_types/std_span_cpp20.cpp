@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <array>
-#include <cassert>
 #include <iostream>
 #include <ranges>
 #include <span>

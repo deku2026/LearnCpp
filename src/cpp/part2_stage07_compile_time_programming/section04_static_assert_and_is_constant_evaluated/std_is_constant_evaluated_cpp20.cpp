@@ -13,7 +13,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -85,14 +84,15 @@ constexpr int digits_sum(int n) {
     return s;
 }
 
-// 错误：if constexpr (std::is_constant_evaluated()) 恒 true
 // 错误形态: if constexpr (std::is_constant_evaluated()) 在该上下文恒为 true（-Wconstant-evaluated）
 // 正确形态: 普通 if (std::is_constant_evaluated()) 或 C++23 if consteval
+// 教学用 if constexpr (true) 复现「else 被丢弃」；真写 ICE 会在 -Werror 下失败。
 constexpr int footgun_marker(int x) {
-    if (std::is_constant_evaluated()) {
+    if constexpr (true /* 模拟 if constexpr (std::is_constant_evaluated()) */) {
         return x + 100;
+    } else {
+        return x;
     }
-    return x;
 }
 
 // ---------------------------------------------------------------------------
@@ -127,7 +127,9 @@ int run(int argc, char** argv) {
 
     constexpr int id_ct = select_algorithm_id();
     static_assert(id_ct == 1);
-    const int id_rt = select_algorithm_id();
+    // 经函数指针调用，阻止实现把整次调用提升为常量初始化（否则 ICE 恒 true）
+    int (*select_rt)() = select_algorithm_id;
+    int id_rt = select_rt();
     assert(id_rt == 2);
     std::cout << "[intro] algorithm id CT=" << id_ct << " RT=" << id_rt << '\n';
 
@@ -138,9 +140,15 @@ int run(int argc, char** argv) {
     std::cout << "[intro] fib(10)=" << f10 << '\n';
 
     constexpr BufferHint hint_ct{};
-    BufferHint hint_rt{};
     static_assert(hint_ct.mode == 1);
-    assert(hint_rt.mode == 2);
+    // 同样经「运行期构造」避免常量初始化
+    BufferHint* hint_heap = new BufferHint{};
+    assert(hint_heap->mode == 2);
+    const int hint_rt_mode = hint_heap->mode;
+    delete hint_heap;
+    BufferHint hint_rt{};  // 自动对象：多数实现为运行期路径
+    (void)hint_rt;
+    assert(hint_rt_mode == 2);
     std::cout << "[advanced] BufferHint mode CT=" << hint_ct.mode << " RT=" << hint_rt.mode << '\n';
 
     static_assert(digits_sum(12345) == 15);

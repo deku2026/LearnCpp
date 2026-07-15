@@ -15,13 +15,22 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <coroutine>
 #include <deque>
 #include <functional>
 #include <iostream>
 #include <utility>
+#include <version>
 
+#if !defined(__cpp_lib_generator) || !(__cpp_lib_generator)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::generator not available (__cpp_lib_generator)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage12/section04/handle_scheduling_intro", run>;
+}  // namespace
+#else
 namespace {
 
 // ---------------------------------------------------------------------------
@@ -184,3 +193,4 @@ int run(int argc, char** argv) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage12/section04/handle_scheduling_intro", run>;
 
 }  // namespace
+#endif  // __cpp_lib_generator

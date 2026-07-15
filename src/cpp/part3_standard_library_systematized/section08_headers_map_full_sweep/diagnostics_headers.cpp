@@ -11,7 +11,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <exception>
 #include <iostream>
 #include <source_location>
@@ -33,6 +32,15 @@
 #define LEARN_HAS_STACKTRACE 0
 #endif
 
+#if !defined(__cpp_lib_stacktrace) || !(__cpp_lib_stacktrace)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::stacktrace not available (__cpp_lib_stacktrace)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/diagnostics_headers", run>;
+}  // namespace
+#else
 namespace {
 
 int run(int /*argc*/, char** /*argv*/) {
@@ -97,3 +105,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/diagnostics_headers", run>;
 
 }  // namespace
+#endif  // __cpp_lib_stacktrace

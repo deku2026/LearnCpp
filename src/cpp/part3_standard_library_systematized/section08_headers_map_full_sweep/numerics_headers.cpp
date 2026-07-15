@@ -10,7 +10,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cmath>
 #include <complex>
 #include <iostream>

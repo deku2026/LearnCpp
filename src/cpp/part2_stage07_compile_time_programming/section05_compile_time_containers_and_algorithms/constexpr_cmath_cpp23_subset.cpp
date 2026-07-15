@@ -14,7 +14,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>

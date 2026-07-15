@@ -11,12 +11,22 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <functional>
 #include <iostream>
 #include <type_traits>
 #include <vector>
+#include <version>
 
+#if !defined(__cpp_lib_ranges_zip) || !(__cpp_lib_ranges_zip)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::views::zip not available (__cpp_lib_ranges_zip)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ =
+    ::learn::topic<"part6/e/section10/basic_common_reference_for_reference_wrapper_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 template <typename A, typename B>
@@ -64,3 +74,4 @@ int run(int argc, char** argv) {
     ::learn::topic<"part6/e/section10/basic_common_reference_for_reference_wrapper_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_ranges_zip

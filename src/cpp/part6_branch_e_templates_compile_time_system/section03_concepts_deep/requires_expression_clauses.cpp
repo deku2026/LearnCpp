@@ -11,7 +11,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <concepts>
 #include <iostream>
 #include <iterator>

@@ -10,10 +10,10 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <version>
 
 // MSVC STL / 较新 libstdc++ 提供 <stacktrace>
 #if defined(__has_include)
@@ -26,6 +26,15 @@
 #define LEARN_HAS_STACKTRACE 0
 #endif
 
+#if !defined(__cpp_lib_stacktrace) || !(__cpp_lib_stacktrace)
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] std::stacktrace not available (__cpp_lib_stacktrace)\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_stacktrace_current_cpp23", run>;
+}  // namespace
+#else
 namespace {
 
 #if LEARN_HAS_STACKTRACE
@@ -84,3 +93,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section06/std_stacktrace_current_cpp23", run>;
 
 }  // namespace
+#endif  // __cpp_lib_stacktrace

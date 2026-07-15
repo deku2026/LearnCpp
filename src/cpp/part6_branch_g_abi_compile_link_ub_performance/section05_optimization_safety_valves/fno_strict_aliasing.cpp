@@ -12,7 +12,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <bit>
-#include <cassert>
 #include <cstdint>
 #include <cstring>
 #include <iostream>

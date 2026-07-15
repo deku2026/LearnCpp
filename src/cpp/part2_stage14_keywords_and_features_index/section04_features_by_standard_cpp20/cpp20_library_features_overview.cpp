@@ -15,7 +15,6 @@
 #include <array>
 #include <atomic>
 #include <bit>
-#include <cassert>
 #include <cmath>
 #include <concepts>
 #include <cstdint>

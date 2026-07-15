@@ -13,7 +13,6 @@
 #include "learn/topic_registry.hpp"
 
 #include <any>
-#include <cassert>
 #include <iostream>
 #include <string>
 #include <typeinfo>

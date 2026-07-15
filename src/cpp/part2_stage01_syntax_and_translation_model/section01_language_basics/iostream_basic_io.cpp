@@ -9,7 +9,6 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <cassert>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -44,8 +43,11 @@ void demo_failbit_on_mismatch() {
     std::istringstream in{"not-a-number"};
     int value = -1;
     in >> value;
-    assert(!in);          // 提取失败
-    assert(value == -1);  // 失败时通常不改写目标（经典 istream 行为）
+    assert(!in);  // 提取失败 → failbit（可移植）
+    // 失败时目标对象是否保持原值：实现可不同（有的保持 -1，有的写成 0）。
+    // 标准保证“失败不抛则流状态可见”；不要依赖 value 的具体残留。
+    (void)value;
+    assert(in.fail());
 }
 
 int run(int /*argc*/, char** /*argv*/) {
