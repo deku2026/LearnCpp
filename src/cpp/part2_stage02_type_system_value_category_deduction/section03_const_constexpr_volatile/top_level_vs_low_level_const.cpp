@@ -30,13 +30,13 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(x == 10);
 
     // 底层：指向 const int
-    const int* low = &x;
+    [[maybe_unused]] const int* low = &x;
     low = &y;  // OK
     // *low = 3; // ❌
     assert(*low == 2);
 
     // 读法：从右往左 — int* const 是 const 指针；const int* 是指向 const 的指针
-    const int z = 5;  // z 的 const 是顶层（对 z 这个对象）
+    [[maybe_unused]] const int z = 5;  // z 的 const 是顶层（对 z 这个对象）
     // z = 6; // ❌
     std::cout << "[intro] top-level: object itself; low-level: pointee/referee\n";
 
@@ -44,20 +44,20 @@ int run(int /*argc*/, char** /*argv*/) {
     // 进阶：拷贝与指针赋值规则
     // -------------------------------------------------------------------------
     const int ca = 1;
-    int plain = ca;  // OK：拷贝时忽略源的顶层 const
+    [[maybe_unused]] int plain = ca;  // OK：拷贝时忽略源的顶层 const
     assert(plain == 1);
 
     const int* pc = &ca;
     // int* p = pc; // ❌ 不能丢底层 const（否则可通过 p 改 const 对象）
-    const int* pc2 = pc;  // OK
+    [[maybe_unused]] const int* pc2 = pc;  // OK
     assert(*pc2 == 1);
 
     int* const cptr = &x;
-    int* p2 = cptr;  // OK：拷贝指针值，目标不是 const 指针（顶层可丢）
+    [[maybe_unused]] int* p2 = cptr;  // OK：拷贝指针值，目标不是 const 指针（顶层可丢）
     assert(p2 == &x);
 
     // 引用：const int& 是“底层”意义上的只读绑定
-    const int& r = ca;
+    [[maybe_unused]] const int& r = ca;
     // int& r2 = ca; // ❌
     assert(r == 1);
     std::cout << "[advanced] cannot drop low-level const when copying pointers\n";

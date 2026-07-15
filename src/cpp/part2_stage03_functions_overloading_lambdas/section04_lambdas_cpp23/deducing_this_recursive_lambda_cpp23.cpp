@@ -45,7 +45,9 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：阶乘 + 与 std::function 对照
     // -------------------------------------------------------------------------
-    auto fact = [](this const auto& self, unsigned n) -> unsigned { return n <= 1 ? 1u : n * self(n - 1); };
+    [[maybe_unused]] auto fact = [](this const auto& self, unsigned n) -> unsigned {
+        return n <= 1 ? 1u : n * self(n - 1);
+    };
     assert(fact(5) == 120);
     assert(fact(0) == 1);
 
@@ -58,17 +60,19 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：尾递归累加、y_combinator 对照、值类别
     // -------------------------------------------------------------------------
     // self 的类型/值类别由调用方式推导（this auto / this auto& / this const auto& …）
-    auto sum_to = [](this auto self, int n, int acc = 0) -> int { return n <= 0 ? acc : self(n - 1, acc + n); };
+    [[maybe_unused]] auto sum_to = [](this auto self, int n, int acc = 0) -> int {
+        return n <= 0 ? acc : self(n - 1, acc + n);
+    };
     assert(sum_to(5) == 15);
 
     // 名称尚未绑定完毕时不能写 fib(n-1)，必须通过 self——self 就是「自己」
     // y_combinator 把「可调用自己」外置成包装类型；C++23 把对象参数显式化后不再需要
-    auto fib_y = Y{[](auto self, int n) -> int { return n < 2 ? n : self(n - 1) + self(n - 2); }};
+    [[maybe_unused]] auto fib_y = Y{[](auto self, int n) -> int { return n < 2 ? n : self(n - 1) + self(n - 2); }};
     assert(fib_y(10) == 55);
 
     // 带捕获的递归（计数调用）
     int calls = 0;
-    auto fib_count = [&calls](this auto self, int n) -> int {
+    [[maybe_unused]] auto fib_count = [&calls](this auto self, int n) -> int {
         ++calls;
         return n < 2 ? n : self(n - 1) + self(n - 2);
     };

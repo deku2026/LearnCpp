@@ -46,7 +46,7 @@ int run(int argc, char** argv) {
 
     // RMW 可用 acq_rel
     std::atomic<int> ticket{0};
-    int mine = ticket.fetch_add(1, std::memory_order_acq_rel);
+    [[maybe_unused]] int mine = ticket.fetch_add(1, std::memory_order_acq_rel);
     assert(mine == 0);
     assert(ticket.load(std::memory_order_acquire) == 1);
 

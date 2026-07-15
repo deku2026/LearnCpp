@@ -123,7 +123,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(d1.recommend() == "crtp");
     Decision d2{.need_heterogeneous_container = true};
     assert(d2.recommend() == "virtual");
-    Decision d3{.need_plugin_runtime_extension = true};
+    [[maybe_unused]] Decision d3{.need_plugin_runtime_extension = true};
     assert(d3.recommend() == "virtual");
     std::cout << "recommend mixin=" << d1.recommend() << " gallery=" << d2.recommend() << '\n';
     std::cout << "=== crtp_versus_virtual: OK ===\n";

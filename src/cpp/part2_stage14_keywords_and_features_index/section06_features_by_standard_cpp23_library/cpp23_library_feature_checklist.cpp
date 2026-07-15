@@ -10,6 +10,26 @@
 
 #include "learn/topic_registry.hpp"
 
+#if defined(__has_include)
+#if __has_include(<mdspan>)
+#include <mdspan>
+#define LEARNCPP_HAS_MDSPAN 1
+#endif
+#endif
+#ifndef LEARNCPP_HAS_MDSPAN
+#define LEARNCPP_HAS_MDSPAN 0
+#endif
+
+#if !LEARNCPP_HAS_MDSPAN
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] <mdspan> not available on this standard library\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage14/section06/cpp23_library_feature_checklist", run>;
+}  // namespace
+#else
+
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -25,7 +45,6 @@
 #include <print>
 #endif
 #if __has_include(<mdspan>) && defined(__cpp_lib_mdspan)
-#include <mdspan>
 #endif
 #if __has_include(<generator>) && defined(__cpp_lib_generator)
 #include <generator>
@@ -295,3 +314,4 @@ int run(int argc, char** argv) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage14/section06/cpp23_library_feature_checklist", run>;
 
 }  // namespace
+#endif  // LEARNCPP_HAS_MDSPAN

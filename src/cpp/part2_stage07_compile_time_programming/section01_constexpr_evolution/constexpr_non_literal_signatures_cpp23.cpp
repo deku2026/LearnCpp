@@ -59,7 +59,7 @@ constexpr int literal_path(int x) {
 }
 
 // 带非字面值参数的 constexpr 函数 + 字面值重载协作
-constexpr int describe_size(const NonLiteral& obj) {
+[[maybe_unused]] constexpr int describe_size(const NonLiteral& obj) {
     // size() 在运行期 OK；若强行 constexpr 求值整个调用，
     // 因 NonLiteral 非字面值通常无法完成常量求值。
     return static_cast<int>(obj.name.size());

@@ -28,7 +28,7 @@ int run(int argc, char** argv) {
     std::cout << "=== [happens-before] single-thread sequenced-before ===\n";
     {
         int a = 1;
-        int b = a + 1;  // a sequenced-before b (same thread)
+        [[maybe_unused]] int b = a + 1;  // a sequenced-before b (same thread)
         assert(b == 2);
         std::cout << "  sequenced-before is the single-thread base of HB\n";
     }

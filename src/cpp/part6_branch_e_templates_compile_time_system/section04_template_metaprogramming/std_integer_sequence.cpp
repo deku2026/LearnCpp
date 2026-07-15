@@ -90,12 +90,12 @@ int run(int argc, char** argv) {
     static_assert(sum_array(a) == 10);
     assert(sum_array(a) == 10);
 
-    auto rev = reverse_tuple(std::make_tuple(1, 2, 3));
+    [[maybe_unused]] auto rev = reverse_tuple(std::make_tuple(1, 2, 3));
     assert(std::get<0>(rev) == 3 && std::get<2>(rev) == 1);
 
     static_assert(product(std::integer_sequence<int, 2, 3, 4>{}) == 24);
 
-    auto picked = select(t, std::index_sequence<0, 2>{});
+    [[maybe_unused]] auto picked = select(t, std::index_sequence<0, 2>{});
     assert(std::get<0>(picked) == 1);
     assert(std::get<1>(picked) == 3.5);
 

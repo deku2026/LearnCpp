@@ -34,11 +34,11 @@ int run(int argc, char** argv) {
     // 顺序访问 vs 大步长（教学：验证可运行；非严格计时）
     constexpr int n = 1 << 16;
     std::vector<int> data(n, 1);
-    long long sum = 0;
+    [[maybe_unused]] long long sum = 0;
     for (int i = 0; i < n; ++i) sum += data[i];
     assert(sum == n);
 
-    long long sum2 = 0;
+    [[maybe_unused]] long long sum2 = 0;
     for (int i = 0; i < n; i += 16) sum2 += data[i];
     assert(sum2 > 0);
 

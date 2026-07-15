@@ -16,7 +16,7 @@
 
 namespace {
 
-inline int scale(int x) {
+[[maybe_unused]] inline int scale(int x) {
     return x * 2;
 }
 

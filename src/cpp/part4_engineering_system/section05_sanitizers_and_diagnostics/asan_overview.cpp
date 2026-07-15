@@ -32,7 +32,7 @@ bool asan_built_in() {
 }
 
 // 安全 API: 拒绝越界
-bool heap_write(std::vector<int>& buf, std::size_t i, int v) {
+[[maybe_unused]] bool heap_write(std::vector<int>& buf, std::size_t i, int v) {
     if (i >= buf.size()) {
         return false;  // ASan 会抓的是 unchecked buf[i]=v 当 i 越界
     }
@@ -41,7 +41,7 @@ bool heap_write(std::vector<int>& buf, std::size_t i, int v) {
 }
 
 // UAF 的正确替代: unique_ptr 生命周期
-int use_after_free_safe() {
+[[maybe_unused]] int use_after_free_safe() {
     auto p = std::make_unique<int>(7);
     int v = *p;
     p.reset();
@@ -65,8 +65,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 旗标对照
     // Windows clang-cl: /fsanitize=address /Zi
     // Linux: -fsanitize=address -fno-omit-frame-pointer -g
-    const char* win = "/fsanitize=address";
-    const char* nix = "-fsanitize=address";
+    [[maybe_unused]] const char* win = "/fsanitize=address";
+    [[maybe_unused]] const char* nix = "-fsanitize=address";
     assert(std::string_view(win).find("address") != std::string_view::npos);
     assert(std::string_view(nix).find("address") != std::string_view::npos);
 

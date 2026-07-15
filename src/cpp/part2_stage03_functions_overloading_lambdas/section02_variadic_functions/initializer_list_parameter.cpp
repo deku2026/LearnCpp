@@ -16,7 +16,7 @@
 
 namespace {
 
-int sum(std::initializer_list<int> nums) {
+[[maybe_unused]] int sum(std::initializer_list<int> nums) {
     int total = 0;
     for (int n : nums) {
         total += n;
@@ -24,7 +24,7 @@ int sum(std::initializer_list<int> nums) {
     return total;
 }
 
-double average(std::initializer_list<double> xs) {
+[[maybe_unused]] double average(std::initializer_list<double> xs) {
     if (xs.size() == 0) {
         return 0.0;
     }
@@ -35,7 +35,7 @@ double average(std::initializer_list<double> xs) {
     return s / static_cast<double>(xs.size());
 }
 
-std::string join(std::initializer_list<std::string> parts, char sep = ',') {
+[[maybe_unused]] std::string join(std::initializer_list<std::string> parts, char sep = ',') {
     std::string out;
     bool first = true;
     for (const auto& p : parts) {
@@ -79,7 +79,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // initializer_list 内部是指针 + 长度，指向「临时数组」；
     // ⚠️ 不要把 initializer_list 本身存到超出完整表达式生命周期之后再解引用。
     // 若要长期持有，拷贝进 vector/string 等拥有型容器。
-    std::initializer_list<int> il = {7, 8, 9};  // 教学演示：完整表达式内使用 OK
+    [[maybe_unused]] std::initializer_list<int> il = {7, 8, 9};  // 教学演示：完整表达式内使用 OK
     assert(std::accumulate(il.begin(), il.end(), 0) == 24);
 
     // 限制：不能直接混异构类型 print({1, "x"}) 成同一 initializer_list。

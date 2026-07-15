@@ -25,7 +25,7 @@ struct CiJob {
     std::string os;         // ubuntu / windows ...
 };
 
-bool same_process_conflict(const CiJob& a, const CiJob& b) {
+[[maybe_unused]] bool same_process_conflict(const CiJob& a, const CiJob& b) {
     // 同一进程 flags 不能 address+thread
     const bool a_addr = a.fsanitize.find("address") != std::string::npos;
     const bool b_thr = b.fsanitize.find("thread") != std::string::npos;
@@ -35,7 +35,7 @@ bool same_process_conflict(const CiJob& a, const CiJob& b) {
 }
 
 // 正确: 两个 job, 各自一套 flags
-bool matrix_valid(const std::vector<CiJob>& jobs) {
+[[maybe_unused]] bool matrix_valid(const std::vector<CiJob>& jobs) {
     // 不检查跨 job 冲突(它们是不同进程); 检查单 job 不自相矛盾
     for (const auto& j : jobs) {
         const bool addr = j.fsanitize.find("address") != std::string::npos;
@@ -47,7 +47,7 @@ bool matrix_valid(const std::vector<CiJob>& jobs) {
     return !jobs.empty();
 }
 
-int parallel_sum(int n) {
+[[maybe_unused]] int parallel_sum(int n) {
     std::atomic<int> s{0};
     auto work = [&] {
         for (int i = 0; i < n; ++i) {

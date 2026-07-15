@@ -37,7 +37,7 @@ int run(int /*argc*/, char** /*argv*/) {
               << " bit_floor=" << std::bit_floor(x) << '\n';
 
     // rotl / rotr
-    constexpr std::uint8_t r = 0b1001'0001u;
+    [[maybe_unused]] constexpr std::uint8_t r = 0b1001'0001u;
     assert(std::rotl(r, 1) == 0b0010'0011u);
     assert(std::rotr(r, 1) == 0b1100'1000u);
 

@@ -60,7 +60,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：不保证 '\\0' + 与 string 边界 ===\n";
     {
         // ⚠️ 切片后 data() 不能当 C 字符串
-        std::string_view slice = std::string_view{"abcdef"}.substr(0, 3);  // "abc"
+        [[maybe_unused]] std::string_view slice = std::string_view{"abcdef"}.substr(0, 3);  // "abc"
         assert(slice == "abc");
         assert(slice.size() == 3);
         // std::strlen(slice.data()) 可能越过 3 —— 危险
@@ -70,7 +70,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(std::string_view{"hello"}.find("ll") == 2);
 
         // 空 view
-        std::string_view empty{};
+        [[maybe_unused]] std::string_view empty{};
         assert(empty.empty() && empty.size() == 0);
 
         // 从 string 构造后 string 缩短：view 不跟踪 size（悬垂/越界风险）

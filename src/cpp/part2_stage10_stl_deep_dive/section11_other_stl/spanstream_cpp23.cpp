@@ -87,7 +87,7 @@ int run(int /*argc*/, char** /*argv*/) {
         for (int i = 0; i < 5; ++i) {
             oss << i << ',';
         }
-        const auto sp = oss.span();
+        [[maybe_unused]] const auto sp = oss.span();
         assert(std::string(sp.begin(), sp.end()) == "0,1,2,3,4,");
         std::cout << "  vector-backed ospanstream OK\n";
     }

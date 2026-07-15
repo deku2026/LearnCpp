@@ -45,10 +45,10 @@ void take_lvalue(const std::string&) {}
 void take_rvalue(std::string&&) {}
 
 // 重载：证明值类别如何选中移动路径
-int overload_tag(const Tracker&) {
+[[maybe_unused]] int overload_tag(const Tracker&) {
     return 1;
 }
-int overload_tag(Tracker&&) {
+[[maybe_unused]] int overload_tag(Tracker&&) {
     return 2;
 }
 

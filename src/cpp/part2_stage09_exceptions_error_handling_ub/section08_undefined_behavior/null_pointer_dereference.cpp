@@ -15,14 +15,14 @@
 
 namespace {
 
-int value_or_default(const int* p, int def) {
+[[maybe_unused]] int value_or_default(const int* p, int def) {
     if (p == nullptr) {
         return def;  // ✅ 先检查
     }
     return *p;
 }
 
-std::optional<int> as_optional(const int* p) {
+[[maybe_unused]] std::optional<int> as_optional(const int* p) {
     if (!p) {
         return std::nullopt;
     }
@@ -33,7 +33,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [null_pointer_dereference] 主干：用前检查 ===\n";
     {
         int x = 5;
-        int* p = &x;
+        [[maybe_unused]] int* p = &x;
         assert(value_or_default(p, -1) == 5);
         assert(value_or_default(nullptr, -1) == -1);
         std::cout << "null-safe value_or_default ok\n";
@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：optional 表达可空 ===\n";
     {
-        int x = 9;
+        [[maybe_unused]] int x = 9;
         assert(as_optional(&x) == 9);
         assert(!as_optional(nullptr));
         std::cout << "optional from pointer\n";
@@ -51,10 +51,10 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         // 引用在语言层面不能是“空”——必须绑定到对象
         int live = 11;
-        const int& r = live;
+        [[maybe_unused]] const int& r = live;
         assert(r == 11);
         // API 设计：内部用引用（调用方已保证有效）；边界用 pointer/optional
-        auto by_ref = [](const int& v) { return v * 2; };
+        [[maybe_unused]] auto by_ref = [](const int& v) { return v * 2; };
         assert(by_ref(live) == 22);
         std::cout << "references encode non-null at the type level\n";
     }

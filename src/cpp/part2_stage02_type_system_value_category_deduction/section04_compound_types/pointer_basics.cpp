@@ -28,7 +28,7 @@ int run(int /*argc*/, char** /*argv*/) {
     *p = 7;
     assert(x == 7);
 
-    int* np = nullptr;
+    [[maybe_unused]] int* np = nullptr;
     assert(np == nullptr);
     // *np; // UB —— 不解引用空指针
 
@@ -42,15 +42,15 @@ int run(int /*argc*/, char** /*argv*/) {
     // 进阶：const 指针、void*、数组退化
     // -------------------------------------------------------------------------
     const int cx = 5;
-    const int* pc = &cx;
+    [[maybe_unused]] const int* pc = &cx;
     assert(*pc == 5);
 
     void* raw = &y;
-    int* back = static_cast<int*>(raw);  // void* 需显式转回
+    [[maybe_unused]] int* back = static_cast<int*>(raw);  // void* 需显式转回
     assert(back == &y);
 
     int arr[3]{10, 20, 30};
-    int* pa = arr;  // 数组 → 首元素指针
+    [[maybe_unused]] int* pa = arr;  // 数组 → 首元素指针
     assert(*pa == 10);
     assert(*(pa + 1) == 20);
     assert(pa[2] == 30);
@@ -75,16 +75,18 @@ int run(int /*argc*/, char** /*argv*/) {
     auto add1 = [](int n) { return n + 1; };
     // 函数指针（非捕获 lambda 可转）
     int (*fp)(int) = add1;
+    (void)fp;
     assert(fp(3) == 4);
 
     // 指针 vs 引用（心智）
     // - 引用必须初始化、不可空、不可改绑（语法上像别名）
     // - 指针表达“可选 / 可重置 / 算术 / 多态基类拥有”
-    int& ref = x;
+    [[maybe_unused]] int& ref = x;
     assert(&ref == &x);
 
     // 指向数组的指针（不退化）
     int (*parr)[3] = &arr;
+    (void)parr;
     assert((*parr)[1] == 20);
 
     static_assert(std::is_pointer_v<int*>);

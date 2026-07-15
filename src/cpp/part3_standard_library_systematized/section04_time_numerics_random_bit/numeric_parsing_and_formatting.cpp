@@ -34,11 +34,11 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::stoi("42") == 42);
     assert(std::stod("3.5") == 3.5);
     assert(std::to_string(42) == "42");
-    std::size_t idx = 0;
+    [[maybe_unused]] std::size_t idx = 0;
     assert(std::stoi("99xyz", &idx) == 99);
     assert(idx == 2);
 
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)std::stoi("not-a-number");
     } catch (const std::exception&) {
@@ -49,7 +49,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 高性能 charconv
     std::array<char, 32> buf{};
-    auto [p, ec] = std::to_chars(buf.data(), buf.data() + buf.size(), 12345);
+    [[maybe_unused]] auto [p, ec] = std::to_chars(buf.data(), buf.data() + buf.size(), 12345);
     assert(ec == std::errc{});
     assert((std::string_view{buf.data(), static_cast<std::size_t>(p - buf.data())} == "12345"));
 

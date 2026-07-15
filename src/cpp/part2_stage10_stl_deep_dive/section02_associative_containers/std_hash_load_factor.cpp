@@ -48,7 +48,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         const std::size_t h1 = std::hash<int>{}(42);
         const std::size_t h2 = std::hash<std::string>{}("hello");
-        const std::size_t h3 = std::hash<std::string_view>{}("hello");
+        [[maybe_unused]] const std::size_t h3 = std::hash<std::string_view>{}("hello");
         (void)h1;
         // 同值可哈希多次：相等对象哈希必须相等
         assert(std::hash<int>{}(42) == std::hash<int>{}(42));

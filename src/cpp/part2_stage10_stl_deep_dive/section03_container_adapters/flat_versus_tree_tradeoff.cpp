@@ -195,7 +195,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：迭代器失效差异（正确性优先于性能）===\n";
     {
         std::map<int, int> m{{1, 1}, {2, 2}};
-        auto it = m.find(2);
+        [[maybe_unused]] auto it = m.find(2);
         m.emplace(0, 0);
         assert(it->second == 2);  // 仍有效
 

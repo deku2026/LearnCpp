@@ -37,7 +37,7 @@ int run(int argc, char** argv) {
     assert(arr[1] == 99);
     std::cout << "  array form: n elements, bytes preserved\n";
 #else
-    auto* arr = std::launder(reinterpret_cast<int*>(buf));
+    [[maybe_unused]] auto* arr = std::launder(reinterpret_cast<int*>(buf));
     assert(arr[0] == 10 && arr[3] == 40);
     std::cout << "  start_lifetime_as_array unavailable; launder demo\n";
 #endif

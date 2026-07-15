@@ -70,7 +70,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(!e && e.error() == "div0");
         std::cout << "expected error: " << e.error() << '\n';
 
-        auto o = divide_opt(1, 0);
+        [[maybe_unused]] auto o = divide_opt(1, 0);
         assert(!o);
         std::cout << "optional empty (no reason)\n";
 

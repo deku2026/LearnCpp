@@ -54,7 +54,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::unordered_map<int, int> um;
         um.max_load_factor(1.0f);
-        const auto buckets0 = um.bucket_count();
+        [[maybe_unused]] const auto buckets0 = um.bucket_count();
         um.reserve(100);  // 预留至少装 100 元素而不超 max_load_factor
         assert(um.bucket_count() >= buckets0);
         assert(um.bucket_count() >= 100);  // 通常成立
@@ -67,7 +67,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "size=" << um.size() << " buckets=" << um.bucket_count() << " load_factor=" << um.load_factor()
                   << '\n';
 
-        const auto* p = &um.at(0);
+        [[maybe_unused]] const auto* p = &um.at(0);
         um.rehash(um.bucket_count() * 2);  // 强制重建桶
         // rehash：迭代器全失效，但引用/指针对元素仍有效（节点式哈希）
         assert(*p == 0);
@@ -95,7 +95,7 @@ int run(int /*argc*/, char** /*argv*/) {
             um[i] = i;
         }
         // 遍历顺序 ≠ 插入顺序（实现相关）
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         for (const auto& [k, v] : um) {
             sum += k + v;
             (void)v;

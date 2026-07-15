@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== null_memory_resource：分配即 bad_alloc ===\n";
     {
         std::pmr::vector<int> v{std::pmr::null_memory_resource()};
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             v.push_back(1);
         } catch (const std::bad_alloc&) {

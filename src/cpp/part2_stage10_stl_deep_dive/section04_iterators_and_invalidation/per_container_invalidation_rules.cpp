@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{1, 2};
         v.reserve(2);
-        int* p = v.data();
+        [[maybe_unused]] int* p = v.data();
         v.push_back(3);  // 超 capacity
         assert(v.data() != p);
         std::cout << "vector reallocation moves storage → old iters dead\n";
@@ -50,8 +50,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：deque — 头尾插 vs 中间插 ===\n";
     {
         std::deque<int> d{1, 2, 3};
-        int& r = d[1];    // 指向 2
-        d.push_front(0);  // 头插：迭代器失效，引用通常仍有效
+        [[maybe_unused]] int& r = d[1];  // 指向 2
+        d.push_front(0);                 // 头插：迭代器失效，引用通常仍有效
         assert(r == 2);
         d.insert(d.begin() + 2, 99);  // 中间：引用也失效（标准：全部失效）
         // 不要再使用 r
@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(*it == 2);
 
         std::map<int, std::string> m{{1, "a"}, {2, "b"}};
-        auto mit = m.find(2);
+        [[maybe_unused]] auto mit = m.find(2);
         m.emplace(0, "z");
         m.erase(1);
         assert(mit->second == "b");
@@ -81,7 +81,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::unordered_map<int, int> um;
         um.reserve(2);
         um[1] = 10;
-        int& r = um[1];
+        [[maybe_unused]] int& r = um[1];
         // 迫使 rehash
         for (int i = 2; i < 100; ++i) {
             um[i] = i;

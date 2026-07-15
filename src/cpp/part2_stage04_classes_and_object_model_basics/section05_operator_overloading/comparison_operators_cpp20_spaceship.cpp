@@ -46,7 +46,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：关系运算由 <=> 重写
     // -------------------------------------------------------------------------
-    Version a{1, 2, 0}, b{1, 3, 0};
+    [[maybe_unused]] Version a{1, 2, 0}, b{1, 3, 0};
+    (void)b;
     assert(a < b);
     assert(a <= b);
     assert(!(a > b));
@@ -57,20 +58,20 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：strong_ordering 结果
     // -------------------------------------------------------------------------
-    Version c{1, 2, 0};
+    [[maybe_unused]] Version c{1, 2, 0};
     assert((a <=> c) == std::strong_ordering::equal);
     assert(a == c);
-    Version d{2, 0, 0};
+    [[maybe_unused]] Version d{2, 0, 0};
     assert((d <=> a) == std::strong_ordering::greater);
     std::cout << "[advanced] strong_ordering equal/greater\n";
 
     // -------------------------------------------------------------------------
     // §专家：partial_ordering / NaN
     // -------------------------------------------------------------------------
-    FloatBox x{1.0}, y{2.0};
+    [[maybe_unused]] FloatBox x{1.0}, y{2.0};
     assert(x < y);
     FloatBox nan{std::numeric_limits<double>::quiet_NaN()};
-    auto ord = nan <=> x;
+    [[maybe_unused]] auto ord = nan <=> x;
     assert(ord == std::partial_ordering::unordered);
     assert(!(nan < x) && !(nan > x) && !(nan == x));
 

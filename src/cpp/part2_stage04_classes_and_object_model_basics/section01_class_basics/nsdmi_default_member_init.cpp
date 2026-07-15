@@ -74,11 +74,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §专家：优先级与 const / 数组
     // -------------------------------------------------------------------------
-    Flags f;
+    [[maybe_unused]] Flags f;
     assert(f.ready == 0 && f.error == 0);
     assert(f.values[0] == 1 && f.values[2] == 3);
 
-    NeedsInit n0;
+    [[maybe_unused]] NeedsInit n0;
     assert(n0.id_ == -1);
     NeedsInit n1{42};
     assert(n1.id_ == 42);

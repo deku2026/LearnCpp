@@ -39,7 +39,7 @@ std::string join_fsanitize(const LaneFlags& f) {
 }
 
 // 仓库选项
-bool repo_options_match(bool enable_asan, bool enable_ubsan) {
+[[maybe_unused]] bool repo_options_match(bool enable_asan, bool enable_ubsan) {
     // LEARNCPP_ENABLE_ASAN / LEARNCPP_ENABLE_UBSAN
     return enable_asan || enable_ubsan;
 }
@@ -63,7 +63,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 安全烟雾: 有界访问(同 asan_overview)
     int a[3] = {1, 2, 3};
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (int i = 0; i < 3; ++i) {
         sum += a[i];
     }

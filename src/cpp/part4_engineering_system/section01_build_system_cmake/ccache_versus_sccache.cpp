@@ -103,7 +103,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // --- 专家: 对照 Sccache.cmake ---
     // find_program(sccache); set CMAKE_CXX_COMPILER_LAUNCHER
     // MSVC/clang-cl: CMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded (缓存友好)
-    const bool embedded_debug_for_msvc = true;  // presets + Sccache.cmake
+    [[maybe_unused]] const bool embedded_debug_for_msvc = true;  // presets + Sccache.cmake
     assert(embedded_debug_for_msvc);
 
     // ccache vs sccache 特性表(可运行探测用常量)
@@ -112,7 +112,7 @@ int run(int /*argc*/, char** /*argv*/) {
         bool windows_first_class;
         bool remote_cache;
     };
-    const Row table[] = {
+    [[maybe_unused]] const Row table[] = {
         {"ccache", false, true},  // 有 remote 但 Windows 体验一般
         {"sccache", true, true},
     };

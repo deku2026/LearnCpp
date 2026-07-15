@@ -56,7 +56,7 @@ int run(int argc, char** argv) {
     // CAS via ref
     int x = 1;
     std::atomic_ref<int> rx(x);
-    int e = 1;
+    [[maybe_unused]] int e = 1;
     assert(rx.compare_exchange_strong(e, 2));
     assert(x == 2);
 

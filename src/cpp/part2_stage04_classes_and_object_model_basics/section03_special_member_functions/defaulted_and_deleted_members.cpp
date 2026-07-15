@@ -95,7 +95,7 @@ int run(int /*argc*/, char** /*argv*/) {
         static void* operator new[](std::size_t) = delete;
         int x = 1;
     };
-    StackOnly s;
+    [[maybe_unused]] StackOnly s;
     assert(s.x == 1);
 
     std::cout << "[expert] deleted overloads + non-copyable/movable patterns\n";

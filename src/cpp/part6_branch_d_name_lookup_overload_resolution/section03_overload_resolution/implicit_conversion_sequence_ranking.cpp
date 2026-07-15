@@ -21,24 +21,24 @@ struct Num {
     Num(int x) : v(x) {}  // 用户定义转换 int→Num
 };
 
-std::string f(Num) {
+[[maybe_unused]] std::string f(Num) {
     return "Num";
 }
-std::string f(double) {
+[[maybe_unused]] std::string f(double) {
     return "double";
 }
 
-std::string s(int) {
+[[maybe_unused]] std::string s(int) {
     return "int";
 }
-std::string s(double) {
+[[maybe_unused]] std::string s(double) {
     return "double";
 }
 
-std::string ellipsis(...) {
+[[maybe_unused]] std::string ellipsis(...) {
     return "ellipsis";
 }
-std::string ellipsis(int) {
+[[maybe_unused]] std::string ellipsis(int) {
     return "int";
 }
 
@@ -53,7 +53,7 @@ int run(int argc, char** argv) {
     assert((f(Num{9}) == "Num"));
 
     assert(s('x') == "int");  // promotion
-    float fl = 1.f;
+    [[maybe_unused]] float fl = 1.f;
     assert(s(fl) == "double");  // float→double promotion
 
     assert(ellipsis(1) == "int");  // 精确优于省略号

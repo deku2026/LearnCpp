@@ -102,7 +102,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 专家：N 进入类型系统；对照 std::array ===\n";
     static_assert(double_size<8>() == 16);
-    int raw[3] = {1, 2, 3};
+    [[maybe_unused]] int raw[3] = {1, 2, 3};
     assert(extent_of(raw) == 3);
     std::array<int, 3> sa{1, 2, 3};
     static_assert(sa.size() == 3);

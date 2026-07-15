@@ -42,7 +42,7 @@ int run(int argc, char** argv) {
     std::cout << "    cppcoreguidelines-owning-memory / pro-bounds-*\n";
 
     std::string s = good_return();
-    std::string_view sv = view_of(s);
+    [[maybe_unused]] std::string_view sv = view_of(s);
     assert(sv == "ok");
 
     // use-after-move：移动后只赋新值或处于有效未指定状态，勿读旧值

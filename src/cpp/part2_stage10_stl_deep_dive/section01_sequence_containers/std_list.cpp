@@ -54,7 +54,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::list<int> lst{10, 20, 30};
         auto it20 = std::next(lst.begin());
-        int& r30 = lst.back();
+        [[maybe_unused]] int& r30 = lst.back();
         lst.push_front(0);
         lst.push_back(40);
         lst.insert(it20, 15);
@@ -93,7 +93,7 @@ int run(int /*argc*/, char** /*argv*/) {
         //       或需要 splice 常数时间拼接
         std::list<std::string> big_nodes;
         big_nodes.emplace_back(100, 'x');
-        auto keep = big_nodes.begin();
+        [[maybe_unused]] auto keep = big_nodes.begin();
         big_nodes.emplace_front(50, 'y');
         assert(keep->size() == 100);
         std::cout << "default prefer vector; list only with measured need\n";

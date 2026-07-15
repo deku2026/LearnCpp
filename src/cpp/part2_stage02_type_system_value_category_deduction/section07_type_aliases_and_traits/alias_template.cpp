@@ -95,13 +95,13 @@ int run(int argc, char** argv) {
         // 别名模板不可偏特化/全特化。需要分支时：
         // 1) 特化 class template，再 using ... = typename X<T>::type;
         // 2) 或 C++20 后用 requires / 概念约束不同重载
-        FnPtr<int, int, int> fp = add;
+        [[maybe_unused]] FnPtr<int, int, int> fp = add;
         assert(fp(2, 3) == 5);
 
         Vec<int> v{10, 20};
         using It = IterOf<Vec<int>>;
         static_assert(std::is_same_v<It, std::vector<int>::iterator>);
-        It it = v.begin();
+        [[maybe_unused]] It it = v.begin();
         assert(*it == 10);
 
         // 变量模板 + 别名模板是现代 traits 双璧：_v 给值，_t 给类型

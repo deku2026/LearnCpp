@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(buf == "0123456789");
 
     // string_view 零拷贝视图(不拥有)
-    std::string_view sv = s;
+    [[maybe_unused]] std::string_view sv = s;
     assert(sv.size() == s.size());
     assert(std::string{sv.substr(0, 4)} == "Say:");
 

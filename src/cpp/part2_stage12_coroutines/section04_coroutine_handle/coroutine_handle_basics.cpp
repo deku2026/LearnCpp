@@ -67,17 +67,17 @@ int run(int argc, char** argv) {
 
     // from_promise 往返
     auto& p = h.promise();
-    auto h2 = std::coroutine_handle<Box::promise_type>::from_promise(p);
+    [[maybe_unused]] auto h2 = std::coroutine_handle<Box::promise_type>::from_promise(p);
     assert(h2.address() == h.address());
 
     // 类型擦除
-    std::coroutine_handle<> generic = h;
+    [[maybe_unused]] std::coroutine_handle<> generic = h;
     assert(generic.address() == h.address());
     // generic.promise(); // 不可: void promise 无类型化 promise()
 
     // address / from_address(可跨 API 传递 void*)
     void* raw = h.address();
-    auto h3 = std::coroutine_handle<Box::promise_type>::from_address(raw);
+    [[maybe_unused]] auto h3 = std::coroutine_handle<Box::promise_type>::from_address(raw);
     assert(h3.address() == h.address());
 
     h.resume();
@@ -90,7 +90,7 @@ int run(int argc, char** argv) {
     std::cout << "  note: handle does NOT own the frame — Box dtor destroys\n";
 
     // ⚠️ 默认构造的 handle 比较像空指针, resume/destroy 空 handle → UB
-    std::coroutine_handle<> empty{};
+    [[maybe_unused]] std::coroutine_handle<> empty{};
     assert(!empty);
 
     std::cout << "coroutine_handle_basics: OK\n";

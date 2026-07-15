@@ -19,19 +19,19 @@ namespace {
 
 namespace lib {
 struct Widget {
-    static constexpr int id = 7;
+    [[maybe_unused]] static constexpr int id = 7;
     int value = 0;
     int get() const { return value; }
 };
-int tag = 42;
+[[maybe_unused]] int tag = 42;
 namespace nested {
-int deep = 9;
+[[maybe_unused]] int deep = 9;
 }
 }  // namespace lib
 
 struct Outer {
     struct Inner {
-        static constexpr int k = 3;
+        [[maybe_unused]] static constexpr int k = 3;
     };
 };
 

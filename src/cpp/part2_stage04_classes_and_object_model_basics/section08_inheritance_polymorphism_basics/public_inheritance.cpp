@@ -36,7 +36,7 @@ public:
     std::string speak() const override { return "meow"; }
 };
 
-std::string call_speak(const Animal& a) {
+[[maybe_unused]] std::string call_speak(const Animal& a) {
     return a.speak();
 }
 
@@ -55,7 +55,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：基类引用绑定
     // -------------------------------------------------------------------------
-    Animal& ar = d;
+    [[maybe_unused]] Animal& ar = d;
     assert(ar.speak() == "woof");  // 虚分发
     assert(call_speak(d) == "woof");
     assert(call_speak(Cat{"Mimi"}) == "meow");

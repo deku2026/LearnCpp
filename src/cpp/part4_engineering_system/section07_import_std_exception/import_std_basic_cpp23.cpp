@@ -27,7 +27,7 @@ bool language_modules_reported() {
 }
 
 // 「import std」后的 API 使用面 — 实际仍用头文件实现
-int demo_std_surface() {
+[[maybe_unused]] int demo_std_surface() {
     std::vector<std::string> v{"import", "std", "future"};
     assert(v.size() == 3);
     int n = 0;
@@ -60,7 +60,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // - 编译器支持 std 模块
     // - CMake 3.30+ CMAKE_EXPERIMENTAL_CXX_IMPORT_STD
     // - 通常 Ninja
-    ImportStdReadiness r{
+    [[maybe_unused]] ImportStdReadiness r{
         /*cmake_ge_330*/ false,  // 仓库基线 3.28
         /*ninja*/ true,          // presets 使用 Ninja
         /*experimental_flag*/ false,
@@ -69,12 +69,12 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(!r.ready());
     assert(r.ninja_generator);
 
-    const bool using_header_fallback = true;
+    [[maybe_unused]] const bool using_header_fallback = true;
     assert(using_header_fallback);
     assert(demo_std_surface() == 6 + 3 + 6);
 
     // 心智: import std 替换大量 #include <...>, 不替换第三方库
-    const int classic_includes_replaced = 3;  // vector/string/iostream 示意
+    [[maybe_unused]] const int classic_includes_replaced = 3;  // vector/string/iostream 示意
     assert(classic_includes_replaced >= 1);
 
     std::cout << "  this TU: classic includes (portable default)\n";

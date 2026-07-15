@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::get<std::string>(p) == "ten");
 
     // array
-    std::array<int, 3> a{1, 2, 3};
+    [[maybe_unused]] std::array<int, 3> a{1, 2, 3};
     assert(std::get<2>(a) == 3);
 
     // variant: get 按类型/下标
@@ -50,7 +50,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // ⚠️ 重复类型不能 get<T>
     // std::tuple<int,int> bad; std::get<int>(bad); // ill-formed
-    std::tuple<int, int> dup{1, 2};
+    [[maybe_unused]] std::tuple<int, int> dup{1, 2};
     assert(std::get<0>(dup) == 1 && std::get<1>(dup) == 2);
 
     std::cout << "[get] tuple/pair/array/variant by index & type OK\n";

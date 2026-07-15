@@ -28,7 +28,7 @@ bool msan_built_in() {
 }
 
 // 错误模式: int x; use(x) — 我们演示初始化纪律
-int sum_defined(const std::vector<int>& v) {
+[[maybe_unused]] int sum_defined(const std::vector<int>& v) {
     int s = 0;  // 必须初始化
     for (int x : v) {
         s += x;
@@ -69,9 +69,9 @@ int run(int /*argc*/, char** /*argv*/) {
     // 不读 data[2..] 未定义内容
     std::cout << "  only read initialized prefix of buffers\n";
 
-    MsanPrereq hard{true, false, false};
+    [[maybe_unused]] MsanPrereq hard{true, false, false};
     assert(!hard.ok());
-    MsanPrereq full{true, true, true};
+    [[maybe_unused]] MsanPrereq full{true, true, true};
     assert(full.ok());
     std::cout << "  MSan needs fully instrumented stack (stdlib+deps)\n";
 

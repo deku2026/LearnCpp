@@ -61,7 +61,7 @@ int run(int argc, char** argv) {
 
     cas_push_slot(1);
     cas_push_slot(2);
-    auto h = unpack(head.load());
+    [[maybe_unused]] auto h = unpack(head.load());
     assert(h.index == 2);
     assert(h.tag == 2);
 
@@ -76,11 +76,11 @@ int run(int argc, char** argv) {
 
     std::uint64_t expected = pack({2, 2});
     Tagged wrong{1, 0};
-    bool fail = head.compare_exchange_strong(expected, pack(wrong));
+    [[maybe_unused]] bool fail = head.compare_exchange_strong(expected, pack(wrong));
     assert(!fail);
     expected = pack({2, 2});
     Tagged good{1, 3};
-    bool ok2 = head.compare_exchange_strong(expected, pack(good));
+    [[maybe_unused]] bool ok2 = head.compare_exchange_strong(expected, pack(good));
     assert(ok2);
     assert(unpack(head.load()).tag == 3);
 

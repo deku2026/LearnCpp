@@ -15,13 +15,13 @@
 
 namespace {
 
-int overload_probe(int) {
+[[maybe_unused]] int overload_probe(int) {
     return 1;
 }
-int overload_probe(char*) {
+[[maybe_unused]] int overload_probe(char*) {
     return 2;
 }
-int overload_probe(std::nullptr_t) {
+[[maybe_unused]] int overload_probe(std::nullptr_t) {
     return 3;
 }
 
@@ -35,8 +35,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 入门：统一空指针字面值
     // -------------------------------------------------------------------------
     int* p = nullptr;
-    char* q = nullptr;
-    void* raw = nullptr;
+    [[maybe_unused]] char* q = nullptr;
+    [[maybe_unused]] void* raw = nullptr;
     assert(p == nullptr && q == nullptr && raw == nullptr);
     static_assert(std::is_same_v<decltype(nullptr), std::nullptr_t>);
 
@@ -56,8 +56,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 若没有 nullptr_t 重载，则走 char*（指针），不会走 int：
     // 删除 overload_probe(std::nullptr_t) 后，overload_probe(nullptr) → 2
 
-    int only_int = overload_probe(static_cast<int>(0));
-    int only_ptr = overload_probe(static_cast<char*>(nullptr));
+    [[maybe_unused]] int only_int = overload_probe(static_cast<int>(0));
+    [[maybe_unused]] int only_ptr = overload_probe(static_cast<char*>(nullptr));
     assert(only_int == 1 && only_ptr == 2);
 
     take_ptr(nullptr);  // OK
@@ -68,7 +68,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 专家：nullptr_t 的性质与模板
     // -------------------------------------------------------------------------
     std::nullptr_t nt = nullptr;
-    void* from_nt = nt;  // nullptr_t → 任意指针
+    [[maybe_unused]] void* from_nt = nt;  // nullptr_t → 任意指针
     assert(from_nt == nullptr);
     // int n = nullptr;          // ❌ 不能转整数
     // std::size_t s = nullptr;  // ❌

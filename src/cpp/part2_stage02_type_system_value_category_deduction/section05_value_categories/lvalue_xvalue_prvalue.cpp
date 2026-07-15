@@ -16,18 +16,18 @@
 namespace {
 
 // 用重载粗测“绑定到哪一类引用”（教学用近似：仅 int）
-int classify(const int&) {
+[[maybe_unused]] int classify(const int&) {
     return 1;
 }  // lvalue → const&
-int classify(int&&) {
+[[maybe_unused]] int classify(int&&) {
     return 2;
 }  // xvalue/prvalue → &&
 
 // 字符串版：同样展示“具名 && 仍是 lvalue”
-int classify_str(const std::string&) {
+[[maybe_unused]] int classify_str(const std::string&) {
     return 1;
 }
-int classify_str(std::string&&) {
+[[maybe_unused]] int classify_str(std::string&&) {
     return 2;
 }
 
@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // prvalue        否              是
 
     std::string s = "hi";
-    int a = 0;
+    [[maybe_unused]] int a = 0;
     int arr[3]{};
 
     // lvalue：变量、下标、前置 ++、返回左值引用、字符串字面值
@@ -77,9 +77,10 @@ int run(int /*argc*/, char** /*argv*/) {
     (void)arr[0];
     (void)++a;
     assert(a == 1);
-    std::string& lr = get_lref(s);
+    [[maybe_unused]] std::string& lr = get_lref(s);
     assert(&lr == &s);
     const char (&lit)[3] = "hi";  // 字符串字面值是 lvalue，有静态地址
+    (void)lit;
     assert(lit[0] == 'h');
     std::cout << "[intro] lvalues have identity and are not movable as resources\n";
 
@@ -96,7 +97,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // xvalue：std::move 结果、返回右值引用的调用、转成 T&& 的 cast
     assert(classify(std::move(a)) == 2);
     std::string material = "x";
-    std::string&& xr = get_rref(std::move(material));
+    [[maybe_unused]] std::string&& xr = get_rref(std::move(material));
     assert(xr == "x");
 
     // 具名右值引用变量是 lvalue！

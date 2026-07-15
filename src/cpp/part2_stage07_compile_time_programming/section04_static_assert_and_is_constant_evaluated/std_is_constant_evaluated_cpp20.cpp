@@ -86,12 +86,13 @@ constexpr int digits_sum(int n) {
 }
 
 // 错误：if constexpr (std::is_constant_evaluated()) 恒 true
+// 错误形态: if constexpr (std::is_constant_evaluated()) 在该上下文恒为 true（-Wconstant-evaluated）
+// 正确形态: 普通 if (std::is_constant_evaluated()) 或 C++23 if consteval
 constexpr int footgun_marker(int x) {
-    if constexpr (std::is_constant_evaluated()) {
-        return x + 100;  // always
-    } else {
-        return x;  // dead
+    if (std::is_constant_evaluated()) {
+        return x + 100;
     }
+    return x;
 }
 
 // ---------------------------------------------------------------------------
@@ -132,7 +133,7 @@ int run(int argc, char** argv) {
 
     constexpr long long f10 = fib(10);
     static_assert(f10 == 55);
-    int n = 10;
+    [[maybe_unused]] int n = 10;
     assert(fib(n) == 55);
     std::cout << "[intro] fib(10)=" << f10 << '\n';
 

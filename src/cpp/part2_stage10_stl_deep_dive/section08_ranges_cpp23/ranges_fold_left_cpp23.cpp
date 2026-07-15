@@ -70,10 +70,11 @@ int run(int /*argc*/, char** /*argv*/) {
         // 1) ranges 接口可直接接 view  2) 初值类型更干净  3) 有 fold_left_first 无初值变体
         std::vector<int> v{5, 1, 9, 3};
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
-        const int mx = std::ranges::fold_left(v, v.front(), [](int a, int b) { return a > b ? a : b; });
+        [[maybe_unused]] const int mx =
+            std::ranges::fold_left(v, v.front(), [](int a, int b) { return a > b ? a : b; });
         assert(mx == 9);
         // 投影：先 transform 再 fold
-        const int sum_sq =
+        [[maybe_unused]] const int sum_sq =
             std::ranges::fold_left(v | std::views::transform([](int x) { return x * x; }), 0, std::plus{});
         assert(sum_sq == 25 + 1 + 81 + 9);
         std::cout << "__cpp_lib_ranges_fold=" << __cpp_lib_ranges_fold << '\n';

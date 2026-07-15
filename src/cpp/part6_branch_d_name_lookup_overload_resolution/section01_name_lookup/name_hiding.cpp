@@ -33,7 +33,7 @@ struct DerivedUsing : Base {
 };
 
 // 内层作用域隐藏外层
-int value = 1;
+[[maybe_unused]] int value = 1;
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -41,18 +41,18 @@ int run(int argc, char** argv) {
 
     std::cout << "=== D1 name hiding ===\n";
 
-    DerivedHidden dh;
+    [[maybe_unused]] DerivedHidden dh;
     assert(dh.f(5) == "Derived::f(double)");  // 5→double，不是 Base::f(int)
     assert(dh.f(1.5) == "Derived::f(double)");
     assert(dh.Base::f(5) == "Base::f(int)");
     assert(dh.g() == "Base::g");  // 未隐藏
 
-    DerivedUsing du;
+    [[maybe_unused]] DerivedUsing du;
     assert(du.f(5) == "Base::f(int)");
     assert(du.f(1.5) == "DerivedUsing::f(double)");
 
     {
-        int value = 99;
+        [[maybe_unused]] int value = 99;
         assert(value == 99);
         assert(::value == 1);
     }

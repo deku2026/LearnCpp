@@ -16,7 +16,7 @@
 
 namespace {
 
-int used_func(int x) {
+[[maybe_unused]] int used_func(int x) {
     return x + 1;
 }
 

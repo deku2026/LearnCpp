@@ -42,12 +42,12 @@ enum class Perm : std::uint8_t {
 constexpr Perm operator|(Perm a, Perm b) {
     return static_cast<Perm>(static_cast<std::uint8_t>(a) | static_cast<std::uint8_t>(b));
 }
-constexpr bool any(Perm p, Perm mask) {
+[[maybe_unused]] constexpr bool any(Perm p, Perm mask) {
     return (static_cast<std::uint8_t>(p) & static_cast<std::uint8_t>(mask)) != 0;
 }
 
 // 使用前向声明的 Code
-int severity(Code c) {
+[[maybe_unused]] int severity(Code c) {
     return static_cast<int>(c);
 }
 
@@ -62,7 +62,7 @@ int run(int argc, char** argv) {
         static_assert(std::is_same_v<std::underlying_type_t<Code>, int>);
         static_assert(sizeof(Code) == sizeof(int));
 
-        Status s = Status::Warn;
+        [[maybe_unused]] Status s = Status::Warn;
         assert(static_cast<std::uint8_t>(s) == 1);
         std::cout << "[intro] Status:uint8_t sizeof=" << sizeof(Status) << '\n';
     }
@@ -79,14 +79,14 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 专家：位标志需自写运算符（无隐式 int）===\n";
     {
-        Perm p = Perm::Read | Perm::Write;
+        [[maybe_unused]] Perm p = Perm::Read | Perm::Write;
         assert(any(p, Perm::Read));
         assert(any(p, Perm::Write));
         assert(!any(p, Perm::Exec));
         assert(sizeof(p) == 1);
 
         // 网络/文件格式：固定宽度避免「实现选 int 宽度」差异
-        std::uint8_t wire = static_cast<std::uint8_t>(Status::Error);
+        [[maybe_unused]] std::uint8_t wire = static_cast<std::uint8_t>(Status::Error);
         assert(wire == 2);
 
         std::cout << "[expert] fixed underlying helps ABI, packing, bitflags\n";

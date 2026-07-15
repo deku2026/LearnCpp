@@ -21,7 +21,7 @@
 namespace {
 
 // 极简 genex 求值器(教学用, 覆盖文档常见形态)
-std::string eval_config(std::string_view config) {
+[[maybe_unused]] std::string eval_config(std::string_view config) {
     return std::string(config);  // $<CONFIG> → Debug/Release/...
 }
 
@@ -90,7 +90,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // --- 专家: COMPILE_LANGUAGE 门控(对照 CompilerWarnings.cmake) ---
     // "$<$<COMPILE_LANGUAGE:CXX>:/permissive->" 仅对 C++ 源加
-    auto for_lang = [](std::string_view lang, std::string_view flag) {
+    [[maybe_unused]] auto for_lang = [](std::string_view lang, std::string_view flag) {
         return lang == "CXX" ? std::string(flag) : std::string{};
     };
     assert(for_lang("CXX", "/permissive-") == "/permissive-");

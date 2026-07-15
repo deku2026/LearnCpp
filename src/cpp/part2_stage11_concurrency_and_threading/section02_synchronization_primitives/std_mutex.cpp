@@ -51,7 +51,7 @@ int run(int argc, char** argv) {
     {
         std::mutex mtx;
         mtx.lock();
-        const bool got = mtx.try_lock();  // fails: already owned by this thread
+        [[maybe_unused]] const bool got = mtx.try_lock();  // fails: already owned by this thread
         assert(!got);
         mtx.unlock();
         assert(mtx.try_lock());

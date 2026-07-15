@@ -107,7 +107,7 @@ int run(int argc, char** argv) {
     static_assert(bit_width_hint<int>() == 32 || bit_width_hint<int>() == 64);
     static_assert(safe_index(std::array<int, 3>{10, 20, 30}, 1) == 20);
 
-    SimpleArray<int, 4> sa{{1, 2, 3, 4}};
+    [[maybe_unused]] SimpleArray<int, 4> sa{{1, 2, 3, 4}};
     assert(sa.data[3] == 4);
 
     std::cout << "[intro] factorial(5)=" << factorial(5) << " verified by static_assert at compile time\n";

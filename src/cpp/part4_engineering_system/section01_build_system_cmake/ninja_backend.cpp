@@ -45,7 +45,7 @@ int topo_layers(Dag g) {
         }
     }
     int layers = 0;
-    int seen = 0;
+    [[maybe_unused]] int seen = 0;
     while (!q.empty()) {
         const int sz = static_cast<int>(q.size());
         for (int i = 0; i < sz; ++i) {
@@ -127,8 +127,8 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // --- 专家: Ninja 相对 Make 的卖点(可检测的抽象) ---
     // 1) 显式 deps (depfile) 2) 无递归 make 3) 低开销调度
-    const bool uses_depfiles = true;
-    const bool recursive_make = false;
+    [[maybe_unused]] const bool uses_depfiles = true;
+    [[maybe_unused]] const bool recursive_make = false;
     assert(uses_depfiles && !recursive_make);
 
     // 生成器选择口令

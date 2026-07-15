@@ -86,11 +86,11 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  sample report errors=" << leaky.error_count() << '\n';
 
     // CLI: valgrind --leak-check=full ./app
-    const char* cli = "valgrind --leak-check=full ./app";
+    [[maybe_unused]] const char* cli = "valgrind --leak-check=full ./app";
     assert(std::string_view(cli).find("leak-check") != std::string_view::npos);
 
     // 对比 ASan: 需重编译但更快更准(边界毒化)
-    const bool prefer_asan_in_ci = true;
+    [[maybe_unused]] const bool prefer_asan_in_ci = true;
     assert(prefer_asan_in_ci);
     std::cout << "  prefer ASan in CI; valgrind when cannot recompile\n";
 

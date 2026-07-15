@@ -106,7 +106,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert((seen == std::vector<int>{1, 2, 3}));
 
     int a = 10, b = 20;
-    auto refs = tie_as_const(a, b);
+    [[maybe_unused]] auto refs = tie_as_const(a, b);
     assert(&std::get<0>(refs) == &a);
 
     auto z = zip(std::tuple{1, 2}, std::tuple{std::string{"a"}, std::string{"b"}});

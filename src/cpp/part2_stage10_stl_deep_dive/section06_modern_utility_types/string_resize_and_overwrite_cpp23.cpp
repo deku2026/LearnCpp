@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 模拟 C API 填充 (snprintf)
     std::string formatted;
     const int value = 42;
-    formatted.resize_and_overwrite(32, [value](char* buf, std::size_t n) {
+    formatted.resize_and_overwrite(32, [](char* buf, std::size_t n) {
         const int written = std::snprintf(buf, n, "value=%d", value);
         assert(written >= 0);
         return static_cast<std::size_t>(written);

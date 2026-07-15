@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert((std::pair{1, 2} == std::pair{1, 2}));
 
     // cat / forward_as_tuple
-    auto t2 = std::tuple_cat(std::tuple{1}, std::tuple{2, 3});
+    [[maybe_unused]] auto t2 = std::tuple_cat(std::tuple{1}, std::tuple{2, 3});
     assert(std::get<2>(t2) == 3);
 
     std::cout << "[tuple/pair] get/structured-binding/tie/cat OK\n";

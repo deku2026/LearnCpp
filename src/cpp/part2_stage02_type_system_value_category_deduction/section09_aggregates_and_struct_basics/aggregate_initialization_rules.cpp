@@ -51,10 +51,11 @@ int run(int argc, char** argv) {
 
     std::cout << "=== [aggregate_initialization_rules] 入门：逐成员花括号 ===\n";
     {
-        Point p1{1, 2, 3};  // x=1,y=2,z=3
-        Point p2{1, 2};     // z 值初始化 → 0
-        Point p3{};         // 全 0
-        int arr[3]{1, 2};   // 数组也是聚合：1,2,0
+        [[maybe_unused]] Point p1{1, 2, 3};  // x=1,y=2,z=3
+        [[maybe_unused]] Point p2{1, 2, 0};  // z 值初始化 → 0
+        (void)p2;
+        [[maybe_unused]] Point p3{};           // 全 0
+        [[maybe_unused]] int arr[3]{1, 2, 0};  // 数组也是聚合：1,2,0
 
         assert(p1.x == 1 && p1.y == 2 && p1.z == 3);
         assert(p2.x == 1 && p2.y == 2 && p2.z == 0);
@@ -68,19 +69,20 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 进阶：默认成员初始化器；嵌套；非聚合对比 ===\n";
     {
-        WithDefault w1{10};      // a=10, b 用默认 5
-        WithDefault w2{10, 20};  // 覆盖 b
-        WithDefault w3{};        // a=0, b=5
+        [[maybe_unused]] WithDefault w1{10};      // a=10, b 用默认 5
+        [[maybe_unused]] WithDefault w2{10, 20};  // 覆盖 b
+        [[maybe_unused]] WithDefault w3{};        // a=0, b=5
         assert(w1.a == 10 && w1.b == 5);
         assert(w2.a == 10 && w2.b == 20);
         assert(w3.a == 0 && w3.b == 5);
         static_assert(std::is_aggregate_v<WithDefault>);
 
-        Segment s{{1, 2, 3}, {4, 5, 6}};
+        [[maybe_unused]] Segment s{{1, 2, 3}, {4, 5, 6}};
         assert(s.a.x == 1 && s.b.z == 6);
 
         // C++20 括号聚合初始化（了解）：Point p(1,2,3);
         Point p_paren(1, 2, 3);
+        (void)p_paren;
         assert(p_paren.x == 1 && p_paren.z == 3);
 
         static_assert(!std::is_aggregate_v<NonAgg>);
@@ -95,12 +97,12 @@ int run(int argc, char** argv) {
     {
         // Point bad{1,2,3,4};  // ❌ 初始值多于成员
         Point p{1, 2, 3};
-        Point copy = p;  // 拷贝初始化（不要求是聚合）
+        [[maybe_unused]] Point copy = p;  // 拷贝初始化（不要求是聚合）
         assert(copy.y == 2);
 
         // 聚合初始化是步骤 2 初始化全家桶的一支
         // 空 {} → 每个成员值初始化；部分列表 → 剩余值初始化
-        int zeros[4]{};
+        [[maybe_unused]] int zeros[4]{};
         assert(zeros[3] == 0);
 
         std::cout << "[expert] is_aggregate_v + brace init is the checklist\n";

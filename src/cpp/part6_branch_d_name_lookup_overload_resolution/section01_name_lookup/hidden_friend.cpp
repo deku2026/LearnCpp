@@ -21,7 +21,7 @@ namespace lib {
 struct Point {
     int x, y;
     friend Point operator+(const Point& a, const Point& b) { return {a.x + b.x, a.y + b.y}; }
-    friend bool operator==(const Point& a, const Point& b) { return a.x == b.x && a.y == b.y; }
+    [[maybe_unused]] friend bool operator==(const Point& a, const Point& b) { return a.x == b.x && a.y == b.y; }
     friend std::ostream& operator<<(std::ostream& os, const Point& p) { return os << "(" << p.x << "," << p.y << ")"; }
     friend int magnitude2(const Point& p) { return p.x * p.x + p.y * p.y; }
 };

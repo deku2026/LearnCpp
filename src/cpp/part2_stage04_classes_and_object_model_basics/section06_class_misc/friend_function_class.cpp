@@ -66,7 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：友元类
     // -------------------------------------------------------------------------
-    Auditor a;
+    [[maybe_unused]] Auditor a;
     assert(a.read_secret(v) == 7);
     std::cout << "[advanced] Auditor read_secret=7\n";
 

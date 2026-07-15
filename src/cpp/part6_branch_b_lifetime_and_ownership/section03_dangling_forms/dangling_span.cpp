@@ -21,7 +21,7 @@ namespace {
 
 // ❌ std::span<int> bad() { std::vector<int> v{1,2}; return v; }
 
-int sum(std::span<const int> s) {
+[[maybe_unused]] int sum(std::span<const int> s) {
     return std::accumulate(s.begin(), s.end(), 0);
 }
 
@@ -55,7 +55,7 @@ int run(int argc, char** argv) {
     std::array<int, 3> a{1, 1, 1};
     assert(sum(a) == 3);
 
-    std::span<int> mid = std::span<int>{v}.subspan(1, 2);
+    [[maybe_unused]] std::span<int> mid = std::span<int>{v}.subspan(1, 2);
     assert(mid.size() == 2);
     assert(mid[0] == v[1]);
 

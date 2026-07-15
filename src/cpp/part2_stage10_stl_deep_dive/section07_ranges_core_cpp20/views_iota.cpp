@@ -33,7 +33,7 @@ int run(int /*argc*/, char** /*argv*/) {
         for (int x : std::views::iota(1, 6) | std::views::transform([](int x) { return x * x; })) sq.push_back(x);
         assert((sq == std::vector<int>{1, 4, 9, 16, 25}));
 
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         for (int x : std::views::iota(1) | std::views::take(100)) sum += x;
         assert(sum == 5050);  // 1..100
         std::cout << "infinite|take + squares OK\n";
@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(*it == 1);
         // 无 bound 时不能 size
 
-        auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
+        [[maybe_unused]] auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
         assert(*it3 == 3);
         std::cout << "algo vs view + borrowed + sentinel OK\n";
     }

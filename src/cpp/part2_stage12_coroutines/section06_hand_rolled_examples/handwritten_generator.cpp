@@ -121,7 +121,7 @@ int run(int argc, char** argv) {
     //   it==end    → handle.done()
     //   ~Generator → handle.destroy()
 
-    bool caught = false;
+    [[maybe_unused]] bool caught = false;
     try {
         for (int x : failing()) {
             assert(x == 1);

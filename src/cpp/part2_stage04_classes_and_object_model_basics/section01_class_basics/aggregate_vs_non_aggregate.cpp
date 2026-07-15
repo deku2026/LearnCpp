@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // NonAgg n2{3, 4, 5}; // ❌ 无匹配构造
 
     // Capsule c{1};       // ❌ 通常无法从外部聚合初始化 private
-    Capsule c;
+    [[maybe_unused]] Capsule c;
     assert(c.get() == 0);
 
     static_assert(std::is_aggregate_v<Agg>);
@@ -82,7 +82,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §专家：NSDMI / 继承聚合 / 为何「写了构造」常失去 {} 便利
     // -------------------------------------------------------------------------
-    AggWithNsdmi m{};  // 值初始化 → 用 NSDMI
+    [[maybe_unused]] AggWithNsdmi m{};  // 值初始化 → 用 NSDMI
     assert(m.x == 1 && m.y == 2);
     AggWithNsdmi m2{9};  // x=9, y 仍 NSDMI 2（聚合初始化规则）
     assert(m2.x == 9 && m2.y == 2);

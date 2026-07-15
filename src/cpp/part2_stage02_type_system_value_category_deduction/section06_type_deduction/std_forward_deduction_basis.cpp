@@ -104,12 +104,12 @@ int run(int argc, char** argv) {
         // move：无条件变成 xvalue（你承诺可以掏空）
         // forward：有条件，仅当原始实参是右值时才变成 xvalue
         std::string s = "data";
-        Path p_move = sink(std::move(s));
+        [[maybe_unused]] Path p_move = sink(std::move(s));
         assert(p_move == Path::Rvalue);
 
         std::string t = "keep";
         // std::forward<std::string&>(t) 保持左值——适合「可能左可能右」的模板参数
-        Path p_fwd = sink(std::forward<std::string&>(t));
+        [[maybe_unused]] Path p_fwd = sink(std::forward<std::string&>(t));
         assert(p_fwd == Path::Lvalue);
         assert(t == "keep");
 

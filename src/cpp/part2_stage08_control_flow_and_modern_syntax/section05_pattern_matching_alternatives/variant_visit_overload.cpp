@@ -140,6 +140,7 @@ int run(int argc, char** argv) {
 
         std::variant<int, std::string> v = 1;
         if (auto* p = std::get_if<int>(&v)) {
+            (void)p;
             assert(*p == 1);
         } else {
             assert(false);

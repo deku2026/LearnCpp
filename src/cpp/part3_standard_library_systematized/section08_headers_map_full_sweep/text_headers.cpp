@@ -39,11 +39,11 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::string s = "Hello";
     assert(s.contains('e'));
-    std::string_view sv = s;
+    [[maybe_unused]] std::string_view sv = s;
     assert(sv.starts_with("He"));
 
     char buf[16]{};
-    auto [ptr, ec] = std::to_chars(buf, buf + sizeof(buf), 42);
+    [[maybe_unused]] auto [ptr, ec] = std::to_chars(buf, buf + sizeof(buf), 42);
     assert(ec == std::errc{});
     assert(std::string_view(buf, ptr) == "42");
 

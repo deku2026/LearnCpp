@@ -45,7 +45,7 @@ int run(int /*argc*/, char** /*argv*/) {
         fs.insert(10);
         fs.insert(5);
         fs.insert(20);
-        auto it = fs.find(5);
+        [[maybe_unused]] auto it = fs.find(5);
         assert(it != fs.end() && *it == 5);
         fs.erase(10);
         assert(!fs.contains(10));

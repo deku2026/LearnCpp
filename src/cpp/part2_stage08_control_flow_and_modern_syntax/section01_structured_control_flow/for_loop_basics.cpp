@@ -15,7 +15,7 @@
 
 namespace {
 
-int sum_closed(int lo, int hi) {
+[[maybe_unused]] int sum_closed(int lo, int hi) {
     int s = 0;
     for (int i = lo; i <= hi; ++i) {
         s += i;
@@ -80,14 +80,14 @@ int run(int argc, char** argv) {
         std::cout << "reverse index walk ok\n";
 
         // 迭代器版经典 for（与范围 for 对照，范围 for 见 section02）。
-        int total = 0;
+        [[maybe_unused]] int total = 0;
         for (auto it = v.begin(); it != v.end(); ++it) {
             total += *it;
         }
         assert(total == 100);
 
         // 步长不为 1。
-        int stride_sum = 0;
+        [[maybe_unused]] int stride_sum = 0;
         for (int i = 0; i < 10; i += 3) {
             stride_sum += i;  // 0+3+6+9
         }
@@ -110,7 +110,7 @@ int run(int argc, char** argv) {
         std::cout << "avoid unsigned countdown: i>=0 is always true for size_t\n";
 
         // 空 condition ≡ true。
-        int hits = 0;
+        [[maybe_unused]] int hits = 0;
         for (int i = 0; /*true*/; ++i) {
             ++hits;
             if (i >= 2) {

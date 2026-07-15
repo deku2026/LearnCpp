@@ -34,7 +34,7 @@ std::string package_key(std::string_view dep, const Profile& p) {
            p.build_type + "|std" + p.compiler_cppstd;
 }
 
-bool profiles_equal(const Profile& a, const Profile& b) {
+[[maybe_unused]] bool profiles_equal(const Profile& a, const Profile& b) {
     return a.os == b.os && a.arch == b.arch && a.compiler == b.compiler && a.compiler_version == b.compiler_version &&
            a.build_type == b.build_type && a.compiler_cppstd == b.compiler_cppstd;
 }

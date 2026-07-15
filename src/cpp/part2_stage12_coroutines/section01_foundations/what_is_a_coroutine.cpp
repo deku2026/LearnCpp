@@ -85,7 +85,7 @@ int run(int argc, char** argv) {
 
     // --- 协程: 可挂起 / 恢复, 局部状态保存在协程帧里 ---
     auto g = counter(1, 5);
-    int expected = 1;
+    [[maybe_unused]] int expected = 1;
     while (g.next()) {
         std::cout << "  yield " << g.value() << '\n';
         assert(g.value() == expected);

@@ -105,7 +105,8 @@ int run(int argc, char** argv) {
     std::cout << "  sizeof(Empty)=" << sizeof(Empty) << '\n';
     assert(sizeof(Empty) >= 1);
 
-    Empty a, b;
+    [[maybe_unused]] Empty a, b;
+    (void)b;
     assert(&a != &b);  // 不同对象不同地址
 
     // --- EBO: 空基类 + int ≈ sizeof(int) ---
@@ -120,7 +121,7 @@ int run(int argc, char** argv) {
 
     // --- 策略类零开销 ---
     Calculator<AddPolicy> add;
-    Calculator<MulPolicy> mul;
+    [[maybe_unused]] Calculator<MulPolicy> mul;
     assert(add.eval(2, 3) == 5);
     assert(mul.eval(2, 3) == 6);
     std::cout << "  sizeof(Calculator<AddPolicy>)=" << sizeof(add) << '\n';
@@ -149,7 +150,7 @@ int run(int argc, char** argv) {
 
     HoldsInt hi;
     hi.value = 42;
-    Empty* as_empty = &hi;  // 基类子对象地址
+    [[maybe_unused]] Empty* as_empty = &hi;  // 基类子对象地址
     assert(static_cast<void*>(as_empty) == static_cast<void*>(&hi));
 
     std::cout << "empty_base_optimization: OK\n";

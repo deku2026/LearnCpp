@@ -52,12 +52,12 @@ void shared_cycle_note() {
 }
 
 // suppress 心智: LSAN_OPTIONS=suppressions=file
-bool should_suppress(std::string_view frame) {
+[[maybe_unused]] bool should_suppress(std::string_view frame) {
     return frame.find("third_party::") != std::string_view::npos;
 }
 
 // 与 ASan 关系(矩阵)
-bool lsan_often_with_asan() {
+[[maybe_unused]] bool lsan_often_with_asan() {
     return true;
 }
 

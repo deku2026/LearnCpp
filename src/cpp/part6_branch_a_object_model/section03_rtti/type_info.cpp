@@ -41,7 +41,7 @@ int run(int argc, char** argv) {
 
     // --- 不可拷贝/赋值, 只能绑定引用或取址 ---
     // std::type_info copy = ti_int;  // ill-formed
-    const std::type_info* ptr = &ti_int;
+    [[maybe_unused]] const std::type_info* ptr = &ti_int;
     assert(ptr == &typeid(int));
     assert(ptr->name() != nullptr);
 
@@ -57,7 +57,7 @@ int run(int argc, char** argv) {
     assert(typeid(Button) != typeid(Label));
 
     Button b;
-    Widget& w = b;
+    [[maybe_unused]] Widget& w = b;
     assert(typeid(w) == ti_button);
     assert(typeid(w) != ti_widget);
 
@@ -82,7 +82,7 @@ int run(int argc, char** argv) {
     assert(registry.size() == 3);
 
     // type_info 对象在程序整个运行期有效 — 可安全保存指针/引用
-    const std::type_info* keep = &typeid(Button);
+    [[maybe_unused]] const std::type_info* keep = &typeid(Button);
     assert(*keep == typeid(Button));
 
     // 与 dynamic_cast 关系: 运行期比较的就是各类型的 type_info 节点

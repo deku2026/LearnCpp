@@ -32,7 +32,7 @@ void annotate_ref(std::string& w) {
     w.append("?");
 }
 
-int sum(std::span<const int> s) {
+[[maybe_unused]] int sum(std::span<const int> s) {
     int t = 0;
     for (int x : s) t += x;
     return t;
@@ -59,11 +59,11 @@ int run(int argc, char** argv) {
 
     annotate(nullptr);  // 允许空
 
-    int arr[] = {1, 2, 3};
+    [[maybe_unused]] int arr[] = {1, 2, 3};
     assert(sum(arr) == 6);
 
     {
-        std::string* p = owner.get();
+        [[maybe_unused]] std::string* p = owner.get();
         assert(p && *p == "hi!?");
         owner.reset();
         p = nullptr;  // 不悬挂

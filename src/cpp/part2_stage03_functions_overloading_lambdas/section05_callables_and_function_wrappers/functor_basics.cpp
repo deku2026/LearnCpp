@@ -38,17 +38,17 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：手写 operator()
     // -------------------------------------------------------------------------
-    Adder add5{5};
+    [[maybe_unused]] Adder add5{5};
     assert(add5(10) == 15);
     // 等价 lambda:
-    auto add5_lam = [base = 5](int x) { return x + base; };
+    [[maybe_unused]] auto add5_lam = [base = 5](int x) { return x + base; };
     assert(add5_lam(10) == 15);
     std::cout << "[intro] functor carries state; lambda is shorthand\n";
 
     // -------------------------------------------------------------------------
     // §进阶：可变状态 + 算法策略
     // -------------------------------------------------------------------------
-    Accumulator acc;
+    [[maybe_unused]] Accumulator acc;
     assert(acc(3) == 3);
     assert(acc(4) == 7);
     assert(acc.sum == 7);
@@ -65,7 +65,7 @@ int run(int /*argc*/, char** /*argv*/) {
         int operator()(int x) const { return x; }
         double operator()(double x) const { return x * 2.0; }
     };
-    Poly p;
+    [[maybe_unused]] Poly p;
     assert(p(3) == 3);
     assert(p(1.5) == 3.0);
 

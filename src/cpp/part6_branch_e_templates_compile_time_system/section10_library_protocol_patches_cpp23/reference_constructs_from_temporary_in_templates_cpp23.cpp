@@ -47,7 +47,7 @@ template <typename T>
 const T& safe_identity(const T&& x) = delete;
 
 // 工厂返回临时
-std::string make_name() {
+[[maybe_unused]] std::string make_name() {
     return "temp";
 }
 

@@ -63,7 +63,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         g_dtor_log = 0;
         g_locked_depth = 0;
-        bool caught = false;
+        [[maybe_unused]] bool caught = false;
         try {
             Tracer outer{"outer"};
             mid_work(/*fail=*/true);

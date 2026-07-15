@@ -22,7 +22,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：推导 vs 显式
     // -------------------------------------------------------------------------
     auto a = [] { return 42; };
-    auto b = [](int x) { return x * 2; };
+    [[maybe_unused]] auto b = [](int x) { return x * 2; };
     auto c = [](int x) -> double { return x / 2.0; };
     assert(a() == 42);
     assert(b(21) == 42);
@@ -34,7 +34,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：多分支必须同一类型
     // -------------------------------------------------------------------------
-    auto abs_i = [](int x) {
+    [[maybe_unused]] auto abs_i = [](int x) {
         if (x < 0) {
             return -x;
         }
@@ -43,7 +43,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(abs_i(-3) == 3);
 
     // 强制统一：显式 -> std::string
-    auto label = [](bool ok) -> std::string {
+    [[maybe_unused]] auto label = [](bool ok) -> std::string {
         if (ok) {
             return "yes";
         }
@@ -65,7 +65,7 @@ int run(int /*argc*/, char** /*argv*/) {
     auto noop = [] { /* 无 return → void */ };
     static_assert(std::is_void_v<decltype(noop())>);
 
-    auto either = [](bool left) -> std::variant<int, std::string> {
+    [[maybe_unused]] auto either = [](bool left) -> std::variant<int, std::string> {
         if (left) {
             return 1;
         }

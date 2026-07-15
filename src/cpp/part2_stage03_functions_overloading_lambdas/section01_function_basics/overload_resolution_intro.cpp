@@ -17,21 +17,21 @@ namespace {
 
 enum class Which { Int, Double, CStr, Bool, LongAmbiguous };
 
-Which print(int) {
+[[maybe_unused]] Which print(int) {
     return Which::Int;
 }
-Which print(double) {
+[[maybe_unused]] Which print(double) {
     return Which::Double;
 }
-Which print(const char*) {
+[[maybe_unused]] Which print(const char*) {
     return Which::CStr;
 }
 
 // 转换序列演示：char 提升到 int 优于转到 double
-Which take_num(int) {
+[[maybe_unused]] Which take_num(int) {
     return Which::Int;
 }
-Which take_num(double) {
+[[maybe_unused]] Which take_num(double) {
     return Which::Double;
 }
 
@@ -41,7 +41,7 @@ struct Meter {
     operator int() const { return v; }
 };
 
-Which take_int(int) {
+[[maybe_unused]] Which take_int(int) {
     return Which::Int;
 }
 
@@ -74,7 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(take_num(true) == Which::Int);
 
     // 用户定义转换：Meter → int
-    Meter m{7};
+    [[maybe_unused]] Meter m{7};
     assert(take_int(m) == Which::Int);
 
     std::cout << "[advanced] exact > promotion > standard conversion > user-defined\n";

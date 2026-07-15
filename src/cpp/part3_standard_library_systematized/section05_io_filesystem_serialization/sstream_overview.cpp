@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 失败恢复（与 iostream 状态同一套） ===\n";
     {
         std::istringstream iss("pi=3.14");
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         assert(!(iss >> n));  // 'p' 失败
         iss.clear();
         // 跳到 '=' 后

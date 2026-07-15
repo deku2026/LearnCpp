@@ -63,7 +63,7 @@ int run(int argc, char** argv) {
         }
 
         // 长迭代器类型就地起别名，避免污染外层命名空间
-        int total = 0;
+        [[maybe_unused]] int total = 0;
         for (using Row = std::pair<std::string, int>; const Row& row : make_table()) {
             total += row.second;
         }
@@ -83,7 +83,7 @@ int run(int argc, char** argv) {
         // 减少名字碰撞；也可让 structured binding / 迭代器类型更可读。
 
         std::vector<int> v{4, 5};
-        int prod = 1;
+        [[maybe_unused]] int prod = 1;
         for (using Elem = int; Elem x : v) {
             prod *= x;
         }

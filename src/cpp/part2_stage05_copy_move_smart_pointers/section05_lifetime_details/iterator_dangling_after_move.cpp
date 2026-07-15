@@ -36,7 +36,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 禁止：*it / *ptr  —— 可能 UAF 或读到已释放缓冲
     // 正确：丢弃旧迭代器，只使用 dst
     assert(dst.front() == 10);
-    auto it2 = dst.begin();
+    [[maybe_unused]] auto it2 = dst.begin();
     assert(*it2 == 10);
     std::cout << "after move: use dst iterators only; src iterators discarded\n";
     (void)it;
@@ -84,7 +84,7 @@ int run(int /*argc*/, char** /*argv*/) {
         v[1] = "TWO";
         assert(v[1] == "TWO");
         // 指向 v[1] 的迭代器仍有效（元素节点还在，只是值被移走）
-        auto it = v.begin() + 1;
+        [[maybe_unused]] auto it = v.begin() + 1;
         assert(*it == "TWO");
         std::cout << "moving an element value != moving the container\n";
     }

@@ -25,7 +25,7 @@ struct TidyConfig {
     std::vector<std::string> warnings_as_errors;
 };
 
-bool check_enabled(const TidyConfig& c, std::string_view name) {
+[[maybe_unused]] bool check_enabled(const TidyConfig& c, std::string_view name) {
     for (const auto& ch : c.checks) {
         if (ch == name) {
             return true;
@@ -42,7 +42,7 @@ bool check_enabled(const TidyConfig& c, std::string_view name) {
 }
 
 // modernize-use-nullptr: 0 作空指针 → 应改 nullptr
-bool looks_like_null_zero(const void* p) {
+[[maybe_unused]] bool looks_like_null_zero(const void* p) {
     return p == nullptr;
 }
 
@@ -54,7 +54,7 @@ int sum_bad(std::vector<int> v) {  // 拷贝
     }
     return s;
 }
-int sum_good(const std::vector<int>& v) {
+[[maybe_unused]] int sum_good(const std::vector<int>& v) {
     int s = 0;
     for (int x : v) {
         s += x;
@@ -63,11 +63,13 @@ int sum_good(const std::vector<int>& v) {
 }
 
 // bugprone: 可疑的悬垂 — 用 string 返回避免
-std::string safe_name() {
+[[maybe_unused]] std::string safe_name() {
     return "ok";
 }
 
 int run(int /*argc*/, char** /*argv*/) {
+    (void)sum_bad(std::vector<int>{1, 2, 3});
+
     std::cout << "=== clang_tidy_setup ===\n";
 
     // --- 入门: 分层配置(文档) ---
@@ -81,7 +83,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  layered checks enabled (bugprone/modernize/performance)\n";
 
     // --- 进阶: 现代化写法对照 ---
-    int* p = nullptr;  // 而非 0
+    [[maybe_unused]] int* p = nullptr;  // 而非 0
     assert(looks_like_null_zero(p));
     auto up = std::make_unique<int>(42);  // modernize-make-unique
     assert(*up == 42);
@@ -93,7 +95,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // --- 专家: 仓库接入 ---
     // LEARNCPP_ENABLE_CLANG_TIDY → CXX_CLANG_TIDY property
     // compile_commands.json 由 CMAKE_EXPORT_COMPILE_COMMANDS + sync target
-    const bool needs_compile_commands = true;
+    [[maybe_unused]] const bool needs_compile_commands = true;
     assert(needs_compile_commands);
     assert(safe_name() == "ok");
 

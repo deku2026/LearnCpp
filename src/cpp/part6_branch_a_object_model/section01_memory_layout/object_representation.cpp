@@ -82,7 +82,7 @@ int run(int argc, char** argv) {
     assert(bw1.size() == sizeof(WithPad));
     assert(bw1[0] == std::byte{'A'});
     // value 在 offset 4
-    const auto* vbytes = reinterpret_cast<const std::byte*>(&w1.value);
+    [[maybe_unused]] const auto* vbytes = reinterpret_cast<const std::byte*>(&w1.value);
     assert(std::memcmp(vbytes, bw1.data() + 4, sizeof(int)) == 0);
 
     // 安全比较值: 比成员, 或只比较值表示相关区域

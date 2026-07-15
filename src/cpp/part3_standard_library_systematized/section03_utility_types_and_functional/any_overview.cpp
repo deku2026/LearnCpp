@@ -35,12 +35,13 @@ int run(int /*argc*/, char** /*argv*/) {
     // 指针形式 any_cast: 失败返回 nullptr, 不抛
     a = 3.14;
     if (auto* p = std::any_cast<double>(&a)) {
+        (void)p;
         assert(*p == 3.14);
     }
     assert(std::any_cast<int>(&a) == nullptr);
 
     // 错误类型抛 bad_any_cast
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)std::any_cast<int>(a);
     } catch (const std::bad_any_cast&) {

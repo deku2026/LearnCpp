@@ -21,9 +21,9 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{1, 2, 3};
         v.reserve(16);  // 确保后续 push 不 reallocate
-        int* p = v.data();
-        auto it = v.begin();
-        int& r = v[0];
+        [[maybe_unused]] int* p = v.data();
+        [[maybe_unused]] auto it = v.begin();
+        [[maybe_unused]] int& r = v[0];
 
         v.push_back(4);
         v.push_back(5);
@@ -63,7 +63,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{1, 2, 3, 4, 5};
         v.reserve(32);  // 排除 reallocation 干扰
-        auto it_begin = v.begin();
+        [[maybe_unused]] auto it_begin = v.begin();
         auto it_mid = v.begin() + 2;  // 指向 3
         auto it_end_1 = v.end() - 1;  // 指向 5
 

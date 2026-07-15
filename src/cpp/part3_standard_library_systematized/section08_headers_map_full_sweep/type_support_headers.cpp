@@ -42,7 +42,8 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(std::is_same_v<std::size_t, decltype(sizeof(0))>);
     assert(twice(21) == 42);
 
-    S a{1}, b{2};
+    [[maybe_unused]] S a{1}, b{2};
+    (void)b;
     assert((a <=> b) < 0);
     std::cout << "S{1} <=> S{2} is less\n";
 

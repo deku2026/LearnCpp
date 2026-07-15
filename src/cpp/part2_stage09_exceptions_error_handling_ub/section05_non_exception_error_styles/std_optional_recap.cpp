@@ -42,7 +42,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：value() 空时抛 bad_optional_access ===\n";
     {
         std::optional<int> empty;
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             (void)empty.value();
         } catch (const std::bad_optional_access&) {

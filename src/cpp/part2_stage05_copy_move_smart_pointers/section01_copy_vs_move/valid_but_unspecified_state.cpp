@@ -86,7 +86,15 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：自移动；自定义类型应保证可析构/可赋值 ===\n";
     {
         std::string self = "self";
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
         self = std::move(self);  // 有效但未指定；不得崩溃
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         self = "ok";
         assert(self == "ok");
         std::cout << "self-move-assign then reassign OK\n";

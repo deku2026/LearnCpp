@@ -40,10 +40,10 @@ public:
     int get() const { return 7; }
 };
 
-VIS_DEFAULT std::string exported_name() {
+[[maybe_unused]] VIS_DEFAULT std::string exported_name() {
     return "public";
 }
-VIS_HIDDEN std::string hidden_name() {
+[[maybe_unused]] VIS_HIDDEN std::string hidden_name() {
     return "internal";
 }
 

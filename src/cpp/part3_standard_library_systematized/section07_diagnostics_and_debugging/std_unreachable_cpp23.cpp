@@ -22,7 +22,7 @@
 namespace {
 
 // 教学路径：合法输入用 switch；非法输入不真正调用 unreachable（避免 UB）
-int classify_checked(int x) {
+[[maybe_unused]] int classify_checked(int x) {
     switch (x) {
         case 0:
             return 100;
@@ -36,7 +36,7 @@ int classify_checked(int x) {
     }
 }
 
-int classify_documented(int x) {
+[[maybe_unused]] int classify_documented(int x) {
     switch (x) {
         case 0:
             return 100;

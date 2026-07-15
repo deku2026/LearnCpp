@@ -22,7 +22,7 @@ void scale(std::span<int> s, int factor) {
     for (int& x : s) x *= factor;
 }
 
-int sum_const(std::span<const int> s) {
+[[maybe_unused]] int sum_const(std::span<const int> s) {
     int total = 0;
     for (int x : s) total += x;
     return total;
@@ -51,7 +51,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{2, 4, 6, 8, 10};
         std::span<int> sp = v;
-        auto sub = sp.subspan(1, 3);  // [4,6,8]
+        [[maybe_unused]] auto sub = sp.subspan(1, 3);  // [4,6,8]
         assert(sub.size() == 3 && sub[0] == 4 && sub[2] == 8);
         assert(sp.first(2)[1] == 4);
         assert(sp.last(2)[0] == 8);
@@ -80,11 +80,11 @@ int run(int /*argc*/, char** /*argv*/) {
         static_assert(std::ranges::borrowed_range<std::span<int>>);
 
         // 函数参数最佳实践：只在调用栈内用 span，不存为成员指向临时
-        auto as_bytes_size = [](std::span<const int> s) { return s.size_bytes(); };
+        [[maybe_unused]] auto as_bytes_size = [](std::span<const int> s) { return s.size_bytes(); };
         assert(as_bytes_size(owned) == 3 * sizeof(int));
 
         // 空 span
-        std::span<int> empty{};
+        [[maybe_unused]] std::span<int> empty{};
         assert(empty.empty() && empty.size() == 0);
         std::cout << "dangling discipline + size_bytes OK\n";
     }

@@ -60,7 +60,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // 需要 size 的下游（如某些 reserve 优化 / to）在 filter 后可能走慢路径
         std::vector<int> v{1, 2, 3, 4, 5, 6};
-        auto pipe = v | std::views::filter([](int x) { return x % 2 == 0; }) | std::views::take(10);
+        [[maybe_unused]] auto pipe = v | std::views::filter([](int x) { return x % 2 == 0; }) | std::views::take(10);
         // filter 破坏 sized 后 take 也可能非 O(1) size（实现相关）
         assert(std::ranges::distance(pipe) == 3);
         std::cout << "infinite/take + filter distance OK\n";

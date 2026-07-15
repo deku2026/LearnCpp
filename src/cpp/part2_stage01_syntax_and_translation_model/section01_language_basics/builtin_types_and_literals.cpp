@@ -36,10 +36,10 @@ void f_int(int) {}
 void f_ptr(char*) {}
 
 // nullptr 选中指针重载；字面 0 在重载决议里更偏 int（演示用独立重载集）
-int overload_probe(int) {
+[[maybe_unused]] int overload_probe(int) {
     return 1;
 }
-int overload_probe(char*) {
+[[maybe_unused]] int overload_probe(char*) {
     return 2;
 }
 
@@ -49,10 +49,10 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：算术类型 + 朴素初始化
     // -------------------------------------------------------------------------
-    bool ok = true;
-    char letter = 'A';
-    int count = 42;
-    double ratio = 3.14;
+    [[maybe_unused]] bool ok = true;
+    [[maybe_unused]] char letter = 'A';
+    [[maybe_unused]] int count = 42;
+    [[maybe_unused]] double ratio = 3.14;
     void* raw = nullptr;
     (void)raw;
 
@@ -73,8 +73,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：定宽整型、字面值、char 特殊性、nullptr
     // -------------------------------------------------------------------------
-    std::int32_t i32 = -1;
-    std::uint64_t u64 = 1;
+    [[maybe_unused]] std::int32_t i32 = -1;
+    [[maybe_unused]] std::uint64_t u64 = 1;
     u64 <<= 40;
     assert(i32 == -1);
     assert(u64 == (std::uint64_t{1} << 40));
@@ -94,11 +94,11 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(std::is_same_v<decltype(1.0f), float>);
 
     // 字符串字面量拼接（翻译阶段 6）与原始字符串
-    const char* hi =
+    [[maybe_unused]] const char* hi =
         "Hello, "
         "world";
     assert(std::string{hi} == "Hello, world");
-    const char* winpath = R"(C:\Users\learn\file.txt)";
+    [[maybe_unused]] const char* winpath = R"(C:\Users\learn\file.txt)";
     assert(std::string_view{winpath}.find('\\') != std::string_view::npos);
 
     // char / signed char / unsigned char 是三个不同类型
@@ -120,8 +120,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：未初始化、C++23 后缀、扩展浮点探测
     // -------------------------------------------------------------------------
     // 局部内置类型默认初始化 = 不初始化；读取是 UB。切勿演示真读未初始化值。
-    int definite = 0;  // 声明即初始化
-    int braced{};      // 值初始化为 0
+    [[maybe_unused]] int definite = 0;  // 声明即初始化
+    [[maybe_unused]] int braced{};      // 值初始化为 0
     assert(definite == 0 && braced == 0);
     std::cout << "[expert] always initialize locals; reading indeterminate is UB\n";
 

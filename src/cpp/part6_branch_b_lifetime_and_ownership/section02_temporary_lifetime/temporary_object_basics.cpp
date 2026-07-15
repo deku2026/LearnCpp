@@ -46,12 +46,12 @@ int run(int argc, char** argv) {
 
     // --- 入门 ---
     assert(Probe::live == 0);
-    int s = sum_temps();
+    [[maybe_unused]] int s = sum_temps();
     assert(s == 30);
     assert(Probe::live == 0);
 
     // 临时作函数实参：活到调用所在完整表达式末尾
-    auto take = [](const Probe& p) { return p.value(); };
+    [[maybe_unused]] auto take = [](const Probe& p) { return p.value(); };
     assert(take(Probe{7}) == 7);
     assert(Probe::live == 0);
 
@@ -78,8 +78,8 @@ int run(int argc, char** argv) {
     // --- 专家: full-expression 边界 ---
     // 逗号表达式：临时一般持续到包含它们的完整表达式末尾
     {
-        int before = Probe::live;
-        int x = (Probe{1}.value(), Probe{2}.value());
+        [[maybe_unused]] int before = Probe::live;
+        [[maybe_unused]] int x = (Probe{1}.value(), Probe{2}.value());
         assert(x == 2);
         assert(Probe::live == before);  // 两个临时已销毁
     }

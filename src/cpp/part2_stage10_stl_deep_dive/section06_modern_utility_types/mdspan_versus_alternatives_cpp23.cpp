@@ -6,14 +6,33 @@
 
 #include "learn/topic_registry.hpp"
 
+#if defined(__has_include)
+#if __has_include(<mdspan>)
+#include <mdspan>
+#define LEARNCPP_HAS_MDSPAN 1
+#endif
+#endif
+#ifndef LEARNCPP_HAS_MDSPAN
+#define LEARNCPP_HAS_MDSPAN 0
+#endif
+
+#if !LEARNCPP_HAS_MDSPAN
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] <mdspan> not available on this standard library\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section06/mdspan_versus_alternatives_cpp23", run>;
+}  // namespace
+#else
+
 #include <cassert>
 #include <iostream>
-#include <mdspan>
 #include <vector>
 
 namespace {
 
-bool is_symmetric(std::mdspan<const int, std::dextents<std::size_t, 2>> m) {
+[[maybe_unused]] bool is_symmetric(std::mdspan<const int, std::dextents<std::size_t, 2>> m) {
     if (m.extent(0) != m.extent(1)) return false;
     for (std::size_t i = 0; i < m.extent(0); ++i)
         for (std::size_t j = 0; j < m.extent(1); ++j)
@@ -44,7 +63,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(!is_symmetric(a));
 
     // 手写索引对照(易错, 布局写死)
-    const int cols = 3;
+    [[maybe_unused]] const int cols = 3;
     assert((data[1 * cols + 2] == m[1, 2]));
 
     // 免拷贝"转置视图": 同一 data, layout_left 看 3x3
@@ -68,3 +87,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section06/mdspan_versus_alternatives_cpp23", run>;
 
 }  // namespace
+#endif  // LEARNCPP_HAS_MDSPAN

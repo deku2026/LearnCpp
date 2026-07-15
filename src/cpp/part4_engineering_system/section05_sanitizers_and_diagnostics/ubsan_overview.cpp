@@ -32,7 +32,7 @@ bool ubsan_built_in() {
 }
 
 // 安全有符号加: 溢出返回 nullopt(避免 UB)
-std::optional<int> sat_add(int a, int b) {
+[[maybe_unused]] std::optional<int> sat_add(int a, int b) {
     if (b > 0 && a > std::numeric_limits<int>::max() - b) {
         return std::nullopt;
     }
@@ -43,7 +43,7 @@ std::optional<int> sat_add(int a, int b) {
 }
 
 // 安全移位
-std::optional<std::uint32_t> shl_u32(std::uint32_t v, unsigned s) {
+[[maybe_unused]] std::optional<std::uint32_t> shl_u32(std::uint32_t v, unsigned s) {
     if (s >= 32) {
         return std::nullopt;
     }
@@ -62,14 +62,14 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(!shl_u32(1u, 40).has_value());
 
     // 空指针: 不解引用
-    int* p = nullptr;
+    [[maybe_unused]] int* p = nullptr;
     assert(p == nullptr);
     // if (*p) UB — UBSan: null pointer
 
     // 仓库纪律: Windows 本机 ASan; UBSan 放 Linux CI
     std::cout << "  LearnCpp: UBSAN on linux-ci preset, not clang-cl by default\n";
 
-    const auto flags = std::string_view{"-fsanitize=undefined"};
+    [[maybe_unused]] const auto flags = std::string_view{"-fsanitize=undefined"};
     assert(flags.find("undefined") != std::string_view::npos);
 
     std::cout << "ubsan_overview: OK\n";

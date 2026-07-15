@@ -100,7 +100,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "construct / emplace_back_like OK\n";
 
     std::cout << "=== 专家：invoke + 多成员工厂 ===\n";
-    auto sum = invoke_fwd([](int a, int b, int c) { return a + b + c; }, 1, 2, 3);
+    [[maybe_unused]] auto sum = invoke_fwd([](int a, int b, int c) { return a + b + c; }, 1, 2, 3);
     assert(sum == 6);
 
     Tracker t1{"A"};

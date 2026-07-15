@@ -27,7 +27,7 @@ int cold_path(int x) {
     return x;
 }
 
-int pipeline(int x) {
+[[maybe_unused]] int pipeline(int x) {
     return hot_add(cold_path(x), 1);
 }
 

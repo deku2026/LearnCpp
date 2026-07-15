@@ -82,11 +82,11 @@ int run(int argc, char** argv) {
     {
         std::atomic<int> x{1};
         int expected = 1;
-        const bool ok = x.compare_exchange_strong(expected, 2);
+        [[maybe_unused]] const bool ok = x.compare_exchange_strong(expected, 2);
         assert(ok && x.load() == 2);
 
         expected = 99;  // wrong
-        const bool fail = x.compare_exchange_strong(expected, 3);
+        [[maybe_unused]] const bool fail = x.compare_exchange_strong(expected, 3);
         assert(!fail);
         assert(expected == 2);  // actual value written back
         assert(x.load() == 2);

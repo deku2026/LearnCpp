@@ -51,11 +51,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // inner_product: 点积
     std::vector<int> a{1, 2, 3};
     std::vector<int> b{4, 5, 6};
-    const int dot = std::inner_product(a.begin(), a.end(), b.begin(), 0);
+    [[maybe_unused]] const int dot = std::inner_product(a.begin(), a.end(), b.begin(), 0);
     assert(dot == 1 * 4 + 2 * 5 + 3 * 6);  // 32
 
     // transform_reduce (C++17): 先 map 再 reduce
-    const int sum_sq = std::transform_reduce(v.begin(), v.end(), 0, std::plus<>{}, [](int x) { return x * x; });
+    [[maybe_unused]] const int sum_sq =
+        std::transform_reduce(v.begin(), v.end(), 0, std::plus<>{}, [](int x) { return x * x; });
     assert(sum_sq == 1 + 4 + 9 + 16 + 25);
 
     // inclusive/exclusive scan (C++17)

@@ -98,8 +98,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  view-model adapts core -> label text\n";
 
     // 架构: src/core 纯 C++ + tests; src/ui 依赖 Qt 且薄
-    const bool core_depends_on_qt = false;
-    const bool ui_depends_on_core = true;
+    [[maybe_unused]] const bool core_depends_on_qt = false;
+    [[maybe_unused]] const bool ui_depends_on_core = true;
     assert(!core_depends_on_qt && ui_depends_on_core);
 
     std::cout << "decoupling_qt_from_logic: OK\n";

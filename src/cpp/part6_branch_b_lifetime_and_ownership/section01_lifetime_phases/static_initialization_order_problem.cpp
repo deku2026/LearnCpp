@@ -55,7 +55,7 @@ struct DependsOnConfig {
     }
 };
 
-DependsOnConfig& depends() {
+[[maybe_unused]] DependsOnConfig& depends() {
     static DependsOnConfig d;  // 首次用时构造；保证 safe_config 已就绪
     return d;
 }

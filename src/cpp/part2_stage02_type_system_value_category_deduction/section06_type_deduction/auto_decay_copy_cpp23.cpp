@@ -73,7 +73,7 @@ int run(int argc, char** argv) {
 
         // 手写等价物（啰嗦）：
         using T = std::decay_t<decltype(arr)>;
-        T manual = static_cast<T>(arr);
+        [[maybe_unused]] T manual = static_cast<T>(arr);
         static_assert(std::is_same_v<T, int*>);
         assert(manual == ptr_copy);
 

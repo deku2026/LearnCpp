@@ -39,7 +39,8 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 进阶：位标志组合 + 无作用域枚举 ===\n";
     {
-        const auto rw = static_cast<std::uint8_t>(std::to_underlying(Flag::Read) | std::to_underlying(Flag::Write));
+        [[maybe_unused]] const auto rw =
+            static_cast<std::uint8_t>(std::to_underlying(Flag::Read) | std::to_underlying(Flag::Write));
         assert(rw == 3);
         assert((rw & std::to_underlying(Flag::Read)) != 0);
 
@@ -55,17 +56,17 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：类型安全日志 / 与 magic_enum 对比点 ===\n";
     {
         // 序列化/日志：需要底层值但不想写 static_cast 噪声
-        auto dump = [](Color c) { return std::to_underlying(c); };
+        [[maybe_unused]] auto dump = [](Color c) { return std::to_underlying(c); };
         assert(dump(Color::Red) == 1);
 
         // ⚠️ to_underlying 不做范围检查；非法底层值照样转换
-        const Color forged = static_cast<Color>(99);
+        [[maybe_unused]] const Color forged = static_cast<Color>(99);
         assert(std::to_underlying(forged) == 99);
 
         // 返回类型是 underlying_type_t，便于模板元编程
         using U = std::underlying_type_t<Flag>;
         static_assert(std::is_same_v<U, std::uint8_t>);
-        U bits = std::to_underlying(Flag::Exec);
+        [[maybe_unused]] U bits = std::to_underlying(Flag::Exec);
         assert(bits == 4);
 
 #if defined(__cpp_lib_to_underlying)

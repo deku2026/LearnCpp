@@ -100,7 +100,7 @@ int run(int argc, char** argv) {
             }
         });
 
-        bool caught = false;
+        [[maybe_unused]] bool caught = false;
         try {
             (void)fut.get();
         } catch (const std::runtime_error& e) {
@@ -116,7 +116,7 @@ int run(int argc, char** argv) {
             std::this_thread::sleep_for(30ms);
             return 1;
         });
-        const auto st = fut.wait_for(1ms);
+        [[maybe_unused]] const auto st = fut.wait_for(1ms);
         assert(st == std::future_status::timeout || st == std::future_status::ready);
         assert(fut.get() == 1);
     }

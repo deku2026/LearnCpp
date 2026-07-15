@@ -47,7 +47,7 @@ struct ObjectFile {
 };
 
 // 链接器简化模型：每个 U 必须在某个 .o 或库中找到唯一 T
-bool link_ok(const std::vector<ObjectFile>& objs, std::string_view symbol) {
+[[maybe_unused]] bool link_ok(const std::vector<ObjectFile>& objs, std::string_view symbol) {
     int defs = 0;
     bool used = false;
     for (const auto& o : objs) {
@@ -108,7 +108,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 若 helper 是 external 且两 TU 都 Defined → multiple definition
     ObjectFile a_bad{"a.cpp", {{"helper()", SymBind::Defined}}};
     ObjectFile b_bad{"b.cpp", {{"helper()", SymBind::Defined}}};
-    int ext_defs = 0;
+    [[maybe_unused]] int ext_defs = 0;
     for (const auto& o : {a_bad, b_bad}) {
         if (o.defines("helper()")) {
             ++ext_defs;

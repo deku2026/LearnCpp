@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
             {"cherry", 3},
         };
         // 直接用 string_view / const char* 删除，不造临时 string key
-        const auto n = m.erase(std::string_view{"banana"});
+        [[maybe_unused]] const auto n = m.erase(std::string_view{"banana"});
         assert(n == 1);
         assert(!m.contains("banana"));
         assert(m.erase("nope") == 0);

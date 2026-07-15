@@ -45,7 +45,7 @@ int run(int argc, char** argv) {
     assert(sizeof(CacheLine) % 64 == 0);
 
     alignas(32) int forced = 0;
-    auto addr = reinterpret_cast<std::uintptr_t>(&forced);
+    [[maybe_unused]] auto addr = reinterpret_cast<std::uintptr_t>(&forced);
     assert(addr % 32 == 0);
 
     // 结构体对齐 = 成员最大对齐；sizeof 上取整到对齐倍数

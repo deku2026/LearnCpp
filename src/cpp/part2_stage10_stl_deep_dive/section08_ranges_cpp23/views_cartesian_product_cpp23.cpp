@@ -42,7 +42,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert((grid.back() == std::pair{1, 2}));
 
         // 三路
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         for (auto [a, b, c] :
              std::views::cartesian_product(std::views::iota(0, 2), std::views::iota(0, 2), std::views::iota(0, 2))) {
             (void)a;
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(std::ranges::empty(std::views::cartesian_product(empty, xs)));
 
         // ⚠️ 大小乘积爆炸：大范围 cartesian 勿轻易 materialize
-        auto big = std::views::cartesian_product(std::views::iota(0, 100), std::views::iota(0, 100));
+        [[maybe_unused]] auto big = std::views::cartesian_product(std::views::iota(0, 100), std::views::iota(0, 100));
         assert(std::ranges::size(big) == 10000);
         // 惰性：创建不分配 10000 个 tuple；迭代才产生
 

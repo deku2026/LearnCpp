@@ -17,10 +17,10 @@
 namespace {
 
 // 模拟「库函数」——本进程内链接，语义等同静态入库
-int lib_add(int a, int b) {
+[[maybe_unused]] int lib_add(int a, int b) {
     return a + b;
 }
-const char* lib_version() {
+[[maybe_unused]] const char* lib_version() {
     return "1.0-demo";
 }
 

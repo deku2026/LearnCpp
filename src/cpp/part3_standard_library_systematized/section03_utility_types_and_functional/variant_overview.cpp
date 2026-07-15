@@ -34,11 +34,12 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // get_if: 不抛
     if (auto* p = std::get_if<std::string>(&v)) {
+        (void)p;
         assert(*p == "hello");
     }
 
     // 错误类型 get 抛 bad_variant_access
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)std::get<int>(v);
     } catch (const std::bad_variant_access&) {

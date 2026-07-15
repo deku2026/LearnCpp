@@ -38,7 +38,7 @@ CMakeModuleSupport support_for(int major, int minor) {
 }
 
 // 本仓库 CMakePresets cmakeMinimumRequired = 3.28.0
-bool repo_baseline_ok(int major, int minor, int patch) {
+[[maybe_unused]] bool repo_baseline_ok(int major, int minor, int patch) {
     if (major != 3) {
         return major > 3;
     }
@@ -65,14 +65,14 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== cmake_modules_and_import_std_cpp23 ===\n";
 
     // --- 入门: 版本门槛 ---
-    auto s28 = support_for(3, 28);
+    [[maybe_unused]] auto s28 = support_for(3, 28);
     assert(s28.has_cxx_modules_fileset);
     assert(!s28.has_import_std_experiment);
 
-    auto s30 = support_for(3, 30);
+    [[maybe_unused]] auto s30 = support_for(3, 30);
     assert(s30.has_cxx_modules_fileset && s30.has_import_std_experiment);
 
-    auto s27 = support_for(3, 27);
+    [[maybe_unused]] auto s27 = support_for(3, 27);
     assert(!s27.has_cxx_modules_fileset);
 
     // 本仓库 cmake_minimum_required 3.28
@@ -88,7 +88,7 @@ int run(int /*argc*/, char** /*argv*/) {
     const std::string generator_need = "Ninja";  // import std 主流路径
     assert(generator_need == "Ninja");
     // 文档纪律: 工程默认仍用 headers
-    const bool default_use_headers = true;
+    [[maybe_unused]] const bool default_use_headers = true;
     assert(default_use_headers);
 
     // --- 专家: 特性探测, 不假设「版本够了」 ---
@@ -96,7 +96,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 可移植路径: 标准头(本文件所用) 始终可用
     assert(std::string_view{__FILE__}.find("cmake_modules") != std::string_view::npos || true);
-    const int portable_surface = [] {
+    [[maybe_unused]] const int portable_surface = [] {
         // 等同 import std 后仍会用的 API
         return static_cast<int>(std::string{"headers"}.size());
     }();

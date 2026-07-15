@@ -55,7 +55,7 @@ int run(int argc, char** argv) {
     // --- 数据成员指针 ---
     int S::* pm_a = &S::a;
     int S::* pm_b = &S::b;
-    double S::* pm_d = &S::d;
+    [[maybe_unused]] double S::* pm_d = &S::d;
 
     S s;
     assert(s.*pm_a == 10);
@@ -68,13 +68,13 @@ int run(int argc, char** argv) {
     assert(s.b == 99);
 
     // 可重新绑定“哪一个成员”
-    int S::* pm = pm_a;
+    [[maybe_unused]] int S::* pm = pm_a;
     assert(s.*pm == 10);
     pm = pm_b;
     assert(s.*pm == 99);
 
     // 空成员指针
-    int S::* pm_null = nullptr;
+    [[maybe_unused]] int S::* pm_null = nullptr;
     assert(pm_null == nullptr);
 
     std::cout << "  sizeof(int S::*)=" << sizeof(int S::*) << "  (often pointer-sized offset storage)\n";
@@ -82,6 +82,7 @@ int run(int argc, char** argv) {
 
     // --- 成员函数指针: 非虚 ---
     int (S::*psum)() const = &S::sum;
+    (void)psum;
     assert((s.*psum)() == s.a + s.b);
     assert((ps->*psum)() == s.a + s.b);
 
@@ -93,7 +94,7 @@ int run(int argc, char** argv) {
         int virt() const override { return 1000 + a; }
     };
     D der;
-    S& as_s = der;
+    [[maybe_unused]] S& as_s = der;
     assert((as_s.*pvirt)() == 1000 + der.a);  // 动态分派
 
     std::cout << "  sizeof(int (S::*)() const)=" << sizeof(pvirt) << "  (often 2x pointer: addr-or-vslot + this-adj)\n";
@@ -107,18 +108,20 @@ int run(int argc, char** argv) {
 
     // --- 多继承: 成员指针带 this 调整信息 ---
     int (BaseY::*pg)() const = &BaseY::g;
+    (void)pg;
     MI mi;
-    BaseY* py = &mi;
+    [[maybe_unused]] BaseY* py = &mi;
     assert((py->*pg)() == mi.y + mi.z);
 
     // 指向 MI 覆盖版本
     int (MI::*pmi_g)() const = &MI::g;
+    (void)pmi_g;
     assert((mi.*pmi_g)() == mi.y + mi.z);
 
     // 数据成员在 MI 中的偏移
-    int MI::* pm_z = &MI::z;
+    [[maybe_unused]] int MI::* pm_z = &MI::z;
     assert(mi.*pm_z == 3);
-    int BaseX::* pm_x = &BaseX::x;
+    [[maybe_unused]] int BaseX::* pm_x = &BaseX::x;
     assert(mi.*pm_x == 1);
 
     // 成员指针不是普通指针: 不能转 void* 当函数地址用
@@ -135,7 +138,7 @@ int run(int argc, char** argv) {
     };
     s.a = 1;
     s.b = 2;
-    int total = 0;
+    [[maybe_unused]] int total = 0;
     for (const auto& f : fields) {
         total += s.*f.member;
         std::cout << "  field " << f.name << "=" << s.*f.member << '\n';

@@ -29,15 +29,15 @@ int run(int argc, char** argv) {
     std::cout << "=== G uninitialized read (safe patterns) ===\n";
 
     // 值初始化: 零
-    int x{};
+    [[maybe_unused]] int x{};
     assert(x == 0);
-    Pod p{};
+    [[maybe_unused]] Pod p{};
     assert(p.a == 0 && p.b == 0);
 
     // 默认初始化内置类型在块作用域不初始化 —— 不要读
     // int y; use(y); // UB — 不写
 
-    int y = 0;  // 明确初始化
+    [[maybe_unused]] int y = 0;  // 明确初始化
     assert(y == 0);
 
     std::vector<int> v(3);  // 值初始化元素为 0

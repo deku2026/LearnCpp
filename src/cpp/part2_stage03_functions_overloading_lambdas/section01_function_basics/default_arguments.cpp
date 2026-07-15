@@ -20,7 +20,7 @@ void greet(const std::string& name, const std::string& greeting = "Hello") {
     (void)greeting;
 }
 
-int scale(int value, int factor = 2, int offset = 0) {
+[[maybe_unused]] int scale(int value, int factor = 2, int offset = 0) {
     return value * factor + offset;
 }
 

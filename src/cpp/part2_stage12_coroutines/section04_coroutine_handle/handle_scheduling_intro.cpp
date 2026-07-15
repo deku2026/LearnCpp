@@ -148,7 +148,7 @@ int run(int argc, char** argv) {
     // A) Generator: 迭代器就是调度器
     {
         std::cout << "  iterator-driven:";
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         for (int x : range3()) {
             std::cout << ' ' << x;
             sum += x;

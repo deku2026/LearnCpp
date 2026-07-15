@@ -31,7 +31,7 @@ std::uint32_t float_to_bits(float f) {
 }
 
 // ✅ 正确：memcpy 也是标准认可的 type punning 手段
-float bits_to_float_memcpy(std::uint32_t bits) {
+[[maybe_unused]] float bits_to_float_memcpy(std::uint32_t bits) {
     float f;
     std::memcpy(&f, &bits, sizeof(f));
     return f;

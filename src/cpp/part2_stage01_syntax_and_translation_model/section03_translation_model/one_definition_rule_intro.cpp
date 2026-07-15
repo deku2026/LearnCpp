@@ -43,7 +43,7 @@ constexpr T twice(T v) {
 namespace {
 
 // 模拟"两个 TU 拷贝了相同的 inline 定义"——链接器会合并为一
-inline int shared_ticket() {
+[[maybe_unused]] inline int shared_ticket() {
     static int n = 0;  // 注意: inline 函数内 static 局部跨 TU 仍是同一实体
     return ++n;
 }

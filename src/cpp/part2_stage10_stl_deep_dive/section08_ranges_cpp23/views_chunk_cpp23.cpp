@@ -36,8 +36,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：批处理 + 与 slide 对照 ===\n";
     {
         std::vector<int> v{1, 2, 3, 4, 5, 6, 7};
-        int batch = 0;
+        [[maybe_unused]] int batch = 0;
         for (auto block : v | std::views::chunk(2)) {
+            (void)block;
             assert(!std::ranges::empty(block));
             ++batch;
         }
@@ -52,8 +53,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：chunk(1)/整除/空 + feature-test ===\n";
     {
         std::vector<int> v{1, 2, 3, 4};
-        int n1 = 0;
+        [[maybe_unused]] int n1 = 0;
         for (auto b : v | std::views::chunk(1)) {
+            (void)b;
             assert(std::ranges::size(b) == 1);
             ++n1;
         }

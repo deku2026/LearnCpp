@@ -47,7 +47,7 @@ int run(int argc, char** argv) {
     std::atomic_thread_fence(std::memory_order_seq_cst);
 
     // signal_fence: 仅限制编译器重排, 不发 CPU 屏障 (单线程/信号处理器场景)
-    int x = 0;
+    [[maybe_unused]] int x = 0;
     std::atomic_signal_fence(std::memory_order_acq_rel);
     x = 1;
     std::atomic_signal_fence(std::memory_order_acq_rel);

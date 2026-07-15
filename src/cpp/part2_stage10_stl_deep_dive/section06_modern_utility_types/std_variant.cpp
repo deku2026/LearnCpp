@@ -27,6 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::get<std::string>(v) == "hello");
 
     if (auto* p = std::get_if<std::string>(&v)) {
+        (void)p;
         assert(*p == "hello");
     } else {
         assert(false);
@@ -37,7 +38,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::get<double>(v) == 3.14);
 
     // 错类型 → 异常
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)std::get<int>(v);
     } catch (const std::bad_variant_access&) {

@@ -31,7 +31,7 @@ LookupResult lookup_score(const std::string& name) {
     return {false, 0};
 }
 
-int grade_band(int score) {
+[[maybe_unused]] int grade_band(int score) {
     // 经典 if / else if / else 链：自上而下短路求值，只进第一个真分支。
     if (score >= 90) {
         return 4;

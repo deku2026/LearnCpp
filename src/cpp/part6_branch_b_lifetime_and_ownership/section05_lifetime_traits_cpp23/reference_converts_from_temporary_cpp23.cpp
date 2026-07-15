@@ -19,10 +19,10 @@
 namespace {
 
 // 进阶: 接口用 string_view / 按值，避免 const string& 吃 C 串时造临时
-std::size_t use_view(std::string_view sv) {
+[[maybe_unused]] std::size_t use_view(std::string_view sv) {
     return sv.size();
 }
-std::size_t use_owned(std::string s) {
+[[maybe_unused]] std::size_t use_owned(std::string s) {
     return s.size();
 }
 

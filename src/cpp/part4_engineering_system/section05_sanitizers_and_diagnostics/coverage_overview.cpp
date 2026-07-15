@@ -24,7 +24,7 @@ struct CovMap {
     void hit(int line) { ++line_hits[line]; }
 };
 
-int classify(int x, CovMap& cov) {
+[[maybe_unused]] int classify(int x, CovMap& cov) {
     cov.hit(1);  // entry
     if (x < 0) {
         cov.hit(2);
@@ -71,8 +71,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 工具旗标
     // GCC: --coverage  (等价 -fprofile-arcs -ftest-coverage)
     // Clang: -fprofile-instr-generate -fcoverage-mapping + llvm-cov
-    const char* gcc_flag = "--coverage";
-    const char* clang_prof = "-fprofile-instr-generate";
+    [[maybe_unused]] const char* gcc_flag = "--coverage";
+    [[maybe_unused]] const char* clang_prof = "-fprofile-instr-generate";
     assert(std::string_view(gcc_flag) == "--coverage");
     assert(std::string_view(clang_prof).find("profile") != std::string_view::npos);
 

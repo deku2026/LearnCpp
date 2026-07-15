@@ -87,7 +87,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(r[i] == 6.0);
     }
     // 表达式类型在编译期编码运算树 → 可融合循环、避免临时堆分配
-    auto expr = a + b;
+    [[maybe_unused]] auto expr = a + b;
     assert(expr[0] == 3.0);
     std::cout << "expr template r[0]=" << r[0] << '\n';
 

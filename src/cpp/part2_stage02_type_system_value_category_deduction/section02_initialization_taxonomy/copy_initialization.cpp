@@ -43,10 +43,10 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：等号语法
     // -------------------------------------------------------------------------
-    int a = 42;
-    double d = 3.14;
+    [[maybe_unused]] int a = 42;
+    [[maybe_unused]] double d = 3.14;
     std::string s = "text";
-    int narrow = 2.7;  // 允许窄化
+    [[maybe_unused]] int narrow = static_cast<int>(2.7);  // 允许窄化
     assert(a == 42 && s == "text" && narrow == 2);
 
     ImplicitFromInt i = 7;  // 调用 non-explicit 构造
@@ -60,11 +60,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // 进阶：传参、返回、转换序列
     // -------------------------------------------------------------------------
     take_by_value(3);  // 实参 copy-init 形参
-    ImplicitFromInt r = make_one();
+    [[maybe_unused]] ImplicitFromInt r = make_one();
     assert(r.n == 1);
 
     Convertible c{10};
-    ImplicitFromInt via_op = c;  // 用户定义转换
+    [[maybe_unused]] ImplicitFromInt via_op = c;  // 用户定义转换
     assert(via_op.n == 10);
 
     // 拷贝初始化不一定调用拷贝构造：可直接从源构造目标（C++17 起 prvalue 更彻底）

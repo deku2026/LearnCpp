@@ -30,7 +30,7 @@ int run(int argc, char** argv) {
     std::cout << "=== [unique_lock] basic RAII ===\n";
     {
         std::mutex mtx;
-        int x = 0;
+        [[maybe_unused]] int x = 0;
         {
             std::unique_lock lock(mtx);
             ++x;
@@ -64,7 +64,7 @@ int run(int argc, char** argv) {
         std::timed_mutex tmtx;
         std::unique_lock tholder(tmtx);
         std::unique_lock timed(tmtx, std::defer_lock);
-        const bool got = timed.try_lock_for(5ms);
+        [[maybe_unused]] const bool got = timed.try_lock_for(5ms);
         assert(!got);
         tholder.unlock();
         assert(timed.try_lock_for(50ms));

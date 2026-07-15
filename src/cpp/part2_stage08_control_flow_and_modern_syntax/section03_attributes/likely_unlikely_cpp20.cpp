@@ -26,7 +26,7 @@ int safe_divide(int a, int b) {
 }
 
 // switch 上的路径提示：0 最常见。
-const char* bucket(int x) {
+[[maybe_unused]] const char* bucket(int x) {
     switch (x) {
         [[likely]] case 0:
             return "zero";
@@ -40,7 +40,7 @@ const char* bucket(int x) {
 }
 
 // 解析循环：合法字符是热路径。
-std::size_t count_digits(const std::string& s) {
+[[maybe_unused]] std::size_t count_digits(const std::string& s) {
     std::size_t n = 0;
     for (char ch : s) {
         if (ch >= '0' && ch <= '9') [[likely]] {
@@ -53,7 +53,7 @@ std::size_t count_digits(const std::string& s) {
     return n;
 }
 
-int clamp_nonneg(int v) {
+[[maybe_unused]] int clamp_nonneg(int v) {
     if (v < 0) [[unlikely]] {
         return 0;
     }
@@ -89,7 +89,7 @@ int run(int argc, char** argv) {
 
         // 属性不改变可观察语义：只影响优化器的布局/内联/预测倾向。
         std::vector<int> sample{0, 0, 0, 1, 0};
-        int zeros = 0;
+        [[maybe_unused]] int zeros = 0;
         for (int x : sample) {
             if (x == 0) [[likely]] {
                 ++zeros;

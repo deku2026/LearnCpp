@@ -70,23 +70,23 @@ int run(int argc, char** argv) {
     ok->special();
     assert(ok->tag() == "Derived");
 
-    Derived* no = dynamic_cast<Derived*>(p_bad);
+    [[maybe_unused]] Derived* no = dynamic_cast<Derived*>(p_bad);
     assert(no == nullptr);
 
-    Derived* from_null = dynamic_cast<Derived*>(p_null);
+    [[maybe_unused]] Derived* from_null = dynamic_cast<Derived*>(p_null);
     assert(from_null == nullptr);
 
     // 向上转换其实不需要 dynamic_cast (static_cast 即可), 但合法
-    Base* up = dynamic_cast<Base*>(&d);
+    [[maybe_unused]] Base* up = dynamic_cast<Base*>(&d);
     assert(up == p_ok);
 
     // --- 引用: 失败抛 std::bad_cast ---
     Base& r_ok = d;
     Base& r_bad = s;
-    Derived& rd = dynamic_cast<Derived&>(r_ok);
+    [[maybe_unused]] Derived& rd = dynamic_cast<Derived&>(r_ok);
     assert(rd.secret == 42);
 
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         Derived& boom = dynamic_cast<Derived&>(r_bad);
         (void)boom;
@@ -99,11 +99,11 @@ int run(int argc, char** argv) {
     // --- dynamic_cast<void*>: 完整对象起点 (多态) ---
     MixAB ab;
     MixB* pb = &ab;
-    void* complete = dynamic_cast<void*>(pb);
+    [[maybe_unused]] void* complete = dynamic_cast<void*>(pb);
     assert(complete == static_cast<void*>(&ab));
 
     // 侧向: MixB* → MixA* (经完整类型)
-    MixA* pa = dynamic_cast<MixA*>(pb);
+    [[maybe_unused]] MixA* pa = dynamic_cast<MixA*>(pb);
     assert(pa != nullptr);
     assert(pa->a == 1);
     assert(dynamic_cast<MixAB*>(pb) == &ab);
@@ -114,13 +114,14 @@ int run(int argc, char** argv) {
     // 智能指针: 对 raw 做 dynamic_cast, 再接管/观察
     std::unique_ptr<Base> holder = std::make_unique<Derived>();
     if (auto* raw = dynamic_cast<Derived*>(holder.get())) {
+        (void)raw;
         assert(raw->secret == 42);
     } else {
         assert(false);
     }
 
     // 工程建议: 连续 dynamic_cast 分支 → 考虑访问者模式/虚函数表驱动
-    auto describe = [](Base* b) -> std::string {
+    [[maybe_unused]] auto describe = [](Base* b) -> std::string {
         if (auto* x = dynamic_cast<Derived*>(b)) {
             return "derived secret=" + std::to_string(x->secret);
         }

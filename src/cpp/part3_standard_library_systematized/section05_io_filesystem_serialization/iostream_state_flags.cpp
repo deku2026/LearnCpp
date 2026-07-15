@@ -25,7 +25,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [iostream_state_flags] 成功读 int ===\n";
     {
         std::istringstream iss("42 rest");
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         assert(static_cast<bool>(iss >> n));
         assert(n == 42);
         assert(iss.good());
@@ -59,9 +59,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== EOF：读尽后 eofbit ===\n";
     {
         std::istringstream iss("1 2");
-        int a = 0;
-        int b = 0;
-        int c = 0;
+        [[maybe_unused]] int a = 0;
+        [[maybe_unused]] int b = 0;
+        [[maybe_unused]] int c = 0;
         assert(static_cast<bool>(iss >> a >> b));
         assert(!(iss >> c));  // 没有更多数据
         assert(iss.eof() || iss.fail());

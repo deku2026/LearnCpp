@@ -66,8 +66,10 @@ int run(int argc, char** argv) {
     std::cout << "  global CMAKE_CXX_FLAGS-like: \"" << g.cxx_flags << "\"\n";
 
     // --- 进阶: 多 target 各自属性 ---
-    Target core{"core"};
-    Target myapp{"myapp"};
+    Target core{};
+    core.name = "core";
+    Target myapp{};
+    myapp.name = "myapp";
     target_compile_options(core, "-Wall");
     target_compile_options(core, "-Wextra");
     core.cxx_standard = "23";  // target_compile_features(... cxx_std_23)
@@ -96,15 +98,18 @@ int run(int argc, char** argv) {
     //   learncpp_apply_warning_settings(learn_cpp)  // 仅此 target
     //   learncpp_enable_sanitizers(learn_cpp)
     std::map<std::string, Target> graph;
-    graph["learn_cpp"] = Target{"learn_cpp"};
+    graph["learn_cpp"] = Target{};
+    graph["learn_cpp"].name = "learn_cpp";
     target_compile_options(graph["learn_cpp"], "cxx_std_23");
     target_compile_options(graph["learn_cpp"], "PRIVATE_include");
     assert(graph["learn_cpp"].compile_options.size() == 2);
     std::cout << "  learn_cpp property bag size=" << graph["learn_cpp"].compile_options.size() << '\n';
 
     // 多库骨架: core 库 + app —— 文档 4.1.2
-    Target engine{"core_engine"};
-    Target app{"myapp"};
+    Target engine{};
+    engine.name = "core_engine";
+    Target app{};
+    app.name = "myapp";
     target_link_libraries(app, "core_engine");
     assert(app.link_libs.contains("core_engine"));
 

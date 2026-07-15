@@ -24,17 +24,17 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> v{1, 2, 3, 4, 5};
 
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
-    auto sum = std::ranges::fold_right_last(v, std::plus{});
+    [[maybe_unused]] auto sum = std::ranges::fold_right_last(v, std::plus{});
     assert(sum && *sum == 15);
 
     // 非结合: 1-(2-(3-(4-5))) = 1-(2-(3-(-1))) = 1-(2-4) = 1-(-2) = 3
-    auto nested = std::ranges::fold_right_last(v, std::minus{});
+    [[maybe_unused]] auto nested = std::ranges::fold_right_last(v, std::minus{});
     assert(nested && *nested == 3);
 
-    auto empty = std::ranges::fold_right_last(std::vector<int>{}, std::plus{});
+    [[maybe_unused]] auto empty = std::ranges::fold_right_last(std::vector<int>{}, std::plus{});
     assert(!empty);
 
-    auto one = std::ranges::fold_right_last(std::vector{7}, std::plus{});
+    [[maybe_unused]] auto one = std::ranges::fold_right_last(std::vector{7}, std::plus{});
     assert(one && *one == 7);
 
     std::cout << "[fold_right_last] library path OK\n";

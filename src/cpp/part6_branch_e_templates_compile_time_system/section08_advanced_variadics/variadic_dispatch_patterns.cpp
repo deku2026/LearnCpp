@@ -105,7 +105,7 @@ int run(int argc, char** argv) {
 
     static_assert(count_if_types<IsIntegral, int, double, char, void*>() == 2);
 
-    auto prod = apply_tuple([](int a, int b, int c) { return a * b * c; }, std::make_tuple(2, 3, 4));
+    [[maybe_unused]] auto prod = apply_tuple([](int a, int b, int c) { return a * b * c; }, std::make_tuple(2, 3, 4));
     assert(prod == 24);
 
     std::cout << "  folds + index packs + overload sets cover most dispatch needs\n";

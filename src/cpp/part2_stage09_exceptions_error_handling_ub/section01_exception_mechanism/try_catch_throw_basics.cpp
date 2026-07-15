@@ -55,7 +55,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：catch 顺序（具体在前，宽泛在后）===\n";
     {
-        bool hit_specific = false;
+        [[maybe_unused]] bool hit_specific = false;
         try {
             throw ConfigError("bad cfg");
         } catch (const ConfigError& e) {
@@ -81,7 +81,7 @@ int run(int /*argc*/, char** /*argv*/) {
         }
 
         // catch(...)：捕获一切，但拿不到对象；常用于最外层兜底/转换
-        bool hit_all = false;
+        [[maybe_unused]] bool hit_all = false;
         try {
             throw 123;  // 非 std::exception 也能被 catch(...) 接住
         } catch (const std::exception&) {

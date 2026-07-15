@@ -22,7 +22,15 @@ class FileHandle {
 
 public:
     explicit FileHandle(const char* path, const char* mode) {
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
         fp_ = std::fopen(path, mode);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         if (!fp_) {
             throw std::runtime_error(std::string("open failed: ") + path);
         }

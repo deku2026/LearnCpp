@@ -30,12 +30,12 @@ struct Width {
 struct Height {
     int v{};
 };
-int area(Width w, Height h) {
+[[maybe_unused]] int area(Width w, Height h) {
     return w.v * h.v;
 }
 
 // optional: good for "present or not"; use expected when reason matters
-std::optional<int> find_even(const std::vector<int>& v) {
+[[maybe_unused]] std::optional<int> find_even(const std::vector<int>& v) {
     for (int x : v) {
         if (x % 2 == 0) {
             return x;

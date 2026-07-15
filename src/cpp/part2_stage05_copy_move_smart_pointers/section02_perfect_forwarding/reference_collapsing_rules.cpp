@@ -97,7 +97,7 @@ int run(int /*argc*/, char** /*argv*/) {
             // 返回类型保持值类别（简化演示）
             return std::forward<decltype(v)>(v);
         };
-        int& lr = f(x);
+        [[maybe_unused]] int& lr = f(x);
         int&& rr = f(10);
         assert(&lr == &x);
         assert(rr == 10);

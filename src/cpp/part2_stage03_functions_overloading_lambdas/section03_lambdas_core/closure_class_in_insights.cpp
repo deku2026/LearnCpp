@@ -44,7 +44,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 默认 operator() const → 不能改值捕获（除非 mutable）
     // 闭包不可默认构造（有捕获时）、不可拷贝赋值（通常）
-    auto copy = add_n;
+    [[maybe_unused]] auto copy = add_n;
     assert(copy(1) == 11);
 
     std::cout << "[advanced] each lambda expression has a unique closure type\n";
@@ -61,7 +61,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(arr[0] == 1 && arr[1] == 2 && arr[2] == 3);
 
     using Cmp = int (*)(const void*, const void*);
-    Cmp fp = [](const void*, const void*) { return 0; };  // 无捕获 OK
+    [[maybe_unused]] Cmp fp = [](const void*, const void*) { return 0; };  // 无捕获 OK
     assert(fp(nullptr, nullptr) == 0);
     // int cap = 1;
     // Cmp bad = [cap](const void*, const void*) { return cap; }; // ❌

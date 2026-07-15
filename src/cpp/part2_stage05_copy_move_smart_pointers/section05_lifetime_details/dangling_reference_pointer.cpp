@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(s == "ok");
     std::cout << "good_return_value -> " << s << '\n';
 
-    const std::string& safe = bad_return_local_ref();  // 实际指向 static
+    [[maybe_unused]] const std::string& safe = bad_return_local_ref();  // 实际指向 static
     assert(safe == "static-ok");
     std::cout << "pattern note: never return ref to function-local automatic object\n";
 
@@ -60,7 +60,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{1, 2, 3};
         int* p = &v[0];
-        const int old0 = *p;
+        [[maybe_unused]] const int old0 = *p;
         assert(old0 == 1);
 
         // push_back 可能扩容 → 旧指针失效
@@ -76,7 +76,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：堆对象与智能指针 ===\n";
     {
         auto owner = std::make_unique<int>(5);
-        int* raw = owner.get();
+        [[maybe_unused]] int* raw = owner.get();
         assert(*raw == 5);
         owner.reset();  // 释放
         // *raw;  // UAF —— 禁止

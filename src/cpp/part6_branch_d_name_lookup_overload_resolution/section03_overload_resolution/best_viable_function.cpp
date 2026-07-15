@@ -16,21 +16,21 @@
 
 namespace {
 
-std::string g(double) {
+[[maybe_unused]] std::string g(double) {
     return "double";
 }
-std::string g(int) {
+[[maybe_unused]] std::string g(int) {
     return "int";
 }
 
-std::string p(long) {
+[[maybe_unused]] std::string p(long) {
     return "long";
 }
-std::string p(double) {
+[[maybe_unused]] std::string p(double) {
     return "double";
 }
 
-std::string only(int x) {
+[[maybe_unused]] std::string only(int x) {
     return "only:" + std::to_string(x);
 }
 
@@ -42,7 +42,7 @@ int run(int argc, char** argv) {
 
     // char 提升到 int 优于转换到 double
     assert(g('a') == "int");
-    short s = 5;
+    [[maybe_unused]] short s = 5;
     assert(g(s) == "int");
     assert(g(1.0) == "double");
     assert(g(1) == "int");

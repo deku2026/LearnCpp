@@ -18,7 +18,7 @@
 namespace {
 
 // 参数在某些配置下不用：标 maybe_unused，避免 -Wunused-parameter。
-int scale(int value, [[maybe_unused]] int debug_level) {
+[[maybe_unused]] int scale(int value, [[maybe_unused]] int debug_level) {
 #ifdef LEARN_TRACE
     std::cerr << "scale debug=" << debug_level << '\n';
 #endif
@@ -54,7 +54,7 @@ int run(int argc, char** argv) {
 
         // 只为可读性/未来扩展保留的结果。
         [[maybe_unused]] int future_metric = 0;
-        int used = 1;
+        [[maybe_unused]] int used = 1;
         assert(used == 1);
         std::cout << "scale(21)=42; unused locals silenced\n";
     }

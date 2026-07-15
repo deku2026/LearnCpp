@@ -56,7 +56,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "even count=" << evens.size() << " first=" << evens.front() << '\n';
 
     assert(std::ssize(v) == 5);
-    auto it = std::ranges::find(v, 4);
+    [[maybe_unused]] auto it = std::ranges::find(v, 4);
     assert(it != v.end());
 
     // execution 策略符号存在性（未必真并行）

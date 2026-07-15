@@ -17,7 +17,7 @@
 
 namespace {
 
-bool mul_ok(std::int32_t a, std::int32_t b, std::int32_t& out) {
+[[maybe_unused]] bool mul_ok(std::int32_t a, std::int32_t b, std::int32_t& out) {
     if (a == 0 || b == 0) {
         out = 0;
         return true;
@@ -45,7 +45,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G signed overflow (safe patterns) ===\n";
 
-    std::int32_t r = 0;
+    [[maybe_unused]] std::int32_t r = 0;
     assert(mul_ok(1000, 1000, r));
     assert(r == 1'000'000);
     assert(!mul_ok(std::numeric_limits<std::int32_t>::max(), 2, r));
@@ -56,7 +56,7 @@ int run(int argc, char** argv) {
     assert(u == 0);
 
     // 有符号: 不写 INT_MAX+1
-    int a = std::numeric_limits<int>::max();
+    [[maybe_unused]] int a = std::numeric_limits<int>::max();
     assert(a > 0);
     // int bad = a + 1; // UB
 

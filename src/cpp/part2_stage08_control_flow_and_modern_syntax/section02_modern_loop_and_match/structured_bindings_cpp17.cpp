@@ -62,12 +62,12 @@ int run(int argc, char** argv) {
 
         // 情形② tuple-like（tuple_size / tuple_element / get）
         std::array<int, 2> ar{10, 20};
-        auto [p, q] = ar;
+        [[maybe_unused]] auto [p, q] = ar;
         assert(p == 10 && q == 20);
 
         // 情形③ 聚合
         Point pt{3, 4};
-        auto [px, py] = pt;
+        [[maybe_unused]] auto [px, py] = pt;
         assert(px == 3 && py == 4);
         auto& [rx, ry] = pt;
         rx = 30;
@@ -85,7 +85,7 @@ int run(int argc, char** argv) {
 
         // ⭐ 验收点：结构化绑定 + 范围 for 遍历 map
         std::map<std::string, int> ages{{"Alice", 30}, {"Bob", 25}, {"Carol", 35}};
-        int age_sum = 0;
+        [[maybe_unused]] int age_sum = 0;
         for (const auto& [person, age] : ages) {
             age_sum += age;
             std::cout << "  " << person << " is " << age << '\n';

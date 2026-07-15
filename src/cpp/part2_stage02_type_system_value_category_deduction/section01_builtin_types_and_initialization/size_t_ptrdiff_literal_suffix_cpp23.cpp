@@ -89,7 +89,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // C++23 字面值后缀让“字面量本身”带上正确类型，少写 cast
     // 注意：size_t 无符号减法下溢（0uz - 1uz 巨大），倒序循环优先有符号或 do-while 技巧
 
-    const auto n = v.size();
+    [[maybe_unused]] const auto n = v.size();
     assert(n > 0);
     // 危险示范（不执行）: for (auto i = n - 1; i >= 0; --i) 若 i 为 size_t，永不停
     std::cout << "[expert] unsigned countdown is a classic infinite-loop trap\n";

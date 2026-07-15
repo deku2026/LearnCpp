@@ -56,7 +56,7 @@ int leaf() {
     return 42;
 }
 
-int mid() {
+[[maybe_unused]] int mid() {
     return leaf();
 }
 

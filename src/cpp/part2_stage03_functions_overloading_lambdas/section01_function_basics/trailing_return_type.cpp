@@ -56,8 +56,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：依赖参数的返回类型
     // -------------------------------------------------------------------------
-    auto r1 = add_gen(1, 2);    // int
-    auto r2 = add_gen(1.5, 2);  // double（通常）
+    [[maybe_unused]] auto r1 = add_gen(1, 2);    // int
+    [[maybe_unused]] auto r2 = add_gen(1.5, 2);  // double（通常）
     auto r3 = add_gen(std::string{"a"}, std::string{"b"});
     assert(r1 == 3);
     assert(r2 > 3.4 && r2 < 3.6);

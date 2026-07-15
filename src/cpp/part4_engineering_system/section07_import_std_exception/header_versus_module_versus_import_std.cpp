@@ -41,7 +41,7 @@ ModelTraits traits(ImportModel m) {
 }
 
 // 可见性: 头文件宏泄漏 vs 模块不泄漏
-bool macro_leaks_across_units(ImportModel m) {
+[[maybe_unused]] bool macro_leaks_across_units(ImportModel m) {
     return m == ImportModel::Header;
 }
 
@@ -60,9 +60,9 @@ const char* label(ImportModel m) {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== header_versus_module_versus_import_std ===\n";
 
-    auto h = traits(ImportModel::Header);
-    auto n = traits(ImportModel::NamedModule);
-    auto s = traits(ImportModel::ImportStd);
+    [[maybe_unused]] auto h = traits(ImportModel::Header);
+    [[maybe_unused]] auto n = traits(ImportModel::NamedModule);
+    [[maybe_unused]] auto s = traits(ImportModel::ImportStd);
 
     assert(h.textual_inclusion);
     assert(!n.textual_inclusion);
@@ -78,7 +78,7 @@ int run(int /*argc*/, char** /*argv*/) {
     }
 
     // 工程默认建议(文档): 仍用 headers; 模块/import std 实验
-    const ImportModel production_default = ImportModel::Header;
+    [[maybe_unused]] const ImportModel production_default = ImportModel::Header;
     assert(production_default == ImportModel::Header);
     std::cout << "  production default today: headers\n";
 

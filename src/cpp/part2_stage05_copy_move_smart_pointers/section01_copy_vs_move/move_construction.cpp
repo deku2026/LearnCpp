@@ -95,7 +95,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [move_construction] 入门：偷资源 ===\n";
 
     Buffer a(1000);
-    const int* raw_a = a.data();
+    [[maybe_unused]] const int* raw_a = a.data();
     assert(a.size() == 1000 && a.at(0) == 0 && a.at(999) == 999);
 
     Buffer c = std::move(a);  // 移动构造：O(1)
@@ -115,7 +115,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "string moved: t.size=" << t.size() << " s.empty()=" << s.empty() << '\n';
 
         std::vector<int> v{1, 2, 3, 4};
-        const int* pv = v.data();
+        [[maybe_unused]] const int* pv = v.data();
         std::vector<int> w = std::move(v);
         assert(w.data() == pv && w.size() == 4);
         assert(v.empty());  // vector 移动后通常为空且合法

@@ -22,7 +22,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：mutable 计数器
     // -------------------------------------------------------------------------
     int n = 0;
-    auto counter = [n]() mutable {
+    [[maybe_unused]] auto counter = [n]() mutable {
         return ++n;  // 改闭包自己的 n
     };
     assert(counter() == 1);
@@ -35,7 +35,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §进阶：对比引用捕获；生成序列
     // -------------------------------------------------------------------------
     int m = 0;
-    auto outer = [&m] {
+    [[maybe_unused]] auto outer = [&m] {
         ++m;  // 无需 mutable：改的是外部对象，不是 const 成员
         return m;
     };
@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // auto bad = [n] { return ++n; }; // ❌
 
     // 有状态生成器：值捕获 + mutable 是常见写法
-    auto gen = [k = 0]() mutable { return k++; };
+    [[maybe_unused]] auto gen = [k = 0]() mutable { return k++; };
     assert(gen() == 0);
     assert(gen() == 1);
     assert(gen() == 2);
@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     int seed = 5;
     auto c1 = [seed]() mutable { return ++seed; };
-    auto c2 = c1;  // 拷贝闭包 → 各自一份状态
+    [[maybe_unused]] auto c2 = c1;  // 拷贝闭包 → 各自一份状态
     assert(c1() == 6);
     assert(c2() == 6);  // 独立副本从 5 再 ++
 
@@ -68,7 +68,7 @@ int run(int /*argc*/, char** /*argv*/) {
     (void)frozen;
 
     // init-capture + mutable：闭包拥有可改动的独立状态（含 move-only 资源时见 init_capture）
-    auto acc = [sum = 0](int x) mutable {
+    [[maybe_unused]] auto acc = [sum = 0](int x) mutable {
         sum += x;
         return sum;
     };

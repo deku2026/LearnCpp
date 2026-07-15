@@ -38,12 +38,12 @@ int run(int argc, char** argv) {
     for (std::size_t i = 0; i < n; ++i) {
         aos[i] = {float(i), 0.f, 0.f, 1.f};
     }
-    float sum_x_aos = 0;
+    [[maybe_unused]] float sum_x_aos = 0;
     for (const auto& p : aos) sum_x_aos += p.x;  // 仍加载 mass 等进入缓存行
 
     ParticlesSoA soa(n);
     for (std::size_t i = 0; i < n; ++i) soa.x[i] = float(i);
-    float sum_x_soa = std::accumulate(soa.x.begin(), soa.x.end(), 0.f);
+    [[maybe_unused]] float sum_x_soa = std::accumulate(soa.x.begin(), soa.x.end(), 0.f);
 
     assert(sum_x_aos == sum_x_soa);
     assert(sum_x_soa == float(n * (n - 1) / 2));

@@ -36,7 +36,7 @@ int run(int /*argc*/, char** /*argv*/) {
     Probe p{};
 
     // glvalue：可问“是谁”（有对象身份）
-    int* pi = &i;  // OK：lvalue 可取地址
+    [[maybe_unused]] int* pi = &i;  // OK：lvalue 可取地址
     assert(pi == &i);
     // &42; // ❌ prvalue 无身份
     // &std::move(i); // ❌ xvalue 虽有身份但语言禁止对其取地址
@@ -46,18 +46,18 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 进阶：绑定与赋值
     // -------------------------------------------------------------------------
-    int& lr = i;  // 非 const 左值引用 ← 仅 lvalue
+    [[maybe_unused]] int& lr = i;  // 非 const 左值引用 ← 仅 lvalue
     // int& bad1 = 42;
     // int& bad2 = std::move(i);
     assert(&lr == &i);
 
-    const int& cr1 = i;             // const& ← lvalue
-    const int& cr2 = 42;            // const& ← prvalue（延长寿命）
-    const int& cr3 = std::move(i);  // const& ← xvalue
+    [[maybe_unused]] const int& cr1 = i;   // const& ← lvalue
+    [[maybe_unused]] const int& cr2 = 42;  // const& ← prvalue（延长寿命）
+    const int& cr3 = std::move(i);         // const& ← xvalue
     assert(cr1 == 0 && cr2 == 42);
 
-    int&& rr1 = 42;            // && ← prvalue
-    int&& rr2 = std::move(i);  // && ← xvalue
+    [[maybe_unused]] int&& rr1 = 42;  // && ← prvalue
+    int&& rr2 = std::move(i);         // && ← xvalue
     // int&& bad = i;         // ❌ 不绑 lvalue
     assert(rr1 == 42);
 

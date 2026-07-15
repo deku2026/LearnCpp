@@ -38,7 +38,7 @@ const Guard& identity(const Guard& g) {
 }
 
 // 返回局部临时引用 —— 模式上永远错误（示意用 static 代替真 UB）
-const std::string& safe_static_ref() {
+[[maybe_unused]] const std::string& safe_static_ref() {
     static const std::string keep = "static-ok";
     return keep;
 }

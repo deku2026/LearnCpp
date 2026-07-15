@@ -14,7 +14,7 @@
 
 namespace {
 
-int add3(int a, int b, int c) {
+[[maybe_unused]] int add3(int a, int b, int c) {
     return a + b + c;
 }
 
@@ -30,7 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::apply(add3, t) == 6);
 
     // lambda
-    const auto prod = std::apply([](int a, int b, int c) { return a * b * c; }, t);
+    [[maybe_unused]] const auto prod = std::apply([](int a, int b, int c) { return a * b * c; }, t);
     assert(prod == 6);
 
     // pair 也行
@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
     Adder adder{100};
     auto args = std::make_tuple(1, 2);
     // 需要绑定 this —— 用 lambda 包一层
-    const int s = std::apply([&](int a, int b) { return adder.sum(a, b); }, args);
+    [[maybe_unused]] const int s = std::apply([&](int a, int b) { return adder.sum(a, b); }, args);
     assert(s == 103);
 
     // 构造对象

@@ -32,7 +32,7 @@ int run(int argc, char** argv) {
         const char* beta = "\N{GREEK SMALL LETTER BETA}";  // β
         const char* infinity = "\N{INFINITY}";             // ∞
         // 猫脸等 emoji 名称以编译器 Unicode 数据库为准
-        const char32_t beta_c = U'\N{GREEK SMALL LETTER BETA}';
+        [[maybe_unused]] const char32_t beta_c = U'\N{GREEK SMALL LETTER BETA}';
 
         assert(std::string_view{beta} == std::string_view{"\u03B2"});
         assert(std::string_view{infinity} == std::string_view{"\u221E"});
@@ -43,9 +43,9 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 进阶：与 u8/u/U 字面值配合；自解释源码 ===\n";
     {
-        const char8_t* u8beta = u8"\N{GREEK SMALL LETTER BETA}";
-        const char16_t* u16beta = u"\N{GREEK SMALL LETTER BETA}";
-        const char32_t* u32beta = U"\N{GREEK SMALL LETTER BETA}";
+        [[maybe_unused]] const char8_t* u8beta = u8"\N{GREEK SMALL LETTER BETA}";
+        [[maybe_unused]] const char16_t* u16beta = u"\N{GREEK SMALL LETTER BETA}";
+        [[maybe_unused]] const char32_t* u32beta = U"\N{GREEK SMALL LETTER BETA}";
 
         assert(u8beta[0] != 0);
         assert(u16beta[0] == u'\u03B2');
@@ -64,7 +64,7 @@ int run(int argc, char** argv) {
         // const char* bad = "\N{NOT A REAL CHARACTER NAME}";
 
         // 空格与连字符依 Unicode 名称规范（通常大写单词空格分隔）
-        const char* nbsp_name = "\N{NO-BREAK SPACE}";
+        [[maybe_unused]] const char* nbsp_name = "\N{NO-BREAK SPACE}";
         assert(std::string_view{nbsp_name}.size() >= 1);
 
 #if defined(__cpp_named_character_escapes)

@@ -18,7 +18,7 @@
 
 namespace {
 
-int g_static = 100;
+[[maybe_unused]] int g_static = 100;
 
 thread_local int tls_counter = 0;
 

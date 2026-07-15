@@ -64,7 +64,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "  directory_iterator count=" << names.size() << '\n';
 
         // ③ 抛异常版 API: 不存在路径
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             (void)fs::file_size(root / "missing.bin");
         } catch (const fs::filesystem_error& ex) {
@@ -75,7 +75,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // error_code 版不抛
         ec.clear();
-        const auto sz = fs::file_size(root / "missing.bin", ec);
+        [[maybe_unused]] const auto sz = fs::file_size(root / "missing.bin", ec);
         assert(ec);
         assert(sz == static_cast<std::uintmax_t>(-1) || sz == 0 || ec);
         std::cout << "  error_code API sets ec without throw\n";

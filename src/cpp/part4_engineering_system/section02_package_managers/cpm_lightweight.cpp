@@ -53,7 +53,7 @@ std::optional<PackageRef> parse_cpm_shorthand(std::string_view s) {
     return r;
 }
 
-bool is_pinned(const PackageRef& r) {
+[[maybe_unused]] bool is_pinned(const PackageRef& r) {
     return r.tag != "master" && r.tag != "main" && r.tag != "develop" && !r.tag.empty();
 }
 

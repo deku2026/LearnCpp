@@ -67,7 +67,7 @@ int run(int argc, char** argv) {
     }
     assert(g_log.front() == "c:Base");
     assert(g_log.back() == "d:Base");
-    auto find = [](const std::string& s) {
+    [[maybe_unused]] auto find = [](const std::string& s) {
         for (std::size_t i = 0; i < g_log.size(); ++i)
             if (g_log[i] == s) return i;
         return g_log.size();

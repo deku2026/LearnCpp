@@ -20,7 +20,7 @@ namespace {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [string_view_contains_cpp23] 入门：子串 / 字符 contains ===\n";
     {
-        constexpr std::string_view sv = "Hello, C++23 world";
+        [[maybe_unused]] constexpr std::string_view sv = "Hello, C++23 world";
         assert(sv.contains("C++23"));
         assert(sv.contains('w'));
         assert(!sv.contains("Java"));
@@ -37,7 +37,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(!std::string_view{}.contains("x"));
         assert(sv.contains("world") == (sv.find("world") != std::string_view::npos));
         // 切片后再 contains（零拷贝）
-        const auto mid = sv.substr(7, 5);  // "C++23"
+        [[maybe_unused]] const auto mid = sv.substr(7, 5);  // "C++23"
         assert(mid.contains("++") && mid.contains('3'));
         assert(!mid.contains("Hello"));
         std::cout << "empty + find-equiv + substr slice OK\n";
@@ -51,7 +51,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(sv.contains(std::string_view{"hay"}));
         // ⚠️ view 指向 owned；owned 析构后 contains 结果不可用（勿存长命 view）
         // 教学：先拷贝 needle 再改 owned，view 仍指向原 buffer
-        const bool before = sv.contains("needle");
+        [[maybe_unused]] const bool before = sv.contains("needle");
         owned[0] = 'N';  // 修改底层 → view 立刻看到
         assert(before);
         assert(sv.starts_with('N'));

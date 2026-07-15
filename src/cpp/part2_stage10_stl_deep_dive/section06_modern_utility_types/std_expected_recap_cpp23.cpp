@@ -49,26 +49,26 @@ const char* err_msg(Err e) {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [std_expected_recap_cpp23] ===\n";
 
-    auto ok = parse_nonneg("25");
+    [[maybe_unused]] auto ok = parse_nonneg("25");
     assert(ok.has_value() && *ok == 25);
     assert(ok.value_or(-1) == 25);
 
-    auto bad = parse_nonneg("-1");
+    [[maybe_unused]] auto bad = parse_nonneg("-1");
     assert(!bad && bad.error() == Err::Negative);
 
     // 铁路式
-    auto r = parse_nonneg("20").and_then(reciprocal_int).transform([](int x) { return x * 2; });
+    [[maybe_unused]] auto r = parse_nonneg("20").and_then(reciprocal_int).transform([](int x) { return x * 2; });
     assert(r && *r == 10);  // (100/20)*2
 
-    auto r2 = parse_nonneg("0").and_then(reciprocal_int);
+    [[maybe_unused]] auto r2 = parse_nonneg("0").and_then(reciprocal_int);
     assert(!r2);
 
     // or_else 恢复
-    auto recovered = parse_nonneg("x").or_else([](Err) { return std::expected<int, Err>{0}; });
+    [[maybe_unused]] auto recovered = parse_nonneg("x").or_else([](Err) { return std::expected<int, Err>{0}; });
     assert(recovered && *recovered == 0);
 
     // transform_error
-    auto mapped = parse_nonneg("").transform_error([](Err e) { return err_msg(e); });
+    [[maybe_unused]] auto mapped = parse_nonneg("").transform_error([](Err e) { return err_msg(e); });
     assert(!mapped && mapped.error() == std::string_view{"empty"});
 
     std::cout << "[expected] value/error + monadic rail OK\n";

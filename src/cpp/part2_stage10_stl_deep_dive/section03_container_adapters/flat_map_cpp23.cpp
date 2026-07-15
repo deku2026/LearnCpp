@@ -51,7 +51,7 @@ int run(int /*argc*/, char** /*argv*/) {
         fm.emplace(2, 'b');
         fm.emplace(1, 'a');
         fm.emplace(3, 'c');
-        auto it = fm.find(2);
+        [[maybe_unused]] auto it = fm.find(2);
         assert(it != fm.end());
         assert(it->second == 'b');
         assert(fm[1] == 'a');
@@ -83,7 +83,7 @@ int run(int /*argc*/, char** /*argv*/) {
         for (int i = 0; i < 100; ++i) {
             fm.emplace(i, i * i);
         }
-        long long sum = 0;
+        [[maybe_unused]] long long sum = 0;
         for (const auto& [k, v] : fm) {
             sum += k + v;
         }

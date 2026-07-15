@@ -18,10 +18,10 @@
 namespace {
 
 namespace tools {
-int answer() {
+[[maybe_unused]] int answer() {
     return 42;
 }
-std::string name() {
+[[maybe_unused]] std::string name() {
     return "tools";
 }
 }  // namespace tools
@@ -47,12 +47,12 @@ int run(int argc, char** argv) {
     assert(answer() == 42);
     assert(tools::name() == "tools");
 
-    D d;
+    [[maybe_unused]] D d;
     assert(d.g(1) == 2);
     assert(d.g(1.0) == 11);
 
     using enum Color;
-    Color c = Green;
+    [[maybe_unused]] Color c = Green;
     assert(c == Color::Green);
 
     using std::swap;

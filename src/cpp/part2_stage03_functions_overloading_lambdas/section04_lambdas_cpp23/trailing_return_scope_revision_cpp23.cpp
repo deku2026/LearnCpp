@@ -21,18 +21,18 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：lambda 尾置返回
     // -------------------------------------------------------------------------
-    auto scale = [](int x) -> double { return x * 0.5; };
+    [[maybe_unused]] auto scale = [](int x) -> double { return x * 0.5; };
     assert(scale(10) == 5.0);
     std::cout << "[intro] [](int x) -> double { ... }\n";
 
     // -------------------------------------------------------------------------
     // §进阶：返回类型依赖参数
     // -------------------------------------------------------------------------
-    auto add = [](const auto& a, const auto& b) -> decltype(a + b) { return a + b; };
+    [[maybe_unused]] auto add = [](const auto& a, const auto& b) -> decltype(a + b) { return a + b; };
     assert(add(1, 2) == 3);
     assert(add(1.5, 2.5) == 4.0);
 
-    auto first = []<class T>(const std::vector<T>& v) -> T { return v.empty() ? T{} : v.front(); };
+    [[maybe_unused]] auto first = []<class T>(const std::vector<T>& v) -> T { return v.empty() ? T{} : v.front(); };
     std::vector<int> v{9, 8, 7};
     assert(first(v) == 9);
     std::cout << "[advanced] trailing decltype / template lambda return\n";
@@ -43,7 +43,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 尾置返回写在参数之后，可用参数名参与 decltype（与函数尾置返回同一动机）。
     // C++23 语法放宽（省略 ()、属性、static）不改变「-> 类型」的写法，
     // 但让「无参 + 属性 + 尾置返回」更整齐：
-    auto unit = [] [[nodiscard]] () -> int { return 1; };
+    [[maybe_unused]] auto unit = [] [[nodiscard]] () -> int { return 1; };
     assert(unit() == 1);
 
     // 完美转发风格
@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(fwd(n) == 3);
 
     // 多返回路径时显式 -> T 仍是消除推导分歧的首选
-    auto sign = [](int x) -> int {
+    [[maybe_unused]] auto sign = [](int x) -> int {
         if (x > 0) {
             return 1;
         }

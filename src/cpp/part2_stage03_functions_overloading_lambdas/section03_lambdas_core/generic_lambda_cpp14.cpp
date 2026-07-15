@@ -30,7 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
         }
     };
     // 更朴素的入门：
-    auto add = [](auto a, auto b) { return a + b; };
+    [[maybe_unused]] auto add = [](auto a, auto b) { return a + b; };
     assert(add(1, 2) == 3);
     assert(add(1.5, 2.5) == 4.0);
     assert(add(std::string{"a"}, std::string{"b"}) == "ab");
@@ -39,16 +39,16 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：const auto&、独立推导
     // -------------------------------------------------------------------------
-    auto max2 = [](const auto& a, const auto& b) { return a < b ? b : a; };
+    [[maybe_unused]] auto max2 = [](const auto& a, const auto& b) { return a < b ? b : a; };
     assert(max2(3, 9) == 9);
     assert(max2(std::string{"z"}, std::string{"a"}) == "z");
 
     // 两个 auto 各自推导，不必同一类型（只要表达式合法）
-    auto pair_sum = [](auto a, auto b) { return a + b; };
+    [[maybe_unused]] auto pair_sum = [](auto a, auto b) { return a + b; };
     assert(pair_sum(1, 2.5) == 3.5);
 
     std::vector<int> v{1, 2, 3};
-    auto front_or = [](const auto& c, auto fallback) { return c.empty() ? fallback : c.front(); };
+    [[maybe_unused]] auto front_or = [](const auto& c, auto fallback) { return c.empty() ? fallback : c.front(); };
     assert(front_or(v, 0) == 1);
     (void)print_size_like;
     std::cout << "[advanced] const auto&; independent deduction per parameter\n";

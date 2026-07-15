@@ -67,7 +67,7 @@ int run(int /*argc*/, char** /*argv*/) {
     a[0] = 10;
     a[1] = 20;
     assert(a[2] == 1);
-    const IntArray& ca = a;
+    [[maybe_unused]] const IntArray& ca = a;
     assert(ca[0] == 10);
     // ca[0] = 1; // ❌ const 下标返回 const int&
     std::cout << "[intro] a[0]=" << a[0] << '\n';
@@ -88,7 +88,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(acc(7) == 12);
     assert(acc.total() == 12);
 
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)a[99];
     } catch (const std::out_of_range&) {

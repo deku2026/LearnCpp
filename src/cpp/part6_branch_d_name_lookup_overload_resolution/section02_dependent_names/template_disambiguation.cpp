@@ -52,7 +52,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== D4 template disambiguation ===\n";
 
-    Container<Processor> c{};
+    [[maybe_unused]] Container<Processor> c{};
     assert(c.call_process<int>() == 6);
     assert(c.call_process<double>() == 6.0);
 

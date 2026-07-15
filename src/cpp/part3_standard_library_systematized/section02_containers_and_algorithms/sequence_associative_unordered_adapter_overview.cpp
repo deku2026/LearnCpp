@@ -38,7 +38,7 @@ int run(int /*argc*/, char** /*argv*/) {
     v.push_back(4);  // 尾插摊还 O(1); 可能扩容使全部迭代器失效
     assert(v.size() == 4 && v[0] == 1);
 
-    std::array<int, 3> a{10, 20, 30};
+    [[maybe_unused]] std::array<int, 3> a{10, 20, 30};
     assert(a[1] == 20);  // 定长, 迭代器不因“扩容”失效
 
     std::deque<int> d{1, 2};

@@ -35,7 +35,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     int a = 1;
     int b = 2;
-    auto sum_ref = [&] { return a + b; };
+    [[maybe_unused]] auto sum_ref = [&] { return a + b; };
     a = 10;
     b = 20;
     assert(sum_ref() == 30);
@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> v{3, 1, 4, 1, 5};
     int threshold = 2;
     // 比较/谓词在 sort/count 返回前就用完 → [&] 安全
-    const auto cnt = std::count_if(v.begin(), v.end(), [&](int x) { return x > threshold; });
+    [[maybe_unused]] const auto cnt = std::count_if(v.begin(), v.end(), [&](int x) { return x > threshold; });
     assert(cnt == 3);
 
     std::sort(v.begin(), v.end(), [&](int lhs, int rhs) {
@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 混合：默认引用，个别按值
     int secret = 99;
-    auto mix = [&, secret] { return secret + n; };
+    [[maybe_unused]] auto mix = [&, secret] { return secret + n; };
     secret = 0;
     assert(mix() == 99 + n);  // secret 仍是捕获时的 99
 

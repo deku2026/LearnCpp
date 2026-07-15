@@ -108,7 +108,7 @@ int run(int argc, char** argv) {
 
     // --- 再验证: 覆盖函数里能安全访问所有子对象成员 ---
     OnlyRightOverride o;
-    const auto o_addr = reinterpret_cast<std::uintptr_t>(&o);
+    [[maybe_unused]] const auto o_addr = reinterpret_cast<std::uintptr_t>(&o);
     Right* orp = &o;
     Left* olp = &o;
     orp->touch();

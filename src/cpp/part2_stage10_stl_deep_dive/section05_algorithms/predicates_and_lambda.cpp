@@ -31,18 +31,19 @@ int run(int /*argc*/, char** /*argv*/) {
     assert((v == std::vector<int>{9, 8, 5, 2, 1}));
 
     // find_if / count_if
-    auto it = std::find_if(v.begin(), v.end(), [](int x) { return x > 5; });
+    [[maybe_unused]] auto it = std::find_if(v.begin(), v.end(), [](int x) { return x > 5; });
     assert(it != v.end() && *it == 9);
-    const int evens = static_cast<int>(std::count_if(v.begin(), v.end(), [](int x) { return x % 2 == 0; }));
+    [[maybe_unused]] const int evens =
+        static_cast<int>(std::count_if(v.begin(), v.end(), [](int x) { return x % 2 == 0; }));
     assert(evens == 2);
 
     // 状态捕获: 闭包可带状态(注意别产生数据竞争)
     int threshold = 5;
-    auto big = std::count_if(v.begin(), v.end(), [threshold](int x) { return x > threshold; });
+    [[maybe_unused]] auto big = std::count_if(v.begin(), v.end(), [threshold](int x) { return x > threshold; });
     assert(big == 2);
 
     // 函数对象 / std::function 也可作谓词
-    std::greater<> gt;
+    [[maybe_unused]] std::greater<> gt;
     assert(std::is_sorted(v.begin(), v.end(), gt));
 
     // 结构体字段比较
@@ -55,7 +56,8 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(people.front().name == "Bob");
     assert(people.back().name == "Carol");
 
-    auto bob = std::find_if(people.begin(), people.end(), [](const Person& p) { return p.name == "Bob"; });
+    [[maybe_unused]] auto bob =
+        std::find_if(people.begin(), people.end(), [](const Person& p) { return p.name == "Bob"; });
     assert(bob != people.end() && bob->age == 25);
 
     // remove_if 谓词

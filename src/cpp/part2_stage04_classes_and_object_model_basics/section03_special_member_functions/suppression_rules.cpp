@@ -104,7 +104,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         UserCopyCtor c1{};
         c1.x = 3;
-        UserCopyCtor c2 = std::move(c1);
+        [[maybe_unused]] UserCopyCtor c2 = std::move(c1);
         assert(c1.x == 3);  // 仍是拷贝语义
         assert(c2.x == 3);
     }

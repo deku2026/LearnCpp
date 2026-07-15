@@ -27,7 +27,7 @@ int run(int argc, char** argv) {
 
     // strong: 值匹配则必成功
     int expected = 10;
-    bool ok = a.compare_exchange_strong(expected, 20);
+    [[maybe_unused]] bool ok = a.compare_exchange_strong(expected, 20);
     assert(ok);
     assert(a.load() == 20);
 

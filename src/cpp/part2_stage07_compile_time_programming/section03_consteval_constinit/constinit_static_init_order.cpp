@@ -113,7 +113,7 @@ int run(int argc, char** argv) {
     std::cout << "[advanced] after mutation g_table_size=" << g_table_size << " (constinit is NOT const)\n";
 
     // 证明不能当常量表达式：用运行期变量承接
-    const int n = g_table_size;
+    [[maybe_unused]] const int n = g_table_size;
     assert(n == 101);
     // constexpr int m = g_table_size; // 非法
 

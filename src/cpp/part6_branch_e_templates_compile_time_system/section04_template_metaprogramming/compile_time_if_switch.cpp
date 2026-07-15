@@ -78,7 +78,7 @@ int score(T v) {
 // variant 运行时 + 编译期 visitor
 using Var = std::variant<int, double, std::string>;
 
-std::string visit_var(const Var& v) {
+[[maybe_unused]] std::string visit_var(const Var& v) {
     return std::visit(
         [](const auto& x) -> std::string {
             using T = std::decay_t<decltype(x)>;

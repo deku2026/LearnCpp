@@ -54,7 +54,7 @@ int Depot::open_count = 0;  // 类外定义
 
 // const 默认内部链接：头中 `const int K = 1;` 各 TU 各一份副本（常见模式）
 // 若要跨 TU 同一实体: extern const int K; 并在一处定义。
-const int k_local_const = 5;
+[[maybe_unused]] const int k_local_const = 5;
 
 namespace {
 

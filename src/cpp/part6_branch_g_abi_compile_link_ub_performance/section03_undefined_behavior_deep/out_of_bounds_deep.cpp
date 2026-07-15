@@ -19,7 +19,7 @@
 
 namespace {
 
-int sum_span(std::span<const int> s) {
+[[maybe_unused]] int sum_span(std::span<const int> s) {
     int acc = 0;
     for (int v : s) {
         acc += v;
@@ -27,7 +27,7 @@ int sum_span(std::span<const int> s) {
     return acc;
 }
 
-bool index_ok(std::size_t i, std::size_t n) {
+[[maybe_unused]] bool index_ok(std::size_t i, std::size_t n) {
     return i < n;
 }
 

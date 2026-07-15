@@ -39,7 +39,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== [goto_and_labels] 入门：标签与无条件跳转 ===\n";
     {
-        int step = 0;
+        [[maybe_unused]] int step = 0;
         goto skip_zero;
         step = -1;  // 被跳过
     skip_zero:
@@ -62,7 +62,7 @@ int run(int argc, char** argv) {
     {
         const int grid[2][3] = {{1, 2, 3}, {4, 5, 6}};
         int r = -1, c = -1;
-        const int ok = search_grid(grid, 5, r, c);
+        [[maybe_unused]] const int ok = search_grid(grid, 5, r, c);
         assert(ok == 1 && r == 1 && c == 1);
         std::cout << "found 5 at (" << r << "," << c << ")\n";
 
@@ -71,8 +71,8 @@ int run(int argc, char** argv) {
         assert(search_grid(grid, 99, r, c) == 0);
 
         // C 风格资源清理：多出口汇到同一 label（C++ 优先 RAII）。
-        int resource = 0;
-        int status = 0;
+        [[maybe_unused]] int resource = 0;
+        [[maybe_unused]] int status = 0;
         {
             resource = 1;  // acquire
             const bool fail_mid = true;
@@ -92,7 +92,7 @@ int run(int argc, char** argv) {
     {
         // 规则：goto 不能从变量作用域外跳进“会跳过初始化”的位置。
         // 下面合法：跳到声明之前，或跳到已结束作用域之后。
-        int path = 0;
+        [[maybe_unused]] int path = 0;
         {
             if (true) {
                 goto after_block;

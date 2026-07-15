@@ -79,7 +79,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：三种机制对照 ===\n";
     constexpr int a = demo_is_constant_evaluated(10);
     static_assert(a == 11);
-    int b = demo_is_constant_evaluated(10);
+    [[maybe_unused]] int b = demo_is_constant_evaluated(10);
     assert(b == 12);
 
     static_assert(trait_branch(3) == 30);

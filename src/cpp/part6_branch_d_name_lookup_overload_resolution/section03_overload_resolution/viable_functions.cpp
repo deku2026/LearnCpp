@@ -16,18 +16,18 @@
 
 namespace {
 
-std::string h(double) {
+[[maybe_unused]] std::string h(double) {
     return "double";
 }
-std::string h(const char*) {
+[[maybe_unused]] std::string h(const char*) {
     return "cstr";
 }
 // std::string h(int) = delete; // 若存在且最佳 → 硬错误
 
-std::string pick(int) {
+[[maybe_unused]] std::string pick(int) {
     return "int";
 }
-std::string pick(int*) {
+[[maybe_unused]] std::string pick(int*) {
     return "int*";
 }
 
@@ -42,7 +42,7 @@ int run(int argc, char** argv) {
     assert(h(3.14) == "double");
     assert(h(2) == "double");  // int→double 转换，cstr 不可行
 
-    int x = 0;
+    [[maybe_unused]] int x = 0;
     assert(pick(x) == "int");
     assert(pick(&x) == "int*");
 

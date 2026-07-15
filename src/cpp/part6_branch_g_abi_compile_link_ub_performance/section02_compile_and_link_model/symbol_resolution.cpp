@@ -25,7 +25,7 @@ Fn pick() {
 }
 
 // ODR: 同一实体一个定义（本演示单 TU）
-inline int inline_helper() {
+[[maybe_unused]] inline int inline_helper() {
     return 1;
 }
 
@@ -35,7 +35,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G5 symbol resolution ===\n";
 
-    Fn f = pick();
+    [[maybe_unused]] Fn f = pick();
     assert(f() == 100);
     assert(inline_helper() == 1);
 

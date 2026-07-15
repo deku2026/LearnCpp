@@ -30,7 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：双 reverse 恒等 + filter 组合 ===\n";
     {
         std::vector<int> v{1, 2, 3, 4, 5};
-        auto back = v | std::views::reverse | std::views::reverse;
+        [[maybe_unused]] auto back = v | std::views::reverse | std::views::reverse;
         assert(std::ranges::equal(back, v));
 
         std::vector<int> odd_rev;

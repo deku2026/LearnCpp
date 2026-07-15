@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：const 对象参数
     // -------------------------------------------------------------------------
-    const Explicit ce = e;
+    [[maybe_unused]] const Explicit ce = e;
     assert(ce.get() == 11);
     // ce.bump(); // ❌ self 需要 Explicit&
     assert(ce.x_ref() == 11);  // const 左值 → const int&

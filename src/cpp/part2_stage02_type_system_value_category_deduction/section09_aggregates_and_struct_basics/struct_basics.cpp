@@ -78,7 +78,7 @@ int run(int argc, char** argv) {
         assert(p.x == 3 && p.y == 4);
 
         // 聚合初始化（细节见下一题）
-        Point q{10, 20};
+        [[maybe_unused]] Point q{10, 20};
         assert(q.x + q.y == 30);
 
         Account acc{100.0};
@@ -103,10 +103,10 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 专家：继承默认；何时用 struct ===\n";
     {
-        PublicDerived pd;
+        [[maybe_unused]] PublicDerived pd;
         assert(pd.b == 1 && pd.d == 2);  // b 因 public 继承可见
 
-        PrivateDerived pr;
+        [[maybe_unused]] PrivateDerived pr;
         // pr.b;  // ❌ private 继承
         assert(pr.peek() == 1);
 

@@ -23,7 +23,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     auto square = [](int n) constexpr { return n * n; };
     static_assert(square(5) == 25);
-    std::array<int, square(3)> arr{};  // 界 = 9
+    [[maybe_unused]] std::array<int, square(3)> arr{};  // 界 = 9
     assert(arr.size() == 9);
     std::cout << "[intro] constexpr lambda usable in static_assert / array bound\n";
 
@@ -37,7 +37,7 @@ int run(int /*argc*/, char** /*argv*/) {
     constexpr auto mul = [](int a, int b) { return a * b; };
     static_assert(mul(4, 5) == 20);
     // 运行期也可调
-    int x = 6;
+    [[maybe_unused]] int x = 6;
     assert(mul(x, 7) == 42);
     std::cout << "[advanced] implicit constexpr call op when body qualifies\n";
 
@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 捕获运行期值时只能运行期调用（不能 static_assert 这次调用）
     int runtime = 10;
-    auto add_rt = [runtime](int n) { return n + runtime; };
+    [[maybe_unused]] auto add_rt = [runtime](int n) { return n + runtime; };
     assert(add_rt(5) == 15);
 
     // C++20 consteval lambda：只允许编译期

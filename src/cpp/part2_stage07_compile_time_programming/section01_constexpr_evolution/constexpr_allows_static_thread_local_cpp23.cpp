@@ -91,7 +91,7 @@ constexpr int demo_branch(int x) {
 }
 
 // 运行期：展示函数体内可以出现 label（不参与 static_assert）
-int runtime_goto_demo(int x) {
+[[maybe_unused]] int runtime_goto_demo(int x) {
     if (x == 0) {
         goto zero_case;
     }

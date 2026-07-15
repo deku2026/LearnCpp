@@ -52,7 +52,7 @@ int run(int argc, char** argv) {
         const Box& keep = make_box();
         assert(Box::live == 1);
         assert(keep.data().size() == 3);
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         for (const auto& s : keep.data()) {
             ++n;
             (void)s;
@@ -69,7 +69,7 @@ int run(int argc, char** argv) {
     // 对照：先按值拥有父对象
     {
         auto parent = make_box();
-        auto&& r = parent.data();
+        [[maybe_unused]] auto&& r = parent.data();
         assert(r.size() == 3);
         assert(r[0] == "a");
     }
@@ -78,7 +78,7 @@ int run(int argc, char** argv) {
     // const std::string& d = first_of(std::vector<std::string>{"x"}); // 悬垂
     {
         std::vector<std::string> owned{"x", "y"};
-        const std::string& f = first_of(owned);
+        [[maybe_unused]] const std::string& f = first_of(owned);
         assert(f == "x");
     }
 
@@ -86,12 +86,12 @@ int run(int argc, char** argv) {
     // const std::string& d2 = id_str(std::string("tmp")); // 悬垂
     {
         std::string owned = "live";
-        const std::string& r = id_str(owned);
+        [[maybe_unused]] const std::string& r = id_str(owned);
         assert(r == "live");
     }
 
     // 返回局部 string 的 string_view —— 统一悬垂模型；改返回 string
-    auto good = []() -> std::string { return "ok"; };
+    [[maybe_unused]] auto good = []() -> std::string { return "ok"; };
     assert(good() == "ok");
 
     // --- 专家: 验收话术 ---

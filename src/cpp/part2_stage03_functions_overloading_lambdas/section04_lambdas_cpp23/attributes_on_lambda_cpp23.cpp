@@ -21,7 +21,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：[[nodiscard]] 提醒勿丢返回值
     // -------------------------------------------------------------------------
     auto make_id = [] [[nodiscard]] () -> int { return 42; };
-    const int id = make_id();  // 使用返回值
+    [[maybe_unused]] const int id = make_id();  // 使用返回值
     assert(id == 42);
     // (void)make_id(); 或直接丢弃返回值时，编译器可能告警
     std::cout << "[intro] [[nodiscard]] on lambda call operator\n";
@@ -34,7 +34,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(sq(5) == 25);
 
     int n = 1;
-    auto bump = [n] [[nodiscard]] () mutable { return ++n; };
+    [[maybe_unused]] auto bump = [n] [[nodiscard]] () mutable { return ++n; };
     assert(bump() == 2);
     assert(bump() == 3);
 
@@ -43,25 +43,32 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(one() == 1);
 
     // static + 属性（无捕获）
-    auto twice = [] [[nodiscard]] (int x) static { return x * 2; };
+    [[maybe_unused]] auto twice = [] [[nodiscard]] (int x) static { return x * 2; };
     assert(twice(21) == 42);
     std::cout << "[advanced] attributes + constexpr/noexcept/mutable/static\n";
 
     // -------------------------------------------------------------------------
     // §专家：deprecated、语法位置、类型擦除边界
     // -------------------------------------------------------------------------
-    auto legacy = [] [[deprecated("use new_api")]] () { return 0; };
+    [[maybe_unused]] auto legacy = [] [[deprecated("use new_api")]] () { return 0; };
     // 调用可能产生弃用警告——本文件刻意调用一次以保留可运行路径
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
     assert(legacy() == 0);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
     // 属性写在 lambda 声明符上，作用于生成的调用运算符（不是捕获列表本身）
     // 无标准属性「强制内联」；[[nodiscard]] 与函数上同语义，实现可忽略未知属性。
     // 经 std::function 类型擦除后，nodiscard 通常不会穿透包装边界。
-    auto raw = [] [[nodiscard]] (int x) { return x + 1; };
+    [[maybe_unused]] auto raw = [] [[nodiscard]] (int x) { return x + 1; };
     assert(raw(1) == 2);
 
     // 与尾置返回并用
-    auto unit = [] [[nodiscard]] () -> int { return 1; };
+    [[maybe_unused]] auto unit = [] [[nodiscard]] () -> int { return 1; };
     assert(unit() == 1);
 
     std::cout << "[expert] lambda attributes annotate the call operator (P1102-era syntax)\n";

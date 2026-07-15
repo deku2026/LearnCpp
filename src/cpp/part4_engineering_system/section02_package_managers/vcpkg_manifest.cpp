@@ -34,7 +34,7 @@ struct Manifest {
     std::string triplet;           // x64-windows / x64-linux-static ...
 };
 
-bool is_reproducible(const Manifest& m) {
+[[maybe_unused]] bool is_reproducible(const Manifest& m) {
     return !m.builtin_baseline.empty() && m.builtin_baseline.size() >= 7;
 }
 
@@ -94,7 +94,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(r[0].exact_version == "10.2.1");
 
     // version>= 约束检查
-    auto ge_ok = [](std::string_view have, std::string_view need) {
+    [[maybe_unused]] auto ge_ok = [](std::string_view have, std::string_view need) {
         return have >= need;  // 简化: 同位数字串比较对 1.84 够用
     };
     assert(ge_ok("1.84.0", "1.84.0"));
@@ -105,7 +105,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  CMAKE_TOOLCHAIN_FILE=" << tc << '\n';
 
     // classic 模式坑: 全局 installed/ 不在仓库 → CI 没有
-    const bool use_manifest_in_ci = true;
+    [[maybe_unused]] const bool use_manifest_in_ci = true;
     assert(use_manifest_in_ci);
     std::cout << "  discipline: manifest+baseline in repo, not classic global\n";
 

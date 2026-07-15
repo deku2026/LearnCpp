@@ -29,7 +29,7 @@
 namespace {
 
 // 两路径共用的业务函数(不依赖引入方式差异)
-int sum_vec(const std::vector<int>& v) {
+[[maybe_unused]] int sum_vec(const std::vector<int>& v) {
     return std::accumulate(v.begin(), v.end(), 0);
 }
 
@@ -66,7 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // #else
     //   #include <vector>
     // #endif
-    const bool gate_ready = false;  // 工程默认未开
+    [[maybe_unused]] const bool gate_ready = false;  // 工程默认未开
     assert(!gate_ready || cfg.import_std);
     std::cout << "  set LEARN_USE_IMPORT_STD=1 only on known-good toolchains\n";
 

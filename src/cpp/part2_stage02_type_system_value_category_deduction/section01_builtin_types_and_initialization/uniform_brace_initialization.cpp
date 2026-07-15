@@ -33,12 +33,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：一种语法覆盖多种类型
     // -------------------------------------------------------------------------
-    int n{};        // 值初始化 → 0
-    double x{1.5};  // 直接列表初始化
-    bool ok{true};
-    std::string s{"hi"};  // 调用匹配的构造
-    int arr[3]{1, 2, 3};  // 聚合式
-    Point p{10, 20};      // 聚合
+    [[maybe_unused]] int n{};        // 值初始化 → 0
+    [[maybe_unused]] double x{1.5};  // 直接列表初始化
+    [[maybe_unused]] bool ok{true};
+    std::string s{"hi"};                   // 调用匹配的构造
+    [[maybe_unused]] int arr[3]{1, 2, 3};  // 聚合式
+    [[maybe_unused]] Point p{10, 20};      // 聚合
 
     assert(n == 0 && x == 1.5 && ok);
     assert(s == "hi");
@@ -57,7 +57,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 嵌套与返回
     auto make_point = []() -> Point { return {3, 4}; };  // 返回聚合
-    Point q = make_point();
+    [[maybe_unused]] Point q = make_point();
     assert(q.x == 3 && q.y == 4);
 
     // 容器：元素列表
@@ -82,7 +82,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(hijack.size() == 2);
 
     // 空花括号 T{} 在表达式中也是值初始化的 prvalue
-    int zero = int{};
+    [[maybe_unused]] int zero = int{};
     assert(zero == 0);
 
     std::cout << "[expert] prefer {}; know initializer_list + MVP exceptions\n";

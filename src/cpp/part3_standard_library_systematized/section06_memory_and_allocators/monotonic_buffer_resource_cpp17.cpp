@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 缓冲耗尽 → bad_alloc（null upstream） ===\n";
     {
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             std::pmr::vector<std::byte> huge{&pool};
             // 试图超过剩余缓冲

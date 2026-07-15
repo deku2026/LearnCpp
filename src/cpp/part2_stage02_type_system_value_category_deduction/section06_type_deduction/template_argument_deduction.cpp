@@ -93,7 +93,7 @@ int run(int argc, char** argv) {
         static_assert(std::is_same_v<decltype(by_lref_id(a)), int&>);
         static_assert(std::is_same_v<decltype(by_lref_id(ca)), const int&>);
 
-        int arr[4]{1, 2, 3, 4};
+        [[maybe_unused]] int arr[4]{1, 2, 3, 4};
         assert(is_ptr_param(arr));  // T = int*
         // 若写成 T (&)[N] 则保留数组
 

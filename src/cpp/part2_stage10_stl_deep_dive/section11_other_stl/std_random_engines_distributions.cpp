@@ -32,6 +32,7 @@ int run(int /*argc*/, char** /*argv*/) {
             rolls.push_back(dist(eng));
         }
         for (int r : rolls) {
+            (void)r;
             assert(r >= 1 && r <= 6);
         }
         // 同种子应复现

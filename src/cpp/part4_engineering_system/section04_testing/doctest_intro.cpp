@@ -66,7 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 嵌入思想: DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 可放 tests;
     // 或 DOCTEST_CONFIG_DISABLE 在生产关闭
-    const bool can_disable_in_prod = true;
+    [[maybe_unused]] const bool can_disable_in_prod = true;
     assert(can_disable_in_prod);
 
     // 编译速度: 单头 + 轻宏 → 适合大量小测试 TU

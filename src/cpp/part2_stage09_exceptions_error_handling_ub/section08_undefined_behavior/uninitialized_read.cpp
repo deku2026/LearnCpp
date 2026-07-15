@@ -25,10 +25,10 @@ struct Point {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [uninitialized_read] 主干：声明即初始化 ===\n";
     {
-        int x = 0;  // ✅
+        [[maybe_unused]] int x = 0;  // ✅
         assert(x == 0);
 
-        Point p;  // 成员已有默认值
+        [[maybe_unused]] Point p;  // 成员已有默认值
         assert(p.x == 0 && p.y == 0);
 
         std::vector<int> v(3);  // 值初始化为 0

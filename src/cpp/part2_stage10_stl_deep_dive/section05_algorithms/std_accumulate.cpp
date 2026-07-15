@@ -39,7 +39,8 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "double with 0.0 => " << ok << "; with int 0 => " << bad << " (truncated!)\n";
 
         std::vector<int> v{3, 1, 4, 1, 5};
-        const int mx = std::accumulate(v.begin(), v.end(), v.front(), [](int a, int b) { return a > b ? a : b; });
+        [[maybe_unused]] const int mx =
+            std::accumulate(v.begin(), v.end(), v.front(), [](int a, int b) { return a > b ? a : b; });
         assert(mx == 5);
 
         std::vector<std::string> parts{"Hello", ", ", "STL"};
@@ -60,7 +61,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // C++23 更推荐 ranges::fold_left（接管道、类型更干净）——见 section08
         std::vector<int> v{1, 2, 3, 4, 5};
-        const int sum = std::accumulate(v.begin(), v.end(), 0);
+        [[maybe_unused]] const int sum = std::accumulate(v.begin(), v.end(), 0);
         assert(sum == 15);
         std::cout << "left-fold order + empty init OK\n";
     }

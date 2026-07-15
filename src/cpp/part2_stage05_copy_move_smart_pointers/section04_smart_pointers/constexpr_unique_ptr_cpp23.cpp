@@ -57,7 +57,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(v == 42);
     std::cout << "constexpr compute_with_unique_ptr=" << v << '\n';
 
-    constexpr int s = sum_buffer();
+    [[maybe_unused]] constexpr int s = sum_buffer();
     assert(s == 10);
 
     // 运行期同样可用

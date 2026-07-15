@@ -81,8 +81,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // · C 变参：运行期、无类型安全。
     // 完美转发模式（阶段 5/6）：
     //   template<class... A> void emplace(A&&... a) { ctor(std::forward<A>(a)...); }
-    auto fwd_identity = []<class T>(T&& x) -> T&& { return std::forward<T>(x); };
-    int n = 5;
+    [[maybe_unused]] auto fwd_identity = []<class T>(T&& x) -> T&& { return std::forward<T>(x); };
+    [[maybe_unused]] int n = 5;
     assert(fwd_identity(n) == 5);
     assert(fwd_identity(std::string{"z"}).size() == 1);
 

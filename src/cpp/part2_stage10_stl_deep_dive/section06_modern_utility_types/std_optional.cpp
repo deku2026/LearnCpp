@@ -45,7 +45,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 进阶：解析 API + emplace + 比较 ===\n";
     {
-        auto p = parse_positive("17");
+        [[maybe_unused]] auto p = parse_positive("17");
         assert(p && *p == 17);
         assert(!parse_positive("-3"));
         assert(!parse_positive("x"));
@@ -54,12 +54,14 @@ int run(int /*argc*/, char** /*argv*/) {
         name.emplace(5, 'x');
         assert(*name == "xxxxx");
 
-        std::optional<int> x{3}, y{3}, z{4};
+        [[maybe_unused]] std::optional<int> x{3}, y{3}, z{4};
+        (void)z;
+        (void)y;
         assert(x == y && x < z);
         assert(std::nullopt < x);  // 空小于任何有值（默认序）
 
         // in_place 构造
-        std::optional<std::pair<int, int>> pr{std::in_place, 1, 2};
+        [[maybe_unused]] std::optional<std::pair<int, int>> pr{std::in_place, 1, 2};
         assert(pr->first == 1 && pr->second == 2);
         std::cout << "parse/emplace/compare OK\n";
     }
@@ -68,7 +70,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::optional<int> empty;
         // *empty; // ⚠️ UB：禁止
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             (void)empty.value();
         } catch (const std::bad_optional_access&) {
@@ -77,11 +79,11 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(threw);
 
         // 安全模式：if / value_or / and_then(C++23 见 monadic 文件)
-        int safe = empty.value_or(0);
+        [[maybe_unused]] int safe = empty.value_or(0);
         assert(safe == 0);
 
         // 返回 optional 表达「可能失败」，比 sentinel -1 更清晰
-        auto maybe = parse_positive("0");
+        [[maybe_unused]] auto maybe = parse_positive("0");
         assert(!maybe);
         std::cout << "bad_optional_access + safe access OK\n";
     }

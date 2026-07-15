@@ -57,7 +57,7 @@ struct Brush<int> {
 // 对比：非 inline 嵌套不会把名字提升到外层
 namespace toolbox {
 namespace nested {
-constexpr int k = 3;
+[[maybe_unused]] constexpr int k = 3;
 }
 // 若写成 inline namespace nested，则 toolbox::k 可用
 }  // namespace toolbox
@@ -101,7 +101,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] non-inline nested names stay qualified only\n";
 
     // 显式特化落在父命名空间
-    paintlib::Brush<int> bi{};
+    [[maybe_unused]] paintlib::Brush<int> bi{};
     assert(bi.tip == 7);
     assert(paintlib::Brush<int>::version == 2);
     std::cout << "[advanced] explicit specialization in parent ns works with inline versioning\n";

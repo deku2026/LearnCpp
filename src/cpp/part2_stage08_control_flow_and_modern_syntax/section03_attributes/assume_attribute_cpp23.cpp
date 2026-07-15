@@ -32,7 +32,7 @@ void scale_by_two(int* data, int n) {
     }
 }
 
-int sum_positive_length(const std::vector<int>& v) {
+[[maybe_unused]] int sum_positive_length(const std::vector<int>& v) {
     const int n = static_cast<int>(v.size());
     [[assume(n >= 0)]];  // size 转 int 后仍非负（向量不过大时）
     int s = 0;

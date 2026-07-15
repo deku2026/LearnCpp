@@ -47,7 +47,7 @@ public:
     const std::string& name() const { return name_; }
 };
 
-int cheap_by_value(int x) {
+[[maybe_unused]] int cheap_by_value(int x) {
     return x + 1;
 }
 
@@ -78,7 +78,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 只读大对象：const& 零拷贝
     const std::vector<int> big(1000, 7);
-    auto sum_const_ref = [](const std::vector<int>& v) {
+    [[maybe_unused]] auto sum_const_ref = [](const std::vector<int>& v) {
         long long s = 0;
         for (int x : v) {
             s += x;

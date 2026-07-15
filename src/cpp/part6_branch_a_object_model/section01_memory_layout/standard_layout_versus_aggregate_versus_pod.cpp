@@ -131,11 +131,11 @@ int run(int argc, char** argv) {
     assert(!std::is_standard_layout_v<HasRef>);
 
     // --- 聚合初始化 vs 非聚合 ---
-    AggregateOk ag{1, 2};
+    [[maybe_unused]] AggregateOk ag{1, 2};
     assert(ag.x == 1 && ag.y == 2);
     assert(std::is_aggregate_v<AggregateOk>);
     assert(!std::is_aggregate_v<NonAggregate>);
-    NonAggregate na;  // 只能默认构造, 不能 NonAggregate{1} 作为聚合 init
+    [[maybe_unused]] NonAggregate na;  // 只能默认构造, 不能 NonAggregate{1} 作为聚合 init
     assert(na.x == 0 || true);
 
     // --- 工程含义一句话 ---

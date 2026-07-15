@@ -75,7 +75,15 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：自移动赋值
     // -------------------------------------------------------------------------
     Buffer f{5, 1};
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
     f = std::move(f);  // 标准要求程序应能处理；我们的实现 this==&o 直接返回
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
     // 自移动后状态：我们保持原样
     assert(f.size() == 5);
     assert(f.at(0) == 1);

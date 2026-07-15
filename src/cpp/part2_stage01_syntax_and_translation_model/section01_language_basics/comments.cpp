@@ -34,7 +34,7 @@ constexpr int masked_sum() {
 // 错误形态: /* outer /* inner */ still-in-comment? */  —— 内层 */ 提前结束外层。
 // 安全注释掉大段含 /* */ 的代码: 用 #if 0 ... #endif（预处理器，阶段 4）。
 
-int count_slashes_in_doc(std::string_view s) {
+[[maybe_unused]] int count_slashes_in_doc(std::string_view s) {
     int n = 0;
     for (char c : s) {
         if (c == '/') {
@@ -50,7 +50,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：两种写法与行尾注释
     // -------------------------------------------------------------------------
-    int score = 0;  // 行尾注释：说明局部意图即可
+    [[maybe_unused]] int score = 0;  // 行尾注释：说明局部意图即可
     score += token_a + token_b;
     assert(token_a == 7 && token_b == 11);
     assert(masked_sum() == 40);
@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[pitfall] y/(*z)=" << x << " (avoid y/*z which opens a comment)\n";
 
     // 字符串与字符字面量里的 // 和 /* 不是注释
-    const char* url = "https://example.com/*not-a-comment*/";
+    [[maybe_unused]] const char* url = "https://example.com/*not-a-comment*/";
     const std::string path = "C:\\docs//notes";  // 两个 / 在字符串内
     assert(std::string_view{url}.find("/*") != std::string_view::npos);
     assert(count_slashes_in_doc(path) == 2);

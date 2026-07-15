@@ -37,13 +37,13 @@ int run(int argc, char** argv) {
     {
         // 注释与字符串均可含非 ASCII（源文件 UTF-8）
         // 注释：π、中文、emoji 意图
-        const char* pi_in_comment_demo = "π";
+        [[maybe_unused]] const char* pi_in_comment_demo = "π";
         const char* hello_zh = "你好";
         assert(std::string_view{pi_in_comment_demo}.size() >= 2);  // UTF-8 多字节
         assert(std::string_view{hello_zh}.size() == 6);            // 3+3 bytes in UTF-8
 
         // 推荐：意图是 UTF-8 码元序列时用 u8 字面值（元素 char8_t）
-        const char8_t* u8zh = u8"你好";
+        [[maybe_unused]] const char8_t* u8zh = u8"你好";
         assert(u8zh[0] != 0);
         std::cout << "[intro] ordinary string holds UTF-8 bytes if source is UTF-8\n";
         std::cout << "  hello_zh bytes=" << std::string_view{hello_zh}.size() << '\n';
@@ -57,11 +57,11 @@ int run(int argc, char** argv) {
         // char32_t  —— UTF-32 码元
         // wchar_t   —— 宽字符，宽度实现定义（可移植性差）
 
-        const char* ordinary = "A";
+        [[maybe_unused]] const char* ordinary = "A";
         const char8_t* u8s = u8"A";
         const char16_t* u16 = u"A";
         const char32_t* u32 = U"A";
-        const wchar_t* wide = L"A";
+        [[maybe_unused]] const wchar_t* wide = L"A";
 
         static_assert(std::is_same_v<decltype(u8s), const char8_t*>);
         static_assert(std::is_same_v<decltype(u16), const char16_t*>);
@@ -74,7 +74,7 @@ int run(int argc, char** argv) {
         assert(wide[0] == L'A');
 
         // 与转义配合（回顾步骤 10.1/10.2）
-        const char8_t* mixed = u8"\u{03C0}";  // π
+        [[maybe_unused]] const char8_t* mixed = u8"\u{03C0}";  // π
         assert(mixed[0] != 0);
 
         std::cout << "[advanced] prefer u8 for portable UTF-8 text data\n";
@@ -91,7 +91,7 @@ int run(int argc, char** argv) {
         // 🔶 Qt：QString 内部 UTF-16；源 UTF-8 + QStringLiteral/u8 转 QString
         //    可减少「源编码各异」导致的中文乱码。
 
-        std::u8string_view sv = u8"C++23";
+        [[maybe_unused]] std::u8string_view sv = u8"C++23";
         assert(sv.size() == 5);
 
 #if defined(__cpp_unicode_literals)

@@ -55,7 +55,7 @@ int run(int argc, char** argv) {
         std::list<int> L{10, 20, 30};
         auto a = L.begin();
         auto b = std::next(a);
-        auto c = std::next(b);
+        [[maybe_unused]] auto c = std::next(b);
         L.erase(b);  // 仅 b 失效
         assert(*a == 10);
         assert(*c == 30);

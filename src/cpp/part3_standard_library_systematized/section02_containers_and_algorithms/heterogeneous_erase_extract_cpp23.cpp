@@ -39,7 +39,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[intro] heterogeneous find(\"beta\")=" << it->second << '\n';
 
     // 异质 erase (C++23 在支持透明比较时提供)
-    const auto erased = m.erase(std::string_view{"alpha"});
+    [[maybe_unused]] const auto erased = m.erase(std::string_view{"alpha"});
     assert(erased == 1);
     assert(!m.contains(std::string_view{"alpha"}));
     std::cout << "[advanced] heterogeneous erase alpha, size=" << m.size() << '\n';

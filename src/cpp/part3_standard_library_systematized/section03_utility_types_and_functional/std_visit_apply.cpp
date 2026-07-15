@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // apply: 展开 tuple 为函数参数
     std::tuple<int, double, std::string> t{1, 2.5, "hi"};
-    const int sum_lens = std::apply(
+    [[maybe_unused]] const int sum_lens = std::apply(
         [](int a, double b, const std::string& c) { return a + static_cast<int>(b) + static_cast<int>(c.size()); }, t);
     assert(sum_lens == 1 + 2 + 2);
 
@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // holds_alternative / get_if 对照
     assert(std::holds_alternative<int>(std::variant<int, std::string>{1}));
-    const auto* pi = std::get_if<int>(&v);
+    [[maybe_unused]] const auto* pi = std::get_if<int>(&v);
     assert(pi == nullptr);  // v 当前是 string
     assert(std::get_if<std::string>(&v) != nullptr);
 

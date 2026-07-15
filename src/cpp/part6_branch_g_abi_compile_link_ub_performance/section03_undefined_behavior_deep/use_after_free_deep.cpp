@@ -48,7 +48,7 @@ int run(int argc, char** argv) {
 
     // 迭代器失效相关: 先保留值再修改容器
     std::vector<int> v{1, 2, 3};
-    int first = v.front();
+    [[maybe_unused]] int first = v.front();
     v.push_back(4);  // 可能重分配
     assert(first == 1);
 

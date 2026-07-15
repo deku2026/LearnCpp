@@ -39,7 +39,7 @@ LEARN_HIDDEN int internal_helper(int x) {
 namespace {
 
 // 匿名命名空间: 内部链接, 不导出（不可与 dllexport 组合）
-int tu_local(int x) {
+[[maybe_unused]] int tu_local(int x) {
     return x - 1;
 }
 

@@ -74,7 +74,14 @@ int run(int argc, char** argv) {
         // std::move(i) 是 xvalue → int&&
         static_assert(std::is_same_v<decltype(std::move(i)), int&&>);
         // 前置 ++ 是 lvalue → int&
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunevaluated-expression"
+#endif
         static_assert(std::is_same_v<decltype(++i), int&>);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
         // 函数返回值形态决定
         auto by_value = []() -> int { return 0; };

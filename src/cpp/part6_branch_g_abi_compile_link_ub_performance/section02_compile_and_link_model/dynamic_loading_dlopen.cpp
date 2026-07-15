@@ -43,7 +43,7 @@ int run(int argc, char** argv) {
     // 加载系统库演示 API (不加载自己, 避免路径问题)
     HMODULE mod = LoadLibraryA("kernel32.dll");
     if (mod) {
-        auto proc = reinterpret_cast<void*>(GetProcAddress(mod, "GetTickCount"));
+        [[maybe_unused]] auto proc = reinterpret_cast<void*>(GetProcAddress(mod, "GetTickCount"));
         assert(proc != nullptr);
         FreeLibrary(mod);
         std::cout << "  LoadLibrary(kernel32) + GetProcAddress(GetTickCount) OK\n";

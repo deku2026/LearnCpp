@@ -16,7 +16,7 @@ namespace {
 enum class Shape { Circle, Square, Triangle };
 
 // 穷尽三分支; default 标 unreachable, 便于编译器优化 / 警告
-std::string name_of(Shape s) {
+[[maybe_unused]] std::string name_of(Shape s) {
     switch (s) {
         case Shape::Circle:
             return "circle";
@@ -29,7 +29,7 @@ std::string name_of(Shape s) {
     std::unreachable();
 }
 
-int checked_div(int a, int b) {
+[[maybe_unused]] int checked_div(int a, int b) {
     if (b == 0) {
         // 调用方契约: b != 0; 用 assert 拦调试, 发布路径可 unreachable
         assert(b != 0);

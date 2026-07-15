@@ -20,7 +20,7 @@ namespace {
 // 模拟 cppcheck 能抓的模式(我们用安全代码演示「如何写才过关」)
 
 // nullPointer: 解引用前检查
-int deref_safe(const int* p) {
+[[maybe_unused]] int deref_safe(const int* p) {
     if (p == nullptr) {
         return -1;
     }
@@ -28,14 +28,14 @@ int deref_safe(const int* p) {
 }
 
 // unreadVariable / unusedVariable
-int compute() {
+[[maybe_unused]] int compute() {
     int x = 1;
     int y = 2;
     return x + y;  // 都读了
 }
 
 // arrayIndexOutOfBounds 的安全版本
-int at_checked(const std::vector<int>& v, std::size_t i) {
+[[maybe_unused]] int at_checked(const std::vector<int>& v, std::size_t i) {
     if (i >= v.size()) {
         return 0;
     }
@@ -69,7 +69,7 @@ std::vector<Finding> analyze_snippet_null_deref_fixed() {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== cppcheck_setup ===\n";
 
-    int v = 7;
+    [[maybe_unused]] int v = 7;
     assert(deref_safe(&v) == 7);
     assert(deref_safe(nullptr) == -1);
     assert(compute() == 3);
@@ -86,7 +86,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(h.id() == 42);
 
     // CLI: cppcheck --enable=all --std=c++23 src/
-    const char* enable = "all";
+    [[maybe_unused]] const char* enable = "all";
     assert(std::string_view(enable) == "all");
     std::cout << "  tip: cppcheck --enable=all --std=c++23 (no full compile)\n";
 

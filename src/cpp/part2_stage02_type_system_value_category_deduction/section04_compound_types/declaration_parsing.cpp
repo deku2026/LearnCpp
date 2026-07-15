@@ -34,8 +34,8 @@ int run(int /*argc*/, char** /*argv*/) {
     int x = 1;
     int* p = &x;
     int& r = x;
-    const int* pc = &x;
-    int* const cp = &x;
+    [[maybe_unused]] const int* pc = &x;
+    [[maybe_unused]] int* const cp = &x;
     assert(*p == 1 && r == 1 && *pc == 1 && *cp == 1);
     static_assert(std::is_same_v<decltype(p), int*>);
     static_assert(std::is_same_v<decltype(r), int&>);
@@ -46,12 +46,14 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // [] 和 () 比 * 更紧
     int arr[3]{1, 2, 3};
-    int* ptrs[3]{&arr[0], &arr[1], &arr[2]};  // 数组，元素是 int*
-    int (*parr)[3] = &arr;                    // 指向“3 个 int 的数组”的指针
+    [[maybe_unused]] int* ptrs[3]{&arr[0], &arr[1], &arr[2]};  // 数组，元素是 int*
+    int (*parr)[3] = &arr;                                     // 指向“3 个 int 的数组”的指针
+    (void)parr;
     assert(*ptrs[1] == 2);
     assert((*parr)[2] == 3);
 
     int (*fp)(int, int) = &add;  // 函数指针
+    (void)fp;
     assert(fp(2, 3) == 5);
 
     // 引用数组？数组的引用：
@@ -71,17 +73,18 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     using Int = int;
     using IntPtr = Int*;
+    [[maybe_unused]] IntPtr _alias_probe = nullptr;
     using Func = int(int, int);
     using FuncPtr = Func*;
-    FuncPtr fp2 = add;
+    [[maybe_unused]] FuncPtr fp2 = add;
     assert(fp2(4, 5) == 9);
 
     using Arr3 = int[3];
-    Arr3& ref_to_arr = arr;
+    [[maybe_unused]] Arr3& ref_to_arr = arr;
     assert(ref_to_arr[0] == 9);
 
     // C++11 起：右值引用
-    int&& rr = 1;
+    [[maybe_unused]] int&& rr = 1;
     assert(rr == 1);
 
     // const 出现位置

@@ -43,7 +43,7 @@ int cost_with_pch(const std::vector<HeaderCost>& common, int translation_units, 
 }
 
 // 哪些头适合进 PCH
-bool stable_enough_for_pch(std::string_view path, int churn_per_week) {
+[[maybe_unused]] bool stable_enough_for_pch(std::string_view path, int churn_per_week) {
     if (path.find("third_party/") != std::string_view::npos) {
         return churn_per_week == 0;
     }
@@ -76,12 +76,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // CMake 写法(文档):
     // target_precompile_headers(myapp PRIVATE <vector> <string>)
     // REUSE_FROM 可让 test target 复用 app 的 PCH
-    const bool cmake_api = true;
+    [[maybe_unused]] const bool cmake_api = true;
     assert(cmake_api);
     std::cout << "  CMake: target_precompile_headers(tgt PRIVATE <vector>...)\n";
 
     // 专家: PCH 与 sccache — 缓存键含 PCH 输入; 改 PCH 列表会大面积失效
-    int cache_invalidations_when_pch_list_changes = tus;  // 所有依赖 TU
+    [[maybe_unused]] int cache_invalidations_when_pch_list_changes = tus;  // 所有依赖 TU
     assert(cache_invalidations_when_pch_list_changes == tus);
     std::cout << "  note: changing PCH inputs invalidates ~" << tus << " TUs\n";
 

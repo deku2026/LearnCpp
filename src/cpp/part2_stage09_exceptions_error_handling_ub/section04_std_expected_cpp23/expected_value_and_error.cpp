@@ -33,7 +33,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：value() 在错误时抛 bad_expected_access ===\n";
     {
         std::expected<int, std::string> err = std::unexpected(std::string{"E"});
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             (void)err.value();
             assert(false);

@@ -65,6 +65,7 @@ int run(int /*argc*/, char** /*argv*/) {
         auto r = fetch(1);
         assert(std::holds_alternative<Success>(r));
         if (auto* s = std::get_if<Success>(&r)) {
+            (void)s;
             assert(s->value == 100);
         }
         std::cout << "get_if Success value=100\n";

@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 空 function 调用抛 bad_function_call
     std::function<void()> empty;
     assert(!empty);
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         empty();
     } catch (const std::bad_function_call&) {

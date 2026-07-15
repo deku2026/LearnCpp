@@ -52,7 +52,7 @@ int run(int argc, char** argv) {
     assert(Holder::live == 0);
 
     // --- 入门: C++23 下父临时在整个 for 期间存活 ---
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (int x : make_holder().items()) {
         assert(Holder::live >= 1);
         sum += x;
@@ -67,7 +67,7 @@ int run(int argc, char** argv) {
 
     // --- 进阶: 返回临时 string 的 range-for ---
     auto make_word = []() { return std::string("abcd"); };
-    int chars = 0;
+    [[maybe_unused]] int chars = 0;
     for (char c : make_word()) {
         ++chars;
         (void)c;

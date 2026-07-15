@@ -65,7 +65,15 @@ int run(int /*argc*/, char** /*argv*/) {
                 std::cout << "  fclose via lambda\n";
             }
         };
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
         std::unique_ptr<std::FILE, decltype(closer)> fp(std::fopen(path, "wb"), closer);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         if (fp) {
             const char msg[] = "hello";
             std::fwrite(msg, 1, sizeof(msg) - 1, fp.get());
@@ -91,7 +99,15 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         g_fclose_calls = 0;
         const char* path = "learncpp_stage05_unique_deleter2.tmp";
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
         std::unique_ptr<std::FILE, decltype(&file_closer)> fp(std::fopen(path, "wb"), &file_closer);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         if (fp) {
             std::fputs("x", fp.get());
         }

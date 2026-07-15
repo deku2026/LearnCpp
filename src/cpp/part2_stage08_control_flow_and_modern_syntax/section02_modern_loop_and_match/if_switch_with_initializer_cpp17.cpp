@@ -129,7 +129,7 @@ int run(int argc, char** argv) {
     {
         // if (init; cond) 等价于 { init; if (cond) ... else ... }
         // 但 init 与 cond 声明的名字在同一作用域，覆盖 then/else。
-        int outer = 1;
+        [[maybe_unused]] int outer = 1;
         if (int outer = 2; outer > 0) {  // 遮蔽外层 outer
             assert(outer == 2);
         }

@@ -46,13 +46,13 @@ int run(int argc, char** argv) {
     assert(s == "owned");
 
     std::vector<std::string> names{"alpha", "beta"};
-    const std::string& r = at(names, 1);
+    [[maybe_unused]] const std::string& r = at(names, 1);
     assert(r == "beta");
     // names 仍存活 → r 安全
 
     {
         std::string long_lived = "payload";
-        View v{long_lived};
+        [[maybe_unused]] View v{long_lived};
         assert(v.s == "payload");
     }
     // View 不得比 long_lived 活得更久

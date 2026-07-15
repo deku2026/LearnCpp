@@ -21,7 +21,7 @@
 namespace {
 
 // 被测属性: reverse 两次还原; sort 后有序
-std::string rev(std::string s) {
+[[maybe_unused]] std::string rev(std::string s) {
     std::reverse(s.begin(), s.end());
     return s;
 }

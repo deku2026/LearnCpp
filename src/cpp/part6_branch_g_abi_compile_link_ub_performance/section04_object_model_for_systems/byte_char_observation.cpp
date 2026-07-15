@@ -41,7 +41,7 @@ int run(int argc, char** argv) {
 
     // unsigned char 同样合法
     auto* uc = reinterpret_cast<unsigned char*>(&x);
-    unsigned sum = 0;
+    [[maybe_unused]] unsigned sum = 0;
     for (std::size_t i = 0; i < sizeof x; ++i) {
         sum += uc[i];
     }

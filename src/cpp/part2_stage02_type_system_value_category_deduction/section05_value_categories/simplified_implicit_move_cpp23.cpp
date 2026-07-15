@@ -77,7 +77,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 入门：return 局部 → 优先移动
     // -------------------------------------------------------------------------
     reset_counts();
-    Tracer a = returns_by_value();
+    [[maybe_unused]] Tracer a = returns_by_value();
     assert(a.id == 1);
     // 在无 NRVO 时至少应看到 moves>=1 且 copies==0；有 NRVO 则 copies=moves=0
     assert(Tracer::copies == 0);
@@ -104,7 +104,7 @@ int run(int /*argc*/, char** /*argv*/) {
 #endif
 
     reset_counts();
-    Tracer b = make_for_throw();
+    [[maybe_unused]] Tracer b = make_for_throw();
     assert(b.id == 3);
     assert(Tracer::copies == 0);
     std::cout << "[advanced] another by-value return: moves=" << Tracer::moves << '\n';
@@ -117,7 +117,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 2) 返回局部的 && / & 仍然是错误的（悬空），P2266 不把它变成安全。
     // 3) 隐式移动只针对自动存储期的可移动实体等 move-eligible 条件。
 
-    Tracer&& rr = returns_rref_to_local_support();
+    [[maybe_unused]] Tracer&& rr = returns_rref_to_local_support();
     assert(rr.id == 2);
 
     std::vector<std::string> v;

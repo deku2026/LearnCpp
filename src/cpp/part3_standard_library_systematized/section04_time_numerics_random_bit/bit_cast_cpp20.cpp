@@ -38,7 +38,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     const float f = 3.14f;
     const std::uint32_t bits = std::bit_cast<std::uint32_t>(f);
-    const float back = std::bit_cast<float>(bits);
+    [[maybe_unused]] const float back = std::bit_cast<float>(bits);
     assert(back == f);
     static_assert(sizeof(float) == sizeof(std::uint32_t));
     static_assert(std::is_trivially_copyable_v<float>);
@@ -54,7 +54,7 @@ int run(int /*argc*/, char** /*argv*/) {
     const Pair p{0x1234, 0xABCD};
     static_assert(sizeof(Pair) == sizeof(std::uint32_t));
     const auto u = std::bit_cast<std::uint32_t>(p);
-    const auto p2 = std::bit_cast<Pair>(u);
+    [[maybe_unused]] const auto p2 = std::bit_cast<Pair>(u);
     assert(p2.a == p.a && p2.b == p.b);
 
     // constexpr 路径

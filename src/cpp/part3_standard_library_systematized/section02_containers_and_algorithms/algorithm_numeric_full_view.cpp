@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 划分
     std::vector<int> p = v;
-    auto mid = std::partition(p.begin(), p.end(), [](int x) { return x % 2 == 0; });
+    [[maybe_unused]] auto mid = std::partition(p.begin(), p.end(), [](int x) { return x % 2 == 0; });
     assert(std::all_of(p.begin(), mid, [](int x) { return x % 2 == 0; }));
 
     // 堆
@@ -79,7 +79,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::iota(n.begin(), n.end(), 1);  // 1..5
     const int sum = std::accumulate(n.begin(), n.end(), 0);
     assert(sum == 15);
-    const int prod = std::accumulate(n.begin(), n.end(), 1, std::multiplies<int>{});
+    [[maybe_unused]] const int prod = std::accumulate(n.begin(), n.end(), 1, std::multiplies<int>{});
     assert(prod == 120);
 
     std::vector<int> partial(n.size());

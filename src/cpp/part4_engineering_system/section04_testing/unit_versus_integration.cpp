@@ -57,7 +57,7 @@ void integration_tests() {
     FakeDb db;
     auto lines = db.load_cart("alice");
     int sub = subtotal_cents(lines);
-    int tax = tax_cents(sub, 1000);
+    [[maybe_unused]] int tax = tax_cents(sub, 1000);
     assert(sub == 2000);
     assert(tax == 200);
     assert(sub + tax == 2200);
@@ -72,7 +72,7 @@ struct SuiteMeta {
     bool needs_network;
 };
 
-int preferred_count(Kind k) {
+[[maybe_unused]] int preferred_count(Kind k) {
     // 金字塔: 单元 >> 集成
     return k == Kind::Unit ? 100 : 10;
 }
@@ -86,8 +86,8 @@ int run(int /*argc*/, char** /*argv*/) {
     integration_tests();
     std::cout << "  integration: FakeDb + pricing OK\n";
 
-    SuiteMeta unit{Kind::Unit, 3, false, false};
-    SuiteMeta integ{Kind::Integration, 1, true, false};
+    [[maybe_unused]] SuiteMeta unit{Kind::Unit, 3, false, false};
+    [[maybe_unused]] SuiteMeta integ{Kind::Integration, 1, true, false};
     assert(!unit.touches_io);
     assert(integ.touches_io);
     assert(preferred_count(Kind::Unit) > preferred_count(Kind::Integration));

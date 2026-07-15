@@ -72,8 +72,16 @@ int run(int /*argc*/, char** /*argv*/) {
                 std::cout << "  FILE closed by deleter\n";
             }
         };
-        // 用 tmpfile 演示 RAII；失败则跳过
+// 用 tmpfile 演示 RAII；失败则跳过
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
         std::unique_ptr<FILE, decltype(closer)> fp{std::tmpfile(), closer};
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         if (fp) {
             std::fputs("hi", fp.get());
             std::cout << "tmpfile write ok\n";

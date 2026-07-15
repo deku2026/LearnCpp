@@ -26,7 +26,7 @@ int run(int argc, char** argv) {
     std::cout << "=== [scoped_lock] single mutex (like lock_guard) ===\n";
     {
         std::mutex m;
-        int v = 0;
+        [[maybe_unused]] int v = 0;
         {
             std::scoped_lock lock(m);
             ++v;

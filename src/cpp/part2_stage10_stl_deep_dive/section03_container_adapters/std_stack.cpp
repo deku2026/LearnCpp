@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 进阶：表达式求值 / 括号匹配小例子 ===\n";
     {
-        auto balanced = [](std::string_view s) {
+        [[maybe_unused]] auto balanced = [](std::string_view s) {
             std::stack<char> st;
             for (char c : s) {
                 if (c == '(' || c == '[' || c == '{') {

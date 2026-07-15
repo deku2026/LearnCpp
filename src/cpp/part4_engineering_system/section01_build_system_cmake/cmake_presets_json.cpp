@@ -73,9 +73,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  " << dbg->name << " -> " << dbg->generator << " / " << dbg->build_type << '\n';
 
     // --- 进阶: CI preset 开 -Werror; linux-ci 开 UBSan ---
-    const auto* wci = find_preset(presets, "windows-ci");
+    [[maybe_unused]] const auto* wci = find_preset(presets, "windows-ci");
     assert(wci && wci->werror && wci->build_type == "RelWithDebInfo");
-    const auto* lci = find_preset(presets, "linux-ci");
+    [[maybe_unused]] const auto* lci = find_preset(presets, "linux-ci");
     assert(lci && lci->enable_ubsan && lci->werror);
     std::cout << "  windows-ci WERROR; linux-ci WERROR+UBSAN\n";
 

@@ -87,7 +87,7 @@ int run(int argc, char** argv) {
     assert(add_c(3, 4) == 7);
     assert(add_s(3.5, 0.5) == 4.0);
 
-    int x = 1;
+    [[maybe_unused]] int x = 1;
     assert(describe_sfinae(&x) == "pointer(sfinae)");
     assert(describe_sfinae(x) == "value(sfinae)");
     assert(describe_c(&x) == "pointer(concept-overload)");

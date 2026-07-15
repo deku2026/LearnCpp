@@ -5,6 +5,14 @@
 // into a global `std::map` at static-init time. `main()` then dispatches.
 #pragma once
 
+// Topic demos use assert() as the primary verification path. CI builds with
+// RelWithDebInfo define NDEBUG, which would strip every assert and then turn
+// the "unused" demo locals/functions into -Werror failures. Keep asserts on
+// for the learn_cpp topic executable in all configs.
+#ifdef NDEBUG
+#undef NDEBUG
+#endif
+#include <cassert>
 #include <cstddef>
 #include <string_view>
 

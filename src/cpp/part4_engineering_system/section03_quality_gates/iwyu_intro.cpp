@@ -82,7 +82,7 @@ int run(int /*argc*/, char** /*argv*/) {
     auto a = advise(messy);
     assert(a.remove.size() >= 1);
     // <map> <string> 应建议删除
-    bool removes_map = false;
+    [[maybe_unused]] bool removes_map = false;
     for (const auto& r : a.remove) {
         if (r == "<map>" || r == "<string>") {
             removes_map = true;
@@ -102,7 +102,7 @@ int run(int /*argc*/, char** /*argv*/) {
     };
     auto b = advise(transitive);
     assert(!b.add.empty());
-    bool add_string = false;
+    [[maybe_unused]] bool add_string = false;
     for (const auto& x : b.add) {
         if (x == "<string>") {
             add_string = true;

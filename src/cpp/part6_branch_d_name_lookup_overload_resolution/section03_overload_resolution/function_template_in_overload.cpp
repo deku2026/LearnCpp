@@ -17,12 +17,12 @@
 
 namespace {
 
-std::string g(int) {
+[[maybe_unused]] std::string g(int) {
     return "non-template g(int)";
 }
 
 template <typename T>
-std::string g(T) {
+[[maybe_unused]] std::string g(T) {
     return "template g<T>";
 }
 
@@ -45,8 +45,8 @@ int run(int argc, char** argv) {
     assert(g(1) == "non-template g(int)");  // 非模板优先
     assert(g(1.5) == "template g<T>");      // 仅模板匹配 double
 
-    int x = 0;
-    const int y = 0;
+    [[maybe_unused]] int x = 0;
+    [[maybe_unused]] const int y = 0;
     assert(h(&x) == "h(T*)");
     assert(h(&y) == "h(const T*)");
 

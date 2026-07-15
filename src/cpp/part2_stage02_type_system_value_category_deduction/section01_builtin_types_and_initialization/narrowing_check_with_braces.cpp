@@ -22,16 +22,16 @@ int run(int /*argc*/, char** /*argv*/) {
     // 入门：三种写法对照
     // -------------------------------------------------------------------------
     // 下列“允许窄化”的写法在 -Wnarrowing/-Wconversion 下会警告，但是合法 C++
-    int a = 3.14;  // copy-init：截断为 3
-    int b(3.14);   // direct-init：截断为 3
+    int a = static_cast<int>(3.14);                  // copy-init：截断为 3
+    [[maybe_unused]] int b(static_cast<int>(3.14));  // direct-init：截断为 3
     // int c{3.14}; // ❌ list-init：narrowing from double to int
     // int d = {3.14}; // ❌ 同样禁止
 
     assert(a == 3 && b == 3);
 
     // 范围内的常量可以
-    int ok{42};
-    char ch{'A'};
+    [[maybe_unused]] int ok{42};
+    [[maybe_unused]] char ch{'A'};
     // char bad{300}; // ❌ 300 装不进 char（实现 char 位宽下）
     assert(ok == 42 && ch == 'A');
     std::cout << "[intro] a=b=" << a << " from 3.14 via = or (); braces reject it\n";
@@ -45,20 +45,20 @@ int run(int /*argc*/, char** /*argv*/) {
     // 4) 整数 → 浮点但无法精确表示（非常量时）
 
     const int exact = 100;
-    double d1{exact};  // OK：整数常量到 double 精确
+    [[maybe_unused]] double d1{exact};  // OK：整数常量到 double 精确
     assert(d1 == 100.0);
 
-    unsigned u{42};  // OK
+    [[maybe_unused]] unsigned u{42};  // OK
     // unsigned uneg{-1}; // ❌ 负常量到 unsigned 视为窄化
 
     // 变量间：即使运行时值“刚好合适”，列表初始化仍可能因类型对而判窄化
     double pi = 3.14159;
     // int truncated{pi}; // ❌
-    int truncated = static_cast<int>(pi);  // 显式：意图清晰
+    [[maybe_unused]] int truncated = static_cast<int>(pi);  // 显式：意图清晰
     assert(truncated == 3);
 
     // 花括号 + 显式 cast：仍是 list-init，但源类型已是 int
-    int explicit_brace{static_cast<int>(pi)};
+    [[maybe_unused]] int explicit_brace{static_cast<int>(pi)};
     assert(explicit_brace == 3);
     std::cout << "[advanced] use static_cast when truncation is intentional\n";
 
@@ -67,12 +67,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 若整数常量表达式的值能在目标类型中表示，则不构成窄化
     const int small = 7;
-    char c2{small};  // OK：7 可表示
+    [[maybe_unused]] char c2{small};  // OK：7 可表示
     assert(c2 == 7);
 
     // bool 从整数：非 0/1 的常量到 bool 是窄化
-    bool t{true};
-    bool f{0};  // 0/1 可
+    [[maybe_unused]] bool t{true};
+    [[maybe_unused]] bool f{0};  // 0/1 可
     // bool weird{2}; // ❌
     assert(t && !f);
 

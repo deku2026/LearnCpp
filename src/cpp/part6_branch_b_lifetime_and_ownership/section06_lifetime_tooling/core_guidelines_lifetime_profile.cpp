@@ -44,7 +44,7 @@ int run(int argc, char** argv) {
     assert(api.view() == "profile");
 
     auto owner = std::make_unique<int>(3);
-    int* raw = owner.get();  // Pointer 角色
+    [[maybe_unused]] int* raw = owner.get();  // Pointer 角色
     assert(*raw == 3);
     // Profile: Owner 释放前 Pointer 不得逃逸到更长存储
 
@@ -52,7 +52,7 @@ int run(int argc, char** argv) {
     std::span<int> sp = v;
     assert(sp.size() == 4);
 
-    auto local_sum = [](std::span<const int> s) {
+    [[maybe_unused]] auto local_sum = [](std::span<const int> s) {
         int t = 0;
         for (int x : s) t += x;
         return t;  // 返回值，不是 view

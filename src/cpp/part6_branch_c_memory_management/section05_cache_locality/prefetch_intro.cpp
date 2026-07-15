@@ -19,7 +19,7 @@
 namespace {
 
 // 可移植「预热」：顺序读使硬件预取器工作
-long long touch_sum(const std::vector<int>& v) {
+[[maybe_unused]] long long touch_sum(const std::vector<int>& v) {
     long long s = 0;
     for (int x : v) s += x;
     return s;
@@ -44,7 +44,7 @@ int run(int argc, char** argv) {
 
     std::vector<int> idx;
     for (int i = 0; i < 4096; i += 64) idx.push_back(i);
-    long long g = gather_sum(data, idx);
+    [[maybe_unused]] long long g = gather_sum(data, idx);
     assert(g > 0);
 
     std::cout << "  hardware prefetcher loves sequential access\n";

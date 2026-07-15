@@ -49,7 +49,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 进阶：必须先由 shared_ptr 管理 ===\n";
     {
-        bool threw = false;
+        [[maybe_unused]] bool threw = false;
         try {
             Widget stack("stack");           // 栈对象，无 shared_ptr 管理
             (void)stack.shared_from_this();  // C++17：抛 bad_weak_ptr

@@ -91,7 +91,7 @@ int run(int argc, char** argv) {
     assert(w.x == 7);
     std::cout << "  &w.e=" << static_cast<const void*>(&w.e) << " &w.x=" << static_cast<const void*>(&w.x) << '\n';
 
-    TwoSameEmpty tse{};
+    [[maybe_unused]] TwoSameEmpty tse{};
     assert(static_cast<const void*>(&tse.a) != static_cast<const void*>(&tse.b));
     std::cout << "  sizeof(TwoSameEmpty)=" << sizeof(TwoSameEmpty) << '\n';
 

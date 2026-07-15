@@ -45,11 +45,11 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：错误类型为枚举 ===\n";
     {
-        auto a = lookup(3);
+        [[maybe_unused]] auto a = lookup(3);
         assert(a && *a == 30);
-        auto b = lookup(0);
+        [[maybe_unused]] auto b = lookup(0);
         assert(!b && b.error() == Err::NotFound);
-        auto c = lookup(-1);
+        [[maybe_unused]] auto c = lookup(-1);
         assert(!c && c.error() == Err::Denied);
         std::cout << "lookup errors: NotFound=" << int(Err::NotFound) << " Denied=" << int(Err::Denied) << '\n';
     }

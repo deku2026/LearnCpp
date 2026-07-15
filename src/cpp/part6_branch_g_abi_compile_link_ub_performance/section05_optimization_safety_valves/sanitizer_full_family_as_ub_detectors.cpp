@@ -37,7 +37,7 @@ int run(int argc, char** argv) {
 
     // UBSan-friendly: 无溢出/空解引用
     int x = 100;
-    int* px = &x;
+    [[maybe_unused]] int* px = &x;
     assert(*px == 100);
 
     // TSan-friendly: 同步访问
@@ -58,7 +58,7 @@ int run(int argc, char** argv) {
     }
 
     // MSan-friendly: 全初始化
-    int y{};
+    [[maybe_unused]] int y{};
     assert(y == 0);
 
     std::cout << "  ASan : address OOB, UAF, leaks(LSan)\n";

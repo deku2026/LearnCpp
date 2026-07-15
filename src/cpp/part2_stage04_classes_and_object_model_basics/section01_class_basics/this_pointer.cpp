@@ -79,7 +79,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：this 身份 / const 方法中的 this
     // -------------------------------------------------------------------------
-    const Builder& cref = b;
+    [[maybe_unused]] const Builder& cref = b;
     assert(cref.self() == &b);
     assert(b.is_same_object(b));
     Builder other;

@@ -32,7 +32,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：定义即调用
     // -------------------------------------------------------------------------
-    const int answer = [] { return 40 + 2; }();
+    [[maybe_unused]] const int answer = [] { return 40 + 2; }();
     assert(answer == 42);
     std::cout << "[intro] []{ ... }() runs immediately\n";
 
@@ -68,7 +68,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 比「先非 const 填充再当 const 用」更能表达不可变性意图。
     // 注意：IIFE 的临时闭包在 ; 处结束寿命；不要返回指向其捕获局部的引用。
     int base = 3;
-    const int scaled = [base] {
+    [[maybe_unused]] const int scaled = [base] {
         int r = 1;
         for (int i = 0; i < 3; ++i) {
             r *= base;

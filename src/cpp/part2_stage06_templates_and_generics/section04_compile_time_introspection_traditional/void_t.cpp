@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -83,6 +84,16 @@ struct StreamMe {
 };
 
 int run(int /*argc*/, char** /*argv*/) {
+    {
+        StreamMe sm{};
+        std::ostringstream oss;
+        oss << sm;
+        (void)oss.str();
+    }
+
+    // force friend operator<< emission
+    // (StreamMe used below if present)
+
     std::cout << "=== [void_t] 入门：嵌套类型探测 ===\n";
     static_assert(has_value_type<WithVT>::value);
     static_assert(!has_value_type<WithoutVT>::value);

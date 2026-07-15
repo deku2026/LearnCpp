@@ -22,7 +22,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：显式 <class T>
     // -------------------------------------------------------------------------
-    auto first_of = []<class T>(const std::vector<T>& v) -> T { return v.empty() ? T{} : v.front(); };
+    [[maybe_unused]] auto first_of = []<class T>(const std::vector<T>& v) -> T { return v.empty() ? T{} : v.front(); };
     std::vector<int> vi{10, 20, 30};
     assert(first_of(vi) == 10);
     std::vector<std::string> vs{"x", "y"};
@@ -32,10 +32,10 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：使用类型本身
     // -------------------------------------------------------------------------
-    auto size_of_elem = []<class T>(const std::vector<T>&) { return sizeof(T); };
+    [[maybe_unused]] auto size_of_elem = []<class T>(const std::vector<T>&) { return sizeof(T); };
     assert(size_of_elem(vi) == sizeof(int));
 
-    auto as_string = []<class T>(const T& v) {
+    [[maybe_unused]] auto as_string = []<class T>(const T& v) {
         if constexpr (std::is_arithmetic_v<T>) {
             return std::to_string(v);
         } else {
@@ -49,15 +49,15 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §专家：约束与参数包
     // -------------------------------------------------------------------------
-    auto add_integral = []<std::integral T>(T a, T b) { return a + b; };
+    [[maybe_unused]] auto add_integral = []<std::integral T>(T a, T b) { return a + b; };
     assert(add_integral(2, 3) == 5);
     // add_integral(1.0, 2.0); // ❌ 不满足 integral
 
-    auto sum_pack = []<class... Ts>(Ts... xs) { return (xs + ...); };
+    [[maybe_unused]] auto sum_pack = []<class... Ts>(Ts... xs) { return (xs + ...); };
     assert(sum_pack(1, 2, 3) == 6);
 
     // 显式指定模板实参（较少用，但合法）
-    auto id = []<class T>(T x) { return x; };
+    [[maybe_unused]] auto id = []<class T>(T x) { return x; };
     assert(id.operator()<int>(7) == 7);
 
     std::cout << "[expert] concepts + packs on template lambdas; explicit operator()<T>\n";

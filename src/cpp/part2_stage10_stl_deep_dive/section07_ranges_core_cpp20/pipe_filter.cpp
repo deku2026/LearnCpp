@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert((got == std::vector<int>{2, 4, 6, 8, 10}));
 
         // 空过滤结果
-        auto none = v | std::views::filter([](int x) { return x > 100; });
+        [[maybe_unused]] auto none = v | std::views::filter([](int x) { return x > 100; });
         assert(std::ranges::empty(none));
         std::cout << "lazy even filter OK\n";
     }

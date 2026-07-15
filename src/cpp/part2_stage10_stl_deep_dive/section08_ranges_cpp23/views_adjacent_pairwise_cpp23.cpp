@@ -41,8 +41,14 @@ int run(int /*argc*/, char** /*argv*/) {
         for (int p : v | std::views::adjacent_transform<2>(std::multiplies{})) products.push_back(p);
         assert((products == std::vector<int>{2, 6, 12, 20, 30}));
 
-        int triple_count = 0;
+        [[maybe_unused]] int triple_count = 0;
         for (auto [a, b, c] : v | std::views::adjacent<3>) {
+            (void)a;
+            (void)b;
+            (void)c;
+            (void)a;
+            (void)b;
+            (void)c;
             assert(b == a + 1 && c == b + 1);
             ++triple_count;
         }
@@ -61,6 +67,8 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // 窗口写回：tuple 元素是引用时可改底层
         for (auto [a, b] : v | std::views::adjacent<2>) {
+            (void)a;
+            (void)b;
             (void)a;
             (void)b;
             break;

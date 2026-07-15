@@ -38,8 +38,8 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 普通变量：编译器可把重复读优化成一次；volatile 则不可（对优化器而言）
     volatile int v = 3;
-    int a = v;
-    int b = v;
+    [[maybe_unused]] int a = v;
+    [[maybe_unused]] int b = v;
     assert(a == 3 && b == 3);
 
     // -------------------------------------------------------------------------
@@ -76,7 +76,7 @@ int run(int /*argc*/, char** /*argv*/) {
     flag.clear();
 
     // 演示：单线程下 volatile 读写仍然“正常”
-    volatile int only_local = 0;
+    [[maybe_unused]] volatile int only_local = 0;
     only_local = 42;
     assert(only_local == 42);
 

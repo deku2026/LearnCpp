@@ -33,7 +33,7 @@ std::source_location wrong_capture() {
     return std::source_location::current();
 }
 
-int checked_div(int a, int b, std::source_location loc = std::source_location::current()) {
+[[maybe_unused]] int checked_div(int a, int b, std::source_location loc = std::source_location::current()) {
     if (b == 0) {
         std::cout << "div0 reported from " << loc.file_name() << ':' << loc.line() << '\n';
         return 0;
@@ -78,7 +78,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "macro form: " << __FILE__ << ':' << __LINE__ << '\n';
     std::cout << "source_location is typed, passable, no macro hygiene issues\n";
     // 可放入容器 / 结构化绑定? 有 file_name/line/function_name/column 访问器
-    const auto loc2 = std::source_location::current();
+    [[maybe_unused]] const auto loc2 = std::source_location::current();
     assert(std::string{loc2.file_name()}.find("source_location") != std::string::npos ||
            std::string_view{loc2.file_name()}.size() > 0);
 

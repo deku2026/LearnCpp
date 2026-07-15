@@ -45,7 +45,7 @@ int run(int /*argc*/, char** /*argv*/) {
         den /= g;
         assert(num == 3 && den == 4);
 
-        const auto g2 = std::gcd(std::int64_t{100}, 30);
+        [[maybe_unused]] const auto g2 = std::gcd(std::int64_t{100}, 30);
         assert(g2 == 10);
         std::cout << "signed + reduce fraction OK\n";
     }
@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：多参数折叠 lcm + 溢出注意 ===\n";
     {
         // 多周期：折叠 lcm
-        const int period = std::lcm(std::lcm(2, 3), 4);
+        [[maybe_unused]] const int period = std::lcm(std::lcm(2, 3), 4);
         assert(period == 12);
 
         std::vector<int> periods{2, 3, 4, 6};
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(fold == 12);
 
         // ⚠️ lcm 可能溢出中间 |a/gcd*b|；大数场景用宽类型
-        const auto big = std::lcm(std::int64_t{1000003}, std::int64_t{1000033});
+        [[maybe_unused]] const auto big = std::lcm(std::int64_t{1000003}, std::int64_t{1000033});
         assert(big > 0);
 
         std::cout << "fold lcm + wide type OK\n";

@@ -23,7 +23,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：计算新成员
     // -------------------------------------------------------------------------
     int a = 10;
-    auto twice = [x = a * 2] { return x; };
+    [[maybe_unused]] auto twice = [x = a * 2] { return x; };
     assert(twice() == 20);
     a = 0;
     assert(twice() == 20);
@@ -59,7 +59,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 成员名可不同于外部：[val = std::move(s)]
     // 不能指望写 [p] 当 p 不可拷贝——必须 [p = std::move(p)]。
     int n = 1;
-    auto counter = [k = n]() mutable { return ++k; };
+    [[maybe_unused]] auto counter = [k = n]() mutable { return ++k; };
     assert(counter() == 2);
     assert(counter() == 3);
     assert(n == 1);

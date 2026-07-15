@@ -22,7 +22,7 @@
 
 namespace {
 
-std::string ascii_upper(std::string s) {
+[[maybe_unused]] std::string ascii_upper(std::string s) {
     for (char& c : s) {
         if (c >= 'a' && c <= 'z') {
             c = static_cast<char>(c - 'a' + 'A');
@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // locale-dependent ctype: 仅可靠处理单字节/实现定义集合
     const std::locale loc_c = std::locale::classic();
     using ctype_t = std::ctype<char>;
-    const auto& ct = std::use_facet<ctype_t>(loc_c);
+    [[maybe_unused]] const auto& ct = std::use_facet<ctype_t>(loc_c);
     assert(ct.toupper('a') == 'A');
     // 德文字母 ß / 多字节 UTF-8 不能靠 std::toupper 正确“大写化”
     const unsigned char e_acute_lead = 0xC3;  // UTF-8 é 首字节

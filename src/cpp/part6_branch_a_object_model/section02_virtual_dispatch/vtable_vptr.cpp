@@ -73,6 +73,7 @@ int run(int argc, char** argv) {
 
     // 同一调用点, 不同 vptr → 不同目标
     std::string (*through_base)(const Base*) = [](const Base* b) { return b->f(); };
+    (void)through_base;
     assert(through_base(&d) == "Derived::f");
     assert(through_base(&alone) == "Base::f");
 
@@ -110,13 +111,13 @@ int run(int argc, char** argv) {
     //   ...
 
     Other o;
-    const Base& r1 = d;
-    const Base& r2 = o;
+    [[maybe_unused]] const Base& r1 = d;
+    [[maybe_unused]] const Base& r2 = o;
     assert(r1.f() == "Derived::f");
     assert(r2.f() == "Other::f");
 
     auto up = std::make_unique<Derived>();
-    Base* bp = up.get();
+    [[maybe_unused]] Base* bp = up.get();
     assert(bp->id() == 2);
 
     // final / 去虚化: 编译器在静态可知类型时可直接调 (优化), 语义仍正确

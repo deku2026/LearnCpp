@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] vformat runtime string -> " << runtime_out << '\n';
 
     // 非法运行期格式: 抛 format_error
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         std::string not_int = "x";
         (void)std::vformat("{:d}", std::make_format_args(not_int));
@@ -66,7 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::cout << "[expert] runtime exception: " << e.what() << '\n';
     }
     // 非法格式串本身(缺右花括号)在多数实现上抛 format_error
-    bool bad_spec = false;
+    [[maybe_unused]] bool bad_spec = false;
     try {
         const std::string bad = "{";
         (void)std::vformat(bad, std::make_format_args(a));

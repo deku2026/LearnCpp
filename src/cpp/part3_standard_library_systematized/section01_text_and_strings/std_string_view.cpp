@@ -20,7 +20,7 @@
 namespace {
 
 // API 参数用 string_view: 可接受 string / 字面量 / 其他 view, 无拷贝
-std::size_t count_vowels(std::string_view sv) {
+[[maybe_unused]] std::size_t count_vowels(std::string_view sv) {
     std::size_t n = 0;
     for (char c : sv) {
         switch (c) {
@@ -50,12 +50,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门 — 从 string / 字面量构造
     // -------------------------------------------------------------------------
     std::string owned = "Hello, string_view";
-    std::string_view sv = owned;
+    [[maybe_unused]] std::string_view sv = owned;
     assert(sv.data() == owned.data() || sv == owned);  // 通常共享缓冲
     assert(sv.size() == owned.size());
     assert(sv.substr(0, 5) == "Hello");
 
-    std::string_view lit = "literal";
+    [[maybe_unused]] std::string_view lit = "literal";
     assert(lit.size() == 7);
     assert(count_vowels(lit) == 3);  // i,e,a
     // "Hello, string_view" vowels: e,o + i + i,e = 5
@@ -86,7 +86,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 正确: view 的生命周期不得超过被指向数据
     std::string stable = "stable";
-    std::string_view good = stable;
+    [[maybe_unused]] std::string_view good = stable;
     assert(good == "stable");
 
     // 反模式(注释示意, 不执行悬垂读):

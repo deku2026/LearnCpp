@@ -25,10 +25,10 @@ int run(int /*argc*/, char** /*argv*/) {
     // int y = x + 1;   // ⚠️ UB：读了不确定值 —— 本文件故意不执行
 
     int x = 0;
-    int y = x + 1;
+    [[maybe_unused]] int y = x + 1;
     assert(y == 1);
 
-    int z{};  // 值初始化
+    [[maybe_unused]] int z{};  // 值初始化
     assert(z == 0);
     std::cout << "[intro] always initialize; reading indeterminate is UB\n";
 
@@ -39,7 +39,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 2) 类类型默认构造后可能已有定义状态
     // 3) unsigned char / std::byte 的不确定值在部分场景可复制（窄例外）——仍别当正常数用
 
-    static int static_zero;  // 零初始化
+    [[maybe_unused]] static int static_zero;  // 零初始化
     assert(static_zero == 0);
 
     // new 默认初始化 vs 值初始化

@@ -25,9 +25,9 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：基本族 + 字面值类型
     // -------------------------------------------------------------------------
-    bool flag = true;
-    char letter = 'Z';
-    int count = 42;
+    [[maybe_unused]] bool flag = true;
+    [[maybe_unused]] char letter = 'Z';
+    [[maybe_unused]] int count = 42;
     float f = 1.5f;
     double d = 1.5;  // 无后缀浮点字面值 → double
     long double ld = 1.5L;
@@ -69,16 +69,16 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] char is_signed=" << std::boolalpha << char_is_signed << '\n';
 
     // 大值赋给 char：在 signed char 平台可能变负；用 unsigned char 语义确定
-    unsigned char byte = 200;
+    [[maybe_unused]] unsigned char byte = 200;
     assert(static_cast<int>(byte) == 200);
     signed char sbyte = static_cast<signed char>(200);  // 实现定义转换结果常见为负
     (void)sbyte;
 
     // C++20 起还有 char8_t / 既有 char16_t / char32_t / wchar_t
-    char8_t u8c = u8'A';
-    char16_t u16c = u'A';
-    char32_t u32c = U'A';
-    wchar_t wc = L'A';
+    [[maybe_unused]] char8_t u8c = u8'A';
+    [[maybe_unused]] char16_t u16c = u'A';
+    [[maybe_unused]] char32_t u32c = U'A';
+    [[maybe_unused]] wchar_t wc = L'A';
     assert(static_cast<char>(u8c) == 'A');
     assert(u16c == u'A' && u32c == U'A' && wc == L'A');
     static_assert(sizeof(char8_t) == 1);

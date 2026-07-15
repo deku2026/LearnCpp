@@ -25,27 +25,27 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== part3/section01/char_encoding_utf_prefixes ===\n";
 
     // 普通字符串字面量: char 序列, 编码实现定义(现代工具链多为 UTF-8 源)
-    const char* a = "abc";
+    [[maybe_unused]] const char* a = "abc";
     assert(a[0] == 'a');
 
     // UTF-8: char8_t (C++20); u8 前缀
-    const char8_t* u8 = u8"UTF-8";
+    [[maybe_unused]] const char8_t* u8 = u8"UTF-8";
     assert(u8[0] == u8'U');
     static_assert(std::is_same_v<std::remove_cvref_t<decltype(u8""[0])>, char8_t>);
 
     // UTF-16 码元
-    const char16_t* u16 = u"UTF-16";
+    [[maybe_unused]] const char16_t* u16 = u"UTF-16";
     assert(u16[0] == u'U');
 
     // UTF-32 码点
-    const char32_t* u32 = U"UTF-32";
+    [[maybe_unused]] const char32_t* u32 = U"UTF-32";
     assert(u32[0] == U'U');
     // 码点可直接写
-    constexpr char32_t smiling = U'\U0001F600';  // 😀
+    [[maybe_unused]] constexpr char32_t smiling = U'\U0001F600';  // 😀
     assert(smiling == 0x1F600);
 
     // 宽字符: 平台相关(Windows 常 16 位, *nix 常 32 位)
-    const wchar_t* w = L"wide";
+    [[maybe_unused]] const wchar_t* w = L"wide";
     assert(w[0] == L'w');
     std::cout << "[intro] sizeof(wchar_t)=" << sizeof(wchar_t) << '\n';
 
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // "\N{...}" / "\u{1F600}" — 若编译器支持则编译通过
     // 用条件避免旧编译器炸; 这里用通用码点字面量演示等价意图
 #endif
-    constexpr char32_t alpha = U'\u03B1';  // Greek small letter alpha
+    [[maybe_unused]] constexpr char32_t alpha = U'\u03B1';  // Greek small letter alpha
     assert(alpha == 0x03B1);
 
     std::cout << "[advanced] u8/u/U/L prefixes and string aliases ok\n";

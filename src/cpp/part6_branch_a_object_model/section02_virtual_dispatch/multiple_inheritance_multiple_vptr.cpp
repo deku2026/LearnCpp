@@ -69,7 +69,7 @@ int run(int argc, char** argv) {
     assert(sp_u > doc_u);
 
     // static_cast 会正确调整地址; 按“字节地址原样解读”则不会
-    auto* sp2 = static_cast<Serializable*>(&doc);
+    [[maybe_unused]] auto* sp2 = static_cast<Serializable*>(&doc);
     assert(sp2 == sp);
     // 用 uintptr 模拟错误的“不调整强转”(避免 -Wreinterpret-base-class)
     auto* wrong = reinterpret_cast<Serializable*>(reinterpret_cast<std::uintptr_t>(&doc));
@@ -78,7 +78,7 @@ int run(int argc, char** argv) {
     (void)wrong;
 
     // 从次基类转回完整类型: static_cast / dynamic_cast 会反向调整
-    Document* back = static_cast<Document*>(sp);
+    [[maybe_unused]] Document* back = static_cast<Document*>(sp);
     assert(back == &doc);
     assert(reinterpret_cast<std::uintptr_t>(back) == doc_u);
 
@@ -99,8 +99,8 @@ int run(int argc, char** argv) {
     assert(doc.body == 30);
 
     // void* 跨完整对象: dynamic_cast<void*> 从任意多态指针回到起点
-    void* from_sec = dynamic_cast<void*>(sp);
-    void* from_pri = dynamic_cast<void*>(pp);
+    [[maybe_unused]] void* from_sec = dynamic_cast<void*>(sp);
+    [[maybe_unused]] void* from_pri = dynamic_cast<void*>(pp);
     assert(from_sec == from_pri);
     assert(from_sec == static_cast<void*>(&doc));
 

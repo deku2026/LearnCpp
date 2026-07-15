@@ -24,7 +24,7 @@ struct EcosystemCheck {
     std::string note;
 };
 
-int score(const std::vector<EcosystemCheck>& checks) {
+[[maybe_unused]] int score(const std::vector<EcosystemCheck>& checks) {
     int ok = 0;
     for (const auto& c : checks) {
         if (c.ready) {

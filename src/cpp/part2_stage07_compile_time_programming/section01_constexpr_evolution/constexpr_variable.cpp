@@ -127,12 +127,12 @@ int run(int argc, char** argv) {
     static_assert(kCyan.g == 255);
     static_assert(std::is_const_v<std::remove_reference_t<decltype(kSize)>>);
 
-    const int runtime_only = runtime_seed();
+    [[maybe_unused]] const int runtime_only = runtime_seed();
     assert(runtime_only == 7);
     // constexpr int bad = runtime_only; // 非法：初始化不是常量表达式
     (void)legacy_stack;
 
-    std::array<int, kSize> std_arr{};
+    [[maybe_unused]] std::array<int, kSize> std_arr{};
     assert(std_arr.size() == 10);
 
     std::cout << "[advanced] kArea=" << kArea << " cyan=(" << static_cast<int>(kCyan.r) << ','

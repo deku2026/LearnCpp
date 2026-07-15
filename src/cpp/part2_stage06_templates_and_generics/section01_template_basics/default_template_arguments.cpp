@@ -107,7 +107,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "default vector / explicit deque OK\n";
 
     std::cout << "=== 进阶：函数默认 / 依赖默认 / NTTP 默认 ===\n";
-    auto p1 = make_pair_like(3);  // U 默认 = T = int，b 默认 0
+    [[maybe_unused]] auto p1 = make_pair_like(3);  // U 默认 = T = int，b 默认 0
     assert(p1.first == 3 && p1.second == 0);
     auto p2 = make_pair_like(1, std::string{"x"});
     assert(p2.second == "x");

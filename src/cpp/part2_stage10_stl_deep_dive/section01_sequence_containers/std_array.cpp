@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 入门：与 C 数组互操作 data()/get ===\n";
     {
         std::array<int, 3> a{10, 20, 30};
-        int* p = a.data();
+        [[maybe_unused]] int* p = a.data();
         assert(p[1] == 20);
 
         assert(std::get<0>(a) == 10);
@@ -57,12 +57,12 @@ int run(int /*argc*/, char** /*argv*/) {
         std::sort(a.begin(), a.end());
         assert((a == std::array<int, 5>{1, 2, 3, 4, 5}));
 
-        const int sum = std::accumulate(a.begin(), a.end(), 0);
+        [[maybe_unused]] const int sum = std::accumulate(a.begin(), a.end(), 0);
         assert(sum == 15);
 
         // 结构化绑定
         std::array<int, 3> coords{1, 2, 3};
-        auto [x, y, z] = coords;
+        [[maybe_unused]] auto [x, y, z] = coords;
         assert(x == 1 && y == 2 && z == 3);
         std::cout << "sort/accumulate/structured binding work\n";
     }

@@ -30,14 +30,14 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(out.size() == 5);
     // 采样结果应是原集合子集, 且相对顺序非降(Forward 输入时稳定相对序)
     assert(std::is_sorted(out.begin(), out.end()));
-    for (int x : out) {
+    for ([[maybe_unused]] auto x : out) {
         assert(x >= 1 && x <= 20);
     }
     // 无重复
     assert(std::set<int>(out.begin(), out.end()).size() == out.size());
 
     std::cout << "[sample] 5 from 1..20:";
-    for (int x : out) std::cout << ' ' << x;
+    for ([[maybe_unused]] auto x : out) std::cout << ' ' << x;
     std::cout << '\n';
 
     // n > size → 取全部

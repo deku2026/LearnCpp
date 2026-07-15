@@ -95,7 +95,7 @@ int run(int argc, char** argv) {
     a.i = 0x11223344;
     a.s = 0x55AA;
 
-    const auto* base = reinterpret_cast<const unsigned char*>(&a);
+    [[maybe_unused]] const auto* base = reinterpret_cast<const unsigned char*>(&a);
     // i 不在 &c+1, 而在 offset 4
     assert(reinterpret_cast<const void*>(&a.i) == static_cast<const void*>(base + 4));
     assert(reinterpret_cast<const void*>(&a.s) == static_cast<const void*>(base + 8));
@@ -108,15 +108,16 @@ int run(int argc, char** argv) {
     assert(trailing == 2);
 
     // --- 专家: alignas / 数组步长 / 嵌套 ---
-    OverAligned oa{};
+    [[maybe_unused]] OverAligned oa{};
     assert(reinterpret_cast<std::uintptr_t>(&oa) % 16 == 0);
     // 数组元素间距 = sizeof, 已含对齐
     OverAligned arr[2]{};
-    const auto stride = reinterpret_cast<const char*>(&arr[1]) - reinterpret_cast<const char*>(&arr[0]);
+    [[maybe_unused]] const auto stride =
+        reinterpret_cast<const char*>(&arr[1]) - reinterpret_cast<const char*>(&arr[0]);
     assert(static_cast<std::size_t>(stride) == sizeof(OverAligned));
     assert(stride % 16 == 0);
 
-    Nested n{};
+    [[maybe_unused]] Nested n{};
     assert(offsetof(Nested, inner) % alignof(SparseLayout) == 0);
     assert(sizeof(Nested) >= sizeof(char) + sizeof(SparseLayout));
     print_layout("Nested {char, SparseLayout}", sizeof(Nested), alignof(Nested));

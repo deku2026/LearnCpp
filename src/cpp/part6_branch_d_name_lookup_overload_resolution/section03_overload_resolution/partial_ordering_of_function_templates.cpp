@@ -47,8 +47,8 @@ int run(int argc, char** argv) {
 
     std::cout << "=== D6 partial ordering of function templates ===\n";
 
-    int x = 1;
-    const int cx = 2;
+    [[maybe_unused]] int x = 1;
+    [[maybe_unused]] const int cx = 2;
     assert(k(x) == "k(T)");
     assert(k(&x) == "k(T*)");
     assert(k(&cx) == "k(const T*)");

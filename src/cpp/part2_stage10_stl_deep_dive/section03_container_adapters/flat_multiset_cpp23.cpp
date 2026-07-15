@@ -32,7 +32,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::flat_multiset<int> fms{1, 2, 2, 2, 3};
         assert(fms.size() == 5);
         assert(fms.count(2) == 3);
-        auto [lo, hi] = fms.equal_range(2);
+        [[maybe_unused]] auto [lo, hi] = fms.equal_range(2);
         assert(static_cast<std::size_t>(hi - lo) == 3);
         std::vector<int> got(fms.begin(), fms.end());
         assert((got == std::vector<int>{1, 2, 2, 2, 3}));

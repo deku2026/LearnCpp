@@ -50,7 +50,7 @@ int run(int argc, char** argv) {
             });
 
             std::this_thread::sleep_for(70ms);
-            const bool requested = worker.request_stop();
+            [[maybe_unused]] const bool requested = worker.request_stop();
             assert(requested);
             // dtor also request_stop+join if we did not join; we join explicitly
             worker.join();

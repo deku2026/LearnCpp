@@ -36,7 +36,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 三参数
     std::vector<int> c{1, 1, 1};
-    int prod_sum = 0;
+    [[maybe_unused]] int prod_sum = 0;
     for (int v : std::views::zip_transform([](int x, int y, int z) { return x * y + z; }, a, b, c)) prod_sum += v;
     assert(prod_sum == (1 * 10 + 1) + (2 * 20 + 1) + (3 * 30 + 1));
 

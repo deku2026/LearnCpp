@@ -55,7 +55,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // OnlyParamCtor q; // ❌
 
     static_assert(std::is_default_constructible_v<RestoreDefault>);
-    RestoreDefault r;
+    [[maybe_unused]] RestoreDefault r;
     assert(r.v_ == 0);
     RestoreDefault r2{9};
     assert(r2.v_ == 9);

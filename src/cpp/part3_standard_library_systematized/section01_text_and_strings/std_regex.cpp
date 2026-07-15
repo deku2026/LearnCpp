@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // match: 整串匹配
     const std::regex email(R"((\w+)@(\w+)\.(\w+))");
     std::cmatch m;
-    const char* addr = "user@example.com";
+    [[maybe_unused]] const char* addr = "user@example.com";
     assert(std::regex_match(addr, m, email));
     assert(m.size() >= 4);
     assert(m[1] == "user");
@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     const std::string multi = "a1 b23 c456";
     std::sregex_iterator it{multi.begin(), multi.end(), num};
     std::sregex_iterator end;
-    int count = 0;
+    [[maybe_unused]] int count = 0;
     for (; it != end; ++it) {
         ++count;
     }

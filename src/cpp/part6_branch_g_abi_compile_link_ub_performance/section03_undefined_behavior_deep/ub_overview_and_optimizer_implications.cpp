@@ -19,7 +19,7 @@
 namespace {
 
 // 优化器可删除"若空则死"的分支, 若它能证明指针非空
-int deref_checked(const int* p) {
+[[maybe_unused]] int deref_checked(const int* p) {
     if (p == nullptr) {
         return -1;  // 明确处理, 非 UB
     }
@@ -27,7 +27,7 @@ int deref_checked(const int* p) {
 }
 
 // 有符号溢出是 UB —— 用安全检测
-bool safe_add(int a, int b, int& out) {
+[[maybe_unused]] bool safe_add(int a, int b, int& out) {
     if ((b > 0 && a > std::numeric_limits<int>::max() - b) || (b < 0 && a < std::numeric_limits<int>::min() - b)) {
         return false;
     }
@@ -41,18 +41,18 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G7 UB overview & optimizer implications ===\n";
 
-    int x = 10;
+    [[maybe_unused]] int x = 10;
     assert(deref_checked(&x) == 10);
     assert(deref_checked(nullptr) == -1);
 
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     assert(safe_add(100, 200, sum));
     assert(sum == 300);
     assert(!safe_add(std::numeric_limits<int>::max(), 1, sum));
 
     // 已定义行为让优化器仍可大显身手
     std::vector<int> v{1, 2, 3};
-    int acc = 0;
+    [[maybe_unused]] int acc = 0;
     for (int e : v) {
         acc += e;
     }

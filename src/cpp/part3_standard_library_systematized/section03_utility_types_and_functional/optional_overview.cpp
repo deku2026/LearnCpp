@@ -32,11 +32,11 @@ std::optional<int> parse_positive(const std::string& s) {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== part3/section03/optional_overview ===\n";
 
-    std::optional<int> empty;
+    [[maybe_unused]] std::optional<int> empty;
     assert(!empty.has_value());
     assert(empty.value_or(-1) == -1);
 
-    std::optional<int> answer{42};
+    [[maybe_unused]] std::optional<int> answer{42};
     assert(answer && *answer == 42);
     assert(answer.value() == 42);
 
@@ -47,15 +47,16 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[intro] has_value / value_or ok\n";
 
     // C++23 单子操作
-    auto doubled = parse_positive("21").transform([](int x) { return x * 2; });
+    [[maybe_unused]] auto doubled = parse_positive("21").transform([](int x) { return x * 2; });
     assert(doubled == 42);
 
-    auto chain = parse_positive("10")
-                     .and_then([](int x) -> std::optional<int> { return x > 0 ? std::optional{x + 1} : std::nullopt; })
-                     .or_else([] { return std::optional<int>{0}; });
+    [[maybe_unused]] auto chain =
+        parse_positive("10")
+            .and_then([](int x) -> std::optional<int> { return x > 0 ? std::optional{x + 1} : std::nullopt; })
+            .or_else([] { return std::optional<int>{0}; });
     assert(chain == 11);
 
-    auto fallback = parse_positive("-3").or_else([] { return std::optional<int>{0}; });
+    [[maybe_unused]] auto fallback = parse_positive("-3").or_else([] { return std::optional<int>{0}; });
     assert(fallback == 0);
 
     std::cout << "[advanced] transform/and_then/or_else ok\n";

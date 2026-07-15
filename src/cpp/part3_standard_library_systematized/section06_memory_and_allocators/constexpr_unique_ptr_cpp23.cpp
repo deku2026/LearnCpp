@@ -65,7 +65,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(arr[0] + arr[1] + arr[2] == 6);
     }
     {
-        int freed = 0;
+        [[maybe_unused]] int freed = 0;
         {
             std::unique_ptr<int, void (*)(int*)> p{new int{9}, [](int* raw) { delete raw; }};
             // 用计数包装不便与函数指针删除器共存; 验证非空与取值

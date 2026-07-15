@@ -26,7 +26,7 @@ int run(int argc, char** argv) {
     std::cout << "=== F1 happens-before / synchronizes-with ===\n";
 
     // 单线程 sequenced-before ⊂ happens-before
-    int local = 0;
+    [[maybe_unused]] int local = 0;
     local = 1;
     assert(local == 1);
     std::cout << "  sequenced-before: same-thread program order\n";

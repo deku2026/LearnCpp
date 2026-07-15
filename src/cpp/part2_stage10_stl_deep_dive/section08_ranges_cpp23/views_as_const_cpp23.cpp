@@ -22,7 +22,7 @@ int run(int /*argc*/, char** /*argv*/) {
     using Ref = std::ranges::range_reference_t<decltype(cv)>;
     static_assert(std::is_same_v<Ref, const int&>);
 
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (const int& x : cv) sum += x;
     assert(sum == 6);
 

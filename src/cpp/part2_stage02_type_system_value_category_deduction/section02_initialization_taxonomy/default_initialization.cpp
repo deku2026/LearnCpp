@@ -29,9 +29,9 @@ int run(int /*argc*/, char** /*argv*/) {
     // 入门：T x; 对不同类型意味着什么
     // -------------------------------------------------------------------------
     // int garbage;          // 默认初始化：值不确定，读即 UB —— 不要读
-    int safe = 0;       // 对照：声明即初始化
-    std::string s;      // 类类型：调用默认构造 → 空串
-    WithDefaultCtor w;  // 调用默认构造 → n==42
+    [[maybe_unused]] int safe = 0;  // 对照：声明即初始化
+    std::string s;                  // 类类型：调用默认构造 → 空串
+    WithDefaultCtor w;              // 调用默认构造 → n==42
     assert(s.empty());
     assert(w.n == 42);
     assert(safe == 0);
@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 进阶：数组、new、成员
     // -------------------------------------------------------------------------
     // int arr[3];           // 每个元素默认初始化 → 不确定
-    int arr_ok[3]{};  // 值初始化 → 全 0（对照）
+    [[maybe_unused]] int arr_ok[3]{};  // 值初始化 → 全 0（对照）
     assert(arr_ok[0] == 0 && arr_ok[2] == 0);
 
     // new T 也是默认初始化
@@ -72,7 +72,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 自动存储期：int x; 仅默认初始化 —— 读 x 是 UB（C++23）
     // 值初始化 T x{}：内置清零；有默认构造的类调默认构造；无默认构造的类可能零初始化成员
 
-    TrivialNoCtor t{};  // 值初始化：无默认构造时 → 零初始化成员
+    [[maybe_unused]] TrivialNoCtor t{};  // 值初始化：无默认构造时 → 零初始化成员
     assert(t.n == 0);
     // TrivialNoCtor u; // 默认初始化：u.n 不确定
 

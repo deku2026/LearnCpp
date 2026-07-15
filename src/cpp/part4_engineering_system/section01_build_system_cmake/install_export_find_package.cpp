@@ -46,7 +46,7 @@ bool same_major_compatible(Version req, Version have) {
     return have.patch >= req.patch;
 }
 
-bool exact_match(Version req, Version have) {
+[[maybe_unused]] bool exact_match(Version req, Version have) {
     return req.major == have.major && req.minor == have.minor && req.patch == have.patch;
 }
 
@@ -74,7 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== install_export_find_package ===\n";
 
     // --- 入门: 版本解析 ---
-    auto v = parse("1.4.2");
+    [[maybe_unused]] auto v = parse("1.4.2");
     assert(v.major == 1 && v.minor == 4 && v.patch == 2);
 
     // --- 进阶: SameMajorVersion ---

@@ -38,7 +38,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(fmm.count("alice") == 2);
         assert(fmm.size() == 3);
 
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         auto [lo, hi] = fmm.equal_range("alice");
         for (auto it = lo; it != hi; ++it) {
             sum += it->second;

@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：static operator()
     // -------------------------------------------------------------------------
-    Hash h;
+    [[maybe_unused]] Hash h;
     assert(h(1) != 0);
     assert(Hash{}(2) == Hash::operator()(2));
     assert(Times{}(6, 7) == 42);
@@ -58,11 +58,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §专家：与对象状态无关；可当 NTTP/策略
     // -------------------------------------------------------------------------
-    OldHash oh;
+    [[maybe_unused]] OldHash oh;
     assert(oh(3) == Hash{}(3));
 
     // static 调用运算符不依赖实例：即使类型不可默认构造也可通过 类型名::operator() 调用
-    auto v = Hash::operator()(10);
+    [[maybe_unused]] auto v = Hash::operator()(10);
     assert(v == Hash{}(10));
 
     std::cout << "[expert] static call without meaningful object state\n";

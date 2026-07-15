@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
         static_assert(std::ranges::borrowed_range<std::vector<int>&>);
         static_assert(!std::ranges::borrowed_range<std::vector<int>>);  // rvalue 否
 
-        auto it = std::ranges::find(v, 3);
+        [[maybe_unused]] auto it = std::ranges::find(v, 3);
         assert(it != v.end() && *it == 3);
         std::cout << "lvalue vector find OK\n";
     }
@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // 安全：先具名
         auto tmp = std::vector{1, 2, 3};
-        auto it = std::ranges::find(tmp, 2);
+        [[maybe_unused]] auto it = std::ranges::find(tmp, 2);
         assert(*it == 2);
         std::cout << "temporary → dangling type OK\n";
     }
@@ -50,10 +50,10 @@ int run(int /*argc*/, char** /*argv*/) {
         // 不拥有元素的 view：即使「临时」传算法也返回真迭代器
         static_assert(std::ranges::borrowed_range<std::string_view>);
         static_assert(std::ranges::borrowed_range<std::span<int>>);
-        auto it2 = std::ranges::find(std::string_view{"abc"}, 'b');
+        [[maybe_unused]] auto it2 = std::ranges::find(std::string_view{"abc"}, 'b');
         assert(*it2 == 'b');  // 字面量静态存储
 
-        auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
+        [[maybe_unused]] auto it3 = std::ranges::find(std::views::iota(0, 5), 3);
         assert(*it3 == 3);
 
         // 自定义不拥有视图可特化 enable_borrowed_range<T> = true
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
         // 对比：管道夹临时容器仍是运行期悬垂（dangling 管不到 pipe 存 view）
         // auto bad = std::vector{1,2,3} | views::filter(...); // 悬垂 view
         std::vector<int> owned{1, 2, 3, 4, 5};
-        auto good = owned | std::views::filter([](int x) { return x > 2; });
+        [[maybe_unused]] auto good = owned | std::views::filter([](int x) { return x > 2; });
         assert(std::ranges::distance(good) == 3);
         std::cout << "borrowed views + named pipe OK\n";
     }

@@ -43,7 +43,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert((got == std::vector<int>{1, 4, 9, 16, 25}));
 
     // view 可拷贝/移动(轻量)
-    auto copy = evens;
+    [[maybe_unused]] auto copy = evens;
     assert(std::ranges::distance(copy) == 2);
 
     std::cout << "[view] not vector; filter/transform lazy OK\n";

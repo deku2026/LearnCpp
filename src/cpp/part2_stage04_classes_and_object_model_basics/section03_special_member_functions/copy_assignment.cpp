@@ -82,14 +82,22 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(std::string(t.c_str()) == "alpha");
     assert(s.c_str() != t.c_str());
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
     t = t;  // 自赋值安全
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
     assert(std::string(t.c_str()) == "alpha");
     std::cout << "[advanced] deep assign + self-assign ok\n";
 
     // -------------------------------------------------------------------------
     // §专家：copy-and-swap 形态（强异常安全惯用法示意）
     // -------------------------------------------------------------------------
-    auto copy_and_swap_assign = [](DeepBuffer& lhs, DeepBuffer rhs) {  // rhs 按值=拷贝
+    [[maybe_unused]] auto copy_and_swap_assign = [](DeepBuffer& lhs, DeepBuffer rhs) {  // rhs 按值=拷贝
         // 真实类里常写：DeepBuffer& operator=(DeepBuffer other) { swap(*this,other); return *this; }
         DeepBuffer tmp{rhs};
         lhs = tmp;

@@ -74,7 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     Outer::Inner in{5};
     assert(in.x == 5);
-    Outer o;
+    [[maybe_unused]] Outer o;
     assert(o.make().x == 1);
     std::cout << "[intro] Outer::Inner x=" << in.x << '\n';
 

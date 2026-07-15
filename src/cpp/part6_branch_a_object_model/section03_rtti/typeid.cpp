@@ -51,14 +51,14 @@ int run(int argc, char** argv) {
 
     // --- 非多态对象: 静态类型 ---
     Plain pl;
-    Plain* ppl = &pl;
+    [[maybe_unused]] Plain* ppl = &pl;
     assert(typeid(pl) == typeid(Plain));
     assert(typeid(*ppl) == typeid(Plain));
     assert(typeid(ppl) == typeid(Plain*));  // 指针本身, 不是 *ppl
 
     // --- 多态: 运行期动态类型 ---
     Derived d;
-    Base& br = d;
+    [[maybe_unused]] Base& br = d;
     Base* bp = &d;
     assert(typeid(br) == typeid(Derived));
     assert(typeid(*bp) == typeid(Derived));
@@ -74,8 +74,8 @@ int run(int argc, char** argv) {
     assert(typeid(o) != typeid(d));
     assert(typeid(static_cast<Base&>(o)) == typeid(Other));
 
-    const std::type_info& ti1 = typeid(*bp);
-    const std::type_info& ti2 = typeid(Derived);
+    [[maybe_unused]] const std::type_info& ti1 = typeid(*bp);
+    [[maybe_unused]] const std::type_info& ti2 = typeid(Derived);
     assert(ti1 == ti2);
     assert(ti1 != typeid(Base));
 
@@ -84,7 +84,7 @@ int run(int argc, char** argv) {
 
     // --- bad_typeid: 对空指针做多态 typeid(*p) ---
     Base* np = nullptr;
-    bool bad = false;
+    [[maybe_unused]] bool bad = false;
     try {
         (void)typeid(*np);
     } catch (const std::bad_typeid& ex) {
@@ -94,10 +94,10 @@ int run(int argc, char** argv) {
     assert(bad);
 
     // 非多态空指针: 不访问对象, 不抛
-    Plain* nplain = nullptr;
+    [[maybe_unused]] Plain* nplain = nullptr;
     assert(typeid(*nplain) == typeid(Plain));
 
-    auto same_dynamic = [](const Base& a, const Base& b) { return typeid(a) == typeid(b); };
+    [[maybe_unused]] auto same_dynamic = [](const Base& a, const Base& b) { return typeid(a) == typeid(b); };
     Derived d2;
     assert(same_dynamic(d, d2));
     assert(!same_dynamic(d, alone));

@@ -37,7 +37,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::vector<std::string> names{"Alice", "Bob", "Carol"};
         std::vector<int> ages{30, 25, 35};
 
-        int bob_i = -1;
+        [[maybe_unused]] int bob_i = -1;
         for (auto [i, pair] : std::views::enumerate(std::views::zip(names, ages))) {
             auto [name, age] = pair;
             if (name == "Bob") {
@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
         }
         assert(bob_i == 1);
 
-        int last = -1;
+        [[maybe_unused]] int last = -1;
         for (auto [i, x] : std::views::iota(10, 13) | std::views::enumerate) {
             assert(x == 10 + static_cast<int>(i));
             last = static_cast<int>(i);

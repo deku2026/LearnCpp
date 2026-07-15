@@ -138,7 +138,7 @@ int run(int argc, char** argv) {
     }
     {
         auto t = fails();
-        bool caught = false;
+        [[maybe_unused]] bool caught = false;
         try {
             (void)t.run();
         } catch (const std::runtime_error& e) {

@@ -26,7 +26,7 @@ int run(int argc, char** argv) {
 
     // 正确: atomic 同步
     std::atomic<bool> go{false};
-    int data = 0;
+    [[maybe_unused]] int data = 0;
     std::jthread t([&] {
         while (!go.load(std::memory_order_acquire)) {
             std::this_thread::yield();
@@ -38,7 +38,7 @@ int run(int argc, char** argv) {
     t = std::jthread{};
 
     // volatile 合法: 模拟 MMIO（对编译器强制真实访问）
-    volatile int device_reg = 0;
+    [[maybe_unused]] volatile int device_reg = 0;
     device_reg = 1;
     device_reg = 2;
     assert(device_reg == 2);

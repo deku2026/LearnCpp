@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(ms.count(2) == 3);
         assert(ms.contains(2));
         // 相等元素相邻（等价区间）
-        auto [lo, hi] = ms.equal_range(2);
+        [[maybe_unused]] auto [lo, hi] = ms.equal_range(2);
         assert(std::distance(lo, hi) == 3);
         std::cout << "multiset: duplicates kept, grouped by equivalence\n";
     }
@@ -42,7 +42,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(mm.size() == 3);
 
         // ⚠️ multimap 没有 operator[] / at（key 不唯一）
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         auto [lo, hi] = mm.equal_range("alice");
         for (auto it = lo; it != hi; ++it) {
             sum += it->second;
@@ -68,8 +68,8 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::map<int, char> m;
         std::multimap<int, char> mm;
-        auto [i1, ok1] = m.insert({1, 'a'});
-        auto [i2, ok2] = m.insert({1, 'b'});
+        [[maybe_unused]] auto [i1, ok1] = m.insert({1, 'a'});
+        [[maybe_unused]] auto [i2, ok2] = m.insert({1, 'b'});
         assert(ok1 && !ok2 && i2->second == 'a');
 
         mm.insert({1, 'a'});
@@ -90,7 +90,7 @@ int run(int /*argc*/, char** /*argv*/) {
         // 查询 [15, 25) 时间窗
         auto lo = events.lower_bound(15);
         auto hi = events.lower_bound(25);
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         for (auto it = lo; it != hi; ++it) {
             ++n;
             assert(it->first >= 15 && it->first < 25);

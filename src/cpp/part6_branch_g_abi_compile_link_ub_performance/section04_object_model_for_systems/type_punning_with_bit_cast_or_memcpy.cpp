@@ -26,7 +26,7 @@ int run(int argc, char** argv) {
 
     float f = 2.0f;
     std::uint32_t u = std::bit_cast<std::uint32_t>(f);
-    float f2 = std::bit_cast<float>(u);
+    [[maybe_unused]] float f2 = std::bit_cast<float>(u);
     assert(f2 == 2.0f);
 
     double d = -0.0;

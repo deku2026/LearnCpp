@@ -19,7 +19,7 @@ namespace {
 enum class Color { Red, Green, Blue };
 enum class Traffic { Red, Yellow, Green };
 
-std::string_view name(Color c) {
+[[maybe_unused]] std::string_view name(Color c) {
     switch (c) {
         using enum Color;  // 本 switch 作用域内可直接写 Red/Green/Blue
         case Red:
@@ -32,7 +32,7 @@ std::string_view name(Color c) {
     return "?";
 }
 
-std::string paint(Color c) {
+[[maybe_unused]] std::string paint(Color c) {
     using enum Color;  // 函数作用域引入
     if (c == Red) {
         return "stop-paint";
@@ -52,7 +52,7 @@ int run(int argc, char** argv) {
         assert(name(Color::Red) == "red");
         assert(name(Color::Blue) == "blue");
         // 函数外仍需 Color::
-        Color c = Color::Green;
+        [[maybe_unused]] Color c = Color::Green;
         assert(name(c) == "green");
         std::cout << "[intro] using enum Color inside switch\n";
     }
@@ -64,7 +64,7 @@ int run(int argc, char** argv) {
 
         // 引入后仍是 Color 类型，不能与 int 混用
         using enum Color;
-        Color c = Blue;
+        [[maybe_unused]] Color c = Blue;
         // int n = c;  // ❌ 仍然不隐式转换
         assert(static_cast<int>(c) == 2);
         std::cout << "[advanced] still scoped enum type safety\n";

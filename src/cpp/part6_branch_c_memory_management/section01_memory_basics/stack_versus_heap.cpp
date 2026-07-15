@@ -28,7 +28,7 @@ int run(int argc, char** argv) {
     std::cout << "=== C1 stack versus heap ===\n";
 
     // --- 入门: 同一类型三种存储 ---
-    Widget a;  // automatic → 通常栈
+    [[maybe_unused]] Widget a;  // automatic → 通常栈
     assert(a.x == 0);
 
     auto b = std::make_unique<Widget>();  // dynamic → 堆

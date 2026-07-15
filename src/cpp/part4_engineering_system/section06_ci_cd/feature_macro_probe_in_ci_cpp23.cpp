@@ -90,7 +90,7 @@ long v_string_contains() {
 }
 
 // CI 门禁: 关键 C++20 基线缺失则失败(示例策略)
-bool gate_cpp20_baseline(const std::vector<Probe>& probes) {
+[[maybe_unused]] bool gate_cpp20_baseline(const std::vector<Probe>& probes) {
     for (const auto& p : probes) {
         if (std::string_view(p.name) == "__cpp_lib_span" && p.value == 0) {
             return false;
@@ -142,7 +142,7 @@ int run(int /*argc*/, char** /*argv*/) {
         {"__cpp_lib_string_contains", v_string_contains()},
     };
 
-    int present = 0;
+    [[maybe_unused]] int present = 0;
     for (const auto& p : probes) {
         std::cout << "  " << p.name << " = " << p.value << '\n';
         if (p.value != 0) {

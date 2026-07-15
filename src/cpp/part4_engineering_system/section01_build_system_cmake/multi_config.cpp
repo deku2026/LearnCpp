@@ -28,7 +28,7 @@ struct BuildRequest {
 };
 
 // 解析最终生效配置
-std::string effective_config(const BuildRequest& r) {
+[[maybe_unused]] std::string effective_config(const BuildRequest& r) {
     if (r.kind == GeneratorKind::SingleConfig) {
         return r.configure_build_type.empty() ? "Debug" : r.configure_build_type;
     }

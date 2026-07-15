@@ -57,6 +57,8 @@ int& per_type_counter() {
 }
 
 int run(int argc, char** argv) {
+    (void)identity(0);
+
     (void)argc;
     (void)argv;
 
@@ -65,7 +67,7 @@ int run(int argc, char** argv) {
     // --- 入门: 同一特化多次调用共享语义 ---
     assert(identity(3.5) == 3.5);
     assert(identity(10) == 10);
-    Box<int> b{99};
+    [[maybe_unused]] Box<int> b{99};
     assert(b.get() == 99);
     std::cout << "  identity / Box work\n";
 

@@ -71,7 +71,7 @@ int run(int argc, char** argv) {
         std::cout << "inventory units=" << units << '\n';
 
         // init 可写简单声明；C++23 起还允许 using 别名（section04）。
-        int product = 1;
+        [[maybe_unused]] int product = 1;
         for (auto data = make_data(); int x : data) {
             product *= x;
         }
@@ -87,7 +87,7 @@ int run(int argc, char** argv) {
         // 变通 ①：具名变量
         {
             auto inv = make_inventory();
-            int s = 0;
+            [[maybe_unused]] int s = 0;
             for (const auto& [k, v] : inv.items()) {
                 (void)k;
                 s += v;
@@ -97,7 +97,7 @@ int run(int argc, char** argv) {
 
         // 变通 ②：C++20 范围 for 初始化器（本 topic 主题）
         {
-            int s = 0;
+            [[maybe_unused]] int s = 0;
             for (auto inv = make_inventory(); const auto& [k, v] : inv.items()) {
                 (void)k;
                 s += v;

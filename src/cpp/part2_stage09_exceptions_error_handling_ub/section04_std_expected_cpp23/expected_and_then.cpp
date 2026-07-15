@@ -64,7 +64,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：短路——前步失败后步不执行 ===\n";
     {
         g_validate_calls = g_double_calls = 0;
-        auto bad = parse("nope").and_then(validate_count).and_then(double_count);
+        [[maybe_unused]] auto bad = parse("nope").and_then(validate_count).and_then(double_count);
         assert(!bad && bad.error() == Error::Parse);
         assert(g_validate_calls == 0);
         assert(g_double_calls == 0);
@@ -74,7 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：中段失败同样短路 ===\n";
     {
         g_validate_calls = g_double_calls = 0;
-        auto bad = parse("150").and_then(validate_count).and_then(double_count);
+        [[maybe_unused]] auto bad = parse("150").and_then(validate_count).and_then(double_count);
         assert(!bad && bad.error() == Error::Range);
         assert(g_validate_calls == 1);
         assert(g_double_calls == 0);

@@ -26,16 +26,16 @@ int run(int argc, char** argv) {
     int a = 1;
     int b = 2;
     int* pa = &a;
-    int* pb = &b;
+    [[maybe_unused]] int* pb = &b;
     assert(*pa == 1 && *pb == 2);
 
     // 合法: 同一数组内指针算术
     int arr[3]{10, 20, 30};
     int* p0 = &arr[0];
-    int* p2 = p0 + 2;
+    [[maybe_unused]] int* p2 = p0 + 2;
     assert(*p2 == 30);
     // 允许 one-past-end 指针, 不可解引用
-    int* end = arr + 3;
+    [[maybe_unused]] int* end = arr + 3;
     assert(end - p0 == 3);
 
     // 危险直觉 (不演示):
@@ -45,7 +45,7 @@ int run(int argc, char** argv) {
 
     // 合法: 整数往返同一指针 (实现定义细节多, 但常见平台 OK)
     std::uintptr_t u = reinterpret_cast<std::uintptr_t>(pa);
-    int* pa2 = reinterpret_cast<int*>(u);
+    [[maybe_unused]] int* pa2 = reinterpret_cast<int*>(u);
     assert(pa2 == pa);
     assert(*pa2 == 1);
 

@@ -97,7 +97,7 @@ int run(int argc, char** argv) {
     std::vector<int> v{1, 2, 3, 4};
     assert(distance_if_random(v.begin(), v.end()) == 4);
 
-    int x = 5;
+    [[maybe_unused]] int x = 5;
     assert(decay_copy(x) == 5);
     assert(decay_copy(&x) == 5);
 

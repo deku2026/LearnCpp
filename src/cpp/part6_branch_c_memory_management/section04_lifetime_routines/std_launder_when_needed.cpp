@@ -36,7 +36,7 @@ int run(int argc, char** argv) {
     assert(p2->n == 2);
 
     // 经可能被优化的旧指针路径：用 launder 取得当前对象
-    int v = std::launder(reinterpret_cast<X*>(buf))->n;
+    [[maybe_unused]] int v = std::launder(reinterpret_cast<X*>(buf))->n;
     assert(v == 2);
     assert(std::launder(p1)->n == 2);
 

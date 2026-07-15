@@ -31,9 +31,9 @@ void demo_safe_patterns() {
 
     // UBSan 常抓：有符号溢出 / 空解引用 / 对齐 —— 安全写法
     const int a = 100;
-    const int b = 200;
+    [[maybe_unused]] const int b = 200;
     assert(a + b == 300);
-    const int* q = &a;
+    [[maybe_unused]] const int* q = &a;
     assert(q != nullptr && *q == 100);
 }
 

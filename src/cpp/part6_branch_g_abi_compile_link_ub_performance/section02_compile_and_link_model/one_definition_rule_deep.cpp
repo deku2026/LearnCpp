@@ -25,7 +25,7 @@ struct Point {
 };
 
 // 允许: inline 函数多 TU 相同定义
-inline std::string greet(const std::string& n) {
+[[maybe_unused]] inline std::string greet(const std::string& n) {
     return "hi " + n;
 }
 
@@ -36,8 +36,8 @@ T twice(T v) {
 }
 
 // 常量: 内部链接 vs inline 变量
-constexpr int kMagic = 42;
-inline constexpr int kShared = 7;  // C++17 inline variable
+[[maybe_unused]] constexpr int kMagic = 42;
+[[maybe_unused]] inline constexpr int kShared = 7;  // C++17 inline variable
 
 // 违规示意 (不要在另一 .cpp 写不同的 Point 定义)
 
@@ -47,7 +47,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G4 ODR deep ===\n";
 
-    Point p{3, 4};
+    [[maybe_unused]] Point p{3, 4};
     assert(p.sum() == 7);
     assert(greet("Ada") == "hi Ada");
     assert(twice(21) == 42);

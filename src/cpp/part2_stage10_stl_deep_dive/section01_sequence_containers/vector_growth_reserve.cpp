@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(v.size() == 0);  // reserve 只改 capacity
         assert(v.capacity() >= 1000);
 
-        const auto* data_before = v.data();
+        [[maybe_unused]] const auto* data_before = v.data();
         for (int i = 0; i < 1000; ++i) {
             v.push_back(i);
         }
@@ -102,7 +102,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v;
         v.reserve(4);
-        const auto* p = v.data();
+        [[maybe_unused]] const auto* p = v.data();
         for (int i = 0; i < 4; ++i) {
             v.push_back(i);
         }

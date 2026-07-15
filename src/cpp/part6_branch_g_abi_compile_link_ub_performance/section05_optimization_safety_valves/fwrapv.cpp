@@ -18,11 +18,11 @@
 
 namespace {
 
-std::uint32_t wrap_add(std::uint32_t a, std::uint32_t b) {
+[[maybe_unused]] std::uint32_t wrap_add(std::uint32_t a, std::uint32_t b) {
     return a + b;
 }
 
-bool checked_add(int a, int b, int& out) {
+[[maybe_unused]] bool checked_add(int a, int b, int& out) {
     if ((b > 0 && a > std::numeric_limits<int>::max() - b) || (b < 0 && a < std::numeric_limits<int>::min() - b)) {
         return false;
     }
@@ -37,7 +37,7 @@ int run(int argc, char** argv) {
     std::cout << "=== G11 -fwrapv (signed wrap dialect) ===\n";
 
     assert(wrap_add(0xffffffffu, 1u) == 0u);
-    int r = 0;
+    [[maybe_unused]] int r = 0;
     assert(checked_add(1, 2, r) && r == 3);
     assert(!checked_add(std::numeric_limits<int>::max(), 1, r));
 

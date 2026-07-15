@@ -20,9 +20,9 @@ namespace {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [string_view_null_construct_forbidden_cpp23] 入门：合法构造 ===\n";
     {
-        std::string_view a{"hello"};
+        [[maybe_unused]] std::string_view a{"hello"};
         std::string s = "owned";
-        std::string_view b{s};
+        [[maybe_unused]] std::string_view b{s};
         std::string_view c{s.data(), s.size()};
         assert(a == "hello" && b == "owned" && c == "owned");
         std::cout << "literal/string/ptr+len OK\n";
@@ -42,15 +42,15 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：空 view 正确写法 + 可空 C 字符串 ===\n";
     {
         // 空 view 用默认构造或 "" —— 不是 nullptr
-        std::string_view empty{};
+        [[maybe_unused]] std::string_view empty{};
         assert(empty.empty());
-        std::string_view empty2{""};
+        [[maybe_unused]] std::string_view empty2{""};
         assert(empty2.empty());
 
         // 从可能为空的 C 字符串: 必须先判空再构造
-        const char* p = "ok";
-        const char* q = nullptr;
-        auto make_sv = [](const char* ptr) -> std::string_view {
+        [[maybe_unused]] const char* p = "ok";
+        [[maybe_unused]] const char* q = nullptr;
+        [[maybe_unused]] auto make_sv = [](const char* ptr) -> std::string_view {
             return ptr ? std::string_view{ptr} : std::string_view{};
         };
         assert(make_sv(p) == "ok");

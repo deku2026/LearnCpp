@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "aligned operator new/delete ok\n";
 
     // launder 平凡可用性(深层见 section06/std_launder)
-    int x = 7;
+    [[maybe_unused]] int x = 7;
     assert(*std::launder(&x) == 7);
 
     std::cout << "[memory_headers] all checks passed\n";

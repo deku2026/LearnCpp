@@ -28,11 +28,11 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     const int c = 10;
     // c = 11; // ❌
-    const int& cr = c;
+    [[maybe_unused]] const int& cr = c;
     assert(cr == 10);
 
     int x = 1;
-    const int& cx = x;  // 只读别名；x 本身仍可通过其它路径改
+    [[maybe_unused]] const int& cx = x;  // 只读别名；x 本身仍可通过其它路径改
     x = 2;
     assert(cx == 2);
     // cx = 3; // ❌
@@ -44,7 +44,7 @@ int run(int /*argc*/, char** /*argv*/) {
     int a = 10;
     int b = 20;
 
-    const int* p1 = &a;  // 底层 const：不能改 *p1，能改 p1
+    [[maybe_unused]] const int* p1 = &a;  // 底层 const：不能改 *p1，能改 p1
     p1 = &b;
     // *p1 = 5; // ❌
     assert(*p1 == 20);
@@ -54,12 +54,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // p2 = &b; // ❌
     assert(a == 15);
 
-    const int* const p3 = &b;  // 双 const
+    [[maybe_unused]] const int* const p3 = &b;  // 双 const
     assert(*p3 == 20);
     // *p3 = 1; p3 = &a; // ❌
 
     // 最重要的 const：const T& 绑右值，延长临时寿命到引用作用域
-    const int& r_lit = 42;
+    [[maybe_unused]] const int& r_lit = 42;
     assert(r_lit == 42);
     // int& bad = 42; // ❌
 
@@ -77,7 +77,7 @@ int run(int /*argc*/, char** /*argv*/) {
         int get() const { return n; }  // const 成员函数：不修改 *this 逻辑状态
         void inc() { ++n; }
     };
-    const Counter cc{};
+    [[maybe_unused]] const Counter cc{};
     assert(cc.get() == 0);
     // cc.inc(); // ❌
 

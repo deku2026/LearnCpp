@@ -30,7 +30,7 @@ void atomic_fetch_max(std::atomic<int>& a, int v) {
 }
 
 // 无锁对共享 int 做 "若仍为 expected 则加倍"
-bool try_double(std::atomic<int>& a) {
+[[maybe_unused]] bool try_double(std::atomic<int>& a) {
     int cur = a.load(std::memory_order_relaxed);
     for (;;) {
         if (cur > 1000000) {
@@ -61,7 +61,7 @@ int run(int argc, char** argv) {
     ts.clear();
     assert(m.load() == 3 * 100 + 99);
 
-    std::atomic<int> x{1};
+    [[maybe_unused]] std::atomic<int> x{1};
     assert(try_double(x));
     assert(x.load() == 2);
     assert(try_double(x));

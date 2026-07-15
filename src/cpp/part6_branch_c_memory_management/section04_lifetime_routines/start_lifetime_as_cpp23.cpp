@@ -40,7 +40,7 @@ int run(int argc, char** argv) {
     assert(p->y == 2.5f);
     std::cout << "  start_lifetime_as: lifetime without ctor, bytes kept\n";
 #else
-    auto* p = std::launder(reinterpret_cast<Point*>(bytes));
+    [[maybe_unused]] auto* p = std::launder(reinterpret_cast<Point*>(bytes));
     assert(p->x == 1.5f && p->y == 2.5f);
     std::cout << "  start_lifetime_as unavailable; launder+memcpy demo\n";
 #endif

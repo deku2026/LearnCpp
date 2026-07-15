@@ -41,7 +41,7 @@ int run(int /*argc*/, char** /*argv*/) {
         auto pipeline = v | std::views::transform([](int x) { return x + 1; });
         static_assert(std::ranges::viewable_range<decltype(pipeline)>);
         // 可继续 | filter
-        auto more = pipeline | std::views::filter([](int x) { return x > 2; });
+        [[maybe_unused]] auto more = pipeline | std::views::filter([](int x) { return x > 2; });
         assert(std::ranges::distance(more) == 2);
         std::cout << "views::all + re-pipe OK\n";
     }

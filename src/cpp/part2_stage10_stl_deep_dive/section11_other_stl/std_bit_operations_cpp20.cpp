@@ -30,7 +30,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // ② countl_zero / countr_zero
     {
-        const std::uint8_t x = 0b0001'1000;
+        [[maybe_unused]] const std::uint8_t x = 0b0001'1000;
         assert(std::countl_zero(x) == 3);  // 前导 0
         assert(std::countr_zero(x) == 3);  // 尾随 0
         std::cout << "  countl/r_zero on 0b00011000\n";
@@ -50,7 +50,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // ④ rotl / rotr
     {
-        const std::uint8_t x = 0b1000'0001;
+        [[maybe_unused]] const std::uint8_t x = 0b1000'0001;
         assert(std::rotl(x, 1) == 0b0000'0011);
         assert(std::rotr(x, 1) == 0b1100'0000);
         std::cout << "  rotl/rotr OK\n";

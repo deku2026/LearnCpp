@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：operator[] vs at，以及 size 守卫 ===\n";
     {
         std::vector<int> v{7, 8, 9};
-        const std::size_t i = 1;
+        [[maybe_unused]] const std::size_t i = 1;
         // 热路径常用 []，但调用方必须先证成 i < size()
         assert(i < v.size());
         assert(v[i] == 8);

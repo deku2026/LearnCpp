@@ -26,7 +26,7 @@ int run(int argc, char** argv) {
     // --- 入门: 独占所有权 ---
     {
         auto owner = std::make_unique<int>(42);
-        int* borrow = owner.get();
+        [[maybe_unused]] int* borrow = owner.get();
         assert(*borrow == 42);
         owner.reset();
         // *borrow;  // ❌ UAF — ASan: heap-use-after-free
@@ -37,7 +37,7 @@ int run(int argc, char** argv) {
     // --- 进阶: 栈对象借用窗口 ---
     {
         int x = 5;
-        int* p = &x;
+        [[maybe_unused]] int* p = &x;
         assert(*p == 5);
         p = nullptr;
     }

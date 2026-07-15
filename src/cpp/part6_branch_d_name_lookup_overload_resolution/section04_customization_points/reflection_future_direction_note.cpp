@@ -27,12 +27,12 @@ struct type_name {
 
 template <>
 struct type_name<int> {
-    static constexpr const char* value = "int";
+    [[maybe_unused]] static constexpr const char* value = "int";
 };
 
 template <>
 struct type_name<std::string> {
-    static constexpr const char* value = "string";
+    [[maybe_unused]] static constexpr const char* value = "string";
 };
 
 template <typename T>

@@ -48,8 +48,8 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 能容纳对象指针的整数类型（用于指针标记、序列化偏移等）
     int stack_obj = 7;
-    std::intptr_t ip = reinterpret_cast<std::intptr_t>(&stack_obj);
-    std::uintptr_t up = reinterpret_cast<std::uintptr_t>(&stack_obj);
+    [[maybe_unused]] std::intptr_t ip = reinterpret_cast<std::intptr_t>(&stack_obj);
+    [[maybe_unused]] std::uintptr_t up = reinterpret_cast<std::uintptr_t>(&stack_obj);
     assert(reinterpret_cast<int*>(ip) == &stack_obj);
     assert(reinterpret_cast<int*>(up) == &stack_obj);
     assert(*reinterpret_cast<int*>(ip) == 7);
@@ -69,12 +69,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // 3) 协议/文件格式/跨语言 ABI：优先精确宽度；本地循环计数：size_t / 普通 int 亦可
     // 4) 算术溢出：有符号溢出仍是 UB；无符号按模 2^N 回绕
 
-    std::uint8_t wrap = 255;
+    [[maybe_unused]] std::uint8_t wrap = 255;
     ++wrap;  // 无符号回绕 → 0
     assert(wrap == 0);
 
     // 有符号：不要依赖“溢出后变成负”；用更大宽度或检查
-    std::int32_t near_max = std::numeric_limits<std::int32_t>::max() - 1;
+    [[maybe_unused]] std::int32_t near_max = std::numeric_limits<std::int32_t>::max() - 1;
     near_max += 1;
     assert(near_max == std::numeric_limits<std::int32_t>::max());
     // near_max += 1; // 若再加 → UB，禁止演示执行

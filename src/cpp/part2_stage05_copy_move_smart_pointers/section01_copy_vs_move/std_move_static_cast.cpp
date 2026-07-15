@@ -70,7 +70,7 @@ struct CopyOnly {
     // 故意不声明移动 → 编译器因用户声明了拷贝而不生成移动
 };
 
-void take_lvalue(std::string&) {
+[[maybe_unused]] void take_lvalue(std::string&) {
     std::cout << "  overload: string&\n";
 }
 void take_rvalue(std::string&&) {
@@ -132,7 +132,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // · 误用：move 后继续读值（除非无前置条件 API）；move const；对还要用的对象 move
     // · 对 int 等标量 move 无收益（就是拷贝），但无害
     int n = 42;
-    int m = std::move(n);
+    [[maybe_unused]] int m = std::move(n);
     assert(m == 42);
     // n 仍可读（标量移动=拷贝），但风格上 move 后不应再依赖
     (void)n;

@@ -121,7 +121,7 @@ int run(int argc, char** argv) {
     static_assert(popcount32(0xF0F0F0F0u) == 16);
 
     // 运行期查表
-    int idx = 15;
+    [[maybe_unused]] int idx = 15;
     assert(kSquareTable[static_cast<std::size_t>(idx)] == 225);
     std::cout << "[intro] kSquareTable[15]=" << kSquareTable[15] << " (table built at compile time)\n";
 

@@ -51,7 +51,7 @@ int run(int argc, char** argv) {
     assert(d->code() == 2);
     assert(d->name() == "derived");
 
-    Base* p = d.get();
+    [[maybe_unused]] Base* p = d.get();
     assert(p->code() == 2);  // 动态分派
 
     std::cout << "  stable ABI tips:\n";

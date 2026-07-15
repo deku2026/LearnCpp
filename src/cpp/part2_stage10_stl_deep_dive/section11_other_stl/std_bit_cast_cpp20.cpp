@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
         const std::uint32_t u = std::bit_cast<std::uint32_t>(f);
         // IEEE-754 binary32: 1.0 = 0x3f800000
         assert(u == 0x3f800000u);
-        const float back = std::bit_cast<float>(u);
+        [[maybe_unused]] const float back = std::bit_cast<float>(u);
         assert(back == 1.0f);
         std::cout << "  1.0f bits=0x" << std::hex << u << std::dec << '\n';
     }
@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // bit_cast / memcpy 是合规路径
     {
         const double d = -0.0;
-        const auto bits = std::bit_cast<std::uint64_t>(d);
+        [[maybe_unused]] const auto bits = std::bit_cast<std::uint64_t>(d);
         // 符号位为 1
         assert((bits >> 63) == 1);
         std::cout << "  -0.0 sign bit set\n";

@@ -84,7 +84,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // · 多级：只有直接绑定的那个临时量被延长
 
     // int& bad = 1;  // 非法
-    const int& ok = 1;  // 延长 int 临时量
+    [[maybe_unused]] const int& ok = 1;  // 延长 int 临时量
     assert(ok == 1);
 
     std::cout << "=== const_ref_extends_temporary: OK ===\n";

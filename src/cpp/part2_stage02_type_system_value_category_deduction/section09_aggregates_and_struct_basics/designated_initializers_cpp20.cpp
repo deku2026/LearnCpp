@@ -48,11 +48,13 @@ int run(int argc, char** argv) {
     std::cout << "=== [designated_initializers_cpp20] 入门：按成员名初始化 ===\n";
     {
         // 旧：靠位置，可读性差
-        ScreenConfig a{true, false, 8, 1};
+        [[maybe_unused]] ScreenConfig a{true, false, 8, 1};
 
         // C++20：自解释
-        ScreenConfig b{.autoScale = true, .fullscreen = false, .bits = 8, .planes = 1};
-        ScreenConfig c{.autoScale = true, .bits = 16};  // 省略的值初始化
+        [[maybe_unused]] ScreenConfig b{.autoScale = true, .fullscreen = false, .bits = 8, .planes = 1};
+        [[maybe_unused]] ScreenConfig c{
+            .autoScale = true, .fullscreen = false, .bits = 16, .planes = 0};  // 省略的值初始化
+        (void)c;
 
         assert(a.autoScale && !a.fullscreen && a.bits == 8 && a.planes == 1);
         assert(b.bits == 8 && b.planes == 1);
@@ -63,7 +65,8 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 进阶：必须按声明顺序；省略成员值初始化 ===\n";
     {
-        Config cfg{.width = 1920, .height = 1080, .vsync = true, .title = "demo"};
+        [[maybe_unused]] Config cfg{.width = 1920, .height = 1080, .vsync = true, .samples = 0, .title = "demo"};
+        (void)cfg;
         // samples 省略 → 0
         assert(cfg.width == 1920 && cfg.height == 1080);
         assert(cfg.vsync && cfg.samples == 0);
@@ -81,7 +84,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== 专家：union 只能指定一个；嵌套指定 ===\n";
     {
-        Slot s{.i = 42};
+        [[maybe_unused]] Slot s{.i = 42};
         assert(s.i == 42);
         // Slot s2{.i = 1, .d = 2.0};  // ❌ union 只能一个指示符
 
@@ -93,11 +96,12 @@ int run(int argc, char** argv) {
             Inner in;
             int w;
         };
-        Outer o{.in = {.u = 1, .v = 2}, .w = 3};
+        [[maybe_unused]] Outer o{.in = {.u = 1, .v = 2}, .w = 3};
         assert(o.in.u == 1 && o.in.v == 2 && o.w == 3);
 
         // 配置对象验收：部分字段 + 默认零
-        Config mini{.width = 800, .height = 600, .title = "mini"};
+        [[maybe_unused]] Config mini{.width = 800, .height = 600, .vsync = false, .samples = 0, .title = "mini"};
+        (void)mini;
         assert(!mini.vsync && mini.samples == 0);
 
         std::cout << "[expert] nested designators; union single active member\n";

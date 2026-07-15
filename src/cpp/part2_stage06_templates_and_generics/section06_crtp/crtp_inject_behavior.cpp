@@ -27,7 +27,7 @@ struct EqualityMixin {
 struct UserId : EqualityMixin<UserId> {
     int value = 0;
     explicit UserId(int v) : value(v) {}
-    friend bool operator==(const UserId& a, const UserId& b) { return a.value == b.value; }
+    [[maybe_unused]] friend bool operator==(const UserId& a, const UserId& b) { return a.value == b.value; }
 };
 
 // ---------------------------------------------------------------------------
@@ -45,13 +45,15 @@ struct Version : Comparable<Version> {
     int major = 0;
     int minor = 0;
     Version(int ma, int mi) : major(ma), minor(mi) {}
-    friend bool operator<(const Version& a, const Version& b) {
+    [[maybe_unused]] friend bool operator<(const Version& a, const Version& b) {
         if (a.major != b.major) {
             return a.major < b.major;
         }
         return a.minor < b.minor;
     }
-    friend bool operator==(const Version& a, const Version& b) { return a.major == b.major && a.minor == b.minor; }
+    [[maybe_unused]] friend bool operator==(const Version& a, const Version& b) {
+        return a.major == b.major && a.minor == b.minor;
+    }
 };
 
 // ---------------------------------------------------------------------------

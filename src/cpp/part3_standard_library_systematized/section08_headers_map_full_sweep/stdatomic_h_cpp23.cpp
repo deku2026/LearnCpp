@@ -53,8 +53,8 @@ int run(int /*argc*/, char** /*argv*/) {
 #endif
 
     // 明确写出易混项: 文档 headers map 版本陷阱
-    const bool stdbit_is_cpp26 = true;
-    const bool stdckdint_is_cpp26 = true;
+    [[maybe_unused]] const bool stdbit_is_cpp26 = true;
+    [[maybe_unused]] const bool stdckdint_is_cpp26 = true;
     assert(stdbit_is_cpp26 && stdckdint_is_cpp26);
     std::cout << "NOT C++23: <stdbit.h> / <stdckdint.h> are C++26\n";
     std::cout << "prefer <atomic> + std::atomic in pure C++ TUs\n";

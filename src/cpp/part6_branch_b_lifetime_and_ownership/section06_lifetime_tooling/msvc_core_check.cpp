@@ -42,7 +42,7 @@ int run(int argc, char** argv) {
     assert(p && *p == 5);
 
     int x = 1;
-    int* borrow = &x;
+    [[maybe_unused]] int* borrow = &x;
     assert(*borrow == 1);
     borrow = nullptr;
 

@@ -67,7 +67,7 @@ namespace inv_ledger = inventory::ledger;
 // 本 TU 私有助手：匿名命名空间 → 内部链接，其它 .cpp 看不见
 namespace {
 int tu_local_seed = 42;
-int bump_seed() {
+[[maybe_unused]] int bump_seed() {
     return ++tu_local_seed;
 }
 }  // namespace
@@ -120,8 +120,8 @@ int run(int /*argc*/, char** /*argv*/) {
               << " ::stock()=" << ::stock() << '\n';
 
     // 撞名类型靠命名空间区分
-    lib_alpha::Logger la{};
-    lib_beta::Logger lb{};
+    [[maybe_unused]] lib_alpha::Logger la{};
+    [[maybe_unused]] lib_beta::Logger lb{};
     assert(la.id == 1 && lb.id == 2);
     std::cout << "[intro] two Logger types coexist via namespaces\n";
 
@@ -135,7 +135,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[pitfall] never put 'using namespace std;' in a header\n";
 
     // 匿名命名空间：本 TU 专属
-    const int s0 = tu_local_seed;
+    [[maybe_unused]] const int s0 = tu_local_seed;
     assert(bump_seed() == s0 + 1);
     std::cout << "[advanced] unnamed namespace => internal linkage (TU-local)\n";
 

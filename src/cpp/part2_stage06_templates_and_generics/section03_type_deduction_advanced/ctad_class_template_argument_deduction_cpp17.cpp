@@ -77,7 +77,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(w.value == 3.14);
 
     // 也可显式写出
-    std::pair<int, int> explicit_p{1, 2};
+    [[maybe_unused]] std::pair<int, int> explicit_p{1, 2};
     assert(explicit_p.second == 2);
     std::cout << "user PairLite/Wrapper OK\n";
 

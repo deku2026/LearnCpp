@@ -84,7 +84,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  dry-run would fail on messy input\n";
 
     // CI: clang-format --dry-run --Werror
-    const int dry_run_exit = needs_format(messy, clean) ? 1 : 0;
+    [[maybe_unused]] const int dry_run_exit = needs_format(messy, clean) ? 1 : 0;
     assert(dry_run_exit == 1);
 
     // 本仓库风格: 教学示例倾向 4 空格(与文档 Google Based + IndentWidth 4)

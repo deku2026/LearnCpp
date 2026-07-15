@@ -163,7 +163,7 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(!std::is_same_v<MiniStack<int>, MiniStack<double>>);
 
     std::cout << "=== 进阶：成员按需实例化 ===\n";
-    LazyOps<int> li;
+    [[maybe_unused]] LazyOps<int> li;
     assert(li.divide(10, 2) == 5);
     LazyOps<Token> lt;
     Token joined = lt.add(Token{"ab"}, Token{"cd"});
@@ -177,7 +177,7 @@ int run(int /*argc*/, char** /*argv*/) {
     MiniStack<int> b = a;
     assert(b.pop() == 42);
     assert(a.top() == 42);  // 深拷贝，互不影响
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         MiniStack<int>{}.pop();
     } catch (const std::out_of_range&) {

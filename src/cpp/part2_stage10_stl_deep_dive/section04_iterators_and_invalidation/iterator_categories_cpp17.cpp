@@ -111,12 +111,12 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：距离与 advance 的复杂度随类别变化 ===\n";
     {
         std::vector<int> v(100);
-        auto a = v.begin();
-        auto b = v.begin() + 50;
+        [[maybe_unused]] auto a = v.begin();
+        [[maybe_unused]] auto b = v.begin() + 50;
         assert(std::distance(a, b) == 50);  // RA: O(1)
 
         std::list<int> lst(100);
-        auto la = lst.begin();
+        [[maybe_unused]] auto la = lst.begin();
         auto lb = lst.begin();
         std::advance(lb, 50);  // Bi: O(n)
         assert(std::distance(la, lb) == 50);

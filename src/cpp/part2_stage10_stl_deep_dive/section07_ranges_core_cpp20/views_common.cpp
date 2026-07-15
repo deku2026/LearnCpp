@@ -27,12 +27,12 @@ int run(int /*argc*/, char** /*argv*/) {
     assert((v == std::vector<int>{0, 1, 2, 3, 4}));
 
     // 旧 accumulate 要同型迭代器
-    const int sum = std::accumulate(c.begin(), c.end(), 0);
+    [[maybe_unused]] const int sum = std::accumulate(c.begin(), c.end(), 0);
     assert(sum == 10);
 
     // 已是 common 时 common 仍可用(可能 no-op 包装)
     std::vector<int> base{1, 2, 3};
-    auto c2 = base | std::views::common;
+    [[maybe_unused]] auto c2 = base | std::views::common;
     assert(std::ranges::equal(c2, base));
 
     std::cout << "[common] iota|take → vector/accumulate OK\n";

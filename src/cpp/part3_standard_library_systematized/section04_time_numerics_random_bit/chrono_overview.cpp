@@ -48,7 +48,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(duration_cast<seconds>(1500ms).count() == 1);
 
     // C++20 日历类型
-    const year_month_day ymd = 2025y / June / 16d;
+    [[maybe_unused]] const year_month_day ymd = 2025y / June / 16d;
     assert(ymd.ok());
     assert(static_cast<int>(ymd.year()) == 2025);
     assert(unsigned{ymd.month()} == 6);
@@ -56,7 +56,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] calendar 2025y/June/16d ok\n";
 
     // hh_mm_ss 拆分
-    const hh_mm_ss hms{total};
+    [[maybe_unused]] const hh_mm_ss hms{total};
     assert(hms.hours() == 2h);
     assert(hms.minutes() == 30min);
 

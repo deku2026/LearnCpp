@@ -104,7 +104,7 @@ int run(int argc, char** argv) {
 
     // --- 正确: 引用 / 指针 / unique_ptr ---
     by_ref(dog);
-    Animal* p = &dog;
+    [[maybe_unused]] Animal* p = &dog;
     assert(p->sound() == "Woof!");
 
     std::vector<std::unique_ptr<Animal>> zoo_good;
@@ -117,7 +117,7 @@ int run(int argc, char** argv) {
     // --- 防御: 删除拷贝的抽象基类 ---
     Circle c;
     c.r = 2.0;
-    AbstractShape* ps = &c;
+    [[maybe_unused]] AbstractShape* ps = &c;
     assert(ps->area() > 12.0 && ps->area() < 13.0);
     // AbstractShape copy = c;  // 编译错误: 已 delete
     // std::vector<AbstractShape> shapes; shapes.push_back(c);  // 亦不可

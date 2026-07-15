@@ -24,7 +24,7 @@ std::string good_owned() {
     return s;
 }
 
-std::size_t len(std::string_view sv) {
+[[maybe_unused]] std::size_t len(std::string_view sv) {
     return sv.size();
 }
 
@@ -40,24 +40,24 @@ int run(int argc, char** argv) {
 
     // --- 入门 ---
     std::string owned = good_owned();
-    std::string_view sv = owned;
+    [[maybe_unused]] std::string_view sv = owned;
     assert(sv == "hello");
     assert(len(sv) == 5);
     assert(len("literal") == 7);  // 字面量静态存储
 
     {
         std::string long_lived = "payload";
-        NameView nv{long_lived};
+        [[maybe_unused]] NameView nv{long_lived};
         assert(nv.name == "payload");
     }
 
     // --- 进阶 ---
     std::string joined = std::string("he") + "llo";
-    std::string_view jv = joined;
+    [[maybe_unused]] std::string_view jv = joined;
     assert(jv == "hello");
 
     std::string base = "abcdef";
-    std::string_view sub = std::string_view{base}.substr(2, 3);
+    [[maybe_unused]] std::string_view sub = std::string_view{base}.substr(2, 3);
     assert(sub == "cde");
 
     // SSO 与否不影响：view 只是指针+长度，owner 销毁即悬垂

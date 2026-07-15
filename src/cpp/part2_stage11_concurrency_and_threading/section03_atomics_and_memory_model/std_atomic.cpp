@@ -30,7 +30,7 @@ int run(int argc, char** argv) {
         std::atomic<int> x{0};
         x.store(5);
         assert(x.load() == 5);
-        const int old = x.exchange(10);
+        [[maybe_unused]] const int old = x.exchange(10);
         assert(old == 5 && x.load() == 10);
         assert(x.fetch_add(3) == 10);
         assert(x.load() == 13);

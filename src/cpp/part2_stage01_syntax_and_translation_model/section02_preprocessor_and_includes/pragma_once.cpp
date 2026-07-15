@@ -97,9 +97,9 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 取舍断言（有真实语义，非空洞 assert(true)）:
     // 库/可移植代码优先 ISO include guard；应用内常用 #pragma once；也可 both。
-    const GuardStyle recommended_for_libs = GuardStyle::IncludeGuard;
-    const GuardStyle app_ok = GuardStyle::PragmaOnce;
-    const GuardStyle belt_and_suspenders = GuardStyle::Both;
+    [[maybe_unused]] const GuardStyle recommended_for_libs = GuardStyle::IncludeGuard;
+    [[maybe_unused]] const GuardStyle app_ok = GuardStyle::PragmaOnce;
+    [[maybe_unused]] const GuardStyle belt_and_suspenders = GuardStyle::Both;
     assert(recommended_for_libs != app_ok);
     assert(std::string{stage01_pragma_demo::style_name(belt_and_suspenders)} == "both");
     assert(std::string{stage01_pragma_demo::style_name(recommended_for_libs)} == "include_guard");

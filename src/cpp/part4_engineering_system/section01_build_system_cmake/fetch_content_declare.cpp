@@ -108,6 +108,7 @@ int run(int /*argc*/, char** /*argv*/) {
         {"Conan", true, true},
     };
     for (const auto& p : policies) {
+        (void)p;
         assert(p.needs_git_tag_lock);
     }
     assert(!policies[0].binary_cache && policies[2].binary_cache);

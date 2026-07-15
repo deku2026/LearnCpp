@@ -31,7 +31,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 数组
     int arr[2] = {10, 20};
-    auto [a0, a1] = arr;
+    [[maybe_unused]] auto [a0, a1] = arr;
     assert(a0 == 10 && a1 == 20);
 
     // pair / tuple
@@ -46,12 +46,12 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 聚合
     Agg g{7, 3.5};
-    auto [gx, gy] = g;
+    [[maybe_unused]] auto [gx, gy] = g;
     assert(gx == 7 && gy == 3.5);
 
     // map 遍历
     std::map<std::string, int> m{{"a", 1}, {"b", 2}};
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (const auto& [key, value] : m) {
         sum += value;
         assert(!key.empty());

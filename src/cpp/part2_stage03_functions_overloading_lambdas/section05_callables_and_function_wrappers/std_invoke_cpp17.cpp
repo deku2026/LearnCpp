@@ -31,7 +31,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：普通可调用
     // -------------------------------------------------------------------------
     assert(std::invoke(free_fn, 5) == 10);
-    auto lam = [](int a, int b) { return a + b; };
+    [[maybe_unused]] auto lam = [](int a, int b) { return a + b; };
     assert(std::invoke(lam, 1, 2) == 3);
     std::cout << "[intro] invoke free function and lambda\n";
 
@@ -46,15 +46,15 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(s.mem == 7);
 
     // 传统写法对照：(s.*pmf)(args) / s.*pmd
-    auto pmf = &S::method;
+    [[maybe_unused]] auto pmf = &S::method;
     assert((s.*pmf)(1) == 8);
     std::cout << "[advanced] member pointers unified; no .* / ->* at call site\n";
 
     // -------------------------------------------------------------------------
     // §专家：引用包装、完美转发场景
     // -------------------------------------------------------------------------
-    int n = 3;
-    auto add_n = [](int x, int y) { return x + y; };
+    [[maybe_unused]] int n = 3;
+    [[maybe_unused]] auto add_n = [](int x, int y) { return x + y; };
     assert(std::invoke(add_n, n, 4) == 7);
 
     // INVOKE 协议是 concept invocable / apply / bind_front 的基础
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(std::is_invocable_r_v<int, decltype(&S::method), const S&, int>);
 
     std::string msg = "hi";
-    auto append = [](std::string& s, char c) {
+    [[maybe_unused]] auto append = [](std::string& s, char c) {
         s.push_back(c);
         return s.size();
     };

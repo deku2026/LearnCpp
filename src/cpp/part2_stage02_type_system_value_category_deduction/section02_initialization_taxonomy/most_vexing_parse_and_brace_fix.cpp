@@ -66,6 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 函数指针 vs 对象
     Widget (*fp)() = nullptr;
+    (void)fp;
     assert(fp == nullptr);
 
     // 语法层面：T name(); 在块作用域仍是函数声明（C 继承的「最歧义解析」）

@@ -20,7 +20,7 @@ namespace {
 // 经典“溢出检查被优化掉”的叙事（安全改写）：
 // 若写成 if (x + 1 < x) —— 在有符号溢出是 UB 的前提下，编译器可认定条件恒假。
 // 本函数用更宽类型做检查，行为良定义，作为正确对照。
-int safe_inc(int x) {
+[[maybe_unused]] int safe_inc(int x) {
     if (x == std::numeric_limits<int>::max()) {
         return -1;  // 明确拒绝，而不是依赖溢出
     }

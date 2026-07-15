@@ -45,7 +45,7 @@ int run(int argc, char** argv) {
 
         std::unique_lock lock(mtx);
         // Returns whether predicate is true (not merely whether notified).
-        const bool ok = cv.wait_for(lock, 500ms, [&] { return ready; });
+        [[maybe_unused]] const bool ok = cv.wait_for(lock, 500ms, [&] { return ready; });
         assert(ok);
         assert(ready);
         std::cout << "  predicate true before timeout\n";
@@ -58,7 +58,7 @@ int run(int argc, char** argv) {
         bool ready = false;
 
         std::unique_lock lock(mtx);
-        const bool ok = cv.wait_for(lock, 20ms, [&] { return ready; });
+        [[maybe_unused]] const bool ok = cv.wait_for(lock, 20ms, [&] { return ready; });
         assert(!ok);
         assert(!ready);
         std::cout << "  wait_for returned false on timeout\n";
@@ -72,7 +72,7 @@ int run(int argc, char** argv) {
 
         const auto deadline = std::chrono::steady_clock::now() + 15ms;
         std::unique_lock lock(mtx);
-        const bool ok = cv.wait_until(lock, deadline, [&] { return ready; });
+        [[maybe_unused]] const bool ok = cv.wait_until(lock, deadline, [&] { return ready; });
         assert(!ok);
         std::cout << "  wait_until deadline expired cleanly\n";
     }

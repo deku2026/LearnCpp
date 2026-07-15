@@ -94,7 +94,7 @@ int run(int argc, char** argv) {
     constexpr double s2 = my_sqrt(2.0);
     static_assert(s2 > 1.414 && s2 < 1.415);
 
-    double runtime = 9.0;
+    [[maybe_unused]] double runtime = 9.0;
     assert(my_sqrt(runtime) == 3.0);
 
     constexpr int a = pick_old(10);

@@ -100,7 +100,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::vector<int> v{9, 8, 7};
     assert(first_or_self(v) == 9);
-    int n = 5;
+    [[maybe_unused]] int n = 5;
     assert(first_or_self(n) == 5);
     // 对 int 实例化时，x[0] 分支被丢弃，不会报错
     std::cout << "half + first_or_self OK\n";

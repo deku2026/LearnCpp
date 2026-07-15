@@ -104,7 +104,7 @@ int run(int argc, char** argv) {
 
     assert(next_copy(10) == 11);
     Counter c{};
-    auto c2 = next_copy(c);
+    [[maybe_unused]] auto c2 = next_copy(c);
     assert(c2.n == 1);
 
     std::vector<int> v;

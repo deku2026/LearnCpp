@@ -31,7 +31,7 @@ int run(int argc, char** argv) {
     assert(alignof(LineBuf) >= 64);
 
     auto* p = new LineBuf{};
-    auto addr = reinterpret_cast<std::uintptr_t>(p);
+    [[maybe_unused]] auto addr = reinterpret_cast<std::uintptr_t>(p);
     assert(addr % alignof(LineBuf) == 0);
     p->bytes[0] = 'A';
     assert(p->bytes[0] == 'A');

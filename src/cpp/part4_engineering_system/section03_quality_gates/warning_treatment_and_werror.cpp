@@ -23,18 +23,18 @@ namespace {
 
 // -Wshadow
 int outer = 1;
-int shadow_fixed(int x) {
+[[maybe_unused]] int shadow_fixed(int x) {
     return x + outer;  // 不重用 outer 作局部名
 }
 
 // -Wconversion: 显式缩小
-std::uint8_t narrow_to_byte(int v) {
+[[maybe_unused]] std::uint8_t narrow_to_byte(int v) {
     assert(v >= 0 && v <= 255);
     return static_cast<std::uint8_t>(v);
 }
 
 // -Wuninitialized 避免: 先初始化
-int sum_init(const std::vector<int>& v) {
+[[maybe_unused]] int sum_init(const std::vector<int>& v) {
     int s = 0;
     for (int x : v) {
         s += x;
@@ -76,7 +76,7 @@ int policy_score(const WarningPolicy& p) {
 }
 
 // 第三方头: SYSTEM include 不报警告(概念)
-bool is_system_include_path(std::string_view path) {
+[[maybe_unused]] bool is_system_include_path(std::string_view path) {
     return path.find("/usr/include") != std::string_view::npos ||
            path.find("vcpkg_installed") != std::string_view::npos || path.find("third_party") != std::string_view::npos;
 }

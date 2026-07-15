@@ -73,7 +73,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：C++20 std::erase / erase_if 一步到位 ===\n";
     {
         std::vector<int> v{1, 2, 3, 4, 5, 6};
-        const auto n = std::erase(v, 3);  // 删所有 == 3
+        [[maybe_unused]] const auto n = std::erase(v, 3);  // 删所有 == 3
         assert(n == 1);
         std::erase_if(v, [](int x) { return x % 2 == 0; });
         assert((v == std::vector<int>{1, 5}));

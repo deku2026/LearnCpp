@@ -22,7 +22,7 @@ enum class Fruit { Apple, Banana, Red };  // ✅ 与 Color::Red 互不冲突
 // enum struct 与 enum class 等价
 enum struct Direction { North, South, East, West };
 
-std::string_view color_name(Color c) {
+[[maybe_unused]] std::string_view color_name(Color c) {
     switch (c) {
         case Color::Red:
             return "red";
@@ -40,15 +40,15 @@ int run(int argc, char** argv) {
 
     std::cout << "=== [enum_class_strong_typed] 入门：必须带作用域 ===\n";
     {
-        Color c = Color::Red;
+        [[maybe_unused]] Color c = Color::Red;
         // Color c2 = Red;  // ❌ 不泄漏
         assert(c == Color::Red);
         assert(color_name(c) == "red");
 
-        Fruit f = Fruit::Red;  // 与 Color::Red 共存
+        [[maybe_unused]] Fruit f = Fruit::Red;  // 与 Color::Red 共存
         assert(static_cast<int>(f) == 2);
 
-        Direction d = Direction::North;
+        [[maybe_unused]] Direction d = Direction::North;
         assert(d != Direction::South);
         std::cout << "[intro] Color::Red vs Fruit::Red OK; no leak\n";
     }
@@ -59,14 +59,14 @@ int run(int argc, char** argv) {
         // int n = c;           // ❌
         // if (c == 0) {}       // ❌
         // if (c == Fruit::Red) // ❌ 不同类型
-        int n = static_cast<int>(c);
+        [[maybe_unused]] int n = static_cast<int>(c);
         assert(n == 1);
         assert(c == Color::Green);
         assert(c != Color::Blue);
 
         // 算术也不行，除非显式底层转换
         // auto x = c + 1;  // ❌
-        auto x = static_cast<int>(c) + 1;
+        [[maybe_unused]] auto x = static_cast<int>(c) + 1;
         assert(x == 2);
 
         static_assert(std::is_enum_v<Color>);

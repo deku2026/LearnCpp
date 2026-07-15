@@ -39,9 +39,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "[advanced] double epsilon=" << lim_d::epsilon() << " digits10=" << lim_d::digits10 << '\n';
 
     // 浮点比较: 用 epsilon 相对误差思路
-    const double a = 0.1 + 0.2;
-    const double b = 0.3;
-    const double tol = 1e-9;
+    [[maybe_unused]] const double a = 0.1 + 0.2;
+    [[maybe_unused]] const double b = 0.3;
+    [[maybe_unused]] const double tol = 1e-9;
     assert(std::abs(a - b) < tol);
 
     // bool / char

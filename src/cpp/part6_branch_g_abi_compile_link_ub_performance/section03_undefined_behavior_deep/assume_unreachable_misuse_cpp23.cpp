@@ -19,7 +19,7 @@
 namespace {
 
 // 调用方保证 n != 0
-int divide_positive(int n, int d) {
+[[maybe_unused]] int divide_positive(int n, int d) {
     if (d == 0) {
         // 正确: 我们处理了, 不 declare unreachable
         return 0;
@@ -33,7 +33,7 @@ int divide_positive(int n, int d) {
     return n / d;
 }
 
-int clamp_nonneg(int x) {
+[[maybe_unused]] int clamp_nonneg(int x) {
     if (x < 0) {
         x = 0;
     }
@@ -47,7 +47,7 @@ int clamp_nonneg(int x) {
 
 enum class Color { Red, Green, Blue };
 
-const char* color_name(Color c) {
+[[maybe_unused]] const char* color_name(Color c) {
     switch (c) {
         case Color::Red:
             return "red";

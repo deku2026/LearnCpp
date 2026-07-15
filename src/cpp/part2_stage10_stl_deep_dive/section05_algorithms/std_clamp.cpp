@@ -32,16 +32,16 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：自定义比较 + 浮点 + 批量夹紧 ===\n";
     {
         const int a = -8;
-        const int b = std::clamp(a, -5, 5);
+        [[maybe_unused]] const int b = std::clamp(a, -5, 5);
         assert(b == -5);
 
-        const double x = std::clamp(1.5, 0.0, 1.0);
+        [[maybe_unused]] const double x = std::clamp(1.5, 0.0, 1.0);
         assert(x == 1.0);
         assert(std::clamp(-0.1, 0.0, 1.0) == 0.0);
 
         // 自定义比较：按绝对值夹到 [1, 5]（教学）
-        const int v = -10;
-        const int lo = -5, hi = 5;
+        [[maybe_unused]] const int v = -10;
+        [[maybe_unused]] const int lo = -5, hi = 5;
         // 默认 less：-10 < -5 → 返回 lo
         assert(std::clamp(v, lo, hi) == -5);
 
@@ -56,18 +56,18 @@ int run(int /*argc*/, char** /*argv*/) {
         // ⚠️ clamp 返回 const T& —— 若实参是临时，绑定引用会悬垂
         // const int& bad = std::clamp(1 + 2, 0, 1); // 危险：可能悬垂
         // 安全：按值接收
-        const int safe = std::clamp(1 + 2, 0, 1);
+        [[maybe_unused]] const int safe = std::clamp(1 + 2, 0, 1);
         assert(safe == 1);
 
         // 具名 lvalue：引用安全
         const int x = 42, lo = 0, hi = 100;
-        const int& r = std::clamp(x, lo, hi);
+        [[maybe_unused]] const int& r = std::clamp(x, lo, hi);
         assert(&r == &x);  // 在区间内时返回对 x 的引用
 
         // ⚠️ 前置条件 lo <= hi（用默认 less）；违反则 UB
         // std::clamp(5, 10, 0); // 禁止
 
-        auto volume = [](int v) { return std::clamp(v, 0, 100); };
+        [[maybe_unused]] auto volume = [](int v) { return std::clamp(v, 0, 100); };
         assert(volume(-10) == 0 && volume(50) == 50 && volume(150) == 100);
         std::cout << "const T& lifetime + lo<=hi precondition OK\n";
     }

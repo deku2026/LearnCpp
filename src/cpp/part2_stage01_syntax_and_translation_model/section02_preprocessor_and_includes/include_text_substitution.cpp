@@ -81,17 +81,17 @@ int run(int /*argc*/, char** /*argv*/) {
     int i = 0;
     int j = 0;
     // NAIVE_MAX(i++, j) 可能对 i++ 求值两次 → i 多增；现代代码用函数/模板
-    const int m_macro = NAIVE_MAX(++i, j);  // ((++i) > (j) ? (++i) : (j)) → i 变成 2
+    [[maybe_unused]] const int m_macro = NAIVE_MAX(++i, j);  // ((++i) > (j) ? (++i) : (j)) → i 变成 2
     assert(i == 2);
     assert(m_macro == 2);
     i = 0;
     j = 1;
-    const int m_fn = max_i(++i, j);  // ++i 只发生一次
+    [[maybe_unused]] const int m_fn = max_i(++i, j);  // ++i 只发生一次
     assert(i == 1);
     assert(m_fn == 1);  // max(1,1)==1；若 j 更大则返回 j，i 仍只 +1
     i = 0;
     j = 5;
-    const int m_fn2 = max_i(++i, j);
+    [[maybe_unused]] const int m_fn2 = max_i(++i, j);
     assert(i == 1 && m_fn2 == 5);
     std::cout << "[pitfall2] macro max double-evaluates; function max evaluates once\n";
 

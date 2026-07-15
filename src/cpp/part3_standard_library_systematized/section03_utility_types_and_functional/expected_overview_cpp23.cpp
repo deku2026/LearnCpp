@@ -53,15 +53,15 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== part3/section03/expected_overview_cpp23 ===\n";
 
 #if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
-    auto ok = parse_nonneg("7");
+    [[maybe_unused]] auto ok = parse_nonneg("7");
     assert(ok.has_value() && *ok == 7);
 
-    auto bad = parse_nonneg("-1");
+    [[maybe_unused]] auto bad = parse_nonneg("-1");
     assert(!bad.has_value());
     assert(bad.error() == ParseErr::negative);
 
     // 铁路式: 成功继续, 失败短路
-    auto pipe =
+    [[maybe_unused]] auto pipe =
         parse_nonneg("10").transform([](int x) { return x * 3; }).and_then([](int x) -> std::expected<int, ParseErr> {
             if (x > 100) {
                 return std::unexpected{ParseErr::negative};  // reuse as demo
@@ -70,7 +70,8 @@ int run(int /*argc*/, char** /*argv*/) {
         });
     assert(pipe.has_value() && *pipe == 30);
 
-    auto recovered = parse_nonneg("x").or_else([](ParseErr) -> std::expected<int, ParseErr> { return 0; });
+    [[maybe_unused]] auto recovered =
+        parse_nonneg("x").or_else([](ParseErr) -> std::expected<int, ParseErr> { return 0; });
     assert(recovered == 0);
 
     std::cout << "[intro] expected value/error + monadic ops ok\n";

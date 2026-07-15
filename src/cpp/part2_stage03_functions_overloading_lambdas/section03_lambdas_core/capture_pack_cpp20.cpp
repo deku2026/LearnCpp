@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：按值捕获包
     // -------------------------------------------------------------------------
-    auto s = make_sum_by_value(1, 2, 3, 4);
+    [[maybe_unused]] auto s = make_sum_by_value(1, 2, 3, 4);
     assert(s() == 10);
     std::cout << "[intro] [...args = ...] captures a parameter pack by value\n";
 
@@ -50,7 +50,7 @@ int run(int /*argc*/, char** /*argv*/) {
     int a = 1;
     int b = 2;
     int c = 3;
-    auto r = make_sum_by_ref(a, b, c);
+    [[maybe_unused]] auto r = make_sum_by_ref(a, b, c);
     assert(r() == 6);
     a = 10;
     assert(r() == 15);
@@ -60,12 +60,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：模拟 bind_front；与 tuple 对照
     // -------------------------------------------------------------------------
     auto add3 = [](int x, int y, int z) { return x + y + z; };
-    auto add_10_20 = bind_front_lambda(add3, 10, 20);
+    [[maybe_unused]] auto add_10_20 = bind_front_lambda(add3, 10, 20);
     assert(add_10_20(5) == 35);
 
     // 也可用 tuple + apply，但包捕获更直接
     auto t = std::tuple{1, 2, 3};
-    auto from_tuple = [t] { return std::get<0>(t) + std::get<1>(t) + std::get<2>(t); };
+    [[maybe_unused]] auto from_tuple = [t] { return std::get<0>(t) + std::get<1>(t) + std::get<2>(t); };
     assert(from_tuple() == 6);
 
     std::cout << "[expert] pack capture enables generic partial application lambdas\n";

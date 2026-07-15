@@ -91,7 +91,7 @@ int run(int argc, char** argv) {
             });
         }
     }
-    int count = 0;
+    [[maybe_unused]] int count = 0;
     while (st2.pop()) {
         ++count;
     }

@@ -19,11 +19,11 @@
 
 namespace {
 
-std::uint32_t as_u32(float f) {
+[[maybe_unused]] std::uint32_t as_u32(float f) {
     return std::bit_cast<std::uint32_t>(f);
 }
 
-std::uint32_t as_u32_memcpy(float f) {
+[[maybe_unused]] std::uint32_t as_u32_memcpy(float f) {
     std::uint32_t u{};
     std::memcpy(&u, &f, sizeof u);
     return u;

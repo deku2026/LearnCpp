@@ -43,7 +43,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 仍可转函数指针（无捕获）
     using Fn = int (*)(int);
-    Fn fp = [](int x) static { return x + 1; };
+    [[maybe_unused]] Fn fp = [](int x) static { return x + 1; };
     assert(fp(41) == 42);
     std::cout << "[advanced] static lambdas as pure stateless predicates; still -> fn ptr\n";
 
@@ -62,7 +62,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(Sq::operator()(7) == 49);  // 可不依赖实例
 
     // 无捕获非 static 闭包：仍有 operator() 的隐式对象参数（即便体内不用）
-    auto plain = [](int x) { return x * x; };
+    [[maybe_unused]] auto plain = [](int x) { return x * x; };
     assert(plain(5) == 25);
     // 语义等价于有状态？无——但调用约定仍可能带 this；static 明确「纯函数」
 

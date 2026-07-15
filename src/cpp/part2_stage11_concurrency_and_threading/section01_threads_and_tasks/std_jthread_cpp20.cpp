@@ -67,10 +67,10 @@ int run(int argc, char** argv) {
         });
         assert(worker.get_stop_token().stop_possible());
         assert(!worker.get_stop_token().stop_requested());
-        const bool first = worker.request_stop();
+        [[maybe_unused]] const bool first = worker.request_stop();
         assert(first);
         assert(worker.get_stop_token().stop_requested());
-        const bool second = worker.request_stop();  // idempotent
+        [[maybe_unused]] const bool second = worker.request_stop();  // idempotent
         assert(!second);
         // still joinable until dtor; explicit join also fine
         worker.join();

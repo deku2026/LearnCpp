@@ -94,7 +94,7 @@ int run(int argc, char** argv) {
         assert(g.next() && g.value() == 1);
         assert(g.next() && g.value() == 2);
 
-        bool caught = false;
+        [[maybe_unused]] bool caught = false;
         try {
             (void)g.next();  // body 抛异常 → unhandled_exception 存 ep → 这里重抛
         } catch (const std::runtime_error& e) {

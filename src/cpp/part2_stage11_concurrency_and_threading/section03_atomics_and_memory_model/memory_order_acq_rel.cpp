@@ -61,12 +61,12 @@ int run(int argc, char** argv) {
         std::atomic<int> state{0};
         int expected = 0;
         // success: acq_rel; failure: relaxed load of current
-        const bool ok =
+        [[maybe_unused]] const bool ok =
             state.compare_exchange_strong(expected, 1, std::memory_order_acq_rel, std::memory_order_relaxed);
         assert(ok && state.load() == 1);
 
         expected = 0;
-        const bool fail =
+        [[maybe_unused]] const bool fail =
             state.compare_exchange_strong(expected, 2, std::memory_order_acq_rel, std::memory_order_relaxed);
         assert(!fail && expected == 1);
         std::cout << "  asymmetric success/failure orders are common on CAS\n";

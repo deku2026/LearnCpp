@@ -63,7 +63,7 @@ constexpr double power_if_consteval(double base, int exp) {
 constexpr int buggy_always_compile_time_branch(int x) {
     // 演示「错误写法」的结构；我们不把运行期依赖放进 else，
     // 而是用标记返回值暴露分支选择。
-    if constexpr (std::is_constant_evaluated()) {
+    if (std::is_constant_evaluated()) {
         return x + 1000;  // 恒走这里（无论外层是否 CTCE）
     } else {
         return x + 1;  // 死代码

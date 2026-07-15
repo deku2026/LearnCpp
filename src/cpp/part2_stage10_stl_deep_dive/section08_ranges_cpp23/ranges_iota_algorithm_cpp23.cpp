@@ -22,14 +22,14 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> buf(5);
 
 #if defined(__cpp_lib_ranges_iota) && __cpp_lib_ranges_iota >= 202202L
-    auto result = std::ranges::iota(buf, 10);
+    [[maybe_unused]] auto result = std::ranges::iota(buf, 10);
     assert((buf == std::vector<int>{10, 11, 12, 13, 14}));
     // 返回 out_value_result: out 迭代器 + 下一 value
     assert(result.out == buf.end());
     assert(result.value == 15);
 
     std::vector<int> small(3);
-    auto r2 = std::ranges::iota(small, 0);
+    [[maybe_unused]] auto r2 = std::ranges::iota(small, 0);
     assert((small == std::vector<int>{0, 1, 2}));
     assert(r2.value == 3);
 
@@ -49,7 +49,7 @@ int run(int /*argc*/, char** /*argv*/) {
 #endif
 
     // 对比 views::iota: 不写缓冲, 惰性
-    auto view = std::views::iota(10, 15);
+    [[maybe_unused]] auto view = std::views::iota(10, 15);
     assert(std::ranges::equal(view, buf));
 
     std::cout << "ranges_iota_algorithm_cpp23: all checks passed\n";

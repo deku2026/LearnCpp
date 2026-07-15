@@ -55,7 +55,15 @@ int SlotHandle::live_ = 0;
 struct BetterFile {
     std::unique_ptr<std::FILE, decltype(&std::fclose)> file_{nullptr, &std::fclose};
     explicit BetterFile(const char* path, const char* mode) {
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
         std::FILE* f = std::fopen(path, mode);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         if (!f) {
             // 演示路径：用临时内存「假打开」时允许失败路径
             file_.reset();

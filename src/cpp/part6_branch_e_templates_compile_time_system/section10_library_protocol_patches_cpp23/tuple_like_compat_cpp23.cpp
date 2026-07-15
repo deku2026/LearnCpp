@@ -72,16 +72,16 @@ int run(int argc, char** argv) {
     assert(std::get<1>(tp) == "a");
 
     std::array<int, 2> ar{10, 20};
-    auto [a0, a1] = ar;
+    [[maybe_unused]] auto [a0, a1] = ar;
     assert(a0 == 10 && a1 == 20);
 
     // apply 对 tuple-like
-    auto sum = std::apply([](int x, int y) { return x + y; }, ar);
+    [[maybe_unused]] auto sum = std::apply([](int x, int y) { return x + y; }, ar);
     assert(sum == 30);
 
     // 用户 Point
     Point p{3, 4};
-    auto [x, y] = p;
+    [[maybe_unused]] auto [x, y] = p;
     assert(x == 3 && y == 4);
     assert(get<0>(p) == 3);
 
@@ -90,7 +90,7 @@ int run(int argc, char** argv) {
     assert(pr2.first + pr2.second == 30);
 
     // tuple_cat 经典
-    auto cat = std::tuple_cat(std::make_tuple(1), std::make_tuple(2, 3));
+    [[maybe_unused]] auto cat = std::tuple_cat(std::make_tuple(1), std::make_tuple(2, 3));
     assert(std::get<2>(cat) == 3);
 
     std::cout << "  protocol: tuple_size / tuple_element / get<I>\n";

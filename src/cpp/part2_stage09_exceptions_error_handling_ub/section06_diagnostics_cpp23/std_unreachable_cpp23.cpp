@@ -17,7 +17,7 @@
 namespace {
 
 // 仅在 x∈{0,1,2} 时调用 —— default 用 unreachable 告知优化器
-int categorize(int x) {
+[[maybe_unused]] int categorize(int x) {
     switch (x) {
         case 0:
             return 10;
@@ -61,7 +61,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：安全 API 处理非法输入（非 UB）===\n";
     {
-        auto [v, ok] = categorize_safe(5);
+        [[maybe_unused]] auto [v, ok] = categorize_safe(5);
         assert(!ok && v == -1);
         std::cout << "safe path rejects 5 without UB\n";
     }

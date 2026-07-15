@@ -69,7 +69,7 @@ int run(int argc, char** argv) {
                 prev = v;
             }
         }
-        int last = mono.load(std::memory_order_relaxed);
+        [[maybe_unused]] int last = mono.load(std::memory_order_relaxed);
         assert(last == 100);
     });
     writer = std::jthread{};

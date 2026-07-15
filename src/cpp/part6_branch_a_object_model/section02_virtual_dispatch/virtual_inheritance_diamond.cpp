@@ -84,8 +84,8 @@ int run(int argc, char** argv) {
     std::cout << "  sizeof(DiamondNV)=" << sizeof(DiamondNV) << " (two CoreNV subobjects)\n";
 
     // 转 CoreNV* 也歧义, 需显式路径
-    CoreNV* c_left = static_cast<LeftNV*>(&nv);
-    CoreNV* c_right = static_cast<RightNV*>(&nv);
+    [[maybe_unused]] CoreNV* c_left = static_cast<LeftNV*>(&nv);
+    [[maybe_unused]] CoreNV* c_right = static_cast<RightNV*>(&nv);
     assert(c_left != c_right);
 
     // --- 虚继承: 一份 Core, 无歧义 ---
@@ -94,7 +94,7 @@ int run(int argc, char** argv) {
     assert(v.core == 7);
     assert(v.left == 2 && v.right == 3 && v.bottom == 4);
 
-    CoreV* cv = &v;  // 无歧义
+    [[maybe_unused]] CoreV* cv = &v;  // 无歧义
     assert(cv->core == 7);
     assert(cv->id() == "CoreV");
 
@@ -121,8 +121,8 @@ int run(int argc, char** argv) {
     // → 编译器不能硬编码偏移, 要用 vtable 里的 vbase offset (运行期)
 
     // 共享验证: Left/Right 路径看到同一 core 地址
-    LeftV* lv = &v2;
-    RightV* rv = &v2;
+    [[maybe_unused]] LeftV* lv = &v2;
+    [[maybe_unused]] RightV* rv = &v2;
     assert(&lv->core == &rv->core);
     assert(&lv->core == &v2.core);
 
@@ -137,7 +137,7 @@ int run(int argc, char** argv) {
     struct R2 : virtual Core2 {};
     struct D2 : L2, R2 {};
     D2 d2;
-    Core2* c2 = &d2;
+    [[maybe_unused]] Core2* c2 = &d2;
     assert(c2->f() == 2);  // 共享一份, 覆盖生效
 
     std::cout << "virtual_inheritance_diamond: OK\n";

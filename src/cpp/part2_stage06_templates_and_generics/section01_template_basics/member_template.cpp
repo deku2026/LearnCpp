@@ -126,13 +126,13 @@ int run(int /*argc*/, char** /*argv*/) {
     from_range.assign_range(seq.begin(), seq.end());
     assert(from_range.get() == 9);
 
-    auto converted = make_converted<double>(bi);
+    [[maybe_unused]] auto converted = make_converted<double>(bi);
     assert(converted.get() == 100.0);
     std::cout << "Box convert int→long/double OK\n";
 
     std::cout << "=== 专家：成员模板 ≠ 拷贝构造；.template 消歧义 ===\n";
     // 同类型拷贝走隐式拷贝构造，不是成员模板
-    Box<int> copy = bi;
+    [[maybe_unused]] Box<int> copy = bi;
     assert(copy.get() == 100);
     static_assert(std::is_copy_constructible_v<Box<int>>);
 

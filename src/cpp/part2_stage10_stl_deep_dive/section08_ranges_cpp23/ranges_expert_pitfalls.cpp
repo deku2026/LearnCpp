@@ -29,7 +29,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         // 三大反差：单遍、易悬垂、category 降级（见下文各节）
         std::vector<int> v{1, 2, 3, 4, 5};
-        auto view = v | std::views::transform([](int x) { return x * 2; });
+        [[maybe_unused]] auto view = v | std::views::transform([](int x) { return x * 2; });
         // view 不是容器：不拥有、category 依赖管道
         assert(std::ranges::size(view) == 5);
         std::cout << "view is not a container OK\n";

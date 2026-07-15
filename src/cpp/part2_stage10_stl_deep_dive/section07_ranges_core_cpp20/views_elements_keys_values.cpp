@@ -26,7 +26,7 @@ int run(int /*argc*/, char** /*argv*/) {
     for (auto&& k : m | std::views::keys) keys.push_back(k);
     assert((keys == std::vector<std::string>{"a", "b", "c"}));
 
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (int v : m | std::views::values | std::views::filter([](int x) { return x > 1; })) sum += v;
     assert(sum == 5);  // 2+3
 

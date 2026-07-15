@@ -19,7 +19,7 @@
 
 namespace {
 
-float int_bits_as_float(std::uint32_t u) {
+[[maybe_unused]] float int_bits_as_float(std::uint32_t u) {
     return std::bit_cast<float>(u);
 }
 
@@ -41,7 +41,7 @@ int run(int argc, char** argv) {
     std::cout << "=== G strict aliasing (safe type punning) ===\n";
 
     float f = 1.0f;
-    auto bits = float_bits(f);
+    [[maybe_unused]] auto bits = float_bits(f);
     assert(int_bits_as_float(bits) == 1.0f);
 
     // memcpy 类型双关

@@ -41,13 +41,13 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：数组成员 / 简单 struct
     // -------------------------------------------------------------------------
-    int a[3]{1, 2, 3};
-    int b[3]{1};  // 其余值初始化 → 0
+    [[maybe_unused]] int a[3]{1, 2, 3};
+    [[maybe_unused]] int b[3]{1};  // 其余值初始化 → 0
     assert(a[0] == 1 && a[2] == 3);
     assert(b[0] == 1 && b[1] == 0 && b[2] == 0);
 
-    Point p{10, 20};
-    Point q{5};  // y 值初始化 → 0
+    [[maybe_unused]] Point p{10, 20};
+    [[maybe_unused]] Point q{5, {}};
     assert(p.x == 10 && p.y == 20);
     assert(q.x == 5 && q.y == 0);
 
@@ -59,7 +59,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 进阶：嵌套、字符串成员、空 {}
     // -------------------------------------------------------------------------
-    Nested n{{1, 2}, 99};
+    [[maybe_unused]] Nested n{{1, 2}, 99};
     assert(n.origin.x == 1 && n.origin.y == 2 && n.id == 99);
 
     Person alice{"Alice", 30};
@@ -67,21 +67,22 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(alice.name == "Alice" && alice.age == 30);
     assert(bob.name == "Bob" && bob.age == 0);
 
-    Point zero{};
+    [[maybe_unused]] Point zero{};
     assert(zero.x == 0 && zero.y == 0);
     std::cout << "[advanced] nested aggregates; trailing members value-initialized\n";
 
     // -------------------------------------------------------------------------
     // 专家：C++20 指定初始化器（designated initializers）
     // -------------------------------------------------------------------------
-    Point d{.x = 3, .y = 4};
+    [[maybe_unused]] Point d{.x = 3, .y = 4};
     assert(d.x == 3 && d.y == 4);
     // 指定顺序必须与声明顺序一致；不能混用乱序（C++ 比 C 更严）
-    Point d2{.x = 7};  // y → 0
+    [[maybe_unused]] Point d2{.x = 7, .y = 0};  // y → 0
+    (void)d2;
     assert(d2.x == 7 && d2.y == 0);
 
     // 数组的“聚合”与 string 字面值
-    char buf[]{"hi"};  // 含 '\0'
+    [[maybe_unused]] char buf[]{"hi"};  // 含 '\0'
     assert(buf[0] == 'h' && buf[2] == '\0');
 
     // 对比：NonAgg 不能聚合初始化

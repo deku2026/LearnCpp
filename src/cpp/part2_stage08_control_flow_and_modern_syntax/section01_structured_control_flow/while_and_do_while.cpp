@@ -133,7 +133,7 @@ int run(int argc, char** argv) {
         // while 与经典 for 对照：
         // for (init; cond; iter) stmt ≈ { init; while (cond) { stmt; iter; } }
         // 但 continue 时 for 仍会执行 iter，while 则直接回条件——这是语义差异。
-        int for_like = 0;
+        [[maybe_unused]] int for_like = 0;
         for (int k = 0; k < 3; ++k) {
             if (k == 1) {
                 continue;  // 仍会 ++k
@@ -143,7 +143,7 @@ int run(int argc, char** argv) {
         // k=0 → +0; k=1 continue; k=2 → +2 → 2
         assert(for_like == 2);
 
-        int while_like = 0;
+        [[maybe_unused]] int while_like = 0;
         int k = 0;
         while (k < 3) {
             if (k == 1) {

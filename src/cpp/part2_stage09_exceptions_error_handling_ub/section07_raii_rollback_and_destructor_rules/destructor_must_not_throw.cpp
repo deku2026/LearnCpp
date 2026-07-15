@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         ResourceHandle fh;
         assert(fh.is_open());
-        const bool ok = fh.close();
+        [[maybe_unused]] const bool ok = fh.close();
         assert(ok);
         assert(!fh.is_open());
         std::cout << "explicit close ok; dtor is no-op afterward\n";
@@ -78,7 +78,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：close 失败用返回值报告（非 dtor 抛）===\n";
     {
         ResourceHandle fh(/*fail_close=*/true);
-        const bool ok = fh.close();
+        [[maybe_unused]] const bool ok = fh.close();
         assert(!ok);
         std::cout << "explicit close reported failure without throwing\n";
     }

@@ -109,7 +109,7 @@ int run(int argc, char** argv) {
 
     // 8) not_fn / sample
     auto is_even = [](int x) { return x % 2 == 0; };
-    auto is_odd = std::not_fn(is_even);
+    [[maybe_unused]] auto is_odd = std::not_fn(is_even);
     assert(is_odd(3));
     std::vector<int> pool{1, 2, 3, 4, 5, 6};
     std::vector<int> picks(2);

@@ -48,7 +48,7 @@ int run(int argc, char** argv) {
     assert(sizeof(Padded) >= sizeof(char) + sizeof(int));
 
     // 比较值: 用成员, 不要 memcmp 含 padding 的结构当值相等
-    Padded q = p;
+    [[maybe_unused]] Padded q = p;
     assert(q.c == p.c && q.i == p.i);
 
     // 值表示相同的 float 可能有不同对象表示 (NaN payload) — 教学提示

@@ -107,7 +107,7 @@ int run(int argc, char** argv) {
     std::cout << "=== stackless_state_machine ===\n";
 
     // --- 手写状态机路径 ---
-    HandWrittenSm sm;
+    [[maybe_unused]] HandWrittenSm sm;
     assert(sm.resume() && sm.out == 10);
     assert(sm.resume() && sm.out == 11);
     assert(!sm.resume());

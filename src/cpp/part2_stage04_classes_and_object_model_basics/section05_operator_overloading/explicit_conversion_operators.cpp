@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §进阶：contextual bool
     // -------------------------------------------------------------------------
-    bool half_truthy = false;
+    [[maybe_unused]] bool half_truthy = false;
     if (half) {
         half_truthy = true;  // contextual conversion to bool（explicit operator bool 允许）
     }
@@ -61,7 +61,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(!zero);
 
     Handle h{7};
-    Handle empty;
+    [[maybe_unused]] Handle empty;
     assert(h);
     assert(!empty);
     // int x = h; // ❌ 不会隐式变成 int（只有 explicit bool）
@@ -72,7 +72,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // C++98 曾用 void* 转换等避免 integer 提升；C++11 explicit operator bool 终结该问题。
     // if(h) OK；h << 1 / h + 1 不会因为 bool 提升而悄悄通过。
-    const bool flag = static_cast<bool>(half);
+    [[maybe_unused]] const bool flag = static_cast<bool>(half);
     assert(flag);
 
     std::cout << "[expert] safe bool via explicit operator bool\n";

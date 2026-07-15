@@ -38,7 +38,7 @@ namespace {
 int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== part3/section01/string_view_contains_cpp23 ===\n";
 
-    constexpr std::string_view sv = "the quick brown fox";
+    [[maybe_unused]] constexpr std::string_view sv = "the quick brown fox";
 
 #if defined(__cpp_lib_string_contains) && __cpp_lib_string_contains >= 202011L
     std::cout << "[intro] __cpp_lib_string_contains=" << __cpp_lib_string_contains << '\n';
@@ -65,7 +65,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // --- 专家: 底层销毁后 view 悬垂(不演示 UB); UTF-8 按字节 ---
     {
         std::string owner = "cafeé";  // é 多字节
-        std::string_view v = owner;
+        [[maybe_unused]] std::string_view v = owner;
         assert(v.contains("cafe"));
         // 可能不包含单字节 'é' 的错误假设: contains 看字节序列
         assert(v.size() >= 4);

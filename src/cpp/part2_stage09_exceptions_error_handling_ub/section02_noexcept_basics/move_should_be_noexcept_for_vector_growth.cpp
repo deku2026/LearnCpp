@@ -106,7 +106,7 @@ int run(int /*argc*/, char** /*argv*/) {
             std::vector<FastMove> v;
             v.reserve(1);
             v.emplace_back(1);
-            const int moves_before = g_moves;
+            [[maybe_unused]] const int moves_before = g_moves;
             v.emplace_back(2);  // 扩容：应移动旧元素
             assert(g_moves > moves_before);
             std::cout << "FastMove growth moves=" << g_moves << " copies=" << g_copies << '\n';
@@ -117,7 +117,7 @@ int run(int /*argc*/, char** /*argv*/) {
             std::vector<SlowMove> v;
             v.reserve(1);
             v.emplace_back(1);
-            const int copies_before = g_copies;
+            [[maybe_unused]] const int copies_before = g_copies;
             v.emplace_back(2);  // 扩容：移动非 noexcept → 拷贝以保强保证
             assert(g_copies > copies_before);
             std::cout << "SlowMove growth moves=" << g_moves << " copies=" << g_copies << '\n';

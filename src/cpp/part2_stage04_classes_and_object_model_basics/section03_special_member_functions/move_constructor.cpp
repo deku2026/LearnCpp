@@ -53,7 +53,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §入门：移动后源为空、目标持有资源
     // -------------------------------------------------------------------------
     Buffer a{3, 7};
-    int* raw = a.data();
+    [[maybe_unused]] int* raw = a.data();
     Buffer b{std::move(a)};
     assert(b.size() == 3);
     assert(b.data() == raw);

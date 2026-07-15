@@ -47,7 +47,7 @@ Widget make_good() {
 // 把「变量名」变成 xvalue 表达式 → 无法 NRVO → 至少一次强制移动
 Widget make_bad() {
     Widget w{"bad"};
-    return std::move(w);
+    return w;
 }
 
 // ✅ 需要 move 的情况：返回的不是「同类型局部对象本身」

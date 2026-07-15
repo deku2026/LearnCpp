@@ -33,14 +33,14 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：内置与写法
     // -------------------------------------------------------------------------
-    int a{};        // 0
-    int b = int();  // 0（旧式值初始化）
-    double d{};     // 0.0
-    bool f{};       // false
-    int* p{};       // nullptr
+    [[maybe_unused]] int a{};        // 0
+    [[maybe_unused]] int b = int();  // 0（旧式值初始化）
+    [[maybe_unused]] double d{};     // 0.0
+    [[maybe_unused]] bool f{};       // false
+    [[maybe_unused]] int* p{};       // nullptr
     assert(a == 0 && b == 0 && d == 0.0 && !f && p == nullptr);
 
-    int arr[4]{};
+    [[maybe_unused]] int arr[4]{};
     assert(arr[0] == 0 && arr[3] == 0);
     std::cout << "[intro] builtins and arrays zeroed by value-init\n";
 
@@ -50,10 +50,10 @@ int run(int /*argc*/, char** /*argv*/) {
     std::string s{};  // 默认构造 → 空
     assert(s.empty());
 
-    ImplicitDefault id{};
+    [[maybe_unused]] ImplicitDefault id{};
     assert(id.n == 0);  // 无用户默认构造 → 零初始化
 
-    InClassInit ic{};
+    [[maybe_unused]] InClassInit ic{};
     assert(ic.n == 99);  // 默认构造使用 in-class 初始化器
 
     // 陷阱：用户提供了“空”默认构造后，值初始化不会先零初始化成员
@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 专家：T() 在表达式中是 prvalue；与直接初始化 T(args) 区分
     // -------------------------------------------------------------------------
-    auto zero = int{};  // prvalue 物化/初始化
+    [[maybe_unused]] auto zero = int{};  // prvalue 物化/初始化
     assert(zero == 0);
 
     // 函数声明歧义：Widget w(); 是函数，不是值初始化——见 most_vexing_parse
@@ -82,7 +82,7 @@ int run(int /*argc*/, char** /*argv*/) {
         int x;
         int y;
     };
-    Agg g{};
+    [[maybe_unused]] Agg g{};
     assert(g.x == 0 && g.y == 0);
 
     std::cout << "[expert] {} preferred over T() for value-init (and avoids MVP)\n";

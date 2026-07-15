@@ -62,7 +62,7 @@ std::vector<Cell> expand_matrix(const std::vector<std::string>& oses, const std:
 }
 
 // 钉版本: 拒绝 -latest
-bool is_pinned_runner(std::string_view os) {
+[[maybe_unused]] bool is_pinned_runner(std::string_view os) {
     return os.find("-latest") == std::string_view::npos;
 }
 
@@ -74,6 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
     const std::vector<std::string> types{"Debug", "Release"};
 
     for (const auto& o : oses) {
+        (void)o;
         assert(is_pinned_runner(o));
     }
     assert(!is_pinned_runner("ubuntu-latest"));
@@ -84,7 +85,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  matrix jobs after exclude=" << cells.size() << '\n';
 
     // fail-fast: false → 一个失败仍跑完, 看全貌
-    const bool fail_fast = false;
+    [[maybe_unused]] const bool fail_fast = false;
     assert(!fail_fast);
 
     // 对照本仓库 presets: windows-ci / linux-ci / macos-ci

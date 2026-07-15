@@ -30,13 +30,21 @@ int run(int argc, char** argv) {
 
     std::cout << "=== [legacy_enum_compare] 入门：泄漏作用域 + 隐式转 int ===\n";
     {
-        Color c = Red;  // 无需 Color:: —— 泄漏
-        int n = c;      // 隐式转 int，毫无阻拦
+        Color c = Red;               // 无需 Color:: —— 泄漏
+        [[maybe_unused]] int n = c;  // 隐式转 int，毫无阻拦
         assert(n == 0);
         assert(c == Red);
 
-        // 能和浮点比较——完全失去类型语义（合法但可怕）
-        const bool weird = (Red < 3.14);
+// 能和浮点比较——完全失去类型语义（合法但可怕）
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-enum-float-conversion"
+#endif
+        const bool weird = (static_cast<int>(Red) < 3);
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         assert(weird);
 
         // unscoped enum 提升为整数后参与算术/比较
@@ -49,12 +57,12 @@ int run(int argc, char** argv) {
     std::cout << "=== 进阶：命名冲突与「假类型安全」===\n";
     {
         // 若两个 enum 都叫 Red，无法共存——迫使 FruitRed 这种前缀污染
-        Fruit f = Apple;
+        [[maybe_unused]] Fruit f = Apple;
         assert(static_cast<int>(f) == 0);
 
         // switch 里写裸枚举器，看起来像「全局常量」
         Color sample = Blue;
-        const char* label = "?";
+        [[maybe_unused]] const char* label = "?";
         switch (sample) {
             case Red:
                 label = "R";
@@ -82,7 +90,7 @@ int run(int argc, char** argv) {
 
         Color c = Green;
         // 模拟「误用」：把颜色当循环上界
-        int sum = 0;
+        [[maybe_unused]] int sum = 0;
         for (int i = 0; i < Blue; ++i) {  // Blue 当 2 用——语义崩坏却能编译
             sum += i;
         }

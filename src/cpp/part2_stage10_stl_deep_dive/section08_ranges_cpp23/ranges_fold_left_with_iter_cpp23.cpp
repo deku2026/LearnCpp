@@ -24,17 +24,17 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> v{1, 2, 3, 4, 5};
 
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
-    auto [it, sum] = std::ranges::fold_left_with_iter(v, 0, std::plus{});
+    [[maybe_unused]] auto [it, sum] = std::ranges::fold_left_with_iter(v, 0, std::plus{});
     assert(it == v.end());
     assert(sum == 15);
 
     // 子范围折叠
-    auto [it2, partial] = std::ranges::fold_left_with_iter(v.begin(), v.begin() + 3, 0, std::plus{});
+    [[maybe_unused]] auto [it2, partial] = std::ranges::fold_left_with_iter(v.begin(), v.begin() + 3, 0, std::plus{});
     assert(it2 == v.begin() + 3);
     assert(partial == 6);
 
     // 空
-    auto [it3, z] = std::ranges::fold_left_with_iter(v.end(), v.end(), 99, std::plus{});
+    [[maybe_unused]] auto [it3, z] = std::ranges::fold_left_with_iter(v.end(), v.end(), 99, std::plus{});
     assert(it3 == v.end() && z == 99);
 
     std::cout << "[fold_left_with_iter] library path OK\n";

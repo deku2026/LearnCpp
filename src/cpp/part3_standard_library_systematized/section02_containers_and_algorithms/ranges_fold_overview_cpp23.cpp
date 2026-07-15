@@ -43,11 +43,11 @@ int run(int /*argc*/, char** /*argv*/) {
     const int sum = std::ranges::fold_left(v, 0, std::plus<>{});
     assert(sum == 15);
 
-    const int prod = std::ranges::fold_left(v, 1, std::multiplies<>{});
+    [[maybe_unused]] const int prod = std::ranges::fold_left(v, 1, std::multiplies<>{});
     assert(prod == 120);
 
     // fold_left_first: 用首元素作初值(空 range 返回 nullopt)
-    const auto sum2 = std::ranges::fold_left_first(v, std::plus<>{});
+    [[maybe_unused]] const auto sum2 = std::ranges::fold_left_first(v, std::plus<>{});
     assert(sum2.has_value() && *sum2 == 15);
 
     // 字符串拼接

@@ -17,7 +17,7 @@
 
 namespace {
 
-std::optional<int> safe_add(int a, int b) {
+[[maybe_unused]] std::optional<int> safe_add(int a, int b) {
     // 在更宽类型上检查，避免有符号溢出 UB
     const std::int64_t sum = static_cast<std::int64_t>(a) + static_cast<std::int64_t>(b);
     if (sum < std::numeric_limits<int>::min() || sum > std::numeric_limits<int>::max()) {

@@ -34,7 +34,7 @@ int run(int argc, char** argv) {
 
     // 结束生命周期并在同一存储创建新对象
     p->~WithConst();
-    auto* q = new (buf) WithConst(2);
+    [[maybe_unused]] auto* q = new (buf) WithConst(2);
     assert(q->id == 2);
 
     // 通过新指针访问 — 始终正确

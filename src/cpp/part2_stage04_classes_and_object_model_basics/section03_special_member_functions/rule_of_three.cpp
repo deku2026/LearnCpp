@@ -70,7 +70,32 @@ int run(int /*argc*/, char** /*argv*/) {
     CString c{"world"};
     c = b;
     assert(std::string(c.c_str()) == "hello");
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-move"
+#endif
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
     c = c;
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
+#if defined(__clang__) || defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
+
     assert(std::string(c.c_str()) == "hello");
     std::cout << "[advanced] copy assign ok\n";
 

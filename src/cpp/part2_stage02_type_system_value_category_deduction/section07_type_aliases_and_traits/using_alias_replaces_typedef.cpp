@@ -56,7 +56,7 @@ int run(int argc, char** argv) {
         static_assert(std::is_same_v<IntVec, IntVecOld>);
         static_assert(std::is_same_v<IntVec, std::vector<int>>);
 
-        ulong x = 42ul;
+        [[maybe_unused]] ulong x = 42ul;
         IntVec v{1, 2, 3};
         Callback cb = on_event;
         cb(1, 2);
@@ -73,7 +73,7 @@ int run(int argc, char** argv) {
         handlers[1](0, 0);
         assert(g_hits == 1);
 
-        CString msg = "hello";
+        [[maybe_unused]] CString msg = "hello";
         assert(std::string{msg} == "hello");
 
         // 🔶 迁移：typedef QList<int> IntList; → using IntList = QList<int>;

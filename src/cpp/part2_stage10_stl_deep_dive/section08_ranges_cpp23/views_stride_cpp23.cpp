@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：sized 语义 + 与 slide 对照 + feature-test ===\n";
     {
         std::vector<int> v{0, 1, 2, 3, 4, 5, 6, 7};
-        auto s = v | std::views::stride(3);
+        [[maybe_unused]] auto s = v | std::views::stride(3);
         // 0,3,6 → size 3
         assert(std::ranges::size(s) == 3);
         assert(s[1] == 3);

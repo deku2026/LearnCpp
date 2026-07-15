@@ -51,7 +51,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // repeat 存值副本（或可拷贝对象），不是指向外部容器
         int v = 9;
-        auto rv = std::views::repeat(v, 2);
+        [[maybe_unused]] auto rv = std::views::repeat(v, 2);
         v = 0;
         // 视图内已拷贝 9，不受 v 后续修改影响（值语义）
         assert(*rv.begin() == 9);

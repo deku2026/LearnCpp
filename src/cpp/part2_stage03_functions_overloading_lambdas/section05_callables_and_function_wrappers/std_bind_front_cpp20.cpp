@@ -34,14 +34,14 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // §入门：固定第一个参数
     // -------------------------------------------------------------------------
-    auto sub10 = std::bind_front(sub, 10);  // sub10(b) == sub(10, b)
+    [[maybe_unused]] auto sub10 = std::bind_front(sub, 10);  // sub10(b) == sub(10, b)
     assert(sub10(3) == 7);
     std::cout << "[intro] bind_front(sub, 10)(3) == 7\n";
 
     // -------------------------------------------------------------------------
     // §进阶：多参数、成员/仿函数
     // -------------------------------------------------------------------------
-    auto sum_1_2 = std::bind_front(sum3, 1, 2);  // 只再要 c
+    [[maybe_unused]] auto sum_1_2 = std::bind_front(sum3, 1, 2);  // 只再要 c
     assert(sum_1_2(3) == 6);
 
     Greeter g{"Hi, "};
@@ -52,20 +52,20 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(hi2("Bob") == "Yo, Bob");
 
     // bind_front(pow, 2.0) → power_of_two(exp) = pow(2, exp)；真正 square 用 bind_back
-    auto power_of_two = std::bind_front(static_cast<double (*)(double, double)>(std::pow), 2.0);
+    [[maybe_unused]] auto power_of_two = std::bind_front(static_cast<double (*)(double, double)>(std::pow), 2.0);
     assert(power_of_two(3.0) == 8.0);
     std::cout << "[advanced] multi bound args; member-like callables\n";
 
     // -------------------------------------------------------------------------
     // §专家：与 lambda 对照、转发
     // -------------------------------------------------------------------------
-    auto sub10_lam = [](int b) { return sub(10, b); };
+    [[maybe_unused]] auto sub10_lam = [](int b) { return sub(10, b); };
     assert(sub10_lam(3) == sub10(3));
 
     // bind_front 传播值类别/异常规格更可预期；不做占位符重排。
     // 需要重排或复杂表达式 → 直接写 lambda。
     int x = 5;
-    auto add_x = std::bind_front(std::plus<>{}, x);
+    [[maybe_unused]] auto add_x = std::bind_front(std::plus<>{}, x);
     assert(add_x(7) == 12);
 
     std::cout << "[expert] prefer bind_front for simple prefix bind; else lambda\n";

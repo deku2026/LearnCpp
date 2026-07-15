@@ -51,7 +51,7 @@ std::uint64_t coverage_fingerprint(const std::vector<std::uint8_t>& in) {
 // 被测: 状态机式解析, 目标是稳健
 enum class Status { Ok, Reject };
 
-Status handle(const std::vector<std::uint8_t>& in) {
+[[maybe_unused]] Status handle(const std::vector<std::uint8_t>& in) {
     if (in.size() >= 2 && in[0] == 'Q' && in[1] == 'Q') {
         return Status::Reject;  // 协议禁止
     }
@@ -87,7 +87,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(offer(q, {}));
     assert(offer(q, {'A'}));
     assert(offer(q, {0xFF, 'x'}));
-    const auto initial = q.seeds.size();
+    [[maybe_unused]] const auto initial = q.seeds.size();
     assert(initial >= 3);
 
     // 变异: 只保留增加覆盖的
@@ -112,6 +112,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 所有种子不崩溃
     for (const auto& s : q.seeds) {
+        (void)s;
         assert(handle(s) == Status::Ok || handle(s) == Status::Reject);
     }
 

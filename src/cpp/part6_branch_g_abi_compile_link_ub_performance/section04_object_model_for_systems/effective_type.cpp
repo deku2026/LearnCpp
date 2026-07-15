@@ -27,7 +27,7 @@ int run(int argc, char** argv) {
 
     // C++: 对象有类型; 创建 int 对象后通过 int* 访问
     int x = 42;
-    int* p = &x;
+    [[maybe_unused]] int* p = &x;
     assert(*p == 42);
 
     // 原始存储上创建对象；标量无具名析构函数写法 y->~int() 非法，用 destroy_at

@@ -71,12 +71,12 @@ struct Meter {
 };
 
 // 函数模板可以和普通函数重载共存：非模板对精确匹配优先
-int abs_score(int x) {
+[[maybe_unused]] int abs_score(int x) {
     return x < 0 ? -x : x;
 }
 
 template <typename T>
-T abs_score(T x) {
+[[maybe_unused]] T abs_score(T x) {
     return x < T{} ? -x : x;
 }
 
@@ -96,7 +96,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 无实参可推导 → 必须写模板实参
     assert(larger_of_zero<int>() == 0);
     int live = 7;
-    int& ref = identity_fwd(live);
+    [[maybe_unused]] int& ref = identity_fwd(live);
     assert(&ref == &live);
     std::cout << "mix_max(3,2.5)=" << m << '\n';
 

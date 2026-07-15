@@ -52,7 +52,7 @@ bool nearly_equal(T a, T b) {
 
 // 全特化：浮点用 epsilon
 template <>
-bool nearly_equal<double>(double a, double b) {
+[[maybe_unused]] bool nearly_equal<double>(double a, double b) {
     return (a > b ? a - b : b - a) < 1e-9;
 }
 
@@ -93,6 +93,8 @@ template <>
 constexpr int Limits<int>::max_value = 2147483647;
 
 int run(int /*argc*/, char** /*argv*/) {
+    (void)nearly_equal("a", "b");
+
     std::cout << "=== [full_template_specialization] 入门：TypeName ===\n";
     assert(std::string{TypeName<int>::get()} == "int");
     assert(std::string{TypeName<double>::get()} == "double");
@@ -104,8 +106,8 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(nearly_equal(3, 3));
     assert(nearly_equal(1.0, 1.0 + 1e-12));
     assert(!nearly_equal(1.0, 1.1));
-    const char* p = "hello";
-    char buf[] = "hello";
+    [[maybe_unused]] const char* p = "hello";
+    [[maybe_unused]] char buf[] = "hello";
     assert(nearly_equal(p, static_cast<const char*>(buf)));
     assert(!nearly_equal(static_cast<const char*>("a"), static_cast<const char*>("b")));
     std::cout << "nearly_equal specializations OK\n";

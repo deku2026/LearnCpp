@@ -26,7 +26,7 @@ namespace {
 #define LEARN_STAGE08_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 // 字符串字面量也可物理续行（少用；原始字符串更清晰）
-const char* continued_message() {
+[[maybe_unused]] const char* continued_message() {
     return "hello "
            "world";  // 相邻字符串拼接（相位 6），不是反斜杠续行
 }
@@ -77,7 +77,7 @@ int run(int argc, char** argv) {
         // 本仓库源文件保持 \ 后无空白，C++17 工具链也能编过；
         // 特性价值是“防御性”——脏源文件在 C++23 下不再因此炸裂。
 
-        const int v = LEARN_STAGE08_ADD3(10, 20, 30);
+        [[maybe_unused]] const int v = LEARN_STAGE08_ADD3(10, 20, 30);
         assert(v == 60);
         std::cout << "P2223: trim whitespace after \\ before line splicing\n";
         std::cout << "prefer functions over fragile multi-line macros\n";

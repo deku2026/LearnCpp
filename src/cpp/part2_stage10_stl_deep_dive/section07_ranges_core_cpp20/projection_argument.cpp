@@ -35,7 +35,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(people[2].name == "Carol");
 
     // 按 name 找
-    auto it = std::ranges::find(people, "Alice", &Person::name);
+    [[maybe_unused]] auto it = std::ranges::find(people, "Alice", &Person::name);
     assert(it != people.end() && it->age == 30);
 
     // 按 name 字典序
@@ -48,7 +48,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 自由函数投影
     auto ages = people | std::views::transform(&Person::age);
-    int sum = 0;
+    [[maybe_unused]] int sum = 0;
     for (int a : ages) sum += a;
     assert(sum == 25 + 30 + 35);
 

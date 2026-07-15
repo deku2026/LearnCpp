@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "__cpp_lib_out_ptr=" << __cpp_lib_out_ptr << '\n';
 
     std::unique_ptr<Foo, FooDeleter> p;
-    int rc = c_create(std::out_ptr(p));
+    [[maybe_unused]] int rc = c_create(std::out_ptr(p));
     assert(rc == 0 && p && p->id == 42);
     std::cout << "out_ptr create id=" << p->id << '\n';
 

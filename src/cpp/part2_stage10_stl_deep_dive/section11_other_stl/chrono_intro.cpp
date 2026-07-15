@@ -24,7 +24,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // ① 时长字面值与换算
     {
         const std::chrono::milliseconds ms = 1500ms;
-        const auto sec = std::chrono::duration_cast<std::chrono::seconds>(ms);
+        [[maybe_unused]] const auto sec = std::chrono::duration_cast<std::chrono::seconds>(ms);
         assert(sec.count() == 1);  // 截断向零
         assert((2000ms).count() == 2000);
         assert(1s == 1000ms);
@@ -70,7 +70,7 @@ int run(int /*argc*/, char** /*argv*/) {
         using std::chrono::duration_cast;
         using std::chrono::milliseconds;
         using std::chrono::seconds;
-        const milliseconds x{1500};
+        [[maybe_unused]] const milliseconds x{1500};
         assert(duration_cast<seconds>(x).count() == 1);
         assert(std::chrono::floor<seconds>(x).count() == 1);
         assert(std::chrono::ceil<seconds>(x).count() == 2);

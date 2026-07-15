@@ -31,11 +31,12 @@ int run(int /*argc*/, char** /*argv*/) {
     // 指针形式: 失败返回 nullptr, 不抛
     assert(std::any_cast<int>(&a) == nullptr);
     if (auto* p = std::any_cast<std::string>(&a)) {
+        (void)p;
         assert(*p == "hello");
     }
 
     // 引用形式错类型 → 抛
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)std::any_cast<double>(a);
     } catch (const std::bad_any_cast&) {

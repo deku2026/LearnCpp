@@ -34,7 +34,7 @@ std::expected<int, std::string> index_of_flag(int flag) {
 }
 
 // 仅在已由上层保证 flag∈{0,1,2} 的热路径示意（本文件仍做 assert 护栏）
-int index_hot(int flag) {
+[[maybe_unused]] int index_hot(int flag) {
     // 教学注释：若写 [[assume(flag>=0 && flag<=2)]]; 或 default: unreachable()
     // 则非法 flag 变成 UB。这里用 assert 保持可运行。
     assert(flag >= 0 && flag <= 2);

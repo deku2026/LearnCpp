@@ -14,14 +14,16 @@
 #include <string>
 
 namespace {
+[[maybe_unused]]
 
-int g_global;           // 静态存储期 → 零初始化 → 0
-static int g_internal;  // 内部链接，同样先零初始化
+int g_global;                            // 静态存储期 → 零初始化 →[[maybe_unused]]  0
+[[maybe_unused]] static int g_internal;  // 内部链接，同样先零初始化
 
 struct Pod {
     int a;
     int* p;
 };
+[[maybe_unused]]
 
 Pod g_pod;  // 成员全零 / 空指针
 
@@ -35,6 +37,10 @@ void bump_static_local() {
 }
 
 int run(int /*argc*/, char** /*argv*/) {
+    (void)g_global;
+    (void)g_internal;
+    (void)g_pod;
+
     std::cout << "=== [zero_initialization_static_thread_local] ===\n";
 
     // -------------------------------------------------------------------------
@@ -49,7 +55,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 对照：自动变量不会零初始化
     // int auto_var; // 不确定
-    int auto_var{};
+    [[maybe_unused]] int auto_var{};
     assert(auto_var == 0);
     std::cout << "[intro] globals and static-duration objects zeroed before dynamic init\n";
 
@@ -65,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 带动态初始化的静态：先零，再跑初始化器
     static std::string s = "hello";  // 动态初始化
     assert(s == "hello");
-    static int from_zero_then_set = 5;  // 先 0 再变成 5（实现细节级理解）
+    [[maybe_unused]] static int from_zero_then_set = 5;  // 先 0 再变成 5（实现细节级理解）
     assert(from_zero_then_set == 5);
 
     // -------------------------------------------------------------------------

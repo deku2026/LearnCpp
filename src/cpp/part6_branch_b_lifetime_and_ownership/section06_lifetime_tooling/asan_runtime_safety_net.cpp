@@ -61,7 +61,7 @@ int run(int argc, char** argv) {
     // 4 string_view 底层
     {
         std::string owner = "asan";
-        std::string_view sv = owner;
+        [[maybe_unused]] std::string_view sv = owner;
         assert(sv == "asan");
         // owner 销毁后不要用 sv
     }

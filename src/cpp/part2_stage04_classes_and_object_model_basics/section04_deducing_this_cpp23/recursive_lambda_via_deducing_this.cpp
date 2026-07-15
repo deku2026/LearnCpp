@@ -29,7 +29,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §进阶：带状态的递归（捕获）
     // -------------------------------------------------------------------------
     int calls = 0;
-    auto fib_count = [&calls](this auto self, int n) -> int {
+    [[maybe_unused]] auto fib_count = [&calls](this auto self, int n) -> int {
         ++calls;
         return n < 2 ? n : self(n - 1) + self(n - 2);
     };

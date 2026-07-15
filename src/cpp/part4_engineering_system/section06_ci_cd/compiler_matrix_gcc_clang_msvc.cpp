@@ -125,7 +125,7 @@ int run(int /*argc*/, char** /*argv*/) {
         {"__cpp_lib_expected", probe_expected(), false},
         {"__cpp_lib_stacktrace", probe_stacktrace(), false},
     };
-    int present = 0;
+    [[maybe_unused]] int present = 0;
     for (const auto& r : rows) {
         std::cout << "  " << r.name << "=" << r.macro_value << (r.macro_value ? " (present)" : " (missing)") << '\n';
         if (r.macro_value != 0) {

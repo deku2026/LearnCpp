@@ -85,7 +85,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [sfinae] 入门：容器 size 重载 ===\n";
     std::vector<int> v{1, 2, 3, 4};
     assert(size_of_container(v) == 4);
-    int arr[3]{};
+    [[maybe_unused]] int arr[3]{};
     assert(size_of_container(arr) == 3);
     // size_of_container(3) → 两候选都替换失败/不匹配 → 硬错误（无可行函数）
     std::cout << "vector/array size OK\n";
@@ -97,7 +97,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 专家：直接上下文与探测 ===\n";
     int x = 7;
-    int* px = &x;
+    [[maybe_unused]] int* px = &x;
     assert(deref_if_pointer(px) == 7);
     assert(deref_if_pointer(9) == 9);
     static_assert(has_value_type_param<std::vector<int>>(0));

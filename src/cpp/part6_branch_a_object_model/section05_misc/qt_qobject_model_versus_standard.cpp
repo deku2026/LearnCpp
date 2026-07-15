@@ -111,10 +111,10 @@ int run(int argc, char** argv) {
     qb->animateClick();
     assert(mb.pressed);
 
-    MiniLabel* fail = op->cast<MiniLabel>();
+    [[maybe_unused]] MiniLabel* fail = op->cast<MiniLabel>();
     assert(fail == nullptr);
 
-    MiniWidget* as_widget = op->cast<MiniWidget>();
+    [[maybe_unused]] MiniWidget* as_widget = op->cast<MiniWidget>();
     assert(as_widget != nullptr);  // 向上沿 super 链成功
 
     std::cout << "  mini meta class: " << op->metaObject()->class_name << '\n';
@@ -135,8 +135,8 @@ int run(int argc, char** argv) {
     // 4) 本文件不 #include Qt — 避免强依赖; 有 Qt 环境时对照 moc_*.cpp 更直观。
 
     // 双轨并存示意: 同一概念两种查询
-    StdBase* std_p = &btn;
-    MiniObject* mini_p = &mb;
+    [[maybe_unused]] StdBase* std_p = &btn;
+    [[maybe_unused]] MiniObject* mini_p = &mb;
     assert(dynamic_cast<StdButton*>(std_p) != nullptr);
     assert(mini_p->cast<MiniButton>() != nullptr);
 

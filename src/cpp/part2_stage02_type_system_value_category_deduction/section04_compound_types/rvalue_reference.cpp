@@ -25,10 +25,10 @@ std::string sink_move(std::string&& s) {
     return std::move(s);
 }
 
-int overload(const std::string&) {
+[[maybe_unused]] int overload(const std::string&) {
     return 1;
 }
-int overload(std::string&&) {
+[[maybe_unused]] int overload(std::string&&) {
     return 2;
 }
 
@@ -41,8 +41,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::string a = "hello";
     // std::string&& bad = a; // ❌ 不能直接绑左值
 
-    std::string&& rr1 = std::move(a);  // move(a) 是 xvalue
-    assert(rr1 == "hello");            // move 本身不搬数据，只是转换值类别
+    [[maybe_unused]] std::string&& rr1 = std::move(a);  // move(a) 是 xvalue
+    assert(rr1 == "hello");                             // move 本身不搬数据，只是转换值类别
 
     std::string&& rr2 = std::string{"tmp"};  // 临时量
     assert(rr2 == "tmp");
@@ -72,8 +72,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // 专家：移动钩子；与 Qt 隐式共享对照；转发引用不是普通 T&&
     // -------------------------------------------------------------------------
     std::vector<int> v{1, 2, 3, 4, 5};
-    const auto* data_before = v.data();
-    const std::size_t n_before = v.size();
+    [[maybe_unused]] const auto* data_before = v.data();
+    [[maybe_unused]] const std::size_t n_before = v.size();
     std::vector<int> w = std::move(v);  // 移动：转移缓冲所有权
     assert(w.size() == n_before);
     assert(w[0] == 1 && w[4] == 5);

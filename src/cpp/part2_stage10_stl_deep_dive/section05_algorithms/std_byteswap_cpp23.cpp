@@ -39,10 +39,10 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 进阶：有符号 + 往返幂等 ===\n";
     {
-        const auto s = std::byteswap(std::int32_t{0x10203040});
+        [[maybe_unused]] const auto s = std::byteswap(std::int32_t{0x10203040});
         assert(static_cast<std::uint32_t>(s) == 0x40302010u);
 
-        const std::uint32_t x = 0xDEADBEEFu;
+        [[maybe_unused]] const std::uint32_t x = 0xDEADBEEFu;
         assert(std::byteswap(std::byteswap(x)) == x);
 
         // 全 0 / 全 1 自反
@@ -57,7 +57,7 @@ int run(int /*argc*/, char** /*argv*/) {
         const std::uint32_t be_on_wire = 0x12345678u;  // 假设已是「内存里的大端布局整型」
         // 若本机小端，要把「按大端解释的整型」翻成主机序：
         if constexpr (std::endian::native == std::endian::little) {
-            const auto host = std::byteswap(be_on_wire);
+            [[maybe_unused]] const auto host = std::byteswap(be_on_wire);
             assert(host == 0x78563412u);
             std::cout << "native=little: byteswap converts big-endian wire value\n";
         } else if constexpr (std::endian::native == std::endian::big) {
@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
 #endif
         // 与手动移位等价（u16）
         const std::uint16_t w = 0xA1B2u;
-        const auto manual = static_cast<std::uint16_t>(((w & 0xFFu) << 8) | (w >> 8));
+        [[maybe_unused]] const auto manual = static_cast<std::uint16_t>(((w & 0xFFu) << 8) | (w >> 8));
         assert(std::byteswap(w) == manual);
         std::cout << "endian-aware teaching path OK\n";
     }

@@ -82,7 +82,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：内存更省 vs list，失效规则同节点式 ===\n";
     {
         std::forward_list<int> fl{1, 2, 3};
-        auto keep = std::next(fl.begin());  // 2
+        [[maybe_unused]] auto keep = std::next(fl.begin());  // 2
         fl.push_front(0);
         fl.insert_after(fl.begin(), 9);
         assert(*keep == 2);  // 其他节点迭代器不失效

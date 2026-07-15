@@ -60,7 +60,7 @@ AdlIt end(const AdlOnlySpan& s) {
 }
 
 // 等价展开示意（教学用手写，非编译器真实符号名）
-int sum_like_range_for(const std::vector<int>& v) {
+[[maybe_unused]] int sum_like_range_for(const std::vector<int>& v) {
     int sum = 0;
     {
         auto&& __range = v;  // ① 绑定范围（转发引用）
@@ -92,7 +92,7 @@ int run(int argc, char** argv) {
     {
         std::vector<int> v{1, 2, 3, 4, 5};
 
-        int by_value = 0;
+        [[maybe_unused]] int by_value = 0;
         for (int x : v) {
             by_value += x;
         }
@@ -112,7 +112,7 @@ int run(int argc, char** argv) {
 
         // 原生数组天然支持（情形 1：数组 begin/end 指针算术）
         int arr[] = {7, 8, 9};
-        int arr_sum = 0;
+        [[maybe_unused]] int arr_sum = 0;
         for (int x : arr) {
             arr_sum += x;
         }
@@ -146,7 +146,7 @@ int run(int argc, char** argv) {
 
         // 大对象：只用 const auto&，避免按值拷贝
         std::vector<std::string> names{"alpha", "beta"};
-        std::size_t chars = 0;
+        [[maybe_unused]] std::size_t chars = 0;
         for (const auto& name : names) {
             chars += name.size();
         }

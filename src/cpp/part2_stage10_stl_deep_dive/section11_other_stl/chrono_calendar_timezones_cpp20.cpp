@@ -24,7 +24,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // ① 日历字面值与 year_month_day
     {
-        const year_month_day ymd = 2025y / June / 16d;
+        [[maybe_unused]] const year_month_day ymd = 2025y / June / 16d;
         assert(ymd.ok());
         assert(static_cast<int>(ymd.year()) == 2025);
         assert(static_cast<unsigned>(ymd.month()) == 6);
@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         const year_month_day ymd = 2020y / January / 1d;
         const sys_days sd{ymd};
-        const year_month_day back{sd};
+        [[maybe_unused]] const year_month_day back{sd};
         assert(back == ymd);
         std::cout << "  sys_days round-trip OK\n";
     }

@@ -56,7 +56,7 @@ struct Lane {
     bool for_release;
 };
 
-bool lane_valid(const Lane& lane) {
+[[maybe_unused]] bool lane_valid(const Lane& lane) {
     if (lane.for_release) {
         return false;  // 纪律: sanitizer 不进 Release
     }

@@ -38,7 +38,7 @@ SemVer parse_semver(std::string_view s) {
 }
 
 // ^1.2.3 → >=1.2.3 <2.0.0 (简化 caret)
-bool satisfies_caret(SemVer req, SemVer have) {
+[[maybe_unused]] bool satisfies_caret(SemVer req, SemVer have) {
     if (have.major != req.major) {
         return false;
     }
@@ -46,7 +46,7 @@ bool satisfies_caret(SemVer req, SemVer have) {
 }
 
 // 兼容范围 version>=
-bool satisfies_ge(SemVer req, SemVer have) {
+[[maybe_unused]] bool satisfies_ge(SemVer req, SemVer have) {
     return have >= req;
 }
 
@@ -70,9 +70,9 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== semver_and_lockfiles ===\n";
 
     // --- 入门 ---
-    auto a = parse_semver("1.84.0");
-    auto b = parse_semver("1.85.1");
-    auto c = parse_semver("2.0.0");
+    [[maybe_unused]] auto a = parse_semver("1.84.0");
+    [[maybe_unused]] auto b = parse_semver("1.85.1");
+    [[maybe_unused]] auto c = parse_semver("2.0.0");
     assert(a.major == 1 && a.minor == 84);
     assert(a < b && b < c);
     assert(satisfies_caret(a, b));
@@ -83,7 +83,7 @@ int run(int /*argc*/, char** /*argv*/) {
     Lockfile lock;
     lock.exact["fmt"] = parse_semver("10.2.1");
     lock.exact["spdlog"] = parse_semver("1.13.0");
-    auto fmt_v = resolve_with_lock(lock, "fmt", parse_semver("10.0.0"));
+    [[maybe_unused]] auto fmt_v = resolve_with_lock(lock, "fmt", parse_semver("10.0.0"));
     assert(fmt_v == parse_semver("10.2.1"));
 
     // 无锁: 今天 10.2.1 明天 catalog 变 11.0.0
@@ -97,8 +97,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // vcpkg: builtin-baseline + (可选) overrides
     // conan: conan lock create / conan.lock
     // npm 类比: package-lock.json — 同样思想
-    const char* vcpkg_lock = "builtin-baseline";
-    const char* conan_lock = "conan.lock";
+    [[maybe_unused]] const char* vcpkg_lock = "builtin-baseline";
+    [[maybe_unused]] const char* conan_lock = "conan.lock";
     assert(std::string_view(vcpkg_lock).find("baseline") != std::string_view::npos);
     assert(std::string_view(conan_lock).ends_with(".lock"));
 

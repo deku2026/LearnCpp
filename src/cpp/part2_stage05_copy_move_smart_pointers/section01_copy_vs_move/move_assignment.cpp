@@ -104,9 +104,26 @@ int run(int /*argc*/, char** /*argv*/) {
 
     Buffer dst(2, 1);
     Buffer src(5, 9);
-    const int* raw_src = src.data();
+    [[maybe_unused]] const int* raw_src = src.data();
+
+#if defined(__clang__)
+
+#pragma clang diagnostic push
+
+#pragma clang diagnostic ignored "-Wself-assign-overloaded"
+
+#pragma clang diagnostic ignored "-Wself-move"
+
+#endif
 
     dst = std::move(src);
+
+#if defined(__clang__)
+
+#pragma clang diagnostic pop
+
+#endif
+
     assert(dst.size() == 5);
     assert(dst.data() == raw_src);
     assert(dst.at(0) == 9);
@@ -135,7 +152,14 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：自移动赋值 ===\n";
     {
         Buffer self(3, 4);
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-move"
+#endif
         self = std::move(self);  // 必须不崩溃；值可能未指定
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
         // 只调用无前置条件操作
         self = Buffer(1, 2);  // 重新赋值恢复确定状态
         assert(self.size() == 1 && self.at(0) == 2);

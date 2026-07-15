@@ -72,7 +72,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         std::vector<std::string> names{"Alice", "Bob", "Carol"};
         std::vector<int> ages{30, 25, 35};
-        int bob_i = -1;
+        [[maybe_unused]] int bob_i = -1;
         for (auto [i, pair] : std::views::enumerate(std::views::zip(names, ages))) {
             auto [name, age] = pair;
             if (name == "Bob") {

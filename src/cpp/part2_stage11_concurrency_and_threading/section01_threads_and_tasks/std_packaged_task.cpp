@@ -55,7 +55,7 @@ int run(int argc, char** argv) {
         std::future<void> fut = task.get_future();
         std::jthread t(std::move(task));
 
-        bool caught = false;
+        [[maybe_unused]] bool caught = false;
         try {
             fut.get();
         } catch (const std::runtime_error& e) {

@@ -27,7 +27,7 @@ int run(int /*argc*/, char** /*argv*/) {
     auto i = 42;    // int
     auto d = 3.14;  // double
     auto s = std::string{"hi"};
-    auto b = true;  // bool
+    [[maybe_unused]] auto b = true;  // bool
     static_assert(std::is_same_v<decltype(i), int>);
     static_assert(std::is_same_v<decltype(d), double>);
     static_assert(std::is_same_v<decltype(s), std::string>);
@@ -54,10 +54,10 @@ int run(int /*argc*/, char** /*argv*/) {
     static_assert(std::is_same_v<decltype(a4), const int*>);
 
     // 需要引用时显式写
-    auto& r1 = x;         // int&
-    const auto& r2 = ci;  // const int&
-    auto&& fwd_l = x;     // int&（转发引用绑左值）
-    auto&& fwd_r = 10;    // int&&
+    auto& r1 = x;                          // int&
+    [[maybe_unused]] const auto& r2 = ci;  // const int&
+    auto&& fwd_l = x;                      // int&（转发引用绑左值）
+    auto&& fwd_r = 10;                     // int&&
     static_assert(std::is_same_v<decltype(r1), int&>);
     static_assert(std::is_same_v<decltype(fwd_l), int&>);
     static_assert(std::is_same_v<decltype(fwd_r), int&&>);

@@ -98,10 +98,10 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "half(7)=" << half(7) << " half(7.0)=" << half(7.0) << '\n';
 
     std::cout << "=== 专家：成员启用 + 指针 load ===\n";
-    NumericPipe<int> pipe;
+    [[maybe_unused]] NumericPipe<int> pipe;
     assert(pipe.process(10) == 11);
     int v = 99;
-    int* p = &v;
+    [[maybe_unused]] int* p = &v;
     assert(load(p) == 99);
     // 现代代码优先 Concepts / if constexpr；enable_if 仍大量存在于旧库
     std::cout << "=== enable_if: OK ===\n";

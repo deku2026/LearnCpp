@@ -59,7 +59,7 @@ constexpr const char* kind() {
 
 enum class Flag : unsigned { Off = 0, On = 1 };
 
-int g = 1;
+[[maybe_unused]] int g = 1;
 
 // ---------------------------------------------------------------------------
 // §专家 — auto 与具体类型 NTTP 对照；C++20 字面值类

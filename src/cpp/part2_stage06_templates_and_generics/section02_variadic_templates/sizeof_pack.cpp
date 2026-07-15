@@ -90,7 +90,7 @@ int run(int /*argc*/, char** /*argv*/) {
     require_non_empty(1, 2);
     static_assert(dim_of<int, int, int>::value == 3);
     // sizeof...(pack) 不求值包元素；sizeof(expr) 求类型大小
-    int x = 0;
+    [[maybe_unused]] int x = 0;
     assert(sizeof(x) == sizeof(int));
     assert(arity_of_values(x, x) == 2);
     std::cout << "=== sizeof_pack: OK ===\n";

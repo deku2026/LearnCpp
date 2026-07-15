@@ -40,7 +40,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(i == 1 && s == "hi");
 
     // tuple_cat / forward_as_tuple
-    auto cat = std::tuple_cat(std::tuple{1, 2}, std::tuple{3});
+    [[maybe_unused]] auto cat = std::tuple_cat(std::tuple{1, 2}, std::tuple{3});
     assert(std::get<2>(cat) == 3);
 
     // pairwise 比较: 字典序

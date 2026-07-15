@@ -6,9 +6,28 @@
 
 #include "learn/topic_registry.hpp"
 
+#if defined(__has_include)
+#if __has_include(<mdspan>)
+#include <mdspan>
+#define LEARNCPP_HAS_MDSPAN 1
+#endif
+#endif
+#ifndef LEARNCPP_HAS_MDSPAN
+#define LEARNCPP_HAS_MDSPAN 0
+#endif
+
+#if !LEARNCPP_HAS_MDSPAN
+namespace {
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "[skip] <mdspan> not available on this standard library\n";
+    return 0;
+}
+[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section06/mdspan_accessor_policies_cpp23", run>;
+}  // namespace
+#else
+
 #include <cassert>
 #include <iostream>
-#include <mdspan>
 #include <vector>
 
 namespace {
@@ -76,3 +95,4 @@ int run(int /*argc*/, char** /*argv*/) {
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage10/section06/mdspan_accessor_policies_cpp23", run>;
 
 }  // namespace
+#endif  // LEARNCPP_HAS_MDSPAN

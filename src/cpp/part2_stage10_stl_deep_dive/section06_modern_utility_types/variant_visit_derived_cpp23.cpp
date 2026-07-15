@@ -24,7 +24,7 @@ public:
     using variant::variant;
 };
 
-std::string stringify(const JsonValue& j) {
+[[maybe_unused]] std::string stringify(const JsonValue& j) {
     return std::visit(overloaded{
                           [](std::nullptr_t) { return std::string{"null"}; },
                           [](bool b) { return b ? std::string{"true"} : std::string{"false"}; },

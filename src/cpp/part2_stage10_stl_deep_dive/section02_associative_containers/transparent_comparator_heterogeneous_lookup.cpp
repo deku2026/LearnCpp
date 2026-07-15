@@ -35,7 +35,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         // 默认 map::find 参数是 key_type → 从字面量会构造临时 string
         std::map<std::string, int> m{{"apple", 1}, {"banana", 2}};
-        auto it = m.find(std::string("apple"));  // 显式临时
+        [[maybe_unused]] auto it = m.find(std::string("apple"));  // 显式临时
         assert(it != m.end() && it->second == 1);
         // m.find("apple") 在非透明比较器下同样会构造临时 string（key_type）
         std::cout << "default find(key_type) may construct temporary key\n";
@@ -48,8 +48,8 @@ int run(int /*argc*/, char** /*argv*/) {
             {"banana", 2},
         };
         // 直接用 const char* / string_view 比较，不造临时 string
-        auto it1 = m.find("apple");
-        auto it2 = m.find(std::string_view{"banana"});
+        [[maybe_unused]] auto it1 = m.find("apple");
+        [[maybe_unused]] auto it2 = m.find(std::string_view{"banana"});
         assert(it1 != m.end() && it1->second == 1);
         assert(it2 != m.end() && it2->second == 2);
         assert(m.contains(std::string_view{"apple"}));
@@ -61,7 +61,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::set<std::string, std::less<>> s{"red", "green", "blue"};
         assert(s.contains(std::string_view{"green"}));
-        auto it = s.lower_bound(std::string_view{"g"});
+        [[maybe_unused]] auto it = s.lower_bound(std::string_view{"g"});
         assert(it != s.end());
         // lower_bound("g") 异质：不构造 string("g") 作为 key_type 临时
         std::cout << "set + less<>: lower_bound with string_view\n";
@@ -73,7 +73,7 @@ int run(int /*argc*/, char** /*argv*/) {
         um.emplace("alpha", 10);
         um.emplace("beta", 20);
 
-        auto it = um.find(std::string_view{"alpha"});
+        [[maybe_unused]] auto it = um.find(std::string_view{"alpha"});
         assert(it != um.end() && it->second == 10);
         assert(um.contains("beta"));
         assert(!um.contains(std::string_view{"gamma"}));
@@ -98,7 +98,7 @@ int run(int /*argc*/, char** /*argv*/) {
         }
         // 热路径：从缓冲/网络拿到 string_view 直接查
         std::string_view key = "user_42";
-        auto it = scores.find(key);
+        [[maybe_unused]] auto it = scores.find(key);
         assert(it != scores.end() && it->second == 42);
         std::cout << "hot path: lookup from string_view without alloc\n";
     }

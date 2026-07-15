@@ -189,7 +189,7 @@ int run(int argc, char** argv) {
     // 运行期 charconv
     int rt = 0;
     std::string_view s = "99";
-    auto r = std::from_chars(s.data(), s.data() + s.size(), rt);
+    [[maybe_unused]] auto r = std::from_chars(s.data(), s.data() + s.size(), rt);
     assert(r.ec == std::errc{});
     assert(rt == 99);
 

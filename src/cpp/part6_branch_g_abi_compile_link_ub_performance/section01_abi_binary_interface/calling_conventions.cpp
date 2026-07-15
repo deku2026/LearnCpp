@@ -17,12 +17,12 @@
 namespace {
 
 // 默认调用约定下的函数
-int default_add(int a, int b) {
+[[maybe_unused]] int default_add(int a, int b) {
     return a + b;
 }
 
 // 多参数: 观察"前几个在寄存器"的 ABI 约定 (源码层只保证语义)
-long long sum4(long long a, long long b, long long c, long long d) {
+[[maybe_unused]] long long sum4(long long a, long long b, long long c, long long d) {
     return a + b + c + d;
 }
 
@@ -65,9 +65,9 @@ int run(int argc, char** argv) {
 
     assert(default_add(1, 2) == 3);
     assert(sum4(1, 2, 3, 4) == 10);
-    auto p = make_pair(5, 6);
+    [[maybe_unused]] auto p = make_pair(5, 6);
     assert(p.x == 5 && p.y == 6);
-    auto b = make_big('Z');
+    [[maybe_unused]] auto b = make_big('Z');
     assert(b.data[0] == 'Z' && b.data[63] == 'Z');
 
 #if defined(_WIN64) || defined(_M_X64)

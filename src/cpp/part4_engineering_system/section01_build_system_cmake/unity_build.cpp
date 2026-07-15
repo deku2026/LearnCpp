@@ -26,13 +26,13 @@ struct TuSymbol {
 };
 
 // 分文件编译: internal 不冲突
-bool separate_ok(const std::vector<TuSymbol>& /*syms*/) {
+[[maybe_unused]] bool separate_ok(const std::vector<TuSymbol>& /*syms*/) {
     // 同名 internal 在不同文件 OK
     return true;
 }
 
 // Unity 合并后: 同名 internal 撞车
-bool unity_conflict(const std::vector<TuSymbol>& syms) {
+[[maybe_unused]] bool unity_conflict(const std::vector<TuSymbol>& syms) {
     for (std::size_t i = 0; i < syms.size(); ++i) {
         for (std::size_t j = i + 1; j < syms.size(); ++j) {
             if (syms[i].name == syms[j].name && syms[i].file != syms[j].file) {
@@ -77,14 +77,14 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // --- 专家: 宏污染 ---
     // 文件 A #define private public 调试hack 会污染同批 B —— 用示意标记
-    bool macro_leak_risk = true;
+    [[maybe_unused]] bool macro_leak_risk = true;
     assert(macro_leak_risk);
     std::cout << "  pitfall: macros in one cpp leak into unity batch peers\n";
 
     // CMake:
     // set_target_properties(myapp PROPERTIES UNITY_BUILD ON)
     // set_source_files_properties(weird.cpp PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON)
-    const char* cmake_prop = "UNITY_BUILD";
+    [[maybe_unused]] const char* cmake_prop = "UNITY_BUILD";
     assert(std::string_view(cmake_prop) == "UNITY_BUILD");
 
     std::cout << "unity_build: OK\n";

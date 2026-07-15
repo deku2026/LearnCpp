@@ -22,10 +22,10 @@ namespace lib {
 struct Widget {
     int v;
 };
-std::string describe(const Widget& w) {
+[[maybe_unused]] std::string describe(const Widget& w) {
     return "Widget(" + std::to_string(w.v) + ")";
 }
-int tag(const Widget&) {
+[[maybe_unused]] int tag(const Widget&) {
     return 1;
 }
 void touch(Widget& w) {
@@ -34,7 +34,7 @@ void touch(Widget& w) {
 }  // namespace lib
 
 namespace other {
-int tag(int) {
+[[maybe_unused]] int tag(int) {
     return 2;
 }
 }  // namespace other

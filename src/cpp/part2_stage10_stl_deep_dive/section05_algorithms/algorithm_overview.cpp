@@ -39,7 +39,7 @@ int run(int /*argc*/, char** /*argv*/) {
     auto sorted = v;
     std::sort(sorted.begin(), sorted.end());
     assert(std::binary_search(sorted.begin(), sorted.end(), 5));
-    auto [lo, hi] = std::equal_range(sorted.begin(), sorted.end(), 2);
+    [[maybe_unused]] auto [lo, hi] = std::equal_range(sorted.begin(), sorted.end(), 2);
     assert(std::distance(lo, hi) == 2);
     std::cout << "[search] find/count/any_of/binary_search/equal_range OK\n";
 
@@ -52,7 +52,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(s[0] == 1 && s[1] == 2 && s[2] == 2);
 
     auto p = v;
-    auto mid = std::partition(p.begin(), p.end(), [](int x) { return x % 2 == 0; });
+    [[maybe_unused]] auto mid = std::partition(p.begin(), p.end(), [](int x) { return x % 2 == 0; });
     assert(std::all_of(p.begin(), mid, [](int x) { return x % 2 == 0; }));
     assert(std::none_of(mid, p.end(), [](int x) { return x % 2 == 0; }));
 

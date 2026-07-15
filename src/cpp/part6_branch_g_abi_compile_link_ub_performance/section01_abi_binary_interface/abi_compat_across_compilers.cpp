@@ -66,7 +66,7 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G3 ABI compat across compilers ===\n";
 
-    auto s = stable_add({1, 2}, {3, 4});
+    [[maybe_unused]] auto s = stable_add({1, 2}, {3, 4});
     assert(s.x == 4 && s.y == 6);
 
     Widget w;

@@ -30,7 +30,7 @@ constexpr int k_limit = 100;
 consteval int square(int x) {
     return x * x;
 }
-constinit int g_sq = square(9);  // 81，编译期完成
+[[maybe_unused]] constinit int g_sq = square(9);  // 81，编译期完成
 
 // 进阶: 聚合 / 数组仍可 constinit
 struct Point {
@@ -77,7 +77,7 @@ int run(int argc, char** argv) {
     assert(g_arr[2] == 33);
 
     // 函数内 constinit static：仍要求常量初始化器
-    constinit static int local_static = 5;
+    [[maybe_unused]] constinit static int local_static = 5;
     assert(local_static == 5);
     local_static = 6;
     assert(local_static == 6);

@@ -65,7 +65,7 @@ int run(int argc, char** argv) {
     assert(nn.get() == &w);
     assert((*nn).id == w.id);
 
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         Widget* nullp = nullptr;
         not_null<Widget*> bad{nullp};

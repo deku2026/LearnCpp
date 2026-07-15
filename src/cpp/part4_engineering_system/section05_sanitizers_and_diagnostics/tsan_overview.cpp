@@ -28,7 +28,7 @@ bool tsan_built_in() {
     return false;
 }
 
-int count_with_mutex(int n) {
+[[maybe_unused]] int count_with_mutex(int n) {
     int counter = 0;
     std::mutex m;
     auto inc = [&] {
@@ -43,7 +43,7 @@ int count_with_mutex(int n) {
     return counter;
 }
 
-int count_with_atomic(int n) {
+[[maybe_unused]] int count_with_atomic(int n) {
     std::atomic<int> counter{0};
     auto inc = [&] {
         for (int i = 0; i < n; ++i) {
@@ -69,7 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  anti-pattern: unsync ++counter (TSan would report)\n";
 
     // 纪律: -fsanitize=thread 单独通道; 不可与 address 同开
-    const bool can_mix_with_asan = false;
+    [[maybe_unused]] const bool can_mix_with_asan = false;
     assert(!can_mix_with_asan);
     std::cout << "  TSan lane is separate from ASan+UBSan\n";
 

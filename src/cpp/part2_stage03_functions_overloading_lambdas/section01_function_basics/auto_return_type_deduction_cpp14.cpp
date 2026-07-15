@@ -16,10 +16,10 @@
 
 namespace {
 
-auto add(int a, int b) {
+[[maybe_unused]] auto add(int a, int b) {
     return a + b;
 }  // 推导为 int
-auto pi() {
+[[maybe_unused]] auto pi() {
     return 3.14;
 }  // double
 

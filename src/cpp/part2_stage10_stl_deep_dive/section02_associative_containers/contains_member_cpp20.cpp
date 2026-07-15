@@ -29,9 +29,9 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::map<std::string, int> m{{"a", 1}, {"b", 2}};
         // C++17 以前
-        const bool old_way = m.find("a") != m.end();
+        [[maybe_unused]] const bool old_way = m.find("a") != m.end();
         // C++20
-        const bool new_way = m.contains("a");
+        [[maybe_unused]] const bool new_way = m.contains("a");
         assert(old_way && new_way);
         assert(!m.contains("z"));
         std::cout << "m.contains(key) == (m.find(key) != m.end())\n";
@@ -74,9 +74,9 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         std::vector<int> v{1, 2, 3};
         // v.contains(2);  // ❌ 不存在
-        const bool ok = std::ranges::contains(v, 2);  // C++23 算法
+        [[maybe_unused]] const bool ok = std::ranges::contains(v, 2);  // C++23 算法
         assert(ok);
-        const bool old = std::find(v.begin(), v.end(), 2) != v.end();
+        [[maybe_unused]] const bool old = std::find(v.begin(), v.end(), 2) != v.end();
         assert(old);
         std::cout << "sequence: ranges::contains / find; assoc: member contains\n";
     }

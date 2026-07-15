@@ -81,7 +81,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 编译口令(文档):
     // clang++ -fsanitize=fuzzer,address -std=c++23 fuzz.cpp
-    const char* sanitize = "fuzzer,address";
+    [[maybe_unused]] const char* sanitize = "fuzzer,address";
     assert(std::string_view(sanitize).find("fuzzer") != std::string_view::npos);
     std::cout << "  build: -fsanitize=fuzzer,address\n";
 

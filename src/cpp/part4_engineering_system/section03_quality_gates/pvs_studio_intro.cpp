@@ -43,17 +43,17 @@ std::optional<Diag> check_signed_unsigned(int /*a*/, unsigned /*b*/, int line, b
 }
 
 // 正确写法: 显式统一类型
-bool size_check(const std::vector<int>& v, std::size_t n) {
+[[maybe_unused]] bool size_check(const std::vector<int>& v, std::size_t n) {
     return v.size() >= n;
 }
 
 // 潜在: 赋值当比较 — 我们演示正确 ==
-bool equals(int a, int b) {
+[[maybe_unused]] bool equals(int a, int b) {
     return a == b;
 }
 
 // 浮点相等: 商业工具常警告 — 用 epsilon
-bool nearly_equal(double a, double b, double eps = 1e-9) {
+[[maybe_unused]] bool nearly_equal(double a, double b, double eps = 1e-9) {
     return std::fabs(a - b) <= eps;
 }
 
@@ -80,7 +80,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "  prefer same signedness in comparisons\n";
 
     // 工具链定位: 开源 clang-tidy/cppcheck 为主; PVS 作深度加餐/合规
-    const bool open_source_first = true;
+    [[maybe_unused]] const bool open_source_first = true;
     assert(open_source_first);
     std::cout << "  open-source first; commercial for depth/compliance\n";
 

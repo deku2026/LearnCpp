@@ -21,7 +21,7 @@ namespace client {
 struct Item {
     int n;
 };
-std::string g(const Item& it) {
+[[maybe_unused]] std::string g(const Item& it) {
     return "Item:" + std::to_string(it.n);
 }
 }  // namespace client
@@ -58,7 +58,7 @@ int run(int argc, char** argv) {
 
     assert((f(client::Item{7}) == "helper|Item:7"));
 
-    Derived<int> d;
+    [[maybe_unused]] Derived<int> d;
     assert(d.get() == 11);
 
     std::cout << "  phase1: non-dependent names at template definition\n";

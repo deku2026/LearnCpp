@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
         assert(midpoint_value(v.begin(), v.end()) == 30);
 
         std::array<int, 3> a{1, 2, 3};
-        const int* p = as_ptr(a.begin());
+        [[maybe_unused]] const int* p = as_ptr(a.begin());
         assert(p == a.data());
         assert(*p == 1);
 
@@ -105,7 +105,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         // 连续 ⇒ 可交给要 T* 的 C API / memcpy / 向量化假设
         std::vector<int> v{1, 2, 3, 4};
-        int* raw = std::to_address(v.begin());
+        [[maybe_unused]] int* raw = std::to_address(v.begin());
         assert(raw[2] == 3);
         // deque 即使 random_access 也不能当一整块 T* 传出
         std::cout << "contiguous enables pointer-range interop & vectorization\n";

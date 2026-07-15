@@ -23,7 +23,7 @@ struct Widget {
     std::vector<int> items_{10, 20, 30};
     std::string tag_;
     inline static int live = 0;
-    inline static int destroyed_during_loop = 0;
+    [[maybe_unused]] inline static int destroyed_during_loop = 0;
 
     explicit Widget(std::string tag) : tag_(std::move(tag)) { ++live; }
 
@@ -58,7 +58,7 @@ int sum_items_cpp23_style() {
     return sum;
 }
 
-int sum_items_named() {
+[[maybe_unused]] int sum_items_named() {
     int sum = 0;
     auto w = make_widget();  // C++20 变通①：具名变量
     for (int x : w.items()) {
@@ -67,7 +67,7 @@ int sum_items_named() {
     return sum;
 }
 
-int sum_items_range_init() {
+[[maybe_unused]] int sum_items_range_init() {
     int sum = 0;
     // C++20 变通②：范围 for 初始化器
     for (auto w = make_widget(); int x : w.items()) {
@@ -76,7 +76,7 @@ int sum_items_range_init() {
     return sum;
 }
 
-int sum_direct_temporary_vector() {
+[[maybe_unused]] int sum_direct_temporary_vector() {
     int sum = 0;
     // 直接绑到临时 vector：C++11 起就安全（__range 直接延长该临时）
     for (int x : std::vector<int>{1, 2, 3}) {
@@ -125,7 +125,7 @@ int run(int argc, char** argv) {
         // 常见危险 API 形态：getConfig().values、parse().items、f()[i]
         // 测试环境“碰巧通过”、生产高负载才崩 —— 极难查。
 
-        int again = 0;
+        [[maybe_unused]] int again = 0;
         for (int x : make_widget().items()) {
             again += x;
         }

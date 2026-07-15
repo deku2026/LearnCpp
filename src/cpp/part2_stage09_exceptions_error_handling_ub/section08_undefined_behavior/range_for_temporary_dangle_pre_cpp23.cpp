@@ -38,6 +38,7 @@ int run(int /*argc*/, char** /*argv*/) {
         // 临时对象寿命（P2718）。本工程按 C++23 编译，路径良定义。
         int n = 0;
         for (const auto& s : make_names()) {
+            (void)s;
             assert(!s.empty());
             ++n;
         }
@@ -68,6 +69,7 @@ int run(int /*argc*/, char** /*argv*/) {
         const auto view = make_view();
         int n = 0;
         for (const auto& s : view.items()) {
+            (void)s;
             ++n;
             assert(s.size() == 1);
         }

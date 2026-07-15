@@ -39,7 +39,7 @@ State next(State s) {
         s);
 }
 
-std::string describe(const State& s) {
+[[maybe_unused]] std::string describe(const State& s) {
     return std::visit(overloaded{
                           [](Idle) { return std::string{"idle"}; },
                           [](Running r) { return std::string{"running "} + std::to_string(r.progress) + "%"; },

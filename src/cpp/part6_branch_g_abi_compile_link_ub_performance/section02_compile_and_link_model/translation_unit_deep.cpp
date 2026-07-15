@@ -24,7 +24,7 @@ int also_internal = 0;
 // 外部链接
 int g_learn_tu_demo_unique = 0;  // 注意全局唯一名, 避免与其他 TU 冲突
 
-inline int inline_func() {
+[[maybe_unused]] inline int inline_func() {
     return 1;
 }  // 可在多 TU 定义
 

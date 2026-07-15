@@ -87,11 +87,11 @@ int run(int argc, char** argv) {
 
     ClassicVec a(1, 2);
     ClassicVec b(3, 4);
-    auto c = a + b;
+    [[maybe_unused]] auto c = a + b;
     assert(c.x == 4 && c.y == 6);
 
     ModernVec m1{1, 2}, m2{10, 20};
-    auto m3 = m1 + m2;
+    [[maybe_unused]] auto m3 = m1 + m2;
     assert(m3.x == 11 && m3.y == 22);
 
     ModernVec m{5, 0};
@@ -104,7 +104,7 @@ int run(int argc, char** argv) {
     assert(p.label() == "Ada");
 
     // 递归阶乘 lambda
-    auto fact = [](this auto self, int n) -> int { return n <= 1 ? 1 : n * self(n - 1); };
+    [[maybe_unused]] auto fact = [](this auto self, int n) -> int { return n <= 1 ? 1 : n * self(n - 1); };
     assert(fact(5) == 120);
 
     std::cout << "  classic CRTP needs template base; deducing this does not\n";

@@ -106,8 +106,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "mixin without templates OK\n";
 
     std::cout << "=== 专家：对照传统 CRTP ===\n";
-    OldNode on;
-    NewNode nn;
+    [[maybe_unused]] OldNode on;
+    [[maybe_unused]] NewNode nn;
     assert(on.id() == 7 && nn.id() == 7);
     std::cout << "传统: Base 必须是模板, static_cast, 派生写 Base<D>\n";
     std::cout << "C++23: Base 普通类, self 直接是派生类型, 普通继承\n";

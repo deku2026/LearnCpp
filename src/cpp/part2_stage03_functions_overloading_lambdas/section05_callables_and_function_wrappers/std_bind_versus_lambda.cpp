@@ -32,11 +32,11 @@ int run(int /*argc*/, char** /*argv*/) {
     using namespace std::placeholders;
 
     // 老：std::bind + 占位符
-    auto f_bind = std::bind(sub, _1, 3);  // f(a) == sub(a, 3)
+    [[maybe_unused]] auto f_bind = std::bind(sub, _1, 3);  // f(a) == sub(a, 3)
     // 新：bind_back
-    auto f_back = std::bind_back(sub, 3);
+    [[maybe_unused]] auto f_back = std::bind_back(sub, 3);
     // 推荐：lambda
-    auto f_lam = [](int a) { return sub(a, 3); };
+    [[maybe_unused]] auto f_lam = [](int a) { return sub(a, 3); };
 
     assert(f_bind(10) == 7);
     assert(f_back(10) == 7);
@@ -47,8 +47,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // §进阶：重排参数时 lambda 仍更清晰
     // -------------------------------------------------------------------------
     // bind 重排: mul_add(c, a, b) 之类
-    auto reordered_bind = std::bind(mul_add, _3, _1, _2);  // (a,b,c) -> mul_add(c,a,b)
-    auto reordered_lam = [](int a, int b, int c) { return mul_add(c, a, b); };
+    [[maybe_unused]] auto reordered_bind = std::bind(mul_add, _3, _1, _2);  // (a,b,c) -> mul_add(c,a,b)
+    [[maybe_unused]] auto reordered_lam = [](int a, int b, int c) { return mul_add(c, a, b); };
     assert(reordered_bind(2, 3, 4) == mul_add(4, 2, 3));
     assert(reordered_lam(2, 3, 4) == 4 * 2 + 3);
     std::cout << "[advanced] argument reordering is readable as a lambda body\n";
@@ -58,8 +58,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 1) bind 默认拷贝实参；要引用需 std::ref —— 易忘导致「改了没反应」。
     int n = 1;
-    auto add_n_bind = std::bind(std::plus<>{}, std::ref(n), _1);
-    auto add_n_lam = [&n](int x) { return n + x; };
+    [[maybe_unused]] auto add_n_bind = std::bind(std::plus<>{}, std::ref(n), _1);
+    [[maybe_unused]] auto add_n_lam = [&n](int x) { return n + x; };
     n = 10;
     assert(add_n_bind(5) == 15);
     assert(add_n_lam(5) == 15);

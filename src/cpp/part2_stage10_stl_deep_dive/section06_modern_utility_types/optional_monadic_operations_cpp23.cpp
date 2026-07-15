@@ -35,22 +35,22 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // transform: optional<T> → optional<U>
     std::optional<int> n{21};
-    auto doubled = n.transform([](int x) { return x * 2; });
+    [[maybe_unused]] auto doubled = n.transform([](int x) { return x * 2; });
     assert(doubled && *doubled == 42);
     assert(!std::optional<int>{}.transform([](int x) { return x; }));
 
     // and_then: 回调返回 optional
-    auto r = to_int("10").and_then(half_if_even).transform([](int x) { return x + 1; });
+    [[maybe_unused]] auto r = to_int("10").and_then(half_if_even).transform([](int x) { return x + 1; });
     assert(r && *r == 6);  // 10/2+1
 
-    auto fail = to_int("11").and_then(half_if_even);
+    [[maybe_unused]] auto fail = to_int("11").and_then(half_if_even);
     assert(!fail);
 
     // or_else: 空时提供后备 optional
-    auto fallback = std::optional<int>{}.or_else([] { return std::optional<int>{7}; });
+    [[maybe_unused]] auto fallback = std::optional<int>{}.or_else([] { return std::optional<int>{7}; });
     assert(fallback == 7);
 
-    auto keep = std::optional<int>{3}.or_else([] { return std::optional<int>{99}; });
+    [[maybe_unused]] auto keep = std::optional<int>{3}.or_else([] { return std::optional<int>{99}; });
     assert(keep == 3);
 
     // 管道: 解析 → 校验 → 映射

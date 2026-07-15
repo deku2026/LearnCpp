@@ -33,15 +33,15 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：直接列表 vs 拷贝列表
     // -------------------------------------------------------------------------
-    int a{1};
-    int b = {2};
-    int arr[]{1, 2, 3};
-    Agg p{4, 5};
+    [[maybe_unused]] int a{1};
+    [[maybe_unused]] int b = {2};
+    [[maybe_unused]] int arr[]{1, 2, 3};
+    [[maybe_unused]] Agg p{4, 5};
     assert(a == 1 && b == 2 && arr[2] == 3 && p.x == 4 && p.y == 5);
 
     // 禁止窄化
     // int bad{1.5};
-    int ok{static_cast<int>(1.5)};
+    [[maybe_unused]] int ok{static_cast<int>(1.5)};
     assert(ok == 1);
     std::cout << "[intro] brace init for scalars/arrays/aggregates; no narrowing\n";
 
@@ -71,7 +71,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 函数返回 / 临时量
     auto make_agg = []() -> Agg { return {9, 10}; };
-    Agg q = make_agg();
+    [[maybe_unused]] Agg q = make_agg();
     assert(q.x == 9 && q.y == 10);
 
     // 嵌套列表

@@ -59,7 +59,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== public_private_interface visibility ===\n";
 
     // --- 入门: 三关键字口诀 ---
-    Node impl_lib{"impl_lib"};
+    Node impl_lib{};
+    impl_lib.name = "impl_lib";
     impl_lib.props.push_back({Vis::Private, "fmt_impl"});     // 实现用
     impl_lib.props.push_back({Vis::Public, "core_headers"});  // 头里暴露
     impl_lib.props.push_back({Vis::Interface, "header_only_json"});
@@ -86,20 +87,23 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << '\n';
 
     // --- 进阶: 常见坑 — 实现依赖标成 PUBLIC 污染下游 ---
-    Node bad{"bad_lib"};
+    Node bad{};
+    bad.name = "bad_lib";
     bad.props.push_back({Vis::Public, "private_spdlog"});  // 错: 实现细节泄漏
     auto leak = effective_for_consumer(bad);
     assert(leak.contains("private_spdlog"));  // 下游被迫链 spdlog
     std::cout << "  pitfall: PUBLIC impl dep leaks to consumers\n";
 
     // --- 专家: header-only 库 = 全 INTERFACE ---
-    Node header_only{"nlohmann_json_like"};
+    Node header_only{};
+    header_only.name = "nlohmann_json_like";
     header_only.props.push_back({Vis::Interface, "include/nlohmann"});
     assert(used_by_self(header_only).empty());
     assert(effective_for_consumer(header_only).contains("include/nlohmann"));
 
     // 仓库: learn_cpp 的 include 是 PRIVATE —— 下游(无)拿不到, 也不该当库导出
-    Node learn{"learn_cpp"};
+    Node learn{};
+    learn.name = "learn_cpp";
     learn.props.push_back({Vis::Private, "LearnCpp/include"});
     assert(effective_for_consumer(learn).empty());
     assert(used_by_self(learn).contains("LearnCpp/include"));

@@ -179,7 +179,7 @@ int run(int argc, char** argv) {
         auto t = top();
         assert(t.sync() == 14);  // (3+4)*2
         // 链: top→mid→leaf, final 再一路 transfer 回来
-        int transfers = 0;
+        [[maybe_unused]] int transfers = 0;
         for (const auto& s : g_log) {
             if (s.find("transfer") != std::string::npos) {
                 ++transfers;

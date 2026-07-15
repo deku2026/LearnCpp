@@ -57,7 +57,7 @@ int run(int /*argc*/, char** /*argv*/) {
         const int* begin() const { return data; }
         const int* end() const { return data + 2; }
     };
-    Tiny t;
+    [[maybe_unused]] Tiny t;
     static_assert(std::ranges::range<Tiny>);
     assert(count_elems(t) == 2);
 

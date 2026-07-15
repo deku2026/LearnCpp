@@ -29,8 +29,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     int a = 1;
     int b = 2;
-    auto by_a = [a] { return a; };
-    auto all = [=] { return a + b; };
+    [[maybe_unused]] auto by_a = [a] { return a; };
+    [[maybe_unused]] auto all = [=] { return a + b; };
     assert(by_a() == 1);
     assert(all() == 3);
 
@@ -50,12 +50,12 @@ int run(int /*argc*/, char** /*argv*/) {
 
     int x = 1;
     int y = 2;
-    auto mixed = [=, &y] { return x + y; };  // x 值，y 引用
+    [[maybe_unused]] auto mixed = [=, &y] { return x + y; };  // x 值，y 引用
     y = 20;
     assert(mixed() == 21);  // 1 + 20
 
     // 显式列出捕获通常比 [=] 更清晰（读者立刻知道依赖哪些变量）
-    auto explicit_caps = [x, y] { return x * 10 + y; };
+    [[maybe_unused]] auto explicit_caps = [x, y] { return x * 10 + y; };
     assert(explicit_caps() == 30);  // y 已是 20：等等——值捕获在创建时拷贝
     // 上面 explicit_caps 在 y=20 之后创建，所以是 1*10+20=30
     std::cout << "[advanced] [=] default by value; mix with &y; prefer explicit lists\n";

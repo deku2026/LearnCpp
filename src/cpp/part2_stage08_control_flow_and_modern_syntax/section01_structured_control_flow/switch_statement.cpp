@@ -23,7 +23,7 @@ enum class HttpStatus : int {
 };
 
 // 故意演示 fallthrough：2xx 成功族共享一段逻辑。
-std::string classify_status(HttpStatus s) {
+[[maybe_unused]] std::string classify_status(HttpStatus s) {
     switch (s) {
         case HttpStatus::Ok:
         case HttpStatus::Created:
@@ -36,7 +36,7 @@ std::string classify_status(HttpStatus s) {
     return "unknown";  // 枚举穷尽后通常不可达；保留防御
 }
 
-int days_in_month(int month, bool leap) {
+[[maybe_unused]] int days_in_month(int month, bool leap) {
     // 经典 case 穿透：多个月共享天数。
     switch (month) {
         case 1:

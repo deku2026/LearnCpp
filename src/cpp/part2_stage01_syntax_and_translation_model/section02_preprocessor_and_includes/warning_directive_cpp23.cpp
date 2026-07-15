@@ -48,7 +48,7 @@ constexpr const char* kind_name(DiagKind k) {
 }
 
 // 教学用：描述何时选 #warning vs #error
-DiagKind recommend(bool broken_config, bool deprecated_path) {
+[[maybe_unused]] DiagKind recommend(bool broken_config, bool deprecated_path) {
     if (broken_config) {
         return DiagKind::Error;  // 无法继续：#error
     }

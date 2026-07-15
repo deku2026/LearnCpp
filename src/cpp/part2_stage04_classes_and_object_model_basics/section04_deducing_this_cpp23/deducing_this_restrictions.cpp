@@ -66,7 +66,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §进阶：多态仍走传统 virtual
     // -------------------------------------------------------------------------
     PolyDerived d;
-    PolyBase& b = d;
+    [[maybe_unused]] PolyBase& b = d;
     assert(b.name() == "derived");
     assert(d.tag() == 42);
     std::cout << "[advanced] virtual stays classic; tag=" << d.tag() << '\n';

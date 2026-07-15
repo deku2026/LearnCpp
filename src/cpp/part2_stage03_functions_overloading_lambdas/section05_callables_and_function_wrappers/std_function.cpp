@@ -56,7 +56,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // §专家：空调用异常、代价、可拷贝约束
     // -------------------------------------------------------------------------
     std::function<int()> vacant;
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         (void)vacant();
     } catch (const std::bad_function_call&) {

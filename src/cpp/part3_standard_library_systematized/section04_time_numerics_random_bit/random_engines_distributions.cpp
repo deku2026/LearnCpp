@@ -51,7 +51,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // 伯努利 / 伯努利试验
     std::bernoulli_distribution coin(0.5);
-    int heads = 0;
+    [[maybe_unused]] int heads = 0;
     for (int i = 0; i < 100; ++i) {
         heads += coin(eng2) ? 1 : 0;
     }

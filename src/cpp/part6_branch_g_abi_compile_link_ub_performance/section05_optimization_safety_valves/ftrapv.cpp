@@ -17,7 +17,7 @@
 
 namespace {
 
-int safe_inc(int x) {
+[[maybe_unused]] int safe_inc(int x) {
     if (x == std::numeric_limits<int>::max()) return x;
     return x + 1;
 }

@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 与 string 互操作
     std::string s{from_arr};
     assert(s == "hello");
-    std::string_view again = s;
+    [[maybe_unused]] std::string_view again = s;
     assert(again == from_arr);
 #endif
 

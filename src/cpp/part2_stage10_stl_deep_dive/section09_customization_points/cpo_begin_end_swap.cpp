@@ -37,16 +37,16 @@ struct AdlRange {
     std::array<int, 2> data{7, 8};
 };
 
-auto begin(AdlRange& r) noexcept {
+[[maybe_unused]] auto begin(AdlRange& r) noexcept {
     return r.data.begin();
 }
-auto end(AdlRange& r) noexcept {
+[[maybe_unused]] auto end(AdlRange& r) noexcept {
     return r.data.end();
 }
-auto begin(const AdlRange& r) noexcept {
+[[maybe_unused]] auto begin(const AdlRange& r) noexcept {
     return r.data.begin();
 }
-auto end(const AdlRange& r) noexcept {
+[[maybe_unused]] auto end(const AdlRange& r) noexcept {
     return r.data.end();
 }
 
@@ -66,8 +66,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // ① 数组：ranges::begin 直接返回指针(内建规则)
     {
         int arr[] = {1, 2, 3};
-        auto* p = std::ranges::begin(arr);
-        auto* e = std::ranges::end(arr);
+        [[maybe_unused]] auto* p = std::ranges::begin(arr);
+        [[maybe_unused]] auto* e = std::ranges::end(arr);
         assert(p == arr && e == arr + 3);
         assert(*p == 1);
         std::cout << "  array: ranges::begin → &arr[0]\n";
@@ -76,7 +76,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // ② 成员 begin：CPO 优先走成员(概念约束：返回值是 iterator)
     {
         MemberRange mr;
-        auto it = std::ranges::begin(mr);
+        [[maybe_unused]] auto it = std::ranges::begin(mr);
         assert(*it == 10);
         assert(std::ranges::size(mr) == 3);
         static_assert(std::ranges::range<MemberRange>);
@@ -86,7 +86,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // ③ ADL begin：无成员时 CPO 受控 ADL 查找自由函数
     {
         AdlRange ar;
-        auto it = std::ranges::begin(ar);
+        [[maybe_unused]] auto it = std::ranges::begin(ar);
         assert(*it == 7);
         assert(std::distance(std::ranges::begin(ar), std::ranges::end(ar)) == 2);
         static_assert(std::ranges::range<AdlRange>);
@@ -108,7 +108,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // ⑤ niebloid 风格算法 CPO：ranges::find 也是定制点式函数对象
     {
         std::vector<int> v{9, 8, 7, 6};
-        auto it = std::ranges::find(v, 7);
+        [[maybe_unused]] auto it = std::ranges::find(v, 7);
         assert(it != v.end() && *it == 7);
         std::cout << "  ranges::find is also a CPO/niebloid\n";
     }

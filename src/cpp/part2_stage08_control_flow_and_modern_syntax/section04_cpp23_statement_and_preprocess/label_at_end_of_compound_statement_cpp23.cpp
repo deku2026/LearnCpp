@@ -15,7 +15,7 @@
 namespace {
 
 // C++23 前：END 后必须有语句（常写空语句 `;`）
-int old_style_skip(int x) {
+[[maybe_unused]] int old_style_skip(int x) {
     if (x > 0) {
         goto END;
     }
@@ -25,7 +25,7 @@ END:;  // 空语句占位
 }
 
 // C++23：标签可直接出现在复合语句末尾
-int new_style_skip(int x) {
+[[maybe_unused]] int new_style_skip(int x) {
     if (x > 0) {
         goto END;
     }
@@ -34,7 +34,7 @@ END:  // 🆕 无需补 `;`
     return x;
 }
 
-int multi_label_exit(int mode) {
+[[maybe_unused]] int multi_label_exit(int mode) {
     int state = 0;
     {
         if (mode == 1) {
@@ -73,7 +73,7 @@ int run(int argc, char** argv) {
 
         // case/default 仍是 switch 的标签；本特性针对普通标识符标签。
         // 嵌套块末尾同样允许：
-        int n = 0;
+        [[maybe_unused]] int n = 0;
         {
             {
                 if (true) {
@@ -98,7 +98,7 @@ int run(int argc, char** argv) {
         // 工程：特性降低语法摩擦，不构成鼓励 goto 的理由；
         // RAII + return 仍是默认出口模型。
 
-        int x = 1;
+        [[maybe_unused]] int x = 1;
         {
             goto finish;
             x = 0;

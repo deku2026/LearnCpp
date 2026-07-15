@@ -18,16 +18,16 @@ namespace {
 
 namespace alpha {
 struct A {};
-std::string f(A) {
+[[maybe_unused]] std::string f(A) {
     return "alpha::f(A)";
 }
 }  // namespace alpha
 
 namespace beta {
-std::string f(int) {
+[[maybe_unused]] std::string f(int) {
     return "beta::f(int)";
 }
-std::string f(double) {
+[[maybe_unused]] std::string f(double) {
     return "beta::f(double)";
 }
 }  // namespace beta
@@ -38,7 +38,7 @@ struct S {
     std::string call(int) { return "S::call(int)"; }
 };
 
-std::string call(S&, double) {
+[[maybe_unused]] std::string call(S&, double) {
     return "free call(S&,double)";
 }
 
@@ -53,11 +53,11 @@ int run(int argc, char** argv) {
     assert(f(1.5) == "beta::f(double)");
 
     // ADL 加入 alpha::f
-    alpha::A a;
+    [[maybe_unused]] alpha::A a;
     assert(f(a) == "alpha::f(A)");
 
     // 成员 vs 自由函数: 成员调用语法 .call 走成员候选
-    S s;
+    [[maybe_unused]] S s;
     assert(s.call(1) == "S::call(int)");
     assert(call(s, 2.0) == "free call(S&,double)");
 

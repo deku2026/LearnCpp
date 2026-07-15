@@ -29,8 +29,8 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 入门：const vs constexpr
     // -------------------------------------------------------------------------
-    const int a = runtime_value();  // 运行期初始化，之后不可改
-    constexpr int b = 42;           // 编译期常量
+    [[maybe_unused]] const int a = runtime_value();  // 运行期初始化，之后不可改
+    constexpr int b = 42;                            // 编译期常量
     // constexpr int c = runtime_value(); // ❌ 不是常量表达式
 
     assert(a == 7 && b == 42);

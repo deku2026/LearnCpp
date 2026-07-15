@@ -17,7 +17,7 @@
 namespace {
 
 // 传统：最后一个具名参数之后是 ...
-int sum_c(int count, ...) {
+[[maybe_unused]] int sum_c(int count, ...) {
     va_list ap;
     va_start(ap, count);
     int total = 0;
@@ -30,7 +30,7 @@ int sum_c(int count, ...) {
 }
 
 // 安全得多的现代替代（同类型）
-int sum_modern(std::initializer_list<int> xs) {
+[[maybe_unused]] int sum_modern(std::initializer_list<int> xs) {
     int t = 0;
     for (int x : xs) {
         t += x;

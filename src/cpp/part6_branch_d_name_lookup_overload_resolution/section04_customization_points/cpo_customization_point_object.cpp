@@ -42,7 +42,7 @@ int run(int argc, char** argv) {
     assert(a.v == 2 && b.v == 1);
 
     std::vector<int> v{3, 1, 2};
-    auto it = std::ranges::begin(v);
+    [[maybe_unused]] auto it = std::ranges::begin(v);
     assert(*it == 3);
     std::ranges::sort(v);
     assert((v == std::vector<int>{1, 2, 3}));

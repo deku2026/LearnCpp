@@ -25,19 +25,19 @@ struct OnlyCopy {
     OnlyCopy(int v) : n{v} {}
 };
 
-int run(int /*argc*/, char** /*argv*/) {
+[[maybe_unused]] int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== [direct_initialization] ===\n";
 
     // -------------------------------------------------------------------------
     // 入门：括号直接初始化
     // -------------------------------------------------------------------------
-    int n(42);
-    double d(3.14);
+    [[maybe_unused]] int n(42);
+    [[maybe_unused]] double d(3.14);
     std::string s("hello");
     assert(n == 42 && d == 3.14 && s == "hello");
 
     // 允许窄化（可能警告）
-    int truncated(3.9);
+    [[maybe_unused]] int truncated(static_cast<int>(3.9));
     assert(truncated == 3);
     std::cout << "[intro] T x(args) direct-init; narrowing allowed\n";
 
@@ -53,11 +53,11 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(v.size() == 3 && v[0] == 7 && v[2] == 7);
 
     // 函数风格转换 / 临时量
-    OnlyCopy oc = OnlyCopy(9);  // 直接初始化临时量，再拷贝初始化 oc（可 elide）
+    [[maybe_unused]] OnlyCopy oc = OnlyCopy(9);  // 直接初始化临时量，再拷贝初始化 oc（可 elide）
     assert(oc.n == 9);
 
     // static_cast<T>(expr) 也是直接初始化语境
-    auto x = static_cast<int>(3.7);
+    [[maybe_unused]] auto x = static_cast<int>(3.7);
     assert(x == 3);
     std::cout << "[advanced] explicit OK in direct-init; vector(n,val) uses parens\n";
 

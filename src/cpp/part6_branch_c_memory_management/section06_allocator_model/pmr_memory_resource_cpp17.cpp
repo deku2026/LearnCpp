@@ -29,7 +29,7 @@ int run(int argc, char** argv) {
     assert(nd != nullptr && null_r != nullptr);
 
     // 默认资源可替换（进程级策略）
-    auto* prev = std::pmr::get_default_resource();
+    [[maybe_unused]] auto* prev = std::pmr::get_default_resource();
     assert(prev != nullptr);
 
     std::pmr::vector<int> a{nd};
@@ -43,7 +43,7 @@ int run(int argc, char** argv) {
     b.push_back(3);
     assert(b.front() == 3);
 
-    bool threw = false;
+    [[maybe_unused]] bool threw = false;
     try {
         std::pmr::vector<int> c{null_r};
         c.reserve(1);

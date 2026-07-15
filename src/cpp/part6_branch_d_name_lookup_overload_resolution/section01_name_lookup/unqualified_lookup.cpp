@@ -20,14 +20,14 @@ int x = 1;
 
 namespace ns {
 int x = 2;
-int probe() {
+[[maybe_unused]] int probe() {
     int x = 3;
     return x;  // 局部
 }
-int outer() {
+[[maybe_unused]] int outer() {
     return x;
 }  // ns::x
-void show() {
+[[maybe_unused]] void show() {
     // 类作用域示例见 name_hiding / injected_class_name
 }
 }  // namespace ns
@@ -49,12 +49,12 @@ int run(int argc, char** argv) {
     assert(ns::outer() == 2);
 
     {
-        int x = 99;
+        [[maybe_unused]] int x = 99;
         assert(x == 99);
     }
     assert(::x == 1);
 
-    S s;
+    [[maybe_unused]] S s;
     assert(s.get() == 10);
     assert(s.get_global() == 1);
 

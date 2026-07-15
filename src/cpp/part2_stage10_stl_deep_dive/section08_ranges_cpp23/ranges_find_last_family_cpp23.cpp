@@ -21,19 +21,19 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> v{1, 2, 3, 2, 4, 2, 5};
 
 #if defined(__cpp_lib_ranges_find_last) && __cpp_lib_ranges_find_last >= 202207L
-    auto r = std::ranges::find_last(v, 2);
+    [[maybe_unused]] auto r = std::ranges::find_last(v, 2);
     assert(!r.empty());
     assert(*r.begin() == 2);
     // 指向最后一个 2
     assert(r.begin() == v.begin() + 5);
 
-    auto r2 = std::ranges::find_last_if(v, [](int x) { return x > 3; });
+    [[maybe_unused]] auto r2 = std::ranges::find_last_if(v, [](int x) { return x > 3; });
     assert(*r2.begin() == 5);
 
-    auto r3 = std::ranges::find_last_if_not(v, [](int x) { return x < 5; });
+    [[maybe_unused]] auto r3 = std::ranges::find_last_if_not(v, [](int x) { return x < 5; });
     assert(*r3.begin() == 5);
 
-    auto miss = std::ranges::find_last(v, 99);
+    [[maybe_unused]] auto miss = std::ranges::find_last(v, 99);
     assert(miss.empty());
 
     // 投影
@@ -42,7 +42,7 @@ int run(int /*argc*/, char** /*argv*/) {
         char tag;
     };
     std::vector<Item> items{{1, 'a'}, {2, 'b'}, {1, 'c'}};
-    auto last1 = std::ranges::find_last(items, 1, &Item::k);
+    [[maybe_unused]] auto last1 = std::ranges::find_last(items, 1, &Item::k);
     assert(last1.begin()->tag == 'c');
 
     std::cout << "[find_last family] library path OK\n";

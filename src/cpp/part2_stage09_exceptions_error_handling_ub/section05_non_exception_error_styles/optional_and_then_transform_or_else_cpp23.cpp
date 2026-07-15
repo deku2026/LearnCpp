@@ -45,7 +45,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 对抗：空值短路 ===\n";
     {
         int calls = 0;
-        auto bad = parse_positive("-5").transform([&](int v) {
+        [[maybe_unused]] auto bad = parse_positive("-5").transform([&](int v) {
             ++calls;
             return v * 2;
         });
@@ -57,9 +57,9 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::cout << "=== 对抗：and_then（下一步仍 optional）===\n";
     {
-        auto r = parse_positive("10").and_then(half_if_even);
+        [[maybe_unused]] auto r = parse_positive("10").and_then(half_if_even);
         assert(r && *r == 5);
-        auto odd = parse_positive("9").and_then(half_if_even);
+        [[maybe_unused]] auto odd = parse_positive("9").and_then(half_if_even);
         assert(!odd);
         std::cout << "and_then half_if_even: 10->5, 9->nullopt\n";
     }

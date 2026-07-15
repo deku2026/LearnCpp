@@ -125,7 +125,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::string id() const { return "NVDer"; }
     };
     NVDer nd;
-    NVBase& nbr = nd;
+    [[maybe_unused]] NVBase& nbr = nd;
     assert(nbr.id() == "NVBase");  // 非虚：按静态类型
 
     std::string log;

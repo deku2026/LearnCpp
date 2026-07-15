@@ -111,7 +111,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::vector<NoexceptMovable> v1;
         v1.reserve(1);
         v1.emplace_back(1);
-        const int moves_before = g_moves;
+        [[maybe_unused]] const int moves_before = g_moves;
         v1.emplace_back(2);  // 扩容：应移动已有元素
         assert(g_moves > moves_before);
         assert(v1.size() == 2);
@@ -123,7 +123,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::vector<ThrowingMovable> v2;
         v2.reserve(1);
         v2.emplace_back(1);
-        const int copies_before = g_copies;
+        [[maybe_unused]] const int copies_before = g_copies;
         v2.emplace_back(2);  // 扩容：移动非 noexcept → 拷贝
         assert(g_copies > copies_before);
         assert(v2.size() == 2);

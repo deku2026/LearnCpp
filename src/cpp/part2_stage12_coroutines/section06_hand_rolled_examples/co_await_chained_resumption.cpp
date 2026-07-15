@@ -137,8 +137,8 @@ int run(int argc, char** argv) {
     // 期望关键片段存在:
     // top.resume → level2 body → await_suspend transfer → level1 → level0
     // → final 恢复 → await_resume 沿链返回
-    bool saw_suspend = false;
-    bool saw_resume = false;
+    [[maybe_unused]] bool saw_suspend = false;
+    [[maybe_unused]] bool saw_resume = false;
     for (const auto& s : g_trace) {
         if (s.find("await_suspend") != std::string::npos) {
             saw_suspend = true;

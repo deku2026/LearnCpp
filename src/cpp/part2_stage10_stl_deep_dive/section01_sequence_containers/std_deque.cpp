@@ -58,7 +58,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
         // 头尾插入：迭代器失效，但引用/指针对元素本身通常仍有效（标准：头尾插入
         // 使所有迭代器失效，引用不失效；中间插入使全部失效）
-        int& r = d.front();
+        [[maybe_unused]] int& r = d.front();
         d.push_front(0);
         assert(r == 1);  // front 元素引用在头插后仍指原元素
         assert(d.front() == 0);

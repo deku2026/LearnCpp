@@ -47,7 +47,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // 进阶：绑定规则与传参
     // -------------------------------------------------------------------------
     // int& rlit = 42; // ❌ 非 const 左值引用不能绑右值
-    const int& cr = 42;  // OK，临时 int 寿命延长到 cr 作用域结束
+    [[maybe_unused]] const int& cr = 42;  // OK，临时 int 寿命延长到 cr 作用域结束
     assert(cr == 42);
 
     add_bang(s);

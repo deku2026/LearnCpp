@@ -60,7 +60,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     // high_resolution 常是 steady 或 system 别名 — 只作探测
     using hr = std::chrono::high_resolution_clock;
-    const auto hr0 = hr::now();
+    [[maybe_unused]] const auto hr0 = hr::now();
     assert(hr0.time_since_epoch().count() != 0 || true);
     std::cout << "high_resolution is_steady=" << std::boolalpha << hr::is_steady << '\n';
     std::cout << "prefer steady_clock for benchmarks; system_clock for wall time\n";

@@ -25,7 +25,7 @@ int run(int /*argc*/, char** /*argv*/) {
         std::set<int> s{3, 1, 4, 1, 5, 9, 2, 6};
         assert(s.size() == 7);  // 1 去重
         // 中序遍历即升序
-        int prev = 0;
+        [[maybe_unused]] int prev = 0;
         bool first = true;
         for (int x : s) {
             if (!first) {
@@ -49,9 +49,9 @@ int run(int /*argc*/, char** /*argv*/) {
         m["apple"] = 10;  // 存在则覆盖
         assert(m["apple"] == 10);
 
-        auto [it, ok] = m.insert({"date", 4});
+        [[maybe_unused]] auto [it, ok] = m.insert({"date", 4});
         assert(ok && it->second == 4);
-        auto [it2, ok2] = m.insert({"date", 99});  // key 已在，不覆盖
+        [[maybe_unused]] auto [it2, ok2] = m.insert({"date", 99});  // key 已在，不覆盖
         assert(!ok2 && it2->second == 4);
 
         m.try_emplace("elder", 5);  // 不存在才构造
@@ -63,13 +63,13 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 进阶：查找家族 lower_bound / equal_range ===\n";
     {
         std::set<int> s{1, 3, 5, 7, 9};
-        auto lb = s.lower_bound(4);  // 第一个 >= 4 → 5
+        [[maybe_unused]] auto lb = s.lower_bound(4);  // 第一个 >= 4 → 5
         assert(lb != s.end() && *lb == 5);
-        auto ub = s.upper_bound(5);  // 第一个 > 5 → 7
+        [[maybe_unused]] auto ub = s.upper_bound(5);  // 第一个 > 5 → 7
         assert(ub != s.end() && *ub == 7);
 
         std::map<int, char> m{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-        auto [lo, hi] = m.equal_range(2);
+        [[maybe_unused]] auto [lo, hi] = m.equal_range(2);
         assert(lo != m.end() && lo->first == 2);
         assert(hi != m.end() && hi->first == 3);
         std::cout << "lower/upper/equal_range enable ordered range queries\n";
@@ -86,7 +86,7 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== 专家：节点式失效 — 插删不伤其他迭代器 ===\n";
     {
         std::map<int, std::string> m{{1, "one"}, {2, "two"}, {3, "three"}};
-        auto keep = m.find(2);
+        [[maybe_unused]] auto keep = m.find(2);
         m.emplace(0, "zero");
         m.erase(1);
         assert(keep != m.end());

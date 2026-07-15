@@ -41,7 +41,7 @@ ErrorCode write_all(const std::string& /*payload*/) {
 }
 
 // 查询 API：empty 不是 clear；标 nodiscard 防止写成 if (v.empty); 的笔误之外的“调用了却没用”。
-[[nodiscard]] bool is_empty(const std::vector<int>& v) {
+[[maybe_unused]] [[nodiscard]] bool is_empty(const std::vector<int>& v) {
     return v.empty();
 }
 
@@ -57,7 +57,7 @@ int run(int argc, char** argv) {
 
         // 若写成 try_connect("x"); 且开启足够告警，编译器应警告 nodiscard。
         // 教学可运行路径：必须使用或显式 (void) 丢弃。
-        const bool no_host = try_connect("");
+        [[maybe_unused]] const bool no_host = try_connect("");
         assert(!no_host);
 
         // 显式丢弃：告诉读者“我知道有返回值，故意不要”。
@@ -72,7 +72,7 @@ int run(int argc, char** argv) {
         std::cout << "handle=" << h << '\n';
         assert(open_resource("") == -1);
 
-        ErrorCode ec = write_all("payload");
+        [[maybe_unused]] ErrorCode ec = write_all("payload");
         assert(static_cast<bool>(ec));
         // ErrorCode 带 [[nodiscard]]：丢弃 write_all(...) 的返回值也会警告。
 

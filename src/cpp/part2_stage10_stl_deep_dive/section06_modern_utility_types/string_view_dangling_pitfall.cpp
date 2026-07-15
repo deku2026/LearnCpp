@@ -31,7 +31,7 @@ std::vector<std::string_view> split(std::string_view sv, char delim) {
 }
 
 // ✅ 安全: static 存活
-std::string_view ok_static_view() {
+[[maybe_unused]] std::string_view ok_static_view() {
     static const std::string s = "ok-static";
     return s;
 }

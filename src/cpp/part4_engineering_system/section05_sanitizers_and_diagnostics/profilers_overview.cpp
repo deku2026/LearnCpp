@@ -67,8 +67,8 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "=== profilers_overview ===\n";
 
     std::vector<int> data(200, 1);
-    auto slow = sum_slow(data);
-    auto fast = sum_fast(data);
+    [[maybe_unused]] auto slow = sum_slow(data);
+    [[maybe_unused]] auto fast = sum_fast(data);
     assert(slow == fast);
 
     const int rounds = 50;

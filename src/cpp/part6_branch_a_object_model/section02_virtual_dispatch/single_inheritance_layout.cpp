@@ -84,7 +84,7 @@ int run(int argc, char** argv) {
     assert(sizeof(Dog) >= sizeof(Mammal));
 
     // 基类子对象可绑定引用, 仍共享同一完整对象
-    Animal& ar = dog;
+    [[maybe_unused]] Animal& ar = dog;
     assert(&ar == as_animal);
     assert(ar.legs == 4);
 

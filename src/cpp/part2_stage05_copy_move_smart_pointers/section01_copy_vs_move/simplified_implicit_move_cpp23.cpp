@@ -77,7 +77,7 @@ int run(int /*argc*/, char** /*argv*/) {
     {
         auto make_explicit = []() -> Widget {
             Widget w{"explicit"};
-            return std::move(w);  // 合法，但可能阻止 NRVO（见 never_move_return_of_local）
+            return w;  // 合法，但可能阻止 NRVO（见 never_move_return_of_local）
         };
         Widget e = make_explicit();
         assert(e.name == "explicit");

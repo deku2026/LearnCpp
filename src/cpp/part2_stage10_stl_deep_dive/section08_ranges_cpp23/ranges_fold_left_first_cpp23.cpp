@@ -24,20 +24,20 @@ int run(int /*argc*/, char** /*argv*/) {
     std::vector<int> v{1, 2, 3, 4, 5};
 
 #if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
-    auto maxv = std::ranges::fold_left_first(v, [](int a, int b) { return a > b ? a : b; });
+    [[maybe_unused]] auto maxv = std::ranges::fold_left_first(v, [](int a, int b) { return a > b ? a : b; });
     assert(maxv.has_value() && *maxv == 5);
 
-    auto minv = std::ranges::fold_left_first(v, [](int a, int b) { return a < b ? a : b; });
+    [[maybe_unused]] auto minv = std::ranges::fold_left_first(v, [](int a, int b) { return a < b ? a : b; });
     assert(minv && *minv == 1);
 
-    auto sum = std::ranges::fold_left_first(v, std::plus{});
+    [[maybe_unused]] auto sum = std::ranges::fold_left_first(v, std::plus{});
     assert(sum && *sum == 15);
 
-    auto empty = std::ranges::fold_left_first(std::vector<int>{}, std::plus{});
+    [[maybe_unused]] auto empty = std::ranges::fold_left_first(std::vector<int>{}, std::plus{});
     assert(!empty);
 
     // 单元素
-    auto one = std::ranges::fold_left_first(std::vector{42}, std::plus{});
+    [[maybe_unused]] auto one = std::ranges::fold_left_first(std::vector{42}, std::plus{});
     assert(one && *one == 42);
 
     std::cout << "[fold_left_first] library path OK\n";

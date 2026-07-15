@@ -45,7 +45,7 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // C++14：T x = make(); 可能需要可访问的拷贝/移动（即使被 elide）
     // C++17：同类型 prvalue 初始化 → 不要求拷贝/移动，且不调用它们
-    NoCopyMove x = make_ncm(1);
+    [[maybe_unused]] NoCopyMove x = make_ncm(1);
     assert(x.n == 1);
 
     NoCopyMove y = NoCopyMove{2};  // 同样是 prvalue 初始化
@@ -57,15 +57,15 @@ int run(int /*argc*/, char** /*argv*/) {
     // -------------------------------------------------------------------------
     // 当 prvalue 需要作为 glvalue 使用（绑引用、. 成员、取地址等）时，
     // 才物化出临时对象（结果是 xvalue）。
-    const NoCopyMove& ref = make_ncm(3);  // 物化临时，const& 延长寿命
+    [[maybe_unused]] const NoCopyMove& ref = make_ncm(3);  // 物化临时，const& 延长寿命
     assert(ref.n == 3);
 
     // 成员访问也触发物化
-    int n = make_ncm(4).n;
+    [[maybe_unused]] int n = make_ncm(4).n;
     assert(n == 4);
 
     // 纯初始化目标对象：不单独物化再移动
-    NoCopyMove z{make_ncm(5)};
+    [[maybe_unused]] NoCopyMove z{make_ncm(5)};
     assert(z.n == 5);
     std::cout << "[advanced] materialization when a real object identity is required\n";
 
@@ -89,7 +89,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(crext == "extend");
 
     // make_with_local 与 make_ncm 在“返回 prvalue 构造表达式”时等价安全
-    NoCopyMove w = make_with_local(6);
+    [[maybe_unused]] NoCopyMove w = make_with_local(6);
     assert(w.n == 6);
 
     // 对照：若只有具名局部再 return，则依赖 NRVO/隐式移动（移动已 delete 时不可移植）

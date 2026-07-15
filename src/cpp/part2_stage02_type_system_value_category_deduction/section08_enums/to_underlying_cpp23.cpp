@@ -61,7 +61,7 @@ int run(int argc, char** argv) {
         assert(std::to_underlying(U1) == 6);
 
         // 日志 / 序列化 / 与 C API 交互时的惯用出口
-        const int wire = std::to_underlying(Status::Ok);
+        [[maybe_unused]] const int wire = std::to_underlying(Status::Ok);
         assert(wire == 0);
         std::cout << "[advanced] return type is underlying_type_t<E>\n";
     }
@@ -79,7 +79,8 @@ int run(int argc, char** argv) {
             Write = 2,
             Exec = 4,
         };
-        const auto bits = static_cast<std::uint16_t>(std::to_underlying(Flag::Read) | std::to_underlying(Flag::Exec));
+        [[maybe_unused]] const auto bits =
+            static_cast<std::uint16_t>(std::to_underlying(Flag::Read) | std::to_underlying(Flag::Exec));
         assert(bits == 5);
         std::cout << "[expert] prefer to_underlying over ad-hoc static_cast\n";
     }

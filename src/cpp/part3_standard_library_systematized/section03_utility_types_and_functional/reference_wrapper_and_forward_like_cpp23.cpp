@@ -46,7 +46,7 @@ int run(int /*argc*/, char** /*argv*/) {
     assert(x == 20);
 
     const int y = 5;
-    std::reference_wrapper<const int> cr = std::cref(y);
+    [[maybe_unused]] std::reference_wrapper<const int> cr = std::cref(y);
     assert(cr.get() == 5);
 
     // 容器默认存值; ref 可存“引用语义”

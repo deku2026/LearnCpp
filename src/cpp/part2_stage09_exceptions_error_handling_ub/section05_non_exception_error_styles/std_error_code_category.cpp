@@ -56,7 +56,7 @@ int run(int /*argc*/, char** /*argv*/) {
                   << '\n';
 
         // error_condition：可移植比较
-        std::error_condition cond = ec.default_error_condition();
+        [[maybe_unused]] std::error_condition cond = ec.default_error_condition();
         assert(cond == std::errc::no_such_file_or_directory);
         std::cout << "condition portable match errc::no_such_file_or_directory\n";
     }

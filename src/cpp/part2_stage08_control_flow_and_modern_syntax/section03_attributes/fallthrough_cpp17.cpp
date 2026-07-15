@@ -36,7 +36,7 @@ std::string handle_command(int code) {
 }
 
 // 字符分类：大小写共用。
-bool is_hex_digit(char c) {
+[[maybe_unused]] bool is_hex_digit(char c) {
     switch (c) {
         case '0':
         case '1':
@@ -86,7 +86,7 @@ int run(int argc, char** argv) {
         // [[fallthrough]]; 必须落在“空语句”上，位于 case 可执行语句之间，
         // 且下一句应是 case/default 标签（实现按 -Wimplicit-fallthrough 识别）。
         int x = 0;
-        int path = 0;
+        [[maybe_unused]] int path = 0;
         switch (x) {
             case 0:
                 path += 1;
@@ -119,7 +119,7 @@ int run(int argc, char** argv) {
         // - 不能替代 break：属性不改变控制流，只影响诊断
         // - 属性后不能再夹杂其它语句再落入（否则仍可能告警/病式，视实现）
 
-        int acc = 0;
+        [[maybe_unused]] int acc = 0;
         switch (2) {
             case 2:
                 acc = 2;

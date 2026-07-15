@@ -49,13 +49,13 @@ int run(int /*argc*/, char** /*argv*/) {
     std::cout << "<bit>        popcount/byteswap (C++20/23)\n";
     std::cout << "<version>    feature-test macros\n";
 
-    auto p = std::pair{1, 2};
+    [[maybe_unused]] auto p = std::pair{1, 2};
     assert(std::exchange(p.first, 9) == 1 && p.first == 9);
 
-    auto t = std::tuple{1, 2, 3};
+    [[maybe_unused]] auto t = std::tuple{1, 2, 3};
     assert(std::apply([](int a, int b, int c) { return a + b + c; }, t) == 6);
 
-    std::optional<int> o = 42;
+    [[maybe_unused]] std::optional<int> o = 42;
     assert(o.value_or(0) == 42);
 
 #if LEARN_HAS_EXPECTED
@@ -74,7 +74,7 @@ int run(int /*argc*/, char** /*argv*/) {
 
     std::function<int(int, int)> f = add;
     assert(f(2, 3) == 5);
-    auto front = std::bind_front(add, 10);
+    [[maybe_unused]] auto front = std::bind_front(add, 10);
     assert(front(5) == 15);
 
     assert(std::popcount(0b1011u) == 3);

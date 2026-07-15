@@ -17,14 +17,14 @@
 
 namespace {
 
-int value_or(const int* p, int fallback) {
+[[maybe_unused]] int value_or(const int* p, int fallback) {
     if (p == nullptr) {
         return fallback;
     }
     return *p;
 }
 
-int require_nonnull(const int& r) {
+[[maybe_unused]] int require_nonnull(const int& r) {
     return r;
 }
 
@@ -48,12 +48,12 @@ int run(int argc, char** argv) {
 
     std::cout << "=== G null dereference (safe patterns) ===\n";
 
-    int x = 5;
+    [[maybe_unused]] int x = 5;
     assert(value_or(&x, -1) == 5);
     assert(value_or(nullptr, -1) == -1);
     assert(require_nonnull(x) == 5);
 
-    auto a = parse_positive("42");
+    [[maybe_unused]] auto a = parse_positive("42");
     assert(a && *a == 42);
     assert(!parse_positive(nullptr));
     assert(!parse_positive(""));
