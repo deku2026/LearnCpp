@@ -1,20 +1,32 @@
-// LearnCpp placeholder
-// Doc      : part2-stage10-stl-deep-dive.md
-// Stage    : part2_stage10_stl_deep_dive
-// Section  : section06_modern_utility_types
-// Item     : string_contains_cpp23
-// Topic id : part2/stage10/section06/string_contains_cpp23
+// Topic     : std::string::contains (C++23)
+// Doc       : 第2部分-阶段10 · 步骤 7.1
+// cppreference: https://en.cppreference.com/cpp/string/basic_string/contains
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: 与 string_view::contains 对称; 子串/字符/string_view 重载。
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <string_view>
+
 namespace {
 
-int run(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "=== [string_contains_cpp23] ===\n";
+
+    std::string s = "std::string now has contains";
+    assert(s.contains("contains"));
+    assert(s.contains(':'));
+    assert(s.contains(std::string_view{"string"}));
+    assert(!s.contains("vector"));
+
+    // 大小写敏感
+    assert(!s.contains("Contains"));
+
+    std::cout << "[string::contains] OK for substr/char/string_view\n";
+    std::cout << "string_contains_cpp23: all checks passed\n";
     return 0;
 }
 

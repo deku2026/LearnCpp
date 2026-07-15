@@ -1,20 +1,72 @@
-// LearnCpp placeholder
-// Doc      : part2-stage10-stl-deep-dive.md
-// Stage    : part2_stage10_stl_deep_dive
-// Section  : section08_ranges_cpp23
-// Item     : ranges_fold_left_first_cpp23
-// Topic id : part2/stage10/section08/ranges_fold_left_first_cpp23
+// Topic     : ranges::fold_left_first —— 首元素作初值 (C++23)
+// Doc       : 第2部分-阶段10 · 步骤 13.3
+// cppreference: https://en.cppreference.com/cpp/algorithm/ranges/fold_left_first
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: 返回 optional; 空范围 → nullopt。
 
 #include "learn/topic_registry.hpp"
 
+#include <algorithm>
+#include <cassert>
+#include <functional>
+#include <iostream>
+#include <numeric>
+#include <optional>
+#include <ranges>
+#include <vector>
+#include <version>
+
 namespace {
 
-int run(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "=== [ranges_fold_left_first_cpp23] ===\n";
+
+    std::vector<int> v{1, 2, 3, 4, 5};
+
+#if defined(__cpp_lib_ranges_fold) && __cpp_lib_ranges_fold >= 202207L
+    auto maxv = std::ranges::fold_left_first(v, [](int a, int b) { return a > b ? a : b; });
+    assert(maxv.has_value() && *maxv == 5);
+
+    auto minv = std::ranges::fold_left_first(v, [](int a, int b) { return a < b ? a : b; });
+    assert(minv && *minv == 1);
+
+    auto sum = std::ranges::fold_left_first(v, std::plus{});
+    assert(sum && *sum == 15);
+
+    auto empty = std::ranges::fold_left_first(std::vector<int>{}, std::plus{});
+    assert(!empty);
+
+    // 单元素
+    auto one = std::ranges::fold_left_first(std::vector{42}, std::plus{});
+    assert(one && *one == 42);
+
+    std::cout << "[fold_left_first] library path OK\n";
+#else
+    std::cout << "library not yet available, fallback demo (accumulate)\n";
+    auto fold_first = [](const std::vector<int>& r, auto op) -> std::optional<int> {
+        if (r.empty()) return std::nullopt;
+        return std::accumulate(std::next(r.begin()), r.end(), r.front(), op);
+    };
+
+    auto maxv = fold_first(v, [](int a, int b) { return a > b ? a : b; });
+    assert(maxv.has_value() && *maxv == 5);
+
+    auto minv = fold_first(v, [](int a, int b) { return a < b ? a : b; });
+    assert(minv && *minv == 1);
+
+    auto sum = fold_first(v, std::plus{});
+    assert(sum && *sum == 15);
+
+    auto empty = fold_first(std::vector<int>{}, std::plus{});
+    assert(!empty);
+
+    auto one = fold_first(std::vector{42}, std::plus{});
+    assert(one && *one == 42);
+
+    std::cout << "[fold_left_first] fallback OK\n";
+#endif
+
+    std::cout << "ranges_fold_left_first_cpp23: all checks passed\n";
     return 0;
 }
 

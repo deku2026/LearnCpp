@@ -1,20 +1,66 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic
+// Doc      : part6-branch-d-name-lookup-overload-resolution.md (D1 using)
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section01_name_lookup
 // Item     : using_introduction
 // Topic id : part6/d/section01/using_introduction
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: using ns::name / using Base::f / using enum 把名字引入当前作用域。
+// 参考: [namespace.udecl]
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <utility>
+
 namespace {
+
+namespace tools {
+int answer() {
+    return 42;
+}
+std::string name() {
+    return "tools";
+}
+}  // namespace tools
+
+struct Base {
+    int g(int x) { return x + 1; }
+};
+
+struct D : Base {
+    using Base::g;
+    int g(double x) { return static_cast<int>(x) + 10; }
+};
+
+enum class Color { Red, Green, Blue };
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+
+    std::cout << "=== D1 using introduction ===\n";
+
+    using tools::answer;
+    assert(answer() == 42);
+    assert(tools::name() == "tools");
+
+    D d;
+    assert(d.g(1) == 2);
+    assert(d.g(1.0) == 11);
+
+    using enum Color;
+    Color c = Green;
+    assert(c == Color::Green);
+
+    using std::swap;
+    int a = 1, b = 2;
+    swap(a, b);
+    assert(a == 2 && b == 1);
+
+    std::cout << "using_introduction: OK\n";
     return 0;
 }
 

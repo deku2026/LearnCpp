@@ -1,20 +1,49 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-c-memory-management.md
+// LearnCpp topic
+// Doc      : part6-branch-c-memory-management.md (C9 cache line)
 // Stage    : part6_branch_c_memory_management
 // Section  : section05_cache_locality
 // Item     : cache_line_basics
 // Topic id : part6/c/section05/cache_line_basics
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: CPU 以缓存行装载；hardware_*_interference_size 标准常量。
+// 参考: [hardware.destructive.interference]
 
 #include "learn/topic_registry.hpp"
+
+#include <cassert>
+#include <cstddef>
+#include <iostream>
+#include <new>
+#include <vector>
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+
+    std::cout << "=== C9 cache line basics ===\n";
+
+    constexpr std::size_t destr = std::hardware_destructive_interference_size;
+    constexpr std::size_t constr = std::hardware_constructive_interference_size;
+    std::cout << "  destructive_interference_size=" << destr << '\n';
+    std::cout << "  constructive_interference_size=" << constr << '\n';
+    assert(destr >= 64 || destr >= 32);  // 常见 64
+    assert(constr >= 1);
+
+    // 顺序访问 vs 大跨步（教学：只验证可运行，不做严格计时断言）
+    constexpr int n = 1 << 16;
+    std::vector<int> data(n, 1);
+    long long sum = 0;
+    for (int i = 0; i < n; ++i) sum += data[i];
+    assert(sum == n);
+
+    long long sum2 = 0;
+    for (int i = 0; i < n; i += 16) sum2 += data[i];
+    assert(sum2 > 0);
+
+    std::cout << "  sequential access reuses cache lines; large stride less so\n";
+    std::cout << "cache_line_basics: OK\n";
     return 0;
 }
 

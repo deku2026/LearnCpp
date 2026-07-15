@@ -1,20 +1,42 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-g-abi-compile-link-ub-performance.md
+// LearnCpp topic
+// Doc      : 第6部分-支线G · -ftrapv
 // Stage    : part6_branch_g_abi_compile_link_ub_performance
 // Section  : section05_optimization_safety_valves
 // Item     : ftrapv
 // Topic id : part6/g/section05/ftrapv
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: -ftrapv 在有符号溢出时 trap (调试友好);
+//       现代更常用 UBSan signed-integer-overflow。
+// 参考: GCC -ftrapv
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <limits>
+
 namespace {
+
+int safe_inc(int x) {
+    if (x == std::numeric_limits<int>::max()) {
+        return x;  // 避免溢出
+    }
+    return x + 1;
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+
+    std::cout << "=== G11 -ftrapv ===\n";
+
+    assert(safe_inc(41) == 42);
+    assert(safe_inc(std::numeric_limits<int>::max()) == std::numeric_limits<int>::max());
+
+    std::cout << "  -ftrapv inserts overflow checks (GCC; incomplete historically)\n";
+    std::cout << "  prefer: -fsanitize=signed-integer-overflow (UBSan)\n";
+    std::cout << "  production: checked arithmetic helpers, not traps\n";
+    std::cout << "ftrapv: OK\n";
     return 0;
 }
 

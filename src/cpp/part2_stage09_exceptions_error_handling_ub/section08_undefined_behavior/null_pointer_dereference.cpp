@@ -1,20 +1,61 @@
-// LearnCpp placeholder
-// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Topic    : 空指针解引用 UB —— 检查 / optional / 引用对照
+// Doc      : 第2部分-阶段9-异常-错误处理与UB纪律.md · 步骤 11.2
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section08_undefined_behavior
 // Item     : null_pointer_dereference
 // Topic id : part2/stage09/section08/null_pointer_dereference
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Refs     : https://en.cppreference.com/w/cpp/language/ub
+//            UBSan null
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <optional>
+
 namespace {
 
-int run(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
+int value_or_default(const int* p, int def) {
+    if (p == nullptr) {
+        return def;  // ✅ 先检查
+    }
+    return *p;
+}
+
+std::optional<int> as_optional(const int* p) {
+    if (!p) {
+        return std::nullopt;
+    }
+    return *p;
+}
+
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "=== [null_pointer_dereference] 主干：用前检查 ===\n";
+    {
+        int x = 5;
+        int* p = &x;
+        assert(value_or_default(p, -1) == 5);
+        assert(value_or_default(nullptr, -1) == -1);
+        std::cout << "null-safe value_or_default ok\n";
+    }
+
+    std::cout << "=== 对抗：optional 表达可空 ===\n";
+    {
+        int x = 9;
+        assert(as_optional(&x) == 9);
+        assert(!as_optional(nullptr));
+        std::cout << "optional from pointer\n";
+    }
+
+    std::cout << "=== 专节：UB 形态（不触发）===\n";
+    // 危险（勿运行）：
+    //   int* p = nullptr; int v = *p;  // UB
+    //   p->member;                     // UB
+    // 引用必须绑定有效对象；不要“空引用”。
+    // 护栏：-fsanitize=undefined 可抓部分空解引用。
+    std::cout << "never dereference null; prefer references/optional\n";
+
+    std::cout << "[null_pointer_dereference] all checks passed\n";
     return 0;
 }
 

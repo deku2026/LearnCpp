@@ -1,20 +1,48 @@
-// LearnCpp placeholder
-// Doc      : part2-stage10-stl-deep-dive.md
-// Stage    : part2_stage10_stl_deep_dive
-// Section  : section06_modern_utility_types
-// Item     : std_monostate
-// Topic id : part2/stage10/section06/std_monostate
+// Topic     : std::monostate —— variant 的空占位类型
+// Doc       : 第2部分-阶段10 · 步骤 9.2
+// cppreference: https://en.cppreference.com/cpp/utility/variant/monostate
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: 让"首类型不可默认构造"的 variant 可默认构造; 表示空状态。
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <string>
+#include <variant>
+
 namespace {
 
-int run(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
+struct NoDefault {
+    int x;
+    explicit NoDefault(int v) : x(v) {}
+};
+
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "=== [std_monostate] ===\n";
+
+    // 若首类型不可默认构造, variant 也不能默认构造:
+    // std::variant<NoDefault, std::string> bad; // ill-formed
+
+    // monostate 作首类型 → 默认可构造, 表示"空"
+    std::variant<std::monostate, NoDefault, std::string> v;
+    assert(std::holds_alternative<std::monostate>(v));
+    assert(v.index() == 0);
+
+    v = NoDefault{7};
+    assert(std::get<NoDefault>(v).x == 7);
+
+    v = std::string{"hi"};
+    assert(std::get<std::string>(v) == "hi");
+
+    v = std::monostate{};
+    assert(std::holds_alternative<std::monostate>(v));
+
+    // monostate 可比较, 全相等
+    assert(std::monostate{} == std::monostate{});
+
+    std::cout << "[monostate] empty state + non-default-constructible alt OK\n";
+    std::cout << "std_monostate: all checks passed\n";
     return 0;
 }
 

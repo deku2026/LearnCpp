@@ -1,20 +1,78 @@
-// LearnCpp placeholder
-// Doc      : part2-stage10-stl-deep-dive.md
-// Stage    : part2_stage10_stl_deep_dive
-// Section  : section06_modern_utility_types
-// Item     : std_expected_recap_cpp23
-// Topic id : part2/stage10/section06/std_expected_recap_cpp23
+// Topic     : std::expected 回顾 —— 值或错误 (C++23)
+// Doc       : 第2部分-阶段10 · 步骤 9.1
+// cppreference: https://en.cppreference.com/cpp/utility/expected
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: 判别联合语义; and_then/transform/or_else 铁路式; vs optional/异常。
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <expected>
+#include <iostream>
+#include <string>
+#include <string_view>
+
 namespace {
 
-int run(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
+enum class Err { Empty, NotNumber, Negative };
+
+std::expected<int, Err> parse_nonneg(std::string_view s) {
+    if (s.empty()) return std::unexpected(Err::Empty);
+    try {
+        std::size_t idx = 0;
+        const int v = std::stoi(std::string{s}, &idx);
+        if (idx != s.size()) return std::unexpected(Err::NotNumber);
+        if (v < 0) return std::unexpected(Err::Negative);
+        return v;
+    } catch (...) {
+        return std::unexpected(Err::NotNumber);
+    }
+}
+
+std::expected<int, Err> reciprocal_int(int x) {
+    if (x == 0) return std::unexpected(Err::NotNumber);
+    return 100 / x;
+}
+
+const char* err_msg(Err e) {
+    switch (e) {
+        case Err::Empty:
+            return "empty";
+        case Err::NotNumber:
+            return "not number";
+        case Err::Negative:
+            return "negative";
+    }
+    return "?";
+}
+
+int run(int /*argc*/, char** /*argv*/) {
+    std::cout << "=== [std_expected_recap_cpp23] ===\n";
+
+    auto ok = parse_nonneg("25");
+    assert(ok.has_value() && *ok == 25);
+    assert(ok.value_or(-1) == 25);
+
+    auto bad = parse_nonneg("-1");
+    assert(!bad && bad.error() == Err::Negative);
+
+    // 铁路式
+    auto r = parse_nonneg("20").and_then(reciprocal_int).transform([](int x) { return x * 2; });
+    assert(r && *r == 10);  // (100/20)*2
+
+    auto r2 = parse_nonneg("0").and_then(reciprocal_int);
+    assert(!r2);
+
+    // or_else 恢复
+    auto recovered = parse_nonneg("x").or_else([](Err) { return std::expected<int, Err>{0}; });
+    assert(recovered && *recovered == 0);
+
+    // transform_error
+    auto mapped = parse_nonneg("").transform_error([](Err e) { return err_msg(e); });
+    assert(!mapped && mapped.error() == std::string_view{"empty"});
+
+    std::cout << "[expected] value/error + monadic rail OK\n";
+    std::cout << "std_expected_recap_cpp23: all checks passed\n";
     return 0;
 }
 

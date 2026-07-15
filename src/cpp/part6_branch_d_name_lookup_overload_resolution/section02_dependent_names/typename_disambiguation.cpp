@@ -1,20 +1,52 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic
+// Doc      : part6-branch-d-name-lookup-overload-resolution.md (D4 typename)
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section02_dependent_names
 // Item     : typename_disambiguation
 // Topic id : part6/d/section02/typename_disambiguation
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// 要点: 依赖名默认当非类型；是类型时必须 typename。
+// 参考: [temp.res]
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <iostream>
+#include <type_traits>
+#include <vector>
+
 namespace {
+
+template <typename C>
+typename C::value_type first_value(const C& c) {
+    typename C::const_iterator it = c.begin();
+    return *it;
+}
+
+template <typename T>
+struct Holder {
+    using nested = T;
+};
+
+template <typename T>
+typename Holder<T>::nested make_one(T x) {
+    return x;
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+
+    std::cout << "=== D4 typename disambiguation ===\n";
+
+    std::vector<int> v{10, 20, 30};
+    assert(first_value(v) == 10);
+    assert(make_one(5) == 5);
+
+    static_assert(std::is_same_v<typename Holder<int>::nested, int>);
+
+    std::cout << "  without typename: T::type * p may parse as multiply\n";
+    std::cout << "typename_disambiguation: OK\n";
     return 0;
 }
 
