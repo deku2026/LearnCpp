@@ -54,10 +54,6 @@ void demo_expert() {
     LEARN_CHECK(call(Derived{}) == "Derived");
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

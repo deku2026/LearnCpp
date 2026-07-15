@@ -19,6 +19,11 @@
 #include <utility>
 #include <vector>
 
+#if defined(__has_include)
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#endif
 struct VoidTask {
     struct promise_type {
         VoidTask get_return_object() { return VoidTask{std::coroutine_handle<promise_type>::from_promise(*this)}; }
@@ -106,14 +111,10 @@ struct Resumable {
 };
 #endif
 
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
-#include <generator>
-#endif
-
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto g = []() -> std::generator<int> {
         co_yield 1;
         co_yield 2;
@@ -141,7 +142,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto g = [](int n) -> std::generator<int> {
         for (int i = 0; i < n; ++i) {
             co_yield i;
@@ -171,7 +172,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto g = []() -> std::generator<int> { co_yield 10; }();
     auto it = g.begin();
     LEARN_CHECK(it != g.end());

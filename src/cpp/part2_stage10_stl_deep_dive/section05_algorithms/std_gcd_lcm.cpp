@@ -29,10 +29,6 @@ void demo_expert() {
     LEARN_CHECK(std::gcd(54, 24) * std::lcm(54, 24) == 54 * 24);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

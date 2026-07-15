@@ -14,14 +14,15 @@
 #include <utility>
 #include <vector>
 
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__has_include)
+#if __has_include(<generator>)
 #include <generator>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto g = []() -> std::generator<int> {
         for (int i = 1; i <= 4; ++i) {
             co_yield i;
@@ -39,7 +40,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto g = []() -> std::generator<int> {
         co_yield 2;
         co_yield 4;
@@ -56,7 +57,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     // generator is an input view: single-pass consumption.
     auto g = []() -> std::generator<int> {
         co_yield 1;

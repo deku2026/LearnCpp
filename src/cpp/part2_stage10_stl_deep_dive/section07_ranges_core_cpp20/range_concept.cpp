@@ -35,10 +35,6 @@ void demo_expert() {
     LEARN_CHECK(std::ranges::empty(v));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

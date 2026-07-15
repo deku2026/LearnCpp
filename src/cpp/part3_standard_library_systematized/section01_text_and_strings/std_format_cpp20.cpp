@@ -9,14 +9,18 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <format>
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<format>)
+#include <format>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     std::string s = std::format("{} + {} = {}", 1, 2, 3);
     LEARN_CHECK(s == "1 + 2 = 3");
 #else
@@ -26,7 +30,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     LEARN_CHECK(std::format("{:04}", 7) == "0007");
     LEARN_CHECK(std::format("{:.2f}", 3.14159) == "3.14");
 #else
@@ -35,7 +39,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     LEARN_CHECK(std::format("{:>5}", 42) == "   42");
     LEARN_CHECK(std::format("{:x}", 255) == "ff");
 #else

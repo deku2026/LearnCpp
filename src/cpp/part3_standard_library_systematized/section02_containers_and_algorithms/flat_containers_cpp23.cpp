@@ -15,13 +15,14 @@
 #include <utility>
 #include <vector>
 #include <version>
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__has_include)
+#if __has_include(<flat_map>)
 #include <flat_map>
 #endif
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if __has_include(<flat_set>)
 #include <flat_set>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
@@ -30,7 +31,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_map<int, std::string> fm{{1, "a"}, {2, "b"}};
     LEARN_CHECK(fm[1] == "a");
     LEARN_CHECK(fm.size() == 2);
@@ -42,7 +43,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L && __has_include(<flat_set>)
     std::flat_set<int> fs{3, 1, 2};
     LEARN_CHECK(fs.contains(2));
 #else

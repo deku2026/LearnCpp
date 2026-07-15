@@ -13,11 +13,16 @@
 #include <new>
 #include <type_traits>
 
+#if defined(__has_include)
+#if __has_include(<memory>)
+#include <memory>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
     alignas(int) unsigned char buf[sizeof(int)]{};
-#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L && __has_include(<memory>)
     int* p = std::start_lifetime_as<int>(buf);
     *p = 42;
     LEARN_CHECK(*p == 42);
@@ -34,7 +39,7 @@ void demo_intermediate() {
         int y;
     };
     alignas(Agg) unsigned char buf[sizeof(Agg)]{};
-#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L && __has_include(<memory>)
     Agg* a = std::start_lifetime_as<Agg>(buf);
     a->x = 1;
     a->y = 2;

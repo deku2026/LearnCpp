@@ -11,6 +11,14 @@
 
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<expected>)
+#include <expected>
+#endif
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
@@ -33,12 +41,12 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_expected)
+#if defined(__cpp_lib_expected) && __has_include(<expected>)
     LEARN_CHECK(__cpp_lib_expected >= 202202L);
 #else
     LEARN_CHECK(true);
 #endif
-#if defined(__cpp_lib_generator)
+#if defined(__cpp_lib_generator) && __has_include(<generator>)
     LEARN_CHECK(__cpp_lib_generator >= 202207L);
 #else
     LEARN_CHECK(true);

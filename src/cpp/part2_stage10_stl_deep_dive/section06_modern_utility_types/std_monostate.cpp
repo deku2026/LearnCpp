@@ -37,10 +37,6 @@ void demo_expert() {
     static_assert(std::is_empty_v<std::monostate>);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

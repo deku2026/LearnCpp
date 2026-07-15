@@ -12,13 +12,14 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__has_include)
+#if __has_include(<expected>)
 #include <expected>
 #endif
-
+#endif
 namespace {
 
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
 std::expected<int, std::string> parse(int x) {
     if (x >= 0) {
         return x;
@@ -28,7 +29,7 @@ std::expected<int, std::string> parse(int x) {
 #endif
 
 void demo_basics() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     auto e = parse(5);
     LEARN_CHECK(e.has_value());
     LEARN_CHECK(*e == 5);
@@ -38,7 +39,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     auto e = parse(-1);
     LEARN_CHECK(!e);
     LEARN_CHECK(e.error() == "negative");
@@ -49,7 +50,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     auto e = parse(2).transform([](int x) { return x * 3; });
     LEARN_CHECK(e == 6);
     auto f = parse(-2).transform_error([](const std::string& s) { return s + "!"; });
@@ -58,10 +59,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

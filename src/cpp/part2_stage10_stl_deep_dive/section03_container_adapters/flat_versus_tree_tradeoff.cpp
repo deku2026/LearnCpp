@@ -14,10 +14,11 @@
 #include <vector>
 #include <version>
 
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__has_include)
+#if __has_include(<flat_map>)
 #include <flat_map>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
@@ -36,7 +37,7 @@ void demo_intermediate() {
         sum += v;
     }
     LEARN_CHECK(sum == 6);
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_map<std::string, int> flat{{"b", 2}, {"a", 1}, {"c", 3}};
     int fsum = 0;
     for (const auto& [k, v] : flat) {
@@ -57,7 +58,7 @@ void demo_expert() {
         m[i] = i;
     }
     LEARN_CHECK(m.size() == 100);
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_map<int, int> fm;
     for (int i = 0; i < 100; ++i) {
         fm[i] = i;
@@ -66,10 +67,6 @@ void demo_expert() {
     LEARN_CHECK(fm.find(50)->second == 50);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

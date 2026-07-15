@@ -12,14 +12,15 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     // Format string is checked against argument types (consteval in C++20/23)
     const auto s = std::format("{} {}", 1, "two");
     LEARN_CHECK(s == "1 two");
@@ -29,7 +30,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     const auto s = std::format("{:04d}", 42);
     LEARN_CHECK(s == "0042");
     const auto h = std::format("{:x}", 255);
@@ -40,7 +41,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     // compile-time checked format string; prefer std::format over vformat/make_format_args
     const auto s = std::format("{}-{}", 1, 2);
     LEARN_CHECK(s == "1-2");
@@ -48,10 +49,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

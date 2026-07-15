@@ -18,6 +18,11 @@
 #include <utility>
 #include <vector>
 
+#if defined(__has_include)
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#endif
 struct VoidTask {
     struct promise_type {
         VoidTask get_return_object() { return VoidTask{std::coroutine_handle<promise_type>::from_promise(*this)}; }

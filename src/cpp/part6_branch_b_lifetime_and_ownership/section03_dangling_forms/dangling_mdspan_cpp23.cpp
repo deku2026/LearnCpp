@@ -10,14 +10,16 @@
 #include "learn/topic_registry.hpp"
 
 #include <vector>
-#if defined(__cpp_lib_mdspan)
+
+#if defined(__has_include)
+#if __has_include(<mdspan>)
 #include <mdspan>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     std::vector<int> data{1, 2, 3, 4, 5, 6};
     std::mdspan<int, std::extents<std::size_t, 2, 3>> m{data.data(), 2, 3};
     LEARN_CHECK((m[0, 0] == 1));
@@ -32,7 +34,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     std::vector<int> data(6, 0);
     std::mdspan m{data.data(), std::extents<std::size_t, std::dynamic_extent, 3>{2, 3}};
     m[0, 1] = 9;
@@ -47,7 +49,7 @@ void demo_intermediate() {
 void demo_expert() {
     // mdspan does not extend lifetime of data — owner must outlive the view.
     std::vector<int> owner{1, 2, 3, 4};
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     std::mdspan<int, std::extents<std::size_t, 2, 2>> m{owner.data()};
     LEARN_CHECK((m[1, 1] == 4));
 #else

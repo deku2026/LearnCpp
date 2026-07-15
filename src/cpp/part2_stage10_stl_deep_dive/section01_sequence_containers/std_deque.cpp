@@ -45,10 +45,6 @@ void demo_expert() {
     LEARN_CHECK(d[0] == 99);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

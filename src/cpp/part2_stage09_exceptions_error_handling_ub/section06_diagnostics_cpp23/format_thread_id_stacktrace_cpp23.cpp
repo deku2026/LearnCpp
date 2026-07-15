@@ -14,13 +14,14 @@
 #include <thread>
 #include <version>
 
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if __has_include(<stacktrace>)
 #include <stacktrace>
 #endif
-
+#endif
 namespace {
 
 std::string thread_tag() {
@@ -35,7 +36,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     auto s = std::format("tid={}", thread_tag());
     LEARN_CHECK(s.find("tid=") == 0);
 #else
@@ -45,7 +46,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     auto msg = thread_tag() + " frames=" + std::to_string(st.size());
     LEARN_CHECK(msg.find("frames=") != std::string::npos);

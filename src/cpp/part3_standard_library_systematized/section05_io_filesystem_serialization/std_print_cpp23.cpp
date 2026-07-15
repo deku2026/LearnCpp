@@ -12,10 +12,15 @@
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<print>)
+#include <print>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L && __has_include(<print>)
     LEARN_CHECK(__cpp_lib_print >= 202207L);
 #else
     LEARN_CHECK(true);

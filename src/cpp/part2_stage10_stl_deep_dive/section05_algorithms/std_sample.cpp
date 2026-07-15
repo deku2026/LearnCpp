@@ -42,10 +42,6 @@ void demo_expert() {
     LEARN_CHECK(a == b);  // same seed -> same sample
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

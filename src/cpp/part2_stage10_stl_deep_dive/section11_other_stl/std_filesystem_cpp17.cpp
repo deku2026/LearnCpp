@@ -48,10 +48,6 @@ void demo_expert() {
     LEARN_CHECK(!fs::exists(file));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

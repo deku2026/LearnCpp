@@ -11,9 +11,13 @@
 
 #include <cstdint>
 #include <cstring>
-#include <memory>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<memory>)
+#include <memory>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
@@ -25,7 +29,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L && __has_include(<memory>)
     alignas(int) unsigned char buf[sizeof(int)]{};
     int* p = std::start_lifetime_as<int>(buf);
     *p = 11;

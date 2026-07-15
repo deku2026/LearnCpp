@@ -13,14 +13,15 @@
 #include <type_traits>
 #include <version>
 
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__has_include)
+#if __has_include(<mdspan>)
 #include <mdspan>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     int data[4] = {1, 2, 3, 4};
     std::mdspan<int, std::extents<std::size_t, 2, 2>, std::layout_right, std::default_accessor<int>> m{data};
     LEARN_CHECK((m[0, 1] == 2));
@@ -32,7 +33,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     int data[4] = {1, 2, 3, 4};
     std::default_accessor<int> acc{};
     LEARN_CHECK(acc.access(data, 2) == 3);
@@ -44,7 +45,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     // Accessor customizes pointer→element (e.g. scaled, atomic, checked)
     const int data[3] = {7, 8, 9};
     std::mdspan<const int, std::extents<std::size_t, 3>> m{data};
@@ -54,10 +55,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

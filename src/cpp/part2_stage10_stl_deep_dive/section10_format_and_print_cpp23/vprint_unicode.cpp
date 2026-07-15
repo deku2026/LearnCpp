@@ -12,18 +12,19 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
+#endif
+#if __has_include(<print>)
 #include <print>
 #endif
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
-#include <format>
 #endif
 
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     // Portable assertable path uses format; vprint_* writes to FILE*
     const auto s = std::format("unicode-ish: {}", "ok");
     LEARN_CHECK(s == "unicode-ish: ok");
@@ -33,7 +34,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     // vprint_unicode / vprint_nonunicode select UTF-8 vs locale-safe path for FILE*
     // Portable assertable path uses std::format (avoids make_format_args rvalue issues).
     const auto s = std::format("{}", 42);
@@ -44,22 +45,17 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
-    // API surface check via feature-test; print family is the portable surface.
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
+    // vprint_* / print family write to FILE*; assert via format for quiet demos.
+#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L && __has_include(<print>)
     static_assert(__cpp_lib_print >= 202207L);
-    const auto s = std::format("print-ok: {}", "utf8");
-    LEARN_CHECK(s == "print-ok: utf8");
-#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#endif
     const auto s = std::format("print-ok: {}", "utf8");
     LEARN_CHECK(s == "print-ok: utf8");
 #else
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

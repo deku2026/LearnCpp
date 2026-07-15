@@ -106,15 +106,20 @@ struct Resumable {
 };
 #endif
 
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
-#include <generator>
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
 #include <ranges>
+
+#if defined(__has_include)
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#endif
 #endif
 
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto leaf = []() -> std::generator<int> {
         co_yield 1;
         co_yield 2;
@@ -147,7 +152,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     auto nested = [](auto& self, int n) -> std::generator<int> {
         if (n <= 0) {
             co_return;
@@ -166,7 +171,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     // elements_of flattens a nested generator without manual loops.
     auto a = []() -> std::generator<int> { co_yield 7; };
     auto b = [&]() -> std::generator<int> { co_yield std::ranges::elements_of(a()); };

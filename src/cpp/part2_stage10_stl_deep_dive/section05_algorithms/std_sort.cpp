@@ -41,10 +41,6 @@ void demo_expert() {
     }
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

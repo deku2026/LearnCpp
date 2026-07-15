@@ -64,10 +64,6 @@ void demo_expert() {
     LEARN_CHECK(v.size() == L.size());
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

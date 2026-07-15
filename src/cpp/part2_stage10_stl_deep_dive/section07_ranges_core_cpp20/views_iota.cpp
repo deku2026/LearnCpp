@@ -34,10 +34,6 @@ void demo_expert() {
     LEARN_CHECK(sum == 450);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

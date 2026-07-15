@@ -54,10 +54,6 @@ void demo_expert() {
     LEARN_CHECK(std::ranges::equal(v, std::views::iota(0, 5)));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

@@ -13,10 +13,11 @@
 #include <vector>
 #include <version>
 
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__has_include)
+#if __has_include(<mdspan>)
 #include <mdspan>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
@@ -30,7 +31,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     std::vector<int> flat{1, 2, 3, 4, 5, 6};
     std::mdspan m{flat.data(), std::extents<std::size_t, 2, 3>{}};
     LEARN_CHECK((m[1, 2] == 6));
@@ -44,7 +45,7 @@ void demo_intermediate() {
 void demo_expert() {
     // Choose: owning nested only if rows truly vary; else flat+mdspan/span
     std::vector<int> buf(12, 0);
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     std::mdspan<int, std::dextents<std::size_t, 2>> m{buf.data(), 3, 4};
     m[2, 3] = 99;
     LEARN_CHECK(buf[11] == 99);
@@ -53,10 +54,6 @@ void demo_expert() {
     LEARN_CHECK(buf[11] == 99);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

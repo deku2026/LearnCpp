@@ -12,14 +12,15 @@
 #include <cstddef>
 #include <version>
 
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__has_include)
+#if __has_include(<mdspan>)
 #include <mdspan>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     int data[6] = {10, 20, 30, 40, 50, 60};
     std::mdspan m{data, std::extents<std::size_t, 2, 3>{}};
     LEARN_CHECK((m[1, 2] == 60));
@@ -31,7 +32,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     int data[9] = {};
     std::mdspan<int, std::extents<std::size_t, 3, 3>> m{data};
     m[1, 1] = 42;
@@ -43,7 +44,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L
+#if defined(__cpp_lib_mdspan) && __cpp_lib_mdspan >= 202207L && __has_include(<mdspan>)
     int data[8] = {};
     std::mdspan<int, std::dextents<std::size_t, 2>> m{data, 2, 4};
     for (std::size_t i = 0; i < m.extent(0); ++i) {
@@ -57,10 +58,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

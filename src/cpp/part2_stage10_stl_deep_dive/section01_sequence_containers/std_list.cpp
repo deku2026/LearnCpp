@@ -48,10 +48,6 @@ void demo_expert() {
     LEARN_CHECK(a.back() == 20);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

@@ -62,10 +62,6 @@ void demo_expert() {
     LEARN_CHECK(sizeof(Diamond) >= sizeof(int) * 3);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

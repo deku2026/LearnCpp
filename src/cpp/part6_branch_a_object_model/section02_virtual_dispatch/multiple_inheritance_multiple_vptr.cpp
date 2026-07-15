@@ -58,10 +58,6 @@ void demo_expert() {
     LEARN_CHECK(sizeof(Derived) >= sizeof(Base1) + sizeof(int));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

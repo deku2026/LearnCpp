@@ -38,10 +38,6 @@ void demo_expert() {
     LEARN_CHECK(oss.str() == "2,4,");
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

@@ -67,10 +67,6 @@ void demo_expert() {
     LEARN_CHECK(std::ranges::begin(x) != std::ranges::end(x));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

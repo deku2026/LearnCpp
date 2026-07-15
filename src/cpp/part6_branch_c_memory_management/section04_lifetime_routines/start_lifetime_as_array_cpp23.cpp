@@ -11,11 +11,16 @@
 
 #include <new>
 
+#if defined(__has_include)
+#if __has_include(<memory>)
+#include <memory>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
     alignas(int) unsigned char buf[sizeof(int) * 4]{};
-#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L && __has_include(<memory>)
     int* a = std::start_lifetime_as_array<int>(buf, 4);
     a[0] = 1;
     a[3] = 4;
@@ -30,7 +35,7 @@ void demo_basics() {
 
 void demo_intermediate() {
     alignas(int) unsigned char buf[sizeof(int) * 2]{};
-#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L && __has_include(<memory>)
     int* a = std::start_lifetime_as_array<int>(buf, 2);
 #else
     int* a = reinterpret_cast<int*>(buf);

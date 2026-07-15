@@ -13,13 +13,14 @@
 #include <vector>
 #include <version>
 
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__has_include)
+#if __has_include(<generator>)
 #include <generator>
 #endif
-
+#endif
 namespace {
 
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
 std::generator<int> count_to(int n) {
     for (int i = 1; i <= n; ++i) {
         co_yield i;
@@ -28,7 +29,7 @@ std::generator<int> count_to(int n) {
 #endif
 
 void demo_basics() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     std::vector<int> out;
     for (int x : count_to(3)) {
         out.push_back(x);
@@ -43,7 +44,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     int sum = 0;
     for (int x : count_to(5)) {
         sum += x;
@@ -59,7 +60,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     // generator is an input_range / view-like sequence from coroutines
     auto g = count_to(4);
     static_assert(std::ranges::input_range<decltype(g)>);
@@ -68,10 +69,6 @@ void demo_expert() {
     LEARN_CHECK(std::ranges::distance(std::views::iota(1, 5)) == 4);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

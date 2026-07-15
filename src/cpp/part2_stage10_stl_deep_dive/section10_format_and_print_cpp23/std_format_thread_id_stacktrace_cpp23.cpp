@@ -13,18 +13,19 @@
 #include <thread>
 #include <version>
 
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if __has_include(<stacktrace>)
 #include <stacktrace>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
     const auto id = std::this_thread::get_id();
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     const auto s = std::format("{}", id);
     LEARN_CHECK(!s.empty());
 #else
@@ -34,7 +35,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     std::thread::id id{};
     const auto s = std::format("tid={}", id);
     LEARN_CHECK(s.rfind("tid=", 0) == 0);
@@ -44,10 +45,11 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && defined(__cpp_lib_formatters) /* may vary */
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && \
+    defined(__cpp_lib_formatters) /* may vary */ && __has_include(<format>) && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     LEARN_CHECK(!st.empty() || st.empty());
-#elif defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#elif defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     (void)st;
     LEARN_CHECK(true);
@@ -55,10 +57,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

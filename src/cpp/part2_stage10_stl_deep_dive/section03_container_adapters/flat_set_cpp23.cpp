@@ -11,14 +11,15 @@
 
 #include <version>
 
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if defined(__has_include)
+#if __has_include(<flat_set>)
 #include <flat_set>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L && __has_include(<flat_set>)
     std::flat_set<int> fs{3, 1, 4, 1, 5};
     LEARN_CHECK(fs.size() == 4);
     LEARN_CHECK(*fs.begin() == 1);
@@ -28,7 +29,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L && __has_include(<flat_set>)
     std::flat_set<int> fs;
     fs.insert(2);
     fs.insert(1);
@@ -43,7 +44,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L
+#if defined(__cpp_lib_flat_set) && __cpp_lib_flat_set >= 202207L && __has_include(<flat_set>)
     std::flat_set<int> fs{1, 2, 3, 4, 5};
     auto it = fs.lower_bound(3);
     LEARN_CHECK(*it == 3);
@@ -52,10 +53,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

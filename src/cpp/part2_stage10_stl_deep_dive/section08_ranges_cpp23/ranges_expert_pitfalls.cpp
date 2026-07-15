@@ -48,10 +48,6 @@ void demo_expert() {
     LEARN_CHECK(once[0] == 2 && once[1] == 3);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

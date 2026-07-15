@@ -60,10 +60,6 @@ void demo_expert() {
     LEARN_CHECK(reinterpret_cast<std::uintptr_t>(&arr[1]) % 16u == 0);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

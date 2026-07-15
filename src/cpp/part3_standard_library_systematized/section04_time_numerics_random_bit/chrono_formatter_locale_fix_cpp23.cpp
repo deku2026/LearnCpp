@@ -10,10 +10,14 @@
 #include "learn/topic_registry.hpp"
 
 #include <chrono>
-#include <format>
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<format>)
+#include <format>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
@@ -23,7 +27,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_formatters) || defined(__cpp_lib_format)
+#if (defined(__cpp_lib_formatters) || defined(__cpp_lib_format)) && __has_include(<format>)
 #if defined(__cpp_lib_chrono) && __cpp_lib_chrono >= 201907L
     auto tp = std::chrono::sys_days{std::chrono::year{2024} / std::chrono::month{1} / std::chrono::day{2}};
     (void)tp;
@@ -33,7 +37,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     using namespace std::chrono_literals;
     std::string s = std::format("{}", 5ms);
     LEARN_CHECK(!s.empty());

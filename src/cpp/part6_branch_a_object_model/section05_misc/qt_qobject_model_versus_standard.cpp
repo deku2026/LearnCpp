@@ -64,10 +64,6 @@ void demo_expert() {
     LEARN_CHECK(a.meta() == &Widget::meta_data);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

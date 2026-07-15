@@ -44,10 +44,6 @@ void demo_expert() {
     LEARN_CHECK(um.load_factor() <= um.max_load_factor() + 0.01f);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

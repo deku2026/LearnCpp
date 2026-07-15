@@ -13,17 +13,18 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
-#include <print>
-#endif
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-
+#if __has_include(<print>)
+#include <print>
+#endif
+#endif
 namespace {
 
 std::string diag_line(int code, const std::string& msg) {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     return std::format("code={} msg={}", code, msg);
 #else
     std::ostringstream os;
@@ -39,7 +40,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L && __has_include(<print>)
     // std::print writes to stdout; we still assert format helper works.
     auto s = diag_line(42, "answer");
     LEARN_CHECK(s.find("42") != std::string::npos);

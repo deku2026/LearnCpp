@@ -68,10 +68,6 @@ void demo_expert() {
     LEARN_CHECK(static_cast<void*>(&t) == static_cast<void*>(&t.x));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

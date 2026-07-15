@@ -12,6 +12,11 @@
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<format>)
+#include <format>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
@@ -30,7 +35,7 @@ void demo_intermediate() {
     // Prefer feature detection via compile try of brace syntax when macro missing.
 #endif
 
-#if defined(__cpp_lib_format)  // weak companion signal; real check below
+#if defined(__cpp_lib_format)  // weak companion signal; real check below && __has_include(<format>)
 #endif
 
     // Portable demonstration of the idea using classic escapes with same values.

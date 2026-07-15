@@ -12,6 +12,11 @@
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<format>)
+#include <format>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
@@ -22,7 +27,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format)
+#if defined(__cpp_lib_format) && __has_include(<format>)
     LEARN_CHECK(__cpp_lib_format >= 201907L || __cpp_lib_format < 201907L);
 #endif
     LEARN_CHECK(true);

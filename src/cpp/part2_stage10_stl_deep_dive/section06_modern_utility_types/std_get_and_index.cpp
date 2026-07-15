@@ -36,10 +36,6 @@ void demo_expert() {
     static_assert(std::get<0>(a) == 10);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

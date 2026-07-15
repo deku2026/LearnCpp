@@ -13,21 +13,29 @@
 // Topic demos must keep side effects in Release/CI (NDEBUG). `<cassert>` assert
 // is stripped when NDEBUG is defined, which turns locals into -Wunused errors
 // under -Werror. Prefer LEARN_CHECK for runtime checks in topic bodies.
-#define LEARN_CHECK(cond)                                                                        \
-    do {                                                                                         \
-        if (!(cond)) {                                                                           \
-            std::fprintf(stderr, "LEARN_CHECK failed: %s (%s:%d)\n", #cond, __FILE__, __LINE__); \
-            std::abort();                                                                        \
-        }                                                                                        \
-    } while (0)
-
+//
+// Variadic so commas in the expression (e.g. Point{1, 2}.x == 1) are not
+// treated as multiple macro arguments.
 namespace learn {
 
 using TopicFn = int (*)(int argc, char** argv);
 
 namespace detail {
 void register_topic_impl(std::string_view id, TopicFn fn) noexcept;
+
+[[noreturn]] inline void check_fail(const char* expr, const char* file, int line) {
+    std::fprintf(stderr, "LEARN_CHECK failed: %s (%s:%d)\n", expr, file, line);
+    std::abort();
+}
+inline void check(bool cond, const char* expr, const char* file, int line) {
+    if (!cond) {
+        check_fail(expr, file, line);
+    }
+}
 }  // namespace detail
+
+// Topic demos: always-on check (not stripped by NDEBUG). Variadic for commas.
+#define LEARN_CHECK(...) ::learn::detail::check(static_cast<bool>(__VA_ARGS__), #__VA_ARGS__, __FILE__, __LINE__)
 
 int run_topic(int argc, char** argv);
 void list_topics();

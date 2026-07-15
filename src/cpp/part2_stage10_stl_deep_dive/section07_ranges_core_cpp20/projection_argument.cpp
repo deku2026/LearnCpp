@@ -42,10 +42,6 @@ void demo_expert() {
     LEARN_CHECK(std::ranges::max(v, {}, &std::pair<int, std::string>::first).first == 2);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

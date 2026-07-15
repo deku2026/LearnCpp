@@ -11,14 +11,15 @@
 
 #include <string>
 #include <version>
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__has_include)
+#if __has_include(<expected>)
 #include <expected>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     std::expected<int, std::string> e = 1;
     LEARN_CHECK(e.has_value());
 #else
@@ -27,7 +28,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     std::expected<int, std::string> e = 42;
     LEARN_CHECK(*e == 42);
     std::expected<int, std::string> err = std::unexpected<std::string>{"fail"};
@@ -40,7 +41,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     auto div = [](int a, int b) -> std::expected<int, std::string> {
         if (b == 0) {
             return std::unexpected<std::string>{"div0"};

@@ -59,10 +59,6 @@ void demo_expert() {
     LEARN_CHECK(dynamic_cast<Base*>(p)->tag() == 1);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

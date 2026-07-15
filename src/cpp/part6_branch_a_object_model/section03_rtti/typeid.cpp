@@ -43,10 +43,6 @@ void demo_expert() {
     LEARN_CHECK(std::string{ti.name()}.size() > 0);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

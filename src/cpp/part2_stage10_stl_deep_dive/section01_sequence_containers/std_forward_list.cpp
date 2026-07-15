@@ -52,10 +52,6 @@ void demo_expert() {
     LEARN_CHECK(fl.front() == 5);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

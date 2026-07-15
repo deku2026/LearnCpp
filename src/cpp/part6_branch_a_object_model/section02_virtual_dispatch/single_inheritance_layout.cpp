@@ -51,10 +51,6 @@ void demo_expert() {
     LEARN_CHECK(reinterpret_cast<std::uintptr_t>(&x) % alignof(Derived) == 0);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

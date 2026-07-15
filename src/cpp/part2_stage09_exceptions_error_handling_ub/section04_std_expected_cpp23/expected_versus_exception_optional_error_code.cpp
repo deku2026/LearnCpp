@@ -15,10 +15,11 @@
 #include <system_error>
 #include <version>
 
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__has_include)
+#if __has_include(<expected>)
 #include <expected>
 #endif
-
+#endif
 namespace {
 
 int via_exception(int x) {
@@ -66,7 +67,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     auto via_expected = [](int x) -> std::expected<int, std::string> {
         if (x < 0) {
             return std::unexpected<std::string>("neg");

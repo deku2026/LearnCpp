@@ -12,14 +12,15 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__has_include)
+#if __has_include(<flat_map>)
 #include <flat_map>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_multimap<std::string, int> fmm{{"a", 1}, {"a", 2}, {"b", 3}};
     LEARN_CHECK(fmm.size() == 3);
     LEARN_CHECK(fmm.count("a") == 2);
@@ -29,7 +30,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_multimap<int, char> fmm{{1, 'x'}, {1, 'y'}, {2, 'z'}};
     auto r = fmm.equal_range(1);
     int n = 0;
@@ -43,7 +44,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L
+#if defined(__cpp_lib_flat_map) && __cpp_lib_flat_map >= 202207L && __has_include(<flat_map>)
     std::flat_multimap<int, int> fmm{{1, 10}, {1, 11}, {2, 20}};
     fmm.erase(1);
     LEARN_CHECK(fmm.size() == 1);
@@ -52,10 +53,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

@@ -9,14 +9,18 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <format>
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<format>)
+#include <format>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     // literal format strings are checked at compile time
     std::string s = std::format("value={}", 10);
     LEARN_CHECK(s == "value=10");
@@ -26,7 +30,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     const int n = 3;
     std::string s = std::format("n={:d}", n);
     LEARN_CHECK(s == "n=3");
@@ -36,7 +40,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     std::string fmt = "{}";
     int value = 99;
     std::string s = std::vformat(fmt, std::make_format_args(value));

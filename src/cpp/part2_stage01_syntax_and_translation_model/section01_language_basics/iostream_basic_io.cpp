@@ -14,10 +14,11 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__has_include)
+#if __has_include(<print>)
 #include <print>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
@@ -59,7 +60,7 @@ void demo_expert() {
     // Unitbuf / flush: cerr is typically unitbuf; cout is not.
     std::cerr << "[iostream_basic_io] cerr path\n";
 
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L && __has_include(<print>)
     std::print("[iostream_basic_io] std::print available ({})\n", 1);
     std::println("[iostream_basic_io] std::println ok");
 #else

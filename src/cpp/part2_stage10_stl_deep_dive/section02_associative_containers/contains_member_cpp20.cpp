@@ -39,10 +39,6 @@ void demo_expert() {
     LEARN_CHECK(m.find("hello") != m.end());
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

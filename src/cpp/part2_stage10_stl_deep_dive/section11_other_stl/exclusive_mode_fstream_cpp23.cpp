@@ -67,10 +67,6 @@ void demo_expert() {
     fs::remove(path);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

@@ -35,10 +35,6 @@ void demo_expert() {
     LEARN_CHECK(std::distance(r.begin(), r.end()) == 3);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

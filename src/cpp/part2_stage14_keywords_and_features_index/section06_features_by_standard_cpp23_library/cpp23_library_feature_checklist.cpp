@@ -9,15 +9,25 @@
 
 #include "learn/topic_registry.hpp"
 
-#include <expected>
 #include <optional>
 #include <string>
 #include <version>
 
+#if defined(__has_include)
+#if __has_include(<expected>)
+#include <expected>
+#endif
+#if __has_include(<generator>)
+#include <generator>
+#endif
+#if __has_include(<print>)
+#include <print>
+#endif
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
     std::expected<int, int> e = 10;
     LEARN_CHECK(e.has_value());
     LEARN_CHECK(*e == 10);
@@ -39,12 +49,12 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
+#if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L && __has_include(<print>)
     LEARN_CHECK(__cpp_lib_print >= 202207L);
 #else
     LEARN_CHECK(true);
 #endif
-#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L
+#if defined(__cpp_lib_generator) && __cpp_lib_generator >= 202207L && __has_include(<generator>)
     LEARN_CHECK(__cpp_lib_generator >= 202207L);
 #else
     LEARN_CHECK(true);

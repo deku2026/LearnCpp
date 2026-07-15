@@ -40,10 +40,6 @@ void demo_expert() {
     LEARN_CHECK((w == std::vector<int>{1, 2, 3}));
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

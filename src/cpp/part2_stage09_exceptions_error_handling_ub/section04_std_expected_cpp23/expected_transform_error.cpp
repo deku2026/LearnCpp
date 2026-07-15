@@ -12,13 +12,14 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__has_include)
+#if __has_include(<expected>)
 #include <expected>
 #endif
-
+#endif
 namespace {
 
-#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L && __has_include(<expected>)
 
 void demo_basics() {
     std::expected<int, std::string> e{std::unexpected<std::string>("bad")};

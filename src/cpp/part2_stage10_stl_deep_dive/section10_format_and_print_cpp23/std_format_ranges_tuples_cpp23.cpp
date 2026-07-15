@@ -14,19 +14,20 @@
 #include <vector>
 #include <version>
 
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
+#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L && __has_include(<format>)
     std::vector<int> v{1, 2, 3};
     const auto s = std::format("{}", v);
     LEARN_CHECK(s.find('1') != std::string::npos);
     LEARN_CHECK(s.find('3') != std::string::npos);
-#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     std::vector<int> v{1, 2, 3};
     const auto s = std::format("{} {} {}", v[0], v[1], v[2]);
     LEARN_CHECK(s == "1 2 3");
@@ -36,11 +37,11 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
+#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L && __has_include(<format>)
     auto t = std::make_tuple(1, "x");
     const auto s = std::format("{}", t);
     LEARN_CHECK(s.find('1') != std::string::npos);
-#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     const auto s = std::format("{} {}", 1, "x");
     LEARN_CHECK(s == "1 x");
 #else
@@ -49,20 +50,16 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
+#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L && __has_include(<format>)
     std::vector<std::pair<int, int>> v{{1, 2}, {3, 4}};
     const auto s = std::format("{}", v);
     LEARN_CHECK(!s.empty());
-#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#elif defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && __has_include(<format>)
     LEARN_CHECK(std::format("{}", 42) == "42");
 #else
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

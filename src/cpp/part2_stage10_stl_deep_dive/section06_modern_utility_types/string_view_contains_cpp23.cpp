@@ -43,10 +43,6 @@ void demo_expert() {
     LEARN_CHECK(sv.find("feature") == 0);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

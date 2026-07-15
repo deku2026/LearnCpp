@@ -52,10 +52,6 @@ void demo_expert() {
     LEARN_CHECK(vb.front());
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

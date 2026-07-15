@@ -47,10 +47,6 @@ void demo_expert() {
     static_assert(std::sentinel_for<S, I> || std::same_as<I, S>);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

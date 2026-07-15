@@ -53,10 +53,6 @@ void demo_expert() {
     LEARN_CHECK(tag == 2);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

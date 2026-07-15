@@ -12,14 +12,15 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__has_include)
+#if __has_include(<stacktrace>)
 #include <stacktrace>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     LEARN_CHECK(st.size() >= 0);
 #else
@@ -29,7 +30,7 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     std::string s = std::to_string(st);
     // Implementation-defined content; just ensure call works.
@@ -41,7 +42,7 @@ void demo_intermediate() {
 }
 
 void demo_expert() {
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && __has_include(<stacktrace>)
     auto st = std::stacktrace::current();
     if (!st.empty()) {
         auto desc = st[0].description();

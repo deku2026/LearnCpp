@@ -45,10 +45,6 @@ void demo_expert() {
     LEARN_CHECK(m.upper_bound(1)->first == 3);
 }
 
-}  // namespace
-
-namespace {
-
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;

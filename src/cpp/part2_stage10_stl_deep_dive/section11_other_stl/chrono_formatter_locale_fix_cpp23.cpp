@@ -13,14 +13,16 @@
 #include <string>
 #include <version>
 
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+#if defined(__has_include)
+#if __has_include(<format>)
 #include <format>
 #endif
-
+#endif
 namespace {
 
 void demo_basics() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && defined(__cpp_lib_chrono) && __cpp_lib_chrono >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && defined(__cpp_lib_chrono) && \
+    __cpp_lib_chrono >= 201907L && __has_include(<format>)
     using namespace std::chrono;
     const auto d = 1500ms;
     const auto s = std::format("{}", d);
@@ -31,7 +33,8 @@ void demo_basics() {
 }
 
 void demo_intermediate() {
-#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && defined(__cpp_lib_chrono) && __cpp_lib_chrono >= 201907L
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L && defined(__cpp_lib_chrono) && \
+    __cpp_lib_chrono >= 201907L && __has_include(<format>)
     using namespace std::chrono;
     const year_month_day ymd{2024y / May / 1d};
     const auto s = std::format("{}", ymd);
@@ -51,10 +54,6 @@ void demo_expert() {
     LEARN_CHECK(true);
 #endif
 }
-
-}  // namespace
-
-namespace {
 
 int run(int argc, char** argv) {
     (void)argc;

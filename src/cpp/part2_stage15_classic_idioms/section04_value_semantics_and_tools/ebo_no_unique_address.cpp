@@ -12,6 +12,14 @@
 #include <cstddef>
 #include <type_traits>
 
+#if defined(_MSC_VER) && !defined(__clang__)
+#define LEARN_NUA [[msvc::no_unique_address]]
+#elif defined(_MSC_VER) && defined(__clang__)
+#define LEARN_NUA [[msvc::no_unique_address]]
+#else
+#define LEARN_NUA [[no_unique_address]]
+#endif
+
 namespace {
 
 struct Empty {};
@@ -22,15 +30,7 @@ struct Holder {
 
 struct Compact {
     int x;
-#if defined(__has_cpp_attribute)
-#if __has_cpp_attribute(no_unique_address)
-    [[no_unique_address]] Empty e;
-#else
-    Empty e;
-#endif
-#else
-    Empty e;
-#endif
+    LEARN_NUA Empty e;
 };
 
 void demo_basics() {
