@@ -1,20 +1,46 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic example
+// Doc      : part6-branch-d-name-lookup-adl-overload.md
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section02_dependent_names
 // Item     : typename_disambiguation
 // Topic id : part6/d/section02/typename_disambiguation
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: typename required for dependent nested types
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <type_traits>
+#include <vector>
+
 namespace {
+
+template <class C>
+typename C::value_type first_or_default(const C& c) {
+    if (c.empty()) return typename C::value_type{};
+    return *c.begin();
+}
+
+void demo_basics() {
+    std::vector<int> v{10, 20};
+    assert(first_or_default(v) == 10);
+}
+
+void demo_intermediate() {
+    std::vector<int> empty;
+    assert(first_or_default(empty) == 0);
+}
+
+void demo_expert() {
+    static_assert(std::is_same_v<typename std::vector<int>::value_type, int>);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

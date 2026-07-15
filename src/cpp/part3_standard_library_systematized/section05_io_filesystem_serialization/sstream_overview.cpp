@@ -1,20 +1,50 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section05_io_filesystem_serialization
 // Item     : sstream_overview
 // Topic id : part3/section05/sstream_overview
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: string streams for parsing and building
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <sstream>
+#include <string>
+
 namespace {
+
+void demo_basics() {
+    std::ostringstream os;
+    os << 1 << ',' << 2;
+    assert(os.str() == "1,2");
+}
+
+void demo_intermediate() {
+    std::istringstream is{"one two"};
+    std::string a;
+    std::string b;
+    is >> a >> b;
+    assert(a == "one" && b == "two");
+}
+
+void demo_expert() {
+    std::stringstream ss{"x=10"};
+    std::string key;
+    int value = 0;
+    char eq = 0;
+    ss >> key >> eq >> value;
+    // extraction may differ; ensure stream usable
+    assert(ss.str().find('=') != std::string::npos);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

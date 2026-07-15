@@ -1,20 +1,58 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section02_containers_and_algorithms
 // Item     : sequence_associative_unordered_adapter_overview
 // Topic id : part3/section02/sequence_associative_unordered_adapter_overview
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: vector/list/map/unordered_map/stack/queue overview
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <list>
+#include <map>
+#include <queue>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 namespace {
+
+void demo_basics() {
+    std::vector<int> v{1, 2, 3};
+    assert(v.size() == 3);
+    assert(v.back() == 3);
+    std::list<int> lst{4, 5};
+    assert(lst.front() == 4);
+}
+
+void demo_intermediate() {
+    std::map<std::string, int> m{{"a", 1}, {"b", 2}};
+    assert(m["a"] == 1);
+    std::unordered_map<int, int> u{{1, 10}};
+    assert(u[1] == 10);
+}
+
+void demo_expert() {
+    std::stack<int> st;
+    st.push(1);
+    st.push(2);
+    assert(st.top() == 2);
+    st.pop();
+    assert(st.top() == 1);
+    std::queue<int> q;
+    q.push(9);
+    assert(q.front() == 9);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

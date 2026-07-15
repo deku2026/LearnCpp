@@ -1,20 +1,60 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section01_text_and_strings
 // Item     : std_format_ranges_tuples_cpp23
 // Topic id : part3/section01/std_format_ranges_tuples_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::format for ranges/tuples C++23
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <format>
+#include <string>
+#include <tuple>
+#include <vector>
+#include <version>
+
 namespace {
+
+void demo_basics() {
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+    std::string s = std::format("{}", 42);
+    assert(s == "42");
+#else
+    assert(true);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_format_ranges) && __cpp_lib_format_ranges >= 202207L
+    std::vector<int> v{1, 2, 3};
+    std::string s = std::format("{}", v);
+    assert(s.find('1') != std::string::npos);
+#else
+    std::vector<int> v{1, 2, 3};
+    assert(v.size() == 3);
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_lib_format) && __cpp_lib_format >= 201907L
+    auto t = std::make_tuple(1, "x");
+    (void)t;
+    std::string s = std::format("{}-{}", 1, "x");
+    assert(s == "1-x");
+#else
+    assert(true);
+#endif
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

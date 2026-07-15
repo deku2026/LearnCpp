@@ -1,20 +1,50 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-e-templates-compile-time-system.md
+// LearnCpp topic example
+// Doc      : part6-branch-e-templates-compile-time.md
 // Stage    : part6_branch_e_templates_compile_time_system
 // Section  : section05_crtp_and_policy_based_design
 // Item     : crtp_static_polymorphism
 // Topic id : part6/e/section05/crtp_static_polymorphism
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: CRTP static polymorphism
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+
 namespace {
+
+template <class D>
+struct Counter {
+    int count() const { return static_cast<const D*>(this)->size_impl(); }
+};
+
+struct Vec : Counter<Vec> {
+    int n = 3;
+    int size_impl() const { return n; }
+};
+
+void demo_basics() {
+    Vec v;
+    assert(v.count() == 3);
+}
+
+void demo_intermediate() {
+    Vec v;
+    v.n = 10;
+    assert(v.count() == 10);
+}
+
+void demo_expert() {
+    const Counter<Vec>& c = Vec{};
+    assert(c.count() == 3);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

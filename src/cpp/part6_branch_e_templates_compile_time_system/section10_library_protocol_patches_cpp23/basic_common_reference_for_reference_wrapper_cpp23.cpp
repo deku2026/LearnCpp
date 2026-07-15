@@ -1,20 +1,46 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-e-templates-compile-time-system.md
+// LearnCpp topic example
+// Doc      : part6-branch-e-templates-compile-time.md
 // Stage    : part6_branch_e_templates_compile_time_system
 // Section  : section10_library_protocol_patches_cpp23
 // Item     : basic_common_reference_for_reference_wrapper_cpp23
 // Topic id : part6/e/section10/basic_common_reference_for_reference_wrapper_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: common_reference and reference_wrapper interactions
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <functional>
+#include <type_traits>
+
 namespace {
+
+void demo_basics() {
+    int x = 1;
+    std::reference_wrapper<int> r = x;
+    assert(r.get() == 1);
+    r.get() = 2;
+    assert(x == 2);
+}
+
+void demo_intermediate() {
+    using CR = std::common_reference_t<int&, int&>;
+    static_assert(std::is_same_v<CR, int&>);
+}
+
+void demo_expert() {
+    int a = 3, b = 4;
+    auto ra = std::ref(a);
+    auto rb = std::ref(b);
+    assert(ra.get() + rb.get() == 7);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

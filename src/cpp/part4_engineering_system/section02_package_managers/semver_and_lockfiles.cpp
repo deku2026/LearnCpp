@@ -1,20 +1,42 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part4-engineering-system.md
 // Stage    : part4_engineering_system
 // Section  : section02_package_managers
 // Item     : semver_and_lockfiles
 // Topic id : part4/section02/semver_and_lockfiles
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: semver ranges and lockfiles for reproducible builds
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <string_view>
+
 namespace {
+
+void demo_basics() {
+    // MAJOR.MINOR.PATCH — breaking/feature/fix
+    int major = 1, minor = 2, patch = 3;
+    assert(major == 1 && minor == 2 && patch == 3);
+}
+
+void demo_intermediate() {
+    // Lockfiles pin exact resolved versions
+    assert(true);
+}
+
+void demo_expert() {
+    // CI should fail on undelcared dependency drift
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

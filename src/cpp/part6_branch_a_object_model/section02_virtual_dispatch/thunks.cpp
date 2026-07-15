@@ -1,20 +1,73 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-a-object-model.md
 // Stage    : part6_branch_a_object_model
 // Section  : section02_virtual_dispatch
 // Item     : thunks
 // Topic id : part6/a/section02/thunks
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: this-adjustment for non-primary base virtual calls (thunk concept, safe demo)
 
 #include "learn/topic_registry.hpp"
+
+#include <cassert>
+#include <cstdint>
+
+namespace {
+
+struct Left {
+    int L = 10;
+    virtual int who() const { return L; }
+    virtual ~Left() = default;
+};
+
+struct Right {
+    int R = 20;
+    virtual int who() const { return R; }
+    virtual ~Right() = default;
+};
+
+struct Both : Left, Right {
+    int M = 30;
+    int who() const override { return L + R + M; }
+};
+
+void demo_basics() {
+    Both b;
+    Left* pl = &b;
+    Right* pr = &b;
+    // Virtual call through either base reaches Both::who after this adjustment.
+    assert(pl->who() == 60);
+    assert(pr->who() == 60);
+}
+
+void demo_intermediate() {
+    Both b;
+    Right* pr = &b;
+    // Address of Right subobject may differ from complete object.
+    assert(static_cast<void*>(pr) == static_cast<void*>(&b) ||
+           reinterpret_cast<std::uintptr_t>(pr) > reinterpret_cast<std::uintptr_t>(&b));
+    assert(static_cast<Both*>(pr) == &b);
+}
+
+void demo_expert() {
+    // Teaching note: ABI may emit a thunk that subtracts the Right offset from
+    // this before jumping to Both::who. We only observe correct behavior.
+    Both b;
+    Left& l = b;
+    Right& r = b;
+    assert(l.who() == r.who());
+}
+
+}  // namespace
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

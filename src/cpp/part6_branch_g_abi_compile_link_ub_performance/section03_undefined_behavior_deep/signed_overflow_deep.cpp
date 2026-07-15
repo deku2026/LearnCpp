@@ -1,20 +1,48 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-g-abi-compile-link-ub-performance.md
 // Stage    : part6_branch_g_abi_compile_link_ub_performance
 // Section  : section03_undefined_behavior_deep
 // Item     : signed_overflow_deep
 // Topic id : part6/g/section03/signed_overflow_deep
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: signed overflow is UB; use checks or unsigned carefully
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <climits>
+#include <cstdint>
+
 namespace {
+
+bool would_add_overflow(int a, int b) {
+    if (b > 0) return a > INT_MAX - b;
+    if (b < 0) return a < INT_MIN - b;
+    return false;
+}
+
+void demo_basics() {
+    assert(!would_add_overflow(1, 2));
+    assert(1 + 2 == 3);
+}
+
+void demo_intermediate() {
+    assert(would_add_overflow(INT_MAX, 1));
+    assert(would_add_overflow(INT_MIN, -1));
+}
+
+void demo_expert() {
+    // Unsigned wrap is defined mod 2^n; still may be a logic bug.
+    std::uint32_t u = 0xFFFFFFFFu;
+    assert(u + 1u == 0u);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

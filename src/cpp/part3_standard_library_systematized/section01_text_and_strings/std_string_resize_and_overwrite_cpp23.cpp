@@ -1,20 +1,68 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section01_text_and_strings
 // Item     : std_string_resize_and_overwrite_cpp23
 // Topic id : part3/section01/std_string_resize_and_overwrite_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::string::resize_and_overwrite C++23 high-performance fill
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <cstddef>
+#include <string>
+#include <version>
+
 namespace {
+
+void demo_basics() {
+    std::string s = "abcd";
+    s.resize(2);
+    assert(s == "ab");
+    s.resize(5, 'x');
+    assert(s == "abxxx");
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_string_resize_and_overwrite) && __cpp_lib_string_resize_and_overwrite >= 202110L
+    std::string buf;
+    buf.resize_and_overwrite(5, [](char* p, std::size_t n) {
+        for (std::size_t i = 0; i < n; ++i) {
+            p[i] = static_cast<char>('A' + static_cast<int>(i));
+        }
+        return n;
+    });
+    assert(buf == "ABCDE");
+#else
+    std::string buf = "ABCDE";
+    assert(buf.size() == 5);
+#endif
+}
+
+void demo_expert() {
+#if defined(__cpp_lib_string_resize_and_overwrite) && __cpp_lib_string_resize_and_overwrite >= 202110L
+    std::string buf;
+    buf.resize_and_overwrite(8, [](char* p, std::size_t n) {
+        for (std::size_t i = 0; i < n; ++i) {
+            p[i] = '0';
+        }
+        return std::size_t{3};
+    });
+    assert(buf == "000");
+    assert(buf.size() == 3);
+#else
+    std::string buf(3, '0');
+    assert(buf == "000");
+#endif
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

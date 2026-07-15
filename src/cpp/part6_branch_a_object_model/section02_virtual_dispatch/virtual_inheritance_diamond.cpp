@@ -1,20 +1,79 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-a-object-model.md
 // Stage    : part6_branch_a_object_model
 // Section  : section02_virtual_dispatch
 // Item     : virtual_inheritance_diamond
 // Topic id : part6/a/section02/virtual_inheritance_diamond
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: diamond problem, virtual base shared once, most-derived initialization
 
 #include "learn/topic_registry.hpp"
+
+#include <cassert>
+
+namespace {
+
+struct VBase {
+    int v = 0;
+    virtual int id() const { return v; }
+    virtual ~VBase() = default;
+};
+
+struct Left : virtual VBase {
+    int left = 1;
+};
+
+struct Right : virtual VBase {
+    int right = 2;
+};
+
+struct Diamond : Left, Right {
+    int bottom = 3;
+    Diamond() { v = 42; }
+};
+
+struct LeftNV {
+    int base_data = 0;
+};
+struct RightNV {
+    int base_data = 0;
+};
+// Non-virtual diamond would duplicate a shared base; virtual inheritance merges.
+
+void demo_basics() {
+    Diamond d;
+    assert(d.v == 42);
+    assert(d.left == 1 && d.right == 2 && d.bottom == 3);
+}
+
+void demo_intermediate() {
+    Diamond d;
+    Left* L = &d;
+    Right* R = &d;
+    VBase* from_L = L;
+    VBase* from_R = R;
+    // Single shared virtual base subobject.
+    assert(from_L == from_R);
+    assert(from_L->id() == 42);
+}
+
+void demo_expert() {
+    Diamond d;
+    assert(static_cast<VBase*>(&d)->id() == 42);
+    // Virtual bases typically cost extra size (vbase offsets); layout ABI-dependent.
+    assert(sizeof(Diamond) >= sizeof(int) * 3);
+}
+
+}  // namespace
 
 namespace {
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

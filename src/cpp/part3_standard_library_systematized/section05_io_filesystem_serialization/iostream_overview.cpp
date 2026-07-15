@@ -1,20 +1,48 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section05_io_filesystem_serialization
 // Item     : iostream_overview
 // Topic id : part3/section05/iostream_overview
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: iostream basic extraction/insertion
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <sstream>
+#include <string>
+
 namespace {
+
+void demo_basics() {
+    std::ostringstream os;
+    os << "x=" << 1;
+    assert(os.str() == "x=1");
+}
+
+void demo_intermediate() {
+    std::istringstream is{"10 20"};
+    int a = 0;
+    int b = 0;
+    is >> a >> b;
+    assert(a == 10 && b == 20);
+}
+
+void demo_expert() {
+    std::stringstream ss;
+    ss << 3.5;
+    double d = 0;
+    ss >> d;
+    assert(d > 3.4 && d < 3.6);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

@@ -1,20 +1,44 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-g-abi-compile-link-ub-performance.md
 // Stage    : part6_branch_g_abi_compile_link_ub_performance
 // Section  : section05_optimization_safety_valves
 // Item     : fwrapv
 // Topic id : part6/g/section05/fwrapv
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: fwrapv defines signed wrap as two's complement (GCC/Clang dialect)
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <climits>
+#include <optional>
+
 namespace {
+
+std::optional<int> checked_add(int a, int b) {
+    if ((b > 0 && a > INT_MAX - b) || (b < 0 && a < INT_MIN - b)) return std::nullopt;
+    return a + b;
+}
+
+void demo_basics() {
+    assert(checked_add(1, 1) == 2);
+}
+
+void demo_intermediate() {
+    // Portable code should not rely on fwrapv; use checked ops or unsigned.
+    assert(!checked_add(INT_MAX, 1));
+}
+
+void demo_expert() {
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

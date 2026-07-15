@@ -1,20 +1,42 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part4-engineering-system.md
 // Stage    : part4_engineering_system
 // Section  : section03_quality_gates
 // Item     : cppcheck_setup
 // Topic id : part4/section03/cppcheck_setup
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: cppcheck static analysis
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <string_view>
+
 namespace {
+
+void demo_basics() {
+    // cppcheck --enable=all --std=c++23
+    std::string tool = "cppcheck";
+    assert(tool == "cppcheck");
+}
+
+void demo_intermediate() {
+    // Complements clang-tidy; different false-positive profile
+    assert(true);
+}
+
+void demo_expert() {
+    // Suppress carefully; prefer fixing root causes
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

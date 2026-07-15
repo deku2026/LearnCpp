@@ -1,20 +1,56 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-e-templates-compile-time-system.md
+// LearnCpp topic example
+// Doc      : part6-branch-e-templates-compile-time.md
 // Stage    : part6_branch_e_templates_compile_time_system
 // Section  : section05_crtp_and_policy_based_design
 // Item     : policy_based_design
 // Topic id : part6/e/section05/policy_based_design
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: policy-based design with template policies
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+
 namespace {
+
+struct FastPolicy {
+    static std::string name() { return "fast"; }
+    static int scale(int x) { return x; }
+};
+
+struct SafePolicy {
+    static std::string name() { return "safe"; }
+    static int scale(int x) { return x * 2; }
+};
+
+template <class Policy>
+struct Engine {
+    int run(int x) const { return Policy::scale(x); }
+    std::string kind() const { return Policy::name(); }
+};
+
+void demo_basics() {
+    Engine<FastPolicy> e;
+    assert(e.run(3) == 3);
+    assert(e.kind() == "fast");
+}
+
+void demo_intermediate() {
+    Engine<SafePolicy> e;
+    assert(e.run(3) == 6);
+}
+
+void demo_expert() {
+    assert(Engine<SafePolicy>{}.kind() == "safe");
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

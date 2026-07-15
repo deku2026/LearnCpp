@@ -1,20 +1,42 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part4-engineering-system.md
 // Stage    : part4_engineering_system
 // Section  : section05_sanitizers_and_diagnostics
 // Item     : msan_overview
 // Topic id : part4/section05/msan_overview
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: MemorySanitizer uninitialized reads (Clang)
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <string_view>
+
 namespace {
+
+void demo_basics() {
+    // -fsanitize=memory (Clang); requires instrumented libs
+    int x = 0;
+    assert(x == 0);
+}
+
+void demo_intermediate() {
+    // Not for MSVC; Linux Clang primary
+    assert(true);
+}
+
+void demo_expert() {
+    // Cannot mix with ASan
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

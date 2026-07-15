@@ -1,20 +1,56 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic example
+// Doc      : part6-branch-d-name-lookup-adl-overload.md
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section01_name_lookup
 // Item     : unqualified_lookup
 // Topic id : part6/d/section01/unqualified_lookup
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: unqualified name lookup ordinary rules
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+
 namespace {
+
+namespace outer {
+int value = 1;
+namespace inner {
+int value = 2;
+int read() {
+    return value;
+}  // finds inner::value
+}  // namespace inner
+}  // namespace outer
+
+int value = 0;
+
+void demo_basics() {
+    assert(value == 0);
+    assert(outer::value == 1);
+    assert(outer::inner::value == 2);
+}
+
+void demo_intermediate() {
+    assert(outer::inner::read() == 2);
+    int value = 9;
+    assert(value == 9);  // local hides global
+}
+
+void demo_expert() {
+    {
+        using outer::value;
+        assert(value == 1);
+    }
+    assert(::value == 0);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

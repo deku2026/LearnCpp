@@ -1,20 +1,63 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-c-memory-management.md
 // Stage    : part6_branch_c_memory_management
 // Section  : section04_lifetime_routines
 // Item     : start_lifetime_as_cpp23
 // Topic id : part6/c/section04/start_lifetime_as_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::start_lifetime_as for implicit-lifetime types (C++23)
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <cstring>
+#include <new>
+#include <type_traits>
+
 namespace {
+
+void demo_basics() {
+    alignas(int) unsigned char buf[sizeof(int)]{};
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+    int* p = std::start_lifetime_as<int>(buf);
+    *p = 42;
+    assert(*p == 42);
+#else
+    // Portable fallback: placement new starts lifetime of int.
+    int* p = new (buf) int(42);
+    assert(*p == 42);
+#endif
+}
+
+void demo_intermediate() {
+    struct Agg {
+        int x;
+        int y;
+    };
+    alignas(Agg) unsigned char buf[sizeof(Agg)]{};
+#if defined(__cpp_lib_start_lifetime_as) && __cpp_lib_start_lifetime_as >= 202207L
+    Agg* a = std::start_lifetime_as<Agg>(buf);
+    a->x = 1;
+    a->y = 2;
+    assert(a->x + a->y == 3);
+#else
+    Agg* a = new (buf) Agg{1, 2};
+    assert(a->x + a->y == 3);
+#endif
+}
+
+void demo_expert() {
+    // Only for implicit-lifetime / trivial cases; not a general type-pun tool.
+    static_assert(std::is_trivially_copyable_v<int>);
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

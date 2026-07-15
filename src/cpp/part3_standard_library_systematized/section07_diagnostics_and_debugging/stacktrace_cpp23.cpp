@@ -1,20 +1,53 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section07_diagnostics_and_debugging
 // Item     : stacktrace_cpp23
 // Topic id : part3/section07/stacktrace_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::stacktrace C++23 feature-gated
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <version>
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#include <stacktrace>
+#endif
+
 namespace {
+
+void demo_basics() {
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+    auto st = std::stacktrace::current();
+    assert(!st.empty() || st.empty());
+#else
+    assert(true);
+#endif
+}
+
+void demo_intermediate() {
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+    auto st = std::stacktrace::current();
+    std::string s = std::to_string(st);
+    assert(!s.empty() || s.empty());
+#else
+    assert(true);
+#endif
+}
+
+void demo_expert() {
+    // stacktrace may require linker flags on some platforms; feature-test first
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

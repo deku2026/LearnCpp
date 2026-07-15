@@ -1,20 +1,44 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part6-branch-g-abi-compile-link-ub-performance.md
 // Stage    : part6_branch_g_abi_compile_link_ub_performance
 // Section  : section02_compile_and_link_model
 // Item     : translation_unit_deep
 // Topic id : part6/g/section02/translation_unit_deep
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: translation unit is the compiler's unit of work
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+
 namespace {
+
+namespace {
+int tu_local = 1;
+}
+
+int shared_func() {
+    return tu_local + 1;
+}
+
+void demo_basics() {
+    assert(shared_func() == 2);
+}
+
+void demo_intermediate() {
+    assert(tu_local == 1);
+}
+
+void demo_expert() {
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

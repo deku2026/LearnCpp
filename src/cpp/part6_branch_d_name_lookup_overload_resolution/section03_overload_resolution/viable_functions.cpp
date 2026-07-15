@@ -1,20 +1,48 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic example
+// Doc      : part6-branch-d-name-lookup-adl-overload.md
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section03_overload_resolution
 // Item     : viable_functions
 // Topic id : part6/d/section03/viable_functions
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: viable functions: arity and convertibility
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+
 namespace {
+
+int g(int) {
+    return 1;
+}
+int g(std::string) {
+    return 2;
+}
+
+void demo_basics() {
+    assert(g(3) == 1);
+    assert(g("hi") == 2);
+}
+
+void demo_intermediate() {
+    // g(3.0) viable via double->int conversion
+    assert(g(3.0) == 1);
+}
+
+void demo_expert() {
+    // Too many args: not viable
+    // g(1, 2); // would not compile
+    assert(g(std::string{"x"}) == 2);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

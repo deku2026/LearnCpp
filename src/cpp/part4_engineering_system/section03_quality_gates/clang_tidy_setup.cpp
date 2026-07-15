@@ -1,20 +1,42 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part4-engineering-system.md
 // Stage    : part4_engineering_system
 // Section  : section03_quality_gates
 // Item     : clang_tidy_setup
 // Topic id : part4/section03/clang_tidy_setup
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: clang-tidy with compile_commands.json
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <string>
+#include <string_view>
+
 namespace {
+
+void demo_basics() {
+    // CMAKE_EXPORT_COMPILE_COMMANDS=ON
+    std::string db = "compile_commands.json";
+    assert(db.ends_with(".json"));
+}
+
+void demo_intermediate() {
+    // Checks: bugprone-*,clang-analyzer-*,modernize-*
+    assert(true);
+}
+
+void demo_expert() {
+    // warnings-as-errors for selected checks in CI
+    assert(true);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

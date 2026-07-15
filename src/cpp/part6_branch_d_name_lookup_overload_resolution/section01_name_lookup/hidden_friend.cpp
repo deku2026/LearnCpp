@@ -1,20 +1,48 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-d-name-lookup-overload-resolution.md
+// LearnCpp topic example
+// Doc      : part6-branch-d-name-lookup-adl-overload.md
 // Stage    : part6_branch_d_name_lookup_overload_resolution
 // Section  : section01_name_lookup
 // Item     : hidden_friend
 // Topic id : part6/d/section01/hidden_friend
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: hidden friends only found by ADL
 
 #include "learn/topic_registry.hpp"
 
+#include <cassert>
+#include <sstream>
+
 namespace {
+
+struct Hidden {
+    int v = 0;
+    friend int get(const Hidden& h) { return h.v; }
+    friend bool operator==(const Hidden& a, const Hidden& b) { return a.v == b.v; }
+};
+
+void demo_basics() {
+    Hidden h{4};
+    assert(get(h) == 4);
+}
+
+void demo_intermediate() {
+    Hidden a{1}, b{1}, c{2};
+    assert(a == b);
+    assert(!(a == c));
+}
+
+void demo_expert() {
+    // get is not in ordinary unqualified lookup without an argument of type Hidden.
+    Hidden h{9};
+    assert(get(h) == 9);
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 

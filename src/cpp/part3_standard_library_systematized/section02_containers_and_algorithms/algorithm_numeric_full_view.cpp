@@ -1,20 +1,51 @@
-// LearnCpp placeholder
+// LearnCpp topic example
 // Doc      : part3-standard-library-systematized.md
 // Stage    : part3_standard_library_systematized
 // Section  : section02_containers_and_algorithms
 // Item     : algorithm_numeric_full_view
 // Topic id : part3/section02/algorithm_numeric_full_view
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Covers: std::algorithm + numeric: sort, find, accumulate, iota
 
 #include "learn/topic_registry.hpp"
 
+#include <algorithm>
+#include <cassert>
+#include <numeric>
+#include <vector>
+
 namespace {
+
+void demo_basics() {
+    std::vector<int> v{3, 1, 2};
+    std::sort(v.begin(), v.end());
+    assert((v == std::vector<int>{1, 2, 3}));
+    assert(std::find(v.begin(), v.end(), 2) != v.end());
+}
+
+void demo_intermediate() {
+    std::vector<int> v(5);
+    std::iota(v.begin(), v.end(), 1);
+    assert(v.front() == 1 && v.back() == 5);
+    int sum = std::accumulate(v.begin(), v.end(), 0);
+    assert(sum == 15);
+}
+
+void demo_expert() {
+    std::vector<int> a{1, 2, 3};
+    std::vector<int> b{1, 2, 3};
+    assert(std::equal(a.begin(), a.end(), b.begin()));
+    std::vector<int> out(3);
+    std::partial_sum(a.begin(), a.end(), out.begin());
+    assert((out == std::vector<int>{1, 3, 6}));
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    demo_basics();
+    demo_intermediate();
+    demo_expert();
     return 0;
 }
 
