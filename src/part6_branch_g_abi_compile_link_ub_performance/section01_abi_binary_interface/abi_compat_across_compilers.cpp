@@ -66,7 +66,11 @@ int run(int argc, char** argv) {
     StableWidget widget;
     widget.increment();
     widget.increment();
-    LEARN_EXPECT_EQ(checks, widget.value(), 2);
+    StableWidget moved = std::move(widget);
+    LEARN_EXPECT_EQ(checks, moved.value(), 2);
+    StableWidget assigned;
+    assigned = std::move(moved);
+    LEARN_EXPECT_EQ(checks, assigned.value(), 2);
 
     const CAbiHeader header{sizeof(CAbiHeader), 3};
     LEARN_EXPECT_EQ(checks, header.struct_size, static_cast<std::uint32_t>(sizeof(CAbiHeader)));

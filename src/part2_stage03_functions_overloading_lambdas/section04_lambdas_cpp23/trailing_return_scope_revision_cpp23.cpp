@@ -17,8 +17,10 @@ namespace {
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-#if (defined(_MSVC_LANG) && _MSVC_LANG >= 202302L) || \
-    (!defined(_MSC_VER) && defined(__cplusplus) && __cplusplus >= 202302L)
+#if (defined(LEARNCPP_HAS_P2036_LAMBDA_SCOPE) && LEARNCPP_HAS_P2036_LAMBDA_SCOPE) || \
+    (!defined(LEARNCPP_HAS_P2036_LAMBDA_SCOPE) &&                                    \
+     ((defined(_MSVC_LANG) && _MSVC_LANG >= 202302L) ||                              \
+      (!defined(_MSC_VER) && defined(__cplusplus) && __cplusplus >= 202302L)))
     learn::ExampleChecks checks{"part2/stage03/section04/trailing_return_scope_revision_cpp23"};
 
     [[maybe_unused]] double value = 1.5;

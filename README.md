@@ -72,6 +72,7 @@ build\windows-release\bin\learn_cpp.exe
 │   ├── dev-shell.cmd
 │   ├── generate-vs-filters.ps1
 │   ├── run-all-topics.ps1         # 子进程隔离、超时与危险模式排除
+│   ├── run-strict-build-matrix.sh  # Clang/GCC × libstdc++/libc++ 全量严格构建
 │   └── validate-topic-catalog.ps1 # 数量、元数据、映射、语法与占位检查
 ├── src/
 │   ├── main.cpp / learn/topic_registry.cpp
@@ -114,6 +115,30 @@ build/linux-debug/bin/learn_cpp
 ```
 
 项目基准为 C++23，但单项库特性仍以 feature-test macro 和真实构建为准。
+
+### Linux / macOS 严格可移植性矩阵
+
+严格脚本会分别执行 Debug 与 RelWithDebInfo 的干净构建，启用
+`-Werror`、UBSan，并把 Ninja 设为 `-k 0`，使一次运行能收集全部翻译单元的
+错误。Linux 覆盖 Clang 22 + libstdc++、Clang 22 + libc++、GCC 14 +
+libstdc++；macOS 覆盖 Homebrew Clang 22 + libc++。任何矩阵项失败都会使脚本
+最终返回非零，但不会阻止其余项继续检查。
+
+```bash
+bash scripts/run-strict-build-matrix.sh
+```
+
+默认要求 Clang 22 与 GCC 14，以便和 CI 工具链一致。自定义安装路径可显式传入，
+脚本仍会核对主版本，避免命令名与实际编译器不一致：
+
+```bash
+LEARNCPP_CLANGXX=/opt/llvm/bin/clang++ \
+LEARNCPP_GXX=/opt/gcc/bin/g++ \
+bash scripts/run-strict-build-matrix.sh
+```
+
+可用 `LEARNCPP_STRICT_BUILD_TYPES=RelWithDebInfo` 只运行优化构建；默认不使用编译
+缓存，确保每次都重新检查全部翻译单元。
 
 ## 目录与运行验收
 

@@ -7,9 +7,6 @@
 
 #include "learn/example_support.hpp"
 
-#if __has_include(<version>)
-#include <version>
-#endif
 #if __has_include(<ranges>)
 #include <ranges>
 #define LEARN_HAS_RANGES_HEADER 1
@@ -42,7 +39,7 @@ int run(int argc, char** argv) {
     read_only[0] = 99;  // Ill-formed: the exposed reference is const int&.
 #endif
 #else
-    const std::vector& modeled = values;
+    const std::vector<int>& modeled = values;
     LEARN_EXPECT_EQ(checks, modeled[1], 2);
     if (const int result = checks.result(); result != 0) {
         return result;

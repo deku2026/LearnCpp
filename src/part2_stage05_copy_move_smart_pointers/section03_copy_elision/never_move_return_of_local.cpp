@@ -29,17 +29,18 @@ TracedResult allow_elision() {
     return local;
 }
 
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpessimizing-move"
-#endif
-TracedResult force_move() {
+#if 0
+TracedResult pessimizing_return() {
     TracedResult local{7};
-    return std::move(local);  // Blocks NRVO; shown only for comparison.
+    return std::move(local);  // Bad: blocks NRVO and triggers -Wpessimizing-move.
 }
-#if defined(__clang__)
-#pragma clang diagnostic pop
 #endif
+
+TracedResult explicit_move_for_comparison() {
+    TracedResult local{7};
+    TracedResult moved{std::move(local)};  // An explicit move outside a return statement.
+    return moved;
+}
 
 int run(int argc, char** argv) {
     (void)argc;
@@ -55,8 +56,8 @@ int run(int argc, char** argv) {
     LEARN_EXPECT(checks, preferred_moves <= 1);  // NRVO is optional; implicit move is the fallback.
 
     TracedResult::moves = 0;
-    TracedResult forced = force_move();
-    LEARN_EXPECT_EQ(checks, forced.value, 7);
+    TracedResult compared = explicit_move_for_comparison();
+    LEARN_EXPECT_EQ(checks, compared.value, 7);
     LEARN_EXPECT(checks, TracedResult::moves >= 1);
 
     return checks.result();

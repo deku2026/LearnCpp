@@ -11,7 +11,6 @@
 
 #include <functional>
 #include <type_traits>
-#include <version>
 
 namespace {
 
@@ -39,7 +38,9 @@ int run(int argc, char** argv) {
     LEARN_EXPECT_EQ(checks, subtract_from_ten(3), 7);
 
     Ledger ledger{100};
-    auto deposit = std::bind_front(&Ledger::deposit, &ledger);
+    // reference_wrapper preserves the object-reference semantics without
+    // storing a raw pointer in the bind state.
+    auto deposit = std::bind_front(&Ledger::deposit, std::ref(ledger));
     LEARN_EXPECT_EQ(checks, deposit(25), 125);
     LEARN_EXPECT_EQ(checks, ledger.balance, 125);
     return checks.result();

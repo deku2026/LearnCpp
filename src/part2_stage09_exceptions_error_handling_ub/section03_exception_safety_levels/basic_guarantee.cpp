@@ -40,6 +40,9 @@ int run(int argc, char** argv) {
     (void)argv;
     ::learn::ExampleChecks checks{kTopic};
     Ledger ledger{{2, 3}, 5};
+    // Capacity is not part of the lesson. Reserve the known final size so the
+    // example isolates the downstream failure after the state change.
+    ledger.entries.reserve(3);
     LEARN_EXPECT_THROWS(checks, std::runtime_error, append_then_report_failure(ledger, 4));
     LEARN_EXPECT(checks, ledger.invariant());
     LEARN_EXPECT_EQ(checks, ledger.total, 9);  // Valid but observably changed: basic, not strong.

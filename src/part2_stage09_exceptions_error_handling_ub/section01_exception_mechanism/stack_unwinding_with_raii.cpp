@@ -18,7 +18,8 @@ namespace {
 constexpr std::string_view kTopic = "part2/stage09/section01/stack_unwinding_with_raii";
 
 struct TraceScope {
-    TraceScope(std::vector<std::string>& output, std::string label) : output(output), label(std::move(label)) {
+    TraceScope(std::vector<std::string>& destination, std::string scope_label)
+        : output(destination), label(std::move(scope_label)) {
         output.push_back(this->label + "+");
     }
     ~TraceScope() { output.push_back(label + "-"); }

@@ -19,7 +19,6 @@
 #include <sstream>
 #include <string>
 #include <thread>
-#include <version>
 
 namespace {
 
@@ -36,8 +35,9 @@ int run(int argc, char** argv) {
     text << std::this_thread::get_id();
     LEARN_EXPECT(checks, !text.str().empty());
 #endif
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && defined(__cpp_lib_formatters) && \
-    __cpp_lib_formatters >= 202302L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L &&                 \
+    (!defined(LEARNCPP_HAS_LINKABLE_STACKTRACE) || LEARNCPP_HAS_LINKABLE_STACKTRACE) && \
+    defined(__cpp_lib_formatters) && __cpp_lib_formatters >= 202302L
     const auto trace = std::stacktrace::current(0, 4);
     LEARN_EXPECT(checks, std::format("{}", trace).size() >= trace.size());
 #endif

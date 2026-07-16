@@ -27,7 +27,7 @@ int run(int argc, char** argv) {
     ::learn::ExampleChecks checks{kTopic};
     static_assert(std::is_floating_point_v<std::float32_t>);
     const std::float32_t value = 1.5F32;
-    LEARN_EXPECT(checks, value > std::float32_t{1.0});
+    LEARN_EXPECT(checks, value > std::float32_t{1.0F32});
     return checks.result();
 #else
     return ::learn::ExampleChecks::unavailable(kTopic, "C++23 extended floating-point typedefs");

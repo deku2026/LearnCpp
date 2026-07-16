@@ -17,6 +17,7 @@
 #include <ranges>
 #include <string_view>
 #include <vector>
+#include <version>
 
 namespace {
 
@@ -31,7 +32,11 @@ int run(int argc, char** argv) {
     (void)argv;
     ::learn::ExampleChecks checks{kTopic};
     std::vector<int> values{4, 1, 3, 2};
+#if defined(__cpp_lib_parallel_algorithm) && __cpp_lib_parallel_algorithm >= 201603L
     std::sort(std::execution::seq, values.begin(), values.end());
+#else
+    std::sort(values.begin(), values.end());
+#endif
     auto middle = values | std::views::drop(1) | std::views::take(2);
     LEARN_EXPECT(checks, std::ranges::equal(middle, std::array{2, 3}));
     LEARN_EXPECT_EQ(checks, std::accumulate(values.begin(), values.end(), 0), 10);

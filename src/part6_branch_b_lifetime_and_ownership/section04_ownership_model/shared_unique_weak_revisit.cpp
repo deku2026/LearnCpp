@@ -19,7 +19,7 @@ namespace {
 constexpr std::string_view kTopic = "part6/b/section04/shared_unique_weak_revisit";
 
 struct Node {
-    explicit Node(int value) : value(value) {}
+    explicit Node(int initial_value) : value(initial_value) {}
     int value;
     std::weak_ptr<Node> parent;
 };

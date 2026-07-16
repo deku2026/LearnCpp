@@ -14,7 +14,6 @@
 #include <stacktrace>
 #endif
 #include <cstddef>
-#include <version>
 
 namespace {
 
@@ -23,7 +22,8 @@ constexpr std::string_view kTopic = "part2/stage09/section06/std_stacktrace_curr
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L
+#if defined(__cpp_lib_stacktrace) && __cpp_lib_stacktrace >= 202011L && \
+    (!defined(LEARNCPP_HAS_LINKABLE_STACKTRACE) || LEARNCPP_HAS_LINKABLE_STACKTRACE)
     ::learn::ExampleChecks checks{kTopic};
     const std::stacktrace trace = std::stacktrace::current(0, 8);
     LEARN_EXPECT(checks, trace.size() <= 8);
@@ -33,7 +33,7 @@ int run(int argc, char** argv) {
     }
     return checks.result();
 #else
-    return ::learn::ExampleChecks::unavailable(kTopic, "std::stacktrace");
+    return ::learn::ExampleChecks::unavailable(kTopic, "a compile-and-link capable std::stacktrace");
 #endif
 }
 

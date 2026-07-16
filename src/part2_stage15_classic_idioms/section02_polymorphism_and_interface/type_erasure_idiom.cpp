@@ -26,7 +26,7 @@ class AnyLabel {
 
     template <class T>
     struct Model final : Concept {
-        explicit Model(T value) : value(std::move(value)) {}
+        explicit Model(T stored_value) : value(std::move(stored_value)) {}
         std::string label() const override { return value.label(); }
         std::unique_ptr<Concept> clone() const override { return std::make_unique<Model>(*this); }
         T value;

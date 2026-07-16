@@ -12,7 +12,8 @@
 
 namespace {
 
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 202211L
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 202207L && \
+    (!defined(LEARNCPP_HAS_CONSTEXPR_NON_LITERAL_SIGNATURES) || LEARNCPP_HAS_CONSTEXPR_NON_LITERAL_SIGNATURES)
 
 struct RuntimeOnly {
     int value;
@@ -43,7 +44,8 @@ int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
 
-#if defined(__cpp_constexpr) && __cpp_constexpr >= 202211L
+#if defined(__cpp_constexpr) && __cpp_constexpr >= 202207L && \
+    (!defined(LEARNCPP_HAS_CONSTEXPR_NON_LITERAL_SIGNATURES) || LEARNCPP_HAS_CONSTEXPR_NON_LITERAL_SIGNATURES)
     ::learn::ExampleChecks checks{"part2/stage07/section01/constexpr_non_literal_signatures_cpp23"};
 
     auto object = make_runtime_only(42);
@@ -52,7 +54,7 @@ int run(int argc, char** argv) {
     return checks.result();
 #else
     return ::learn::ExampleChecks::unavailable("part2/stage07/section01/constexpr_non_literal_signatures_cpp23",
-                                               "__cpp_constexpr >= 202211L (P2448)");
+                                               "__cpp_constexpr >= 202207L (P2448)");
 #endif
 }
 

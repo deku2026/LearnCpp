@@ -17,7 +17,7 @@ constexpr std::string_view kTopic = "part6/d/section03/implicit_conversion_seque
 enum class ConversionKind { standard, user_defined, ellipsis };
 
 struct Box {
-    Box(int input) : value(input) {}
+    constexpr Box(int input) : value(input) {}
     int value{};
 };
 

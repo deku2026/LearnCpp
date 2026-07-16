@@ -11,7 +11,6 @@
 #include <concepts>
 #include <memory>
 #include <type_traits>
-#include <version>
 
 namespace {
 
@@ -38,7 +37,8 @@ int run(int argc, char** argv) {
     LEARN_EXPECT_EQ(checks, safe.get(), 42);
     static_assert(!std::constructible_from<SafeReference<int>, int&&>);
 
-#if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L
+#if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L && \
+    (!defined(LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS) || LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS)
     static_assert(std::reference_constructs_from_temporary_v<const int&, int>);
     static_assert(std::reference_converts_from_temporary_v<const int&, int>);
     static_assert(!std::reference_constructs_from_temporary_v<int&, int&>);

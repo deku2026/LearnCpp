@@ -28,7 +28,7 @@ struct Vector : VectorExpression<Vector> {
 
 template <class Left, class Right>
 struct Sum : VectorExpression<Sum<Left, Right>> {
-    Sum(const Left& left, const Right& right) : left(left), right(right) {}
+    Sum(const Left& left_operand, const Right& right_operand) : left(left_operand), right(right_operand) {}
     const Left& left;
     const Right& right;
     double operator[](std::size_t index) const { return left[index] + right[index]; }

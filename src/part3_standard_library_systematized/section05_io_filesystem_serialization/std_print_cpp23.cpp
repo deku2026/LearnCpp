@@ -16,25 +16,32 @@
 #endif
 #include <string>
 #include <string_view>
-#include <version>
 
 namespace {
 
 constexpr std::string_view kTopic = "part3/section05/std_print_cpp23";
+
+struct FileCloser {
+    void operator()(std::FILE* file) const noexcept {
+        if (file != nullptr) {
+            static_cast<void>(std::fclose(file));
+        }
+    }
+};
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
 #if defined(__cpp_lib_print) && __cpp_lib_print >= 202207L
     ::learn::ExampleChecks checks{kTopic};
-    using FileHandle = std::unique_ptr<std::FILE, decltype(&std::fclose)>;
+    using FileHandle = std::unique_ptr<std::FILE, FileCloser>;
     std::FILE* raw_file{};
 #if defined(_MSC_VER)
     static_cast<void>(::tmpfile_s(&raw_file));
 #else
     raw_file = std::tmpfile();
 #endif
-    FileHandle file{raw_file, &std::fclose};
+    FileHandle file{raw_file};
     LEARN_EXPECT(checks, file != nullptr);
     if (!file) {
         return checks.result();

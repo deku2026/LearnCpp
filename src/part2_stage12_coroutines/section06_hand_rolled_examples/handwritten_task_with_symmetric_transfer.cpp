@@ -33,8 +33,8 @@ public:
         struct FinalAwaiter {
             bool await_ready() const noexcept { return false; }
             std::coroutine_handle<> await_suspend(std::coroutine_handle<promise_type> completed) const noexcept {
-                const auto continuation = completed.promise().continuation;
-                return continuation ? continuation : std::noop_coroutine();
+                const auto next_coroutine = completed.promise().continuation;
+                return next_coroutine ? next_coroutine : std::noop_coroutine();
             }
             void await_resume() const noexcept {}
         };

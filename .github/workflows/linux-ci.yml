@@ -25,9 +25,17 @@ env:
 
 jobs:
   build:
-    name: Linux x64 (clang + ninja + sccache)
+    name: Linux x64 (Clang 22 + ${{ matrix.standard_library }})
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - standard_library: libstdc++
+            stdlib_flags: -stdlib=libstdc++
+          - standard_library: libc++
+            stdlib_flags: -stdlib=libc++
 
     steps:
       - name: Checkout
@@ -63,27 +71,51 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ env.SCCACHE_DIR }}
-          key: sccache-linux-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-${{ github.sha }}
+          key: sccache-linux-${{ matrix.standard_library }}-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-${{ github.sha }}
           restore-keys: |
-            sccache-linux-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-
-            sccache-linux-
+            sccache-linux-${{ matrix.standard_library }}-${{ hashFiles('CMakeLists.txt','cmake/**','CMakePresets.json') }}-
+            sccache-linux-${{ matrix.standard_library }}-
 
       - name: Verify tools
         run: |
-          clang --version
-          clang++ --version
+          set -euo pipefail
+          /usr/bin/clang-22 --version
+          /usr/bin/clang++-22 --version
+          clang_major=$(/usr/bin/clang++-22 -dumpversion | cut -d. -f1)
+          if [ "$clang_major" != 22 ]; then
+            echo "expected Clang major 22, got '$clang_major'" >&2
+            exit 1
+          fi
           cmake --version | head -n 1
           ninja --version
           sccache --version
 
       - name: Configure
         env:
-          CC: clang
-          CXX: clang++
-        run: cmake --preset linux-ci
+          CC: /usr/bin/clang-22
+          CXX: /usr/bin/clang++-22
+          STDLIB_FLAGS: ${{ matrix.stdlib_flags }}
+        run: |
+          set -euo pipefail
+          cmake_args=(
+            --preset linux-ci
+            -DCMAKE_CXX_COMPILER=/usr/bin/clang++-22
+          )
+          if [ -n "$STDLIB_FLAGS" ]; then
+            cmake_args+=(
+              "-DCMAKE_CXX_FLAGS=$STDLIB_FLAGS"
+              "-DCMAKE_EXE_LINKER_FLAGS=$STDLIB_FLAGS"
+            )
+          fi
+          cmake "${cmake_args[@]}"
+          configured_compiler=$(sed -n 's/^CMAKE_CXX_COMPILER:[^=]*=//p' build/linux-ci/CMakeCache.txt)
+          if [ "$configured_compiler" != /usr/bin/clang++-22 ]; then
+            echo "CMake selected unexpected compiler '$configured_compiler'" >&2
+            exit 1
+          fi
 
-      - name: Build
-        run: cmake --build --preset linux-ci
+      - name: Build all translation units
+        run: cmake --build --preset linux-ci -- -k 0
 
       - name: Smoke-run learn_cpp (list registered topics)
         run: |
@@ -104,9 +136,11 @@ jobs:
         run: sccache --show-stats
 
       - name: Install pre-commit
+        if: ${{ always() && matrix.standard_library == 'libstdc++' }}
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install pre-commit
 
       - name: Run pre-commit
+        if: ${{ always() && matrix.standard_library == 'libstdc++' }}
         run: pre-commit run --all-files --show-diff-on-failure --color=always

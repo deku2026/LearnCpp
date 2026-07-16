@@ -14,7 +14,6 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
-#include <version>
 
 namespace {
 
@@ -23,7 +22,8 @@ constexpr std::string_view kTopic = "part6/b/section05/reference_constructs_from
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-#if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L
+#if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L && \
+    (!defined(LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS) || LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS)
     ::learn::ExampleChecks checks{kTopic};
     static_assert(std::reference_constructs_from_temporary_v<const std::string&, std::string>);
     static_assert(!std::reference_constructs_from_temporary_v<const std::string&, std::string&>);

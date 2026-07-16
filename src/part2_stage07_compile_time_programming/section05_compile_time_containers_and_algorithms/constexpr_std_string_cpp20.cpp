@@ -24,14 +24,17 @@ constexpr bool string_edit_pipeline() {
 }
 
 constexpr std::size_t generated_length() {
-    std::string text(32, 'x');  // Allocation is transient within this evaluation.
+    std::string text;
+    text.append(32, 'x');  // Allocation is transient within this evaluation.
     text.append(10, 'y');
     text.erase(0, 2);
     return text.size();
 }
 
+#if !defined(LEARNCPP_HAS_CONSTEXPR_STRING_EVALUATION) || LEARNCPP_HAS_CONSTEXPR_STRING_EVALUATION
 static_assert(string_edit_pipeline());
 static_assert(generated_length() == 40);
+#endif
 
 #if 0
 // Storage allocated during constant evaluation cannot escape into the runtime program.
@@ -53,7 +56,15 @@ int run(int argc, char** argv) {
     std::string runtime_text{"compile"};
     runtime_text += " time";
     LEARN_EXPECT_EQ(checks, runtime_text, std::string{"compile time"});
+#if defined(LEARNCPP_HAS_CONSTEXPR_STRING_EVALUATION) && !LEARNCPP_HAS_CONSTEXPR_STRING_EVALUATION
+    if (const int result = checks.result(); result != 0) {
+        return result;
+    }
+    return ::learn::ExampleChecks::unavailable("part2/stage07/section05/constexpr_std_string_cpp20",
+                                               "constant evaluation of dynamically allocated std::string");
+#else
     return checks.result();
+#endif
 #else
     return ::learn::ExampleChecks::unavailable("part2/stage07/section05/constexpr_std_string_cpp20",
                                                "__cpp_lib_constexpr_string >= 201907L");

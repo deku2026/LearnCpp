@@ -7,9 +7,6 @@
 
 #include "learn/example_support.hpp"
 
-#if __has_include(<version>)
-#include <version>
-#endif
 #if __has_include(<numeric>)
 #include <numeric>
 #define LEARN_HAS_NUMERIC_HEADER 1
@@ -17,6 +14,7 @@
 #define LEARN_HAS_NUMERIC_HEADER 0
 #endif
 
+#include <algorithm>
 #include <array>
 
 namespace {

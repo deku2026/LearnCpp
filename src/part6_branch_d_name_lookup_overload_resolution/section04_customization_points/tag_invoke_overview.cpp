@@ -18,7 +18,7 @@ constexpr std::string_view kTopic = "part6/d/section04/tag_invoke_overview";
 
 namespace protocol {
 
-[[maybe_unused]] void tag_invoke();  // ADL barrier; intentionally has no matching overload.
+void tag_invoke() = delete;  // ADL barrier; only associated-namespace overloads may match.
 
 struct describe_t {
     template <class T>

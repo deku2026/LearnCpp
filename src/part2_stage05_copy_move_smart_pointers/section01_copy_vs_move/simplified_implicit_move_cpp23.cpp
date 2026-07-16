@@ -17,7 +17,7 @@ namespace {
 constexpr std::string_view kTopic = "part2/stage05/section01/simplified_implicit_move_cpp23";
 
 struct Token {
-    explicit Token(int value) : value(std::make_unique<int>(value)) {}
+    explicit Token(int initial_value) : value(std::make_unique<int>(initial_value)) {}
     Token(Token&&) noexcept = default;
     Token& operator=(Token&&) noexcept = default;
     Token(const Token&) = delete;

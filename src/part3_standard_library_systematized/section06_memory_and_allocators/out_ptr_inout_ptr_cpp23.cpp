@@ -10,7 +10,6 @@
 
 #include <memory>
 #include <string_view>
-#include <version>
 
 namespace {
 
@@ -66,6 +65,46 @@ int run(int argc, char** argv) {
     LEARN_EXPECT(checks, handle == nullptr);
     return checks.result();
 #else
+    // Manual ownership hand-off models what the C++23 adapters automate.
+    ::learn::ExampleChecks checks{kTopic};
+    std::unique_ptr<int> handle;
+    int* raw = nullptr;
+
+    c_create_integer(&raw, 42);
+    handle.reset(raw);
+    LEARN_EXPECT_EQ(checks, *handle, 42);
+
+    raw = handle.release();
+    try {
+        c_replace_integer(&raw, 84);
+    } catch (...) {
+        // c_replace_integer allocates before consuming the old pointer. If
+        // allocation throws, raw still denotes that object, so restore the
+        // unique owner before propagating the exception.
+        handle.reset(raw);
+        throw;
+    }
+    handle.reset(raw);
+    LEARN_EXPECT_EQ(checks, *handle, 84);
+
+    handle.reset();
+    raw = nullptr;
+    const bool created = c_try_create_integer(&raw, true);
+    handle.reset(raw);
+    LEARN_EXPECT(checks, created);
+    LEARN_EXPECT_EQ(checks, *handle, 99);
+
+    // out_ptr starts its temporary output slot at null. Model that reset
+    // explicitly before the documented no-write failure path.
+    handle.reset();
+    raw = nullptr;
+    const bool rejected = c_try_create_integer(&raw, false);
+    handle.reset(raw);
+    LEARN_EXPECT(checks, !rejected);
+    LEARN_EXPECT(checks, handle == nullptr);
+    if (const int result = checks.result(); result != 0) {
+        return result;
+    }
     return ::learn::ExampleChecks::unavailable(kTopic, "std::out_ptr/std::inout_ptr");
 #endif
 }

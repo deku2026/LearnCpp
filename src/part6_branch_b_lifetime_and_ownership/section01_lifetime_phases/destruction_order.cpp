@@ -19,7 +19,8 @@ namespace {
 constexpr std::string_view kTopic = "part6/b/section01/destruction_order";
 
 struct Tracer {
-    Tracer(std::vector<std::string>& events, std::string name) : events(events), name(std::move(name)) {
+    Tracer(std::vector<std::string>& destination, std::string object_name)
+        : events(destination), name(std::move(object_name)) {
         events.push_back(this->name + "+");
     }
     ~Tracer() { events.push_back(name + "-"); }

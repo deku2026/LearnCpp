@@ -27,6 +27,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(Sccache)
 include(CompileCommands)
 include(CompilerWarnings)
+include(Cxx23Capabilities)
 include(Sanitizers)
 include(StaticAnalysis)
 
@@ -87,6 +88,7 @@ set_target_properties(learn_cpp PROPERTIES
 learncpp_apply_warning_settings(learn_cpp)
 learncpp_enable_sanitizers(learn_cpp)
 learncpp_configure_static_analysis(learn_cpp)
+learncpp_configure_cxx23_capabilities(learn_cpp)
 
 source_group(TREE "${CMAKE_SOURCE_DIR}/src"
   PREFIX "Topics"

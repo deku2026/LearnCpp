@@ -9,13 +9,15 @@
 
 #include <cstddef>
 #include <string_view>
-#include <version>
 
 #if defined(__has_include)
-#if __has_include(<stacktrace>) && defined(__cpp_lib_stacktrace) && \
-    __cpp_lib_stacktrace >= 202011L
-#define LEARNCPP_HAS_STACKTRACE 1
+#if __has_include(<stacktrace>)
 #include <stacktrace>
+#endif
+#if __has_include(<stacktrace>) && defined(__cpp_lib_stacktrace) && \
+    __cpp_lib_stacktrace >= 202011L &&                              \
+    (!defined(LEARNCPP_HAS_LINKABLE_STACKTRACE) || LEARNCPP_HAS_LINKABLE_STACKTRACE)
+#define LEARNCPP_HAS_STACKTRACE 1
 #else
 #define LEARNCPP_HAS_STACKTRACE 0
 #endif

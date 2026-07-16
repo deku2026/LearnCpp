@@ -18,7 +18,7 @@ namespace {
 constexpr std::string_view kTopic = "part6/b/section02/temporary_object_basics";
 
 struct Tracked {
-    explicit Tracked(int& live) : live(&live) { ++*this->live; }
+    explicit Tracked(int& live_count) : live(&live_count) { ++*live; }
     Tracked(const Tracked& other) : live(other.live) { ++*live; }
     ~Tracked() { --*live; }
     int* live;

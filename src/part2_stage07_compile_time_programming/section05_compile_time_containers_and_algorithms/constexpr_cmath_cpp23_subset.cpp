@@ -23,14 +23,18 @@ static_assert(std::isfinite(1.0));
 static_assert(!std::isfinite(infinity));
 static_assert(std::isinf(infinity));
 static_assert(std::isnan(quiet_nan));
-static_assert(std::isless(1.0, 2.0));
 
-#if 0
-// P0533 includes these, but the current MSVC UCRT overloads selected by
-// clang-cl are not yet constexpr. They remain valid runtime operations.
+// The feature-test macro advertises the complete P0533 set.  libc++ currently
+// implements the classification functions above without advertising the full
+// paper, so only require the remaining constant expressions when the library
+// explicitly claims them.
+#if defined(__cpp_lib_constexpr_cmath) && __cpp_lib_constexpr_cmath >= 202202L
+static_assert(std::isless(1.0, 2.0));
 static_assert(std::signbit(-0.0));
 static_assert(std::fpclassify(0.0) == FP_ZERO);
+#endif
 
+#if 0
 // C++23 does not require this to be a constant expression.
 static_assert(std::sqrt(81.0) == 9.0);
 #endif
@@ -44,6 +48,7 @@ int run(int argc, char** argv) {
     LEARN_EXPECT(checks, std::isfinite(42.0));
     LEARN_EXPECT(checks, std::isinf(infinity));
     LEARN_EXPECT(checks, std::isnan(quiet_nan));
+    LEARN_EXPECT(checks, std::isless(1.0, 2.0));
     LEARN_EXPECT(checks, std::isgreater(3.0, 2.0));
     LEARN_EXPECT(checks, std::signbit(-0.0));
     LEARN_EXPECT_EQ(checks, std::fpclassify(0.0), FP_ZERO);

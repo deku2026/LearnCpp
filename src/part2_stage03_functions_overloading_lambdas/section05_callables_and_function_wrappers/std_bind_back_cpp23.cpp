@@ -13,9 +13,10 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
-#include <version>
 
 namespace {
+
+constexpr std::string_view kTopic = "part2/stage03/section05/std_bind_back_cpp23";
 
 int affine(int value, int scale, int offset) {
     return value * scale + offset;
@@ -28,9 +29,8 @@ std::string surround(std::string_view text, std::string_view left, std::string_v
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
+    learn::ExampleChecks checks{kTopic};
 #if defined(__cpp_lib_bind_back) && __cpp_lib_bind_back >= 202202L
-    learn::ExampleChecks checks{"part2/stage03/section05/std_bind_back_cpp23"};
-
     auto twice_plus_three = std::bind_back(affine, 2, 3);
     static_assert(std::is_invocable_r_v<int, decltype(twice_plus_three)&, int>);
     LEARN_EXPECT_EQ(checks, twice_plus_three(5), 13);
@@ -39,8 +39,21 @@ int run(int argc, char** argv) {
     LEARN_EXPECT_EQ(checks, close_bracket(std::string_view{"value"}, std::string_view{"["}), std::string{"[value]"});
     return checks.result();
 #else
-    return learn::ExampleChecks::unavailable("part2/stage03/section05/std_bind_back_cpp23",
-                                             "std::bind_back (__cpp_lib_bind_back >= 202202L)");
+    // Model the same final-argument binding with lambdas.  Keeping a checked
+    // fallback both teaches the transformation and exercises the helpers on
+    // standard libraries that do not yet ship bind_back.
+    auto twice_plus_three = [](int value) { return affine(value, 2, 3); };
+    static_assert(std::is_invocable_r_v<int, decltype(twice_plus_three)&, int>);
+    LEARN_EXPECT_EQ(checks, twice_plus_three(5), 13);
+
+    auto close_bracket = [](std::string_view text, std::string_view left) {
+        return surround(text, left, std::string_view{"]"});
+    };
+    LEARN_EXPECT_EQ(checks, close_bracket(std::string_view{"value"}, std::string_view{"["}), std::string{"[value]"});
+    if (const int result = checks.result(); result != 0) {
+        return result;
+    }
+    return learn::ExampleChecks::unavailable(kTopic, "std::bind_back (__cpp_lib_bind_back >= 202202L)");
 #endif
 }
 

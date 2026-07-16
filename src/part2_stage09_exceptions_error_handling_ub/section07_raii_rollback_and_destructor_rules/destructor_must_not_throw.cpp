@@ -18,7 +18,7 @@ namespace {
 constexpr std::string_view kTopic = "part2/stage09/section07/destructor_must_not_throw";
 
 struct SafeCleanup {
-    explicit SafeCleanup(bool& observed) : observed(observed) {}
+    explicit SafeCleanup(bool& error_observed) : observed(error_observed) {}
     ~SafeCleanup() noexcept {
         try {
             throw std::runtime_error{"simulated close failure"};
