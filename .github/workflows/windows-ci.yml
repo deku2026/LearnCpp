@@ -94,10 +94,15 @@ jobs:
       - name: Smoke-run learn_cpp (list registered topics)
         run: |
           $exe = "build/windows-ci/bin/learn_cpp.exe"
-          & $exe | Select-Object -First 5
-          $count = (& $exe | Measure-Object -Line).Lines
-          if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit 1 }
-          Write-Host "OK ($count lines from learn_cpp)"
+          $output = @(& $exe)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output | Select-Object -First 5
+          $listed = @($output | Where-Object { $_ -match '^  ' }).Count
+          if ($output[0] -ne 'learn_cpp: 874 topics registered' -or $listed -ne 874) {
+            Write-Error "expected exactly 874 registered topics; header='$($output[0])', listed=$listed"
+            exit 1
+          }
+          Write-Host "OK (874 registered topics)"
 
       - name: sccache stats
         if: always()
@@ -153,16 +158,22 @@ jobs:
           (Get-Command MSBuild).Source
           MSBuild -version | Select-Object -First 1
 
-      - name: Build LearnCpp.slnx (Release, x64, clang-cl, parallel)
+      - name: Build LearnCpp.slnx (Release, x64, clang-cl, Werror, parallel)
         # Plain -m lets MSBuild auto-size the node count to the runner; the
         # vcxproj's UseMultiToolTask + MsbuildProcessCounter scheduler then
         # parallelizes the 876 TUs across cores (clang-cl has no /MP).
+        # TreatWarningAsError is enabled in the project for every configuration.
         run: MSBuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64 -m -nologo
 
       - name: Smoke-run learn_cpp (list registered topics)
         run: |
           $exe = "build/vs/x64/Release/learn_cpp.exe"
-          & $exe | Select-Object -First 5
-          $count = (& $exe | Measure-Object -Line).Lines
-          if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit 1 }
-          Write-Host "OK ($count lines from learn_cpp)"
+          $output = @(& $exe)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output | Select-Object -First 5
+          $listed = @($output | Where-Object { $_ -match '^  ' }).Count
+          if ($output[0] -ne 'learn_cpp: 874 topics registered' -or $listed -ne 874) {
+            Write-Error "expected exactly 874 registered topics; header='$($output[0])', listed=$listed"
+            exit 1
+          }
+          Write-Host "OK (874 registered topics)"

@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 8,
   "cmakeMinimumRequired": {
     "major": 3,
     "minor": 28,
@@ -31,7 +31,6 @@
         "rhs": "Windows"
       },
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang-cl",
         "CMAKE_CXX_COMPILER": "clang-cl",
         "CMAKE_MSVC_DEBUG_INFORMATION_FORMAT": "Embedded"
       }
@@ -51,6 +50,17 @@
       "inherits": ["windows-base"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "windows-asan",
+      "displayName": "Windows x64 AddressSanitizer",
+      "description": "clang-cl ASan with debug information and the supported release CRT.",
+      "inherits": ["windows-base"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "LEARNCPP_ENABLE_ASAN": "ON",
+        "LEARNCPP_WERROR": "ON"
       }
     },
     {
@@ -77,7 +87,6 @@
         "rhs": "Linux"
       },
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++"
       }
     },
@@ -122,7 +131,6 @@
         "rhs": "Darwin"
       },
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
         "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0"
       }
@@ -161,6 +169,7 @@
   "buildPresets": [
     { "name": "windows-debug",   "configurePreset": "windows-debug",   "targets": ["all"] },
     { "name": "windows-release", "configurePreset": "windows-release", "targets": ["all"] },
+    { "name": "windows-asan",    "configurePreset": "windows-asan",    "targets": ["all"] },
     { "name": "windows-ci",      "configurePreset": "windows-ci",      "targets": ["all"] },
     { "name": "linux-debug",     "configurePreset": "linux-debug",     "targets": ["all"] },
     { "name": "linux-release",   "configurePreset": "linux-release",   "targets": ["all"] },

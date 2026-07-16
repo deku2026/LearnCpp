@@ -1,23 +1,56 @@
-// LearnCpp placeholder
-// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Runnable teaching example
+// Doc      : 第2部分-阶段9-异常-错误处理与UB纪律.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section04_std_expected_cpp23
 // Item     : unexpected_construction
 // Topic id : part2/stage09/section04/unexpected_construction
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: C++23 [except], [except.spec], [expected], [basic.life], [intro.abstract]
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <string_view>
+
+#if __has_include(<expected>)
+#include <expected>
+#endif
+#include <string>
+#include <version>
 
 namespace {
+
+constexpr std::string_view kTopic = "part2/stage09/section04/unexpected_construction";
+
+#if defined(__cpp_lib_expected) && __cpp_lib_expected >= 202202L
+enum class ValidationError { empty, too_long };
+
+std::expected<std::string, ValidationError> validate(std::string text) {
+    if (text.empty()) {
+        return std::unexpected{ValidationError::empty};
+    }
+    if (text.size() > 5) {
+        return std::unexpected{ValidationError::too_long};
+    }
+    return text;
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    const auto empty = validate("");
+    const auto long_name = validate("lengthy");
+    const std::expected<int, ValidationError> direct{std::unexpect, ValidationError::empty};
+    LEARN_EXPECT_EQ(checks, empty.error(), ValidationError::empty);
+    LEARN_EXPECT_EQ(checks, long_name.error(), ValidationError::too_long);
+    LEARN_EXPECT(checks, !direct);
+    return checks.result();
 }
+#else
+int run(int, char**) {
+    return ::learn::ExampleChecks::unavailable(kTopic, "std::unexpected");
+}
+#endif
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section04/unexpected_construction", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part2/stage09/section04/unexpected_construction", run>;
 
 }  // namespace

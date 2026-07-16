@@ -1,23 +1,40 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-b-lifetime-and-ownership.md
+// Runnable teaching example
+// Doc      : 第6部分-支线B-生命周期与所有权.md
 // Stage    : part6_branch_b_lifetime_and_ownership
 // Section  : section05_lifetime_traits_cpp23
 // Item     : reference_converts_from_temporary_cpp23
 // Topic id : part6/b/section05/reference_converts_from_temporary_cpp23
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: C++23 [basic.life], [meta.unary.prop], C++ Core Guidelines lifetime profile
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <algorithm>
+#include <concepts>
+#include <ranges>
+#include <string>
+#include <string_view>
+#include <type_traits>
 
 namespace {
+
+constexpr std::string_view kTopic = "part6/b/section05/reference_converts_from_temporary_cpp23";
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+#if defined(__cpp_lib_reference_from_temporary) && __cpp_lib_reference_from_temporary >= 202202L && \
+    (!defined(LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS) || LEARNCPP_HAS_REFERENCE_FROM_TEMPORARY_TRAITS)
+    ::learn::ExampleChecks checks{kTopic};
+    static_assert(std::reference_converts_from_temporary_v<const std::string&, const char*>);
+    static_assert(!std::reference_converts_from_temporary_v<const std::string&, std::string&>);
+    LEARN_EXPECT(checks, (std::reference_converts_from_temporary_v<const std::string&, const char*>));
+    return checks.result();
+#else
+    return ::learn::ExampleChecks::unavailable(kTopic, "reference_converts_from_temporary");
+#endif
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section05/reference_converts_from_temporary_cpp23", run>;
+[[maybe_unused]] const auto& registered =
+    ::learn::topic<"part6/b/section05/reference_converts_from_temporary_cpp23", run>;
 
 }  // namespace

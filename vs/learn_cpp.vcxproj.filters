@@ -3170,6 +3170,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\learn\example_support.hpp">
+      <Filter>Headers\learn</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\learn\topic_registry.hpp">
       <Filter>Headers\learn</Filter>
     </ClInclude>

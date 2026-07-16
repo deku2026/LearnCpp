@@ -1,23 +1,38 @@
-// LearnCpp placeholder
-// Doc      : part2-stage09-exceptions-error-handling-ub.md
+// Runnable teaching example
+// Doc      : 第2部分-阶段9-异常-错误处理与UB纪律.md
 // Stage    : part2_stage09_exceptions_error_handling_ub
 // Section  : section08_undefined_behavior
 // Item     : use_after_free
 // Topic id : part2/stage09/section08/use_after_free
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: C++23 [except], [except.spec], [expected], [basic.life], [intro.abstract]
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <memory>
+#include <string_view>
 
 namespace {
+
+constexpr std::string_view kTopic = "part2/stage09/section08/use_after_free";
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    auto owner = std::make_shared<int>(42);
+    std::weak_ptr<int> observer = owner;
+    LEARN_EXPECT_EQ(checks, *observer.lock(), 42);
+    owner.reset();
+    LEARN_EXPECT(checks, observer.expired());
+    LEARN_EXPECT(checks, observer.lock() == nullptr);
+#if 0
+    int* raw = new int{42};
+    delete raw;
+    const int undefined = *raw;
+#endif
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage09/section08/use_after_free", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part2/stage09/section08/use_after_free", run>;
 
 }  // namespace

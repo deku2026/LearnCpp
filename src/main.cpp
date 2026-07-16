@@ -21,8 +21,13 @@ int main(int argc, char** argv) {
         std::cout << "usage: learn_cpp [topic_id [extra_args...]]\n"
                   << "  (no args, release)  list every registered topic\n"
                   << "  (no args, debug)    iterate every topic; useful for F5-from-IDE\n"
+                  << "  --list              list every registered topic without running one\n"
                   << "  topic_id            run that topic; extra args reach its run()\n"
                   << "  --help/-h           show this message\n";
+        return 0;
+    }
+    if (first == "--list") {
+        learn::list_topics();
         return 0;
     }
 
