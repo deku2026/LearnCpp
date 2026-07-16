@@ -158,10 +158,11 @@ jobs:
           (Get-Command MSBuild).Source
           MSBuild -version | Select-Object -First 1
 
-      - name: Build LearnCpp.slnx (Release, x64, clang-cl, parallel)
+      - name: Build LearnCpp.slnx (Release, x64, clang-cl, Werror, parallel)
         # Plain -m lets MSBuild auto-size the node count to the runner; the
         # vcxproj's UseMultiToolTask + MsbuildProcessCounter scheduler then
         # parallelizes the 876 TUs across cores (clang-cl has no /MP).
+        # TreatWarningAsError is enabled in the project for every configuration.
         run: MSBuild LearnCpp.slnx -p:Configuration=Release -p:Platform=x64 -m -nologo
 
       - name: Smoke-run learn_cpp (list registered topics)

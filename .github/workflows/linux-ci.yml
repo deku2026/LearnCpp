@@ -77,6 +77,8 @@ jobs:
             sccache-linux-${{ matrix.standard_library }}-
 
       - name: Verify tools
+        env:
+          STANDARD_LIBRARY: ${{ matrix.standard_library }}
         run: |
           set -euo pipefail
           /usr/bin/clang-22 --version
@@ -85,6 +87,12 @@ jobs:
           if [ "$clang_major" != 22 ]; then
             echo "expected Clang major 22, got '$clang_major'" >&2
             exit 1
+          fi
+          if [ "$STANDARD_LIBRARY" = "libstdc++" ]; then
+            printf 'GNU C++: %s\n' "$(g++-14 -dumpfullversion)"
+            dpkg-query --show \
+              --showformat='${Package} ${Version}\n' \
+              gcc-14-base libstdc++-14-dev libstdc++6
           fi
           cmake --version | head -n 1
           ninja --version
