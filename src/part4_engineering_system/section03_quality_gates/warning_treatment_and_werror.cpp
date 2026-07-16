@@ -1,23 +1,43 @@
-// LearnCpp placeholder
-// Doc      : part4-engineering-system.md
+// Runnable teaching example
+// Doc      : 第4部分-工程系统.md
 // Stage    : part4_engineering_system
 // Section  : section03_quality_gates
 // Item     : warning_treatment_and_werror
 // Topic id : part4/section03/warning_treatment_and_werror
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: official CMake, Ninja, vcpkg, Conan, Clang and analyzer documentation
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <algorithm>
+#include <array>
+#include <ranges>
+#include <string_view>
+#include <vector>
 
 namespace {
+
+constexpr std::string_view kTopic = "part4/section03/warning_treatment_and_werror";
+
+struct Warning {
+    std::string_view owner;
+    bool enabled;
+};
+
+bool blocks_build(const Warning& warning) {
+    return warning.enabled && warning.owner == "project";
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    LEARN_EXPECT(checks, blocks_build({"project", true}));
+    LEARN_EXPECT(checks, !blocks_build({"third-party-system-header", true}));
+    LEARN_EXPECT(checks, !blocks_build({"project", false}));
+    // Keep project warnings strict while isolating external headers; compiler matrices expose different diagnostics.
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part4/section03/warning_treatment_and_werror", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part4/section03/warning_treatment_and_werror", run>;
 
 }  // namespace

@@ -1,21 +1,47 @@
-// LearnCpp placeholder
-// Doc      : part2-stage03-functions-overloading-lambdas.md
+// C++23 bind_back fixes the final arguments of a callable.
+// Doc      : 第2部分-阶段3-函数-重载-lambda.md
 // Stage    : part2_stage03_functions_overloading_lambdas
 // Section  : section05_callables_and_function_wrappers
 // Item     : std_bind_back_cpp23
 // Topic id : part2/stage03/section05/std_bind_back_cpp23
 //
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// Invocation is equivalent to invoke(f, call_arguments..., bound_arguments...).
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <functional>
+#include <string>
+#include <string_view>
+#include <type_traits>
+#include <version>
 
 namespace {
+
+int affine(int value, int scale, int offset) {
+    return value * scale + offset;
+}
+
+std::string surround(std::string_view text, std::string_view left, std::string_view right) {
+    return std::string{left} + std::string{text} + std::string{right};
+}
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+#if defined(__cpp_lib_bind_back) && __cpp_lib_bind_back >= 202202L
+    learn::ExampleChecks checks{"part2/stage03/section05/std_bind_back_cpp23"};
+
+    auto twice_plus_three = std::bind_back(affine, 2, 3);
+    static_assert(std::is_invocable_r_v<int, decltype(twice_plus_three)&, int>);
+    LEARN_EXPECT_EQ(checks, twice_plus_three(5), 13);
+
+    auto close_bracket = std::bind_back(surround, std::string_view{"]"});
+    LEARN_EXPECT_EQ(checks, close_bracket(std::string_view{"value"}, std::string_view{"["}), std::string{"[value]"});
+    return checks.result();
+#else
+    return learn::ExampleChecks::unavailable("part2/stage03/section05/std_bind_back_cpp23",
+                                             "std::bind_back (__cpp_lib_bind_back >= 202202L)");
+#endif
 }
 
 [[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage03/section05/std_bind_back_cpp23", run>;

@@ -1,23 +1,44 @@
-// LearnCpp placeholder
-// Doc      : part3-standard-library-systematized.md
+// Runnable teaching example
+// Doc      : 第3部分-标准库系统化.md
 // Stage    : part3_standard_library_systematized
 // Section  : section08_headers_map_full_sweep
 // Item     : iterators_ranges_algorithms_headers
 // Topic id : part3/section08/iterators_ranges_algorithms_headers
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: C++23 library clauses, [support], [diagnostics], [headers], [stdatomic.h.syn]
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <algorithm>
+#include <array>
+#include <execution>
+#include <functional>
+#include <iterator>
+#include <numeric>
+#include <ranges>
+#include <string_view>
+#include <vector>
 
 namespace {
+
+constexpr std::string_view kTopic = "part3/section08/iterators_ranges_algorithms_headers";
+
+constexpr std::array<std::string_view, 7> headers{
+    "algorithm", "execution", "functional", "iterator", "numeric", "ranges", "version",
+};
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    std::vector<int> values{4, 1, 3, 2};
+    std::sort(std::execution::seq, values.begin(), values.end());
+    auto middle = values | std::views::drop(1) | std::views::take(2);
+    LEARN_EXPECT(checks, std::ranges::equal(middle, std::array{2, 3}));
+    LEARN_EXPECT_EQ(checks, std::accumulate(values.begin(), values.end(), 0), 10);
+    LEARN_EXPECT_EQ(checks, headers.size(), 7U);
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part3/section08/iterators_ranges_algorithms_headers", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part3/section08/iterators_ranges_algorithms_headers", run>;
 
 }  // namespace

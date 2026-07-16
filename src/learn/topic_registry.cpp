@@ -1,5 +1,6 @@
 #include "learn/topic_registry.hpp"
 
+#include <exception>
 #include <iostream>
 #include <map>
 #include <string>
@@ -33,14 +34,22 @@ int run_topic(int argc, char** argv) {
         std::cout << "learn_cpp [debug]: iterating " << r.size() << " topics\n";
         int failures = 0;
         for (const auto& [id, fn] : r) {
-            const int rc = fn(argc, argv);
-            if (rc != 0) {
-                std::cerr << "  ! " << id << " returned " << rc << '\n';
+            try {
+                const int rc = fn(argc, argv);
+                if (rc != 0) {
+                    std::cerr << "  ! " << id << " returned " << rc << '\n';
+                    ++failures;
+                }
+            } catch (const std::exception& ex) {
+                std::cerr << "  ! " << id << " threw std::exception: " << ex.what() << '\n';
+                ++failures;
+            } catch (...) {
+                std::cerr << "  ! " << id << " threw an unknown exception\n";
                 ++failures;
             }
         }
         if (failures > 0) {
-            std::cerr << "learn_cpp [debug]: " << failures << " topic(s) returned non-zero\n";
+            std::cerr << "learn_cpp [debug]: " << failures << " topic(s) failed\n";
         }
         return failures == 0 ? 0 : 1;
 #else

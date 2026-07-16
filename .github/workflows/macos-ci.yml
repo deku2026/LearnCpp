@@ -87,13 +87,15 @@ jobs:
         run: |
           set -euo pipefail
           exe=build/macos-ci/bin/learn_cpp
-          "$exe" | head -5
-          count=$("$exe" | wc -l)
-          if [ "$count" -lt 800 ]; then
-            echo "expected >=800 topic lines, got $count" >&2
+          output=$("$exe")
+          printf '%s\n' "$output" | sed -n '1,5p'
+          header=${output%%$'\n'*}
+          listed=$(printf '%s\n' "$output" | sed -n 's/^  //p' | wc -l | tr -d ' ')
+          if [ "$header" != 'learn_cpp: 874 topics registered' ] || [ "$listed" -ne 874 ]; then
+            echo "expected exactly 874 registered topics; header='$header', listed=$listed" >&2
             exit 1
           fi
-          echo "OK ($count lines from learn_cpp)"
+          echo "OK (874 registered topics)"
 
       - name: sccache stats
         if: always()

@@ -1,6 +1,6 @@
 // LearnCpp topic registry.
 //
-// Every placeholder `.cpp` instantiates `learn::topic<"path/like/id", run>`,
+// Every topic `.cpp` instantiates `learn::topic<"path/like/id", run>`,
 // which is an inline variable template whose constructor inserts (id, run)
 // into a global `std::map` at static-init time. `main()` then dispatches.
 #pragma once

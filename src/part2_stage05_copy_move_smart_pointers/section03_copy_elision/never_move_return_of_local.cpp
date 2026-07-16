@@ -1,23 +1,67 @@
-// LearnCpp placeholder
-// Doc      : part2-stage05-copy-move-smart-pointers.md
+// Runnable teaching example
+// Doc      : 第2部分-阶段5-拷贝与移动语义-智能指针.md
 // Stage    : part2_stage05_copy_move_smart_pointers
 // Section  : section03_copy_elision
 // Item     : never_move_return_of_local
 // Topic id : part2/stage05/section03/never_move_return_of_local
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: [class.copy.elision], [stmt.return]
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <utility>
 
 namespace {
+
+constexpr std::string_view kTopic = "part2/stage05/section03/never_move_return_of_local";
+
+struct TracedResult {
+    explicit TracedResult(int input) : value(input) {}
+    TracedResult(const TracedResult& other) : value(other.value) { ++copies; }
+    TracedResult(TracedResult&& other) noexcept : value(std::exchange(other.value, 0)) { ++moves; }
+
+    int value;
+    inline static int copies{};
+    inline static int moves{};
+};
+
+TracedResult allow_elision() {
+    TracedResult local{5};
+    return local;
+}
+
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpessimizing-move"
+#endif
+TracedResult force_move() {
+    TracedResult local{7};
+    return std::move(local);  // Blocks NRVO; shown only for comparison.
+}
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+
+    TracedResult::copies = 0;
+    TracedResult::moves = 0;
+    TracedResult preferred = allow_elision();
+    const int preferred_moves = TracedResult::moves;
+    LEARN_EXPECT_EQ(checks, preferred.value, 5);
+    LEARN_EXPECT_EQ(checks, TracedResult::copies, 0);
+    LEARN_EXPECT(checks, preferred_moves <= 1);  // NRVO is optional; implicit move is the fallback.
+
+    TracedResult::moves = 0;
+    TracedResult forced = force_move();
+    LEARN_EXPECT_EQ(checks, forced.value, 7);
+    LEARN_EXPECT(checks, TracedResult::moves >= 1);
+
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part2/stage05/section03/never_move_return_of_local", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part2/stage05/section03/never_move_return_of_local", run>;
 
 }  // namespace

@@ -1,206 +1,149 @@
-# LearnCpp · 现代 C++23 学习占位脚手架
+# LearnCpp · 874 个现代 C++23 可运行示例
 
-按 `C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/Cpp-Modern-完整学习路线图-C++23.md`
-逐阶段铺好的 **874 个空 `run()` 占位**。后续往每个 `.cpp` 里直接写真实代码 (`std::cout` /
-`assert` / 抛异常 / 玩 `argv`，怎么舒服怎么写)，**没有测试框架的盒子约束**。
+本仓把 `C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/` 中的现代 C++ 路线整理为一套可编译、可检索、可逐项运行的示例库：23 个阶段、150 个 section、874 个 topic，覆盖语法与类型系统、标准库、并发、协程、工程系统，以及对象模型、生命周期、模板、内存模型和 ABI/UB 等深水主题。
 
-`module` 主体已剔除；`import std` 作为例外保留在
-`src/part4_engineering_system/section07_import_std_exception/`。
+每个 topic 都是独立 `.cpp` 翻译单元，并保持与路线文档一一对应。示例采用传统标准头；仓库不使用模块声明、header-unit 或 `import std`。名称涉及模块生态的既有 topic 只讲能力边界与编译模型，不写实验性模块语法。
+
+## 设计目标
+
+- **真实可运行**：正常路径由 `learn::ExampleChecks` 验证，在 Debug 和 Release 中都不会因 `NDEBUG` 消失。
+- **从基础到边界**：在现有 topic 范围内覆盖典型用法、边界条件、常见误用、标准保证及必要的实现差异。
+- **安全全量遍历**：UB、悬空、越界、竞态、错误模板等只保留为停用反例或安全模型，正常执行路径不触发危险行为。
+- **精确能力探测**：C++23 库设施使用对应 `__cpp_lib_*`/语言特性宏；当前工具链不支持时明确跳过，而不是按编译器版本猜测。
+- **跨平台共存**：辅助实体置于匿名命名空间，头文件显式包含，874 个 topic 能同时链接进一个程序。
+
+资料核验顺序、版权边界与示例验收标准见 [docs/reference-policy.md](docs/reference-policy.md)，topic 到路线文档的完整映射见 [docs/topic-document-map.md](docs/topic-document-map.md)。
 
 ## 工作原理
 
-整仓一个可执行 `learn_cpp`。每个占位 `.cpp` 长这样：
+整仓生成一个 `learn_cpp` 可执行文件。每个 topic 定义 `run(int, char**)` 并注册唯一 id：
 
 ```cpp
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
 
 namespace {
+
+constexpr std::string_view kTopic = "part2/stage01/section01/main_and_program_structure";
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    LEARN_EXPECT_EQ(checks, 20 + 22, 42);
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ =
-    ::learn::topic<"part2/stage01/section01/main_and_program_structure", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<
+    "part2/stage01/section01/main_and_program_structure", run>;
 
 }  // namespace
 ```
 
-`learn::topic<Id, Fn>` 是个 C++20 NTTP 变量模板 (`fixed_string` 当 id 载体), 内部是 `inline const register_topic_t<Id, Fn>{}`。
-绑个引用就 ODR-use 这个 inline 变量, 它的 ctor 在静态初始化阶段跑 `(id, fn) -> std::map` 的插入。
-`main()` 再把命令行参数转给 registry 调度——**等同于直接进入那个 topic 的 `int main(int, char**)`**。
+`learn::topic<Id, Fn>` 在静态初始化阶段把 `(id, run)` 放入注册表。命令行可以运行一个 topic；Debug 无参数运行时会按 id 顺序遍历全部 874 个 topic。
 
 ```pwsh
-# Debug build 无参 = 遍历全部 874 个 topic (F5 from IDE 用这条)
+# Debug：无参数遍历全部 topic
 build\windows-debug\bin\learn_cpp.exe
 
-# Release/ci build 无参 = 列出全部 topic
-build\windows-ci\bin\learn_cpp.exe
+# 运行一个 topic，并可继续透传参数
+build\windows-debug\bin\learn_cpp.exe `
+  part2/stage01/section01/main_and_program_structure extra args
 
-# 任意 build 跑某个 topic
-build\windows-debug\bin\learn_cpp.exe part2/stage01/section01/main_and_program_structure
-
-# 透传额外参数
-build\windows-debug\bin\learn_cpp.exe part2/stage10/section08/ranges_to extra args
+# Release：无参数列出全部 topic
+build\windows-release\bin\learn_cpp.exe
 ```
 
-「无参」行为按 `NDEBUG` 宏分支:
+单个示例失败会记录 topic id；Debug 全量遍历会继续执行后续主题并最终返回失败状态。预期异常使用 `LEARN_EXPECT_THROWS`，不支持的库特性使用 `ExampleChecks::unavailable` 明确输出跳过原因。
 
-- **Debug build** (`windows-debug`, `CMAKE_BUILD_TYPE=Debug`, 不定义 `NDEBUG`):
-  无参时 registry 遍历全 map, 顺序调用每个 `run()`. IDE 里 F5 不用配 args, 任何 topic 里下的断点都会命中.
-- **Release / RelWithDebInfo** (`*-release` / `*-ci`, 定义 `NDEBUG`):
-  无参时只列出已注册 topic — 手动 pick.
+## 目录
 
-调试时: IDE 的 launch profile 用 Debug build, 直接 F5; 或显式把 args 设成 topic id, F5 命中那一个 `run()` 里的断点.
-
-## 关键路径
-
-```
+```text
 .
-├── .clang-format / .clang-tidy / .clangd / .codespell-ignore
-├── .editorconfig / .gitattributes / .gitignore
-├── .pre-commit-config.yaml
-├── .github/workflows/{linux,macos,windows}-ci.yml  # configure -> build -> smoke run learn_cpp
-├── CMakeLists.txt              # 根 build 脚本, GLOB_RECURSE src/**/*.cpp
-├── CMakePresets.json           # base + {windows,linux,macos} x {debug,release,ci}
-├── cmake/                      # Sccache / CompilerWarnings / Sanitizers / StaticAnalysis
-├── include/
-│   └── learn/topic_registry.hpp  # fixed_string + register_topic_t + topic<Id,Fn> 变量模板 + run_topic / list_topics 声明
+├── CMakeLists.txt / CMakePresets.json
+├── cmake/                         # warnings、sanitizers、静态分析、sccache
+├── docs/
+│   ├── reference-policy.md        # 资料与示例编写策略
+│   └── topic-document-map.md      # 874 topic 与 23 份路线文档映射
+├── include/learn/
+│   ├── example_support.hpp        # Release-safe 检查与参数辅助
+│   └── topic_registry.hpp         # topic id、注册与调度接口
 ├── scripts/
-│   ├── dev-shell.cmd           # 进 vcvars64 x64 dev prompt
-│   └── configure-and-build.cmd # 一键 vcvars64 -> configure -> build -> 列 topic
-└── src/
-    ├── main.cpp                # 整仓唯一 main(), 把 argv 转给 registry
-    ├── learn/topic_registry.cpp   # registry 实现
-    ├── part2_stage01_syntax_and_translation_model/               # 第2部分-阶段1
-    ├── part2_stage02_type_system_value_category_deduction/       # 第2部分-阶段2
-    ├── part2_stage03_functions_overloading_lambdas/              # 第2部分-阶段3
-    ├── part2_stage04_classes_and_object_model_basics/            # 第2部分-阶段4
-    ├── part2_stage05_copy_move_smart_pointers/                   # 第2部分-阶段5
-    ├── part2_stage06_templates_and_generics/                     # 第2部分-阶段6
-    ├── part2_stage07_compile_time_programming/                   # 第2部分-阶段7
-    ├── part2_stage08_control_flow_and_modern_syntax/             # 第2部分-阶段8
-    ├── part2_stage09_exceptions_error_handling_ub/               # 第2部分-阶段9
-    ├── part2_stage10_stl_deep_dive/                              # 第2部分-阶段10
-    ├── part2_stage11_concurrency_and_threading/                  # 第2部分-阶段11
-    ├── part2_stage12_coroutines/                                 # 第2部分-阶段12 (Modules 阶段 13 整体跳过)
-    ├── part2_stage14_keywords_and_features_index/                # 第2部分-阶段14
-    ├── part2_stage15_classic_idioms/                             # 第2部分-阶段15
-    ├── part3_standard_library_systematized/                      # 第3部分
-    ├── part4_engineering_system/                                 # 第4部分 (含 section07_import_std_exception)
-    ├── part6_branch_a_object_model/                              # 第6部分 / 支线A
-    ├── part6_branch_b_lifetime_and_ownership/                    # 第6部分 / 支线B
-    ├── part6_branch_c_memory_management/                         # 第6部分 / 支线C
-    ├── part6_branch_d_name_lookup_overload_resolution/           # 第6部分 / 支线D
-    ├── part6_branch_e_templates_compile_time_system/             # 第6部分 / 支线E (主索引内嵌, 没独立 md)
-    ├── part6_branch_f_memory_model_and_concurrency/              # 第6部分 / 支线F
-    └── part6_branch_g_abi_compile_link_ub_performance/           # 第6部分 / 支线G
+│   ├── configure-and-build.cmd
+│   ├── dev-shell.cmd
+│   ├── generate-vs-filters.ps1
+│   ├── run-all-topics.ps1         # 子进程隔离、超时与危险模式排除
+│   └── validate-topic-catalog.ps1 # 数量、元数据、映射、语法与占位检查
+├── src/
+│   ├── main.cpp / learn/topic_registry.cpp
+│   ├── part2_stage01_...          # 阶段 1–12、14–15；Modules 阶段 13 不入仓
+│   ├── part3_standard_library_systematized/
+│   ├── part4_engineering_system/
+│   └── part6_branch_a_...g_...    # 七条深水支线 A–G
+└── vs/learn_cpp.vcxproj           # 不依赖 CMake 的 VS 工程
 ```
 
-每个 stage 目录:
+## Windows 构建
 
-- 一份 `README.md` (该 stage 目标 + 学习节奏);
-- 一层 `sectionNN_xxx/` 子目录, 对应路线图里的「大项」;
-- 子目录内 N 个 `*.cpp` 占位, 每份 = 独立 TU + 一条 `learn::topic<id, run>` 实例化。
-
-## 现状
-
-- C++ 标准: **C++23** (`set(CMAKE_CXX_STANDARD 23)`, `/std:c++latest`).
-- 编译器目标:
-  - **Windows 本机**: VS2026 Dev Prompt 18.x + clang-cl 22.1.3 + MSVC STL.
-  - **Linux**: clang/clang++ 22 (CI 走 apt.llvm.org 装 clang-22, 锁主版本).
-  - **macOS**: clang/clang++ 22 (CI 走 Homebrew llvm@22, 锁主版本).
-  - **Windows CI**: 用 `windows-2025-vs2026` runner, 走 VS2026 (= VS18) 自带的 clang-cl 22.x, 跟本地一致.
-- 构建系统: **CMake 3.28+** + **Ninja** + **sccache**.
-- CI: GitHub Actions 三套 workflow (`windows-ci.yml` / `linux-ci.yml` / `macos-ci.yml`),
-  每条都 configure + build + smoke-run `learn_cpp` (列出 topic 数). **没有跑 gtest / ctest** —
-  代码主体是赤裸 `int run(int, char**)`, CI 守的是"874 TU 还能在三平台编出来 + registry 还能跑"。
-- 钩子: `pre-commit` (`trailing-whitespace` / `end-of-file-fixer` / `mixed-line-ending`
-  / `check-{json,toml,yaml}` / `codespell` / `clang-format`). clang-tidy 通过 CMake 选项开,
-  不放进 pre-commit (874 文件全跑太久)。
-- 占位规模: **23 stage / 150 section / 874 个 `.cpp`**, 每个一条 `learn::topic<id, run>` 实例化。
-
-## 前置
-
-scoop 已装的工具直接复用:
+需要 CMake、Ninja 和 VS 18 C++ 工具链。仓库 helper 会先进入 `vcvars64` 环境：
 
 ```pwsh
-scoop install cmake ninja sccache llvm
-```
+scripts\configure-and-build.cmd windows-debug
 
-- LLVM/clang-cl 也可走 VS2026 (`VC/Tools/Llvm/x64/bin/clang-cl.exe`), 二选一。
-- Windows 编译/链接需要 `rc.exe` + UCRT/SDK headers, 必须在 **VS2026 Developer Command Prompt** 或本仓 `scripts/dev-shell.cmd` 里跑。
-- macOS / Linux 不需要 vcvars, 直接 `clang++` 即可。
-
-## 本地一把梭 (Windows)
-
-```pwsh
-# 方式 1: 用脚手架自带 helper, 内部 call vcvars64
-scripts\configure-and-build.cmd windows-debug                        # 编完列 topic
-scripts\configure-and-build.cmd windows-debug part2/stage01/section01/main_and_program_structure   # 编完直接跑
-
-# 方式 2: 自己开发者命令提示符
+# 或手动执行
 scripts\dev-shell.cmd
 cmake --preset windows-debug
 cmake --build --preset windows-debug
-build\windows-debug\bin\learn_cpp.exe                                # 列 topic
-build\windows-debug\bin\learn_cpp.exe part2/stage01/section01/main_and_program_structure
-
-# 加 ASan
-cmake --preset windows-debug -DLEARNCPP_ENABLE_ASAN=ON
+build\windows-debug\bin\learn_cpp.exe
 ```
 
-## 本地一把梭 (Linux / macOS)
+也可以直接构建 Visual Studio 工程：
+
+```pwsh
+msbuild LearnCpp.slnx /m /p:Configuration=Debug /p:Platform=x64
+msbuild LearnCpp.slnx /m /p:Configuration=Release /p:Platform=x64
+```
+
+MSVC 构建显式启用 UTF-8；链接时保留自注册 topic，避免 Release 的未引用 COMDAT 消除把注册表裁空。
+
+## Linux / macOS 构建
 
 ```bash
-cmake --preset linux-debug          # 或 macos-debug
+cmake --preset linux-debug        # macOS 使用 macos-debug
 cmake --build --preset linux-debug
-build/linux-debug/bin/learn_cpp     # 列 topic
-build/linux-debug/bin/learn_cpp part2/stage01/section01/main_and_program_structure
+build/linux-debug/bin/learn_cpp
 ```
 
-## Pre-commit 钩子
+项目基准为 C++23，但单项库特性仍以 feature-test macro 和真实构建为准。
 
-```bash
-pip install --user pre-commit          # 或 pipx install pre-commit / scoop install pre-commit
-pre-commit install                     # 装到 .git/hooks
-pre-commit run --all-files             # 全量跑一次
+## 目录与运行验收
+
+```pwsh
+# 严格验证 876 个翻译单元、874 个 topic、23 个阶段、文档映射、
+# 唯一 id、无占位/TODO/空 run、无 module/import 语法
+pwsh scripts\validate-topic-catalog.ps1
+
+# 每个安全 topic 在独立子进程中运行，并带超时
+pwsh scripts\run-all-topics.ps1 -Executable `
+  build\windows-release\bin\learn_cpp.exe
 ```
 
-启用的钩子见 `.pre-commit-config.yaml`。clang-tidy 不放进钩子 (874 文件全跑要很久),
-通过 `cmake -DLEARNCPP_ENABLE_CLANG_TIDY=ON` 在编译时启动。
+全库构建可按需启用：
 
-## 填一个占位
-
-1. 选一个 `.cpp` (例: `src/part2_stage02_.../section05_value_categories/lvalue_xvalue_prvalue.cpp`);
-2. 顶部注释里有 doc slug 和 topic id, 翻 `C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/<那个 md>` 看路线图本节;
-3. 配合 `https://en.cppreference.com/cpp/...` + `godbolt.org` 看汇编 + `cppinsights.io` 看 lowering;
-4. 在 `run(int argc, char** argv)` 里直接写代码 — `std::cout` / `std::print` / `assert` / 抛异常 / 用 argv 都可;
-5. 跑: `build\windows-debug\bin\learn_cpp.exe <topic id>`;
-6. UB / 边界类: 配 `LEARNCPP_ENABLE_ASAN=ON` (Windows) 或 `LEARNCPP_ENABLE_UBSAN=ON` (Linux/macOS) 重新 build 再跑。
-
-## 加一个新占位
-
-直接 `cp` 一个现成 `.cpp` 改名, 改顶部 4 个注释字段 (Doc / Stage / Section / Item / Topic id),
-改 `::learn::topic<"<新 id>", run>` 里的 id 字符串。CMake 顶层 `file(GLOB_RECURSE CONFIGURE_DEPENDS "src/*.cpp")`
-在下次 `cmake --build` 时自动接上。
-
-## 工具版本备忘 (本机当前实测 2026-06)
-
-```
-clang-cl --version    # clang version 22.1.3, target x86_64-pc-windows-msvc
-clang-tidy --version  # LLVM 22.1.3
-cmake --version       # 3.31+
-ninja --version       # 1.12+
-sccache --version     # 0.10+
+```pwsh
+cmake --preset windows-debug -DLEARNCPP_WERROR=ON
+cmake --preset windows-asan
+cmake --build --preset windows-asan
 ```
 
-## 与路线图的关系
+Windows 的 clang-cl ASan 预设使用带调试信息的 Release CRT；该工具链不接受 Debug CRT 与 ASan 的组合。Linux/macOS 可额外使用 `LEARNCPP_ENABLE_UBSAN=ON`。Sanitizer 是探测器而不是正确性证明；示例本身仍必须保持定义良好。
 
-- 本仓只放 **占位 + registry + 本地工具链**, **不在仓内**重写路线图。
-- 路线图文档保留在原位 (`C:/MyFile/ArcForges/ArchitectureDesign/CppStudy/`), 仓内通过注释 / README 引用相对路径。
+## 维护规则
+
+1. 不新增路线与仓库中都不存在的 topic；若确需改目录，先同步映射和期望计数。
+2. 修改 topic 后先单项编译/运行，再执行严格 catalog、全量构建和隔离运行。
+3. C++23 设施按准确宏值门控；不可用分支仍需有教学意义且能编译。
+4. 禁止在正常路径执行 UB、数据竞争、无限等待或依赖偶然调度的断言。
+5. 添加或删除源文件/头文件后运行 `scripts/generate-vs-filters.ps1`，保持 VS 项目与 CMake 收集结果一致。
 
 ## License
 

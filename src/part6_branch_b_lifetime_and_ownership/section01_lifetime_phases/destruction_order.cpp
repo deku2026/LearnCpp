@@ -1,23 +1,47 @@
-// LearnCpp placeholder
-// Doc      : part6-branch-b-lifetime-and-ownership.md
+// Runnable teaching example
+// Doc      : 第6部分-支线B-生命周期与所有权.md
 // Stage    : part6_branch_b_lifetime_and_ownership
 // Section  : section01_lifetime_phases
 // Item     : destruction_order
 // Topic id : part6/b/section01/destruction_order
-//
-// TODO: read cppreference, sketch a minimal example, check godbolt / C++ Insights,
-//       then replace this empty run() body with real demo code.
+// References: C++23 [basic.stc], [basic.start], [basic.life], [class.temporary], [stmt.ranged]
 
-#include "learn/topic_registry.hpp"
+#include "learn/example_support.hpp"
+
+#include <algorithm>
+#include <ranges>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace {
+
+constexpr std::string_view kTopic = "part6/b/section01/destruction_order";
+
+struct Tracer {
+    Tracer(std::vector<std::string>& events, std::string name) : events(events), name(std::move(name)) {
+        events.push_back(this->name + "+");
+    }
+    ~Tracer() { events.push_back(name + "-"); }
+    std::vector<std::string>& events;
+    std::string name;
+};
 
 int run(int argc, char** argv) {
     (void)argc;
     (void)argv;
-    return 0;
+    ::learn::ExampleChecks checks{kTopic};
+    std::vector<std::string> events;
+    {
+        Tracer first{events, "first"};
+        Tracer second{events, "second"};
+        (void)first;
+        (void)second;
+    }
+    LEARN_EXPECT_EQ(checks, events, std::vector<std::string>({"first+", "second+", "second-", "first-"}));
+    return checks.result();
 }
 
-[[maybe_unused]] const auto& _ = ::learn::topic<"part6/b/section01/destruction_order", run>;
+[[maybe_unused]] const auto& registered = ::learn::topic<"part6/b/section01/destruction_order", run>;
 
 }  // namespace

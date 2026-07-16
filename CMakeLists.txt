@@ -13,6 +13,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# This project intentionally uses headers rather than C++ modules. Avoid the
+# module dependency scan for every translation unit in this large target.
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 if(MSVC AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND DEFINED ENV{INCLUDE})
   set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES $ENV{INCLUDE})
   set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES $ENV{INCLUDE})
@@ -28,8 +32,10 @@ include(StaticAnalysis)
 
 learncpp_enable_sccache()
 
+find_package(Threads REQUIRED)
+
 # Every topic lives under src/<part>_<stage>/<section>/<item>.cpp and registers
-# itself through LEARN_TOPIC(). GLOB_RECURSE picks up new files between builds.
+# itself through ::learn::topic<Id, run>. GLOB_RECURSE picks up new files between builds.
 file(GLOB_RECURSE LEARNCPP_SOURCES
   CONFIGURE_DEPENDS
   LIST_DIRECTORIES FALSE
@@ -52,6 +58,29 @@ add_executable(learn_cpp
 
 target_compile_features(learn_cpp PRIVATE cxx_std_23)
 target_include_directories(learn_cpp PRIVATE "${CMAKE_SOURCE_DIR}/include")
+target_link_libraries(learn_cpp PRIVATE Threads::Threads)
+if(CMAKE_DL_LIBS)
+  target_link_libraries(learn_cpp PRIVATE ${CMAKE_DL_LIBS})
+endif()
+
+if(MSVC)
+  # Topic metadata contains UTF-8 Chinese document names. Make the source and
+  # execution character sets explicit so cl.exe /WX builds do not emit C4819.
+  target_compile_options(learn_cpp PRIVATE /utf-8)
+
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    # CMake's Clang frontend-only -std flag does not update clang-cl's
+    # _MSVC_LANG compatibility macro. MSVC STL keys several C++23 paths from
+    # that macro, so use the driver option as well. This is also the mode used
+    # by the repository's direct VS build and local topic checks.
+    target_compile_options(learn_cpp PRIVATE /std:c++latest)
+  endif()
+
+  # Each topic is a self-registering translation unit. MSVC's default Release
+  # /OPT:REF can discard those otherwise-unreferenced registration COMDATs and
+  # leave an empty registry, so retaining them is part of the executable model.
+  target_link_options(learn_cpp PRIVATE /OPT:NOREF)
+endif()
 set_target_properties(learn_cpp PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )

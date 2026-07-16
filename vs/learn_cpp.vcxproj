@@ -57,16 +57,17 @@
 
   <ItemDefinitionGroup>
     <ClCompile>
-      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
       <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ExceptionHandling>Sync</ExceptionHandling>
       <AdditionalIncludeDirectories>$(RepoRoot)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 -Wno-unused-command-line-argument -Wno-unused-parameter -Wno-microsoft-include %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
 
@@ -2726,6 +2727,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup Label="GeneratedClInclude">
+    <ClInclude Include="..\include\learn\example_support.hpp" />
     <ClInclude Include="..\include\learn\topic_registry.hpp" />
   </ItemGroup>
   <!-- END GENERATED LEARNCPP ITEMS -->

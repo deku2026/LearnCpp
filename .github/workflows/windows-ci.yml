@@ -94,10 +94,15 @@ jobs:
       - name: Smoke-run learn_cpp (list registered topics)
         run: |
           $exe = "build/windows-ci/bin/learn_cpp.exe"
-          & $exe | Select-Object -First 5
-          $count = (& $exe | Measure-Object -Line).Lines
-          if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit 1 }
-          Write-Host "OK ($count lines from learn_cpp)"
+          $output = @(& $exe)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output | Select-Object -First 5
+          $listed = @($output | Where-Object { $_ -match '^  ' }).Count
+          if ($output[0] -ne 'learn_cpp: 874 topics registered' -or $listed -ne 874) {
+            Write-Error "expected exactly 874 registered topics; header='$($output[0])', listed=$listed"
+            exit 1
+          }
+          Write-Host "OK (874 registered topics)"
 
       - name: sccache stats
         if: always()
@@ -162,7 +167,12 @@ jobs:
       - name: Smoke-run learn_cpp (list registered topics)
         run: |
           $exe = "build/vs/x64/Release/learn_cpp.exe"
-          & $exe | Select-Object -First 5
-          $count = (& $exe | Measure-Object -Line).Lines
-          if ($count -lt 800) { Write-Error "expected >=800 topic lines, got $count"; exit 1 }
-          Write-Host "OK ($count lines from learn_cpp)"
+          $output = @(& $exe)
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output | Select-Object -First 5
+          $listed = @($output | Where-Object { $_ -match '^  ' }).Count
+          if ($output[0] -ne 'learn_cpp: 874 topics registered' -or $listed -ne 874) {
+            Write-Error "expected exactly 874 registered topics; header='$($output[0])', listed=$listed"
+            exit 1
+          }
+          Write-Host "OK (874 registered topics)"
